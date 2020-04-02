@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kira Yönetim Sistemi Giriş </title>
+
+    <link rel="icon" href="~/Content/login/images/favicon.ico" type="image/x-icon">
+    @*<link href="~/Content/login/images/favicon.png" rel="icon" type="image/png">*@
+    <!-- Bootstrap CSS -->
+    <link href="~/Content/login/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Custom CSS -->
+    <link href="~/Content/login/css/style.css" rel="stylesheet" />
+    <!-- FontAwesome CSS -->
+    <link href="~/Content/login/css/fontawesome-all.min.css" rel="stylesheet" />
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=latin-ext" rel="stylesheet">
+</head>
+
+<body>
+    @RenderBody()
+
+   
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    @RenderSection("pagespecific", false);
+
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+
+</body>
+</html>

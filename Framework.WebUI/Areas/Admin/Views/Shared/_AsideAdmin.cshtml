@@ -1,0 +1,67 @@
+﻿<aside id="left-panel" style="margin-top:120px !important">
+  
+    <nav>
+        <ul>
+            <li class="active">
+                <a href="@Url.Action("index", "Anasayfa")" title="Ana Sayfa"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Ana Sayfa</span></a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa fa-lg fa-fw fa-edit"></i>
+                    <span class="menu-item-parent">Kira İşlemleri</span>
+                </a>
+                <ul>
+                    <li class="active">
+                        <a href="@Url.Action("Index", "MulkiyetTurleri")" title="Mülkiyet Türleri">
+                            <i class="fa fa-lg fa-fw fa-barcode"></i> Mülkiyet Türleri
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa fa-lg fa-fw fa-edit"></i>
+                    <span class="menu-item-parent">Ödeme İşlemleri</span>
+                </a>
+                <ul>
+                    <li class="">
+                        <a href="@Url.Action("Index", "Odemeler")" title="Ödemeler">
+                            <i class="fa fa-lg fa-fw fa-barcode"></i> Ödemeler
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="@Url.Action("Index", "OdemeTur")" title=" Ödeme Türleri">
+                            <i class="fa fa-lg fa-fw fa-barcode"></i> Ödeme Türleri
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa fa-lg fa-fw fa-edit"></i>
+                    <span class="menu-item-parent">Sistem Yönetimi</span>
+                </a>
+                <ul>
+                    <li class="">
+                        <a href="@Url.Action("Index", "Roles")" title="Kullanıcı">
+                            <i class="fa fa-lg fa-fw fa-list-alt"></i> Kullanıcı Rol
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="@Url.Action("Index", "Kullanici")" title="Kullanıcı">
+                            <i class="fa fa-lg fa-fw fa-list-alt"></i> Kullanıcılar
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="@Url.Action("Index", "SistemParametresi")" title="Sistem Parametreleri">
+                            <i class="fa fa-lg fa-fw fa-barcode"></i> Sistem Parametreleri
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+</aside>

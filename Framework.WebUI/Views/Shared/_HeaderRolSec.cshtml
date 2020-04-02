@@ -1,0 +1,19 @@
+﻿<header id="header">
+    <div class="logo">
+
+
+    </div>
+
+    <section id="top-right">
+        @if (@Model is HelperResult)
+        {
+            @Model
+        }
+        else
+        {
+            <div class="pull-right">
+                @Html.Partial("_TopRight")
+            </div>
+        }
+    </section>
+</header>

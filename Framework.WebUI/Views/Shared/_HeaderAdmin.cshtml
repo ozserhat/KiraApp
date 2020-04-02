@@ -1,0 +1,29 @@
+﻿<header id="header" style="height:120px !important">
+    <div id="logo-group">
+
+        <!-- PLACE YOUR LOGO HERE -->
+        <span id="logo"><a href="@Url.Action("Index", "Anasayfa")"> <img src="/content/img/logo.png" alt="CSB"></a> </span>
+        <!-- END LOGO PLACEHOLDER -->
+    </div>
+
+    <section id="top-right">
+        @if (@Model is HelperResult)
+        {
+            @Model
+        }
+        else
+        {
+            <div class="pull-right">
+                @Html.Partial("_TopRight")
+            </div>
+        }
+    </section>
+    <div id="ribbon-kullanici">
+        <div class="login-info-kullanici">
+            <span>
+                <img src="/Content/img/avatars/user.png">
+                <span>@User.Identity.Name - Admin</span>
+            </span>
+        </div>
+    </div>
+</header>

@@ -1,0 +1,15 @@
+﻿<aside id="left-panel">
+    @*@{ Html.RenderPartial("_CurrentUser"); }*@
+    <nav>
+        <!-- NOTE: Notice the gaps after each icon usage <i></i>..
+        Please note that these links work a bit different than
+        traditional href="" links. See documentation for details.
+        -->
+        @Html.Action("Partial_Menu", "AnaSayfa")
+
+    </nav>
+    <span class="minifyme" data-action="minifyMenu" style="background: #4d8ba5;color: #f6f6f6;">
+        <i class="fa fa-arrow-circle-left hit"></i>
+    </span>
+
+</aside>

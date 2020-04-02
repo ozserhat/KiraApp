@@ -1,0 +1,30 @@
+﻿@model Framework.WebUI.Models.ViewModels.RolVM
+@{
+    ViewBag.Title = "RolSec";
+    ViewBag.PageId = "extr-page";
+    ViewBag.PageClass = "animated fadeInDown";
+    Layout = "~/Views/Shared/_LayoutRolSec.cshtml";
+}
+
+@section topright{
+
+}
+
+<div id="content" class="container" style="margin-left:-200px">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4 text-center">
+            <h2 class="page-header">Rol Seçiniz</h2>
+            <ul class="list-group nav">
+                @foreach (var item in Model.Roller)
+                {
+                    <li class="list-group-item">
+                        <a href="@Url.Action(item.ActionName, item.ControllerName, new { area = item.AreaName})">
+                            @item.Aciklama
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,39 @@
+﻿
+
+<!-- logout button -->
+@if (User.Identity.IsAuthenticated)
+{
+    <div id="logout" class="btn-header transparent pull-right">
+        <span>
+            <a href="@Url.Action("LogOff", "Account", new { Area = "" })" title="Çıkış Yap" data-action="userLogout" data-logout-msg="Çıkış yapmak istiyor musunuz?"><i class="fa fa-sign-out"></i></a>
+
+        </span>
+    </div>
+}
+<!-- end logout button -->
+<!-- role button -->
+@if (User.Identity.IsAuthenticated)
+{
+
+    <div class="btn-header transparent pull-right">
+        <span class="text-center">
+            <a href="@Url.Action("RolSec", "Account", new { Area = "" })" title="Rol Değiştir">
+                <i class="fa fa-exchange"></i>
+            </a>
+        </span>
+
+    </div>
+
+    string actionName = ViewContext.RouteData.Values["action"].ToString().Replace('"', ' ').Trim();
+    string controllerName = ViewContext.RouteData.Values["controller"].ToString().Replace('"', ' ').Trim();
+    string yardimUrl = "/KullaniciKlavuzu/HTML/" + controllerName + "-" + actionName + ".pdf";
+
+    <div class="btn-header transparent pull-right">
+        <span class="text-center">
+                <a href="@Url.Action("YardimKlavuzu", "Basvuru")" title="Yardım" target="_blank">
+                    <i class="fa fa-question-circle"></i>
+                </a>
+            </span>
+    </div>
+}
+<!-- end role button -->

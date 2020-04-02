@@ -1,0 +1,96 @@
+﻿@{
+    ViewBag.PageId = "extr-page";
+    ViewBag.PageClass = "animated fadeInDown";
+}
+
+@model Framework.WebUI.Models.ViewModels.LoginVm
+
+<div id="content" class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
+            <h1 class="txt-login-color-blue login-header-big login-aciklama-uygulamaAdi">
+                Kira Yönetim Sistemi
+            </h1>
+            <br>
+            <h4 class="login-aciklama">
+                Kira Yönetim Sistemi
+                uygulamasına hoşgeldiniz.
+            </h4>
+            <br>
+
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-1 col-lg-1 login-border hidden-xs hidden-sm"></div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+            <div class="well no-padding">
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "smart-form client-form", role = "form", id = "login-form" }))
+                {
+
+                    <header><strong> Kullanıcı Girişi</strong></header>
+
+                    @Html.AntiForgeryToken()
+                    if (Model != null && Model.Errors != null && Model.Errors.Count > 0)
+                    {
+                        <div class="row alert alert-danger login-validation alert-danger-color">
+                            <i class="glyphicon glyphicon-warning-sign col-md-1"> </i>
+                            <ul style="list-style-type:none" class="col-md-11">
+                                @foreach (var item in Model.Errors)
+                                {
+                                    <li>@item</li>
+                                }
+                            </ul>
+                        </div>
+                    }
+                    <fieldset>
+                        <section>
+                            <label class="control-label">Kullanıcı Adınız:</label>
+                            <label class="input">
+                                <i class="icon-append fa fa-user"></i>
+                                @Html.TextBoxFor(model => model.UserName, new { @class = "form-control" })
+                                <b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> Kullanıcı Adınızı Giriniz</b>
+                            </label>
+                        </section>
+                        <section>
+                            <label class="control-label">Kullanıcı Şifreniz:</label>
+                            <label class="input">
+                                <i class="icon-append fa fa-lock"></i>
+                                @Html.Password("Password", new { @class = "form-control" })
+                                <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> Kullanıcı Şifrenizi Giriniz</b>
+                            </label>
+                            <div class="note">
+
+                            </div>
+                        </section>
+                    </fieldset>
+                    <footer>
+                        <div style="text-align:center;">
+                            <input type="submit" id="btnSubmit" name="btnSubmit" class="btn btn-login-primary" style="float: none; height: 45px; margin-top: 0px; width: 85%; border-radius: 6px; " value="Giriş" />
+                        </div>
+                    </footer>
+                }
+            </div>
+
+        </div>
+    </div>
+</div>
+<div id="copyright" class="page-footer navbar-fixed-bottom ">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 text-align-center">
+            <span class="">
+                Agartha Yazılım Teknolojileri Her Hakkı Saklıdır © @DateTime.Now.Year
+            </span>
+        </div>
+    </div>
+</div>
+
+@section pagespecific {
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            setTimeout(function () {
+                $("#UserName").val("");
+                $("#Password").val("");
+            }, 100);
+        });
+    </script>
+}
+
