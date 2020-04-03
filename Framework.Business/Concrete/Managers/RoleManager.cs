@@ -1,4 +1,6 @@
 ﻿using Framework.Business.Abstract;
+using Framework.Business.ValidationRules.FluentValidation;
+using Framework.Core.Aspects.Postsharp.ValidationAspects;
 using Framework.DataAccess.Abstract;
 using Framework.Entities.Concrete;
 using System;
@@ -17,6 +19,8 @@ namespace Framework.Business.Concrete.Managers
         {
             _roleDal = roleDal;
         }
+
+
         public Role Ekle(Role role)
         {
             return _roleDal.Ekle(role);
@@ -25,6 +29,11 @@ namespace Framework.Business.Concrete.Managers
         public IEnumerable<Role> GetAll()
         {
             return _roleDal.GetAll();
+        }
+
+        public Role GetByGuid(Guid guid)
+        {
+            return _roleDal.GetByGuid(guid);
         }
 
         public Role GetById(int id)

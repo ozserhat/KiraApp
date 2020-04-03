@@ -1,0 +1,159 @@
+﻿@model Framework.WebUI.Models.ViewModels.KullaniciEkleVM
+@{
+    ViewBag.Title = "Ekle";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@if (!Model.HideContent)
+{
+    <div id="content">
+        <section id="widget-grid" class="sayfaust_bosluk">
+
+            <div class="row">
+                <article class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="jarviswidget sorgulama-kriteri" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
+                        <header>
+                            <div style="margin-top: -5px;">
+                                <p>
+                                    <a href="@Url.Action("Index")" class="btn btn-warning" title="" rel="tooltip" data-placement="bottom" data-original-title="Kullanıcı Listesine Dön"><span class="glyphicon glyphicon-chevron-left"></span> Kullanıcı Listesine Dön</a>
+                                </p>
+                            </div>
+                        </header>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="widget-grid" class="">
+            <div class="row">
+                <article class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
+                        <header>
+                            <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+                            <h2>Kullanıcı Tanım</h2>
+                        </header>
+                        <div role="contentinfo">
+                            <div class="widget-body">
+                                <div class="tab-pane fade active in">
+                                    @using (Html.BeginForm("Ekle", "Users", FormMethod.Post, new { enctype = "multipart/form-data", id = "submitForm" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <div class="widget-body">
+                                            <fieldset>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
+                                                        @Html.LabelFor(model => model.KullaniciAdi, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                        <div class="col-md-8">
+                                                            @Html.TextBoxFor(model => model.KullaniciAdi, new { @class = "form-control col-md-4 required" })
+                                                            @Html.ValidationMessageFor(model => model.KullaniciAdi, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
+                                                        @Html.LabelFor(model => model.Sifre, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                        <div class="col-md-8">
+                                                            @Html.PasswordFor(model => model.Sifre, new { @class = "form-control col-md-4 required", rows = "3", placeholder = "Açıklama Giriniz" })
+                                                            @Html.ValidationMessageFor(model => model.Sifre, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
+                                                        @Html.LabelFor(model => model.Ad, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                        <div class="col-md-8">
+                                                            @Html.TextBoxFor(model => model.Ad, new { @class = "form-control col-md-4 required", rows = "3"})
+                                                            @Html.ValidationMessageFor(model => model.Ad, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
+                                                        @Html.LabelFor(model => model.Soyad, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                        <div class="col-md-8">
+                                                            @Html.TextBoxFor(model => model.Soyad, new { @class = "form-control col-md-4 required"})
+                                                            @Html.ValidationMessageFor(model => model.Soyad, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
+                                                        @Html.LabelFor(model => model.EMail, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                        <div class="col-md-8">
+                                                            @Html.TextBoxFor(model => model.EMail, new { @class = "form-control col-md-4 required", @type = "email" })
+                                                            @Html.ValidationMessageFor(model => model.EMail, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                        <div class="form-actions">
+                                            <div class="row">
+                                                <div class="col-md-6 col-xs-offset-2" style="padding-right: 30px;">
+                                                    <input id="btnReset" type="reset" value="Temizle" class="btn btn-warning">
+                                                    <input id="btnSubmit" type="button" value="Kaydet" class="btn btn-primary">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </div>
+}
+
+@section pagespecific {
+    <!-- Sweet Alert -->
+    <link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
+    <script src="~/Content/SweetAlert/sweetalert2.min.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <style type="text/css">
+        .error {
+            color: #F00;
+            background-color: #FFF;
+        }
+    </style>
+    <!--Kullanıcı Ekle-->
+    <script type="text/javascript">
+        $(function () {
+            $('#btnSubmit').on('click', function () {
+                user = new Object();
+                user.KullaniciAdi = $("#KullaniciAdi").val();
+                user.Sifre = $("#Sifre").val();
+                user.Ad = $("#Ad").val();
+                user.Soyad = $("#Soyad").val();
+                user.EMail = $("#EMail").val();
+
+                if($("#submitForm").valid())
+                {
+                   $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Ekle", "Users")',
+                    data: { model:user},
+                    success: function (result) {
+                        if (result != null && result.success) {
+
+                            swal('Uyarı!', result.Message, 'warning');
+
+                            setTimeout(function () {
+                             window.location.href = "../Users/Index";
+                            }, 2000);
+                        }
+                        else {
+                            swal('Uyarı!', result.Message, 'warning');
+                        }
+                    },
+                    error: function (xhr) {
+                        swal('Uyarı!', result.Message, 'warning');
+                    }
+                 });
+                }
+            });
+        });
+    </script>
+}

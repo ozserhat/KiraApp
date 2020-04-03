@@ -11,10 +11,12 @@ using System.Web;
 using Framework.Core.Aspects.Postsharp.LogAspects;
 using Framework.Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Framework.WebUI.Helpers;
+using Framework.WebUI.App_Helpers;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Framework.WebUI.Controllers
 {
-
     [LogAspect(typeof(DatabaseLogger))]
     public class AccountController : Controller
     {
@@ -41,26 +43,33 @@ namespace Framework.WebUI.Controllers
 
         public ActionResult Navigate()
         {
-            if (User.Identity.IsAuthenticated)
+            try
             {
-                var UserId = User.GetUserPropertyValue("UserId");
-
-                if (UserId != null)
+                if (User.Identity.IsAuthenticated)
                 {
-                    var kullanici = _userService.GetById(int.Parse(UserId));
+                    var UserId = User.GetUserPropertyValue("UserId");
 
-                    if (kullanici.UserRoles.Count > 1)
+                    if (UserId != null)
                     {
-                        return RedirectToAction("RolSec");
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "Anasayfa", new { area = kullanici.UserRoles.FirstOrDefault().Roles.Name });
+                        var kullanici = _userService.GetById(int.Parse(UserId));
+
+                        if (kullanici.User_Roles.Count > 1)
+                        {
+                            return RedirectToAction("RolSec");
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Anasayfa", new { area = kullanici.User_Roles.FirstOrDefault().Roles.Name });
+                        }
+
+                        //AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
                     }
 
-                    //AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
                 }
-
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentOutOfRangeException();
             }
             return RedirectToAction("Login");
         }
@@ -73,9 +82,9 @@ namespace Framework.WebUI.Controllers
 
             var model = new RolVM();
 
-            if (kullanici.UserRoles.Count > 0)
+            if (kullanici != null && kullanici.User_Roles.Count > 0)
             {
-                model.Roller = kullanici.UserRoles.Select(x => new RolSecItem()
+                model.Roller = kullanici.User_Roles.Select(x => new RolSecItem()
                 {
                     Aciklama = x.Roles.Name,
                     ActionName = "Index",
@@ -91,55 +100,48 @@ namespace Framework.WebUI.Controllers
             return View(model);
         }
 
-
         [HttpPost]
         public ActionResult Login(LoginVm loginVm)
         {
+            string hashedPassword = "";
+            
+            var userExists = _userService.GetByPasswordExists(loginVm.UserName, loginVm.Password);
 
-            if (!_userService.UserExists(loginVm.UserName))
-                loginVm.Errors.Add("Kullanıcı Bilgisi Bulunamadı!!!!!!");
-
-            var user = _userService.GetUsers(loginVm.UserName, loginVm.Password);
-
-
-            if (user != null)
+            if (userExists != null)
             {
-                loginVm.Id = user.UserId;
+                hashedPassword = userExists.Password;
 
-                //AuthenticationHelper.CreateAuthCookie(
-                //new Guid(),
-                //  user.User.UserName,
-                //  user.User.Email,
-                //DateTime.Now.AddDays(15),
-                //_userService.GetUserRoles(user.User).Select(u => u.RoleName).ToArray(),
-                //false,
-                //user.User.FirstName,
-                //user.User.LastName);
+                var user = _userService.GetUsers(loginVm.UserName, hashedPassword);
 
-                var identity = new ClaimsIdentity(new[] {
-                               new Claim(ClaimTypes.Name, user.User.FirstName+" "+user.User.LastName)},
-                               DefaultAuthenticationTypes.ApplicationCookie);
-
-                identity.AddClaim(new Claim("UserId", user.UserId.ToString()));
-                identity.AddClaim(new Claim("UserName", user.User.UserName));
-
-                _userService.GetUserRoles(user.User).ForEach(x => identity.AddClaim(new Claim(ClaimTypes.Role, x.RoleName)));
-
-                if (user.UserRoles.Count > 1)
-                    identity.AddClaim(new Claim("CokluRol", "true"));
-                else
-                    identity.AddClaim(new Claim("CokluRol", "false"));
-
-
-                AuthenticationManager.SignIn(new AuthenticationProperties
+                if (user != null)
                 {
-                    IsPersistent = false
-                }, identity);
+                    #region AddClaims
+                    loginVm.Id = user.UserId;
 
-                return RedirectToAction("Navigate");
+                    var identity = new ClaimsIdentity(new[] {
+                               new Claim(ClaimTypes.Name, user.User.FirstName+" "+user.User.LastName)},
+                                   DefaultAuthenticationTypes.ApplicationCookie);
+
+                    identity.AddClaim(new Claim("UserId", user.UserId.ToString()));
+                    identity.AddClaim(new Claim("UserName", user.User.UserName));
+
+                    _userService.GetUserRoles(user.User).ForEach(x => identity.AddClaim(new Claim(ClaimTypes.Role, x.RoleName)));
+
+                    if (user.UserRoles.Count > 1)
+                        identity.AddClaim(new Claim("CokluRol", "true"));
+                    else
+                        identity.AddClaim(new Claim("CokluRol", "false"));
+
+
+                    AuthenticationManager.SignIn(new AuthenticationProperties
+                    {
+                        IsPersistent = false
+                    }, identity); 
+                    #endregion
+
+                    return RedirectToAction("Navigate");
+                }
             }
-
-
 
             loginVm.Errors.Add("Kullanıcı Bilgilerini Kontrol Ediniz!!!");
 

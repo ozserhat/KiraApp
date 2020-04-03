@@ -12,7 +12,7 @@ namespace Framework.Business.Abstract
         IEnumerable<Role> GetAll();
 
         Role GetById(int id);
-
+        Role GetByGuid(Guid guid);
         Role Ekle(Role role);
 
         Role Guncelle(Role role);

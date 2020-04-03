@@ -14,6 +14,13 @@ namespace Framework.Entities.ComplexTypes
         public string RoleName { get; set; }
         public User User { get; set; }
         public Role Role { get; set; }
-        public List<UserRole> UserRoles { get; set; }
+        public List<User_Role> UserRoles { get; set; }
+    }
+
+    public class UserDetailList
+    {
+        public User User { get; set; }
+        public Role Role { get; set; }
+        public List<User_Role> UserRoles { get; set; }
     }
 }

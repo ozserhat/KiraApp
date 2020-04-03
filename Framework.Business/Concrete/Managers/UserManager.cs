@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -20,6 +21,29 @@ namespace Framework.Business.Concrete.Managers
         public UserManager(IUserDal userDal)
         {
             _userDal = userDal;
+        }
+        public IEnumerable<User> GetAll()
+        {
+            return _userDal.GetAll().Where(a => a.IsDeleted == false);
+        }
+
+        public User GetByPasswordExists(string userName,string password)
+        {
+            string outPass = "";
+
+            string passwordHash = CreatePasswordHash(password);
+
+            var usr = _userDal.Get(u => u.UserName == userName && u.Password == passwordHash);
+
+            if (usr is null)
+                return null;
+
+            outPass = VerifyPasswordHash(passwordHash, usr.PasswordSalt);
+
+            if (outPass != password)
+                return null;
+
+            return usr;
         }
 
         public User GetByUserNameAndPassword(string userName, string password)
@@ -50,41 +74,76 @@ namespace Framework.Business.Concrete.Managers
             return false;
         }
 
-        private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        public string CreatePasswordHash(string password)
         {
-            using (var hmac = new HMACSHA512())
+
+            string passwordSalt = "b14ca5898a4e4133bbce2ea2315a1916";
+
+            byte[] iv = new byte[16];
+            byte[] array;
+
+            using (Aes aes = Aes.Create())
             {
-                passwordHash = hmac.Key;
-                passwordSalt = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+                aes.Key = Encoding.UTF8.GetBytes(passwordSalt);
+                aes.IV = iv;
+
+                ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
+
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    using (CryptoStream cryptoStream = new CryptoStream((Stream)memoryStream, encryptor, CryptoStreamMode.Write))
+                    {
+                        using (StreamWriter streamWriter = new StreamWriter((Stream)cryptoStream))
+                        {
+                            streamWriter.Write(password);
+                        }
+
+                        array = memoryStream.ToArray();
+                    }
+                }
             }
+
+            return Convert.ToBase64String(array);
         }
 
-        private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
+        private string VerifyPasswordHash(string password, string passwordSalt)
         {
-            using (var hmac = new HMACSHA512(passwordSalt))
+            var passwordOut = "";
+
+            byte[] iv = new byte[16];
+            byte[] buffer = Convert.FromBase64String(password);
+
+            using (Aes aes = Aes.Create())
             {
-                var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+                aes.Key = Encoding.UTF8.GetBytes(passwordSalt);
+                aes.IV = iv;
+                ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
 
-                for (int i = 0; i < computedHash.Length; i++)
+                using (MemoryStream memoryStream = new MemoryStream(buffer))
                 {
-                    if (computedHash[i] != passwordHash[i])
-                        return false;
+                    using (CryptoStream cryptoStream = new CryptoStream((Stream)memoryStream, decryptor, CryptoStreamMode.Read))
+                    {
+                        using (StreamReader streamReader = new StreamReader((Stream)cryptoStream))
+                        {
+                            passwordOut = streamReader.ReadToEnd();
+                        }
+                    }
                 }
-
-                return true;
             }
+
+            return passwordOut;
         }
 
         public User Register(User user, string password)
         {
-            byte[] passwordHash, passwordSalt;
+            //byte[] passwordHash, passwordSalt;
 
-            CreatePasswordHash(password, out passwordHash, out passwordSalt);
+            //CreatePasswordHash(password, out passwordHash, out passwordSalt);
 
-            user.PasswordHash = passwordHash;
-            user.PasswordSalt = passwordSalt;
+            //user.PasswordHash = passwordHash;
+            //user.PasswordSalt = passwordSalt;
 
-            _userDal.Register(user, password);
+            //_userDal.Register(user, password);
 
             return user;
         }
@@ -101,11 +160,36 @@ namespace Framework.Business.Concrete.Managers
             return userDetail;
         }
 
-        public UserDetail GetById(int Id)
+        public UserDetail GetByDetailByUserId(int Id)
         {
-            var userDetail = _userDal.GetById(Id);
+            var userDetail = _userDal.GetByDetailByUserId(Id);
 
             return userDetail;
+        }
+
+        public User Ekle(User user)
+        {
+            return _userDal.Ekle(user);
+        }
+
+        public User Guncelle(User user)
+        {
+            return _userDal.Guncelle(user);
+        }
+
+        public bool Sil(int id)
+        {
+            return _userDal.Sil(id);
+        }
+
+        public User GetByGuid(Guid guid)
+        {
+            return _userDal.GetByGuid(guid);
+        }
+
+        public User GetById(int Id)
+        {
+            return _userDal.GetById(Id);
         }
     }
 }

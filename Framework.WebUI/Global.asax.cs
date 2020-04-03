@@ -1,6 +1,7 @@
 ﻿using Framework.Business.DependencyResolvers.Ninject;
 using Framework.Core.CrossCuttingConcerns.Security.Web;
 using Framework.Core.Utilities.Mvc.Infrastructure;
+using Framework.WebUI.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,35 @@ namespace Framework.WebUI
             ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory(new BusinessModule(), new AutoMapperModule()));
         }
 
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            Exception exception = Server.GetLastError();
+            HttpException httpException = exception as HttpException;
+
+            RouteData routeData = new RouteData();
+            routeData.Values.Add("controller", "Unauthorized");
+
+            if (httpException == null)
+            {
+                routeData.Values.Add("action", "Http404");
+            }
+            else
+            {
+                switch (httpException.GetHttpCode())
+                {
+                    case 404:
+                        routeData.Values.Add("action", "Http404");
+                        break;
+                }
+            }
+
+            Response.Clear();
+            Server.ClearError();
+            Response.TrySkipIisCustomErrors = true;
+
+            IController errorController = new UnauthorizedController();
+            errorController.Execute(new RequestContext(new HttpContextWrapper(Context), routeData));
+        } 
         public override void Init()
         {
             //PostAuthenticateRequest += MvcApplication_PostAuthenticateRequest;

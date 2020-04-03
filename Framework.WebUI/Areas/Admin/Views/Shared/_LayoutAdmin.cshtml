@@ -32,8 +32,8 @@
 </head>
 <body class="smart-style-4">
     @{ Html.RenderPartial("_HeaderAdmin", RenderSection("topright", false)); }
-    @{ Html.RenderPartial("_AsideAdmin"); }
-
+   
+    @{ Html.RenderPartial("_AsideAdmin", User.Identity.IsAuthenticated); }
     <div id="main" role="main">
 
         @RenderBody()

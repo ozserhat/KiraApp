@@ -44,4 +44,41 @@ namespace Framework.WebUI.Models.ViewModels
 
         public string Aciklama { get; set; }
     }
+
+    public class RolEkleVM : VMBase
+    {
+        [Display(Name = "Guid")]
+        public Guid Guid { get; set; }
+       
+        [Required(ErrorMessage = "Rol Adı Boş Bırakılamaz!!")]
+        [Display(Name = "Rol Adı")]
+        public string RolAdi { get; set; }
+
+        [Required(ErrorMessage = "Açıklama Bilgisi Boş Bırakılamaz!!")]
+        [Display(Name = "Açıklama")]
+        public string Aciklama { get; set; }
+
+        [Display(Name = "Aktif Mi")]
+        public bool? AktifMi { get; set; }
+    }
+
+    public class RolDuzenleVM : VMBase
+    {
+        [Display(Name = "RolId")]
+        public int RolId { get; set; }
+
+        [Display(Name = "Guid")]
+        public Guid Guid { get; set; }
+
+        [Required(ErrorMessage = "Rol Adı Boş Bırakılamaz!!")]
+        [Display(Name = "Rol Adı")]
+        public string RolAdi { get; set; }
+
+        [Required(ErrorMessage = "Açıklama Bilgisi Boş Bırakılamaz!!")]
+        [Display(Name = "Açıklama")]
+        public string Aciklama { get; set; }
+
+        [Display(Name = "Aktif Mi")]
+        public bool AktifMi { get; set; }
+    }
 }

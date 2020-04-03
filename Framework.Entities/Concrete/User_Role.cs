@@ -4,14 +4,23 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Framework.Entities.Concrete
 {
-    [Table("UserRoles")]
-    public class UserRole : IEntity
-    {
+    [Table("User_Roles")]
+    public class User_Role : IEntity
+    {      
         [Key]
         public int Id { get; set; }
-        public int RoleId { get; set; }
-        public int UserId { get; set; }
+
+        [Column(Order = 1)]
+        public int User_Id { get; set; }
+
+        
+        [Column(Order = 2)]
+        public int Role_Id { get; set; }
+
+        [ForeignKey("User_Id")]
         public virtual User Users { get; set; }
+
+        [ForeignKey("Role_Id")]
         public virtual Role Roles { get; set; }
     }
 }

@@ -30,7 +30,7 @@
 @if (!Model.HideContent)
 {
 <div id="content">
-    <section id="widget-grid" class="" style="margin-top:60px">
+    <section id="widget-grid" class="sayfaust_bosluk">
         @*<div class="row">
             <article class="col-sm-12 col-md-12 col-lg-12">
                 <div class="jarviswidget sorgulama-kriteri" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
@@ -122,7 +122,7 @@
                                                             <td>@Html.DisplayFor(model => item.Name)</td>
                                                             <td>@Html.DisplayFor(model => item.Description)</td>
                                                             <td>
-                                                                @if (item.IsActive.Value)
+                                                                @if (item.IsActive.HasValue&&item.IsActive.Value)
                                                                 {
                                                                     <b class="label aktif-buton">Aktif</b>
                                                                 }
@@ -132,7 +132,7 @@
                                                                 }
                                                             </td>
                                                             <td class="text-center">
-                                                                <a href="@Url.Action("Duzenle", new {item.Id})" title=""
+                                                                <a href="@Url.Action("Duzenle", new {item.Guid})" title=""
                                                                    rel="tooltip" data-placement="left" class="no-underline margin-right-5" data-original-title="Düzenle">
                                                                     <i class="fa fa-edit font-md txt-color-blue"></i>
                                                                 </a>

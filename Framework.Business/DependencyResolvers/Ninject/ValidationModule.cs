@@ -14,7 +14,7 @@ namespace Framework.Business.DependencyResolvers.Ninject
     {
         public override void Load()
         {
-            //Bind<IValidator<Product>>().To<ProductValidatior>().InSingletonScope();
+            Bind<IValidator<Role>>().To<RoleValidator>().InSingletonScope();
         }
     }
 }

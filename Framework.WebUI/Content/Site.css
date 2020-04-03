@@ -1244,7 +1244,9 @@ form td.zorunluYildiz:after {
     background-image: url("iimg/loading.svg");
 }
 
-
+.sayfaust_bosluk {
+    margin-top: 35px;
+}
 
 
 /*Tasarımcıların Yaptıkları*/

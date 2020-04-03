@@ -28,7 +28,17 @@ namespace Framework.DataAccess.Concrete.EntityFramework
         {
             using (DtContext context = new DtContext())
             {
-                var result = context.Roles.ToList();
+                var result = context.Roles.Where(r=>r.IsDeleted==false).ToList();
+
+                return result;
+            }
+        }
+
+        public Role GetByGuid(Guid guid)
+        {
+            using (DtContext context = new DtContext())
+            {
+                var result = context.Roles.Where(a => a.Guid == guid).FirstOrDefault();
 
                 return result;
             }
@@ -48,7 +58,10 @@ namespace Framework.DataAccess.Concrete.EntityFramework
         {
             using (var context = new DtContext())
             {
-                role = context.Roles.Add(role);
+                context.Roles.Attach(role);
+
+                context.Entry(role).State = EntityState.Modified;
+
                 context.SaveChanges();
             }
 

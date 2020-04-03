@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using Framework.Entities.Concrete;
+using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Data.Entity.ModelConfiguration.Configuration;
 
 namespace Framework.DataAccess.Concrete.EntityFramework
 {
@@ -12,18 +14,42 @@ namespace Framework.DataAccess.Concrete.EntityFramework
     {
         public DtContext() : base("DbContext")
         {
-            this.Configuration.LazyLoadingEnabled = false; 
+            this.Configuration.LazyLoadingEnabled = false;
             Database.SetInitializer<DtContext>(null);
         }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<User_Role> User_Roles { get; set; }
         public DbSet<Log> Logs { get; set; }
         //
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+
+            //modelBuilder.Entity<User_Role>()
+            //            .HasKey(t => new { t.RoleId, t.UserId });
+
+            // modelBuilder.Entity<User_Role>()
+            //.HasRequired<User>(s => s.Users)
+            //.WithMany(s => s.User_Roles)
+            //.HasForeignKey(s => s.UserId);
+
+            //var userfg = modelBuilder.Entity<User>();
+            //userfg.ToTable("User", "dbo");
+            //userfg.HasMany<Role>(s => s.Roles)
+            //   .WithMany(c => c.Users)
+            //   .Map(cs =>
+            //   {
+            //       cs.MapLeftKey("Role_Id");
+            //       cs.MapRightKey("User_Id");
+            //       cs.ToTable("User_Roles");
+            //   });
+
+            modelBuilder.Entity<User_Role>()
+              .HasKey(x => new { x.User_Id, x.Role_Id });
+
+
         }
     }
 }
