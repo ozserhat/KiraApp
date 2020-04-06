@@ -6,9 +6,12 @@ namespace Framework.Entities.Concrete
 {
     [Table("User_Roles")]
     public class User_Role : IEntity
-    {      
+    {
         [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
+        public bool IsDeleted { get; set; }
 
         [Column(Order = 1)]
         public int User_Id { get; set; }

@@ -51,11 +51,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IControllerActionsDal.cs" />
     <Compile Include="Abstract\IRolesDal.cs" />
     <Compile Include="Abstract\IUserDal.cs" />
+    <Compile Include="Abstract\IUserRolesDal.cs" />
     <Compile Include="Concrete\EntityFramework\DtContext.cs" />
+    <Compile Include="Concrete\EntityFramework\EfControllerActionsDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfRolesDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfUserDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfUserRolesDal.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

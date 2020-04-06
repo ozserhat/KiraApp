@@ -84,7 +84,7 @@ namespace Framework.WebUI.Controllers
 
             if (kullanici != null && kullanici.User_Roles.Count > 0)
             {
-                model.Roller = kullanici.User_Roles.Select(x => new RolSecItem()
+                model.Roller = kullanici.User_Roles.Where(a=>a.IsDeleted==false).Select(x => new RolSecItem()
                 {
                     Aciklama = x.Roles.Name,
                     ActionName = "Index",
@@ -124,8 +124,10 @@ namespace Framework.WebUI.Controllers
 
                     identity.AddClaim(new Claim("UserId", user.UserId.ToString()));
                     identity.AddClaim(new Claim("UserName", user.User.UserName));
-
+                   
                     _userService.GetUserRoles(user.User).ForEach(x => identity.AddClaim(new Claim(ClaimTypes.Role, x.RoleName)));
+                 
+                    var userPrincipal = new ClaimsPrincipal(new[] { identity });
 
                     if (user.UserRoles.Count > 1)
                         identity.AddClaim(new Claim("CokluRol", "true"));

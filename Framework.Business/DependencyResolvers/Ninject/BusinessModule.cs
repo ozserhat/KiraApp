@@ -25,6 +25,13 @@ namespace Framework.Business.DependencyResolvers.Ninject
             Bind<IRoleService>().To<RoleManager>().InSingletonScope();
             Bind<IRolesDal>().To<EfRolesDal>().InSingletonScope();
 
+            Bind<IUserRoleService>().To<UserRoleManager>().InSingletonScope();
+            Bind<IUserRolesDal>().To<EfUserRolesDal>().InSingletonScope();
+
+            Bind<IControllerActionService>().To<ControllerActionManager>().InSingletonScope();
+            Bind<IControllerActionsDal>().To<EfControllerActionsDal>().InSingletonScope();
+
+            Bind<IUserPermissions>().To<UserPermissionManager>().InSingletonScope();
             Bind(typeof(IQueryableRepository<>)).To(typeof(EfQueryableRepository<>));
             Bind<DbContext>().To<DtContext>();
             //Bind<NHibernateHelper>().To<SqlServerHelper>();

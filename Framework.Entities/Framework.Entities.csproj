@@ -45,11 +45,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ComplexTypes\ControllerActionList.cs" />
     <Compile Include="ComplexTypes\UserDetail.cs" />
     <Compile Include="ComplexTypes\UserRoleItem.cs" />
+    <Compile Include="Concrete\ControllerAction.cs" />
     <Compile Include="Concrete\Logs.cs" />
     <Compile Include="Concrete\Role.cs" />
     <Compile Include="Concrete\User.cs" />
+    <Compile Include="Concrete\User_Permission.cs" />
     <Compile Include="Concrete\User_Role.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

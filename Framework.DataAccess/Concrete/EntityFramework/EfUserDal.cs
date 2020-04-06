@@ -54,7 +54,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             {
                 var result = context.Users
                             .Include(u => u.User_Roles.Select(r => r.Roles))
-                            .Where(a => a.Id == Id).FirstOrDefault();
+                            .Where(a => a.Id == Id && a.IsDeleted == false).FirstOrDefault();
 
                 return result;
             }
@@ -76,8 +76,8 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             {
                 var result = context.User_Roles
                             .Include(u => u.Roles)
-                            .Where(ur => ur.User_Id == user.Id)
-                            .Select(x=>new UserRoleItem { RoleName =x.Roles.Name});
+                            .Where(ur => ur.User_Id == user.Id && ur.IsDeleted == false)
+                            .Select(x => new UserRoleItem { RoleName = x.Roles.Name });
                 return result.ToList();
             }
             //return null;

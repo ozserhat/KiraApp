@@ -43,8 +43,8 @@
                 </a>
                 <ul>
                     <li class="@Html.RouteIf("Roles", "active")">
-                        <a href="@Url.Action("Index", "Roles")" title="Kullanıcı">
-                            <i class="fa fa-lg fa-fw fa-list-alt"></i> Kullanıcı Rol
+                        <a href="@Url.Action("Index", "Roles")" title="Roller">
+                            <i class="fa fa-lg fa-fw fa-list-alt"></i> Roller
                         </a>
                     </li>
 
@@ -53,7 +53,11 @@
                             <i class="fa fa-lg fa-fw fa-list-alt"></i> Kullanıcılar
                         </a>
                     </li>
-
+                    <li class="@Html.RouteIf("Pages", "active")">
+                        <a href="@Url.Action("Index", "Pages")" title="Sayfalar">
+                            <i class="fa fa-lg fa-fw fa-list-alt"></i> Sayfalar
+                        </a>
+                    </li>
                     <li class="@Html.RouteIf("SistemParametresi", "active")">
                         <a href="@Url.Action("Index", "SistemParametresi")" title="Sistem Parametreleri">
                             <i class="fa fa-lg fa-fw fa-barcode"></i> Sistem Parametreleri

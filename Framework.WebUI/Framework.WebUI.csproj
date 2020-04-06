@@ -92,9 +92,6 @@
       <HintPath>..\packages\PostSharp.4.3.48\lib\net35-client\PostSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SimpleCrypto, Version=26.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SimpleCrypto.0.3.30.26\lib\SimpleCrypto.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Annotations, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ComponentModel.Annotations.4.4.1\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
@@ -168,6 +165,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Helpers\ControllerHelper.cs" />
     <Compile Include="App_Helpers\CustomAuthorize.cs" />
     <Compile Include="App_Helpers\DashRouteHandler.cs" />
     <Compile Include="App_Helpers\HtmlHelperExtensions.cs" />
@@ -179,7 +177,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AnasayfaController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PagesController.cs" />
     <Compile Include="Areas\Admin\Controllers\RolesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserPermissionsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserRolesController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Areas\Birim\BirimAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -190,9 +191,10 @@
     </Compile>
     <Compile Include="Helpers\EncDecHelper.cs" />
     <Compile Include="Helpers\UserExtended.cs" />
-    <Compile Include="Models\jsTree3Node.cs" />
+    <Compile Include="Models\ViewModels\ControllerActionsVm.cs" />
     <Compile Include="Models\ViewModels\LoginVm.cs" />
     <Compile Include="Models\ViewModels\RolVM.cs" />
+    <Compile Include="Models\ViewModels\UserRolesVm.cs" />
     <Compile Include="Models\ViewModels\UserVm.cs" />
     <Compile Include="Models\VMBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -959,6 +961,9 @@
     <Content Include="Areas\Admin\Views\Users\Ekle.cshtml" />
     <Content Include="Areas\Admin\Views\Users\Duzenle.cshtml" />
     <Content Include="Areas\Birim\Views\web.config" />
+    <Content Include="Areas\Admin\Views\UserPermissions\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Pages\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\UserRoles\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\customModal.js" />
@@ -1573,6 +1578,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Views\deneme\" />
     <Folder Include="Areas\Birim\Controllers\" />
     <Folder Include="Areas\Birim\Data\" />
     <Folder Include="Areas\Birim\Views\Shared\" />

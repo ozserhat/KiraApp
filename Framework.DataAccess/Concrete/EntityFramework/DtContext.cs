@@ -20,7 +20,9 @@ namespace Framework.DataAccess.Concrete.EntityFramework
 
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<ControllerAction> ControllerActions { get; set; }
         public DbSet<User_Role> User_Roles { get; set; }
+        public DbSet<User_Permission> User_Permissions { get; set; }
         public DbSet<Log> Logs { get; set; }
         //
 
