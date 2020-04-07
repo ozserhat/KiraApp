@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Framework.Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Framework.Entities.Concrete
 {
-    public class ControllerAction
+    public class ControllerAction : IEntity
     {
         [Key]
         public int Id { get; set; }

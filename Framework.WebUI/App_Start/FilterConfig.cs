@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using Framework.WebUI.App_Helpers;
+using System.Web;
 using System.Web.Mvc;
 
 namespace Framework.WebUI
@@ -8,6 +9,7 @@ namespace Framework.WebUI
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+            //filters.Add(new CustomAuthorize());
         }
     }
 }

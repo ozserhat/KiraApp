@@ -1,5 +1,7 @@
 ﻿using Framework.Business.Abstract;
+using Framework.DataAccess.Abstract;
 using Framework.Entities.ComplexTypes;
+using Framework.Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,45 +13,48 @@ using System.Web.Mvc;
 
 namespace Framework.Business.Concrete.Managers
 {
-    public class UserPermissionManager : IUserPermissions
+    public class UserPermissionManager : IUserPermissionsService
     {
-        //private IUserPermissions _userPermissionDal;
+        private IUserPermissionsDal _userPermissionDal;
 
-        //public UserPermissionManager(IUserPermissions userPermissionDal)
-        //{
-        //    //_userPermissionDal = userPermissionDal;
-        //}
-        public IEnumerable<ControllerActionList> GetAllControllerActions()
+        public UserPermissionManager(IUserPermissionsDal userPermissionDal)
         {
-            Assembly asm = Assembly.GetAssembly(typeof(HttpApplication));
+            _userPermissionDal = userPermissionDal;
+        }
 
-            var controlleractionlist = asm.GetTypes()
-                    .Where(type => typeof(Controller).IsAssignableFrom(type))
-                    .SelectMany(type => type.GetMethods(BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.Public))
-                    .Where(m => !m.GetCustomAttributes(typeof(System.Runtime.CompilerServices.CompilerGeneratedAttribute), true).Any())
-                    .Select(x => new
-                    {
-                        Controller = x.DeclaringType.Name,
-                        Action = x.Name,
-                        ReturnType = x.ReturnType.Name,
-                        Attributes = String.Join(",", x.GetCustomAttributes().Select(a => a.GetType().Name.Replace("Attribute", "")))
-                    })
-                    .OrderBy(x => x.Controller).ThenBy(x => x.Action).ToList();
+        public User_Permission Ekle(User_Permission userPermission)
+        {
+            return _userPermissionDal.Add(userPermission);
+        }
 
-            var list = new List<ControllerActionList>();
+        public IEnumerable<User_Permission> GetAll()
+        {
+            return _userPermissionDal.GetAll();
+        }
 
-            foreach (var item in controlleractionlist)
-            {
-                list.Add(new ControllerActionList()
-                {
-                    Controller = item.Controller,
-                    Action = item.Action,
-                    Attributes = item.Attributes,
-                    ReturnType = item.ReturnType
-                });
-            }
+        public User_Permission GetById(int id)
+        {
+            return _userPermissionDal.GetById(id);
+        }
 
-            return list;
+        public List<User_Permission> GetUserByPermissions(int UserId)
+        {
+            return _userPermissionDal.GetUserByPermissions(UserId);
+        }
+
+        public bool GetUserPermissionExists(User_Permission userPermission)
+        {
+            var result = _userPermissionDal.GetUserPermissionExists(userPermission);
+
+            if (result is null)
+                return false;
+
+            return true;
+        }
+
+        public User_Permission Guncelle(User_Permission userPermission)
+        {
+            return _userPermissionDal.Update(userPermission);
         }
     }
 }

@@ -12,6 +12,7 @@ using System.Web.Mvc;
 
 namespace Framework.WebUI.Areas.Admin.Controllers
 {
+    [CustomAuthorize(Roles = "Admin")]
     public class PagesController : Controller
     {
         private ControllerHelper _helper;

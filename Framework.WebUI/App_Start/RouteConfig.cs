@@ -30,19 +30,6 @@ namespace Framework.WebUI
                 id = UrlParameter.Optional
             }).RouteHandler = new DashRouteHandler();
             #endregion
-
-            routes.MapRoute(
-            name: "Unauthorized",
-            url: "{controller}/{action}/{id}",
-            defaults: new { controller = "Unauthorized", action = "Index", id = UrlParameter.Optional }
-            );
-
-
-            routes.MapRoute(
-                name: "Http404",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Unauthorized", action = "Http404", id = UrlParameter.Optional }
-                );
         }
     }
 }

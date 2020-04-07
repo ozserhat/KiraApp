@@ -11,12 +11,13 @@ using System.Web.Mvc;
 
 namespace Framework.WebUI.Areas.Admin.Controllers
 {
+    [CustomAuthorize(Roles = "Admin")]
     public class UserPermissionsController : Controller
     {
         ControllerHelper _helper;
-        private IUserPermissions _userPermissionService;
+        private IUserPermissionsService _userPermissionService;
 
-        public UserPermissionsController(IUserPermissions userPermissionService, ControllerHelper helper)
+        public UserPermissionsController(IUserPermissionsService userPermissionService, ControllerHelper helper)
         {
             _helper = helper;
             _userPermissionService = userPermissionService;

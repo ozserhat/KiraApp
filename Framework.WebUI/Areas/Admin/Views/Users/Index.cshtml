@@ -96,11 +96,12 @@
                                                                        rel="tooltip" data-placement="left" class="no-underline margin-right-5" data-original-title="Düzenle">
                                                                         <i class="fa fa-edit font-md txt-color-blue"></i>
                                                                     </a>
-
+                                                                    
                                                                     <a data-id="@item.Id" data-name="@item.UserName" title="" rel="tooltip" data-placement="left"
                                                                        class="no-underline margin-right-5 delete-row" data-original-title="Sil">
                                                                         <i class="fa fa-remove font-md txt-color-blue"></i>
                                                                     </a>
+                                                                    
                                                                 </td>
                                                             </tr>
                                                         }
@@ -161,30 +162,7 @@
         });
 
     </script>
-
-    <!--Kullanıcı Silme İşlemi -->
     <script type="text/javascript">
-        var dt;
-
-        var dt_settings = {
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Turkish.json"
-            },
-            "searching": true,
-            "bPaginate": false,
-        };
-
-        $(".delete-row").click(function (e) {
-            e.preventDefault();
-            var id = $(this).attr("data-id");
-            var name = $(this).attr("data-name");
-            var closestTR = $(this).closest("tr");
-            var vl = deletealert(id, name, closestTR);
-        });
-
-        $(document).ready(function () {
-            dt = $('#dt_basic').DataTable(dt_settings);
-        });
 
         function deletealert(Id, name, closestTR) {
             swal({
@@ -214,6 +192,31 @@
                 }
             })
         }
+    </script>
+    <!--Kullanıcı Silme İşlemi -->
+    <script type="text/javascript">
+        var dt;
+
+        var dt_settings = {
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Turkish.json"
+            },
+            "searching": true,
+            "bPaginate": false,
+        };
+
+        $(".delete-row").click(function (e) {
+            e.preventDefault();
+            var id = $(this).attr("data-id");
+            var name = $(this).attr("data-name");
+            var closestTR = $(this).closest("tr");
+            var vl = deletealert(id, name, closestTR);
+        });
+
+        $(document).ready(function () {
+            dt = $('#dt_basic').DataTable(dt_settings);
+        });
+
     </script>
 
 }

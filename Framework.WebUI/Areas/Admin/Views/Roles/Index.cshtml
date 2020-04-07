@@ -29,195 +29,197 @@
 }
 @if (!Model.HideContent)
 {
-<div id="content">
-    <section id="widget-grid" class="sayfaust_bosluk">
-        @*<div class="row">
-            <article class="col-sm-12 col-md-12 col-lg-12">
-                <div class="jarviswidget sorgulama-kriteri" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
-                    <header>
-                        <span class="widget-icon"> <i class="fa fa-list"></i> </span>
-                        <h2>Sorgulama Kriterleri</h2>
-                    </header>
+    <div id="content">
+        <section id="widget-grid" class="sayfaust_bosluk">
+            @*<div class="row">
+                    <article class="col-sm-12 col-md-12 col-lg-12">
+                        <div class="jarviswidget sorgulama-kriteri" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
+                            <header>
+                                <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+                                <h2>Sorgulama Kriterleri</h2>
+                            </header>
 
-                    <div role="contentinfo" class="sorgulama-alani">
-                        <div class="widget-body">
-                            <div class="tab-pane fade active in">
+                            <div role="contentinfo" class="sorgulama-alani">
+                                <div class="widget-body">
+                                    <div class="tab-pane fade active in">
 
-                                @using (Html.BeginForm("Index", "Roles", new { page = 1 }, FormMethod.Post, new { @id = "submitForm" }))
-                                {
-                                    <div class="widget-body">
-                                        <fieldset>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    @Html.LabelFor(model => model.RolAdi, new { @class = "control-label col-md-2 font-bold" })
-                                                    <div class="col-md-12">
-                                                        @Html.TextBoxFor(model => model.RolAdi, new { @class = "form-control" })
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    @Html.LabelFor(model => model.Aciklama, new { @class = "control-label col-md-2 font-bold" })
-                                                    <div class="col-md-12">
-                                                        @Html.TextBoxFor(model => model.Aciklama, new { @class = "form-control" })
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                              
-                                            </div>
-                                        </fieldset>
-                                    </div>
-                                    <div class="form-actions btn-foot-s">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <input id="btnSubmit" type="submit" value="Sorgula" class="btn btn-primary">
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        </div>*@
-        <div class="row">
-            <article class="col-sm-12 col-md-12 col-lg-12">
-                <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
-                    <header>
-                        <span class="widget-icon"> <i class="fa fa-list"></i> </span>
-                        <h2>Rol Listesi - <b>Toplam Rol Adedi : @Model.TotalRecordCount</b></h2>
-                        <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
-                            <p>
-                                <a href="@Url.Action("Ekle")" class="btn btn-primary">
-                                    <i class="glyphicon glyphicon-plus"></i> &nbsp; Rol Ekle
-                                </a>
-                            </p>
-                        </div>
-                    </header>
-                    <div role="contentinfo">
-                        <div class="widget-body">
-                            <div class="tab-pane fade active in">
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        <table id="dt_basic" class="table table-striped table-bordered table-hover dataTable no-footer" role="grid" aria-describedby="dt_basic_info">
-                                            <thead>
-                                                <tr role="row">
-                                                    <th style="width: 20px;">No</th>
-                                                    <th class="sorting_disabled" rowspan="1" colspan="1">Rol Adı</th>
-                                                    <th class="sorting_disabled" rowspan="1" colspan="1">Açıklama</th>
-                                                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 250px;">Durum</th>
-                                                    <th class="sorting_disabled text-center" rowspan="1" colspan="1" style="text-align: right;  padding-right: 30px; width: 100px;">İşlem</th>
-                                                </tr>
-                                            </thead>
-                                            @if (Model.Roller != null && Model.Roller.Count > 0)
-                                            {
-                                                <tbody>
-
-                                                    @{int i = ((Model.PageNumber - 1) * Model.PageSize) + 1;}
-
-                                                    @foreach (var item in Model.Roller)
-                                                    {
-                                                        <tr role="row" class="odd">
-                                                            <td>@(i++)</td>
-                                                            <td>@Html.DisplayFor(model => item.Name)</td>
-                                                            <td>@Html.DisplayFor(model => item.Description)</td>
-                                                            <td>
-                                                                @if (item.IsActive.HasValue&&item.IsActive.Value)
-                                                                {
-                                                                    <b class="label aktif-buton">Aktif</b>
-                                                                }
-                                                                else
-                                                                {
-                                                                    <b class="label pasif-buton">Pasif</b>
-                                                                }
-                                                            </td>
-                                                            <td class="text-center">
-                                                                <a href="@Url.Action("Duzenle", new {item.Guid})" title=""
-                                                                   rel="tooltip" data-placement="left" class="no-underline margin-right-5" data-original-title="Düzenle">
-                                                                    <i class="fa fa-edit font-md txt-color-blue"></i>
-                                                                </a>
-
-                                                                <a data-id="@item.Id" data-name="@item.Name" title="" rel="tooltip" data-placement="left"
-                                                                   class="no-underline margin-right-5 delete-row" data-original-title="Sil">
-                                                                    <i class="fa fa-remove font-md txt-color-blue"></i>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
-                                                    }
-                                                </tbody>
-                                            }
-                                            else
-                                            {
-                                                <tbody>
-                                                    <tr class="odd">
-                                                        <td valign="top" colspan="4" class="dataTables_empty">Tablo için gösterilecek bir kayıt bulunmamaktadır</td>
-                                                    </tr>
-                                                </tbody>
-                                            }
-                                        </table>
-                                        @*<div class="dt-toolbar-footer">
-                                            <div class="col-xs-12 col-sm-6">
-                                                <div class="dataTables_info" id="dt_basic_info" role="status" aria-live="polite">
-                                                    Toplam
-                                                    <span class="text-primary"><strong>@Model.TotalRecordCount</strong></span>  Kayıttan
-                                                    <span class="text-primary"><strong>@((Model.PageNumber - 1) * Model.PageSize + 1)</strong></span> -
-                                                    @if (Model.TotalRecordCount > (Model.PageNumber * Model.PageSize))
-                                                    {
-                                                        <span class="text-primary"><strong>@(Model.PageNumber * Model.PageSize)</strong></span>
-                                                    }
-                                                    else
-                                                    {
-                                                        <span class="text-primary"><strong>@Model.TotalRecordCount</strong></span>
-                                                    }
-                                                    Arası Kayıtlar
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-6">
-                                                @if (Model.Roller.TotalItemCount > Model.PageSize)
-                                                {
-                                                    <div id="sayfalama">
-                                                        <div class="input-group input-group-md">
-                                                            <div class="icon-addon addon-md">
-                                                                <input class="form-control valid input-sayfayaGit" id="sayfayaGit" name="sayfayaGit" type="text" value="">
+                                        @using (Html.BeginForm("Index", "Roles", new { page = 1 }, FormMethod.Post, new { @id = "submitForm" }))
+                                        {
+                                            <div class="widget-body">
+                                                <fieldset>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            @Html.LabelFor(model => model.RolAdi, new { @class = "control-label col-md-2 font-bold" })
+                                                            <div class="col-md-12">
+                                                                @Html.TextBoxFor(model => model.RolAdi, new { @class = "form-control" })
                                                             </div>
-                                                            <span class="input-group-btn">
-                                                                <button class="btn btn-primary btn-sayfayaGit" id="btnGit" type="button">Git</button>
-                                                            </span>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            @Html.LabelFor(model => model.Aciklama, new { @class = "control-label col-md-2 font-bold" })
+                                                            <div class="col-md-12">
+                                                                @Html.TextBoxFor(model => model.Aciklama, new { @class = "form-control" })
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div>
-                                                        @{
-                                                            sonSayfa = Model.TotalRecordCount % Model.PageSize == 0 ? Model.TotalRecordCount / Model.PageSize : Model.TotalRecordCount / Model.PageSize + 1;
-                                                            @Html.PagedListPager(Model.Roller, page => Url.Action("Index",
-                                                                                        new
-                                                                                        {
-                                                                                            page = page
-                                                                                        }), new PagedListRenderOptions
-                                                                                        {
-                                                                                            MaximumPageNumbersToDisplay = 7,
-                                                                                            DisplayEllipsesWhenNotShowingAllPageNumbers = true,
-                                                                                            EllipsesFormat = "&#8230;",
-                                                                                            LinkToFirstPageFormat = "1",
-                                                                                            LinkToPreviousPageFormat = "«",
-                                                                                            LinkToNextPageFormat = "»",
-                                                                                            LinkToLastPageFormat = sonSayfa.ToString()
-                                                                                        })
+                                                    <div class="row">
+
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                            <div class="form-actions btn-foot-s">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <input id="btnSubmit" type="submit" value="Sorgula" class="btn btn-primary">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>*@
+            <div class="row">
+                <article class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
+                        <header>
+                            <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+                            <h2>Rol Listesi - <b>Toplam Rol Adedi : @Model.TotalRecordCount</b></h2>
+                            <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
+                                <p>
+                                    <a href="@Url.Action("Ekle")" class="btn btn-primary">
+                                        <i class="glyphicon glyphicon-plus"></i> &nbsp; Rol Ekle
+                                    </a>
+                                </p>
+                            </div>
+                        </header>
+                        <div role="contentinfo">
+                            <div class="widget-body">
+                                <div class="tab-pane fade active in">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <table id="dt_basic" class="table table-striped table-bordered table-hover dataTable no-footer" role="grid" aria-describedby="dt_basic_info">
+                                                <thead>
+                                                    <tr role="row">
+                                                        <th style="width: 20px;">No</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Rol Adı</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Açıklama</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 250px;">Durum</th>
+                                                        <th class="sorting_disabled text-center" rowspan="1" colspan="1" style="text-align: right;  padding-right: 30px; width: 100px;">İşlem</th>
+                                                    </tr>
+                                                </thead>
+                                                @if (Model.Roller != null && Model.Roller.Count > 0)
+                                                {
+                                                    <tbody>
+
+                                                        @{int i = ((Model.PageNumber - 1) * Model.PageSize) + 1;}
+
+                                                        @foreach (var item in Model.Roller)
+                                                        {
+                                                            <tr role="row" class="odd">
+                                                                <td>@(i++)</td>
+                                                                <td>@Html.DisplayFor(model => item.Name)</td>
+                                                                <td>@Html.DisplayFor(model => item.Description)</td>
+                                                                <td>
+                                                                    @if (item.IsActive.HasValue && item.IsActive.Value)
+                                                                    {
+                                                                        <b class="label aktif-buton">Aktif</b>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <b class="label pasif-buton">Pasif</b>
+                                                                    }
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    <a href="@Url.Action("Duzenle", new {item.Guid})" title=""
+                                                                       rel="tooltip" data-placement="left" class="no-underline margin-right-5" data-original-title="Düzenle">
+                                                                        <i class="fa fa-edit font-md txt-color-blue"></i>
+                                                                    </a>
+                                                                    @if (Convert.ToBoolean(TempData["OpenAuthorizationPopup"]) == false)
+                                                                    {
+                                                                        <a data-id="@item.Id" data-name="@item.Name" title="" rel="tooltip" data-placement="left"
+                                                                           class="no-underline margin-right-5 delete-row" data-original-title="Sil">
+                                                                            <i class="fa fa-remove font-md txt-color-blue"></i>
+                                                                        </a>
+                                                                    }
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                }
+                                                else
+                                                {
+                                                    <tbody>
+                                                        <tr class="odd">
+                                                            <td valign="top" colspan="4" class="dataTables_empty">Tablo için gösterilecek bir kayıt bulunmamaktadır</td>
+                                                        </tr>
+                                                    </tbody>
+                                                }
+                                            </table>
+                                            @*<div class="dt-toolbar-footer">
+                                                    <div class="col-xs-12 col-sm-6">
+                                                        <div class="dataTables_info" id="dt_basic_info" role="status" aria-live="polite">
+                                                            Toplam
+                                                            <span class="text-primary"><strong>@Model.TotalRecordCount</strong></span>  Kayıttan
+                                                            <span class="text-primary"><strong>@((Model.PageNumber - 1) * Model.PageSize + 1)</strong></span> -
+                                                            @if (Model.TotalRecordCount > (Model.PageNumber * Model.PageSize))
+                                                            {
+                                                                <span class="text-primary"><strong>@(Model.PageNumber * Model.PageSize)</strong></span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span class="text-primary"><strong>@Model.TotalRecordCount</strong></span>
+                                                            }
+                                                            Arası Kayıtlar
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12 col-sm-6">
+                                                        @if (Model.Roller.TotalItemCount > Model.PageSize)
+                                                        {
+                                                            <div id="sayfalama">
+                                                                <div class="input-group input-group-md">
+                                                                    <div class="icon-addon addon-md">
+                                                                        <input class="form-control valid input-sayfayaGit" id="sayfayaGit" name="sayfayaGit" type="text" value="">
+                                                                    </div>
+                                                                    <span class="input-group-btn">
+                                                                        <button class="btn btn-primary btn-sayfayaGit" id="btnGit" type="button">Git</button>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div>
+                                                                @{
+                                                                    sonSayfa = Model.TotalRecordCount % Model.PageSize == 0 ? Model.TotalRecordCount / Model.PageSize : Model.TotalRecordCount / Model.PageSize + 1;
+                                                                    @Html.PagedListPager(Model.Roller, page => Url.Action("Index",
+                                                                                                new
+                                                                                                {
+                                                                                                    page = page
+                                                                                                }), new PagedListRenderOptions
+                                                                                                {
+                                                                                                    MaximumPageNumbersToDisplay = 7,
+                                                                                                    DisplayEllipsesWhenNotShowingAllPageNumbers = true,
+                                                                                                    EllipsesFormat = "&#8230;",
+                                                                                                    LinkToFirstPageFormat = "1",
+                                                                                                    LinkToPreviousPageFormat = "«",
+                                                                                                    LinkToNextPageFormat = "»",
+                                                                                                    LinkToLastPageFormat = sonSayfa.ToString()
+                                                                                                })
+                                                                }
+                                                            </div>
                                                         }
                                                     </div>
-                                                }
-                                            </div>
-                                        </div>*@
+                                                </div>*@
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </article>
-        </div>
-    </section>
+                </article>
+            </div>
+        </section>
 
-</div>
+    </div>
 
     using (Html.BeginForm("Index", "Roles", new { page = 1 }, FormMethod.Post, new { @id = "sorgulamaKriterleri" }))
     {

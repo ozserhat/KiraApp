@@ -42,6 +42,11 @@ namespace Framework.Business.Concrete.Managers
             return _controllerActionsDal.GetById(id);
         }
 
+        public ControllerAction GetByName(string ControllerName, string ActionName)
+        {
+            return _controllerActionsDal.GetByName(ControllerName,ActionName);
+        }
+
         public ControllerAction GetExistsAndSave(IEnumerable<ControllerAction> controller)
         {
            return _controllerActionsDal.GetExistsAndSave(controller);

@@ -104,10 +104,13 @@
                                                         }
                                                     </td>
                                                     <td class="text-center">
+                                                        @if (Convert.ToBoolean(TempData["OpenAuthorizationPopup"]) == false)
+                                                        {
                                                         <a data-id="@item.Id" data-name="@item.Roles.Name" title="" rel="tooltip" data-placement="left"
                                                            class="no-underline margin-right-5 delete-row" data-original-title="Sil">
                                                             <i class="fa fa-remove font-md txt-color-blue"></i>
                                                         </a>
+                                                        }
                                                     </td>
                                                 </tr>
                                             }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Framework.DataAccess.Concrete.EntityFramework
 {
-    public class EfControllerActionsDal : EfEntityRepositoryBase<Role, DtContext>, IControllerActionsDal
+    public class EfControllerActionsDal : EfEntityRepositoryBase<ControllerAction, DtContext>, IControllerActionsDal
     {
         public ControllerAction Add(ControllerAction controllerAction)
         {
@@ -60,6 +60,18 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             using (DtContext context = new DtContext())
             {
                 var result = context.ControllerActions.Where(a => a.Id == id).FirstOrDefault();
+
+                return result;
+            }
+        }
+
+        public ControllerAction GetByName(string ControllerName, string ActionName)
+        {
+            using (DtContext context = new DtContext())
+            {
+                var result = context.ControllerActions
+                            .Where(a => a.Controller == ControllerName &&
+                            a.Action == ActionName && a.IsDeleted == false).FirstOrDefault();
 
                 return result;
             }

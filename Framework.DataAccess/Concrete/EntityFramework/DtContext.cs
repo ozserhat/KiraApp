@@ -51,7 +51,8 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             modelBuilder.Entity<User_Role>()
               .HasKey(x => new { x.User_Id, x.Role_Id });
 
-
+            modelBuilder.Entity<User_Permission>()
+            .HasKey(x => new { x.User_Id, x.ControllerAction_Id });
         }
     }
 }

@@ -32,11 +32,21 @@
 </head>
 <body class="smart-style-4">
     @{ Html.RenderPartial("_HeaderAdmin", RenderSection("topright", false)); }
-   
-    @{ Html.RenderPartial("_AsideAdmin", User.Identity.IsAuthenticated); }
-    <div id="main" role="main">
 
-        @RenderBody()
+    @{ Html.RenderPartial("_AsideAdmin", User.Identity.IsAuthenticated); }
+
+
+    @{
+        if (Convert.ToBoolean(TempData["OpenAuthorizationPopup"]) == false)
+        {
+            Html.RenderPartial("/Views/Shared/_Unauthorized.cshtml");
+        }
+    }
+    <div id="main" role="main">
+        @if (Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+        {
+            @RenderBody()
+        }
     </div>
     <div id="copyright" class="page-footer navbar-fixed-bottom ">
         <div class="row">
@@ -49,18 +59,17 @@
     </div>
     @{ Html.RenderPartial("_Scripts", RenderSection("pagespecific", false)); }
 
+
     <script>
         $(document).ready(function () {
             var seconds = 600000 / 1000;
 
             setInterval(function () {
                 seconds--;
-
                 if (seconds == 0) {
                     window.location = "/Account/Logoff";
                 };
             }, 1000);
-
         });
     </script>
 </body>

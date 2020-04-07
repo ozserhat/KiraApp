@@ -14,7 +14,7 @@ namespace Framework.Business.Abstract
         ControllerAction GetById(int id);
 
         ControllerAction GetByGuid(Guid guid);
-
+        ControllerAction GetByName(string ControllerName, string ActionName);
         ControllerAction Add(ControllerAction controller);
         ControllerAction GetExistsAndSave(IEnumerable<ControllerAction> controller);
 

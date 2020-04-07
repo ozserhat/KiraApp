@@ -21,11 +21,15 @@ namespace Framework.WebUI.Controllers
     public class AccountController : Controller
     {
         private IUserService _userService;
+
+        private IUserPermissionsService _userPermissions;
+
         private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
 
-        public AccountController(IUserService userService)
+        public AccountController(IUserService userService, IUserPermissionsService userPermissions)
         {
             _userService = userService;
+            _userPermissions = userPermissions;
         }
 
         public ActionResult Index()
@@ -84,7 +88,7 @@ namespace Framework.WebUI.Controllers
 
             if (kullanici != null && kullanici.User_Roles.Count > 0)
             {
-                model.Roller = kullanici.User_Roles.Where(a=>a.IsDeleted==false).Select(x => new RolSecItem()
+                model.Roller = kullanici.User_Roles.Where(a => a.IsDeleted == false).Select(x => new RolSecItem()
                 {
                     Aciklama = x.Roles.Name,
                     ActionName = "Index",
@@ -104,7 +108,7 @@ namespace Framework.WebUI.Controllers
         public ActionResult Login(LoginVm loginVm)
         {
             string hashedPassword = "";
-            
+
             var userExists = _userService.GetByPasswordExists(loginVm.UserName, loginVm.Password);
 
             if (userExists != null)
@@ -124,9 +128,18 @@ namespace Framework.WebUI.Controllers
 
                     identity.AddClaim(new Claim("UserId", user.UserId.ToString()));
                     identity.AddClaim(new Claim("UserName", user.User.UserName));
-                   
+
                     _userService.GetUserRoles(user.User).ForEach(x => identity.AddClaim(new Claim(ClaimTypes.Role, x.RoleName)));
-                 
+
+                    var permissionList = _userPermissions.GetUserByPermissions(user.UserId);
+
+                    foreach (var permission in permissionList)
+                    {
+                        identity.AddClaim(new Claim("ControllerActionId", permission.ControllerAction_Id.ToString()));
+                        identity.AddClaim(new Claim("IsAuthorize", permission.IsAuthorize.ToString()));
+                    }
+
+
                     var userPrincipal = new ClaimsPrincipal(new[] { identity });
 
                     if (user.UserRoles.Count > 1)
@@ -138,7 +151,7 @@ namespace Framework.WebUI.Controllers
                     AuthenticationManager.SignIn(new AuthenticationProperties
                     {
                         IsPersistent = false
-                    }, identity); 
+                    }, identity);
                     #endregion
 
                     return RedirectToAction("Navigate");

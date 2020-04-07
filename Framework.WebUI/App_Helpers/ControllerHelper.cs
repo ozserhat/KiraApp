@@ -13,9 +13,9 @@ namespace Framework.WebUI.App_Helpers
 {
     public class ControllerHelper
     {
-        private IUserPermissions _userPermissionService;
+        private IUserPermissionsService _userPermissionService;
 
-        public ControllerHelper(IUserPermissions userPermissionService)
+        public ControllerHelper(IUserPermissionsService userPermissionService)
         {
             _userPermissionService = userPermissionService;
         }
