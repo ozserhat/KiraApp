@@ -39,13 +39,16 @@
     @{
         if (Convert.ToBoolean(TempData["OpenAuthorizationPopup"]) == false)
         {
-            Html.RenderPartial("/Views/Shared/_Unauthorized.cshtml");
+            Html.RenderPartial("/Views/Shared/_Unauthorized.cshtml", RenderSection("topright", false));
         }
     }
     <div id="main" role="main">
-        @if (Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
-        {
-            @RenderBody()
+        @{
+
+            if (Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+            {
+                @RenderBody()
+            }
         }
     </div>
     <div id="copyright" class="page-footer navbar-fixed-bottom ">

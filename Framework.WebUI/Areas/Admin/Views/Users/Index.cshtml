@@ -39,7 +39,7 @@
                             <h2>Kullanıcı Listesi - <b>Toplam Kullanıcı Adedi : @Model.TotalRecordCount</b></h2>
                             <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
                                 <p>
-                                    <a href="@Url.Action("Index","UserRoles")" class="btn btn-info">
+                                    <a href="@Url.Action("Index", "UserRoles")" class="btn btn-info">
                                         <i class="glyphicon glyphicon-plus"></i>Kullanıcı Rol Ekle
                                     </a>
                                     <a href="@Url.Action("Ekle")" class="btn btn-primary">
@@ -96,12 +96,12 @@
                                                                        rel="tooltip" data-placement="left" class="no-underline margin-right-5" data-original-title="Düzenle">
                                                                         <i class="fa fa-edit font-md txt-color-blue"></i>
                                                                     </a>
-                                                                    
+
                                                                     <a data-id="@item.Id" data-name="@item.UserName" title="" rel="tooltip" data-placement="left"
                                                                        class="no-underline margin-right-5 delete-row" data-original-title="Sil">
                                                                         <i class="fa fa-remove font-md txt-color-blue"></i>
                                                                     </a>
-                                                                    
+
                                                                 </td>
                                                             </tr>
                                                         }
