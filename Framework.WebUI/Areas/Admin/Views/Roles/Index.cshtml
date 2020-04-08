@@ -88,9 +88,7 @@
                             <h2>Rol Listesi - <b>Toplam Rol Adedi : @Model.TotalRecordCount</b></h2>
                             <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
                                 <p>
-                                    <a href="@Url.Action("Ekle")" class="btn btn-primary">
-                                        <i class="glyphicon glyphicon-plus"></i> &nbsp; Rol Ekle
-                                    </a>
+                                    @Html.ActionLinkAuthorized("Rol Ekle", "Ekle", new { controllerName = "Roles" }, new { @class = "btn btn-info glyphicon glyphicon-plus linkStyle" }, Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                                 </p>
                             </div>
                         </header>
@@ -132,17 +130,13 @@
                                                                     }
                                                                 </td>
                                                                 <td class="text-center">
-                                                                    <a href="@Url.Action("Duzenle", new {item.Guid})" title=""
-                                                                       rel="tooltip" data-placement="left" class="no-underline margin-right-5" data-original-title="Düzenle">
-                                                                        <i class="fa fa-edit font-md txt-color-blue"></i>
-                                                                    </a>
-                                                                    @if (Convert.ToBoolean(TempData["OpenAuthorizationPopup"]) == false)
-                                                                    {
-                                                                        <a data-id="@item.Id" data-name="@item.Name" title="" rel="tooltip" data-placement="left"
-                                                                           class="no-underline margin-right-5 delete-row" data-original-title="Sil">
-                                                                            <i class="fa fa-remove font-md txt-color-blue"></i>
-                                                                        </a>
-                                                                    }
+                                                                    @Html.ActionLinkAuthorized(" ", "Duzenle", new { controllerName = "Roles", Guid = item.Guid },
+                                                                                                new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
+                                                                                                Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+
+                                                                    @Html.ActionLinkAuthorized(" ", "Sil", new { controllerName = "Roles", Guid = item.Guid },
+                                                                                                 new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue" },
+                                                                                                 Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                                                                 </td>
                                                             </tr>
                                                         }
@@ -279,7 +273,10 @@
         $(document).ready(function () {
             dt = $('#dt_basic').DataTable(dt_settings);
         });
+    </script>
 
+
+    <script type="text/javascript">
         function deletealert(Id, name, closestTR) {
             swal({
                 title: "Uyarı",
@@ -309,6 +306,7 @@
             })
         }
     </script>
+
 
 }
 

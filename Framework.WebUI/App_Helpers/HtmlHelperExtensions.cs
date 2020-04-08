@@ -1,11 +1,15 @@
 ﻿#region Using
 
 using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
+using System.Web.Routing;
 using Framework.WebUI.App_Helpers;
 using Microsoft.Ajax.Utilities;
 
@@ -83,6 +87,42 @@ namespace Framework.WebUI
             return has ? new HtmlString(attribute) : new HtmlString(string.Empty);
         }
 
+        public static ControllerBase GetControllerByName(this HtmlHelper htmlHelper, string controllerName)
+        {
+            IControllerFactory factory = ControllerBuilder.Current.GetControllerFactory();
+            IController controller = factory.CreateController(htmlHelper.ViewContext.RequestContext, controllerName);
+            if (controller == null)
+            {
+                throw new InvalidOperationException(String.Format(CultureInfo.CurrentCulture, "The IControllerFactory '{0}' did not return a controller for the name '{1}'.", factory.GetType(), controllerName));
+            }
+            return (ControllerBase)controller;
+        }
+
+        public static bool ActionAuthorized(this HtmlHelper htmlHelper, string actionName, string controllerName)
+        {
+            ControllerBase controllerBase = string.IsNullOrEmpty(controllerName) ? htmlHelper.ViewContext.Controller : htmlHelper.GetControllerByName(controllerName);
+            ControllerContext controllerContext = new ControllerContext(htmlHelper.ViewContext.RequestContext, controllerBase);
+            ControllerDescriptor controllerDescriptor = new ReflectedControllerDescriptor(controllerContext.Controller.GetType());
+            //ActionDescriptor actionDescriptor = controllerDescriptor.FindAction(controllerContext, actionName);
+            ActionDescriptor actionDescriptor = (ReflectedActionDescriptor)controllerDescriptor.FindAction(controllerContext, actionName);
+            if (actionDescriptor == null)
+            {
+                actionDescriptor = controllerDescriptor.GetCanonicalActions().FirstOrDefault(a => a.ActionName == actionName);
+
+                if (actionDescriptor == null)
+                    return false;
+            }
+            FilterInfo filters = new FilterInfo(FilterProviders.Providers.GetFilters(controllerContext, actionDescriptor));
+
+            AuthorizationContext authorizationContext = new AuthorizationContext(controllerContext, actionDescriptor);
+            foreach (IAuthorizationFilter authorizationFilter in filters.AuthorizationFilters)
+            {
+                authorizationFilter.OnAuthorization(authorizationContext); //This call
+                if (authorizationContext.Result != null)
+                    return false;
+            }
+            return true;
+        }
         /// <summary>
         ///     Renders the specified partial view with the parent's view data and model if the given setting entry is found and
         ///     represents the equivalent of true.
@@ -188,6 +228,101 @@ namespace Framework.WebUI
                 throw new InvalidOperationException("Oops! The Html.AntiForgeryToken() method seems to return something I did not expect.");
 
             return new MvcHtmlString(string.Format(@"{0}:""{1}""", "__RequestVerificationToken", tokenValue));
+        }
+
+        public static MvcHtmlString ActionLinkAuthorized(this HtmlHelper htmlHelper, string linkText, string actionName, bool showActionLinkAsDisabled = false)
+        {
+            return htmlHelper.ActionLinkAuthorized(linkText, actionName, null, new RouteValueDictionary(), new RouteValueDictionary(), showActionLinkAsDisabled);
+        }
+
+        public static MvcHtmlString ActionLinkAuthorized(this HtmlHelper htmlHelper, string linkText, string actionName, object routeValues, bool showActionLinkAsDisabled = false)
+        {
+            return htmlHelper.ActionLinkAuthorized(linkText, actionName, null, new RouteValueDictionary(routeValues), new RouteValueDictionary(), showActionLinkAsDisabled);
+        }
+
+        public static MvcHtmlString ActionLinkAuthorized(this HtmlHelper htmlHelper, string linkText, string actionName, string controllerName, bool showActionLinkAsDisabled = false)
+        {
+            return htmlHelper.ActionLinkAuthorized(linkText, actionName, controllerName, new RouteValueDictionary(), new RouteValueDictionary(), showActionLinkAsDisabled);
+        }
+
+        public static MvcHtmlString ActionLinkAuthorized(this HtmlHelper htmlHelper, string linkText, string actionName, RouteValueDictionary routeValues, bool showActionLinkAsDisabled = false)
+        {
+            return htmlHelper.ActionLinkAuthorized(linkText, actionName, null, routeValues, new RouteValueDictionary(), showActionLinkAsDisabled);
+        }
+
+        public static MvcHtmlString ActionLinkAuthorized(this HtmlHelper htmlHelper, string linkText, string actionName, object routeValues, object htmlAttributes, bool showActionLinkAsDisabled = false)
+        {
+            return htmlHelper.ActionLinkAuthorized(linkText, actionName, null, new RouteValueDictionary(routeValues), new RouteValueDictionary(htmlAttributes), showActionLinkAsDisabled);
+        }
+
+        public static MvcHtmlString ActionLinkAuthorized(this HtmlHelper htmlHelper, string linkText, string actionName, RouteValueDictionary routeValues, IDictionary<string, object> htmlAttributes, bool showActionLinkAsDisabled = false)
+        {
+            return htmlHelper.ActionLinkAuthorized(linkText, actionName, null, routeValues, htmlAttributes, showActionLinkAsDisabled);
+        }
+
+        public static MvcHtmlString ActionLinkAuthorized(this HtmlHelper htmlHelper, string linkText, string actionName, string controllerName, object routeValues, object htmlAttributes, bool showActionLinkAsDisabled = false)
+        {
+            return htmlHelper.ActionLinkAuthorized(linkText, actionName, controllerName, new RouteValueDictionary(routeValues), new RouteValueDictionary(htmlAttributes), showActionLinkAsDisabled);
+        }
+
+        public static MvcHtmlString ActionLinkAuthorized(this HtmlHelper htmlHelper, string linkText, string actionName, string controllerName, RouteValueDictionary routeValues, IDictionary<string, object> htmlAttributes, bool showActionLinkAsDisabled)
+        {
+            controllerName = routeValues["controllerName"].ToString();
+
+            if (htmlHelper.ActionAuthorized(actionName, controllerName))
+            {
+                StringBuilder innerHtml = new StringBuilder();
+
+                TagBuilder tagi = new TagBuilder("i");
+
+                TagBuilder tagBuilder = new TagBuilder("a");
+                UrlHelper urlHelper = new UrlHelper(htmlHelper.ViewContext.RequestContext);
+                urlHelper.Action(actionName, controllerName);
+                tagBuilder.MergeAttribute("href", htmlHelper.ViewContext.RequestContext.HttpContext.Request.Url.AbsoluteUri);
+                tagBuilder.MergeAttribute("class", htmlAttributes["class"].ToString());
+                tagi.AddCssClass("glyphicon glyphicon-plus linkStyle");
+                tagi.InnerHtml = linkText;
+                innerHtml.Append(tagi.ToString());
+                tagBuilder.InnerHtml = innerHtml.ToString();
+                MvcHtmlString.Create(tagBuilder.ToString());
+                return htmlHelper.ActionLink(linkText, actionName, controllerName, routeValues, htmlAttributes);
+            }
+            else
+            {
+                if (showActionLinkAsDisabled)
+                {
+                    StringBuilder innerHtml = new StringBuilder();
+
+                    TagBuilder tagi = new TagBuilder("i");
+
+                    TagBuilder tagBuilder = new TagBuilder("a");
+                    tagBuilder.MergeAttribute("href", "#");
+                    tagBuilder.MergeAttribute("class", htmlAttributes["class"].ToString());
+                    tagBuilder.MergeAttribute("onclick", "GetirUyari()");
+                    //tagi.AddCssClass("glyphicon glyphicon-plus linkStyle");
+                    tagi.InnerHtml = linkText;
+                    innerHtml.Append(tagi.ToString());
+                    tagBuilder.InnerHtml = innerHtml.ToString();
+                    return MvcHtmlString.Create(tagBuilder.ToString());
+                }
+                else
+                {
+                    StringBuilder innerHtml = new StringBuilder();
+
+                    TagBuilder tagi = new TagBuilder("i");
+
+                    TagBuilder tagBuilder = new TagBuilder("a");
+                    UrlHelper urlHelper = new UrlHelper(htmlHelper.ViewContext.RequestContext);
+                    urlHelper.Action(actionName, controllerName);
+                    tagBuilder.MergeAttribute("href", routeValues["controllerName"] + "/" + actionName);
+                    tagBuilder.MergeAttribute("class", htmlAttributes["class"].ToString());
+                    //tagi.AddCssClass("glyphicon glyphicon-plus linkStyle");
+                    tagi.InnerHtml = linkText;
+                    innerHtml.Append(tagi.ToString());
+                    tagBuilder.InnerHtml = innerHtml.ToString();
+                    return MvcHtmlString.Create(tagBuilder.ToString());
+                }
+            }
         }
     }
 }

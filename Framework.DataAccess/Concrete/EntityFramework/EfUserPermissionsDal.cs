@@ -45,7 +45,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                 var result = context.User_Permissions
                                    .Include(u => u.Users)
                                    .Include(r => r.ControllerActions)
-                                   .Where(r => r.ControllerAction_Id == id && r.User_Id == userid && r.IsDeleted == false).FirstOrDefault();
+                                   .Where(r => r.ControllerAction_Id == id && r.User_Id == userid && r.IsAuthorize == true && r.IsDeleted == false).FirstOrDefault();
 
                 return result;
             }
@@ -72,7 +72,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                 var result = context.User_Permissions
                                     .Include(u => u.Users)
                                     .Include(r => r.ControllerActions)
-                                    .Where(r => r.User_Id == userPermission.User_Id 
+                                    .Where(r => r.User_Id == userPermission.User_Id
                                     && r.ControllerAction_Id == userPermission.ControllerAction_Id
                                     && r.IsDeleted == false).FirstOrDefault();
 

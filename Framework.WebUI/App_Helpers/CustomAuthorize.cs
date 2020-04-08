@@ -20,7 +20,7 @@ namespace Framework.WebUI.App_Helpers
     {
         private void CacheValidateHandler(HttpContext context, object data, ref HttpValidationStatus validationStatus)
         {
-            validationStatus = OnCacheAuthorization(new HttpContextWrapper(context));
+            validationStatus = this.OnCacheAuthorization(new HttpContextWrapper(context));
         }
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
@@ -31,6 +31,17 @@ namespace Framework.WebUI.App_Helpers
         protected override HttpValidationStatus OnCacheAuthorization(HttpContextBase httpContext)
         {
             return base.OnCacheAuthorization(httpContext);
+        }
+
+        protected override bool AuthorizeCore(HttpContextBase httpContext)
+        {
+            var isAuthorized = base.AuthorizeCore(httpContext);
+            if (!isAuthorized)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public override void OnAuthorization(AuthorizationContext filterContext)
@@ -52,10 +63,16 @@ namespace Framework.WebUI.App_Helpers
             }
             else
             {
+                HttpCachePolicyBase cache = filterContext.HttpContext.Response.Cache;
+                cache.SetProxyMaxAge(new TimeSpan(0L));
+                cache.AddValidationCallback(new HttpCacheValidateHandler(this.CacheValidateHandler), null);
+
                 filterContext.Controller.TempData["OpenAuthorizationPopup"] = false;
                 filterContext.Controller.TempData["returnUrl"] = filterContext.HttpContext.Request.UrlReferrer;
-                //UrlHelper urlHelper = new UrlHelper(filterContext.RequestContext);
-                //filterContext.Result = new RedirectResult(filterContext.HttpContext.Request.UrlReferrer.LocalPath);
+
+                //var viewResult = new PartialViewResult();
+                //viewResult.ViewName = "_Unauthorized";
+                filterContext.Result = new HttpUnauthorizedResult();
             }
         }
 

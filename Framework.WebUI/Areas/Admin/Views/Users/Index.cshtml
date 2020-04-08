@@ -39,12 +39,9 @@
                             <h2>Kullanıcı Listesi - <b>Toplam Kullanıcı Adedi : @Model.TotalRecordCount</b></h2>
                             <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
                                 <p>
-                                    <a href="@Url.Action("Index", "UserRoles")" class="btn btn-info">
-                                        <i class="glyphicon glyphicon-plus"></i>Kullanıcı Rol Ekle
-                                    </a>
-                                    <a href="@Url.Action("Ekle")" class="btn btn-primary">
-                                        <i class="glyphicon glyphicon-plus"></i> &nbsp; Kullanıcı Ekle
-                                    </a>
+                                    @Html.ActionLinkAuthorized("Rol Ekle", "Ekle", new { controllerName = "UserRoles" }, new { @class = "btn btn-info glyphicon glyphicon-plus linkStyle" }, Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+
+                                    @Html.ActionLinkAuthorized("Kullanıcı Ekle", "Ekle", new { controllerName = "Users" }, new { @class = "btn btn-primary glyphicon glyphicon-plus linkStyle" }, Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                                 </p>
                             </div>
                         </header>
@@ -92,15 +89,30 @@
                                                                     }
                                                                 </td>
                                                                 <td class="text-center">
-                                                                    <a href="@Url.Action("Duzenle", new {item.Guid})" title=""
-                                                                       rel="tooltip" data-placement="left" class="no-underline margin-right-5" data-original-title="Düzenle">
-                                                                        <i class="fa fa-edit font-md txt-color-blue"></i>
-                                                                    </a>
+                                                                    @if (!Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                                                                    {
+                                                                        <a href="#" onclick="GetirUyari();" title=""
+                                                                           rel="tooltip" data-placement="left" class="no-underline margin-right-5" data-original-title="Düzenle">
+                                                                            <i class="fa fa-edit font-md txt-color-blue"></i>
+                                                                        </a>
 
-                                                                    <a data-id="@item.Id" data-name="@item.UserName" title="" rel="tooltip" data-placement="left"
-                                                                       class="no-underline margin-right-5 delete-row" data-original-title="Sil">
-                                                                        <i class="fa fa-remove font-md txt-color-blue"></i>
-                                                                    </a>
+                                                                        <a href="#" onclick="GetirUyari();" data-id="@item.Id" data-name="@item.UserName" title="" rel="tooltip" data-placement="left"
+                                                                           class="no-underline margin-right-5 delete-row" data-original-title="Sil">
+                                                                            <i class="fa fa-remove font-md txt-color-blue"></i>
+                                                                        </a>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <a href="@Url.Action("Duzenle", new { item.Guid })" title=""
+                                                                           rel="tooltip" data-placement="left" class="no-underline margin-right-5" data-original-title="Düzenle">
+                                                                            <i class="fa fa-edit font-md txt-color-blue"></i>
+                                                                        </a>
+
+                                                                        <a data-id="@item.Id" data-name="@item.UserName" title="" rel="tooltip" data-placement="left"
+                                                                           class="no-underline margin-right-5 delete-row" data-original-title="Sil">
+                                                                            <i class="fa fa-remove font-md txt-color-blue"></i>
+                                                                        </a>
+                                                                    }
 
                                                                 </td>
                                                             </tr>

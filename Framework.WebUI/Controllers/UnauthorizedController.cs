@@ -9,10 +9,10 @@ namespace Framework.WebUI.Controllers
 {
     public class UnauthorizedController : Controller
     {
-        // GET: Unauthorized
-        public PartialViewResult Index()
+        [HttpPost]
+        public ActionResult UyariVer()
         {
-            return PartialView("_Unauthorized");
+            return PartialView("~/Views/Shared/_Unauthorized.cshtml");
         }
 
         [HttpGet]

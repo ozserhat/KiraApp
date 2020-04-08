@@ -36,19 +36,10 @@
     @{ Html.RenderPartial("_AsideAdmin", User.Identity.IsAuthenticated); }
 
 
-    @{
-        if (Convert.ToBoolean(TempData["OpenAuthorizationPopup"]) == false)
-        {
-            Html.RenderPartial("/Views/Shared/_Unauthorized.cshtml", RenderSection("topright", false));
-        }
-    }
     <div id="main" role="main">
-        @{
-
-            if (Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
-            {
-                @RenderBody()
-            }
+        <div id="uyariView">
+        </div>
+        @RenderBody()
         }
     </div>
     <div id="copyright" class="page-footer navbar-fixed-bottom ">
@@ -61,7 +52,11 @@
         </div>
     </div>
     @{ Html.RenderPartial("_Scripts", RenderSection("pagespecific", false)); }
-
+    <style type="text/css">
+        .linkStyle{
+            font-family:Arial;
+        }
+    </style>
 
     <script>
         $(document).ready(function () {
@@ -74,6 +69,25 @@
                 };
             }, 1000);
         });
+    </script>
+
+
+    <script type="text/javascript">
+        function GetirUyari() {
+            $.ajax({
+                url: '/Unauthorized/UyariVer',
+                datatype: "json",
+                type: "post",
+                contenttype: 'application/json; charset=utf-8',
+                async: true,
+                success: function (data) {
+                    $("#uyariView").html(data);
+                },
+                error: function (xhr) {
+                    alert('error');
+                }
+            });
+        }
     </script>
 </body>
 </html>
