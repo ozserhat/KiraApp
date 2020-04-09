@@ -103,15 +103,13 @@
                                                                     }
                                                                     else
                                                                     {
-                                                                        <a href="@Url.Action("Duzenle", new { item.Guid })" title=""
-                                                                           rel="tooltip" data-placement="left" class="no-underline margin-right-5" data-original-title="Düzenle">
-                                                                            <i class="fa fa-edit font-md txt-color-blue"></i>
-                                                                        </a>
+                                                                        @Html.ActionLinkAuthorized(" ", "Duzenle", new { controllerName = "Users", Guid = item.Guid },
+                                                                                                new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
+                                                                                                Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
-                                                                        <a data-id="@item.Id" data-name="@item.UserName" title="" rel="tooltip" data-placement="left"
-                                                                           class="no-underline margin-right-5 delete-row" data-original-title="Sil">
-                                                                            <i class="fa fa-remove font-md txt-color-blue"></i>
-                                                                        </a>
+                                                                        @Html.ActionLinkAuthorized(" ", "Sil", new { controllerName = "Users", Guid = item.Guid },
+                                                                                                     new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue" },
+                                                                                                     Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                                                                     }
 
                                                                 </td>

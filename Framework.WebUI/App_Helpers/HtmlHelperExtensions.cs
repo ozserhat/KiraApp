@@ -265,7 +265,8 @@ namespace Framework.WebUI
             return htmlHelper.ActionLinkAuthorized(linkText, actionName, controllerName, new RouteValueDictionary(routeValues), new RouteValueDictionary(htmlAttributes), showActionLinkAsDisabled);
         }
 
-        public static MvcHtmlString ActionLinkAuthorized(this HtmlHelper htmlHelper, string linkText, string actionName, string controllerName, RouteValueDictionary routeValues, IDictionary<string, object> htmlAttributes, bool showActionLinkAsDisabled)
+        public static MvcHtmlString ActionLinkAuthorized(this HtmlHelper htmlHelper, string linkText, string actionName, string controllerName,
+            RouteValueDictionary routeValues, IDictionary<string, object> htmlAttributes, bool showActionLinkAsDisabled)
         {
             controllerName = routeValues["controllerName"].ToString();
 
@@ -280,7 +281,7 @@ namespace Framework.WebUI
                 urlHelper.Action(actionName, controllerName);
                 tagBuilder.MergeAttribute("href", htmlHelper.ViewContext.RequestContext.HttpContext.Request.Url.AbsoluteUri);
 
-                    tagBuilder.MergeAttribute("class", htmlAttributes["class"].ToString());
+                tagBuilder.MergeAttribute("class", htmlAttributes["class"].ToString());
                 tagi.AddCssClass("glyphicon glyphicon-plus linkStyle");
                 tagi.InnerHtml = linkText;
                 innerHtml.Append(tagi.ToString());
@@ -298,8 +299,8 @@ namespace Framework.WebUI
 
                     TagBuilder tagBuilder = new TagBuilder("a");
                     tagBuilder.MergeAttribute("href", "#");
-                   
-                        tagBuilder.MergeAttribute("class", htmlAttributes["class"].ToString());
+
+                    tagBuilder.MergeAttribute("class", htmlAttributes["class"].ToString());
                     tagBuilder.MergeAttribute("onclick", "GetirUyari()");
                     //tagi.AddCssClass("glyphicon glyphicon-plus linkStyle");
                     tagi.InnerHtml = linkText;
@@ -327,9 +328,9 @@ namespace Framework.WebUI
             }
         }
 
-        public static MvcHtmlString ActionLinkAuthorizedMain(this HtmlHelper htmlHelper, string linkText, string actionName, string controllerName, RouteValueDictionary routeValues, bool showActionLinkAsDisabled)
+        public static MvcHtmlString ActionLinkAuthorizedMain(this HtmlHelper htmlHelper, string linkText, string actionName, string controllerName,
+            string htmlAttributes, bool showActionLinkAsDisabled)
         {
-            controllerName = routeValues["controllerName"].ToString();
 
             if (htmlHelper.ActionAuthorized(actionName, controllerName))
             {
@@ -341,13 +342,12 @@ namespace Framework.WebUI
                 UrlHelper urlHelper = new UrlHelper(htmlHelper.ViewContext.RequestContext);
                 urlHelper.Action(actionName, controllerName);
                 tagBuilder.MergeAttribute("href", htmlHelper.ViewContext.RequestContext.HttpContext.Request.Url.AbsoluteUri);
-
-                tagi.AddCssClass("glyphicon glyphicon-plus linkStyle");
+                tagBuilder.AddCssClass("linkStyle");
+                tagi.AddCssClass(htmlAttributes);
                 tagi.InnerHtml = linkText;
                 innerHtml.Append(tagi.ToString());
                 tagBuilder.InnerHtml = innerHtml.ToString();
-                MvcHtmlString.Create(tagBuilder.ToString());
-                return htmlHelper.ActionLink(linkText, actionName, controllerName, routeValues);
+                return MvcHtmlString.Create(tagBuilder.ToString());
             }
             else
             {
@@ -361,7 +361,8 @@ namespace Framework.WebUI
                     tagBuilder.MergeAttribute("href", "#");
 
                     tagBuilder.MergeAttribute("onclick", "GetirUyari()");
-                    //tagi.AddCssClass("glyphicon glyphicon-plus linkStyle");
+                    tagBuilder.AddCssClass("linkStyle");
+                    tagi.AddCssClass(htmlAttributes);
                     tagi.InnerHtml = linkText;
                     innerHtml.Append(tagi.ToString());
                     tagBuilder.InnerHtml = innerHtml.ToString();
@@ -376,8 +377,9 @@ namespace Framework.WebUI
                     TagBuilder tagBuilder = new TagBuilder("a");
                     UrlHelper urlHelper = new UrlHelper(htmlHelper.ViewContext.RequestContext);
                     urlHelper.Action(actionName, controllerName);
-                    tagBuilder.MergeAttribute("href", routeValues["controllerName"] + "/" + actionName);
-                    //tagi.AddCssClass("glyphicon glyphicon-plus linkStyle");
+                    tagBuilder.MergeAttribute("href", controllerName + "/" + actionName);
+                    tagBuilder.AddCssClass("linkStyle");
+                    tagi.AddCssClass(htmlAttributes);
                     tagi.InnerHtml = linkText;
                     innerHtml.Append(tagi.ToString());
                     tagBuilder.InnerHtml = innerHtml.ToString();

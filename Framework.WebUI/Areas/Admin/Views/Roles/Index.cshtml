@@ -88,7 +88,7 @@
                             <h2>Rol Listesi - <b>Toplam Rol Adedi : @Model.TotalRecordCount</b></h2>
                             <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
                                 <p>
-                                    @Html.ActionLinkAuthorized("Rol Ekle", "Ekle", new { controllerName = "Roles" }, new { @class = "btn btn-info glyphicon glyphicon-plus linkStyle" }, Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                                    @Html.ActionLinkAuthorized("Rol Ekle", "Ekle", new { controllerName = "Roles" },new { @class = "btn btn-info glyphicon glyphicon-plus linkStyle" }, Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                                 </p>
                             </div>
                         </header>
