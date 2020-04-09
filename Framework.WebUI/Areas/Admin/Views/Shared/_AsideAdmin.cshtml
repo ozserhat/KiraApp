@@ -53,7 +53,7 @@
 
                     <li class="@Html.RouteIf("Users", "active")">
 
-                        @Html.ActionLinkAuthorized("Kullanıcılar", "Index",new  { controllerName = "Users" }, new { @class= "a fa-lg fa-fw fa-list-alt" }, Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                        @Html.ActionLinkAuthorizedMain("", "Index", "Users", new { controllerName = "Users" }, Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                     </li>
                     <li class="@Html.RouteIf("Pages", "active")">
                         <a href="@Url.Action("Index", "Pages")" title="Sayfalar">
