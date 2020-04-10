@@ -49,6 +49,7 @@
     <Compile Include="ComplexTypes\UserDetail.cs" />
     <Compile Include="ComplexTypes\UserRoleItem.cs" />
     <Compile Include="Concrete\ControllerAction.cs" />
+    <Compile Include="Concrete\Deneme.cs" />
     <Compile Include="Concrete\Logs.cs" />
     <Compile Include="Concrete\Role.cs" />
     <Compile Include="Concrete\User.cs" />

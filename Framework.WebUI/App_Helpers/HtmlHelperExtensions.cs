@@ -342,12 +342,13 @@ namespace Framework.WebUI
                 UrlHelper urlHelper = new UrlHelper(htmlHelper.ViewContext.RequestContext);
                 urlHelper.Action(actionName, controllerName);
                 tagBuilder.MergeAttribute("href", htmlHelper.ViewContext.RequestContext.HttpContext.Request.Url.AbsoluteUri);
-                tagBuilder.AddCssClass("linkStyle");
+                
                 tagi.AddCssClass(htmlAttributes);
                 tagi.InnerHtml = linkText;
                 innerHtml.Append(tagi.ToString());
                 tagBuilder.InnerHtml = innerHtml.ToString();
-                return MvcHtmlString.Create(tagBuilder.ToString());
+                 MvcHtmlString.Create(tagBuilder.ToString());
+                return htmlHelper.ActionLink(linkText, actionName, controllerName, null, htmlAttributes);
             }
             else
             {
@@ -358,10 +359,9 @@ namespace Framework.WebUI
                     TagBuilder tagi = new TagBuilder("i");
 
                     TagBuilder tagBuilder = new TagBuilder("a");
-                    tagBuilder.MergeAttribute("href", "#");
 
                     tagBuilder.MergeAttribute("onclick", "GetirUyari()");
-                    tagBuilder.AddCssClass("linkStyle");
+                    tagBuilder.MergeAttribute("title", linkText);
                     tagi.AddCssClass(htmlAttributes);
                     tagi.InnerHtml = linkText;
                     innerHtml.Append(tagi.ToString());
@@ -378,7 +378,7 @@ namespace Framework.WebUI
                     UrlHelper urlHelper = new UrlHelper(htmlHelper.ViewContext.RequestContext);
                     urlHelper.Action(actionName, controllerName);
                     tagBuilder.MergeAttribute("href", controllerName + "/" + actionName);
-                    tagBuilder.AddCssClass("linkStyle");
+                
                     tagi.AddCssClass(htmlAttributes);
                     tagi.InnerHtml = linkText;
                     innerHtml.Append(tagi.ToString());

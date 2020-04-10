@@ -1,0 +1,8 @@
+﻿@model Framework.WebUI.Models.ViewModels.DenemeVm
+
+@foreach (var item in Model.Denemeler)
+{
+    <a href="#">
+       @item.Ad+" "+@item.Soyad
+    </a>
+}

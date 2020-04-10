@@ -28,6 +28,9 @@ namespace Framework.Business.DependencyResolvers.Ninject
             Bind<IUserRoleService>().To<UserRoleManager>().InSingletonScope();
             Bind<IUserRolesDal>().To<EfUserRolesDal>().InSingletonScope();
 
+            Bind<IDenemeService>().To<DenemeManager>().InSingletonScope();
+            Bind<IDenemeDal>().To<EfDenemeDal>().InSingletonScope();
+
             Bind<IControllerActionService>().To<ControllerActionManager>().InTransientScope();
             Bind<IControllerActionsDal>().To<EfControllerActionsDal>().InTransientScope();
 

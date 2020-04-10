@@ -25,6 +25,7 @@ namespace Framework.WebUI.Models.ViewModels
         public string RolAdi { get; set; }
 
         [Display(Name = "Açıklama")]
+        [MaxLength]
         public string Aciklama { get; set; }
 
 

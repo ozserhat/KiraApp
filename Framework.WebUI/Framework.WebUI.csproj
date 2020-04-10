@@ -177,6 +177,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AnasayfaController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DenemeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DenemeVM.cs" />
     <Compile Include="Areas\Admin\Controllers\PagesController.cs" />
     <Compile Include="Areas\Admin\Controllers\RolesController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserPermissionsController.cs" />
@@ -193,6 +195,7 @@
     <Compile Include="Helpers\EncDecHelper.cs" />
     <Compile Include="Helpers\UserExtended.cs" />
     <Compile Include="Models\ViewModels\ControllerActionsVm.cs" />
+    <Compile Include="Models\ViewModels\DenemeVm.cs" />
     <Compile Include="Models\ViewModels\LoginVm.cs" />
     <Compile Include="Models\ViewModels\RolVM.cs" />
     <Compile Include="Models\ViewModels\UserRolesVm.cs" />
@@ -965,6 +968,7 @@
     <Content Include="Areas\Admin\Views\UserPermissions\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Pages\Index.cshtml" />
     <Content Include="Areas\Admin\Views\UserRoles\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\deneme\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\customModal.js" />
@@ -1581,7 +1585,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Admin\Views\deneme\" />
     <Folder Include="Areas\Birim\Controllers\" />
     <Folder Include="Areas\Birim\Data\" />
     <Folder Include="Areas\Birim\Views\Shared\" />
