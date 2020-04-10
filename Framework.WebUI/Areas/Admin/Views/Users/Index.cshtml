@@ -39,9 +39,9 @@
                             <h2>Kullanıcı Listesi - <b>Toplam Kullanıcı Adedi : @Model.TotalRecordCount</b></h2>
                             <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
                                 <p>
-                                    @Html.ActionLinkAuthorized("Rol Ekle", "Ekle", new { controllerName = "UserRoles" }, new { @class = "btn btn-info glyphicon glyphicon-plus linkStyle" }, Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                                    @Html.AuthAction("Rol Ekle", "Ekle", new { controllerName = "UserRoles" }, new { @class = "btn btn-info glyphicon glyphicon-plus linkStyle" }, Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
-                                    @Html.ActionLinkAuthorized("Kullanıcı Ekle", "Ekle", new { controllerName = "Users" }, new { @class = "btn btn-primary glyphicon glyphicon-plus linkStyle" }, Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                                    @Html.AuthAction("Kullanıcı Ekle", "Ekle", new { controllerName = "Users" }, new { @class = "btn btn-primary glyphicon glyphicon-plus linkStyle" }, Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                                 </p>
                             </div>
                         </header>
@@ -103,11 +103,11 @@
                                                                     }
                                                                     else
                                                                     {
-                                                                        @Html.ActionLinkAuthorized(" ", "Duzenle", new { controllerName = "Users", Guid = item.Guid },
+                                                                        @Html.AuthAction(" ", "Duzenle", new { controllerName = "Users", Guid = item.Guid },
                                                                                                 new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
                                                                                                 Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
-                                                                        @Html.ActionLinkAuthorized(" ", "Sil", new { controllerName = "Users", Guid = item.Guid },
+                                                                        @Html.AuthAction(" ", "Sil", new { controllerName = "Users", Guid = item.Guid },
                                                                                                      new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue" },
                                                                                                      Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                                                                     }

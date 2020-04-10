@@ -88,7 +88,7 @@
                             <h2>Rol Listesi - <b>Toplam Rol Adedi : @Model.TotalRecordCount</b></h2>
                             <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
                                 <p>
-                                    @Html.ActionLinkAuthorized("Rol Ekle", "Ekle", new { controllerName = "Roles" },new { @class = "btn btn-info glyphicon glyphicon-plus linkStyle" }, Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                                    @Html.AuthAction("Rol Ekle", "Ekle", new { controllerName = "Roles" },new { @class = "btn btn-info glyphicon glyphicon-plus linkStyle" }, Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                                 </p>
                             </div>
                         </header>
@@ -130,11 +130,11 @@
                                                                     }
                                                                 </td>
                                                                 <td class="text-center">
-                                                                    @Html.ActionLinkAuthorized(" ", "Duzenle", new { controllerName = "Roles", Guid = item.Guid },
+                                                                    @Html.AuthAction(" ", "Duzenle", new { controllerName = "Roles", Guid = item.Guid },
                                                                                                 new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
                                                                                                 Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
-                                                                    @Html.ActionLinkAuthorized(" ", "Sil", new { controllerName = "Roles", Guid = item.Guid },
+                                                                    @Html.AuthAction(" ", "Sil", new { controllerName = "Roles", Guid = item.Guid },
                                                                                                  new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue" },
                                                                                                  Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                                                                 </td>
