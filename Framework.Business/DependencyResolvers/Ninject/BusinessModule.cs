@@ -31,6 +31,9 @@ namespace Framework.Business.DependencyResolvers.Ninject
             Bind<IDenemeService>().To<DenemeManager>().InSingletonScope();
             Bind<IDenemeDal>().To<EfDenemeDal>().InSingletonScope();
 
+            Bind<IGayrimenkulTurService>().To<GayrimenkulTurManager>().InSingletonScope();
+            Bind<IGayrimenkulTurDal>().To<EfGayrimenkulTurDal>().InSingletonScope();
+
             Bind<IControllerActionService>().To<ControllerActionManager>().InTransientScope();
             Bind<IControllerActionsDal>().To<EfControllerActionsDal>().InTransientScope();
 

@@ -15,13 +15,15 @@ namespace Framework.WebUI.Areas.Admin.Controllers
     [CustomAuthorize(Roles = "Admin")]
     public class RolesController : Controller
     {
+        #region Constructor
         // GET: Admin/Roles
         private IRoleService _roleService;
 
         public RolesController(IRoleService roleService)
         {
             _roleService = roleService;
-        }
+        } 
+        #endregion
 
         #region Listeleme
         public ActionResult Index(int? page, int pageSize = 15)

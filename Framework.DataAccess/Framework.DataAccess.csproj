@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="Abstract\IControllerActionsDal.cs" />
     <Compile Include="Abstract\IDenemeDal.cs" />
+    <Compile Include="Abstract\IGayrimenkulTurDal.cs" />
     <Compile Include="Abstract\IRolesDal.cs" />
     <Compile Include="Abstract\IUserDal.cs" />
     <Compile Include="Abstract\IUserPermissionsDal.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="Concrete\EntityFramework\DtContext.cs" />
     <Compile Include="Concrete\EntityFramework\EfControllerActionsDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfDenemeDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfGayrimenkulTurDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfRolesDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfUserDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfUserPermissionsDal.cs" />

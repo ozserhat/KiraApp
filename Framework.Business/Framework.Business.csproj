@@ -90,12 +90,14 @@
   <ItemGroup>
     <Compile Include="Abstract\IControllerActionService.cs" />
     <Compile Include="Abstract\IDenemeService.cs" />
+    <Compile Include="Abstract\IGayrimenkulTurService.cs" />
     <Compile Include="Abstract\IRoleService.cs" />
     <Compile Include="Abstract\IUserPermissionsService.cs" />
     <Compile Include="Abstract\IUserRoleService.cs" />
     <Compile Include="Abstract\IUserService.cs" />
     <Compile Include="Concrete\Managers\ControllerActionManager.cs" />
     <Compile Include="Concrete\Managers\DenemeManager.cs" />
+    <Compile Include="Concrete\Managers\GayrimenkulTurManager.cs" />
     <Compile Include="Concrete\Managers\RoleManager.cs" />
     <Compile Include="Concrete\Managers\UserManager.cs" />
     <Compile Include="Concrete\Managers\UserPermissionManager.cs" />

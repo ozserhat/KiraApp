@@ -70,7 +70,7 @@ namespace Framework.WebUI.Controllers
 
                 }
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
                 throw new ArgumentOutOfRangeException();
             }

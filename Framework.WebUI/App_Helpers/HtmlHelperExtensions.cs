@@ -268,7 +268,6 @@ namespace Framework.WebUI
         public static MvcHtmlString AuthAction(this HtmlHelper htmlHelper, string linkText, string actionName, string controllerName,
             RouteValueDictionary routeValues, IDictionary<string, object> htmlAttributes, bool showActionLinkAsDisabled)
         {
-            controllerName = routeValues["controllerName"].ToString();
 
             if (htmlHelper.ActionAuthorized(actionName, controllerName))
             {
@@ -328,8 +327,69 @@ namespace Framework.WebUI
             }
         }
 
+        public static MvcHtmlString AuthAction(this HtmlHelper htmlHelper, string linkText, string actionName, string controllerName, IDictionary<string, object> htmlAttributes, bool showActionLinkAsDisabled)
+        {
+
+            if (htmlHelper.ActionAuthorized(actionName, controllerName))
+            {
+                StringBuilder innerHtml = new StringBuilder();
+
+                TagBuilder tagi = new TagBuilder("i");
+
+                TagBuilder tagBuilder = new TagBuilder("a");
+                UrlHelper urlHelper = new UrlHelper(htmlHelper.ViewContext.RequestContext);
+                urlHelper.Action(actionName, controllerName);
+                tagBuilder.MergeAttribute("href", htmlHelper.ViewContext.RequestContext.HttpContext.Request.Url.AbsoluteUri);
+
+                tagBuilder.MergeAttribute("class", htmlAttributes["class"].ToString());
+                tagi.AddCssClass("glyphicon glyphicon-plus linkStyle");
+                tagi.InnerHtml = linkText;
+                innerHtml.Append(tagi.ToString());
+                tagBuilder.InnerHtml = innerHtml.ToString();
+                MvcHtmlString.Create(tagBuilder.ToString());
+                return htmlHelper.ActionLink(linkText, actionName, controllerName, null, htmlAttributes);
+            }
+            else
+            {
+                if (showActionLinkAsDisabled)
+                {
+                    StringBuilder innerHtml = new StringBuilder();
+
+                    TagBuilder tagi = new TagBuilder("i");
+
+                    TagBuilder tagBuilder = new TagBuilder("a");
+                    tagBuilder.MergeAttribute("href", "#");
+
+                    tagBuilder.MergeAttribute("class", htmlAttributes["class"].ToString());
+                    tagBuilder.MergeAttribute("onclick", "GetirUyari()");
+                    //tagi.AddCssClass("glyphicon glyphicon-plus linkStyle");
+                    tagi.InnerHtml = linkText;
+                    innerHtml.Append(tagi.ToString());
+                    tagBuilder.InnerHtml = innerHtml.ToString();
+                    return MvcHtmlString.Create(tagBuilder.ToString());
+                }
+                else
+                {
+                    StringBuilder innerHtml = new StringBuilder();
+
+                    TagBuilder tagi = new TagBuilder("i");
+
+                    TagBuilder tagBuilder = new TagBuilder("a");
+                    UrlHelper urlHelper = new UrlHelper(htmlHelper.ViewContext.RequestContext);
+                    urlHelper.Action(actionName, controllerName);
+                    tagBuilder.MergeAttribute("href",controllerName+ "/" + actionName);
+                    tagBuilder.MergeAttribute("class", htmlAttributes["class"].ToString());
+                    //tagi.AddCssClass("glyphicon glyphicon-plus linkStyle");
+                    tagi.InnerHtml = linkText;
+                    innerHtml.Append(tagi.ToString());
+                    tagBuilder.InnerHtml = innerHtml.ToString();
+                    return MvcHtmlString.Create(tagBuilder.ToString());
+                }
+            }
+        }
+
         public static MvcHtmlString AuthMainAction(this HtmlHelper htmlHelper, string linkText, string actionName, string controllerName,
-            string htmlAttributes, bool showActionLinkAsDisabled)
+             string htmlAttributes, bool showActionLinkAsDisabled)
         {
 
             if (htmlHelper.ActionAuthorized(actionName, controllerName))
