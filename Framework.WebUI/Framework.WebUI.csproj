@@ -180,6 +180,7 @@
     <Compile Include="Areas\Admin\Controllers\DenemeController.cs" />
     <Compile Include="Areas\Admin\Controllers\DenemeVM.cs" />
     <Compile Include="Areas\Admin\Controllers\PagesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PersonelController.cs" />
     <Compile Include="Areas\Admin\Controllers\RolesController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserPermissionsController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserRolesController.cs" />
@@ -197,6 +198,7 @@
     <Compile Include="Models\ViewModels\ControllerActionsVm.cs" />
     <Compile Include="Models\ViewModels\DenemeVm.cs" />
     <Compile Include="Models\ViewModels\LoginVm.cs" />
+    <Compile Include="Models\ViewModels\PersonelVm.cs" />
     <Compile Include="Models\ViewModels\RolVM.cs" />
     <Compile Include="Models\ViewModels\UserRolesVm.cs" />
     <Compile Include="Models\ViewModels\UserVm.cs" />
@@ -969,6 +971,10 @@
     <Content Include="Areas\Admin\Views\Pages\Index.cshtml" />
     <Content Include="Areas\Admin\Views\UserRoles\Index.cshtml" />
     <Content Include="Areas\Admin\Views\deneme\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Personel\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Personel\Ekle.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\customModal.js" />
@@ -1592,6 +1598,7 @@
     <Folder Include="Content\login\css\" />
     <Folder Include="Content\login\js\" />
     <Folder Include="Content\login\webfonts\" />
+    <Folder Include="Views\PersonelVm\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

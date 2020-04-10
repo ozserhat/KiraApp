@@ -25,6 +25,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
         public DbSet<User_Permission> User_Permissions { get; set; }
         public DbSet<Log> Logs { get; set; }
         public DbSet<Deneme> Denemeler { get; set; }
+        public DbSet<Personel> Personeller { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 

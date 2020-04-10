@@ -31,6 +31,9 @@ namespace Framework.Business.DependencyResolvers.Ninject
             Bind<IDenemeService>().To<DenemeManager>().InSingletonScope();
             Bind<IDenemeDal>().To<EfDenemeDal>().InSingletonScope();
 
+            Bind<IPersonelService>().To<PersonelManager>().InSingletonScope();
+            Bind<IPersonelDal>().To<EfPersonelDal>().InSingletonScope();
+
             Bind<IControllerActionService>().To<ControllerActionManager>().InTransientScope();
             Bind<IControllerActionsDal>().To<EfControllerActionsDal>().InTransientScope();
 

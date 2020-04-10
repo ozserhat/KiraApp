@@ -95,6 +95,7 @@
   <ItemGroup>
     <Compile Include="Abstract\IControllerActionService.cs" />
     <Compile Include="Abstract\IDenemeService.cs" />
+    <Compile Include="Abstract\IPersonelService.cs" />
     <Compile Include="Abstract\IRoleService.cs" />
     <Compile Include="Abstract\IUserPermissionsService.cs" />
     <Compile Include="Abstract\IUserRoleService.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="Concrete\Managers\UserManager.cs" />
     <Compile Include="Concrete\Managers\UserPermissionManager.cs" />
     <Compile Include="Concrete\Managers\UserRoleManager.cs" />
+    <Compile Include="Concrete\Managers\PersonelManager.cs" />
     <Compile Include="DependencyResolvers\Ninject\AutoMapperModule.cs" />
     <Compile Include="DependencyResolvers\Ninject\BusinessModule.cs" />
     <Compile Include="DependencyResolvers\Ninject\InstanceFactory.cs" />

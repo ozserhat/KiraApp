@@ -51,6 +51,7 @@
     <Compile Include="Concrete\ControllerAction.cs" />
     <Compile Include="Concrete\Deneme.cs" />
     <Compile Include="Concrete\Logs.cs" />
+    <Compile Include="Concrete\Personel.cs" />
     <Compile Include="Concrete\Role.cs" />
     <Compile Include="Concrete\User.cs" />
     <Compile Include="Concrete\User_Permission.cs" />
