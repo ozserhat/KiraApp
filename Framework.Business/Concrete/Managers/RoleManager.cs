@@ -1,6 +1,6 @@
 ﻿using Framework.Business.Abstract;
 using Framework.Business.ValidationRules.FluentValidation;
-using Framework.Core.Aspects.Postsharp.ValidationAspects;
+//using Framework.Core.Aspects.Postsharp.ValidationAspects;
 using Framework.DataAccess.Abstract;
 using Framework.Entities.Concrete;
 using System;

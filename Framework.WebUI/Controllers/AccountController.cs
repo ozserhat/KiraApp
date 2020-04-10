@@ -8,7 +8,7 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Security.Claims;
 using System.Web;
-using Framework.Core.Aspects.Postsharp.LogAspects;
+//using Framework.Core.Aspects.Postsharp.LogAspects;
 using Framework.Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Framework.WebUI.Helpers;
 using Framework.WebUI.App_Helpers;
@@ -17,7 +17,6 @@ using System.Text;
 
 namespace Framework.WebUI.Controllers
 {
-    [LogAspect(typeof(DatabaseLogger))]
     public class AccountController : Controller
     {
         private IUserService _userService;

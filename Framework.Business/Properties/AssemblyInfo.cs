@@ -1,6 +1,6 @@
-﻿using Framework.Core.Aspects.Postsharp.ExceptionAspects;
-using Framework.Core.Aspects.Postsharp.LogAspects;
-using Framework.Core.Aspects.Postsharp.PerformanceAspects;
+﻿////using Framework.Core.Aspects.Postsharp.ExceptionAspects;
+////using Framework.Core.Aspects.Postsharp.LogAspects;
+////using Framework.Core.Aspects.Postsharp.PerformanceAspects;
 using Framework.Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -17,9 +17,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-[assembly: LogAspect(typeof(DatabaseLogger), AttributeTargetTypes = "Framework.Business.Concrete.Managers.*")]
-[assembly: ExceptionLogAspect(typeof(DatabaseLogger), AttributeTargetTypes = "Framework.Business.Concrete.Managers.*")]
-[assembly: PerformanceCounterAspect(AttributeTargetTypes = "Framework.Business.Concrete.Managers.*")]
+//[assembly: LogAspect(typeof(DatabaseLogger), AttributeTargetTypes = "Framework.Business.Concrete.Managers.*")]
+//[assembly: ExceptionLogAspect(typeof(DatabaseLogger), AttributeTargetTypes = "Framework.Business.Concrete.Managers.*")]
+//[assembly: PerformanceCounterAspect(AttributeTargetTypes = "Framework.Business.Concrete.Managers.*")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
 // to COM components.  If you need to access a type in this assembly from
