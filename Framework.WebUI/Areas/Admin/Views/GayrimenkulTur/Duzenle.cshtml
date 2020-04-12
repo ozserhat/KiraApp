@@ -1,4 +1,4 @@
-﻿@model Framework.WebUI.Models.ViewModels.GayrimenkulTurVM
+﻿@model Framework.WebUI.Models.ViewModels.GayrimenkulTurDuzenleVM
 @{
     ViewBag.Title = "Düzenle";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
@@ -56,7 +56,7 @@
                                                     <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
                                                         @Html.LabelFor(model => model.AktifMi, new { @class = "control-label col-md-4" })
                                                         <div class="col-md-8 form-control-static">
-                                                            @Html.CheckBoxFor(model => model.AktifMi.Value, new { @style = "width: 16px; height: 16px;" })
+                                                            @Html.CheckBoxFor(model => model.AktifMi, new { @style = "width: 16px; height: 16px;" })
                                                         </div>
                                                     </div>
                                                 </div>

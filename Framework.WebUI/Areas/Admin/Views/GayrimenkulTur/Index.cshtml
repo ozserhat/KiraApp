@@ -39,7 +39,9 @@
                             <h2>Gayrimenkul Tür Listesi - <b>Toplam Tür Adedi : @Model.TotalRecordCount</b></h2>
                             <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
                                 <p>
-                                    @Url.Action("Tür Ekle", "Ekle");
+                                    @Html.AuthAction("Tür Ekle", "Ekle", "GayrimenkulTur",
+                                                                                 new { @class = "btn btn-info glyphicon glyphicon-plus" },
+                                                                                 Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                                     @*@Html.AuthAction("Tür Ekle", "Ekle", new { controllerName = "GayrimenkulTur" }, new { @class = "btn btn-info glyphicon glyphicon-plus linkStyle" }, Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))*@
                                 </p>
                             </div>
@@ -188,8 +190,7 @@
         $(document).ready(function () {
             dt = $('#dt_basic').DataTable(dt_settings);
         });
-    </script>
-
+    </script>x
 
     <script type="text/javascript">
         function deletealert(Id, name, closestTR) {
@@ -221,7 +222,6 @@
             })
         }
     </script>
-
 
 }
 

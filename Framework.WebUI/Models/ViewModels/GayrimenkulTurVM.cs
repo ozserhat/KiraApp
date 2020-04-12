@@ -51,7 +51,7 @@ namespace Framework.WebUI.Models.ViewModels
         public DateTime? OlusturulmaTarihi { get; set; }
 
         [Display(Name = "Aktif Mi")]
-        public bool? AktifMi { get; set; }
+        public bool AktifMi { get; set; }
     }
 
     public class GayrimenkulTurDuzenleVM : VMBase
@@ -70,6 +70,7 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Güncellenme Tarihi")]
         public DateTime? GuncellenmeTarihi { get; set; }
+
         [Display(Name = "Aktif Mi")]
         public bool AktifMi { get; set; }
     }

@@ -967,6 +967,7 @@
     <Content Include="Areas\Admin\Views\deneme\Index.cshtml" />
     <Content Include="Areas\Admin\Views\GayrimenkulTur\Index.cshtml" />
     <Content Include="Areas\Admin\Views\GayrimenkulTur\Duzenle.cshtml" />
+    <Content Include="Areas\Admin\Views\GayrimenkulTur\Ekle.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\customModal.js" />

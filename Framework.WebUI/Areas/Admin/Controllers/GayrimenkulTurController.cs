@@ -94,7 +94,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Duzenle(Guid guid)
         {
-            var model = new GayrimenkulTurVM();
+            var model = new GayrimenkulTurDuzenleVM();
 
             var tur = _service.GetirGuid(guid);
 
@@ -103,8 +103,8 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                 model.Id = tur.Id;
                 model.Guid = tur.Guid;
                 model.GayrimenkulAdi = tur.Ad;
-                model.OlusturanKullanici_Id = tur.OlusturanKullanici_Id;
-                model.OlusturulmaTarihi = tur.OlusturulmaTarihi;
+                model.GuncelleyenKullanici_Id = tur.OlusturanKullanici_Id;
+                model.GuncellenmeTarihi = tur.OlusturulmaTarihi;
                 model.AktifMi = tur.AktifMi.Value;
             }
             else
@@ -118,7 +118,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Duzenle(GayrimenkulTurVM model)
+        public ActionResult Duzenle(GayrimenkulTurDuzenleVM model)
         {
             if (ModelState.IsValid)
             {
@@ -131,9 +131,10 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                         tur.Id = model.Id;
                         tur.Guid = model.Guid;
                         tur.Ad = model.GayrimenkulAdi;
-                        tur.OlusturanKullanici_Id = model.OlusturanKullanici_Id;
-                        tur.OlusturulmaTarihi = model.OlusturulmaTarihi;
-                        tur.AktifMi = model.AktifMi.Value;
+                        tur.GuncelleyenKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ?
+                        User.GetUserPropertyValue("UserId") : null);
+                        tur.GuncellenmeTarihi = DateTime.Now;
+                        tur.AktifMi = model.AktifMi;
                         tur = _service.Guncelle(tur);
                     }
 
