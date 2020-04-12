@@ -54,6 +54,7 @@
     <Compile Include="Abstract\IControllerActionsDal.cs" />
     <Compile Include="Abstract\IDenemeDal.cs" />
     <Compile Include="Abstract\IGayrimenkulAlt_TurDal.cs" />
+    <Compile Include="Abstract\IGayrimenkulDosya_TurDal.cs" />
     <Compile Include="Abstract\IGayrimenkulTurDal.cs" />
     <Compile Include="Abstract\IRolesDal.cs" />
     <Compile Include="Abstract\IUserDal.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Concrete\EntityFramework\EfControllerActionsDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfDenemeDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfGayrimenkulAlt_TurDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfGayrimenkulDosya_TurDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfGayrimenkulTurDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfRolesDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfUserDal.cs" />

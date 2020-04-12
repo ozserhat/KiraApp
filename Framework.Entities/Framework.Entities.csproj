@@ -58,7 +58,9 @@
     <Compile Include="ComplexTypes\VMBase.cs" />
     <Compile Include="Concrete\ControllerAction.cs" />
     <Compile Include="Concrete\Deneme.cs" />
+    <Compile Include="Concrete\Gayrimenkul.cs" />
     <Compile Include="Concrete\GayrimenkulAlt_Tur.cs" />
+    <Compile Include="Concrete\GayrimenkulDosyaTur.cs" />
     <Compile Include="Concrete\GayrimenkulTur.cs" />
     <Compile Include="Concrete\Logs.cs" />
     <Compile Include="Concrete\Role.cs" />

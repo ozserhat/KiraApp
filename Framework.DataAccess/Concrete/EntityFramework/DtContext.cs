@@ -25,8 +25,10 @@ namespace Framework.DataAccess.Concrete.EntityFramework
         public DbSet<User_Permission> User_Permissions { get; set; }
         public DbSet<Log> Logs { get; set; }
         public DbSet<Deneme> Denemeler { get; set; }
+        public DbSet<Gayrimenkul> Gayrimenkuller { get; set; }
         public DbSet<GayrimenkulTur> GayrimenkulTurleri { get; set; }
         public DbSet<GayrimenkulAlt_Tur> GayrimenkulAlt_Turleri { get; set; }
+        public DbSet<GayrimenkulDosya_Tur> GayrimenkulDosya_Turleri { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 

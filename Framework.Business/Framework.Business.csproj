@@ -91,6 +91,7 @@
     <Compile Include="Abstract\IGayrimenkulAlt_TurService.cs" />
     <Compile Include="Abstract\IControllerActionService.cs" />
     <Compile Include="Abstract\IDenemeService.cs" />
+    <Compile Include="Abstract\IGayrimenkulDosya_TurService.cs" />
     <Compile Include="Abstract\IGayrimenkulTurService.cs" />
     <Compile Include="Abstract\IRoleService.cs" />
     <Compile Include="Abstract\IUserPermissionsService.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="Concrete\Managers\ControllerActionManager.cs" />
     <Compile Include="Concrete\Managers\DenemeManager.cs" />
     <Compile Include="Concrete\Managers\GayrimenkulAlt_TurManager.cs" />
+    <Compile Include="Concrete\Managers\GayrimenkulDosya_TurManager.cs" />
     <Compile Include="Concrete\Managers\GayrimenkulTurManager.cs" />
     <Compile Include="Concrete\Managers\RoleManager.cs" />
     <Compile Include="Concrete\Managers\UserManager.cs" />

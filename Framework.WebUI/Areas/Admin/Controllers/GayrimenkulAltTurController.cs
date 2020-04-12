@@ -78,7 +78,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                     {
                         Guid = Guid.NewGuid(),
                         Ad = tur.AltTurAdi,
-                        Gayrimenkul_Id = tur.Gayrimenkul_Id,
+                        GayrimenkulTur_Id = tur.GayrimenkulTur_Id,
                         OlusturulmaTarihi = DateTime.Now,
                         OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
                         AktifMi = false
@@ -114,7 +114,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
             {
                 model.Id = tur.Id;
                 model.Guid = tur.Guid;
-                model.Gayrimenkul_Id = tur.Gayrimenkul_Id;
+                model.GayrimenkulTur_Id = tur.GayrimenkulTur_Id;
                 model.AltTurAdi = tur.Ad;
                 model.GuncelleyenKullanici_Id = tur.OlusturanKullanici_Id;
                 model.GuncellenmeTarihi = tur.OlusturulmaTarihi;
@@ -143,7 +143,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                     {
                         tur.Id = model.Id;
                         tur.Guid = model.Guid;
-                        tur.Gayrimenkul_Id = model.Gayrimenkul_Id;
+                        tur.GayrimenkulTur_Id = model.GayrimenkulTur_Id;
                         tur.Ad = model.AltTurAdi;
                         tur.GuncelleyenKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ?
                         User.GetUserPropertyValue("UserId") : null);

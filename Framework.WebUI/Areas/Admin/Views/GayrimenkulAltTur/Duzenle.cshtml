@@ -44,10 +44,10 @@
                                             <fieldset>
                                                 <div class="row">
                                                     <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
-                                                        @Html.LabelFor(model => model.Gayrimenkul_Id, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                        @Html.LabelFor(model => model.GayrimenkulTur_Id, new { @class = "control-label col-md-4 zorunluYildiz" })
                                                         <div class="col-md-8">
-                                                            @Html.DropDownList("Gayrimenkul_Id", Model.TurSelectList, "Seçiniz", new { @class = "select2" })
-                                                            @Html.ValidationMessageFor(model => model.Gayrimenkul_Id, "", new { @class = "text-danger" })
+                                                            @Html.DropDownList("GayrimenkulTur_Id", Model.TurSelectList, "Seçiniz", new { @class = "select2" })
+                                                            @Html.ValidationMessageFor(model => model.GayrimenkulTur_Id, "", new { @class = "text-danger" })
                                                         </div>
                                                     </div>
                                                 </div>

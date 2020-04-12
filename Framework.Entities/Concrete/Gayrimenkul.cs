@@ -1,25 +1,17 @@
-﻿using Framework.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using Framework.Core.Entities;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Framework.Entities.Concrete
 {
-    [Table("GayrimenkulAlt_Turleri")]
-    public class GayrimenkulAlt_Tur : IEntity
+    [Table("Gayrimenkul")]
+    public class Gayrimenkul: IEntity
     {
         [Key]
         public int Id { get; set; }
 
         public Guid Guid { get; set; }
-
-        public int GayrimenkulTur_Id { get; set; }
-
-        [ForeignKey("GayrimenkulTur_Id")]
-        public virtual GayrimenkulTur GayrimenkulTur{ get; set; }
 
         [StringLength(500)]
         public string Ad { get; set; }
@@ -33,6 +25,5 @@ namespace Framework.Entities.Concrete
         public DateTime? GuncellenmeTarihi { get; set; }
 
         public bool? AktifMi { get; set; }
-
     }
 }

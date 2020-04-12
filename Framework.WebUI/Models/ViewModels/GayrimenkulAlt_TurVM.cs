@@ -11,8 +11,8 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Id")]
         public int Id { get; set; }
 
-        [Display(Name = "Gayrimenkul_Id")]
-        public int Gayrimenkul_Id { get; set; }
+        [Display(Name = "GayrimenkulTur_Id")]
+        public int GayrimenkulTur_Id { get; set; }
 
         [Display(Name = "Guid")]
         public Guid Guid { get; set; }
@@ -43,8 +43,8 @@ namespace Framework.WebUI.Models.ViewModels
 
     public class GayrimenkulAlt_TurEkleVM : VMBase
     {
-        [Display(Name = "Gayrimenkul_Id")]
-        public int Gayrimenkul_Id { get; set; }
+        [Display(Name = "GayrimenkulTur_Id")]
+        public int GayrimenkulTur_Id { get; set; }
 
         [Display(Name = "Guid")]
         public Guid Guid { get; set; }
@@ -72,8 +72,9 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Id")]
         public int Id { get; set; }
 
-        [Display(Name = "Gayrimenkul_Id")]
-        public int Gayrimenkul_Id { get; set; }
+        [Display(Name = "GayrimenkulTur_Id")]
+        public int GayrimenkulTur_Id { get; set; }
+
         [Display(Name = "Guid")]
         public Guid Guid { get; set; }
 
