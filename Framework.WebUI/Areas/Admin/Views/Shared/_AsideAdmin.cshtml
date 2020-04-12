@@ -19,6 +19,11 @@
                             <i class="fa fa-lg fa-fw fa-barcode"></i> Gayrimenkul Türleri
                         </a>
                     </li>
+                    <li class="@Html.RouteIf("GayrimenkulAltTur", "active")">
+                        <a href="@Url.Action("Index", "GayrimenkulAltTur")" title="Gayrimenkul Alt Türleri">
+                            <i class="fa fa-lg fa-fw fa-barcode"></i> Gayrimenkul Alt Türleri
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li>

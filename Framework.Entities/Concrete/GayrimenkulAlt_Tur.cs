@@ -13,7 +13,9 @@ namespace Framework.Entities.Concrete
     {
         [Key]
         public int Id { get; set; }
-   
+
+        public Guid Guid { get; set; }
+
         public int Gayrimenkul_Id { get; set; }
 
         [ForeignKey("Gayrimenkul_Id")]

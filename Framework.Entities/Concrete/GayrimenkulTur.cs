@@ -10,7 +10,9 @@ namespace Framework.Entities.Concrete
     {
         [Key]
         public int Id { get; set; }
+
         public Guid Guid { get; set; }
+
         [StringLength(500)]
         public string Ad { get; set; }
 
