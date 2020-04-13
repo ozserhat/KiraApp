@@ -11,6 +11,7 @@ using Framework.Business.Abstract;
 using Framework.Business.Concrete.Managers;
 using Framework.DataAccess.Abstract;
 using Framework.DataAccess.Concrete.EntityFramework;
+using Framework.Core.CrossCuttingConcerns.Logging.Log4Net;
 
 namespace Framework.Business.DependencyResolvers.Ninject
 {
@@ -31,17 +32,27 @@ namespace Framework.Business.DependencyResolvers.Ninject
             Bind<IDenemeService>().To<DenemeManager>().InSingletonScope();
             Bind<IDenemeDal>().To<EfDenemeDal>().InSingletonScope();
 
+            Bind<IGayrimenkulService>().To<GayrimenkulManager>().InSingletonScope();
+            Bind<IGayrimenkulDal>().To<EfGayrimenkulDal>().InSingletonScope();
+
             Bind<IGayrimenkulTurService>().To<GayrimenkulTurManager>().InSingletonScope();
             Bind<IGayrimenkulTurDal>().To<EfGayrimenkulTurDal>().InSingletonScope();
 
             Bind<IGayrimenkulAlt_TurService>().To<GayrimenkulAlt_TurManager>().InSingletonScope();
             Bind<IGayrimenkulAlt_TurDal>().To<EfGayrimenkulAlt_TurDal>().InSingletonScope();
 
+            Bind<IGayrimenkulDosya_TurService>().To<GayrimenkulDosya_TurManager>().InSingletonScope();
+            Bind<IGayrimenkulDosya_TurDal>().To<EfGayrimenkulDosya_TurDal>().InSingletonScope();
+
             Bind<IControllerActionService>().To<ControllerActionManager>().InTransientScope();
             Bind<IControllerActionsDal>().To<EfControllerActionsDal>().InTransientScope();
 
             Bind<IUserPermissionsService>().To<UserPermissionManager>().InTransientScope();
             Bind<IUserPermissionsDal>().To<EfUserPermissionsDal>().InTransientScope();
+
+            Bind<ISistemParametreleriService>().To<SistemParametreleriManager>().InTransientScope();
+            Bind<ISistemParametreleriDal>().To<EfSistemParametreleriDal>().InTransientScope();
+
             Bind(typeof(IQueryableRepository<>)).To(typeof(EfQueryableRepository<>));
             Bind<DbContext>().To<DtContext>();
             //Bind<NHibernateHelper>().To<SqlServerHelper>();

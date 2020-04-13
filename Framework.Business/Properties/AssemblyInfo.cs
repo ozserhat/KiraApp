@@ -1,6 +1,7 @@
 ﻿////using Framework.Core.Aspects.Postsharp.ExceptionAspects;
 ////using Framework.Core.Aspects.Postsharp.LogAspects;
 ////using Framework.Core.Aspects.Postsharp.PerformanceAspects;
+using Framework.Core.Aspects.Postsharp.LogAspects;
 using Framework.Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using System.Reflection;
 using System.Runtime.CompilerServices;

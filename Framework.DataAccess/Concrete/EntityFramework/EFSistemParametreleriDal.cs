@@ -10,21 +10,21 @@ using Framework.Core.DataAccess.EntityFramework;
 
 namespace Framework.DataAccess.Concrete.EntityFramework
 {
-    public class EfGayrimenkulDosya_TurDal : EfEntityRepositoryBase<GayrimenkulDosya_Tur, DtContext>, IGayrimenkulDosya_TurDal
+    public class EfSistemParametreleriDal : EfEntityRepositoryBase<SistemParametreleri, DtContext>, ISistemParametreleriDal
     {
-        public GayrimenkulDosya_Tur GetById(int id)
+        public SistemParametreleri GetById(int id)
         {
             using (DtContext context = new DtContext())
             {
-                return context.GayrimenkulDosya_Turleri.Where(gta => gta.Id == id ).FirstOrDefault();
+                return context.SistemParametreleri.Where(gta => gta.Id == id).FirstOrDefault();
             }
         }
 
-        public GayrimenkulDosya_Tur GetByGuid(Guid guid)
+        public SistemParametreleri GetByGuid(Guid guid)
         {
             using (DtContext context = new DtContext())
             {
-                return context.GayrimenkulDosya_Turleri.Where(gta => gta.Guid == guid).FirstOrDefault();
+                return context.SistemParametreleri.Where(gta => gta.Guid == guid).FirstOrDefault();
             }
         }
 
@@ -34,25 +34,17 @@ namespace Framework.DataAccess.Concrete.EntityFramework
 
             using (var context = new DtContext())
             {
-                var tur = context.GayrimenkulDosya_Turleri.FirstOrDefault(i => i.Id == id && i.AktifMi == true);
+                var tur = context.SistemParametreleri.FirstOrDefault(i => i.Id == id);
 
                 if (tur != null)
                 {
-                    context.GayrimenkulDosya_Turleri.Remove(tur);
+                    context.SistemParametreleri.Remove(tur);
                     context.SaveChanges();
                     sonuc = true;
                 }
             }
 
             return sonuc;
-        }
-
-        public IEnumerable<GayrimenkulDosya_Tur> GetirListe()
-        {
-            using (DtContext context = new DtContext())
-            {
-                return context.GayrimenkulDosya_Turleri.Where(a => a.AktifMi == true).ToList();
-            }
         }
     }
 }

@@ -5,8 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Framework.Entities.Concrete
 {
-    [Table("Gayrimenkul")]
-    public class Gayrimenkul : IEntity
+    [Table("SistemParametreleri")]
+    public class SistemParametreleri : IEntity
     {
         [Key]
         public int Id { get; set; }
@@ -16,10 +16,11 @@ namespace Framework.Entities.Concrete
         [StringLength(500)]
         public string Ad { get; set; }
 
-        public int GayrimenkulTur_Id { get; set; }
+        [StringLength(2500)]
+        public string Deger { get; set; }
+        public DateTime? BaslangicTarihi { get; set; }
 
-        [ForeignKey("GayrimenkulTur_Id")]
-        public virtual GayrimenkulTur GayrimenkulTur { get; set; }
+        public DateTime? BitisTarihi { get; set; }
 
         public int? OlusturanKullanici_Id { get; set; }
 

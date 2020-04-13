@@ -34,5 +34,6 @@ namespace Framework.Entities.Concrete
 
         public bool? AktifMi { get; set; }
 
+
     }
 }

@@ -29,6 +29,9 @@ namespace Framework.DataAccess.Concrete.EntityFramework
         public DbSet<GayrimenkulTur> GayrimenkulTurleri { get; set; }
         public DbSet<GayrimenkulAlt_Tur> GayrimenkulAlt_Turleri { get; set; }
         public DbSet<GayrimenkulDosya_Tur> GayrimenkulDosya_Turleri { get; set; }
+
+        public DbSet<SistemParametreleri> SistemParametreleri { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 

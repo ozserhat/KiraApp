@@ -5,61 +5,76 @@ using Framework.Core.CrossCuttingConcerns.Logging.Log4Net;
 using System;
 using System.Linq;
 using System.Reflection;
+using System.Web.Mvc;
 
 namespace Framework.Core.Aspects.Postsharp.LogAspects
 {
-    //[Serializable]
-    //[MulticastAttributeUsage(MulticastTargets.Method, TargetMemberAttributes = MulticastAttributes.Instance)]
-    //public class LogAspect : OnMethodBoundaryAspect
-    //{
-    //    private Type _loggerType;
-    //    private LoggerService _loggerService;
+    [Serializable]
+    [AttributeUsage(AttributeTargets.Class)]
+    public class LogAspect : Attribute, IActionFilter
+    {
+        private Type _loggerType;
+        private LoggerService _loggerService;
 
-    //    public LogAspect(Type loggerType)
-    //    {
-    //        _loggerType = loggerType;
-    //    }
+        public LogAspect(Type loggerType)
+        {
+            _loggerType = loggerType;
+        }
 
-    //    public override void RuntimeInitialize(MethodBase method)
-    //    {
-    //        if (_loggerType.BaseType != typeof(LoggerService))
-    //        {
-    //            throw new Exception("Wrong logger type");
-    //        }
-    //        _loggerService = (LoggerService)Activator.CreateInstance(_loggerType);
-    //        base.RuntimeInitialize(method);
-    //    }
+        public void OnActionExecuted(ActionExecutedContext filterContext)
+        {
+            
+            var actionName = filterContext.ActionDescriptor.GetType().Name;
+            var controllerName = filterContext.Controller.GetType().Name;
+            var message = string.Format("Controller {0} generated an error.", controllerName);
+            var logParameters = new LogParameter()
+            {
+                ActionName = actionName,
+                ControllerName = controllerName,
+                Date = DateTime.Now,
+                Type = filterContext.Result.ToString(),
+                Detail = "",
+                Value = ""
+            };
 
-    //    public override void OnEntry(MethodExecutionArgs args)
-    //    {
-    //        if (!_loggerService.IsInfoEnabled)
-    //        {
-    //            return;
-    //        }
+            _loggerService.Error(logParameters);
+        }
 
-    //        try
-    //        {
-    //            var logParameters = args.Method.GetParameters().Select((t, i) => new LogParameter
-    //            {
-    //                Name = t.Name,
-    //                Type = t.ParameterType.Name,
-    //                Value = args.Arguments.GetArgument(i)
-    //            }).ToList();
+        public void OnActionExecuting(ActionExecutingContext filterContext)
+        {
 
-    //            var logDetail = new LogDetail
-    //            {
-    //                FullName = args.Method.DeclaringType == null ? null : args.Method.DeclaringType.Name,
-    //                MethodName = args.Method.Name,
-    //                Parameters = logParameters
-    //            };
+            var actionName = filterContext.ActionDescriptor.ActionName;
+            var controllerName = filterContext.Controller.GetType().Name;
+            var message = string.Format("Controller {0} generated an error.", controllerName);
+            var logParameters = new LogParameter()
+            {
+                ActionName = actionName,
+                ControllerName = controllerName,
+                Date = DateTime.Now,
+                Type = "",
+                Detail = "",
+                Value = ""
+            };
 
-    //            _loggerService.Info(logDetail);
-    //        }
-    //        catch (Exception)
-    //        {
+            _loggerService.Error(logParameters);
+        }
 
-    //        }
+        public void OnException(ExceptionContext filterContext)
+        {
+            var actionName = "";
+            var controllerName = filterContext.Controller.GetType().Name;
+            var message = string.Format("Controller {0} generated an error.", controllerName);
+            var logParameters = new LogParameter()
+            {
+                ActionName = actionName,
+                ControllerName = controllerName,
+                Date = DateTime.Now,
+                Type = filterContext.Result.ToString(),
+                Detail = "",
+                Value = ""
+            };
 
-    //    }
-    //}
+            _loggerService.Error(logParameters);
+        }
+    }
 }

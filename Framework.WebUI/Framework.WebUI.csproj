@@ -174,9 +174,11 @@
     <Compile Include="Areas\Admin\Controllers\AnasayfaController.cs" />
     <Compile Include="Areas\Admin\Controllers\DenemeController.cs" />
     <Compile Include="Areas\Admin\Controllers\GayrimenkulAltTurController.cs" />
+    <Compile Include="Areas\Admin\Controllers\GayrimenkulDosyaTurController.cs" />
     <Compile Include="Areas\Admin\Controllers\GayrimenkulTurController.cs" />
     <Compile Include="Areas\Admin\Controllers\PagesController.cs" />
     <Compile Include="Areas\Admin\Controllers\RolesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SistemParametreleriController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserPermissionsController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserRolesController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
@@ -193,9 +195,11 @@
     <Compile Include="Models\ViewModels\ControllerActionsVm.cs" />
     <Compile Include="Models\ViewModels\DenemeVm.cs" />
     <Compile Include="Models\ViewModels\GayrimenkulAlt_TurVM.cs" />
+    <Compile Include="Models\ViewModels\GayrimenkulDosya_TurVM.cs" />
     <Compile Include="Models\ViewModels\GayrimenkulTurVM.cs" />
     <Compile Include="Models\ViewModels\LoginVm.cs" />
     <Compile Include="Models\ViewModels\RolVM.cs" />
+    <Compile Include="Models\ViewModels\SistemParametreleriVM.cs" />
     <Compile Include="Models\ViewModels\UserRolesVm.cs" />
     <Compile Include="Models\ViewModels\UserVm.cs" />
     <Compile Include="Models\VMBase.cs" />
@@ -874,6 +878,7 @@
     <Content Include="Scripts\Blob.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-datepicker.min.js" />
+    <Content Include="Scripts\bootstrap-datepicker.tr.js" />
     <Content Include="Scripts\bootstrap-datepicker.tr.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -973,6 +978,12 @@
     <Content Include="Areas\Admin\Views\GayrimenkulAltTur\Index.cshtml" />
     <Content Include="Areas\Admin\Views\GayrimenkulAltTur\Ekle.cshtml" />
     <Content Include="Areas\Admin\Views\GayrimenkulAltTur\Duzenle.cshtml" />
+    <Content Include="Areas\Admin\Views\GayrimenkulDosyaTur\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\GayrimenkulDosyaTur\Ekle.cshtml" />
+    <Content Include="Areas\Admin\Views\GayrimenkulDosyaTur\Duzenle.cshtml" />
+    <Content Include="Areas\Admin\Views\SistemParametreleri\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\SistemParametreleri\Ekle.cshtml" />
+    <Content Include="Areas\Admin\Views\SistemParametreleri\Duzenle.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\customModal.js" />

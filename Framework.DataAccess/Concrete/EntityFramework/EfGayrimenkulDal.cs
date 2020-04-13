@@ -10,21 +10,21 @@ using Framework.Core.DataAccess.EntityFramework;
 
 namespace Framework.DataAccess.Concrete.EntityFramework
 {
-    public class EfGayrimenkulDosya_TurDal : EfEntityRepositoryBase<GayrimenkulDosya_Tur, DtContext>, IGayrimenkulDosya_TurDal
+    public class EfGayrimenkulDal:EfEntityRepositoryBase<Gayrimenkul, DtContext>, IGayrimenkulDal
     {
-        public GayrimenkulDosya_Tur GetById(int id)
+        public Gayrimenkul GetById(int id)
         {
             using (DtContext context = new DtContext())
             {
-                return context.GayrimenkulDosya_Turleri.Where(gta => gta.Id == id ).FirstOrDefault();
+                return context.Gayrimenkuller.Include(gt => gt.GayrimenkulTur).Where(gta => gta.Id == id).FirstOrDefault();
             }
         }
 
-        public GayrimenkulDosya_Tur GetByGuid(Guid guid)
+        public Gayrimenkul GetByGuid(Guid guid)
         {
             using (DtContext context = new DtContext())
             {
-                return context.GayrimenkulDosya_Turleri.Where(gta => gta.Guid == guid).FirstOrDefault();
+                return context.Gayrimenkuller.Include(gt => gt.GayrimenkulTur).Where(gta => gta.Guid == guid).FirstOrDefault();
             }
         }
 
@@ -34,11 +34,11 @@ namespace Framework.DataAccess.Concrete.EntityFramework
 
             using (var context = new DtContext())
             {
-                var tur = context.GayrimenkulDosya_Turleri.FirstOrDefault(i => i.Id == id && i.AktifMi == true);
+                var tur = context.Gayrimenkuller.FirstOrDefault(i => i.Id == id);
 
                 if (tur != null)
                 {
-                    context.GayrimenkulDosya_Turleri.Remove(tur);
+                    context.Gayrimenkuller.Remove(tur);
                     context.SaveChanges();
                     sonuc = true;
                 }
@@ -47,11 +47,11 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             return sonuc;
         }
 
-        public IEnumerable<GayrimenkulDosya_Tur> GetirListe()
+        public IEnumerable<Gayrimenkul> GetirListe()
         {
             using (DtContext context = new DtContext())
             {
-                return context.GayrimenkulDosya_Turleri.Where(a => a.AktifMi == true).ToList();
+                return context.Gayrimenkuller.Include(gt => gt.GayrimenkulTur).ToList();
             }
         }
     }

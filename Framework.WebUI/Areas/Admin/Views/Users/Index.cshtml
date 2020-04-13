@@ -39,9 +39,10 @@
                             <h2>Kullanıcı Listesi - <b>Toplam Kullanıcı Adedi : @Model.TotalRecordCount</b></h2>
                             <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
                                 <p>
-                                    @Html.AuthAction("Rol Ekle", "Ekle", new { controllerName = "UserRoles" }, new { @class = "btn btn-info glyphicon glyphicon-plus linkStyle" }, Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
-
-                                    @Html.AuthAction("Kullanıcı Ekle", "Ekle", new { controllerName = "Users" }, new { @class = "btn btn-primary glyphicon glyphicon-plus linkStyle" }, Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                                    @Html.AuthActionLink(" Rol Ekle", "Ekle", "UserRoles", "btn btn-info",
+                                  "glyphicon glyphicon-plus", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                                    @Html.AuthActionLink(" Kullanıcı Ekle", "Ekle", "Users", "btn btn-primary",
+                                 "glyphicon glyphicon-plus", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                                 </p>
                             </div>
                         </header>
@@ -97,19 +98,19 @@
                                                                         </a>
 
                                                                         <a href="#" onclick="GetirUyari();" data-id="@item.Id" data-name="@item.UserName" title="" rel="tooltip" data-placement="left"
-                                                                           class="no-underline margin-right-5 delete-row" data-original-title="Sil">
+                                                                           class="no-underline margin-right-5" data-original-title="Sil">
                                                                             <i class="fa fa-remove font-md txt-color-blue"></i>
                                                                         </a>
                                                                     }
                                                                     else
                                                                     {
-                                                                        @Html.AuthAction(" ", "Duzenle", new { controllerName = "Users", Guid = item.Guid },
-                                                                                                new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
-                                                                                                Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                                                                        @Html.AuthAction(" ", "Duzenle", "Users", new { Guid = item.Guid },
+                                                                                new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
+                                                                                Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
-                                                                        @Html.AuthAction(" ", "Sil", new { controllerName = "Users", Guid = item.Guid },
-                                                                                                     new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue" },
-                                                                                                     Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                                                                        @Html.AuthAction(" ", "Sil", "Users", new { Id = item.Id },
+                                                                                      new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue delete-row" },
+                                                                                      Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                                                                     }
 
                                                                 </td>

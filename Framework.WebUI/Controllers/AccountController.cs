@@ -14,9 +14,11 @@ using Framework.WebUI.Helpers;
 using Framework.WebUI.App_Helpers;
 using System.Security.Cryptography;
 using System.Text;
+using Framework.Core.Aspects.Postsharp.LogAspects;
 
 namespace Framework.WebUI.Controllers
 {
+    //[LogAspect(typeof(DatabaseLogger))]
     public class AccountController : Controller
     {
         private IUserService _userService;
@@ -127,7 +129,6 @@ namespace Framework.WebUI.Controllers
 
                     identity.AddClaim(new Claim("UserId", user.UserId.ToString()));
                     identity.AddClaim(new Claim("UserName", user.User.UserName));
-
                     _userService.GetUserRoles(user.User).ForEach(x => identity.AddClaim(new Claim(ClaimTypes.Role, x.RoleName)));
 
                     var permissionList = _userPermissions.GetUserByPermissions(user.UserId);

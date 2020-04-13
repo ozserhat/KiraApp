@@ -4,6 +4,7 @@ using Framework.Core.Utilities.Mvc.Infrastructure;
 using Framework.WebUI.Controllers;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
@@ -26,7 +27,9 @@ namespace Framework.WebUI
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.Name;
-
+            CultureInfo info = new CultureInfo(Thread.CurrentThread.CurrentCulture.ToString());
+            info.DateTimeFormat.ShortDatePattern = "dd/MM/yyyy";
+            System.Threading.Thread.CurrentThread.CurrentCulture = info;
             ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory(new BusinessModule(), new AutoMapperModule()));
         }
 

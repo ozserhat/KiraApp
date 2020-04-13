@@ -15,14 +15,16 @@
                 </a>
                 <ul>
                     <li class="@Html.RouteIf("GayrimenkulTur", "active")">
-                        <a href="@Url.Action("Index", "GayrimenkulTur")" title="Gayrimenkul Türleri">
-                            <i class="fa fa-lg fa-fw fa-barcode"></i> Gayrimenkul Türleri
-                        </a>
+                        @Html.AuthMainAction("Gayrimenkul Türleri", "Index", "GayrimenkulTur",
+                       "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                     </li>
                     <li class="@Html.RouteIf("GayrimenkulAltTur", "active")">
-                        <a href="@Url.Action("Index", "GayrimenkulAltTur")" title="Gayrimenkul Alt Türleri">
-                            <i class="fa fa-lg fa-fw fa-barcode"></i> Gayrimenkul Alt Türleri
-                        </a>
+                        @Html.AuthMainAction("Gayrimenkul Alt Türleri", "Index", "GayrimenkulAltTur", 
+                       "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                    </li>
+                    <li class="@Html.RouteIf("GayrimenkulDosyaTur", "active")">
+                        @Html.AuthMainAction("Gayrimenkul Dosya Türleri", "Index", "GayrimenkulDosyaTur",
+                      "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                     </li>
                 </ul>
             </li>
@@ -51,9 +53,7 @@
                 </a>
                 <ul>
                     <li class="@Html.RouteIf("Roles", "active")">
-                        <a href="@Url.Action("Index", "Roles")" title="Roller">
-                            <i class="fa fa-lg fa-fw fa-list-alt"></i> Roller
-                        </a>
+                        @Html.AuthMainAction("Roller", "Index", "Roles", "fa fa-lg fa-fw fa-list-alt", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                     </li>
 
                     <li class="@Html.RouteIf("Users", "active")">
@@ -61,14 +61,10 @@
                         @Html.AuthMainAction("Kullanıcılar", "Index", "Users", "fa fa-lg fa-fw fa-list-alt", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                     </li>
                     <li class="@Html.RouteIf("Pages", "active")">
-                        <a href="@Url.Action("Index", "Pages")" title="Sayfalar">
-                            <i class="fa fa-lg fa-fw fa-list-alt"></i> Sayfalar
-                        </a>
+                        @Html.AuthMainAction("Sayfalar", "Index", "Pages", "fa fa-lg fa-fw fa-list-alt", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                     </li>
-                    <li class="@Html.RouteIf("SistemParametresi", "active")">
-                        <a href="@Url.Action("Index", "SistemParametresi")" title="Sistem Parametreleri">
-                            <i class="fa fa-lg fa-fw fa-barcode"></i> Sistem Parametreleri
-                        </a>
+                    <li class="@Html.RouteIf("SistemParametreleri", "active")">
+                        @Html.AuthMainAction("Sistem Parametreleri", "Index", "SistemParametreleri", "fa fa-lg fa-fw fa-list-alt", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                     </li>
                 </ul>
             </li>

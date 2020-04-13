@@ -39,10 +39,8 @@
                             <h2>Gayrimenkul Tür Listesi - <b>Toplam Tür Adedi : @Model.TotalRecordCount</b></h2>
                             <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
                                 <p>
-                                    @Html.AuthAction("Tür Ekle", "Ekle", "GayrimenkulTur",
-                                                                                 new { @class = "btn btn-info glyphicon glyphicon-plus" },
-                                                                                 Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
-                                    @*@Html.AuthAction("Tür Ekle", "Ekle", new { controllerName = "GayrimenkulTur" }, new { @class = "btn btn-info glyphicon glyphicon-plus linkStyle" }, Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))*@
+                                    @Html.AuthActionLink(" Tür Ekle", "Ekle", "GayrimenkulTur", "btn btn-primary", 
+                                   "glyphicon glyphicon-plus", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                                 </p>
                             </div>
                         </header>
@@ -83,28 +81,13 @@
                                                                     }
                                                                 </td>
                                                                 <td class="text-center">
-                                                                    @if (!Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
-                                                                    {
-                                                                        <a href="#" onclick="GetirUyari();" title=""
-                                                                           rel="tooltip" data-placement="left" class="no-underline margin-right-5" data-original-title="Düzenle">
-                                                                            <i class="fa fa-edit font-md txt-color-blue"></i>
-                                                                        </a>
+                                                                    @Html.AuthAction(" ", "Duzenle", "GayrimenkulTur", new { item.Guid },
+                                                                            new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
+                                                                            Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
-                                                                        <a href="#" onclick="GetirUyari();" data-id="@item.Id" data-name="@item.Ad" title="" rel="tooltip" data-placement="left"
-                                                                           class="no-underline margin-right-5 delete-row" data-original-title="Sil">
-                                                                            <i class="fa fa-remove font-md txt-color-blue"></i>
-                                                                        </a>
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        @Html.AuthAction(" ", "Duzenle", "GayrimenkulTur", new { Guid = item.Guid },
-                                                                                 new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
-                                                                                 Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
-
-                                                                        @Html.AuthAction(" ", "Sil", "GayrimenkulTur", new { Id = item.Id },
-                                                                                        new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue delete-row"" },
-                                                                                        Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
-                                                                    }
+                                                                    @Html.AuthAction(" ", "Sil", "GayrimenkulTur", new { item.Id },
+                                                                                    new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = item.Ad, @data_id = item.Id },
+                                                                                    Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
                                                                 </td>
                                                             </tr>

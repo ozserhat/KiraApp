@@ -1,4 +1,4 @@
-﻿@model Framework.WebUI.Models.ViewModels.GayrimenkulAlt_TurVM
+﻿@model Framework.WebUI.Models.ViewModels.SistemParametreleriVM
 @using PagedList;
 @using PagedList.Mvc;
 
@@ -36,10 +36,10 @@
                     <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
                         <header>
                             <span class="widget-icon"> <i class="fa fa-list"></i> </span>
-                            <h2>Gayrimenkul Tür Listesi - <b>Toplam Tür Adedi : @Model.TotalRecordCount</b></h2>
+                            <h2>Sistem Parametre Listesi - <b>Toplam Parametre Adedi : @Model.TotalRecordCount</b></h2>
                             <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
                                 <p>
-                                    @Html.AuthActionLink(" Alt Tür Ekle", "Ekle", "GayrimenkulAltTur", "btn btn-primary", "glyphicon glyphicon-plus", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                                    @Html.AuthActionLink(" Parametre Ekle", "Ekle", "SistemParametreleri", "btn btn-primary", "glyphicon glyphicon-plus", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                                 </p>
                             </div>
                         </header>
@@ -52,53 +52,54 @@
                                                 <thead>
                                                     <tr role="row">
                                                         <th style="width: 20px;">No</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Tür Adı</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Alt Tür Adı</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Adı</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Değer</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Başlangıç Tarihi</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Bitiş Tarihi</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 250px;">Durum</th>
                                                         <th class="sorting_disabled text-center" rowspan="1" colspan="1" style="text-align: right;  padding-right: 30px; width: 100px;">İşlem</th>
                                                     </tr>
                                                 </thead>
-                                                @if (Model.GayrimenkulAltTur != null && Model.GayrimenkulAltTur.Count > 0)
+                                                @if (Model.Parametreler != null && Model.Parametreler.Count > 0)
                                                 {
                                                     <tbody>
 
                                                         @{int i = ((Model.PageNumber - 1) * Model.PageSize) + 1;}
 
-                                                        @foreach (var item in Model.GayrimenkulAltTur)
+                                                        @foreach (var item in Model.Parametreler)
                                                         {
-                                                            <tr role="row" class="odd">
-                                                                <td>@(i++)</td>
-                                                                <td>@Html.DisplayFor(model => item.GayrimenkulTur.Ad)</td>
-                                                                <td>@Html.DisplayFor(model => item.Ad)</td>
-                                                                <td>
-                                                                    @if (item.AktifMi.HasValue && item.AktifMi.Value)
-                                                                    {
-                                                                        <b class="label aktif-buton">Aktif</b>
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        <b class="label pasif-buton">Pasif</b>
-                                                                    }
-                                                                </td>
-                                                                <td class="text-center">
-                                                                    @Html.AuthAction(" ", "Duzenle", "GayrimenkulAltTur", new {item.Guid },
-                                                                                new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
-                                                                                Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                                                        <tr role="row" class="odd">
+                                                            <td>@(i++)</td>
+                                                            <td>@Html.DisplayFor(model => item.Ad)</td>
+                                                            <td>@Html.DisplayFor(model => item.Deger)</td>
+                                                            <td>@Html.DisplayFor(model => item.BaslangicTarihi)</td>
+                                                            <td>@Html.DisplayFor(model => item.BitisTarihi)</td>
+                                                            <td>
+                                                                @if (item.AktifMi.HasValue && item.AktifMi.Value)
+                                                                {
+                                                                    <b class="label aktif-buton">Aktif</b>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <b class="label pasif-buton">Pasif</b>
+                                                                }
+                                                            </td>
+                                                            <td class="text-center">
+                                                                @Html.AuthAction(" ", "Duzenle", "SistemParametreleri", new { item.Guid },
+                                                                      new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
+                                                                      Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
-                                                                    @Html.AuthAction(" ", "Sil", "GayrimenkulAltTur", new {item.Id },
-                                                                                    new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = item.Ad, @data_id = item.Id },
-                                                                                    Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
-                                                                </td>
-                                                            </tr>
+                                                                @Html.AuthAction(" ", "Sil", "SistemParametreleri", new { item.Id },
+                                                                                new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = item.Ad, @data_id = item.Id },
+                                                                                Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                                                            </td>
+                                                        </tr>
                                                         }
                                                     </tbody>
                                                 }
                                                 else
                                                 {
                                                     <tbody>
-                                                        <tr class="odd">
-                                                            <td valign="top" colspan="4" class="dataTables_empty">Tablo için gösterilecek bir kayıt bulunmamaktadır</td>
-                                                        </tr>
                                                     </tbody>
                                                 }
                                             </table>
@@ -114,7 +115,7 @@
 
     </div>
 
-    using (Html.BeginForm("Index", "GayrimenkulAltTur", new { page = 1 }, FormMethod.Post, new { @id = "sorgulamaKriterleri" }))
+    using (Html.BeginForm("Index", "SistemParametreleri", new { page = 1 }, FormMethod.Post, new { @id = "sorgulamaKriterleri" }))
     {
         <input id="page" name="page" type="hidden" value="">
     }
@@ -149,7 +150,7 @@
 
     </script>
 
-    <!--Gayrimenkul Alt Tur Silme İşlemi -->
+    <!--SistemParametreleriSilme İşlemi -->
     <script type="text/javascript">
         var dt;
 
@@ -178,7 +179,7 @@
         function deletealert(Id, name, closestTR) {
             swal({
                 title: "Uyarı",
-                text: name + " Adlı Türü Silmek İstediğinizden Emin misiniz?",
+                text: name + " Adlı Parametreyi Silmek İstediğinizden Emin misiniz?",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
@@ -187,7 +188,7 @@
             }).then(function (isConfirm) {
                 if (isConfirm) {
                     $.ajax({
-                        url: "/GayrimenkulAltTur/Sil/" + Id,
+                        url: "/SistemParametreleri/Sil/" + Id,
                         type: 'POST',
                         success: function (result) {
                             if (result.success) {

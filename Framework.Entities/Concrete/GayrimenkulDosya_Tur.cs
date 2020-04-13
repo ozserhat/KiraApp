@@ -12,12 +12,6 @@ namespace Framework.Entities.Concrete
 
         public Guid Guid { get; set; }
 
-
-        public int Gayrimenkul_Id { get; set; }
-
-        [ForeignKey("Gayrimenkul_Id")]
-        public virtual Gayrimenkul Gayrimenkul { get; set; }
-
         [StringLength(500)]
         public string Ad { get; set; }
 

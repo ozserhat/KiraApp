@@ -63,9 +63,6 @@ namespace Framework.WebUI.App_Helpers
             }
             else
             {
-                HttpCachePolicyBase cache = filterContext.HttpContext.Response.Cache;
-                cache.SetProxyMaxAge(new TimeSpan(0L));
-                cache.AddValidationCallback(new HttpCacheValidateHandler(this.CacheValidateHandler), null);
 
                 filterContext.Controller.TempData["OpenAuthorizationPopup"] = false;
                 filterContext.Controller.TempData["returnUrl"] = filterContext.HttpContext.Request.UrlReferrer;
