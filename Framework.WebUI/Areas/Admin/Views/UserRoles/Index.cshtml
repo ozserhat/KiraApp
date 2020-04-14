@@ -106,10 +106,14 @@
                                                     <td class="text-center">
                                                         @if (Convert.ToBoolean(TempData["OpenAuthorizationPopup"]) == false)
                                                         {
-                                                        <a data-id="@item.Id" data-name="@item.Roles.Name" title="" rel="tooltip" data-placement="left"
-                                                           class="no-underline margin-right-5 delete-row" data-original-title="Sil">
-                                                            <i class="fa fa-remove font-md txt-color-blue"></i>
-                                                        </a>
+                                                            @*<a data-id="@item.Id" data-name="@item.Roles.Name" title="" rel="tooltip" data-placement="left"
+                                                               class="no-underline margin-right-5 delete-row" data-original-title="Sil">
+                                                                <i class="fa fa-remove font-md txt-color-blue"></i>
+                                                            </a>*@
+
+                                                            @Html.AuthAction(" ", "Sil", "UserRoles", new { item.Id },
+                                                                                  new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = @item.Roles.Name, @data_id = item.Id },
+                                                                                  Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                                                         }
                                                     </td>
                                                 </tr>

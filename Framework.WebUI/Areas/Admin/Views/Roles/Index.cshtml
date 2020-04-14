@@ -144,13 +144,13 @@
                                                                     }
                                                                     else
                                                                     {
-                                                                        @Html.AuthAction(" ", "Duzenle", new { controllerName = "Roles", Guid = item.Guid },
-                                                                                               new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
-                                                                                               Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                                                                        @Html.AuthAction(" ", "Duzenle", "Roles", new { item.Guid },
+                                                                            new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
+                                                                            Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
 
-                                                                        @Html.AuthAction(" ", "Sil", new { controllerName = "Roles", Guid = item.Guid },
-                                                                                                     new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue" },
+                                                                        @Html.AuthAction(" ", "Sil", new { controllerName = "Roles", Id = item.Id },
+                                                                                                     new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = item.Name, @data_id = item.Id },
                                                                                                      Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                                                                     }
                                                                 </td>
@@ -280,8 +280,8 @@
 
         $(".delete-row").click(function (e) {
             e.preventDefault();
-            var id = $(this).attr("data-id");
-            var name = $(this).attr("data-name");
+            var id = $(this).attr("data_id");
+            var name = $(this).attr("data_name");
             var closestTR = $(this).closest("tr");
             var vl = deletealert(id, name, closestTR);
         });

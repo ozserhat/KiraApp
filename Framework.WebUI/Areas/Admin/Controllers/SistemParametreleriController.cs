@@ -73,7 +73,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                         BitisTarihi=model.BitisTarihi.Value,
                         OlusturulmaTarihi = DateTime.Now,
                         OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
-                        AktifMi = false
+                        AktifMi = true
                     };
 
                     var result = _service.Ekle(parametre);

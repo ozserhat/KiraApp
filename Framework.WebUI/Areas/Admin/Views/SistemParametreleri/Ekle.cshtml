@@ -64,7 +64,7 @@
                                                         <div class="col-md-8">
                                                             <div class="input-group date datetimepicker">
                                                                 @{
-                                                                    @Html.TextBoxFor(model => model.BaslangicTarihi, new { @class = "form-control datepicker" })
+                                                                    @Html.TextBoxFor(model => model.BaslangicTarihi, new { @class = "form-control datepicker" , @autocomplete = "off" })
                                                                     <span class="input-group-addon" id="openDate">
                                                                         <span class="glyphicon glyphicon-calendar"></span>
                                                                     </span>
@@ -80,21 +80,13 @@
                                                         <div class="col-md-8">
                                                             <div class="input-group date datetimepicker">
                                                                 @{
-                                                                    @Html.TextBoxFor(model => model.BitisTarihi, new { @class = "form-control datepicker" })
+                                                                    @Html.TextBoxFor(model => model.BitisTarihi, new { @class = "form-control datepicker" , @autocomplete = "off" })
                                                                     <span class="input-group-addon" id="openDate">
                                                                         <span class="glyphicon glyphicon-calendar"></span>
                                                                     </span>
                                                                 }
                                                             </div>
                                                             @Html.ValidationMessageFor(model => model.BitisTarihi, "", new { @class = "text-danger" })
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
-                                                        @Html.LabelFor(model => model.AktifMi, new { @class = "control-label col-md-4" })
-                                                        <div class="col-md-8 form-control-static">
-                                                            @Html.CheckBoxFor(model => model.AktifMi, new { @style = "width: 16px; height: 16px;" })
                                                         </div>
                                                     </div>
                                                 </div>
@@ -131,6 +123,11 @@
                 var d = value.split(".");
                 return this.optional(element) || !/Invalid|NaN/.test(new Date((/chrom(e|ium)/.test(navigator.userAgent.toLowerCase())) ? d[1] + "." + d[0] + "." + d[2] : value));
             };
+            $('.datepicker').on('click', function (e) {
+                e.preventDefault();
+                $(this).attr("autocomplete", "off");
+            });
+
             $('#BaslangicTarihi').datepicker({
                 dateFormat: 'dd.mm.yy',
                 monthNames: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],

@@ -175,46 +175,51 @@
         var dt_settings = {
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Turkish.json"
-            },
-            "searching": true
+            }
         };
 
         $(document).ready(function () {
 
             dt = $('#dt_basic').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Turkish.json"
+                },
                 'columnDefs': [
                     {
                         'targets': 0,
                         'searchable': false,
                         'orderable': false,
-                        'className': 'dt-body-center',
+                        'className': 'dt-body-center', "select": {
+                            "style": "multi",
+                            selector: 'tr>td:nth-child(0), tr>td:nth-child(1)'
+
+                        },
                         'render': function (data, type, full, meta) {
                             return '<input type="checkbox" class="checkBox" value="' + $('<div/>').text(data).html() + '">';
                         }
                     }],
-                order: [1, 'asc'],
-                scrollY: "300px",
-                scrollX: true,
-                paging: false,
-                searching: false
+                order: [1, 'asc']
             });
 
             dt2 = $('#dt_basic2').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Turkish.json"
+                },
                 'columnDefs': [
                     {
                         'targets': 0,
                         'searchable': false,
                         'orderable': false,
-                        'className': 'dt-body-center',
+                        'className': 'dt-body-center',"select": {
+                        "style": "multi",
+                        selector: 'tr>td:nth-child(0), tr>td:nth-child(1)'
+
+                    },
                         'render': function (data, type, full, meta) {
                             return '<input type="checkbox" class="checkBox2" value="' + $('<div/>').text(data).html() + '">';
                         }
                     }],
                 order: [1, 'asc'],
-                scrollY: "300px",
-                scrollX: true,
-                paging: false,
-                searching:false
             });
 
             if (@sonSayfa < 8) {
@@ -223,7 +228,14 @@
 
             $('.checkBox').on("change", function () {
                 var row = $(this).closest('tr');
-                closestRow.push(row);
+                var oTable = $("#dt_basic").dataTable();
+                $("input:checkbox", oTable.fnGetNodes()).each(function () {
+                    var tuisre = $(this).is(":checked");
+                    if (tuisre) {
+                        closestRow.push(row);
+                    }
+                })
+
                 var data = dt.row(row).data();
                 var ID = data[0];
                 removeList.push(ID);
@@ -231,7 +243,13 @@
 
             $('.checkBox2').on("change", function () {
                 var row = $(this).closest('tr');
-                closestRow2.push(row);
+                var oTable = $("#dt_basic2").dataTable();
+                $("input:checkbox", oTable.fnGetNodes()).each(function () {
+                    var tuisre = $(this).is(":checked");
+                    if (tuisre) {
+                        closestRow2.push(row);
+                    }
+                })
                 var data = dt2.row(row).data();
                 var ID = data[0];
                 removeList2.push(ID);

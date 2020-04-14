@@ -290,8 +290,12 @@ namespace Framework.WebUI
                     tagBuilder.MergeAttribute("href", "#");
                     htmlAttributes["class"] = htmlAttributes["class"] + " delete-row";
                     tagBuilder.MergeAttribute("class", htmlAttributes["class"].ToString());
-                    tagBuilder.Attributes.Add("data_id", htmlAttributes["data_id"].ToString());
-                    tagBuilder.Attributes.Add("data_name", htmlAttributes["data_name"].ToString());
+
+                    if (htmlAttributes["data_id"] != null)
+                    {
+                        tagBuilder.Attributes.Add("data_id", htmlAttributes["data_id"].ToString());
+                        tagBuilder.Attributes.Add("data_name", htmlAttributes["data_name"].ToString());
+                    }
                 }
                 else
                 {
