@@ -46,6 +46,8 @@ namespace Framework.WebUI.App_Helpers
 
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
+            int userId = 0;
+
             string controllerName, actionName;
 
             controllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName + "Controller";
@@ -54,7 +56,9 @@ namespace Framework.WebUI.App_Helpers
             ClaimsIdentity claimsIdentity;
             var httpContext = HttpContext.Current;
             claimsIdentity = httpContext.User.Identity as ClaimsIdentity;
-            int userId = Int32.Parse(claimsIdentity.FindFirst("UserId").Value);
+
+            if (claimsIdentity.FindFirst("UserId") != null)
+                userId = Int32.Parse(claimsIdentity.FindFirst("UserId").Value);
 
             if (this.AuthorizeCore(filterContext.HttpContext) && GetPermissions(controllerName, actionName, userId))
             {

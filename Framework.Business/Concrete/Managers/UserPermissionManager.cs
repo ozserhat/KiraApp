@@ -54,7 +54,12 @@ namespace Framework.Business.Concrete.Managers
 
         public User_Permission Guncelle(User_Permission userPermission)
         {
-            return _userPermissionDal.Update(userPermission);
+            return _userPermissionDal.Guncelle(userPermission);
+        }
+
+        public bool Sil(int id)
+        {
+            return _userPermissionDal.Delete(id);
         }
     }
 }

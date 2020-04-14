@@ -136,7 +136,7 @@ namespace Framework.WebUI.Controllers
                     foreach (var permission in permissionList)
                     {
                         identity.AddClaim(new Claim("ControllerActionId", permission.ControllerAction_Id.ToString()));
-                        identity.AddClaim(new Claim("IsAuthorize", permission.IsAuthorize.ToString()));
+                        identity.AddClaim(new Claim("IsAuthorize", permission.YetkiliMi.ToString()));
                     }
 
 

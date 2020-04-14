@@ -19,7 +19,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                 var result = context.User_Permissions
                                     .Include(u => u.Users)
                                     .Include(r => r.ControllerActions)
-                                    .Where(r => r.IsDeleted == false).ToList();
+                                    .Where(r => r.AktifMi == true).ToList();
 
                 return result;
             }
@@ -32,7 +32,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                 var result = context.User_Permissions
                                     .Include(u => u.Users)
                                     .Include(r => r.ControllerActions)
-                                    .Where(r => r.Id == id && r.IsDeleted == false).FirstOrDefault();
+                                    .Where(r => r.Id == id && r.AktifMi == true).FirstOrDefault();
 
                 return result;
             }
@@ -45,7 +45,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                 var result = context.User_Permissions
                                    .Include(u => u.Users)
                                    .Include(r => r.ControllerActions)
-                                   .Where(r => r.ControllerAction_Id == id && r.User_Id == userid && r.IsAuthorize == true && r.IsDeleted == false).FirstOrDefault();
+                                   .Where(r => r.ControllerAction_Id == id && r.User_Id == userid && r.AktifMi == true).FirstOrDefault();
 
                 return result;
             }
@@ -59,7 +59,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                                     .Include(u => u.Users)
                                     .Include(r => r.ControllerActions)
                                     .Where(r => r.User_Id == UserId
-                                           && r.IsDeleted == false).ToList();
+                                           && r.AktifMi == true).ToList();
 
                 return result;
             }
@@ -74,10 +74,45 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                                     .Include(r => r.ControllerActions)
                                     .Where(r => r.User_Id == userPermission.User_Id
                                     && r.ControllerAction_Id == userPermission.ControllerAction_Id
-                                    && r.IsDeleted == false).FirstOrDefault();
+                                    && r.AktifMi == true).FirstOrDefault();
 
                 return result;
             }
+        }
+
+        public User_Permission Guncelle(User_Permission userPermission)
+        {
+            using (var context = new DtContext())
+            {
+                context.User_Permissions.Attach(userPermission);
+
+                context.Entry(userPermission).State = EntityState.Modified;
+
+                context.SaveChanges();
+            }
+
+            return userPermission;
+        }
+
+        public bool Delete(int id)
+        {
+            bool sonuc = false;
+
+            using (var context = new DtContext())
+            {
+                var yetki = context.User_Permissions.FirstOrDefault(i => i.Id == id);
+
+                if (yetki != null)
+                {
+                    context.User_Permissions.Attach(yetki);
+
+                    context.Entry(yetki).State = EntityState.Modified;
+
+                    sonuc = true;
+                }
+            }
+
+            return sonuc;
         }
 
     }
