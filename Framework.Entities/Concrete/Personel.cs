@@ -21,5 +21,8 @@ namespace Framework.Entities.Concrete
         [StringLength(30)]
         public string Soyad { get; set; }
 
+        [StringLength(30)]
+        public string Memleket { get; set; }
+
     }
 }
