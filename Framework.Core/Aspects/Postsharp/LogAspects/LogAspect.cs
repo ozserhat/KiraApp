@@ -1,20 +1,27 @@
 ﻿using Framework.Core.CrossCuttingConcerns.Logging;
 using Framework.Core.CrossCuttingConcerns.Logging.Log4Net;
+using Framework.Core.CrossCuttingConcerns.Security.Web;
+using log4net;
 //using PostSharp.Aspects;
 //using PostSharp.Extensibility;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Security.Claims;
+using System.Web;
 using System.Web.Mvc;
 
 namespace Framework.Core.Aspects.Postsharp.LogAspects
 {
     [Serializable]
     [AttributeUsage(AttributeTargets.Class)]
-    public class LogAspect : Attribute, IActionFilter
+    public class LogAspect : Attribute, IActionFilter, IExceptionFilter
     {
         private Type _loggerType;
         private LoggerService _loggerService;
+        private static readonly ILog _log = LogManager.GetLogger("DatabaseLogger");
+        public string LogMessage { get; set; }
 
         public LogAspect(Type loggerType)
         {
@@ -23,58 +30,181 @@ namespace Framework.Core.Aspects.Postsharp.LogAspects
 
         public void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            
-            var actionName = filterContext.ActionDescriptor.GetType().Name;
-            var controllerName = filterContext.Controller.GetType().Name;
-            var message = string.Format("Controller {0} generated an error.", controllerName);
-            var logParameters = new LogParameter()
+            int userId = 0;
+            string userName = "";
+            string logMessage = "";
+            string logType = "";
+
+            var controllerName = (string)filterContext.RouteData.Values["controller"];
+            var actionName = (string)filterContext.RouteData.Values["action"];
+            ClaimsIdentity claimsIdentity;
+            var httpContext = HttpContext.Current;
+            claimsIdentity = httpContext.User.Identity as ClaimsIdentity;
+            string actionType = "";
+            var controllerActionDescriptor = filterContext.ActionDescriptor as ActionDescriptor;
+
+            var request = filterContext.HttpContext.Request;
+
+
+            if (controllerActionDescriptor != null)
             {
+                actionType = controllerActionDescriptor.GetCustomAttributes(inherit: true).Select(a => a.GetType().Name.Replace("Attribute", "")).FirstOrDefault();
+            }
+
+            var form = filterContext.HttpContext.Request.Form;
+            var dictionary = form.AllKeys.ToDictionary(k => k, k => form[k]);
+
+
+            logMessage = (filterContext.Controller.ViewData["logMessage"] != null ? filterContext.Controller.ViewData["logMessage"].ToString() : "");
+
+            if (claimsIdentity.FindFirst("UserId") != null)
+            {
+                userName = claimsIdentity.FindFirst("UserName").Value;
+                userId = Int32.Parse(claimsIdentity.FindFirst("UserId").Value);
+            }
+
+            if (filterContext.Controller.ViewData.ModelState["LogMessage"] != null)
+                logMessage = filterContext.Controller.ViewData.ModelState["LogMessage"].Errors.First().ErrorMessage;
+
+            if (controllerName == "Unauthorized")
+                logType = "Error";
+            else
+                logType = "Info";
+
+            var logParameters = new List<LogParameter>()
+            {
+               new LogParameter
+               {
                 ActionName = actionName,
                 ControllerName = controllerName,
+                Url=HttpContext.Current.Request.Url.AbsoluteUri,
                 Date = DateTime.Now,
-                Type = filterContext.Result.ToString(),
-                Detail = "",
-                Value = ""
-            };
+                LogType=logType,
+                HttpType = (!string.IsNullOrEmpty(actionType)?actionType:"HttpGet"),
+                UserId = userId,
+                UserName = userName,
+                Message = logMessage
+               }
+             };
 
-            _loggerService.Error(logParameters);
+            _loggerService = new LoggerService(_log);
+            _loggerService.Info(logParameters);
         }
 
         public void OnActionExecuting(ActionExecutingContext filterContext)
         {
 
-            var actionName = filterContext.ActionDescriptor.ActionName;
-            var controllerName = filterContext.Controller.GetType().Name;
-            var message = string.Format("Controller {0} generated an error.", controllerName);
-            var logParameters = new LogParameter()
+            int userId = 0;
+            string userName = "";
+            string logMessage = "";
+            var controllerName = (string)filterContext.RouteData.Values["controller"];
+            var actionName = (string)filterContext.RouteData.Values["action"];
+            ClaimsIdentity claimsIdentity;
+            var httpContext = HttpContext.Current;
+            claimsIdentity = httpContext.User.Identity as ClaimsIdentity;
+            string actionType = "";
+            var controllerActionDescriptor = filterContext.ActionDescriptor as ActionDescriptor;
+
+            var request = filterContext.HttpContext.Request;
+
+
+            if (controllerActionDescriptor != null)
             {
+                actionType = controllerActionDescriptor.GetCustomAttributes(inherit: true).Select(a => a.GetType().Name.Replace("Attribute", "")).FirstOrDefault();
+            }
+
+            var form = filterContext.HttpContext.Request.Form;
+            var dictionary = form.AllKeys.ToDictionary(k => k, k => form[k]);
+
+
+            logMessage = (filterContext.Controller.ViewData["logMessage"] != null ? filterContext.Controller.ViewData["logMessage"].ToString() : "");
+
+            if (claimsIdentity.FindFirst("UserId") != null)
+            {
+                userName = claimsIdentity.FindFirst("UserName").Value;
+                userId = Int32.Parse(claimsIdentity.FindFirst("UserId").Value);
+            }
+
+            if (filterContext.Controller.ViewData.ModelState["LogMessage"] != null)
+                logMessage = filterContext.Controller.ViewData.ModelState["LogMessage"].Errors.First().ErrorMessage;
+
+            var logParameters = new List<LogParameter>()
+            {
+               new LogParameter
+               {
                 ActionName = actionName,
                 ControllerName = controllerName,
+                Url=HttpContext.Current.Request.Url.AbsoluteUri,
                 Date = DateTime.Now,
-                Type = "",
-                Detail = "",
-                Value = ""
-            };
+                LogType="Info",
+                HttpType = (!string.IsNullOrEmpty(actionType)?actionType:"HttpGet"),
+                UserId = userId,
+                UserName = userName,
+                Message = logMessage
+               }
+             };
 
-            _loggerService.Error(logParameters);
+            _loggerService = new LoggerService(_log);
+            _loggerService.Info(logParameters);
         }
 
         public void OnException(ExceptionContext filterContext)
         {
-            var actionName = "";
-            var controllerName = filterContext.Controller.GetType().Name;
-            var message = string.Format("Controller {0} generated an error.", controllerName);
-            var logParameters = new LogParameter()
+            int userId = 0;
+            string userName = "";
+            string logMessage = "";
+            var controllerName = (string)filterContext.RouteData.Values["controller"];
+            var actionName = (string)filterContext.RouteData.Values["action"];
+            ClaimsIdentity claimsIdentity;
+            var httpContext = HttpContext.Current;
+            claimsIdentity = httpContext.User.Identity as ClaimsIdentity;
+            string actionType = "";
+
+
+            var request = filterContext.HttpContext.Request;
+            MethodInfo method = filterContext.Controller.GetType().GetMethods()
+            .FirstOrDefault(x => x.DeclaringType == filterContext.Controller.GetType()
+                            && x.Name == actionName);
+
+            IEnumerable<Attribute> attributes = method.GetCustomAttributes();
+
+            actionType = attributes.Select(a => a.GetType().Name.Replace("Attribute", "")).FirstOrDefault();
+
+            var form = filterContext.HttpContext.Request.Form;
+            var dictionary = form.AllKeys.ToDictionary(k => k, k => form[k]);
+
+
+            logMessage = (filterContext.Controller.ViewData["logMessage"] != null ? filterContext.Controller.ViewData["logMessage"].ToString() : "");
+
+            if (claimsIdentity.FindFirst("UserId") != null)
             {
+                userName = claimsIdentity.FindFirst("UserName").Value;
+                userId = Int32.Parse(claimsIdentity.FindFirst("UserId").Value);
+            }
+
+            if (filterContext.Controller.ViewData.ModelState["LogMessage"] != null)
+                logMessage = filterContext.Controller.ViewData.ModelState["LogMessage"].Errors.First().ErrorMessage;
+
+
+            var logParameters = new List<LogParameter>()
+            {
+               new LogParameter
+               {
                 ActionName = actionName,
                 ControllerName = controllerName,
+                Url=HttpContext.Current.Request.Url.AbsoluteUri,
                 Date = DateTime.Now,
-                Type = filterContext.Result.ToString(),
-                Detail = "",
-                Value = ""
-            };
+                LogType="Error",
+                HttpType = (!string.IsNullOrEmpty(actionType)?actionType:"HttpGet"),
+                UserId = userId,
+                UserName = userName,
+                Message = (!string.IsNullOrEmpty(logMessage)?logMessage:filterContext.Exception.Message),
+                StackTrace=filterContext.Exception.StackTrace
+               }
+             };
 
-            _loggerService.Error(logParameters);
+            _loggerService = new LoggerService(_log);
+            _loggerService.Info(logParameters);
         }
     }
 }

@@ -4,7 +4,7 @@ using System;
 namespace Framework.Core.CrossCuttingConcerns.Logging.Log4Net
 {
     [Serializable]
-    public class LoggerService
+    public class LoggerService:ILogger
     {
         private ILog _log;
 

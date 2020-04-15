@@ -38,7 +38,9 @@
                             <span class="widget-icon"> <i class="fa fa-list"></i> </span>
                             <h2>Kullanıcı Listesi - <b>Toplam Kullanıcı Adedi : @Model.TotalRecordCount</b></h2>
                             <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
-                               
+                                <a id="btnGuncelle" class="btn btn-primary">
+                                    <i class="glyphicon glyphicon-plus"></i> &nbsp; Sayfaları Güncelle
+                                </a>
                             </div>
                         </header>
                         <div role="contentinfo">
@@ -78,7 +80,7 @@
                                                                     }
                                                                 </td>
                                                                 <td class="text-center">
-                                                                    @Html.AuthAction(" ", "KullaniciYetkileri", "KullaniciYetki", new { KullaniciId=item.Id },
+                                                                    @Html.AuthAction(" ", "KullaniciYetkileri", "KullaniciYetki", new { KullaniciId = item.Id },
                                                                             new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
                                                                             Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                                                                 </td>
@@ -198,6 +200,37 @@
         }
     </script>
 
+
+    <!--Sayfa Güncelleme İşlemi -->
+    <script type="text/javascript">
+        $(function () {
+            $('#btnGuncelle').on('click', function () {
+
+
+                   $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("UpdatePages", "Pages")',
+                    data: {},
+                    success: function (result) {
+                        if (result != null && result.success) {
+
+                            swal('Uyarı!', result.Message, 'warning');
+
+                            setTimeout(function () {
+                                window.location.reload();
+                            }, 2000);
+                        }
+                        else {
+                            swal('Uyarı!', result.Message, 'warning');
+                        }
+                    },
+                    error: function (xhr) {
+                        swal('Uyarı!', result.Message, 'warning');
+                    }
+                 });
+            });
+        });
+    </script>
 }
 
 

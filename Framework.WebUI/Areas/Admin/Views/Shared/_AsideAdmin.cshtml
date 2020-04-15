@@ -99,7 +99,7 @@
     <nav>
 
         <ul>
-            
+
             <li class="@Html.RouteIf("Anasayfa", "active")">
                 <a href="@Url.Action("index", "Anasayfa")" title="Ana Sayfa"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Ana Sayfa</span></a>
             </li>
@@ -160,8 +160,11 @@
 
                         @Html.AuthMainAction("Kullanıcı Yetki", "Index", "KullaniciYetki", "fa fa-lg fa-fw fa-list-alt", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                     </li>
-                    <li class="@Html.RouteIf("Pages", "active")">
-                        @Html.AuthMainAction("Sayfalar", "Index", "Pages", "fa fa-lg fa-fw fa-list-alt", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                    @*<li class="@Html.RouteIf("Pages", "active")">
+                            @Html.AuthMainAction("Sayfalar", "Index", "Pages", "fa fa-lg fa-fw fa-list-alt", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                        </li>*@
+                    <li class="@Html.RouteIf("Logs", "active")">
+                        @Html.AuthMainAction("Loglar", "Index", "Logs", "fa fa-lg fa-fw fa-list-alt", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                     </li>
                     <li class="@Html.RouteIf("SistemParametreleri", "active")">
                         @Html.AuthMainAction("Sistem Parametreleri", "Index", "SistemParametreleri", "fa fa-lg fa-fw fa-list-alt", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))

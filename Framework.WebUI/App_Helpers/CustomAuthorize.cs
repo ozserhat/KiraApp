@@ -70,7 +70,7 @@ namespace Framework.WebUI.App_Helpers
 
                 filterContext.Controller.TempData["OpenAuthorizationPopup"] = false;
                 filterContext.Controller.TempData["returnUrl"] = filterContext.HttpContext.Request.UrlReferrer;
-
+                filterContext.Controller.ViewData.ModelState.AddModelError("LogMessage", "Yetkiniz Bulunmamaktadır!!!");
                 //var viewResult = new PartialViewResult();
                 //viewResult.ViewName = "_Unauthorized";
                 filterContext.Result = new HttpUnauthorizedResult();

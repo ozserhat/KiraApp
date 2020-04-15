@@ -3,7 +3,9 @@
 ////using Framework.Core.Aspects.Postsharp.PerformanceAspects;
 using Framework.Core.Aspects.Postsharp.LogAspects;
 using Framework.Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
+using System;
 using System.Reflection;
+using System.Runtime;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -18,7 +20,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-//[assembly: LogAspect(typeof(DatabaseLogger), AttributeTargetTypes = "Framework.Business.Concrete.Managers.*")]
+
+[assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config", Watch = true)]
 //[assembly: ExceptionLogAspect(typeof(DatabaseLogger), AttributeTargetTypes = "Framework.Business.Concrete.Managers.*")]
 //[assembly: PerformanceCounterAspect(AttributeTargetTypes = "Framework.Business.Concrete.Managers.*")]
 

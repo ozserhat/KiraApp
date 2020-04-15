@@ -12,10 +12,12 @@ using Framework.Business.Concrete.Managers;
 using Framework.DataAccess.Abstract;
 using Framework.DataAccess.Concrete.EntityFramework;
 using Framework.Core.CrossCuttingConcerns.Logging.Log4Net;
+using log4net;
+using Framework.Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 
 namespace Framework.Business.DependencyResolvers.Ninject
 {
-    public class BusinessModule:NinjectModule
+    public class BusinessModule : NinjectModule
     {
         public override void Load()
         {
@@ -50,11 +52,19 @@ namespace Framework.Business.DependencyResolvers.Ninject
             Bind<IUserPermissionsService>().To<UserPermissionManager>().InTransientScope();
             Bind<IUserPermissionsDal>().To<EfUserPermissionsDal>().InTransientScope();
 
+            Bind<ILogsDal>().To<EfLogDal>().InTransientScope();
+            Bind<ILogService>().To<LogsManager>().InTransientScope();
+
             Bind<ISistemParametreleriService>().To<SistemParametreleriManager>().InTransientScope();
             Bind<ISistemParametreleriDal>().To<EfSistemParametreleriDal>().InTransientScope();
 
             Bind(typeof(IQueryableRepository<>)).To(typeof(EfQueryableRepository<>));
             Bind<DbContext>().To<DtContext>();
+
+            Bind<ILog>().ToMethod(x => LogManager.GetLogger(typeof(DatabaseLogger)))
+               .InSingletonScope();
+
+            Bind<ILogger>().ToConstructor(ctorArg => new LoggerService(ctorArg.Inject<ILog>()));
             //Bind<NHibernateHelper>().To<SqlServerHelper>();
         }
     }

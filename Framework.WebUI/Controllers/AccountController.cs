@@ -15,14 +15,13 @@ using Framework.WebUI.App_Helpers;
 using System.Security.Cryptography;
 using System.Text;
 using Framework.Core.Aspects.Postsharp.LogAspects;
+using Framework.Core.CrossCuttingConcerns.Logging.Log4Net;
 
 namespace Framework.WebUI.Controllers
 {
-    //[LogAspect(typeof(DatabaseLogger))]
     public class AccountController : Controller
     {
         private IUserService _userService;
-
         private IUserPermissionsService _userPermissions;
 
         private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
@@ -33,16 +32,20 @@ namespace Framework.WebUI.Controllers
             _userPermissions = userPermissions;
         }
 
+        [HttpGet]
         public ActionResult Index()
         {
             return View();
         }
 
+        [HttpGet]
         public ActionResult Login()
         {
             //if (User.Identity.IsAuthenticated)
             //    return RedirectToAction("Navigate");
+            //throw new ExecutionEngineException("Hata:");
 
+            ModelState.AddModelError("LogMessage", "Login Sayfasına Giriş Yapıldı.");
             return View();
         }
 
@@ -105,7 +108,7 @@ namespace Framework.WebUI.Controllers
             return View(model);
         }
 
-        [HttpPost]
+       [HttpPost]
         public ActionResult Login(LoginVm loginVm)
         {
             string hashedPassword = "";
@@ -154,11 +157,13 @@ namespace Framework.WebUI.Controllers
                     }, identity);
                     #endregion
 
+                    ModelState.AddModelError("LogMessage", "Kullanıcı Bilgileri Doğrulandı Girişi Yapıldı.");
+
                     return RedirectToAction("Navigate");
                 }
             }
 
-            loginVm.Errors.Add("Kullanıcı Bilgilerini Kontrol Ediniz!!!");
+            ModelState.AddModelError("LogMessage", "Kullanıcı Bulunamadı!!!");
 
             return View(loginVm);
         }

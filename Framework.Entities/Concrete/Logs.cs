@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Framework.Entities.Concrete
 {
     [Table("Logs")]
-    public class Log
+    public class Log:IEntity
     {
         [Key]
         public int Id { get; set; }
@@ -15,6 +15,6 @@ namespace Framework.Entities.Concrete
         public string Type { get; set; }
         public string Value { get; set; }
         public string Detail { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
     }
 }
