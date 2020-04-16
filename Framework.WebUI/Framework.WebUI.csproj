@@ -173,6 +173,8 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AnasayfaController.cs" />
     <Compile Include="Areas\Admin\Controllers\DenemeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DuyuruController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DuyuruTurController.cs" />
     <Compile Include="Areas\Admin\Controllers\GayrimenkulAltTurController.cs" />
     <Compile Include="Areas\Admin\Controllers\GayrimenkulDosyaTurController.cs" />
     <Compile Include="Areas\Admin\Controllers\GayrimenkulTurController.cs" />
@@ -196,6 +198,8 @@
     <Compile Include="Helpers\UserExtended.cs" />
     <Compile Include="Models\ViewModels\ControllerActionsVm.cs" />
     <Compile Include="Models\ViewModels\DenemeVm.cs" />
+    <Compile Include="Models\ViewModels\DuyuruTurVM.cs" />
+    <Compile Include="Models\ViewModels\DuyuruVM.cs" />
     <Compile Include="Models\ViewModels\GayrimenkulAlt_TurVM.cs" />
     <Compile Include="Models\ViewModels\GayrimenkulDosya_TurVM.cs" />
     <Compile Include="Models\ViewModels\GayrimenkulTurVM.cs" />
@@ -991,6 +995,12 @@
     <Content Include="Areas\Admin\Views\KullaniciYetki\Index.cshtml" />
     <Content Include="Areas\Admin\Views\KullaniciYetki\KullaniciYetkileri.cshtml" />
     <Content Include="Areas\Admin\Views\Logs\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\DuyuruTur\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\DuyuruTur\Ekle.cshtml" />
+    <Content Include="Areas\Admin\Views\DuyuruTur\Duzenle.cshtml" />
+    <Content Include="Areas\Admin\Views\Duyuru\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Duyuru\Ekle.cshtml" />
+    <Content Include="Areas\Admin\Views\Duyuru\Duzenle.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\customModal.js" />
@@ -1603,6 +1613,7 @@
     <Content Include="Views\Unauthorized\Index.cshtml" />
     <Content Include="Views\Unauthorized\Http404.cshtml" />
     <Content Include="Views\Shared\_Unauthorized.cshtml" />
+    <Content Include="Views\Unauthorized\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

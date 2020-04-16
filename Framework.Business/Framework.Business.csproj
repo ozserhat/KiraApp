@@ -99,6 +99,9 @@
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IDuyuruService.cs" />
+    <Compile Include="Abstract\IDuyuru_BildirimService.cs" />
+    <Compile Include="Abstract\IDuyuru_TurService.cs" />
     <Compile Include="Abstract\IGayrimenkulAlt_TurService.cs" />
     <Compile Include="Abstract\IControllerActionService.cs" />
     <Compile Include="Abstract\IDenemeService.cs" />
@@ -113,6 +116,9 @@
     <Compile Include="Abstract\IUserService.cs" />
     <Compile Include="Concrete\Managers\ControllerActionManager.cs" />
     <Compile Include="Concrete\Managers\DenemeManager.cs" />
+    <Compile Include="Concrete\Managers\DuyuruManager.cs" />
+    <Compile Include="Concrete\Managers\Duyuru_BildirimManager.cs" />
+    <Compile Include="Concrete\Managers\Duyuru_TurManager.cs" />
     <Compile Include="Concrete\Managers\GayrimenkulAlt_TurManager.cs" />
     <Compile Include="Concrete\Managers\GayrimenkulDosya_TurManager.cs" />
     <Compile Include="Concrete\Managers\GayrimenkulManager.cs" />

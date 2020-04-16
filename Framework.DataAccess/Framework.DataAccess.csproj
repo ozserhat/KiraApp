@@ -53,6 +53,9 @@
   <ItemGroup>
     <Compile Include="Abstract\IControllerActionsDal.cs" />
     <Compile Include="Abstract\IDenemeDal.cs" />
+    <Compile Include="Abstract\IDuyuruDal.cs" />
+    <Compile Include="Abstract\IDuyuru_BildirimDal.cs" />
+    <Compile Include="Abstract\IDuyuru_TurDal.cs" />
     <Compile Include="Abstract\IGayrimenkulAlt_TurDal.cs" />
     <Compile Include="Abstract\IGayrimenkulDal.cs" />
     <Compile Include="Abstract\IGayrimenkulDosya_TurDal.cs" />
@@ -63,9 +66,12 @@
     <Compile Include="Abstract\IUserDal.cs" />
     <Compile Include="Abstract\IUserPermissionsDal.cs" />
     <Compile Include="Abstract\IUserRolesDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfDuyuruDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfDuyuru_BildirimDal.cs" />
     <Compile Include="Concrete\EntityFramework\DtContext.cs" />
     <Compile Include="Concrete\EntityFramework\EfControllerActionsDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfDenemeDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfDuyuru_TurDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfGayrimenkulAlt_TurDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfGayrimenkulDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfGayrimenkulDosya_TurDal.cs" />

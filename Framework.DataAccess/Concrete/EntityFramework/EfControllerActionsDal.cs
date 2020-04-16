@@ -12,17 +12,6 @@ namespace Framework.DataAccess.Concrete.EntityFramework
 {
     public class EfControllerActionsDal : EfEntityRepositoryBase<ControllerAction, DtContext>, IControllerActionsDal
     {
-        public ControllerAction Add(ControllerAction controllerAction)
-        {
-            using (DtContext context = new DtContext())
-            {
-                context.ControllerActions.Add(controllerAction);
-
-                context.SaveChanges();
-
-                return controllerAction;
-            }
-        }
 
         public void AddList(IEnumerable<ControllerAction> entities)
         {
@@ -85,7 +74,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             {
                 foreach (var item in controller)
                 {
-                    entity = context.ControllerActions.Where(a => a.Controller == item.Controller && a.Action == item.Action).FirstOrDefault();
+                    entity = context.ControllerActions.Where(a => a.Controller == item.Controller && a.Action == item.Action&&a.ReturnType==item.ReturnType).FirstOrDefault();
 
                     if (entity is null)
                         entity = Add(item);
@@ -95,18 +84,5 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             }
         }
 
-        public ControllerAction Update(ControllerAction controllerAction)
-        {
-            using (var context = new DtContext())
-            {
-                context.ControllerActions.Attach(controllerAction);
-
-                context.Entry(controllerAction).State = EntityState.Modified;
-
-                context.SaveChanges();
-            }
-
-            return controllerAction;
-        }
     }
 }

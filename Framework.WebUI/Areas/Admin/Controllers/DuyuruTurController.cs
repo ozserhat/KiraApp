@@ -1,48 +1,49 @@
-﻿using Framework.Business.Abstract;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using PagedList;
+using System.Web.Mvc;
+using Framework.Business.Abstract;
 using Framework.Entities.Concrete;
 using Framework.WebUI.App_Helpers;
 using Framework.WebUI.Helpers;
 using Framework.WebUI.Models;
 using Framework.WebUI.Models.ViewModels;
-using PagedList;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 
 namespace Framework.WebUI.Areas.Admin.Controllers
 {
     [CustomAuthorize(Roles = "Admin")]
-    public class GayrimenkulTurController : Controller
+    public class DuyuruTurController : Controller
     {
         #region Constructor
 
-        private IGayrimenkulTurService _service;
+        private IDuyuru_TurService _service;
 
-        public GayrimenkulTurController(IGayrimenkulTurService service)
+        public DuyuruTurController(IDuyuru_TurService service)
         {
             _service = service;
         }
-        #endregion
 
-        // GET: Admin/GayrimenkulTur
+        #endregion
+        // GET: Admin/DuyuruTur
         #region Listeleme
         public ActionResult Index(int? page, int pageSize = 15)
         {
             var turler = _service.GetirListe();
 
-            var model = new GayrimenkulTurVM();
+            var model = new DuyuruTurVM();
 
             model.PageNumber = page ?? 1;
             model.PageSize = pageSize;
 
             if (turler != null)
             {
-                model.GayrimenkulTur = new StaticPagedList<GayrimenkulTur>(turler, model.PageNumber, model.PageSize, turler.Count());
+                model.DuyuruTurleri = new StaticPagedList<Duyuru_Tur>(turler, model.PageNumber, model.PageSize, turler.Count());
                 model.TotalRecordCount = turler.Count();
             }
 
+            ModelState.AddModelError("LogMessage", "Duyuru Tür Bilgisi Görüntülendi.");
             return View(model);
         }
         #endregion
@@ -52,37 +53,40 @@ namespace Framework.WebUI.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Ekle()
         {
-            var model = new GayrimenkulTurEkleVM();
+            var model = new DuyuruTurEkleVM();
+            ModelState.AddModelError("LogMessage", "Duyuru Tür Ekleme Sayfası Görüntülendi.");
             return View(model);
         }
 
         [HttpPost]
-        public JsonResult Ekle(GayrimenkulTurEkleVM tur)
+        public JsonResult Ekle(DuyuruTurEkleVM tur)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    GayrimenkulTur gayrimenkulTur = new GayrimenkulTur()
+                    Duyuru_Tur Duyuru_Tur = new Duyuru_Tur()
                     {
                         Guid = Guid.NewGuid(),
-                        Ad = tur.GayrimenkulAdi,
+                        Ad = tur.DuyuruTurAd,
                         OlusturulmaTarihi = DateTime.Now,
                         OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
                         AktifMi = true
                     };
 
-                    var result = _service.Ekle(gayrimenkulTur);
+                    var result = _service.Ekle(Duyuru_Tur);
 
                     if (result.Id > 0)
-                        return Json(new { Message = "Gayrimenkul Tür Bilgisi Başarıyla Kaydedildi.", success = true }, JsonRequestBehavior.AllowGet);
-
+                        return Json(new { Message = "Duyuru Tür Bilgisi Başarıyla Kaydedildi.", success = true }, JsonRequestBehavior.AllowGet);
+                    ModelState.AddModelError("LogMessage", "Duyuru Tür Bilgisi Bilgisi Kaydedildi.");
                 }
 
-                return Json(new { Message = "Gayrimenkul Tür Bilgisi Kaydedilemedi!!!", success = false }, JsonRequestBehavior.AllowGet);
+                ModelState.AddModelError("LogMessage", "Duyuru Tür Bilgisi Bilgisi Kaydedilemedi.");
+                return Json(new { Message = "Duyuru Tür Bilgisi Kaydedilemedi!!!", success = false }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
+                ModelState.AddModelError("LogMessage", "Duyuru Tür Bilgisi Bilgisi Kaydedilemedi.");
                 return Json(new { Message = ex.Message, success = false }, JsonRequestBehavior.AllowGet);
             }
         }
@@ -94,7 +98,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Duzenle(Guid guid)
         {
-            var model = new GayrimenkulTurDuzenleVM();
+            var model = new DuyuruTurDuzenleVM();
 
             var tur = _service.GetirGuid(guid);
 
@@ -102,7 +106,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
             {
                 model.Id = tur.Id;
                 model.Guid = tur.Guid;
-                model.GayrimenkulAdi = tur.Ad;
+                model.DuyuruTurAd = tur.Ad;
                 model.GuncelleyenKullanici_Id = tur.OlusturanKullanici_Id;
                 model.GuncellenmeTarihi = tur.OlusturulmaTarihi;
                 model.AktifMi = tur.AktifMi.Value;
@@ -113,12 +117,13 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                 model.HideContent = true;
             }
 
+            ModelState.AddModelError("LogMessage", "Duyuru Tür Düzenleme Sayfası Görüntülendi.");
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Duzenle(GayrimenkulTurDuzenleVM model)
+        public ActionResult Duzenle(DuyuruTurDuzenleVM model)
         {
             if (ModelState.IsValid)
             {
@@ -130,7 +135,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                     {
                         tur.Id = model.Id;
                         tur.Guid = model.Guid;
-                        tur.Ad = model.GayrimenkulAdi;
+                        tur.Ad = model.DuyuruTurAd;
                         tur.GuncelleyenKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ?
                         User.GetUserPropertyValue("UserId") : null);
                         tur.GuncellenmeTarihi = DateTime.Now;
@@ -138,15 +143,18 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                         tur = _service.Guncelle(tur);
                     }
 
+                    ModelState.AddModelError("LogMessage", "Duyuru Tür Bilgisi Düzenlendi.");
                     return RedirectToAction("Index");
                 }
                 catch (Exception ex)
                 {
+                    ModelState.AddModelError("LogMessage", "Duyuru Tür Bilgisi Düzenlenirken Hata Oluştu.");
                     model.Errors.Add(ex.Message);
                 }
             }
             else
             {
+                ModelState.AddModelError("LogMessage", "Duyuru Tür Bilgisi Düzenlenemedi.");
                 model.Errors = new List<string>();
                 model.Errors.Add(VMErrors.ValidationError);
             }
@@ -166,13 +174,19 @@ namespace Framework.WebUI.Areas.Admin.Controllers
 
             tur = _service.Guncelle(tur);
 
-            if (tur.AktifMi.HasValue && tur.AktifMi.Value)
-                return Json(new { success = true, Message = "Gayrimenkul Tür Bilgisi Başarıyla Silindi" }, JsonRequestBehavior.AllowGet);
+            if (tur.AktifMi.HasValue && !tur.AktifMi.Value)
+            {
+                ModelState.AddModelError("LogMessage", "Duyuru Tür Bilgisi Bilgisi Silindi.");
+
+                return Json(new { success = true, Message = "Duyuru Tür Bilgisi Başarıyla Silindi" }, JsonRequestBehavior.AllowGet);
+            }
             else
-                return Json(new { success = false, Message = "Gayrimenkul Tür Bilgisi Silinemedi!!!" }, JsonRequestBehavior.AllowGet);
+            {
+                ModelState.AddModelError("LogMessage", "Duyuru Tür Bilgisi Bilgisi Silinemedi.");
+                return Json(new { success = false, Message = "Duyuru Tür Bilgisi Silinemedi!!!" }, JsonRequestBehavior.AllowGet);
+            }
 
         }
         #endregion
-  
     }
 }

@@ -11,6 +11,7 @@ using System.Reflection;
 using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace Framework.Core.Aspects.Postsharp.LogAspects
 {
@@ -208,10 +209,18 @@ namespace Framework.Core.Aspects.Postsharp.LogAspects
                 ExceptionMessage=filterContext.Exception.Message,
                 StackTrace = filterContext.Exception.StackTrace
                }
-    };
+             };
 
             _loggerService = new LoggerService(_log);
             _loggerService.Info(logParameters);
+
+            filterContext.HttpContext.Response.Clear();
+            filterContext.HttpContext.Session.Clear();
+            filterContext.HttpContext.Session.Abandon();
+            filterContext.HttpContext.ClearError();
+
+            //Redirect user
+            filterContext.HttpContext.Server.TransferRequest("~/Error/");
         }
     }
 }

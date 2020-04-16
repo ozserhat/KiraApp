@@ -14,6 +14,7 @@ using Framework.DataAccess.Concrete.EntityFramework;
 using Framework.Core.CrossCuttingConcerns.Logging.Log4Net;
 using log4net;
 using Framework.Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
+using Framework.DataAccess.Concrete;
 
 namespace Framework.Business.DependencyResolvers.Ninject
 {
@@ -54,6 +55,15 @@ namespace Framework.Business.DependencyResolvers.Ninject
 
             Bind<ILogsDal>().To<EfLogDal>().InTransientScope();
             Bind<ILogService>().To<LogsManager>().InTransientScope();
+
+            Bind<IDuyuruDal>().To<EfDuyuruDal>().InTransientScope();
+            Bind<IDuyuruService>().To<DuyuruManager>().InTransientScope();
+
+            Bind<IDuyuru_TurDal>().To<EfDuyuru_TurDal>().InTransientScope();
+            Bind<IDuyuru_TurService>().To<Duyuru_TurManager>().InTransientScope();
+
+            Bind<IDuyuru_BildirimDal>().To<EfDuyuru_BildirimDal>().InTransientScope();
+            Bind<IDuyuru_BildirimService>().To<Duyuru_BildirimManager>().InTransientScope();
 
             Bind<ISistemParametreleriService>().To<SistemParametreleriManager>().InTransientScope();
             Bind<ISistemParametreleriDal>().To<EfSistemParametreleriDal>().InTransientScope();

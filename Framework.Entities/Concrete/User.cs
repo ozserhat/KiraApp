@@ -13,6 +13,7 @@ namespace Framework.Entities.Concrete
         public User()
         {
             this.User_Roles = new HashSet<User_Role>();
+            this.Duyuru_Bildirimleri = new HashSet<Duyuru_Bildirim>();
         }
 
         [Key]
@@ -43,6 +44,9 @@ namespace Framework.Entities.Concrete
         public  bool? IsActive { get; set; }
 
         public bool? IsDeleted { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<Duyuru_Bildirim> Duyuru_Bildirimleri { get; set; }
 
         [JsonIgnore]
         public virtual ICollection<User_Role> User_Roles { get; set; }

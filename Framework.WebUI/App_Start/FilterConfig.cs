@@ -12,7 +12,7 @@ namespace Framework.WebUI
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new HandleErrorAttribute());
+            //filters.Add(new HandleErrorAttribute());
             filters.Add(new LogAspect(typeof(DatabaseLogger)));
         }
     }

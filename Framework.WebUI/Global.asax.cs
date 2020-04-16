@@ -2,6 +2,7 @@
 using Framework.Core.CrossCuttingConcerns.Security.Web;
 using Framework.Core.Utilities.Mvc.Infrastructure;
 using Framework.WebUI.Controllers;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -43,20 +44,21 @@ namespace Framework.WebUI
 
             if (httpException == null)
             {
-                routeData.Values.Add("action", "Http404");
+                routeData.Values.Add("action", "Error");
             }
             else
             {
                 switch (httpException.GetHttpCode())
                 {
                     case 404:
-                        routeData.Values.Add("action", "Http404");
+                        routeData.Values.Add("action", "Error");
                         break;
                 }
             }
 
             Response.Clear();
             Server.ClearError();
+
             Response.TrySkipIisCustomErrors = true;
 
             IController errorController = new UnauthorizedController();

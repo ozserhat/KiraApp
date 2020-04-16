@@ -161,8 +161,14 @@
                         @Html.AuthMainAction("Kullanıcı Yetki", "Index", "KullaniciYetki", "fa fa-lg fa-fw fa-list-alt", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                     </li>
                     @*<li class="@Html.RouteIf("Pages", "active")">
-                            @Html.AuthMainAction("Sayfalar", "Index", "Pages", "fa fa-lg fa-fw fa-list-alt", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
-                        </li>*@
+            @Html.AuthMainAction("Sayfalar", "Index", "Pages", "fa fa-lg fa-fw fa-list-alt", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+        </li>*@
+                    <li class="@Html.RouteIf("DuyuruTur", "active")">
+                        @Html.AuthMainAction("DuyuruTurleri", "Index", "DuyuruTur", "fa fa-lg fa-fw fa-list-alt", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                    </li>
+                    <li class="@Html.RouteIf("Duyuru", "active")">
+                        @Html.AuthMainAction("Duyurular", "Index", "Duyuru", "fa fa-lg fa-fw fa-list-alt", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                    </li>
                     <li class="@Html.RouteIf("Logs", "active")">
                         @Html.AuthMainAction("Loglar", "Index", "Logs", "fa fa-lg fa-fw fa-list-alt", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                     </li>

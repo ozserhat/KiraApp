@@ -20,11 +20,8 @@ namespace Framework.DataAccess.Abstract
 
         ControllerAction GetExistsAndSave(IEnumerable<ControllerAction> controller);
 
-        ControllerAction Add(ControllerAction controllerAction);
 
         void AddList(IEnumerable<ControllerAction> entities);
-
-        ControllerAction Update(ControllerAction controllerAction);
 
     }
 }

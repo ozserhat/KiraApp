@@ -15,6 +15,14 @@ namespace Framework.WebUI.Controllers
             return PartialView("~/Views/Shared/_Unauthorized.cshtml");
         }
 
+
+        [HttpGet]
+        public ActionResult Error()
+        {
+            Response.StatusCode = 404;
+            return View();
+        }
+
         [HttpGet]
         public ActionResult Http404()
         {
