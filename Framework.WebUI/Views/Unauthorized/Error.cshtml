@@ -322,7 +322,7 @@
                     <div class="clip"><div class="shadow"><span class="digit firstDigit"></span></div></div>
                     <div class="msg">Hata<span class="triangle"></span></div>
                 </div>
-                <h2 class="h1">Hata Oluştu Lütfen Sayfa Bilgilerini Kontrol Ediniz!!!</h2>
+                @*<h2 class="h1">Hata Oluştu Lütfen Sayfa Bilgilerini Kontrol Ediniz!!!</h2>*@
             </div>
         </div>
     </div>
@@ -337,9 +337,9 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
-            var url = '../../Account/Login';
+            var url = "@Request.UrlReferrer";
             $('html,body').animate({ top: '0px' }, {
-                duration: 4000,
+                duration: 3000,
                 complete: function () {
                     window.location = url;
                 }

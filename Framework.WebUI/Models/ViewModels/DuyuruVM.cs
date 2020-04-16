@@ -20,6 +20,9 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Duyuru Adı")]
         public string DuyuruAd { get; set; }
 
+        [Display(Name = "Açıklama")]
+        public string Aciklama { get; set; }
+
         [Display(Name = "Oluşturan Kullanıcı")]
         public int? OlusturanKullanici_Id { get; set; }
 
@@ -51,6 +54,9 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Duyuru Adı")]
         public string DuyuruAd { get; set; }
 
+        [Display(Name = "Açıklama")]
+        public string Aciklama { get; set; }
+
         [Display(Name = "Duyuru Türleri")]
         public SelectList DuyuruTurSelectList { get; set; }
 
@@ -77,6 +83,9 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Duyuru Adı")]
         public string DuyuruAd { get; set; }
+
+        [Display(Name = "Açıklama")]
+        public string Aciklama { get; set; }
 
         [Display(Name = "Duyuru Türleri")]
         public SelectList DuyuruTurSelectList { get; set; }
