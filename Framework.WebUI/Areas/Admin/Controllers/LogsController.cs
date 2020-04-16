@@ -26,6 +26,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
         #endregion
 
         #region Listeleme
+
         public ActionResult Index(int? page, int pageSize = 15)
         {
             var loglar = _service.GetAll();
@@ -37,13 +38,33 @@ namespace Framework.WebUI.Areas.Admin.Controllers
             foreach (var item in loglar)
             {
                 var log = _service.JsonDeserialize<LogsVM>(item.Detail);
-
+                log.Id = item.Id;
                 model.JsonDeserializeLog.Add(log);
             }
 
             return View(model);
         }
 
+        #endregion
+
+        #region Detay 
+        [HttpPost]
+        public JsonResult Detay(int Id)
+        {
+            try
+            {
+                var detay = _service.GetById(Id);
+                var log = _service.JsonDeserialize<LogsVM>(detay.Detail);
+                log.Id = detay.Id;
+                ModelState.AddModelError("LogMessage", "Log Detay Bilgisi Görüntülendi.");
+                return Json(new { Data = log, success = true, Message = "Log Detay Bilgisi Görüntülendi." }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("LogMessage", "Log Detay Bilgisi Görüntüleme Esnasında Hata Oluştu!!!");
+                return Json(new { success = false, Message = "Log Detay Bilgisi Görüntüleme Esnasında Hata Oluştu!!!" }, JsonRequestBehavior.AllowGet);
+            }
+        }
         #endregion
 
     }

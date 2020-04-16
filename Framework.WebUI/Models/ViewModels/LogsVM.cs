@@ -39,6 +39,8 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Açıklama")]
         public string Message { get; set; }
 
+        [Display(Name = "Hata Açıklaması")]
+        public string ExceptionMessage { get; set; }
 
         [Display(Name = "Hata Açıklama")]
         public string StackTrace { get; set; }

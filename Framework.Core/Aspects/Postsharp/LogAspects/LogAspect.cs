@@ -67,7 +67,11 @@ namespace Framework.Core.Aspects.Postsharp.LogAspects
                 logMessage = filterContext.Controller.ViewData.ModelState["LogMessage"].Errors.First().ErrorMessage;
 
             if (controllerName == "Unauthorized")
+            {
                 logType = "Error";
+                if (string.IsNullOrEmpty(logMessage))
+                    logMessage = "Yetkisiz İşlem!!";
+            }
             else
                 logType = "Info";
 
@@ -83,7 +87,9 @@ namespace Framework.Core.Aspects.Postsharp.LogAspects
                 HttpType = (!string.IsNullOrEmpty(actionType)?actionType:"HttpGet"),
                 UserId = userId,
                 UserName = userName,
-                Message = logMessage
+                Message = logMessage,
+                ExceptionMessage="-",
+                StackTrace="-"
                }
              };
 
@@ -198,10 +204,11 @@ namespace Framework.Core.Aspects.Postsharp.LogAspects
                 HttpType = (!string.IsNullOrEmpty(actionType)?actionType:"HttpGet"),
                 UserId = userId,
                 UserName = userName,
-                Message = (!string.IsNullOrEmpty(logMessage)?logMessage:filterContext.Exception.Message),
-                StackTrace=filterContext.Exception.StackTrace
+                Message = (!string.IsNullOrEmpty(logMessage)?logMessage:"-"),
+                ExceptionMessage=filterContext.Exception.Message,
+                StackTrace = filterContext.Exception.StackTrace
                }
-             };
+    };
 
             _loggerService = new LoggerService(_log);
             _loggerService.Info(logParameters);

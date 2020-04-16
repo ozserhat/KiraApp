@@ -59,6 +59,7 @@
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Metod</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Kullanıcı Adı</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Tarih</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Detay</th>
                                                     </tr>
                                                 </thead>
                                                 @if (Model.JsonDeserializeLog != null && Model.JsonDeserializeLog.Count > 0)
@@ -87,6 +88,12 @@
                                                                 <td>@Html.DisplayFor(model => item.ActionName)</td>
                                                                 <td>@Html.DisplayFor(model => item.UserName)</td>
                                                                 <td>@Html.DisplayFor(model => item.Date)</td>
+                                                                <td>
+                                                                    <a href="#" id="btnLogDetay" class="btnDetay" rel="tooltip" data-toggle="modal"
+                                                                       data-target="#detayModal" data-original-title="Log Detay" data-id="@item.Id">
+                                                                        <span class="glyphicon glyphicon-eye-close"></span>
+                                                                    </a>
+                                                                </td>
                                                             </tr>
                                                         }
                                                     </tbody>
@@ -109,10 +116,54 @@
 
     </div>
 
-    using (Html.BeginForm("Index", "Logs", new { page = 1 }, FormMethod.Post, new { @id = "sorgulamaKriterleri" }))
-    {
-        <input id="page" name="page" type="hidden" value="">
-    }
+    <div class="modal" id="detayModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title"><b>Log Detay</b></h4>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form id="frmOnay">
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12 col-lg-12 form-group">
+                                    @Html.Label("Mesaj", new { @class = "control-label col-md-4" })
+                                    <div class="col-md-8">
+                                        <p> @Html.TextBox("Message", "", new { @class = "form-control", @readonly = true })</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12 col-lg-12 form-group">
+                                    @Html.Label("Hata Açıklaması", new { @class = "control-label col-md-4" })
+                                    <div class="col-md-8">
+                                        <p> @Html.TextArea("ExceptionMessage","", new { @class = "form-control", rows = "3", @readonly = true })</p>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12 col-lg-12 form-group">
+                                    @Html.Label("Detay", new { @class = "control-label col-md-4" })
+                                    <div class="col-md-8">
+                                        @Html.TextArea("StackTrace", new { @class = "form-control", rows = "3", @readonly = true })
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Kapat</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Modal footer -->
+            </div>
+        </div>
+    </div>
 }
 
 
@@ -134,8 +185,31 @@
         $(document).ready(function () {
             dt = $('#dt_basic').DataTable(dt_settings);
         });
-    </script>
 
+        $('.btnDetay').on('click', function () {
+
+            var id = $(this).attr("data-id");
+
+              $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Detay", "Logs")',
+                    data: { id: id },
+                    success: function (result) {
+                        if (result != null && result.success) {
+                            $('#Message').val(result.Data.Message);
+                            $('#ExceptionMessage').val(result.Data.ExceptionMessage);
+                            $('#StackTrace').val(result.Data.StackTrace);
+                        }
+                        else {
+                            swal('Uyarı!', result.Message, 'warning');
+                        }
+                    },
+                    error: function (xhr) {
+                        swal('Uyarı!', result.Message, 'warning');
+                    }
+                 });
+        });
+    </script>
 
 }
 

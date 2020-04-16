@@ -14,6 +14,7 @@ namespace Framework.Core.CrossCuttingConcerns.Logging
         public int? UserId { get; set; }
         public string UserName { get; set; }
         public string Message { get; set; }
+        public string ExceptionMessage { get; set; }
         public string StackTrace { get; set; }
         public DateTime Date { get; set; }
     }
