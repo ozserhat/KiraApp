@@ -26,7 +26,6 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <DontImportPostSharp>True</DontImportPostSharp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -87,10 +86,6 @@
     </Reference>
     <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
-    </Reference>
-    <Reference Include="PostSharp, Version=4.3.48.0, Culture=neutral, PublicKeyToken=b13fd38b8f9c99d7, processorArchitecture=MSIL">
-      <HintPath>..\packages\PostSharp.4.3.48\lib\net35-client\PostSharp.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Annotations, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -178,10 +173,17 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AnasayfaController.cs" />
     <Compile Include="Areas\Admin\Controllers\DenemeController.cs" />
-    <Compile Include="Areas\Admin\Controllers\DenemeVM.cs" />
+    <Compile Include="Areas\Admin\Controllers\DuyuruController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DuyuruTurController.cs" />
+    <Compile Include="Areas\Admin\Controllers\GayrimenkulAltTurController.cs" />
+    <Compile Include="Areas\Admin\Controllers\GayrimenkulDosyaTurController.cs" />
+    <Compile Include="Areas\Admin\Controllers\GayrimenkulTurController.cs" />
+    <Compile Include="Areas\Admin\Controllers\KullaniciYetkiController.cs" />
+    <Compile Include="Areas\Admin\Controllers\LogsController.cs" />
     <Compile Include="Areas\Admin\Controllers\PagesController.cs" />
     <Compile Include="Areas\Admin\Controllers\PersonelController.cs" />
     <Compile Include="Areas\Admin\Controllers\RolesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SistemParametreleriController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserPermissionsController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserRolesController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
@@ -197,9 +199,18 @@
     <Compile Include="Helpers\UserExtended.cs" />
     <Compile Include="Models\ViewModels\ControllerActionsVm.cs" />
     <Compile Include="Models\ViewModels\DenemeVm.cs" />
+    <Compile Include="Models\ViewModels\DuyuruTurVM.cs" />
+    <Compile Include="Models\ViewModels\DuyuruVM.cs" />
+    <Compile Include="Models\ViewModels\GayrimenkulAlt_TurVM.cs" />
+    <Compile Include="Models\ViewModels\GayrimenkulDosya_TurVM.cs" />
+    <Compile Include="Models\ViewModels\GayrimenkulTurVM.cs" />
+    <Compile Include="Models\ViewModels\KullaniciYetkiDuzenleVM.cs" />
     <Compile Include="Models\ViewModels\LoginVm.cs" />
-    <Compile Include="Models\ViewModels\PersonelVm.cs" />
+
+    <Compile Include="Models\ViewModels\LogsVM.cs" />
+
     <Compile Include="Models\ViewModels\RolVM.cs" />
+    <Compile Include="Models\ViewModels\SistemParametreleriVM.cs" />
     <Compile Include="Models\ViewModels\UserRolesVm.cs" />
     <Compile Include="Models\ViewModels\UserVm.cs" />
     <Compile Include="Models\VMBase.cs" />
@@ -878,6 +889,7 @@
     <Content Include="Scripts\Blob.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-datepicker.min.js" />
+    <Content Include="Scripts\bootstrap-datepicker.tr.js" />
     <Content Include="Scripts\bootstrap-datepicker.tr.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -971,10 +983,29 @@
     <Content Include="Areas\Admin\Views\Pages\Index.cshtml" />
     <Content Include="Areas\Admin\Views\UserRoles\Index.cshtml" />
     <Content Include="Areas\Admin\Views\deneme\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Admin\Views\Personel\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Personel\Ekle.cshtml" />
+
+    <Content Include="Areas\Admin\Views\GayrimenkulTur\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\GayrimenkulTur\Duzenle.cshtml" />
+    <Content Include="Areas\Admin\Views\GayrimenkulTur\Ekle.cshtml" />
+    <Content Include="Areas\Admin\Views\GayrimenkulAltTur\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\GayrimenkulAltTur\Ekle.cshtml" />
+    <Content Include="Areas\Admin\Views\GayrimenkulAltTur\Duzenle.cshtml" />
+    <Content Include="Areas\Admin\Views\GayrimenkulDosyaTur\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\GayrimenkulDosyaTur\Ekle.cshtml" />
+    <Content Include="Areas\Admin\Views\GayrimenkulDosyaTur\Duzenle.cshtml" />
+    <Content Include="Areas\Admin\Views\SistemParametreleri\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\SistemParametreleri\Ekle.cshtml" />
+    <Content Include="Areas\Admin\Views\SistemParametreleri\Duzenle.cshtml" />
+    <Content Include="Areas\Admin\Views\KullaniciYetki\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\KullaniciYetki\KullaniciYetkileri.cshtml" />
+    <Content Include="Areas\Admin\Views\Logs\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\DuyuruTur\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\DuyuruTur\Ekle.cshtml" />
+    <Content Include="Areas\Admin\Views\DuyuruTur\Duzenle.cshtml" />
+    <Content Include="Areas\Admin\Views\Duyuru\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Duyuru\Ekle.cshtml" />
+    <Content Include="Areas\Admin\Views\Duyuru\Duzenle.cshtml" />
+
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\customModal.js" />
@@ -1587,6 +1618,7 @@
     <Content Include="Views\Unauthorized\Index.cshtml" />
     <Content Include="Views\Unauthorized\Http404.cshtml" />
     <Content Include="Views\Shared\_Unauthorized.cshtml" />
+    <Content Include="Views\Unauthorized\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1668,11 +1700,6 @@
     <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.targets'))" />
   </Target>
   <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" />
-  <Import Project="..\packages\PostSharp.4.3.48\tools\PostSharp.targets" Condition="Exists('..\packages\PostSharp.4.3.48\tools\PostSharp.targets')" />
-  <Target Name="EnsurePostSharpImported" BeforeTargets="BeforeBuild" Condition="'$(PostSharp30Imported)' == ''">
-    <Error Condition="!Exists('..\packages\PostSharp.4.3.48\tools\PostSharp.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://www.postsharp.net/links/nuget-restore." />
-    <Error Condition="Exists('..\packages\PostSharp.4.3.48\tools\PostSharp.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://www.postsharp.net/links/nuget-restore." />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

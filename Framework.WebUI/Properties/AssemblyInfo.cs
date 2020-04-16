@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿using Framework.Core.Aspects.Postsharp.LogAspects;
+using System.Data.Entity.Infrastructure.Interception;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 

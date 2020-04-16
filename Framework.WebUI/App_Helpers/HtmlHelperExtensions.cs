@@ -10,6 +10,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
+using System.Web.UI;
 using Framework.WebUI.App_Helpers;
 using Microsoft.Ajax.Utilities;
 
@@ -268,7 +269,10 @@ namespace Framework.WebUI
         public static MvcHtmlString AuthAction(this HtmlHelper htmlHelper, string linkText, string actionName, string controllerName,
             RouteValueDictionary routeValues, IDictionary<string, object> htmlAttributes, bool showActionLinkAsDisabled)
         {
-            controllerName = routeValues["controllerName"].ToString();
+            var requestUrl = string.Format("{0}", "~/" +
+             HttpContext.Current.Request.RequestContext.RouteData.DataTokens["area"] + "/" + controllerName + "/" + actionName);
+
+            string returnUrl = VirtualPathUtility.ToAbsolute(requestUrl, htmlHelper.ViewContext.RequestContext.HttpContext.Request.ApplicationPath);
 
             if (htmlHelper.ActionAuthorized(actionName, controllerName))
             {
@@ -279,15 +283,38 @@ namespace Framework.WebUI
                 TagBuilder tagBuilder = new TagBuilder("a");
                 UrlHelper urlHelper = new UrlHelper(htmlHelper.ViewContext.RequestContext);
                 urlHelper.Action(actionName, controllerName);
-                tagBuilder.MergeAttribute("href", htmlHelper.ViewContext.RequestContext.HttpContext.Request.Url.AbsoluteUri);
 
-                tagBuilder.MergeAttribute("class", htmlAttributes["class"].ToString());
-                tagi.AddCssClass("glyphicon glyphicon-plus linkStyle");
-                tagi.InnerHtml = linkText;
+
+                if (actionName == "Sil")
+                {
+                    tagBuilder.MergeAttribute("href", "#");
+                    htmlAttributes["class"] = htmlAttributes["class"] + " delete-row";
+                    tagBuilder.MergeAttribute("class", htmlAttributes["class"].ToString());
+
+                    if (htmlAttributes["data_id"] != null)
+                    {
+                        tagBuilder.Attributes.Add("data_id", htmlAttributes["data_id"].ToString());
+                        tagBuilder.Attributes.Add("data_name", htmlAttributes["data_name"].ToString());
+                    }
+                }
+                else
+                {
+                    if (routeValues != null)
+                        tagBuilder.MergeAttribute("href", returnUrl + "?"+ routeValues.Keys.FirstOrDefault() + "="+
+                            routeValues[routeValues.Keys.FirstOrDefault()].ToString());
+                    else if (routeValues != null && routeValues["Id"] != null)
+                        tagBuilder.MergeAttribute("href", returnUrl + "?Id=" + routeValues["Id"].ToString());
+                    else
+                        tagBuilder.MergeAttribute("href", returnUrl);
+
+                    tagBuilder.MergeAttribute("class", htmlAttributes["class"].ToString());
+                }
+
                 innerHtml.Append(tagi.ToString());
+                innerHtml.Append(linkText);
                 tagBuilder.InnerHtml = innerHtml.ToString();
-                MvcHtmlString.Create(tagBuilder.ToString());
-                return htmlHelper.ActionLink(linkText, actionName, controllerName, routeValues, htmlAttributes);
+                return MvcHtmlString.Create(tagBuilder.ToString());
+                //return htmlHelper.ActionLink(linkText, actionName, controllerName, routeValues, htmlAttributes);
             }
             else
             {
@@ -303,8 +330,9 @@ namespace Framework.WebUI
                     tagBuilder.MergeAttribute("class", htmlAttributes["class"].ToString());
                     tagBuilder.MergeAttribute("onclick", "GetirUyari()");
                     //tagi.AddCssClass("glyphicon glyphicon-plus linkStyle");
-                    tagi.InnerHtml = linkText;
+                    tagi.InnerHtml = "";
                     innerHtml.Append(tagi.ToString());
+                    innerHtml.Append(linkText);
                     tagBuilder.InnerHtml = innerHtml.ToString();
                     return MvcHtmlString.Create(tagBuilder.ToString());
                 }
@@ -320,16 +348,16 @@ namespace Framework.WebUI
                     tagBuilder.MergeAttribute("href", routeValues["controllerName"] + "/" + actionName);
                     tagBuilder.MergeAttribute("class", htmlAttributes["class"].ToString());
                     //tagi.AddCssClass("glyphicon glyphicon-plus linkStyle");
-                    tagi.InnerHtml = linkText;
+                    tagi.InnerHtml = "";
                     innerHtml.Append(tagi.ToString());
+                    innerHtml.Append(linkText);
                     tagBuilder.InnerHtml = innerHtml.ToString();
                     return MvcHtmlString.Create(tagBuilder.ToString());
                 }
             }
         }
 
-        public static MvcHtmlString AuthMainAction(this HtmlHelper htmlHelper, string linkText, string actionName, string controllerName,
-            string htmlAttributes, bool showActionLinkAsDisabled)
+        public static MvcHtmlString AuthAction(this HtmlHelper htmlHelper, string linkText, string actionName, string controllerName, IDictionary<string, object> htmlAttributes, bool showActionLinkAsDisabled)
         {
 
             if (htmlHelper.ActionAuthorized(actionName, controllerName))
@@ -342,13 +370,16 @@ namespace Framework.WebUI
                 UrlHelper urlHelper = new UrlHelper(htmlHelper.ViewContext.RequestContext);
                 urlHelper.Action(actionName, controllerName);
                 tagBuilder.MergeAttribute("href", htmlHelper.ViewContext.RequestContext.HttpContext.Request.Url.AbsoluteUri);
-                
-                tagi.AddCssClass(htmlAttributes);
-                tagi.InnerHtml = linkText;
+
+                tagBuilder.MergeAttribute("class", htmlAttributes["class"].ToString());
+                tagi.AddCssClass("glyphicon glyphicon-plus linkStyle");
+                tagi.InnerHtml = "";
+                innerHtml.Append(tagi.ToString());
+                innerHtml.Append(linkText);
                 innerHtml.Append(tagi.ToString());
                 tagBuilder.InnerHtml = innerHtml.ToString();
-                 MvcHtmlString.Create(tagBuilder.ToString());
-                return htmlHelper.ActionLink(linkText, actionName, controllerName, null, htmlAttributes);
+                return MvcHtmlString.Create(tagBuilder.ToString());
+                //return htmlHelper.ActionLink(linkText, actionName, controllerName, null, htmlAttributes);
             }
             else
             {
@@ -359,11 +390,14 @@ namespace Framework.WebUI
                     TagBuilder tagi = new TagBuilder("i");
 
                     TagBuilder tagBuilder = new TagBuilder("a");
+                    tagBuilder.MergeAttribute("href", "#");
 
+                    tagBuilder.MergeAttribute("class", htmlAttributes["class"].ToString());
                     tagBuilder.MergeAttribute("onclick", "GetirUyari()");
-                    tagBuilder.MergeAttribute("title", linkText);
-                    tagi.AddCssClass(htmlAttributes);
-                    tagi.InnerHtml = linkText;
+                    //tagi.AddCssClass("glyphicon glyphicon-plus linkStyle");
+                    tagi.InnerHtml = "";
+                    innerHtml.Append(tagi.ToString());
+                    innerHtml.Append(linkText);
                     innerHtml.Append(tagi.ToString());
                     tagBuilder.InnerHtml = innerHtml.ToString();
                     return MvcHtmlString.Create(tagBuilder.ToString());
@@ -378,10 +412,145 @@ namespace Framework.WebUI
                     UrlHelper urlHelper = new UrlHelper(htmlHelper.ViewContext.RequestContext);
                     urlHelper.Action(actionName, controllerName);
                     tagBuilder.MergeAttribute("href", controllerName + "/" + actionName);
-                
-                    tagi.AddCssClass(htmlAttributes);
-                    tagi.InnerHtml = linkText;
+                    tagBuilder.MergeAttribute("class", htmlAttributes["class"].ToString());
+                    //tagi.AddCssClass("glyphicon glyphicon-plus linkStyle");
+                    tagi.InnerHtml = "";
                     innerHtml.Append(tagi.ToString());
+                    innerHtml.Append(linkText);
+                    tagBuilder.InnerHtml = innerHtml.ToString();
+                    return MvcHtmlString.Create(tagBuilder.ToString());
+                }
+            }
+        }
+
+        public static MvcHtmlString AuthMainAction(this HtmlHelper htmlHelper, string linkText, string actionName, string controllerName,
+             string htmlAttributes, bool showActionLinkAsDisabled)
+        {
+            var requestUrl = string.Format("{0}", "~/" +
+              HttpContext.Current.Request.RequestContext.RouteData.DataTokens["area"] + "/" + controllerName + "/" + actionName);
+
+            string returnUrl = VirtualPathUtility.ToAbsolute(requestUrl, htmlHelper.ViewContext.RequestContext.HttpContext.Request.ApplicationPath);
+
+            if (htmlHelper.ActionAuthorized(actionName, controllerName))
+            {
+                StringBuilder innerHtml = new StringBuilder();
+
+                TagBuilder tagi = new TagBuilder("i");
+
+                TagBuilder tagBuilder = new TagBuilder("a");
+                UrlHelper urlHelper = new UrlHelper(htmlHelper.ViewContext.RequestContext);
+                urlHelper.Action(actionName, controllerName);
+                tagBuilder.MergeAttribute("href", returnUrl);
+                tagi.AddCssClass(htmlAttributes);
+                tagi.InnerHtml = "";
+                innerHtml.Append(tagi.ToString());
+                innerHtml.Append(linkText);
+                tagBuilder.InnerHtml = innerHtml.ToString();
+                return MvcHtmlString.Create(tagBuilder.ToString());
+                //return htmlHelper.ActionLink(linkText, actionName, controllerName, null, htmlAttributes);
+            }
+            else
+            {
+                //if (showActionLinkAsDisabled)
+                //{
+                StringBuilder innerHtml = new StringBuilder();
+
+                TagBuilder tagi = new TagBuilder("i");
+
+                TagBuilder tagBuilder = new TagBuilder("a");
+
+                tagBuilder.MergeAttribute("onclick", "GetirUyari()");
+                tagBuilder.MergeAttribute("title", linkText);
+                tagi.AddCssClass(htmlAttributes);
+                tagi.InnerHtml = "";
+                innerHtml.Append(tagi.ToString());
+                innerHtml.Append(linkText);
+                tagBuilder.InnerHtml = innerHtml.ToString();
+                return MvcHtmlString.Create(tagBuilder.ToString());
+                //}
+                //else
+                //{
+                //    StringBuilder innerHtml = new StringBuilder();
+
+                //    TagBuilder tagi = new TagBuilder("i");
+
+                //    TagBuilder tagBuilder = new TagBuilder("a");
+                //    UrlHelper urlHelper = new UrlHelper(htmlHelper.ViewContext.RequestContext);
+                //    urlHelper.Action(actionName, controllerName);
+                //    tagBuilder.MergeAttribute("href", returnUrl);
+                //    tagi.AddCssClass(htmlAttributes);
+                //    tagi.InnerHtml = "";
+                //    innerHtml.Append(tagi.ToString());
+                //    innerHtml.Append(linkText);
+                //    tagBuilder.InnerHtml = innerHtml.ToString();
+                //    return MvcHtmlString.Create(tagBuilder.ToString());
+                //}
+            }
+        }
+
+        public static MvcHtmlString AuthActionLink(this HtmlHelper htmlHelper, string linkText, string actionName, string controllerName,
+                string htmlAttributes, string htmlAttributesIcon, bool showActionLinkAsDisabled)
+        {
+            var requestUrl = string.Format("{0}", "~/" +
+              HttpContext.Current.Request.RequestContext.RouteData.DataTokens["area"] + "/" + controllerName + "/" + actionName);
+
+            string returnUrl = VirtualPathUtility.ToAbsolute(requestUrl, htmlHelper.ViewContext.RequestContext.HttpContext.Request.ApplicationPath);
+
+            if (htmlHelper.ActionAuthorized(actionName, controllerName))
+            {
+
+                StringBuilder innerHtml = new StringBuilder();
+
+                TagBuilder tagi = new TagBuilder("i");
+
+                TagBuilder tagBuilder = new TagBuilder("a");
+                UrlHelper urlHelper = new UrlHelper(htmlHelper.ViewContext.RequestContext);
+                urlHelper.Action(actionName, controllerName);
+                tagBuilder.MergeAttribute("href", returnUrl);
+                tagBuilder.AddCssClass(htmlAttributes);
+                tagi.AddCssClass(htmlAttributesIcon);
+                tagi.InnerHtml = "";
+                innerHtml.Append(tagi.ToString());
+                innerHtml.Append(linkText);
+                tagBuilder.InnerHtml = innerHtml.ToString();
+                return MvcHtmlString.Create(tagBuilder.ToString());
+                //return htmlHelper.ActionLink(linkText, actionName, controllerName, null, htmlAttributes);
+            }
+            else
+            {
+                if (showActionLinkAsDisabled)
+                {
+                    StringBuilder innerHtml = new StringBuilder();
+
+                    TagBuilder tagi = new TagBuilder("i");
+
+                    TagBuilder tagBuilder = new TagBuilder("a");
+
+                    tagBuilder.MergeAttribute("onclick", "GetirUyari()");
+                    tagBuilder.MergeAttribute("title", linkText);
+                    tagBuilder.AddCssClass(htmlAttributes);
+                    tagi.AddCssClass(htmlAttributesIcon);
+                    tagi.InnerHtml = "";
+                    innerHtml.Append(tagi.ToString());
+                    innerHtml.Append(linkText);
+                    tagBuilder.InnerHtml = innerHtml.ToString();
+                    return MvcHtmlString.Create(tagBuilder.ToString());
+                }
+                else
+                {
+                    StringBuilder innerHtml = new StringBuilder();
+
+                    TagBuilder tagi = new TagBuilder("i");
+
+                    TagBuilder tagBuilder = new TagBuilder("a");
+                    UrlHelper urlHelper = new UrlHelper(htmlHelper.ViewContext.RequestContext);
+                    urlHelper.Action(actionName, controllerName);
+                    tagBuilder.MergeAttribute("href", returnUrl);
+                    tagBuilder.AddCssClass(htmlAttributes);
+                    tagi.AddCssClass(htmlAttributesIcon);
+                    tagi.InnerHtml = "";
+                    innerHtml.Append(tagi.ToString());
+                    innerHtml.Append(linkText);
                     tagBuilder.InnerHtml = innerHtml.ToString();
                     return MvcHtmlString.Create(tagBuilder.ToString());
                 }

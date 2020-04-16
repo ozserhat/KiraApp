@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Framework.Business.Abstract;
-using Framework.Core.Aspects.Postsharp.LogAspects;
+//using Framework.Core.Aspects.Postsharp.LogAspects;
 using Framework.Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Framework.DataAccess.Abstract;
 using Framework.Entities.ComplexTypes;

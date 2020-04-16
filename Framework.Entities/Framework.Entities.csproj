@@ -34,6 +34,12 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -46,19 +52,30 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComplexTypes\ControllerActionList.cs" />
+    <Compile Include="ComplexTypes\GayrimenkulTurVM.cs" />
     <Compile Include="ComplexTypes\UserDetail.cs" />
     <Compile Include="ComplexTypes\UserRoleItem.cs" />
+    <Compile Include="ComplexTypes\VMBase.cs" />
     <Compile Include="Concrete\ControllerAction.cs" />
     <Compile Include="Concrete\Deneme.cs" />
+    <Compile Include="Concrete\Duyuru.cs" />
+    <Compile Include="Concrete\Duyuru_Bildirim.cs" />
+    <Compile Include="Concrete\Duyuru_Tur.cs" />
+    <Compile Include="Concrete\Gayrimenkul.cs" />
+    <Compile Include="Concrete\GayrimenkulAlt_Tur.cs" />
+    <Compile Include="Concrete\GayrimenkulDosya_Tur.cs" />
+    <Compile Include="Concrete\GayrimenkulTur.cs" />
     <Compile Include="Concrete\Logs.cs" />
     <Compile Include="Concrete\Personel.cs" />
     <Compile Include="Concrete\Role.cs" />
+    <Compile Include="Concrete\SistemParametreleri.cs" />
     <Compile Include="Concrete\User.cs" />
     <Compile Include="Concrete\User_Permission.cs" />
     <Compile Include="Concrete\User_Role.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -66,6 +83,9 @@
       <Project>{e071c275-08b2-4ca6-972b-3b2f064e3434}</Project>
       <Name>Framework.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\PagedList.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

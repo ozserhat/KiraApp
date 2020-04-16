@@ -17,5 +17,11 @@ namespace Framework.Business.Abstract
         User_Permission GetById(int id);
 
         bool GetUserPermissionExists(User_Permission userPermission);
+
+        User_Permission Ekle(User_Permission userPermission);
+
+        User_Permission Guncelle(User_Permission userPermission);
+
+        bool Sil(int id);
     }
 }

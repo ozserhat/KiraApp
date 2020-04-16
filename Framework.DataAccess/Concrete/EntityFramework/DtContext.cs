@@ -25,7 +25,18 @@ namespace Framework.DataAccess.Concrete.EntityFramework
         public DbSet<User_Permission> User_Permissions { get; set; }
         public DbSet<Log> Logs { get; set; }
         public DbSet<Deneme> Denemeler { get; set; }
+
         public DbSet<Personel> Personeller { get; set; }
+
+        public DbSet<Gayrimenkul> Gayrimenkuller { get; set; }
+        public DbSet<GayrimenkulTur> GayrimenkulTurleri { get; set; }
+        public DbSet<GayrimenkulAlt_Tur> GayrimenkulAlt_Turleri { get; set; }
+        public DbSet<GayrimenkulDosya_Tur> GayrimenkulDosya_Turleri { get; set; }
+        public DbSet<Duyuru> Duyurular { get; set; }
+        public DbSet<Duyuru_Tur> Duyuru_Turleri { get; set; }
+        public DbSet<Duyuru_Bildirim> Duyuru_Bildirimleri { get; set; }
+        public DbSet<SistemParametreleri> SistemParametreleri { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 
@@ -53,6 +64,9 @@ namespace Framework.DataAccess.Concrete.EntityFramework
 
             modelBuilder.Entity<User_Permission>()
             .HasKey(x => new { x.User_Id, x.ControllerAction_Id });
+
+            modelBuilder.Entity<Duyuru_Bildirim>()
+            .HasKey(x => new { x.Kullanici_Id, x.Duyuru_Id });
         }
     }
 }

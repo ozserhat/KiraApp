@@ -56,7 +56,11 @@ namespace Framework.WebUI.App_Helpers
             ClaimsIdentity claimsIdentity;
             var httpContext = HttpContext.Current;
             claimsIdentity = httpContext.User.Identity as ClaimsIdentity;
-            userId = int.Parse(claimsIdentity.FindFirst("UserId").Value);
+
+
+            if (claimsIdentity.FindFirst("UserId") != null)
+                userId = Int32.Parse(claimsIdentity.FindFirst("UserId").Value);
+
 
             if (this.AuthorizeCore(filterContext.HttpContext) && GetPermissions(controllerName, actionName, userId))
             {
@@ -65,13 +69,10 @@ namespace Framework.WebUI.App_Helpers
             }
             else
             {
-                HttpCachePolicyBase cache = filterContext.HttpContext.Response.Cache;
-                cache.SetProxyMaxAge(new TimeSpan(0L));
-                cache.AddValidationCallback(new HttpCacheValidateHandler(this.CacheValidateHandler), null);
 
                 filterContext.Controller.TempData["OpenAuthorizationPopup"] = false;
                 filterContext.Controller.TempData["returnUrl"] = filterContext.HttpContext.Request.UrlReferrer;
-
+                filterContext.Controller.ViewData.ModelState.AddModelError("LogMessage", "Yetkiniz Bulunmamaktadır!!!");
                 //var viewResult = new PartialViewResult();
                 //viewResult.ViewName = "_Unauthorized";
                 filterContext.Result = new HttpUnauthorizedResult();
