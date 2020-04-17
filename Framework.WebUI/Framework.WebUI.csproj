@@ -198,6 +198,7 @@
     <Compile Include="Helpers\UserExtended.cs" />
     <Compile Include="Models\ViewModels\ControllerActionsVm.cs" />
     <Compile Include="Models\ViewModels\DenemeVm.cs" />
+    <Compile Include="Models\ViewModels\DuyuruBildirimVM.cs" />
     <Compile Include="Models\ViewModels\DuyuruTurVM.cs" />
     <Compile Include="Models\ViewModels\DuyuruVM.cs" />
     <Compile Include="Models\ViewModels\GayrimenkulAlt_TurVM.cs" />

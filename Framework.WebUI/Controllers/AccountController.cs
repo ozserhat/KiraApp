@@ -164,7 +164,7 @@ namespace Framework.WebUI.Controllers
             }
 
             ModelState.AddModelError("LogMessage", "Kullanıcı Bulunamadı!!!");
-
+            loginVm.Errors.Add("Kullanıcı Bilgileri Doğrulanamadı,Tekrar Kontrol Ediniz!!!");
             return View(loginVm);
         }
 

@@ -19,10 +19,20 @@ namespace Framework.WebUI.Areas.Admin.Controllers
         #region Constructor
 
         private IDuyuruService _service;
+        private IRoleService _roleService;
+        private IUserService _userService;
+        private IUserRoleService _userRoleService;
         private IDuyuru_TurService _duyuruTurService;
-        public DuyuruController(IDuyuruService service, IDuyuru_TurService duyuruTurService)
+        private IDuyuru_BildirimService _bildirimService;
+        public DuyuruController(IDuyuruService service, IDuyuru_TurService duyuruTurService,
+            IRoleService roleService, IUserService userService, IUserRoleService userRoleService,
+            IDuyuru_BildirimService bildirimService)
         {
             _service = service;
+            _roleService = roleService;
+            _userService = userService;
+            _userRoleService = userRoleService;
+            _bildirimService = bildirimService;
             _duyuruTurService = duyuruTurService;
         }
 
@@ -41,6 +51,8 @@ namespace Framework.WebUI.Areas.Admin.Controllers
             if (turler != null)
             {
                 model.DuyuruTurSelectList = DuyuruTurSelectList();
+                model.KullaniciSelectList = KullaniciSelectList();
+                model.KullaniciRolSelectList = KullaniciRolSelectList();
                 model.Duyurular = new StaticPagedList<Duyuru>(turler, model.PageNumber, model.PageSize, turler.Count());
                 model.TotalRecordCount = turler.Count();
             }
@@ -54,6 +66,92 @@ namespace Framework.WebUI.Areas.Admin.Controllers
             var duyuruTur = _duyuruTurService.GetirListe().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
 
             return new SelectList(duyuruTur, "Id", "Ad");
+        }
+
+        public SelectList KullaniciRolSelectList()
+        {
+            var roller = _roleService.GetAll().Select(x => new { Id = x.Id, Ad = x.Name }).ToList();
+
+            return new SelectList(roller, "Id", "Ad");
+        }
+
+        public SelectList KullaniciSelectList()
+        {
+            var kullanicilar = _userService.GetAll().Select(x => new { Id = x.Id, Ad = x.UserName }).ToList();
+
+            return new SelectList(kullanicilar, "Id", "Ad");
+        }
+        #endregion
+
+        #region BildirimGonder
+        [HttpPost]
+        public JsonResult BildirimGonder(string DuyuruId, string[] RolId, string[] KullaniciId)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    List<User> users = new List<User>();
+
+                    List<Duyuru_Bildirim> bildirimListesi = new List<Duyuru_Bildirim>();
+
+                    if (RolId.Length > 0 && string.IsNullOrEmpty(KullaniciId[0]))
+                    {
+                        users = _userRoleService.GetAll().Where(u => RolId.Contains(u.Role_Id.ToString())).Select(a => a.Users).ToList();
+                        var usr = users.GroupBy(a => a.Id).Select(a => new { UserId=a.Key});
+
+                        foreach (var u in usr)
+                        {
+                            bildirimListesi.Add(new Duyuru_Bildirim()
+                            {
+                                Duyuru_Id = int.Parse(DuyuruId),
+                                Kullanici_Id = u.UserId,
+                                OlusturulmaTarihi = DateTime.Now,
+                                OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
+                                OkunduBilgisi = false,
+                                Duyurular = null,
+                                Kullanicilar = null
+                            });
+                        }
+                    }
+                    else
+                    {
+                        foreach (string id in KullaniciId)
+                        {
+                            bildirimListesi.Add(new Duyuru_Bildirim()
+                            {
+                                Duyuru_Id = int.Parse(DuyuruId),
+                                Kullanici_Id = int.Parse(id),
+                                OlusturulmaTarihi = DateTime.Now,
+                                OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
+                                OkunduBilgisi = false
+                            });
+                        }
+                    }
+
+                    if (bildirimListesi != null && bildirimListesi.Count > 0)
+                    {
+                        var result = _bildirimService.Ekle(bildirimListesi);
+
+                        if (result)
+                        {
+                            ModelState.AddModelError("LogMessage", "Duyuru Bilgisi Bilgisi İletildi.");
+                            return Json(new { Message = "Duyuru Bilgisi Başarıyla İletildi.", success = true }, JsonRequestBehavior.AllowGet);
+                        }
+                    }
+
+                    ModelState.AddModelError("LogMessage", "Duyuru Bilgisi Bilgisi İletilemedi.");
+                    return Json(new { Message = "Duyuru Bilgisi İletilemedi!!!", success = false }, JsonRequestBehavior.AllowGet);
+                }
+
+                ModelState.AddModelError("LogMessage", "Duyuru Bilgisi Bilgisi İletilemedi.");
+                return Json(new { Message = "Duyuru Bilgisi İletilemedi!!!", success = false }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("LogMessage", "Duyuru Bilgisi Bilgisi İletilemedi.");
+                return Json(new { Message = ex.Message, success = false }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         #endregion
@@ -81,12 +179,12 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                         Guid = Guid.NewGuid(),
                         DuyuruTur_Id = model.TurId,
                         Ad = model.DuyuruAd,
-                        Aciklama=model.Aciklama,
+                        Aciklama = model.Aciklama,
                         OlusturulmaTarihi = DateTime.Now,
                         OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
                         AktifMi = true,
                         Duyuru_Turleri = null,
-                        Duyuru_Bildirimleri=null
+                        Duyuru_Bildirimleri = null
                     };
 
                     var result = _service.Ekle(Duyuru);

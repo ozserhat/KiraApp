@@ -14,6 +14,10 @@ namespace Framework.DataAccess.Abstract
 
         User_Role GetById(int id);
 
+        User_Role GetByRoleId(int RoleId);
+
+        User_Role GetByUserId(int UserId);
+
         User_Role GetUserRoleExists(User_Role userRole);
 
         User_Role Ekle(User_Role userRole);

@@ -40,6 +40,13 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Duyuru Türleri")]
         public SelectList DuyuruTurSelectList{ get; set; }
+
+        [Display(Name = "Roller")]
+        public SelectList KullaniciRolSelectList { get; set; }
+
+        [Display(Name = "Kullanıcılar")]
+        public SelectList KullaniciSelectList { get; set; }
+
         public IPagedList<Duyuru> Duyurular { get; set; }
     }
 
@@ -88,7 +95,7 @@ namespace Framework.WebUI.Models.ViewModels
         public string Aciklama { get; set; }
 
         [Display(Name = "Duyuru Türleri")]
-        public SelectList DuyuruTurSelectList { get; set; }
+        public SelectList DuyuruTurSelectList { get; set; }     
 
         [Display(Name = "Güncelleyen Kullanıcı")]
         public int? GuncelleyenKullanici_Id { get; set; }
