@@ -90,4 +90,20 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Aktif Mi")]
         public bool AktifMi { get; set; }
     }
+
+    public class DuyuruMesajBildirimiVM : VMBase
+    {
+        [Display(Name = "Roller")]
+        public SelectList SelectListRoller { get; set; }
+
+        [Display(Name = "RoleId")]
+        public int Role_Id { get; set; }
+
+        [Display(Name = "Kullanıcılar")]
+        public SelectList SelectListKullanicilar { get; set; }
+
+        [Display(Name = "UserId")]
+        public int UserId { get; set; }
+
+    }
 }

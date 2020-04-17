@@ -9,25 +9,25 @@ using System.Threading.Tasks;
 
 namespace Framework.Business.Concrete.Managers
 {
-    public class PersonelManager : IPersonelService
+    public class PersonelManager 
     {
 
-        private IPersonelDal _personelDal;
+        //private IPersonelDal _personelDal;
 
 
-        public PersonelManager(IPersonelDal personelDal)
-        {
-            _personelDal = personelDal;
-        }
+        //public PersonelManager(IPersonelDal personelDal)
+        //{
+        //    _personelDal = personelDal;
+        //}
 
-        public Personel Ekle(Personel personel)
-        {
-            return _personelDal.Add(personel);
-        }
+        //public Personel Ekle(Personel personel)
+        //{
+        //    return _personelDal.Add(personel);
+        //}
 
-        public List<Personel> GetirPersonelList()
-        {
-            return _personelDal.GetirPersonelList();
-        }
+        //public List<Personel> GetirPersonelList()
+        //{
+        //    return _personelDal.GetirPersonelList();
+        //}
     }
 }

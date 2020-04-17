@@ -13,7 +13,7 @@ namespace Framework.Business.Abstract
         Duyuru_Bildirim Ekle(Duyuru_Bildirim bildirim);
 
         Duyuru_Bildirim Guncelle(Duyuru_Bildirim bildirim);
-
+        bool Ekle(IEnumerable<Duyuru_Bildirim> entities);
         bool Sil(int id);
     }
 }

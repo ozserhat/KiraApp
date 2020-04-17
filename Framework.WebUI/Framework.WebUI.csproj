@@ -206,9 +206,7 @@
     <Compile Include="Models\ViewModels\GayrimenkulTurVM.cs" />
     <Compile Include="Models\ViewModels\KullaniciYetkiDuzenleVM.cs" />
     <Compile Include="Models\ViewModels\LoginVm.cs" />
-
     <Compile Include="Models\ViewModels\LogsVM.cs" />
-
     <Compile Include="Models\ViewModels\RolVM.cs" />
     <Compile Include="Models\ViewModels\SistemParametreleriVM.cs" />
     <Compile Include="Models\ViewModels\UserRolesVm.cs" />
@@ -983,7 +981,6 @@
     <Content Include="Areas\Admin\Views\Pages\Index.cshtml" />
     <Content Include="Areas\Admin\Views\UserRoles\Index.cshtml" />
     <Content Include="Areas\Admin\Views\deneme\Index.cshtml" />
-
     <Content Include="Areas\Admin\Views\GayrimenkulTur\Index.cshtml" />
     <Content Include="Areas\Admin\Views\GayrimenkulTur\Duzenle.cshtml" />
     <Content Include="Areas\Admin\Views\GayrimenkulTur\Ekle.cshtml" />
@@ -1005,7 +1002,7 @@
     <Content Include="Areas\Admin\Views\Duyuru\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Duyuru\Ekle.cshtml" />
     <Content Include="Areas\Admin\Views\Duyuru\Duzenle.cshtml" />
-
+    <Content Include="Areas\Admin\Views\Duyuru\MesajBildirimi.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\customModal.js" />

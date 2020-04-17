@@ -19,6 +19,11 @@ namespace Framework.Business.Concrete.Managers
             return _duyuru_BildirimDal.Add(tur);
         }
 
+        public bool Ekle(IEnumerable<Duyuru_Bildirim> entities)
+        {
+            return _duyuru_BildirimDal.Add(entities);
+        }
+
         public Duyuru_Bildirim Getir(int id)
         {
             return _duyuru_BildirimDal.GetById(id);
@@ -38,5 +43,6 @@ namespace Framework.Business.Concrete.Managers
         {
             return _duyuru_BildirimDal.Delete(id);
         }
+
     }
 }

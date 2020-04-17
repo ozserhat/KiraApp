@@ -19,14 +19,25 @@ namespace Framework.WebUI.Areas.Admin.Controllers
         #region Constructor
 
         private IDuyuruService _service;
+        private IRoleService _roleService;
+        private IUserService _userService;
+        private IUserRoleService _userRoleService;
         private IDuyuru_TurService _duyuruTurService;
-        public DuyuruController(IDuyuruService service, IDuyuru_TurService duyuruTurService)
+        private IDuyuru_BildirimService _bildirimService;
+        public DuyuruController(IDuyuruService service, IDuyuru_TurService duyuruTurService,
+            IRoleService roleService, IUserService userService, IUserRoleService userRoleService,
+            IDuyuru_BildirimService bildirimService)
         {
             _service = service;
+            _roleService = roleService;
+            _userService = userService;
+            _userRoleService = userRoleService;
+            _bildirimService = bildirimService;
             _duyuruTurService = duyuruTurService;
         }
 
         #endregion
+
         // GET: Admin/Duyuru
         #region Listeleme
         public ActionResult Index(int? page, int pageSize = 15)
@@ -204,6 +215,81 @@ namespace Framework.WebUI.Areas.Admin.Controllers
             }
 
         }
+        #endregion
+
+        #region MesajBildirimi
+       
+
+        [HttpPost]
+        public JsonResult MesajBildirimi(string DuyuruId,string[] RoleId,string[] UserId)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    List<User> users = new List<User>();
+
+                    List<Duyuru_Bildirim> bildirimListesi = new List<Duyuru_Bildirim>();
+
+                    if (RoleId.Length > 0 && string.IsNullOrEmpty(UserId[0]))
+                    {
+                        users = _userRoleService.GetAll().Where(u => RoleId.Contains(u.Role_Id.ToString())).Select(a => a.Users).ToList();
+                        var usr = users.GroupBy(a => a.Id).Select(a => new { UserId = a.Key });
+
+                        foreach (var u in usr)
+                        {
+                            bildirimListesi.Add(new Duyuru_Bildirim()
+                            {
+                                Duyuru_Id = int.Parse(DuyuruId),
+                                Kullanici_Id = u.UserId,
+                                OlusturulmaTarihi = DateTime.Now,
+                                OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
+                                OkunduBilgisi = false,
+                                Duyurular = null,
+                                Kullanicilar = null
+                            });
+                        }
+                    }
+                    else
+                    {
+                        foreach (string id in UserId)
+                        {
+                            bildirimListesi.Add(new Duyuru_Bildirim()
+                            {
+                                Duyuru_Id = int.Parse(DuyuruId),
+                                Kullanici_Id = int.Parse(id),
+                                OlusturulmaTarihi = DateTime.Now,
+                                OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
+                                OkunduBilgisi = false
+                            });
+                        }
+                    }
+
+                    if (bildirimListesi != null && bildirimListesi.Count > 0)
+                    {
+                        var result = _bildirimService.Ekle(bildirimListesi);
+
+                        if (result)
+                        {
+                            ModelState.AddModelError("LogMessage", "Duyuru Bilgisi Bilgisi İletildi.");
+                            return Json(new { Message = "Duyuru Bilgisi Başarıyla İletildi.", success = true }, JsonRequestBehavior.AllowGet);
+                        }
+                    }
+
+                    ModelState.AddModelError("LogMessage", "Duyuru Bilgisi Bilgisi İletilemedi.");
+                    return Json(new { Message = "Duyuru Bilgisi İletilemedi!!!", success = false }, JsonRequestBehavior.AllowGet);
+                }
+
+                ModelState.AddModelError("LogMessage", "Duyuru Bilgisi Bilgisi İletilemedi.");
+                return Json(new { Message = "Duyuru Bilgisi İletilemedi!!!", success = false }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("LogMessage", "Duyuru Bilgisi Bilgisi İletilemedi.");
+                return Json(new { Message = ex.Message, success = false }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         #endregion
     }
 }

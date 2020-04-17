@@ -17,5 +17,8 @@ namespace Framework.Business.Abstract
         Duyuru Guncelle(Duyuru duyuru);
 
         bool Sil(int id);
+
+        Duyuru MesajBildirimi(Duyuru duyuru);
+
     }
 }

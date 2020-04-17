@@ -24,25 +24,25 @@ namespace Framework.WebUI.Areas.Admin.Controllers
         {
             var roller = _personelService.GetirPersonelList();
 
-            var model = new PersonelVm();
+            //var model = new PersonelVm();
 
-            model.PageNumber = page ?? 1;
-            model.PageSize = pageSize;
+            //model.PageNumber = page ?? 1;
+            //model.PageSize = pageSize;
 
-            if (roller != null)
-            {
-                model.Personeller = new StaticPagedList<Personel>(roller, model.PageNumber, model.PageSize, roller.Count());
-                model.TotalRecordCount = roller.Count();
-            }
+            //if (roller != null)
+            //{
+            //    model.Personeller = new StaticPagedList<Personel>(roller, model.PageNumber, model.PageSize, roller.Count());
+            //    model.TotalRecordCount = roller.Count();
+            //}
 
-            return View(model);
+            return View();
         }
    
         public ActionResult Ekle()
         {
-            var model = new PersonelEkleVM();
+            //var model = new PersonelEkleVM();
 
-            return View(model);
+            return View();
         }
     }
 }

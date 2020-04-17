@@ -9,6 +9,7 @@ namespace Framework.DataAccess.Abstract
     {
         IEnumerable<Duyuru_Bildirim> GetirListe();
         Duyuru_Bildirim GetById(int id);
+        bool Add(IEnumerable<Duyuru_Bildirim> entities);
         bool Delete(int id);
     }
 }

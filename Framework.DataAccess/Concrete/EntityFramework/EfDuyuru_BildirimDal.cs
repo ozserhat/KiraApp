@@ -48,5 +48,22 @@ namespace Framework.DataAccess.Concrete
                 return context.Duyuru_Bildirimleri.ToList();
             }
         }
+
+        public bool Add(IEnumerable<Duyuru_Bildirim> entities)
+        {
+            int sonuc = 0;
+
+            using (DtContext context = new DtContext())
+            {
+                context.Duyuru_Bildirimleri.AddRange(entities);
+
+                sonuc = context.SaveChanges();
+            }
+
+            if (sonuc > 0)
+                return true;
+
+            return false;
+        }
     }
 }

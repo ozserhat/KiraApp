@@ -65,37 +65,48 @@
 
                                                         @foreach (var item in Model.Duyurular)
                                                         {
-                                                        <tr role="row" class="odd">
-                                                            <td>@(i++)</td>
-                                                            <td>@Html.DisplayFor(model => item.Duyuru_Turleri.Ad)</td>
-                                                            <td>@Html.DisplayFor(model => item.Ad)</td>
-                                                            <td>
-                                                                @if (item.AktifMi.HasValue && item.AktifMi.Value)
-                                                                {
-                                                                    <b class="label aktif-buton">Aktif</b>
-                                                                }
-                                                                else
-                                                                {
-                                                                    <b class="label pasif-buton">Pasif</b>
-                                                                }
-                                                            </td>
-                                                            <td class="text-center">
-                                                                @Html.AuthAction(" ", "Duzenle", "Duyuru", new { item.Guid },
-                                                                      new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
-                                                                      Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                                                            <tr role="row" class="odd">
+                                                                <td>@(i++)</td>
+                                                                <td>@Html.DisplayFor(model => item.Duyuru_Turleri.Ad)</td>
+                                                                <td>@Html.DisplayFor(model => item.Ad)</td>
+                                                                <td>
+                                                                    @if (item.AktifMi.HasValue && item.AktifMi.Value)
+                                                                    {
+                                                                        <b class="label aktif-buton">Aktif</b>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <b class="label pasif-buton">Pasif</b>
+                                                                    }
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    @*@Html.AuthAction(" ", "Mesaj", "Duyuru", new { item.Guid },
+                                                                        new { @class = "no-underline margin-right-5 fa fa-comments-o font-md txt-color-blue" },
+                                                                        Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))*@
+                                                                    <a href="@Url.Action("Index")" class="btn btn-warning" title="" rel="tooltip"
+                                                                       data-placement="bottom" data-original-title="Duyuru Gönder">
+                                                                        <span class="glyphicon glyphicon-chevron-left"></span>
+                                                                      
+                                                                    </a>
+                                                                    @Html.AuthAction(" ", "Duzenle", "Duyuru", new { item.Guid },
+                                                                          new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
+                                                                          Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
-                                                                @Html.AuthAction(" ", "Sil", "Duyuru", new { item.Id },
-                                                                                new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = item.Ad, @data_id = item.Id },
-                                                                                Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
-                                                            </td>
-                                                        </tr>
+                                                                    @Html.AuthAction(" ", "Sil", "Duyuru", new { item.Id },
+                                                                                    new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = item.Ad, @data_id = item.Id },
+                                                                                    Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                                                                </td>
+                                                            </tr>
                                                         }
                                                     </tbody>
                                                 }
                                                 else
                                                 {
-                                                    <tbody>
-                                                    </tbody>
+
+                                                }
+                                                {
+                                                <tbody>
+                                                </tbody>
                                                 }
                                             </table>
                                         </div>
