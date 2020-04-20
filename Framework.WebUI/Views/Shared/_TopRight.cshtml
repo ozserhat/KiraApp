@@ -1,12 +1,9 @@
-﻿
-
-<!-- logout button -->
+﻿<!-- logout button -->
 @if (User.Identity.IsAuthenticated)
 {
     <div id="logout" class="btn-header transparent pull-right">
         <span>
             <a href="@Url.Action("LogOff", "Account", new { Area = "" })" title="Çıkış Yap" data-action="userLogout" data-logout-msg="Çıkış yapmak istiyor musunuz?"><i class="fa fa-sign-out"></i></a>
-
         </span>
     </div>
 }
@@ -30,10 +27,23 @@
 
     <div class="btn-header transparent pull-right">
         <span class="text-center">
-                <a href="@Url.Action("YardimKlavuzu", "Basvuru")" title="Yardım" target="_blank">
-                    <i class="fa fa-question-circle"></i>
-                </a>
-            </span>
+            <a href="@Url.Action("YardimKlavuzu", "Basvuru")" title="Yardım" target="_blank">
+                <i class="fa fa-question-circle"></i>
+            </a>
+        </span>
+    </div>
+
+    <div class="btn-header transparent pull-right">
+        <span id="icon">
+            <a data-toggle="collapse" data-parent="#accordion"
+               href="#jazz" role="button" aria-expanded="false"
+               title="Mesajlar">
+                <span id="not">@TempData["MesajSayisi"]</span>
+                <i class="fa fa-envelope">
+                </i>
+            </a>
+        </span>
     </div>
 }
+
 <!-- end role button -->

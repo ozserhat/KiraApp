@@ -13,6 +13,9 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "DuyuruId")]
         public int DuyuruId { get; set; }
 
+        [Display(Name = "Okunmayan Mesaj Sayısı")]
+        public int? MesajSayisi { get; set; }
+
         [Display(Name = "KullaniciId")]
         public int KullaniciId { get; set; }
 
@@ -33,6 +36,8 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Okundu Mu")]
         public bool OkunduBilgisi { get; set; }
+
+        public IPagedList<Duyuru_Bildirim> DuyuruBildirimleri { get; set; }
     }
 
     public class DuyuruBildirimEkleVM : VMBase

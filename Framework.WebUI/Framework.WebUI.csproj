@@ -173,6 +173,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AnasayfaController.cs" />
     <Compile Include="Areas\Admin\Controllers\DenemeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DuyuruBildirimController.cs" />
     <Compile Include="Areas\Admin\Controllers\DuyuruController.cs" />
     <Compile Include="Areas\Admin\Controllers\DuyuruTurController.cs" />
     <Compile Include="Areas\Admin\Controllers\GayrimenkulAltTurController.cs" />
@@ -1002,6 +1003,7 @@
     <Content Include="Areas\Admin\Views\Duyuru\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Duyuru\Ekle.cshtml" />
     <Content Include="Areas\Admin\Views\Duyuru\Duzenle.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_bildirimListesi.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\customModal.js" />
@@ -1615,10 +1617,12 @@
     <Content Include="Views\Unauthorized\Http404.cshtml" />
     <Content Include="Views\Shared\_Unauthorized.cshtml" />
     <Content Include="Views\Unauthorized\Error.cshtml" />
+    <Content Include="Views\Shared\_bildirimListesi.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Views\DuyuruBildirim\" />
     <Folder Include="Areas\Birim\Controllers\" />
     <Folder Include="Areas\Birim\Data\" />
     <Folder Include="Areas\Birim\Views\Shared\" />

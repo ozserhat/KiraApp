@@ -117,13 +117,19 @@ namespace Framework.Core.Aspects.Postsharp.LogAspects
 
 
             var request = filterContext.HttpContext.Request;
+           
+            Type typeOfRequest = filterContext.HttpContext.Request.RequestType.ToLower() == "Get" ? typeof(HttpGetAttribute) : typeof(HttpPostAttribute);
+
             MethodInfo method = filterContext.Controller.GetType().GetMethods()
-            .FirstOrDefault(x => x.DeclaringType == filterContext.Controller.GetType()
-                            && x.Name == actionName);
+                  .Where(x => x.ReflectedType == typeOfRequest
+                                  && x.Name == actionName).FirstOrDefault();
 
-            IEnumerable<Attribute> attributes = method.GetCustomAttributes();
+           if(method!=null)
+            {
+                IEnumerable<Attribute> attributes = method.GetCustomAttributes();
 
-            actionType = attributes.Select(a => a.GetType().Name.Replace("Attribute", "")).FirstOrDefault();
+                actionType = attributes.Select(a => a.GetType().Name.Replace("Attribute", "")).FirstOrDefault();
+            }
 
             var form = filterContext.HttpContext.Request.Form;
             var dictionary = form.AllKeys.ToDictionary(k => k, k => form[k]);

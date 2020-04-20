@@ -1,10 +1,5 @@
-﻿using Framework.WebUI.App_Helpers;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Web;
-using System.Web.Mvc;
 using System.Linq;
 using System.Web;
 using PagedList;
@@ -16,9 +11,10 @@ using Framework.WebUI.Helpers;
 using Framework.WebUI.Models;
 using Framework.WebUI.Models.ViewModels;
 
-namespace Framework.WebUI.Controllers
+namespace Framework.WebUI.Areas.Admin.Controllers
 {
-    public class HomeController : Controller
+    [CustomAuthorize(Roles = "Admin")]
+    public class DuyuruBildirimController : Controller
     {
         #region Constructor
 
@@ -26,7 +22,7 @@ namespace Framework.WebUI.Controllers
 
         private IDuyuru_BildirimService _bildirimService;
 
-        public HomeController(IDuyuruService service,
+        public DuyuruBildirimController(IDuyuruService service,
             IDuyuru_BildirimService bildirimService)
         {
             _service = service;
@@ -34,13 +30,15 @@ namespace Framework.WebUI.Controllers
         }
 
         #endregion
-        public ActionResult Index()
+
+        // GET: Admin/DuyuruBildirim
+        #region Listeleme
+        public ActionResult Index(int? page, int pageSize = 15)
         {
             return View();
         }
 
-        [HttpGet]
-        public ActionResult _bildirimListesi()
+        public ActionResult BildirimListesi(int? page, int pageSize = 15)
         {
             int kullaniciId = 0;
 
@@ -51,8 +49,8 @@ namespace Framework.WebUI.Controllers
 
             var model = new DuyuruBildirimVM();
 
-            model.PageNumber = 1;
-            model.PageSize = 15;
+            model.PageNumber = page ?? 1;
+            model.PageSize = pageSize;
 
             if (bildirimListe != null)
             {
@@ -62,7 +60,28 @@ namespace Framework.WebUI.Controllers
             }
 
             ModelState.AddModelError("LogMessage", "Duyuru Bildirim Mesajları Getirildi.");
-            return PartialView("~/Views/Shared/_bildirimListesi.cshtml", model);
+
+            return View(model);
+        } 
+        #endregion
+
+        #region Detay 
+
+        [HttpPost]
+        public JsonResult BildirimDetay(int Id)
+        {
+            try
+            {
+                var detay = _service.Getir(Id); 
+                ModelState.AddModelError("LogMessage", "Duyuru Detay Bilgisi Görüntülendi.");
+                return Json(new { Data = detay, success = true, Message = "Duyuru Detay Bilgisi Görüntülendi." }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("LogMessage", "Duyuru Detay Bilgisi Görüntüleme Esnasında Hata Oluştu!!!");
+                return Json(new { success = false, Message = "Duyuru Detay Bilgisi Görüntüleme Esnasında Hata Oluştu!!!" }, JsonRequestBehavior.AllowGet);
+            }
         }
+        #endregion
     }
 }
