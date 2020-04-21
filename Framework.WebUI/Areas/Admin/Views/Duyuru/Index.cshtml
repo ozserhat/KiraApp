@@ -83,11 +83,19 @@
                                                                     @*@Html.AuthAction(" ", "Mesaj", "Duyuru", new { item.Guid },
                                                                         new { @class = "no-underline margin-right-5 fa fa-comments-o font-md txt-color-blue" },
                                                                         Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))*@
-                                                                    <a href="@Url.Action("Index")" class="btn btn-warning" title="" rel="tooltip"
+
+
+
+                                                                    @*<a href="@Url.Action("MesajBildirimi")" class="no-underline margin-right-5 fa fa-paper-plane font-md txt-color-blue" title="" rel="tooltip"
                                                                        data-placement="bottom" data-original-title="Duyuru Gönder">
-                                                                        <span class="glyphicon glyphicon-chevron-left"></span>
-                                                                      
-                                                                    </a>
+
+                                                                    </a>*@
+
+                                                                    <a href="#" id="btnBildirim" class="no-underline margin-right-5 fa fa-paper-plane font-md txt-color-blue
+                                                                           bildirimPopup" rel="tooltip" data-toggle="modal"
+                                                                           data-target="#bildirimModal" data-original-title="Duyuru Bildirim Gönder" data-id="@item.Id" data-name="@item.Ad">
+                                                                        </a>
+
                                                                     @Html.AuthAction(" ", "Duzenle", "Duyuru", new { item.Guid },
                                                                           new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
                                                                           Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
@@ -120,7 +128,57 @@
         </section>
 
     </div>
+
+
+    <div class="modal" id="bildirimModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title"><b>Duyuru Bildirim</b></h4>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form id="frmBildirim">
+                        <fieldset>
+                            <div class="row">
+                                <input type="hidden" id="duyuruId" name="duyuruId" value="">
+                                <input type="hidden" id="duyuruAd" name="duyuruAd" value="">
+                                <div class="col-sm-12 col-md-12 col-lg-12 form-group">
+                                    @Html.LabelFor(model => model.KullaniciRolSelectList, new { @class = "control-label col-md-4" })
+                                    <div class="col-md-8">
+                                        <p>@Html.DropDownList("RolId", Model.KullaniciRolSelectList, new { @class = "select2", multiple = "multiple" })</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12 col-lg-12 form-group">
+                                    @Html.LabelFor(model => model.KullaniciSelectList, new { @class = "control-label col-md-4" })
+                                    <div class="col-md-8">
+                                        <p>@Html.DropDownList("KullaniciId", Model.KullaniciSelectList, new { @class = "select2", multiple = "multiple" })</p>
+                                        @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Kapat</button>
+                            <input type="button" value="Gönder" id="btnGonder" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+                <!-- Modal footer -->
+            </div>
+        </div>
+    </div>
+
+
+
+
 }
+
+
 
 
 @section pagespecific {
@@ -128,6 +186,88 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.1.0/sweetalert2.css" />
     <script src="https://cdn.jsdelivr.net/sweetalert2/6.1.0/sweetalert2.min.js"></script>
 
+    <!--Kullanıcı ve Rol Seçme İşlemi -->
+    <script type="text/javascript">
+
+        $("#RolId").click(function (e) {
+            var rolId = $("#RolId").val();
+
+            if (rolId != null && rolId.length > 0)
+                $("#KullaniciId").prop("disabled", true);
+            else
+                $("#KullaniciId").prop("disabled", false);
+        });
+
+        $("#KullaniciId").click(function (e) {
+
+            var kullaniciId = $("#KullaniciId").val();
+
+            if (kullaniciId != null && kullaniciId.length > 0)
+                $("#RolId").prop("disabled", true);
+            else
+                $("#RolId").prop("disabled", false);
+        });
+
+    </script>
+
+
+
+
+    <!--Duyuru Bildirim İşlemi -->
+    <script type="text/javascript">
+
+        $(".bildirimPopup").click(function (e) {
+            e.preventDefault();
+            var duyuruId = $(this).attr("data-id");
+            var duyuruAd = $(this).attr("data-name");
+            if (duyuruId != null && duyuruId > 0) {
+                document.getElementById("duyuruId").value = duyuruId;
+                document.getElementById("duyuruAd").value = duyuruAd;
+            }
+        });
+
+        $("#btnGonder").click(function (e) {
+            var name = $("#duyuruAd").val();
+            var rolId = $("#RolId").val();
+            var duyuruId = $("#duyuruId").val();
+            var kullaniciId = $("#KullaniciId").val();
+
+            if (duyuruId > 0 && (rolId != null || kullaniciId.length > 0)) {
+                swal({
+                    title: "Uyarı",
+                    text: name + " Adlı Duyuruyu Göndermek İstediğinizden Emin misiniz?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Evet",
+                    cancelButtonText: "İptal"
+                }).then(function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            url: "/Duyuru/BildirimGonder/",
+                            type: 'POST',
+                            data: {
+                                DuyuruId: duyuruId,
+                                RolId: rolId,
+                                KullaniciId: kullaniciId
+                            },
+                            success: function (result) {
+                                if (result.success) {
+
+                                    swal('Uyarı!', result.Message, 'success');
+
+                                    setTimeout(function () {
+                                        window.location.href = "../Duyuru/Index";
+                                    }, 2000);
+                                }
+                                else swal('Uyarı!', name + ' ' + result.Message, 'error');
+                            }
+                        });
+                    }
+                })
+            }
+        });
+    </script>
 
     <!--Duyuru Silme İşlemi -->
     <script type="text/javascript">
@@ -150,9 +290,23 @@
         });
 
         $(document).ready(function () {
+
+            $(".btnDuzenle").mouseover(function () {
+                $(this)
+                    .attr('data-original-title', 'Duyuru Düzenle')
+                    .tooltip('show');
+            });
+
+            $(".delete-row").mouseover(function () {
+                $(this)
+                    .attr('data-original-title', 'Sil')
+                    .tooltip('show');
+            });
+
             dt = $('#dt_basic').DataTable(dt_settings);
         });
-    </script>x
+
+    </script>
 
     <script type="text/javascript">
         function deletealert(Id, name, closestTR) {

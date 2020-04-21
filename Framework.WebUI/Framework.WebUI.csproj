@@ -173,6 +173,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AnasayfaController.cs" />
     <Compile Include="Areas\Admin\Controllers\DenemeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DuyuruBildirimController.cs" />
     <Compile Include="Areas\Admin\Controllers\DuyuruController.cs" />
     <Compile Include="Areas\Admin\Controllers\DuyuruTurController.cs" />
     <Compile Include="Areas\Admin\Controllers\GayrimenkulAltTurController.cs" />
@@ -199,6 +200,7 @@
     <Compile Include="Helpers\UserExtended.cs" />
     <Compile Include="Models\ViewModels\ControllerActionsVm.cs" />
     <Compile Include="Models\ViewModels\DenemeVm.cs" />
+    <Compile Include="Models\ViewModels\DuyuruBildirimVM.cs" />
     <Compile Include="Models\ViewModels\DuyuruTurVM.cs" />
     <Compile Include="Models\ViewModels\DuyuruVM.cs" />
     <Compile Include="Models\ViewModels\GayrimenkulAlt_TurVM.cs" />
@@ -1620,6 +1622,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Views\DuyuruBildirim\" />
     <Folder Include="Areas\Birim\Controllers\" />
     <Folder Include="Areas\Birim\Data\" />
     <Folder Include="Areas\Birim\Views\Shared\" />
@@ -1627,6 +1630,7 @@
     <Folder Include="Content\login\css\" />
     <Folder Include="Content\login\js\" />
     <Folder Include="Content\login\webfonts\" />
+    <Folder Include="Views\DuyuruBildirimVM\" />
     <Folder Include="Views\PersonelVm\" />
   </ItemGroup>
   <ItemGroup>

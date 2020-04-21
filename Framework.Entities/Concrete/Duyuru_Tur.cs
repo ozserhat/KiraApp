@@ -2,6 +2,8 @@
 using Framework.Core.Entities;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Framework.Entities.Concrete
 {
@@ -25,5 +27,8 @@ namespace Framework.Entities.Concrete
         public DateTime? GuncellenmeTarihi { get; set; }
 
         public bool? AktifMi { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<Duyuru_Bildirim> Duyuru_Bildirimleri { get; set; }
     }
 }
