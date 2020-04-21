@@ -1,4 +1,4 @@
-﻿@model Framework.WebUI.Models.ViewModels.DuyuruTurVM
+﻿@model Framework.WebUI.Models.ViewModels.OdemePeriyotTurVM
 @using PagedList;
 @using PagedList.Mvc;
 
@@ -36,10 +36,10 @@
                     <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
                         <header>
                             <span class="widget-icon"> <i class="fa fa-list"></i> </span>
-                            <h2>Duyuru Tür Listesi - <b>Toplam Tür Adedi : @Model.TotalRecordCount</b></h2>
+                            <h2>Periyot Tür Listesi - <b>Toplam Tür Adedi : @Model.TotalRecordCount</b></h2>
                             <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
                                 <p>
-                                    @Html.AuthActionLink(" Duyuru Tür Ekle", "Ekle", "DuyuruTur", "btn btn-primary", "glyphicon glyphicon-plus", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                                    @Html.AuthActionLink(" Periyot Tür Ekle", "Ekle", "OdemePeriyotTur", "btn btn-primary", "glyphicon glyphicon-plus", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                                 </p>
                             </div>
                         </header>
@@ -53,41 +53,43 @@
                                                     <tr role="row">
                                                         <th style="width: 20px;">No</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Tür Adı</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Açıklama</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 250px;">Durum</th>
                                                         <th class="sorting_disabled text-center" rowspan="1" colspan="1" style="text-align: right;  padding-right: 30px; width: 100px;">İşlem</th>
                                                     </tr>
                                                 </thead>
-                                                @if (Model.DuyuruTurleri != null && Model.DuyuruTurleri.Count > 0)
+                                                @if (Model.PeriyotTurleri != null && Model.PeriyotTurleri.Count > 0)
                                                 {
                                                     <tbody>
 
                                                         @{int i = ((Model.PageNumber - 1) * Model.PageSize) + 1;}
 
-                                                        @foreach (var item in Model.DuyuruTurleri)
+                                                        @foreach (var item in Model.PeriyotTurleri)
                                                         {
-                                                            <tr role="row" class="odd">
-                                                                <td>@(i++)</td>
-                                                                <td>@Html.DisplayFor(model => item.Ad)</td>
-                                                                <td>
-                                                                    @if (item.AktifMi.HasValue && item.AktifMi.Value)
-                                                                    {
-                                                                        <b class="label aktif-buton">Aktif</b>
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        <b class="label pasif-buton">Pasif</b>
-                                                                    }
-                                                                </td>
-                                                                <td class="text-center">
-                                                                    @Html.AuthAction(" ", "Duzenle", "DuyuruTur", new { item.Guid },
-                                                                          new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
-                                                                          Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                                                        <tr role="row" class="odd">
+                                                            <td>@(i++)</td>
+                                                            <td>@Html.DisplayFor(model => item.Ad)</td>
+                                                            <td>@Html.DisplayFor(model => item.Aciklama)</td>
+                                                            <td>
+                                                                @if (item.AktifMi.HasValue && item.AktifMi.Value)
+                                                                {
+                                                                    <b class="label aktif-buton">Aktif</b>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <b class="label pasif-buton">Pasif</b>
+                                                                }
+                                                            </td>
+                                                            <td class="text-center">
+                                                                @Html.AuthAction(" ", "Duzenle", "OdemePeriyotTur", new { item.Guid },
+                                                                      new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
+                                                                      Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
-                                                                    @Html.AuthAction(" ", "Sil", "DuyuruTur", new { item.Id },
-                                                                                    new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = item.Ad, @data_id = item.Id },
-                                                                                    Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
-                                                                </td>
-                                                            </tr>
+                                                                @Html.AuthAction(" ", "Sil", "OdemePeriyotTur", new { item.Id },
+                                                                                new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = item.Ad, @data_id = item.Id },
+                                                                                Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                                                            </td>
+                                                        </tr>
                                                         }
                                                     </tbody>
                                                 }
@@ -139,7 +141,7 @@
 
     </script>
 
-    <!--Duyuru Tur Silme İşlemi -->
+    <!--Odeme PeriyotTur Tur Silme İşlemi -->
     <script type="text/javascript">
         var dt;
 
@@ -177,7 +179,7 @@
             }).then(function (isConfirm) {
                 if (isConfirm) {
                     $.ajax({
-                        url: "/DuyuruTur/Sil/" + Id,
+                        url: "/OdemePeriyotTur/Sil/" + Id,
                         type: 'POST',
                         success: function (result) {
                             if (result.success) {

@@ -47,7 +47,7 @@ namespace Framework.Business.Concrete.Managers
 
         public int OkunmamisMesajSayisi(int KullaniciId)
         {
-            return _duyuru_BildirimDal.GetList(a=>a.Kullanici_Id== KullaniciId && a.OkunduBilgisi==false).Count();
+            return _duyuru_BildirimDal.GetList(a=>a.Kullanici_Id== KullaniciId && a.OkunduBilgisi==false&&a.Duyurular.AktifMi==true).Count();
         }
 
         public bool Sil(int id)

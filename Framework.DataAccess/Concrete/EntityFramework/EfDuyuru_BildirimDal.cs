@@ -70,7 +70,7 @@ namespace Framework.DataAccess.Concrete
         {
             using (DtContext context = new DtContext())
             {
-                return context.Duyuru_Bildirimleri.Include(d=>d.Duyurular).Include(u=>u.Kullanicilar).Where(a => a.Kullanici_Id == KullaniciId).ToList();
+                return context.Duyuru_Bildirimleri.Include(d => d.Duyurular).Include(u => u.Kullanicilar).Where(a => a.Kullanici_Id == KullaniciId && a.Duyurular.AktifMi==true).ToList();
             }
         }
     }

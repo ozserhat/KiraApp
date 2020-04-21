@@ -66,6 +66,7 @@
     <Compile Include="Concrete\GayrimenkulDosya_Tur.cs" />
     <Compile Include="Concrete\GayrimenkulTur.cs" />
     <Compile Include="Concrete\Logs.cs" />
+    <Compile Include="Concrete\OdemePeriyotTur.cs" />
     <Compile Include="Concrete\Role.cs" />
     <Compile Include="Concrete\SistemParametreleri.cs" />
     <Compile Include="Concrete\User.cs" />

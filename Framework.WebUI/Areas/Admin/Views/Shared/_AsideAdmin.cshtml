@@ -121,6 +121,10 @@
                         @Html.AuthMainAction("Gayrimenkul Dosya Türleri", "Index", "GayrimenkulDosyaTur",
                       "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                     </li>
+                    <li class="@Html.RouteIf("OdemePeriyotTur", "active")">
+                        @Html.AuthMainAction("Ödeme Periyot Türleri", "Index", "OdemePeriyotTur",
+                      "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                    </li>
                 </ul>
             </li>
             <li>
