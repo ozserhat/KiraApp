@@ -2,6 +2,7 @@
 using Framework.Business.ValidationRules.FluentValidation;
 using Framework.DataAccess.Abstract;
 using Framework.Entities.Concrete;
+using Newtonsoft.Json;
 using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Text;
@@ -19,9 +20,13 @@ namespace Framework.Business.Concrete.Managers
 
         public T JsonDeserialize<T>(string jsonString)
         {
-            var ser = new DataContractJsonSerializer(typeof(T));
-            MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(jsonString));
-            T obj = (T)ser.ReadObject(ms);
+            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(T));
+            T obj = JsonConvert.DeserializeObject<T>(jsonString);
+            //using (MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(jsonString)))
+            //{
+            //    obj = (T)ser.ReadObject(ms);
+            //}
+
             return obj;
         }
 

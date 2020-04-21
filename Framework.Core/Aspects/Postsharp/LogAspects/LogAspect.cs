@@ -89,8 +89,8 @@ namespace Framework.Core.Aspects.Postsharp.LogAspects
                 UserId = userId,
                 UserName = userName,
                 Message = logMessage,
-                ExceptionMessage="-",
-                StackTrace="-"
+                ExceptionMessage=" ",
+                StackTrace = " "
                }
              };
 
@@ -117,14 +117,14 @@ namespace Framework.Core.Aspects.Postsharp.LogAspects
 
 
             var request = filterContext.HttpContext.Request;
-           
+
             Type typeOfRequest = filterContext.HttpContext.Request.RequestType.ToLower() == "Get" ? typeof(HttpGetAttribute) : typeof(HttpPostAttribute);
 
             MethodInfo method = filterContext.Controller.GetType().GetMethods()
                   .Where(x => x.ReflectedType == typeOfRequest
                                   && x.Name == actionName).FirstOrDefault();
 
-           if(method!=null)
+            if (method != null)
             {
                 IEnumerable<Attribute> attributes = method.GetCustomAttributes();
 

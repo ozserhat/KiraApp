@@ -10,6 +10,7 @@ using Framework.Entities.Concrete;
 using System.Collections.Generic;
 using Framework.WebUI.App_Helpers;
 using Framework.WebUI.Models.ViewModels;
+using Newtonsoft.Json;
 
 namespace Framework.WebUI.Areas.Admin.Controllers
 {
@@ -34,6 +35,8 @@ namespace Framework.WebUI.Areas.Admin.Controllers
             var model = new LogsVM();
 
             model.JsonDeserializeLog = new List<LogsVM>();
+            //var lgs = loglar.Select(x => x.Detail.ToString()).ToList();
+            
 
             foreach (var item in loglar)
             {

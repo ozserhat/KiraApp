@@ -22,13 +22,15 @@ namespace Framework.WebUI.Controllers
     public class AccountController : Controller
     {
         private IUserService _userService;
+        private IDuyuru_BildirimService _bildirimService;
         private IUserPermissionsService _userPermissions;
 
         private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
 
-        public AccountController(IUserService userService, IUserPermissionsService userPermissions)
+        public AccountController(IUserService userService, IUserPermissionsService userPermissions, IDuyuru_BildirimService bildirimService)
         {
             _userService = userService;
+            _bildirimService = bildirimService;
             _userPermissions = userPermissions;
         }
 
@@ -108,7 +110,7 @@ namespace Framework.WebUI.Controllers
             return View(model);
         }
 
-       [HttpPost]
+        [HttpPost]
         public ActionResult Login(LoginVm loginVm)
         {
             string hashedPassword = "";
@@ -156,6 +158,8 @@ namespace Framework.WebUI.Controllers
                         IsPersistent = false
                     }, identity);
                     #endregion
+
+                    TempData["MesajSayisi"] = _bildirimService.OkunmamisMesajSayisi(user.UserId);
 
                     ModelState.AddModelError("LogMessage", "Kullanıcı Bilgileri Doğrulandı Girişi Yapıldı.");
 

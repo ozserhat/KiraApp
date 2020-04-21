@@ -54,7 +54,7 @@
                                                         <th style="width: 20px;">No</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Tür</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">İstek Türü</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Url</th>
+                                                        @*<th class="sorting_disabled" rowspan="1" colspan="1">Url</th>*@
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Sayfa Adı</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Metod</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Kullanıcı Adı</th>
@@ -83,14 +83,14 @@
                                                                     }
                                                                 </td>
                                                                 <td>@Html.DisplayFor(model => item.HttpType)</td>
-                                                                <td>@Html.DisplayFor(model => item.Url)</td>
+                                                                @*<td>@Html.DisplayFor(model => item.Url)</td>*@
                                                                 <td>@Html.DisplayFor(model => item.ControllerName)</td>
                                                                 <td>@Html.DisplayFor(model => item.ActionName)</td>
                                                                 <td>@Html.DisplayFor(model => item.UserName)</td>
                                                                 <td>@Html.DisplayFor(model => item.Date)</td>
                                                                 <td>
-                                                                    <a href="#" id="btnLogDetay" class="btnDetay" rel="tooltip" data-toggle="modal"
-                                                                       data-target="#detayModal" data-original-title="Log Detay" data-id="@item.Id">
+                                                                    <a href="#" id="btnLogDetay" class="btnLogDetay" rel="tooltip" data-toggle="modal"
+                                                                       data-target="#logdetayModal" data-original-title="Log Detay" data-id="@item.Id">
                                                                         <span class="glyphicon glyphicon-eye-close"></span>
                                                                     </a>
                                                                 </td>
@@ -116,7 +116,7 @@
 
     </div>
 
-    <div class="modal" id="detayModal">
+    <div class="modal" id="logdetayModal">
         <div class="modal-dialog">
             <div class="modal-content">
 
@@ -186,7 +186,7 @@
             dt = $('#dt_basic').DataTable(dt_settings);
         });
 
-        $('.btnDetay').on('click', function () {
+        $('.btnLogDetay').on('click', function () {
 
             var id = $(this).attr("data-id");
 
