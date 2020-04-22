@@ -23,6 +23,9 @@ namespace Framework.Entities.Concrete
         [StringLength(500)]
         public string Ad { get; set; }
 
+        [StringLength(2500)]
+        public string Aciklama { get; set; }
+
         public int? OlusturanKullanici_Id { get; set; }
 
         public int? GuncelleyenKullanici_Id { get; set; }

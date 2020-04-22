@@ -10,6 +10,7 @@
     <!-- Basic Styles -->
     @Styles.Render("~/Content/smartadmin")
     @RenderSection("customStyles", required: false)
+
     <!-- FAVICONS -->
     <link rel="icon" href="~/Content/login/images/favicon.ico" type="image/x-icon">
     @*<link rel="shortcut icon" href="~/content/img/favicon/csb-logo.ico" type="image/x-icon">
@@ -39,6 +40,7 @@
     <div id="main" role="main">
         <div id="uyariView">
         </div>
+        <div id="partialResult"></div>
         @RenderBody()
         }
     </div>
@@ -52,10 +54,22 @@
         </div>
     </div>
     @{ Html.RenderPartial("_Scripts", RenderSection("pagespecific", false)); }
- 
-    <style type="text/css">
-     
-    </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                url: '/Anasayfa/_bildirimListesi',
+                datatype: "html",
+                type: "Get",
+                async: true,
+                success: function (data) {
+                    $("#partialResult").html(data);
+                },
+                error: function (xhr) {
+                    alert('error');
+                }
+            });
+        });
+    </script>
 
     <script>
         $(document).ready(function () {

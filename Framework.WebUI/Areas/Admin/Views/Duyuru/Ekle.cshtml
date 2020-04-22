@@ -51,10 +51,19 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
-                                                        @Html.LabelFor(model => model.DuyuruAd, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                        @Html.LabelFor(model => model.DuyuruAdi, new { @class = "control-label col-md-4 zorunluYildiz" })
                                                         <div class="col-md-8">
-                                                            @Html.TextBoxFor(model => model.DuyuruAd, new { @class = "form-control col-md-4 required" })
-                                                            @Html.ValidationMessageFor(model => model.DuyuruAd, "", new { @class = "text-danger" })
+                                                            @Html.TextBoxFor(model => model.DuyuruAdi, new { @class = "form-control col-md-4 required" })
+                                                            @Html.ValidationMessageFor(model => model.DuyuruAdi, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
+                                                        @Html.LabelFor(model => model.DuyuruAciklama, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                        <div class="col-md-8">
+                                                            @Html.TextAreaFor(model => model.DuyuruAciklama, new { @class = "form-control col-md-4 required", rows = "3", placeholder = "Açıklama Giriniz" })
+                                                            @Html.ValidationMessageFor(model => model.DuyuruAciklama, "", new { @class = "text-danger" })
                                                         </div>
                                                     </div>
                                                 </div>
@@ -100,15 +109,16 @@
             $('#btnSubmit').on('click', function () {
                 duyuru = new Object();
                 duyuru.TurId = $("#TurId").val();
-                duyuru.DuyuruAd = $("#DuyuruAd").val();
+                duyuru.DuyuruAdi = $("#DuyuruAdi").val();
+                duyuru.DuyuruAciklama = $("#DuyuruAciklama").val();
                 duyuru.AktifMi = $("#AktifMi").val();
 
                 if($("#submitForm").valid())
                 {
                    $.ajax({
-                    type: 'POST',
+                    type: 'Post',
                     url: '@Url.Action("Ekle", "Duyuru")',
-                       data: { model: duyuru },
+                    data: { duyuruModel: duyuru },
                     success: function (result) {
                         if (result != null && result.success) {
 

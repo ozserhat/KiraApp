@@ -60,12 +60,15 @@
     <Compile Include="Abstract\IGayrimenkulDal.cs" />
     <Compile Include="Abstract\IGayrimenkulDosya_TurDal.cs" />
     <Compile Include="Abstract\IGayrimenkulTurDal.cs" />
+    <Compile Include="Abstract\IKira_DurumDal.cs" />
     <Compile Include="Abstract\ILogsDal.cs" />
     <Compile Include="Abstract\IRolesDal.cs" />
     <Compile Include="Abstract\ISistemParametreleriDal.cs" />
+    <Compile Include="Abstract\IOdemePeriyotTurDal.cs" />
     <Compile Include="Abstract\IUserDal.cs" />
     <Compile Include="Abstract\IUserPermissionsDal.cs" />
     <Compile Include="Abstract\IUserRolesDal.cs" />
+    <Compile Include="Abstract\IKiraciTurDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfDuyuruDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfDuyuru_BildirimDal.cs" />
     <Compile Include="Concrete\EntityFramework\DtContext.cs" />
@@ -76,16 +79,15 @@
     <Compile Include="Concrete\EntityFramework\EfGayrimenkulDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfGayrimenkulDosya_TurDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfGayrimenkulTurDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfKiraciTurDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfKira_DurumDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfLogDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfRolesDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfSistemParametreleriDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfOdemePeriyotTurDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfUserDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfUserPermissionsDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfUserRolesDal.cs" />
-    <Compile Include="Migrations\202004130646234_Gayrimenkul_Id.cs" />
-    <Compile Include="Migrations\202004130646234_Gayrimenkul_Id.designer.cs">
-      <DependentUpon>202004130646234_Gayrimenkul_Id.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -102,11 +104,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202004130646234_Gayrimenkul_Id.resx">
-      <DependentUpon>202004130646234_Gayrimenkul_Id.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

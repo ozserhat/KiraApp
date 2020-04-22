@@ -20,6 +20,9 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Duyuru Adı")]
         public string DuyuruAd { get; set; }
 
+        [Display(Name = "Açıklama")]
+        public string Aciklama { get; set; }
+
         [Display(Name = "Oluşturan Kullanıcı")]
         public int? OlusturanKullanici_Id { get; set; }
 
@@ -37,6 +40,13 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Duyuru Türleri")]
         public SelectList DuyuruTurSelectList{ get; set; }
+
+        [Display(Name = "Roller")]
+        public SelectList KullaniciRolSelectList { get; set; }
+
+        [Display(Name = "Kullanıcılar")]
+        public SelectList KullaniciSelectList { get; set; }
+
         public IPagedList<Duyuru> Duyurular { get; set; }
 
         [Display(Name = "Roller")]
@@ -57,7 +67,10 @@ namespace Framework.WebUI.Models.ViewModels
         public Guid Guid { get; set; }
 
         [Display(Name = "Duyuru Adı")]
-        public string DuyuruAd { get; set; }
+        public string DuyuruAdi { get; set; }
+
+        [Display(Name = "Açıklama")]
+        public string DuyuruAciklama { get; set; }
 
         [Display(Name = "Duyuru Türleri")]
         public SelectList DuyuruTurSelectList { get; set; }
@@ -86,8 +99,11 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Duyuru Adı")]
         public string DuyuruAd { get; set; }
 
+        [Display(Name = "Açıklama")]
+        public string Aciklama { get; set; }
+
         [Display(Name = "Duyuru Türleri")]
-        public SelectList DuyuruTurSelectList { get; set; }
+        public SelectList DuyuruTurSelectList { get; set; }     
 
         [Display(Name = "Güncelleyen Kullanıcı")]
         public int? GuncelleyenKullanici_Id { get; set; }

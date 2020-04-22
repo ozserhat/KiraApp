@@ -78,9 +78,16 @@ namespace Framework.WebUI.Areas.Admin.Controllers
 
         public SelectList KullaniciSelectList()
         {
+
             var roller = _userService.GetAll().Select(x => new { Id = x.Id, Ad = x.UserName }).ToList();
 
             return new SelectList(roller, "Id", "Ad");
+        }
+
+
+            var kullanicilar = _userService.GetAll().Select(x => new { Id = x.Id, Ad = x.UserName }).ToList();
+
+            return new SelectList(kullanicilar, "Id", "Ad");
         }
 
         #endregion
@@ -100,8 +107,9 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                     if (RolId.Length > 0 && string.IsNullOrEmpty(KullaniciId[0]))
                     {
                         users = _userRoleService.GetAll().Where(u => RolId.Contains(u.Role_Id.ToString())).Select(a => a.Users).ToList();
+                      
                         var usr = users.GroupBy(a => a.Id).Select(a => new { UserId = a.Key });
-
+                      
                         foreach (var u in usr)
                         {
                             bildirimListesi.Add(new Duyuru_Bildirim()
@@ -170,7 +178,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public JsonResult Ekle(DuyuruEkleVM model)
+        public JsonResult Ekle(DuyuruEkleVM duyuruModel)
         {
             try
             {
@@ -179,8 +187,9 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                     Duyuru Duyuru = new Duyuru()
                     {
                         Guid = Guid.NewGuid(),
-                        DuyuruTur_Id = model.TurId,
-                        Ad = model.DuyuruAd,
+                        DuyuruTur_Id = duyuruModel.TurId,
+                        Ad = duyuruModel.DuyuruAdi,
+                        Aciklama = duyuruModel.DuyuruAciklama,
                         OlusturulmaTarihi = DateTime.Now,
                         OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
                         AktifMi = true,
@@ -214,17 +223,18 @@ namespace Framework.WebUI.Areas.Admin.Controllers
         {
             var model = new DuyuruDuzenleVM();
 
-            var tur = _service.GetirGuid(guid);
+            var duyuru = _service.GetirGuid(guid);
 
-            if (tur != null)
+            if (duyuru != null)
             {
-                model.Id = tur.Id;
-                model.Guid = tur.Guid;
-                model.TurId = tur.DuyuruTur_Id;
-                model.DuyuruAd = tur.Ad;
-                model.GuncelleyenKullanici_Id = tur.OlusturanKullanici_Id;
-                model.GuncellenmeTarihi = tur.OlusturulmaTarihi;
-                model.AktifMi = tur.AktifMi.Value;
+                model.Id = duyuru.Id;
+                model.Guid = duyuru.Guid;
+                model.Id = duyuru.Id;
+                model.DuyuruAd = duyuru.Ad;
+                model.Aciklama = duyuru.Aciklama;
+                model.GuncelleyenKullanici_Id = duyuru.GuncelleyenKullanici_Id;
+                model.GuncellenmeTarihi = duyuru.GuncellenmeTarihi;
+                model.AktifMi = duyuru.AktifMi.Value;
                 model.DuyuruTurSelectList = DuyuruTurSelectList();
             }
             else
@@ -253,6 +263,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                         duyuru.DuyuruTur_Id = model.TurId;
                         duyuru.Guid = model.Guid;
                         duyuru.Ad = model.DuyuruAd;
+                        duyuru.Aciklama = model.Aciklama;
                         duyuru.GuncelleyenKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ?
                         User.GetUserPropertyValue("UserId") : null);
                         duyuru.GuncellenmeTarihi = DateTime.Now;

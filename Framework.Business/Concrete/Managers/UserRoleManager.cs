@@ -33,6 +33,16 @@ namespace Framework.Business.Concrete.Managers
             return _userRolesDal.GetById(id);
         }
 
+        public User_Role GetByRoleId(int RoleId)
+        {
+            return _userRolesDal.GetByRoleId(RoleId);
+        }
+
+        public User_Role GetByUserId(int UserId)
+        {
+            return _userRolesDal.GetById(UserId);
+        }
+
         public bool GetUserRoleExists(User_Role userRole)
         {
             var result = _userRolesDal.GetUserRoleExists(userRole);

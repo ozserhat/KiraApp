@@ -69,6 +69,15 @@ namespace Framework.Business.DependencyResolvers.Ninject
             Bind<ISistemParametreleriService>().To<SistemParametreleriManager>().InTransientScope();
             Bind<ISistemParametreleriDal>().To<EfSistemParametreleriDal>().InTransientScope();
 
+            Bind<IOdemePeriyotTurService>().To<OdemePeriyotTurManager>().InTransientScope();
+            Bind<IOdemePeriyotTurDal>().To<EfOdemePeriyotTurDal>().InTransientScope();
+
+            Bind<IKiraciTurDal>().To<EfKiraciTurDal>().InTransientScope();
+            Bind<IKiraciTurService>().To<KiraciTurManager>().InTransientScope();
+
+            Bind<IKira_DurumDal>().To<EfKira_DurumDal>().InTransientScope();
+            Bind<IKira_DurumService>().To<Kira_DurumManager>().InTransientScope();
+
             Bind(typeof(IQueryableRepository<>)).To(typeof(EfQueryableRepository<>));
             Bind<DbContext>().To<DtContext>();
 

@@ -89,8 +89,8 @@ namespace Framework.Core.Aspects.Postsharp.LogAspects
                 UserId = userId,
                 UserName = userName,
                 Message = logMessage,
-                ExceptionMessage="-",
-                StackTrace="-"
+                ExceptionMessage=" ",
+                StackTrace = " "
                }
              };
 
@@ -101,58 +101,6 @@ namespace Framework.Core.Aspects.Postsharp.LogAspects
         public void OnActionExecuting(ActionExecutingContext filterContext)
         {
 
-            int userId = 0;
-            string userName = "";
-            string logMessage = "";
-            var controllerName = (string)filterContext.RouteData.Values["controller"];
-            var actionName = (string)filterContext.RouteData.Values["action"];
-            ClaimsIdentity claimsIdentity;
-            var httpContext = HttpContext.Current;
-            claimsIdentity = httpContext.User.Identity as ClaimsIdentity;
-            string actionType = "";
-            var controllerActionDescriptor = filterContext.ActionDescriptor as ActionDescriptor;
-
-            var request = filterContext.HttpContext.Request;
-
-
-            if (controllerActionDescriptor != null)
-            {
-                actionType = controllerActionDescriptor.GetCustomAttributes(inherit: true).Select(a => a.GetType().Name.Replace("Attribute", "")).FirstOrDefault();
-            }
-
-            var form = filterContext.HttpContext.Request.Form;
-            var dictionary = form.AllKeys.ToDictionary(k => k, k => form[k]);
-
-
-            logMessage = (filterContext.Controller.ViewData["logMessage"] != null ? filterContext.Controller.ViewData["logMessage"].ToString() : "");
-
-            if (claimsIdentity.FindFirst("UserId") != null)
-            {
-                userName = claimsIdentity.FindFirst("UserName").Value;
-                userId = Int32.Parse(claimsIdentity.FindFirst("UserId").Value);
-            }
-
-            if (filterContext.Controller.ViewData.ModelState["LogMessage"] != null)
-                logMessage = filterContext.Controller.ViewData.ModelState["LogMessage"].Errors.First().ErrorMessage;
-
-            var logParameters = new List<LogParameter>()
-            {
-               new LogParameter
-               {
-                ActionName = actionName,
-                ControllerName = controllerName,
-                Url=HttpContext.Current.Request.Url.AbsoluteUri,
-                Date = DateTime.Now,
-                LogType="Info",
-                HttpType = (!string.IsNullOrEmpty(actionType)?actionType:"HttpGet"),
-                UserId = userId,
-                UserName = userName,
-                Message = logMessage
-               }
-             };
-
-            _loggerService = new LoggerService(_log);
-            _loggerService.Info(logParameters);
         }
 
         public void OnException(ExceptionContext filterContext)
@@ -169,13 +117,19 @@ namespace Framework.Core.Aspects.Postsharp.LogAspects
 
 
             var request = filterContext.HttpContext.Request;
+
+            Type typeOfRequest = filterContext.HttpContext.Request.RequestType.ToLower() == "Get" ? typeof(HttpGetAttribute) : typeof(HttpPostAttribute);
+
             MethodInfo method = filterContext.Controller.GetType().GetMethods()
-            .FirstOrDefault(x => x.DeclaringType == filterContext.Controller.GetType()
-                            && x.Name == actionName);
+                  .Where(x => x.ReflectedType == typeOfRequest
+                                  && x.Name == actionName).FirstOrDefault();
 
-            IEnumerable<Attribute> attributes = method.GetCustomAttributes();
+            if (method != null)
+            {
+                IEnumerable<Attribute> attributes = method.GetCustomAttributes();
 
-            actionType = attributes.Select(a => a.GetType().Name.Replace("Attribute", "")).FirstOrDefault();
+                actionType = attributes.Select(a => a.GetType().Name.Replace("Attribute", "")).FirstOrDefault();
+            }
 
             var form = filterContext.HttpContext.Request.Form;
             var dictionary = form.AllKeys.ToDictionary(k => k, k => form[k]);

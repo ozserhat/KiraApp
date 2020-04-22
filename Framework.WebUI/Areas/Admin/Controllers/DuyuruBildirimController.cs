@@ -32,6 +32,9 @@ namespace Framework.WebUI.Areas.Admin.Controllers
         #endregion
 
         // GET: Admin/DuyuruBildirim
+
+        #region Listeleme
+
         public ActionResult Index(int? page, int pageSize = 15)
         {
             return View();
@@ -61,7 +64,30 @@ namespace Framework.WebUI.Areas.Admin.Controllers
             ModelState.AddModelError("LogMessage", "Duyuru Bildirim Mesajları Getirildi.");
 
             return View(model);
+
         }
+
+        } 
+        #endregion
+
+        #region Detay 
+
+        [HttpPost]
+        public JsonResult BildirimDetay(int Id)
+        {
+            try
+            {
+                var detay = _service.Getir(Id); 
+                ModelState.AddModelError("LogMessage", "Duyuru Detay Bilgisi Görüntülendi.");
+                return Json(new { Data = detay, success = true, Message = "Duyuru Detay Bilgisi Görüntülendi." }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("LogMessage", "Duyuru Detay Bilgisi Görüntüleme Esnasında Hata Oluştu!!!");
+                return Json(new { success = false, Message = "Duyuru Detay Bilgisi Görüntüleme Esnasında Hata Oluştu!!!" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        #endregion
 
     }
 }

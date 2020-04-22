@@ -44,6 +44,26 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             }
         }
 
+        public User_Role GetByRoleId(int RoleId)
+        {
+            using (DtContext context = new DtContext())
+            {
+                var result = context.User_Roles.Where(a => a.Role_Id == RoleId).FirstOrDefault();
+
+                return result;
+            }
+        }
+
+        public User_Role GetByUserId(int UserId)
+        {
+            using (DtContext context = new DtContext())
+            {
+                var result = context.User_Roles.Where(a => a.User_Id == UserId).FirstOrDefault();
+
+                return result;
+            }
+        }
+
         public User_Role GetUserRoleExists(User_Role userRole)
         {
             using (DtContext context = new DtContext())

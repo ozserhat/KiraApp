@@ -12,7 +12,13 @@ namespace Framework.Business.Abstract
         IEnumerable<User_Role> GetAll();
 
         User_Role GetById(int id);
+
+        User_Role GetByUserId(int UserId);
+
+        User_Role GetByRoleId(int RoleId);
+
         bool GetUserRoleExists(User_Role userRole);
+
         User_Role Ekle(User_Role userRole);
 
         User_Role Guncelle(User_Role userRole);

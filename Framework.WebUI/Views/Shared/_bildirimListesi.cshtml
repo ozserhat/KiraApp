@@ -1,0 +1,158 @@
+﻿
+@model Framework.WebUI.Models.ViewModels.DuyuruBildirimVM
+
+<div class="panel panel-collapse" style="float:right; margin-top:100px; z-index:1000; position:relative; ">
+
+    <div id="jazz" class="panel-collapse collapse">
+        <div class="panel-body">
+            <table id="dt_basic" class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Başlık</th>
+                        <th scope="col">Tarih</th>
+                        <th scope="col">Okundu Bilgisi</th>
+                        <th scope="col">Oku</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.DuyuruBildirimleri)
+                    {
+                        int i = ((Model.PageNumber - 1) * Model.PageSize) + 1;
+                        <tr>
+                            <th scope="row">@(i++)</th>
+                            <td>@Html.DisplayFor(model => item.Duyurular.Ad)</td>
+                            <td>@Html.DisplayFor(model => item.OlusturulmaTarihi)</td>
+                            <td>
+                                @if (item.OkunduBilgisi)
+                                {
+                                    <b class="label aktif-buton">Evet</b>
+                                }
+                                else
+                                {
+                                    <b class="label pasif-buton">Hayır</b>
+                                }
+                            </td>
+                            <td>
+                                <a href="#" id="btnDuyuruDetay" class="btnDetay" rel="tooltip" data-toggle="modal"
+                                   data-target="#detayModal" data-original-title="Duyuru Detay" data-id="@item.Duyuru_Id">
+                                    <span class="glyphicon glyphicon-eye-close"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="detayModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title"><b>Duyuru Detay</b></h4>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form id="frmOnay">
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-12 form-group">
+                                @Html.Label("Duyuru Tür", new { @class = "control-label col-md-4" })
+                                <div class="col-md-8">
+                                    <p> @Html.TextBox("Tur", "", new { @class = "form-control", @readonly = true })</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-12 form-group">
+                                @Html.Label("Duyuru Ad", new { @class = "control-label col-md-4" })
+                                <div class="col-md-8">
+                                    <p> @Html.TextBox("DuyuruAd", "", new { @class = "form-control", @readonly = true })</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-12 form-group">
+                                @Html.Label("Açıklama", new { @class = "control-label col-md-4" })
+                                <div class="col-md-8">
+                                    @Html.TextArea("Aciklama", new { @class = "form-control", rows = "3", @readonly = true })
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Kapat</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Modal footer -->
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+    #icon {
+        background-color: #bbb;
+        position: relative;
+    }
+
+    #not {
+        position: absolute;
+        top: -20px;
+        right: -10px;
+        background-color: #f00;
+        width: 28px;
+        height: 28px;
+        color: #fff;
+        font-size: 12px;
+        border-radius: 20px -moz-border-radius:20px;
+        -webkit-border-radius: 20px;
+        text-align: center;
+        border: 2px solid #fff;
+    }
+ 
+</style>
+
+<script type="text/javascript">
+        var dt;
+
+        var dt_settings = {
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Turkish.json"
+            },
+            "searching": true,
+        };
+
+        $(document).ready(function () {
+            dt = $('#dt_basic').DataTable(dt_settings);
+        });
+
+        $('.btnDetay').on('click', function () {
+
+            var id = $(this).attr("data-id");
+
+              $.ajax({
+                  url: '@Url.Action("BildirimDetay", "DuyuruBildirim")',
+                  data: { id: id },
+                  type: 'Post',
+                    success: function (result) {
+                        if (result != null && result.success) {
+                            $('#Tur').val(result.Data.Duyuru_Turleri.Ad);
+                            $('#DuyuruAd').val(result.Data.Ad);
+                            $('#Aciklama').val(result.Data.Aciklama);
+                        }
+                        else {
+                            swal('Uyarı!', result.Message, 'warning');
+                        }
+                    },
+                    error: function (xhr) {
+                        swal('Uyarı!', result.Message, 'warning');
+                    }
+                 });
+        });
+</script>

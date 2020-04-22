@@ -35,6 +35,11 @@ namespace Framework.Business.Concrete.Managers
         }
 
 
+        public IEnumerable<Duyuru_Bildirim> GetirKullaniciMesajlari(int KullaniciId)
+        {
+            return _duyuru_BildirimDal.GetirKullaniciMesajlari(KullaniciId).ToList();
+        }
+
         public IEnumerable<Duyuru_Bildirim> GetirListe()
         {
             return _duyuru_BildirimDal.GetList();
@@ -47,7 +52,9 @@ namespace Framework.Business.Concrete.Managers
 
         public int OkunmamisMesajSayisi(int KullaniciId)
         {
-            return _duyuru_BildirimDal.GetList(a => a.Kullanici_Id == KullaniciId && a.OkunduBilgisi == false).Count();
+
+            return _duyuru_BildirimDal.GetList(a=>a.Kullanici_Id== KullaniciId && a.OkunduBilgisi==false&&a.Duyurular.AktifMi==true).Count();
+
         }
 
         public bool Sil(int id)

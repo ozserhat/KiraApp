@@ -22,13 +22,15 @@ namespace Framework.WebUI.Controllers
     public class AccountController : Controller
     {
         private IUserService _userService;
+        private IDuyuru_BildirimService _bildirimService;
         private IUserPermissionsService _userPermissions;
 
         private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
 
-        public AccountController(IUserService userService, IUserPermissionsService userPermissions)
+        public AccountController(IUserService userService, IUserPermissionsService userPermissions, IDuyuru_BildirimService bildirimService)
         {
             _userService = userService;
+            _bildirimService = bildirimService;
             _userPermissions = userPermissions;
         }
 
@@ -108,7 +110,7 @@ namespace Framework.WebUI.Controllers
             return View(model);
         }
 
-       [HttpPost]
+        [HttpPost]
         public ActionResult Login(LoginVm loginVm)
         {
             string hashedPassword = "";
@@ -157,6 +159,8 @@ namespace Framework.WebUI.Controllers
                     }, identity);
                     #endregion
 
+                    TempData["MesajSayisi"] = _bildirimService.OkunmamisMesajSayisi(user.UserId);
+
                     ModelState.AddModelError("LogMessage", "Kullanıcı Bilgileri Doğrulandı Girişi Yapıldı.");
 
                     return RedirectToAction("Navigate");
@@ -164,7 +168,7 @@ namespace Framework.WebUI.Controllers
             }
 
             ModelState.AddModelError("LogMessage", "Kullanıcı Bulunamadı!!!");
-
+            loginVm.Errors.Add("Kullanıcı Bilgileri Doğrulanamadı,Tekrar Kontrol Ediniz!!!");
             return View(loginVm);
         }
 
