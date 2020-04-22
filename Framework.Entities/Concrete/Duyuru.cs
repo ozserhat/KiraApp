@@ -38,8 +38,10 @@ namespace Framework.Entities.Concrete
         
         public int DuyuruTur_Id { get; set; }
 
+
         [ForeignKey("DuyuruTur_Id")]
         public Duyuru_Tur Duyuru_Turleri { get; set; }
+
 
         [JsonIgnore]
         public virtual ICollection<Duyuru_Bildirim> Duyuru_Bildirimleri { get; set; }

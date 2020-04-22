@@ -9,14 +9,13 @@ using System.Threading.Tasks;
 
 namespace Framework.DataAccess.Concrete.EntityFramework
 {
-    public class EfDenemeDal : EfEntityRepositoryBase<Deneme, DtContext>, IDenemeDal
+    public class EfPersonelDal : EfEntityRepositoryBase<Personel, DtContext>, IPersonelDal
     {
-
-        public List<Deneme> GetirDenemeList()
+        public List<Personel> GetirPersonelList()
         {
             using (DtContext context = new DtContext())
             {
-                return context.Denemeler.ToList();
+                return context.Personeller.ToList();
             }
         }
     }

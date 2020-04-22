@@ -66,6 +66,7 @@ namespace Framework.DataAccess.Concrete
             return false;
         }
 
+
         public IEnumerable<Duyuru_Bildirim> GetirKullaniciMesajlari(int KullaniciId)
         {
             using (DtContext context = new DtContext())
@@ -73,5 +74,6 @@ namespace Framework.DataAccess.Concrete
                 return context.Duyuru_Bildirimleri.Include(d => d.Duyurular).Include(u => u.Kullanicilar).Where(a => a.Kullanici_Id == KullaniciId && a.Duyurular.AktifMi==true).ToList();
             }
         }
+
     }
 }

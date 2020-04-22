@@ -185,6 +185,7 @@
     <Compile Include="Areas\Admin\Controllers\LogsController.cs" />
     <Compile Include="Areas\Admin\Controllers\OdemePeriyotTurController.cs" />
     <Compile Include="Areas\Admin\Controllers\PagesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PersonelController.cs" />
     <Compile Include="Areas\Admin\Controllers\RolesController.cs" />
     <Compile Include="Areas\Admin\Controllers\SistemParametreleriController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserPermissionsController.cs" />
@@ -1009,6 +1010,7 @@
     <Content Include="Areas\Admin\Views\Duyuru\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Duyuru\Ekle.cshtml" />
     <Content Include="Areas\Admin\Views\Duyuru\Duzenle.cshtml" />
+
     <Content Include="Areas\Admin\Views\Shared\_bildirimListesi.cshtml" />
     <Content Include="Areas\Admin\Views\OdemePeriyotTur\Index.cshtml" />
     <Content Include="Areas\Admin\Views\OdemePeriyotTur\Ekle.cshtml" />
@@ -1019,6 +1021,7 @@
     <Content Include="Areas\Admin\Views\KiraDurum\Index.cshtml" />
     <Content Include="Areas\Admin\Views\KiraDurum\Ekle.cshtml" />
     <Content Include="Areas\Admin\Views\KiraDurum\Duzenle.cshtml" />
+
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\customModal.js" />
@@ -1645,6 +1648,8 @@
     <Folder Include="Content\login\css\" />
     <Folder Include="Content\login\js\" />
     <Folder Include="Content\login\webfonts\" />
+    <Folder Include="Views\DuyuruBildirimVM\" />
+    <Folder Include="Views\PersonelVm\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

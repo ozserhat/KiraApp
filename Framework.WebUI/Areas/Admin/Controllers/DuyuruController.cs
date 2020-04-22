@@ -37,6 +37,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
         }
 
         #endregion
+
         // GET: Admin/Duyuru
         #region Listeleme
         public ActionResult Index(int? page, int pageSize = 15)
@@ -50,9 +51,9 @@ namespace Framework.WebUI.Areas.Admin.Controllers
 
             if (turler != null)
             {
+                model.KullaniciRolSelectList = KullaniciRolSelectList();
                 model.DuyuruTurSelectList = DuyuruTurSelectList();
                 model.KullaniciSelectList = KullaniciSelectList();
-                model.KullaniciRolSelectList = KullaniciRolSelectList();
                 model.Duyurular = new StaticPagedList<Duyuru>(turler, model.PageNumber, model.PageSize, turler.Count());
                 model.TotalRecordCount = turler.Count();
             }
@@ -77,10 +78,18 @@ namespace Framework.WebUI.Areas.Admin.Controllers
 
         public SelectList KullaniciSelectList()
         {
+
+            var roller = _userService.GetAll().Select(x => new { Id = x.Id, Ad = x.UserName }).ToList();
+
+            return new SelectList(roller, "Id", "Ad");
+        }
+
+
             var kullanicilar = _userService.GetAll().Select(x => new { Id = x.Id, Ad = x.UserName }).ToList();
 
             return new SelectList(kullanicilar, "Id", "Ad");
         }
+
         #endregion
 
         #region BildirimGonder
@@ -98,8 +107,9 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                     if (RolId.Length > 0 && string.IsNullOrEmpty(KullaniciId[0]))
                     {
                         users = _userRoleService.GetAll().Where(u => RolId.Contains(u.Role_Id.ToString())).Select(a => a.Users).ToList();
-                        var usr = users.GroupBy(a => a.Id).Select(a => new { UserId=a.Key});
-
+                      
+                        var usr = users.GroupBy(a => a.Id).Select(a => new { UserId = a.Key });
+                      
                         foreach (var u in usr)
                         {
                             bildirimListesi.Add(new Duyuru_Bildirim()
@@ -305,6 +315,90 @@ namespace Framework.WebUI.Areas.Admin.Controllers
             }
 
         }
+        #endregion
+
+        #region MesajBildirimi
+
+        public ActionResult MesajBildirimi()
+        {
+            var model = new DuyuruMesajBildirimiVM();
+            model.KullaniciRolSelectList = KullaniciRolSelectList();
+            model.DuyuruTurSelectList = DuyuruTurSelectList();
+            model.KullaniciSelectList = KullaniciSelectList();
+            
+            ModelState.AddModelError("LogMessage", "Duyuru Bildirim Bilgisi Görüntülendi.");
+            return View(model);
+        }
+        [HttpPost]
+        public JsonResult MesajBildirimi(string DuyuruId, string[] RoleId, string[] UserId)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    List<User> users = new List<User>();
+
+                    List<Duyuru_Bildirim> bildirimListesi = new List<Duyuru_Bildirim>();
+
+                    if (RoleId.Length > 0 && string.IsNullOrEmpty(UserId[0]))
+                    {
+                        users = _userRoleService.GetAll().Where(u => RoleId.Contains(u.Role_Id.ToString())).Select(a => a.Users).ToList();
+                        var usr = users.GroupBy(a => a.Id).Select(a => new { UserId = a.Key });
+
+                        foreach (var u in usr)
+                        {
+                            bildirimListesi.Add(new Duyuru_Bildirim()
+                            {
+                                Duyuru_Id = int.Parse(DuyuruId),
+                                Kullanici_Id = u.UserId,
+                                OlusturulmaTarihi = DateTime.Now,
+                                OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
+                                OkunduBilgisi = false,
+                                Duyurular = null,
+                                Kullanicilar = null
+                            });
+                        }
+                    }
+                    else
+                    {
+                        foreach (string id in UserId)
+                        {
+                            bildirimListesi.Add(new Duyuru_Bildirim()
+                            {
+                                Duyuru_Id = int.Parse(DuyuruId),
+                                Kullanici_Id = int.Parse(id),
+                                OlusturulmaTarihi = DateTime.Now,
+                                OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
+                                OkunduBilgisi = false
+                            });
+                        }
+                    }
+
+                    if (bildirimListesi != null && bildirimListesi.Count > 0)
+                    {
+                        var result = _bildirimService.Ekle(bildirimListesi);
+
+                        if (result)
+                        {
+                            ModelState.AddModelError("LogMessage", "Duyuru Bilgisi Bilgisi İletildi.");
+                            return Json(new { Message = "Duyuru Bilgisi Başarıyla İletildi.", success = true }, JsonRequestBehavior.AllowGet);
+                        }
+                    }
+
+                    ModelState.AddModelError("LogMessage", "Duyuru Bilgisi Bilgisi İletilemedi.");
+                    return Json(new { Message = "Duyuru Bilgisi İletilemedi!!!", success = false }, JsonRequestBehavior.AllowGet);
+                }
+
+                ModelState.AddModelError("LogMessage", "Duyuru Bilgisi Bilgisi İletilemedi.");
+                return Json(new { Message = "Duyuru Bilgisi İletilemedi!!!", success = false }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("LogMessage", "Duyuru Bilgisi Bilgisi İletilemedi.");
+                return Json(new { Message = ex.Message, success = false }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         #endregion
     }
 }

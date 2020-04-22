@@ -34,7 +34,7 @@ namespace Framework.Business.DependencyResolvers.Ninject
 
             Bind<IDenemeService>().To<DenemeManager>().InSingletonScope();
             Bind<IDenemeDal>().To<EfDenemeDal>().InSingletonScope();
-
+         
             Bind<IGayrimenkulService>().To<GayrimenkulManager>().InSingletonScope();
             Bind<IGayrimenkulDal>().To<EfGayrimenkulDal>().InSingletonScope();
 
@@ -46,6 +46,7 @@ namespace Framework.Business.DependencyResolvers.Ninject
 
             Bind<IGayrimenkulDosya_TurService>().To<GayrimenkulDosya_TurManager>().InSingletonScope();
             Bind<IGayrimenkulDosya_TurDal>().To<EfGayrimenkulDosya_TurDal>().InSingletonScope();
+
 
             Bind<IControllerActionService>().To<ControllerActionManager>().InTransientScope();
             Bind<IControllerActionsDal>().To<EfControllerActionsDal>().InTransientScope();

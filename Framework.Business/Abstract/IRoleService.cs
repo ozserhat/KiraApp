@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Framework.Business.Abstract
 {
     public interface IRoleService
-    {
+    { 
         IEnumerable<Role> GetAll();
 
         Role GetById(int id);
