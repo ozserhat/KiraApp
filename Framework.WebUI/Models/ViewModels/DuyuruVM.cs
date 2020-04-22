@@ -59,10 +59,10 @@ namespace Framework.WebUI.Models.ViewModels
         public Guid Guid { get; set; }
 
         [Display(Name = "Duyuru Adı")]
-        public string DuyuruAd { get; set; }
+        public string DuyuruAdi { get; set; }
 
         [Display(Name = "Açıklama")]
-        public string Aciklama { get; set; }
+        public string DuyuruAciklama { get; set; }
 
         [Display(Name = "Duyuru Türleri")]
         public SelectList DuyuruTurSelectList { get; set; }

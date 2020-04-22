@@ -1,4 +1,4 @@
-﻿@model Framework.WebUI.Models.ViewModels.KiraciTurVM
+﻿@model Framework.WebUI.Models.ViewModels.KiraDurumVM
 @using PagedList;
 @using PagedList.Mvc;
 
@@ -36,10 +36,10 @@
                     <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
                         <header>
                             <span class="widget-icon"> <i class="fa fa-list"></i> </span>
-                            <h2>Kiracı Tür Listesi - <b>Toplam Tür Adedi : @Model.TotalRecordCount</b></h2>
+                            <h2>Kira Durum Listesi - <b>Toplam Tür Adedi : @Model.TotalRecordCount</b></h2>
                             <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
                                 <p>
-                                    @Html.AuthActionLink(" Kiracı Tür Ekle", "Ekle", "KiraciTur", "btn btn-primary", "glyphicon glyphicon-plus", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                                    @Html.AuthActionLink(" Kira Durum Ekle", "Ekle", "KiraDurum", "btn btn-primary", "glyphicon glyphicon-plus", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                                 </p>
                             </div>
                         </header>
@@ -52,18 +52,18 @@
                                                 <thead>
                                                     <tr role="row">
                                                         <th style="width: 20px;">No</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Tür Adı</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Kira Durumu</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 250px;">Durum</th>
                                                         <th class="sorting_disabled text-center" rowspan="1" colspan="1" style="text-align: right;  padding-right: 30px; width: 100px;">İşlem</th>
                                                     </tr>
                                                 </thead>
-                                                @if (Model.KiraciTurleri != null && Model.KiraciTurleri.Count > 0)
+                                                @if (Model.KiraDurumlari != null && Model.KiraDurumlari.Count > 0)
                                                 {
                                                     <tbody>
 
                                                         @{int i = ((Model.PageNumber - 1) * Model.PageSize) + 1;}
 
-                                                        @foreach (var item in Model.KiraciTurleri)
+                                                        @foreach (var item in Model.KiraDurumlari)
                                                         {
                                                             <tr role="row" class="odd">
                                                                 <td>@(i++)</td>
@@ -79,11 +79,11 @@
                                                                     }
                                                                 </td>
                                                                 <td class="text-center">
-                                                                    @Html.AuthAction(" ", "Duzenle", "KiraciTur", new { item.Guid },
+                                                                    @Html.AuthAction(" ", "Duzenle", "KiraDurum", new { item.Guid },
                                                                           new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
                                                                           Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
-                                                                    @Html.AuthAction(" ", "Sil", "KiraciTur", new { item.Id },
+                                                                    @Html.AuthAction(" ", "Sil", "KiraDurum", new { item.Id },
                                                                                     new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = item.Ad, @data_id = item.Id },
                                                                                     Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                                                                 </td>
@@ -139,7 +139,7 @@
 
     </script>
 
-    <!--Kiracı Tur Silme İşlemi -->
+    <!--Kira Durum Silme İşlemi -->
     <script type="text/javascript">
         var dt;
 
@@ -168,7 +168,7 @@
         function deletealert(Id, name, closestTR) {
             swal({
                 title: "Uyarı",
-                text: name + " Adlı Türü Silmek İstediğinizden Emin misiniz?",
+                text: name + " Adlı Durumu Silmek İstediğinizden Emin misiniz?",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
@@ -177,7 +177,7 @@
             }).then(function (isConfirm) {
                 if (isConfirm) {
                     $.ajax({
-                        url: "/KiraciTur/Sil/" + Id,
+                        url: "/KiraDurum/Sil/" + Id,
                         type: 'POST',
                         success: function (result) {
                             if (result.success) {
@@ -196,6 +196,7 @@
     </script>
 
 }
+
 
 
 

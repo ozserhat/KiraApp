@@ -168,7 +168,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public JsonResult Ekle(DuyuruEkleVM model)
+        public JsonResult Ekle(DuyuruEkleVM duyuruModel)
         {
             try
             {
@@ -177,9 +177,9 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                     Duyuru Duyuru = new Duyuru()
                     {
                         Guid = Guid.NewGuid(),
-                        DuyuruTur_Id = model.TurId,
-                        Ad = model.DuyuruAd,
-                        Aciklama = model.Aciklama,
+                        DuyuruTur_Id = duyuruModel.TurId,
+                        Ad = duyuruModel.DuyuruAdi,
+                        Aciklama = duyuruModel.DuyuruAciklama,
                         OlusturulmaTarihi = DateTime.Now,
                         OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
                         AktifMi = true,

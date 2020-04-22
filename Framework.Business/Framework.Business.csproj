@@ -140,6 +140,7 @@
     <Compile Include="Abstract\IGayrimenkulService.cs" />
     <Compile Include="Abstract\IGayrimenkulTurService.cs" />
     <Compile Include="Abstract\IKiraciTurService.cs" />
+    <Compile Include="Abstract\IKira_DurumService.cs" />
     <Compile Include="Abstract\ILogService.cs" />
     <Compile Include="Abstract\IRoleService.cs" />
     <Compile Include="Abstract\ISistemParametreleriService.cs" />
@@ -157,6 +158,7 @@
     <Compile Include="Concrete\Managers\GayrimenkulManager.cs" />
     <Compile Include="Concrete\Managers\GayrimenkulTurManager.cs" />
     <Compile Include="Concrete\Managers\KiraciTurManager.cs" />
+    <Compile Include="Concrete\Managers\Kira_DurumManager.cs" />
     <Compile Include="Concrete\Managers\LogsManager.cs" />
     <Compile Include="Concrete\Managers\RoleManager.cs" />
     <Compile Include="Concrete\Managers\SistemParametreleriManager.cs" />

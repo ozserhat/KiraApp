@@ -35,7 +35,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
         public DbSet<SistemParametreleri> SistemParametreleri { get; set; }
         public DbSet<OdemePeriyotTur> OdemePeriyotTurleri { get; set; }
         public DbSet<KiraciTur> KiraciTurleri { get; set; }
-
+        public DbSet<Kira_Durum> Kira_Durumlari { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 

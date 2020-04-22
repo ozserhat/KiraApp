@@ -60,6 +60,7 @@
     <Compile Include="Abstract\IGayrimenkulDal.cs" />
     <Compile Include="Abstract\IGayrimenkulDosya_TurDal.cs" />
     <Compile Include="Abstract\IGayrimenkulTurDal.cs" />
+    <Compile Include="Abstract\IKira_DurumDal.cs" />
     <Compile Include="Abstract\ILogsDal.cs" />
     <Compile Include="Abstract\IRolesDal.cs" />
     <Compile Include="Abstract\ISistemParametreleriDal.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Concrete\EntityFramework\EfGayrimenkulDosya_TurDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfGayrimenkulTurDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfKiraciTurDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfKira_DurumDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfLogDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfRolesDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfSistemParametreleriDal.cs" />

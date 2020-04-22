@@ -180,6 +180,7 @@
     <Compile Include="Areas\Admin\Controllers\GayrimenkulDosyaTurController.cs" />
     <Compile Include="Areas\Admin\Controllers\GayrimenkulTurController.cs" />
     <Compile Include="Areas\Admin\Controllers\KiraciTurController.cs" />
+    <Compile Include="Areas\Admin\Controllers\KiraDurumController.cs" />
     <Compile Include="Areas\Admin\Controllers\KullaniciYetkiController.cs" />
     <Compile Include="Areas\Admin\Controllers\LogsController.cs" />
     <Compile Include="Areas\Admin\Controllers\OdemePeriyotTurController.cs" />
@@ -208,6 +209,7 @@
     <Compile Include="Models\ViewModels\GayrimenkulDosya_TurVM.cs" />
     <Compile Include="Models\ViewModels\GayrimenkulTurVM.cs" />
     <Compile Include="Models\ViewModels\KiraciTurVM.cs" />
+    <Compile Include="Models\ViewModels\KiraDurumVM.cs" />
     <Compile Include="Models\ViewModels\KullaniciYetkiDuzenleVM.cs" />
     <Compile Include="Models\ViewModels\LoginVm.cs" />
     <Compile Include="Models\ViewModels\LogsVM.cs" />
@@ -1014,6 +1016,9 @@
     <Content Include="Areas\Admin\Views\KiraciTur\Index.cshtml" />
     <Content Include="Areas\Admin\Views\KiraciTur\Ekle.cshtml" />
     <Content Include="Areas\Admin\Views\KiraciTur\Duzenle.cshtml" />
+    <Content Include="Areas\Admin\Views\KiraDurum\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\KiraDurum\Ekle.cshtml" />
+    <Content Include="Areas\Admin\Views\KiraDurum\Duzenle.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\customModal.js" />
