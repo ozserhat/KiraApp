@@ -48,13 +48,6 @@ namespace Framework.WebUI.Models.ViewModels
         public SelectList KullaniciSelectList { get; set; }
 
         public IPagedList<Duyuru> Duyurular { get; set; }
-
-        [Display(Name = "Roller")]
-        public SelectList KullaniciRolSelectList { get; set; }
-
-        [Display(Name = "Kullanıcılar")]
-        public SelectList KullaniciSelectList { get; set; }
-
        
     }
 

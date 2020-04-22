@@ -84,12 +84,6 @@ namespace Framework.WebUI.Areas.Admin.Controllers
             return new SelectList(roller, "Id", "Ad");
         }
 
-
-            var kullanicilar = _userService.GetAll().Select(x => new { Id = x.Id, Ad = x.UserName }).ToList();
-
-            return new SelectList(kullanicilar, "Id", "Ad");
-        }
-
         #endregion
 
         #region BildirimGonder
