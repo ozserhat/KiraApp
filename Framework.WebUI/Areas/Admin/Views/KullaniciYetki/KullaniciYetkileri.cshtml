@@ -169,7 +169,8 @@
     <script src="https://cdn.jsdelivr.net/sweetalert2/6.1.0/sweetalert2.min.js"></script>
 
     <script type="text/javascript">
-        var dt, dt2;
+        var dt;
+        var dt2;
         var closestRow = [];
         var closestRow2 = [];
         var removeList = [];
@@ -193,14 +194,16 @@
                         'orderable': false,
                         'className': 'dt-body-center', "select": {
                             "style": "multi",
-                            selector: 'tr>td:nth-child(0), tr>td:nth-child(1)'
-
+                            selector: 'tr>td:nth-child(0), tr>td:nth-child(0)'
                         },
-                        'render': function (data, type, full, meta) {
-                            return '<input type="checkbox" class="checkBox" value="' + $('<div/>').text(data).html() + '">';
+                        'render': function (data, type, row) {
+                            if (type === 'display') {
+                                return '<input type="checkbox" class="chcBox" value="' + $('<div/>').text(data).html() + '">';
+                            }
+                            return data;
                         }
                     }],
-                order: [1, 'asc']
+                order: [1, 'asc'],
             });
 
             dt2 = $('#dt_basic2').DataTable({
@@ -228,33 +231,28 @@
                 $("#sayfalama").css("display", "none");
             }
 
-            $('.checkBox').on("change", function () {
+            $('.chcBox').on("click", function () {
+                
+                var dt = $("#dt_basic").dataTable();
                 var row = $(this).closest('tr');
-                var oTable = $("#dt_basic").dataTable();
-                $("input:checkbox", oTable.fnGetNodes()).each(function () {
-                    var tuisre = $(this).is(":checked");
-                    if (tuisre) {
-                        closestRow.push(row);
-                    }
-                })
-
-                var data = dt.row(row).data();
-                var ID = data[0];
-                removeList.push(ID);
+                var chkbox_checked = $('tbody input[type="checkbox"]:checked', dt);
+                var tuisre = $(this).is(":checked");
+                if (tuisre) {
+                    closestRow.push(row);
+                    var ID = this.value;
+                    removeList.push(ID);
+                }
             });
 
             $('.checkBox2').on("change", function () {
-                var row = $(this).closest('tr');
-                var oTable = $("#dt_basic2").dataTable();
-                $("input:checkbox", oTable.fnGetNodes()).each(function () {
-                    var tuisre = $(this).is(":checked");
-                    if (tuisre) {
-                        closestRow2.push(row);
-                    }
-                })
-                var data = dt2.row(row).data();
-                var ID = data[0];
-                removeList2.push(ID);
+                var row2 = $(this).closest('tr');
+                var oTable2 = $("#dt_basic2").dataTable();
+                var tuisre = $(this).is(":checked");
+                if (tuisre) {
+                    closestRow2.push(row2);
+                    var ID = this.value;
+                    removeList2.push(ID);
+                }
             });
 
             $('#btnEkle').on('click', function (e) {

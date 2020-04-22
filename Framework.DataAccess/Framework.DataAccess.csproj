@@ -67,6 +67,7 @@
     <Compile Include="Abstract\IUserDal.cs" />
     <Compile Include="Abstract\IUserPermissionsDal.cs" />
     <Compile Include="Abstract\IUserRolesDal.cs" />
+    <Compile Include="Abstract\IKiraciTurDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfDuyuruDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfDuyuru_BildirimDal.cs" />
     <Compile Include="Concrete\EntityFramework\DtContext.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Concrete\EntityFramework\EfGayrimenkulDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfGayrimenkulDosya_TurDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfGayrimenkulTurDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfKiraciTurDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfLogDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfRolesDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfSistemParametreleriDal.cs" />

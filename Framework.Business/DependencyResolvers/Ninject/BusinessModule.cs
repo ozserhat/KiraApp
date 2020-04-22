@@ -71,6 +71,9 @@ namespace Framework.Business.DependencyResolvers.Ninject
             Bind<IOdemePeriyotTurService>().To<OdemePeriyotTurManager>().InTransientScope();
             Bind<IOdemePeriyotTurDal>().To<EfOdemePeriyotTurDal>().InTransientScope();
 
+            Bind<IKiraciTurDal>().To<EfKiraciTurDal>().InTransientScope();
+            Bind<IKiraciTurService>().To<KiraciTurManager>().InTransientScope();
+
             Bind(typeof(IQueryableRepository<>)).To(typeof(EfQueryableRepository<>));
             Bind<DbContext>().To<DtContext>();
 
