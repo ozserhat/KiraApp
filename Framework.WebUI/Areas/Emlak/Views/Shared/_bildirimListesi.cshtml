@@ -1,0 +1,170 @@
+﻿@model Framework.WebUI.Models.ViewModels.DuyuruBildirimVM
+<span id="icon">
+    <a href="#" data-toggle="canvas" data-target="#bs-canvas-right" title="Mesajlar" aria-expanded="false" aria-controls="bs-canvas-right">
+        <span id="not">@Model.MesajSayisi</span>
+        <i class="fa fa-envelope">
+        </i>
+    </a>
+</span>
+<div class="bs-offset-main bs-canvas-anim">
+    <div id="bs-canvas-right" class="bs-canvas bs-canvas-anim bs-canvas-right position-fixed bg-light h-100">
+        <header class="bs-canvas-header p-3 bg-primary overflow-auto">
+            <button type="button" class="bs-canvas-close float-left close" aria-label="Close">
+                <span aria-hidden="true" class="text-light">&times;</span>
+            </button>
+            <h4 class="d-inline-block text-light mb-0 float-right">Duyurular</h4>
+        </header>
+        <div class="bs-canvas-content px-3 py-5">
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Başlık</th>
+                        <th scope="col">Tarih</th>
+                        <th scope="col">Okundu Bilgisi</th>
+                        <th scope="col">Oku</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.DuyuruBildirimleri)
+                    {
+                        int i = ((Model.PageNumber - 1) * Model.PageSize) + 1;
+                        <tr>
+                            <th scope="row">@(i++)</th>
+                            <td>@Html.DisplayFor(model => item.Duyurular.Ad)</td>
+                            <td>@Html.DisplayFor(model => item.OlusturulmaTarihi)</td>
+                            <td>
+                                @if (item.OkunduBilgisi)
+                                {
+                                    <b class="label aktif-buton">Evet</b>
+                                }
+                                else
+                                {
+                                    <b class="label pasif-buton">Hayır</b>
+                                }
+                            </td>
+                            <td>
+                                <a href="#" id="btnLogDetay" class="btnDetay" rel="tooltip" data-toggle="modal"
+                                   data-target="#detayModal" data-original-title="Duyuru Detay" data-id="@item.Duyuru_Id">
+                                    <span class="glyphicon glyphicon-eye-close"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+<style type="text/css">
+    #icon {
+        background-color: #bbb;
+        position: relative;
+    }
+
+    #not {
+        position: absolute;
+        top: -20px;
+        right: -10px;
+        background-color: #f00;
+        width: 28px;
+        height: 28px;
+        color: #fff;
+        font-size: 12px;
+        border-radius: 20px -moz-border-radius:20px;
+        -webkit-border-radius: 20px;
+        text-align: center;
+        border: 2px solid #fff;
+    }
+
+    .bs-canvas-overlay {
+        opacity: 0;
+        z-index: -1;
+    }
+
+        .bs-canvas-overlay.show {
+            opacity: 0.85;
+            z-index: 1100;
+        }
+
+    .bs-canvas {
+        top: 0;
+        width: 0;
+        z-index: 1110;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .bs-canvas-left {
+        left: 0;
+    }
+
+    .bs-canvas-right {
+        right: 0;
+    }
+
+    .bs-canvas-anim {
+        transition: all .4s ease-out;
+        -webkit-transition: all .4s ease-out;
+        -moz-transition: all .4s ease-out;
+        -ms-transition: all .4s ease-out;
+    }
+</style>
+<script type="text/javascript">
+    jQuery(document).ready(function ($) {
+        var bsDefaults = {
+            offset: false,
+            overlay: true,
+            width: '330px'
+        },
+            bsMain = $('.bs-offset-main'),
+            bsOverlay = $('.bs-canvas-overlay');
+
+        $('[data-toggle="canvas"][aria-expanded="false"]').on('click', function () {
+            var canvas = $(this).data('target'),
+                opts = $.extend({}, bsDefaults, $(canvas).data()),
+                prop = $(canvas).hasClass('bs-canvas-right') ? 'margin-right' : 'margin-left';
+
+            if (opts.width === '100%')
+                opts.offset = false;
+
+            $(canvas).css('width', opts.width);
+            if (opts.offset && bsMain.length)
+                bsMain.css(prop, opts.width);
+
+            $(canvas + ' .bs-canvas-close').attr('aria-expanded', "true");
+            $('[data-toggle="canvas"][data-target="' + canvas + '"]').attr('aria-expanded', "true");
+            if (opts.overlay && bsOverlay.length)
+                bsOverlay.addClass('show');
+            return false;
+        });
+
+        $('.bs-canvas-close, .bs-canvas-overlay').on('click', function () {
+            var canvas, aria;
+            if ($(this).hasClass('bs-canvas-close')) {
+                canvas = $(this).closest('.bs-canvas');
+                aria = $(this).add($('[data-toggle="canvas"][data-target="#' + canvas.attr('id') + '"]'));
+                if (bsMain.length)
+                    bsMain.css(($(canvas).hasClass('bs-canvas-right') ? 'margin-right' : 'margin-left'), '');
+            } else {
+                canvas = $('.bs-canvas');
+                aria = $('.bs-canvas-close, [data-toggle="canvas"]');
+                if (bsMain.length)
+                    bsMain.css({
+                        'margin-left': '',
+                        'margin-right': ''
+                    });
+            }
+            canvas.css('width', '');
+            aria.attr('aria-expanded', "false");
+            if (bsOverlay.length)
+                bsOverlay.removeClass('show');
+            return false;
+        });
+    });
+</script>
+
+

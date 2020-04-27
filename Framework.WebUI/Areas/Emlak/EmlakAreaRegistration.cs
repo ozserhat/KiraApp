@@ -1,22 +1,22 @@
 ﻿using System.Web.Mvc;
 
-namespace Framework.WebUI.Areas.Birim
+namespace Framework.WebUI.Areas.Emlak
 {
-    public class BirimAreaRegistration : AreaRegistration 
+    public class EmlakAreaRegistration : AreaRegistration 
     {
         public override string AreaName 
         {
             get 
             {
-                return "Birim";
+                return "Emlak";
             }
         }
 
         public override void RegisterArea(AreaRegistrationContext context) 
         {
             context.MapRoute(
-                "Birim_default",
-                "Birim/{controller}/{action}/{id}",
+                "Emlak_default",
+                "Emlak/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional }
             );
         }

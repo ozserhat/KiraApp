@@ -30,7 +30,6 @@ namespace Framework.DataAccess.Concrete.EntityFramework
         public DbSet<GayrimenkulAlt_Tur> GayrimenkulAlt_Turleri { get; set; }
         public DbSet<GayrimenkulDosya_Tur> GayrimenkulDosya_Turleri { get; set; }
         public DbSet<Gayrimenkul_Dosya> Gayrimenkul_Dosyalar { get; set; }
-
         public DbSet<Duyuru> Duyurular { get; set; }
         public DbSet<Duyuru_Tur> Duyuru_Turleri { get; set; }
         public DbSet<Duyuru_Bildirim> Duyuru_Bildirimleri { get; set; }
