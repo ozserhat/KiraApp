@@ -15,6 +15,7 @@ namespace Framework.Business.Concrete.Managers
         public IlceManager(IIlceDal ilceDal)
         {
             _ilceDal = ilceDal;
+
         }
 
         public Ilce Ekle(Ilce Ilce)
