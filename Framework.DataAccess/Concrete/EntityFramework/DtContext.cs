@@ -26,8 +26,6 @@ namespace Framework.DataAccess.Concrete.EntityFramework
         public DbSet<Log> Logs { get; set; }
         public DbSet<Deneme> Denemeler { get; set; }
 
-        public DbSet<Personel> Personeller { get; set; }
-
         public DbSet<Gayrimenkul> Gayrimenkuller { get; set; }
         public DbSet<GayrimenkulTur> GayrimenkulTurleri { get; set; }
         public DbSet<GayrimenkulAlt_Tur> GayrimenkulAlt_Turleri { get; set; }

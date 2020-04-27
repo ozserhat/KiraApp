@@ -9,8 +9,5 @@ namespace Framework.Business.Abstract
 {
     public interface IPersonelService
     {
-
-        List<Personel> GetirPersonelList();
-        Personel Ekle(Personel personel);
     }
 }

@@ -16,7 +16,6 @@ namespace Framework.Business.Abstract
         bool Ekle(IEnumerable<Duyuru_Bildirim> entities);
 
         Duyuru_Bildirim Guncelle(Duyuru_Bildirim bildirim);
-        bool Ekle(IEnumerable<Duyuru_Bildirim> entities);
         bool Sil(int id);
 
         int OkunmamisMesajSayisi(int KullaniciId);
