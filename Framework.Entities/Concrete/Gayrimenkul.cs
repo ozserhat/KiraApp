@@ -14,12 +14,61 @@ namespace Framework.Entities.Concrete
         public Guid Guid { get; set; }
 
         [StringLength(500)]
+        public string GayrimenkulNo { get; set; }
+
+        [StringLength(500)]
+        public string DosyaNo { get; set; }
+
+        [StringLength(500)]
         public string Ad { get; set; }
+
+        public int Il_Id { get; set; }
+
+        public int Ilce_Id { get; set; }
+
+        public int Mahalle_Id { get; set; }
+
+        public int? BinaKimlikNo { get; set; }
+
+        public int? NumaratajKimlikNo { get; set; }
+
+        [StringLength(500)]
+        public string Ada { get; set; }
+
+        [StringLength(500)]
+        public string Pafta { get; set; }
+
+        [StringLength(500)]
+        public string Parsel { get; set; }
+
+        public int? AdresNo { get; set; }
+
+        [StringLength(500)]
+        public string Cadde { get; set; }
+
+        [StringLength(500)]
+        public string Sokak { get; set; }
+
+        [StringLength(10)]
+        public string DisKapiNo { get; set; }
+
+        [StringLength(10)]
+        public string IcKapiNo { get; set; }
+
+        [StringLength(1500)]
+        public string AcikAdres { get; set; }
+
+        [StringLength(500)]
+        public string Koordinat { get; set; }
+
+        public int? AracKapasitesi { get; set; }
+
+        public int? Metrekare { get; set; }
 
         public int GayrimenkulTur_Id { get; set; }
 
         [ForeignKey("GayrimenkulTur_Id")]
-        public virtual GayrimenkulTur GayrimenkulTur { get; set; }
+        public virtual GayrimenkulTur GayrimenkulTur { get; set; }       
 
         public int? OlusturanKullanici_Id { get; set; }
 
