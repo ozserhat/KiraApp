@@ -38,6 +38,10 @@ namespace Framework.DataAccess.Concrete.EntityFramework
         public DbSet<OdemePeriyotTur> OdemePeriyotTurleri { get; set; }
         public DbSet<KiraciTur> KiraciTurleri { get; set; }
         public DbSet<Kira_Durum> Kira_Durumlari { get; set; }
+        public DbSet<Il> Iller { get; set; }
+        public DbSet<Ilce> Ilceler { get; set; }
+        public DbSet<Mahalle> Mahalleler { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 

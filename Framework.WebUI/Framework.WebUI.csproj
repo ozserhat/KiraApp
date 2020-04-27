@@ -192,6 +192,7 @@
     <Compile Include="Areas\Admin\Controllers\UserRolesController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Areas\Emlak\Controllers\AnasayfaController.cs" />
+    <Compile Include="Areas\Emlak\Controllers\GayrimenkulController.cs" />
     <Compile Include="Areas\Emlak\Controllers\GayrimenkulDosyaTurController.cs" />
     <Compile Include="Areas\Emlak\EmlakAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -211,6 +212,7 @@
     <Compile Include="Models\ViewModels\GayrimenkulAlt_TurVM.cs" />
     <Compile Include="Models\ViewModels\GayrimenkulDosya_TurVM.cs" />
     <Compile Include="Models\ViewModels\GayrimenkulTurVM.cs" />
+    <Compile Include="Models\ViewModels\GayrimenkulVM.cs" />
     <Compile Include="Models\ViewModels\KiraciTurVM.cs" />
     <Compile Include="Models\ViewModels\KiraDurumVM.cs" />
     <Compile Include="Models\ViewModels\KullaniciYetkiDuzenleVM.cs" />
@@ -1033,6 +1035,7 @@
     <Content Include="Areas\Emlak\Views\GayrimenkulDosyaTur\Ekle.cshtml" />
     <Content Include="Areas\Emlak\Views\GayrimenkulDosyaTur\Duzenle.cshtml" />
     <Content Include="Areas\Emlak\Views\Shared\_AsideEmlak.cshtml" />
+    <Content Include="Areas\Emlak\Views\Gayrimenkul\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\customModal.js" />
