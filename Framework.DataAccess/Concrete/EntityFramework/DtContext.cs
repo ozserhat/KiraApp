@@ -29,6 +29,8 @@ namespace Framework.DataAccess.Concrete.EntityFramework
         public DbSet<GayrimenkulTur> GayrimenkulTurleri { get; set; }
         public DbSet<GayrimenkulAlt_Tur> GayrimenkulAlt_Turleri { get; set; }
         public DbSet<GayrimenkulDosya_Tur> GayrimenkulDosya_Turleri { get; set; }
+        public DbSet<Gayrimenkul_Dosya> Gayrimenkul_Dosyalar { get; set; }
+
         public DbSet<Duyuru> Duyurular { get; set; }
         public DbSet<Duyuru_Tur> Duyuru_Turleri { get; set; }
         public DbSet<Duyuru_Bildirim> Duyuru_Bildirimleri { get; set; }
@@ -65,8 +67,8 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             modelBuilder.Entity<User_Permission>()
             .HasKey(x => new { x.User_Id, x.ControllerAction_Id });
 
-            modelBuilder.Entity<Duyuru_Bildirim>()
-            .HasKey(x => new { x.Kullanici_Id, x.Duyuru_Id });
+            //modelBuilder.Entity<Duyuru_Bildirim>()
+            //.HasKey(x => new { x.Kullanici_Id, x.Duyuru_Id });
         }
     }
 }
