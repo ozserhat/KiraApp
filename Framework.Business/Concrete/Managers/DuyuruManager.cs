@@ -43,5 +43,10 @@ namespace Framework.Business.Concrete.Managers
         {
             return _duyuruDal.Delete(id);
         }
+
+        public Duyuru MesajBildirimi(Duyuru duyuru)
+        {
+            return _duyuruDal.Add(duyuru);
+        }
     }
 }

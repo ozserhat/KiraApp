@@ -32,7 +32,9 @@ namespace Framework.WebUI.Areas.Admin.Controllers
         #endregion
 
         // GET: Admin/DuyuruBildirim
+
         #region Listeleme
+
         public ActionResult Index(int? page, int pageSize = 15)
         {
             return View();
@@ -62,6 +64,9 @@ namespace Framework.WebUI.Areas.Admin.Controllers
             ModelState.AddModelError("LogMessage", "Duyuru Bildirim Mesajları Getirildi.");
 
             return View(model);
+
+        }
+
         } 
         #endregion
 
@@ -83,5 +88,6 @@ namespace Framework.WebUI.Areas.Admin.Controllers
             }
         }
         #endregion
+
     }
 }

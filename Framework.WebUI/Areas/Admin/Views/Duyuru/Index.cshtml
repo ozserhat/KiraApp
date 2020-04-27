@@ -80,6 +80,7 @@
                                                                     }
                                                                 </td>
                                                                 <td class="text-center">
+
                                                                     @*@Html.AuthAction(" ", "Bildirim", "Duyuru", new { item.Guid },
                                                                         new { @class = "no-underline margin-right-5 fa fa-paper-plane font-md txt-color-blue", @data_target = "#bildirimModal" },
                                                                         Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))*@
@@ -91,6 +92,7 @@
 
                                                                     @Html.AuthAction(" ", "Duzenle", "Duyuru", new { item.Guid },
                                                                        new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue btnDuzenle" },
+
                                                                           Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
                                                                     @Html.AuthAction(" ", "Sil", "Duyuru", new { item.Id },
@@ -103,8 +105,11 @@
                                                 }
                                                 else
                                                 {
-                                                    <tbody>
-                                                    </tbody>
+
+                                                }
+                                                {
+                                                <tbody>
+                                                </tbody>
                                                 }
                                             </table>
                                         </div>
@@ -159,7 +164,57 @@
             </div>
         </div>
     </div>
+
+
+    <div class="modal" id="bildirimModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title"><b>Duyuru Bildirim</b></h4>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form id="frmBildirim">
+                        <fieldset>
+                            <div class="row">
+                                <input type="hidden" id="duyuruId" name="duyuruId" value="">
+                                <input type="hidden" id="duyuruAd" name="duyuruAd" value="">
+                                <div class="col-sm-12 col-md-12 col-lg-12 form-group">
+                                    @Html.LabelFor(model => model.KullaniciRolSelectList, new { @class = "control-label col-md-4" })
+                                    <div class="col-md-8">
+                                        <p>@Html.DropDownList("RolId", Model.KullaniciRolSelectList, new { @class = "select2", multiple = "multiple" })</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12 col-lg-12 form-group">
+                                    @Html.LabelFor(model => model.KullaniciSelectList, new { @class = "control-label col-md-4" })
+                                    <div class="col-md-8">
+                                        <p>@Html.DropDownList("KullaniciId", Model.KullaniciSelectList, new { @class = "select2", multiple = "multiple" })</p>
+                                        @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Kapat</button>
+                            <input type="button" value="Gönder" id="btnGonder" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+                <!-- Modal footer -->
+            </div>
+        </div>
+    </div>
+
+
+
+
 }
+
+
 
 
 @section pagespecific {
@@ -210,7 +265,9 @@
             var duyuruId = $("#duyuruId").val();
             var kullaniciId = $("#KullaniciId").val();
 
+
             if (duyuruId > 0 &&(rolId!=null || kullaniciId.length > 0)) {
+
                 swal({
                     title: "Uyarı",
                     text: name + " Adlı Duyuruyu Göndermek İstediğinizden Emin misiniz?",

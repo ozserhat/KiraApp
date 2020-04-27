@@ -57,8 +57,10 @@ namespace Framework.WebUI.App_Helpers
             var httpContext = HttpContext.Current;
             claimsIdentity = httpContext.User.Identity as ClaimsIdentity;
 
+
             if (claimsIdentity.FindFirst("UserId") != null)
                 userId = Int32.Parse(claimsIdentity.FindFirst("UserId").Value);
+
 
             if (this.AuthorizeCore(filterContext.HttpContext) && GetPermissions(controllerName, actionName, userId))
             {

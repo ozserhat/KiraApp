@@ -48,6 +48,14 @@ namespace Framework.WebUI.Models.ViewModels
         public SelectList KullaniciSelectList { get; set; }
 
         public IPagedList<Duyuru> Duyurular { get; set; }
+
+        [Display(Name = "Roller")]
+        public SelectList KullaniciRolSelectList { get; set; }
+
+        [Display(Name = "Kullanıcılar")]
+        public SelectList KullaniciSelectList { get; set; }
+
+       
     }
 
     public class DuyuruEkleVM : VMBase
@@ -105,5 +113,29 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Aktif Mi")]
         public bool AktifMi { get; set; }
+    }
+
+    public class DuyuruMesajBildirimiVM : VMBase
+    {
+    
+
+        [Display(Name = "Roller")]
+        public SelectList SelectListRoller { get; set; }
+
+        [Display(Name = "RoleId")]
+        public int Role_Id { get; set; }
+
+        [Display(Name = "Kullanıcılar")]
+        public SelectList KullaniciSelectList { get; set; }
+
+        [Display(Name = "Duyuru Türleri")]
+        public SelectList DuyuruTurSelectList { get; set; }
+
+        [Display(Name = "Roller")]
+        public SelectList KullaniciRolSelectList { get; set; }
+
+        [Display(Name = "UserId")]
+        public int UserId { get; set; }
+
     }
 }

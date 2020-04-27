@@ -68,7 +68,9 @@
     <Compile Include="Concrete\KiraciTur.cs" />
     <Compile Include="Concrete\Kira_Durum.cs" />
     <Compile Include="Concrete\Logs.cs" />
+
     <Compile Include="Concrete\OdemePeriyotTur.cs" />
+
     <Compile Include="Concrete\Role.cs" />
     <Compile Include="Concrete\SistemParametreleri.cs" />
     <Compile Include="Concrete\SistemParametre_Detay.cs" />
