@@ -1,10 +1,8 @@
 ﻿@model Framework.WebUI.Models.ViewModels.DenemeVm
 
-<h1> Deneme Tablosu</h1>
-
 @foreach (var item in Model.Denemeler)
 {
     <a href="#">
-       @item.Ad @item.Soyad
+       @item.Ad+" "+@item.Soyad
     </a>
 }

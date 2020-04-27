@@ -136,16 +136,12 @@
     <Compile Include="Abstract\IGayrimenkulAlt_TurService.cs" />
     <Compile Include="Abstract\IControllerActionService.cs" />
     <Compile Include="Abstract\IDenemeService.cs" />
-
-    <Compile Include="Abstract\IPersonelService.cs" />
-
     <Compile Include="Abstract\IGayrimenkulDosya_TurService.cs" />
     <Compile Include="Abstract\IGayrimenkulService.cs" />
     <Compile Include="Abstract\IGayrimenkulTurService.cs" />
     <Compile Include="Abstract\IKiraciTurService.cs" />
     <Compile Include="Abstract\IKira_DurumService.cs" />
     <Compile Include="Abstract\ILogService.cs" />
-
     <Compile Include="Abstract\IRoleService.cs" />
     <Compile Include="Abstract\ISistemParametreleriService.cs" />
     <Compile Include="Abstract\IOdemePeriyotTurService.cs" />
@@ -172,7 +168,6 @@
     <Compile Include="Concrete\Managers\UserManager.cs" />
     <Compile Include="Concrete\Managers\UserPermissionManager.cs" />
     <Compile Include="Concrete\Managers\UserRoleManager.cs" />
-    <Compile Include="Concrete\Managers\PersonelManager.cs" />
     <Compile Include="DependencyResolvers\Ninject\AutoMapperModule.cs" />
     <Compile Include="DependencyResolvers\Ninject\BusinessModule.cs" />
     <Compile Include="DependencyResolvers\Ninject\InstanceFactory.cs" />

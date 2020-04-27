@@ -62,7 +62,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
             ModelState.AddModelError("LogMessage", "Duyuru Bildirim Mesajları Getirildi.");
 
             return View(model);
-        }
+        } 
         #endregion
 
         #region Detay 
@@ -72,7 +72,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
         {
             try
             {
-                var detay = _service.Getir(Id);
+                var detay = _service.Getir(Id); 
                 ModelState.AddModelError("LogMessage", "Duyuru Detay Bilgisi Görüntülendi.");
                 return Json(new { Data = detay, success = true, Message = "Duyuru Detay Bilgisi Görüntülendi." }, JsonRequestBehavior.AllowGet);
             }
