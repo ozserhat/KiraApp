@@ -65,8 +65,8 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             modelBuilder.Entity<User_Permission>()
             .HasKey(x => new { x.User_Id, x.ControllerAction_Id });
 
-            modelBuilder.Entity<Duyuru_Bildirim>()
-            .HasKey(x => new { x.Kullanici_Id, x.Duyuru_Id });
+            //modelBuilder.Entity<Duyuru_Bildirim>()
+            //.HasKey(x => new { x.Kullanici_Id, x.Duyuru_Id });
         }
     }
 }
