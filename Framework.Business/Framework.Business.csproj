@@ -149,6 +149,7 @@
     <Compile Include="Abstract\IRoleService.cs" />
     <Compile Include="Abstract\ISistemParametreleriService.cs" />
     <Compile Include="Abstract\IOdemePeriyotTurService.cs" />
+    <Compile Include="Abstract\ISistemParametre_DetayService.cs" />
     <Compile Include="Abstract\IUserPermissionsService.cs" />
     <Compile Include="Abstract\IUserRoleService.cs" />
     <Compile Include="Abstract\IUserService.cs" />
@@ -167,6 +168,7 @@
     <Compile Include="Concrete\Managers\RoleManager.cs" />
     <Compile Include="Concrete\Managers\SistemParametreleriManager.cs" />
     <Compile Include="Concrete\Managers\OdemePeriyotTurManager.cs" />
+    <Compile Include="Concrete\Managers\SistemParametre_DetayManager.cs" />
     <Compile Include="Concrete\Managers\UserManager.cs" />
     <Compile Include="Concrete\Managers\UserPermissionManager.cs" />
     <Compile Include="Concrete\Managers\UserRoleManager.cs" />

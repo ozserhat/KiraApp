@@ -78,7 +78,6 @@ namespace Framework.WebUI.Areas.Admin.Controllers
 
         public SelectList KullaniciSelectList()
         {
-
             var roller = _userService.GetAll().Select(x => new { Id = x.Id, Ad = x.UserName }).ToList();
 
             return new SelectList(roller, "Id", "Ad");

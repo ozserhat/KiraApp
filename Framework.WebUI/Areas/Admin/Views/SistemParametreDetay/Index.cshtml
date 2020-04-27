@@ -1,4 +1,4 @@
-﻿@model Framework.WebUI.Models.ViewModels.SistemParametreleriVM
+﻿@model Framework.WebUI.Models.ViewModels.SistemParametre_DetayVM
 @using PagedList;
 @using PagedList.Mvc;
 
@@ -36,11 +36,11 @@
                     <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
                         <header>
                             <span class="widget-icon"> <i class="fa fa-list"></i> </span>
-                            <h2>Sistem Parametre Listesi - <b>Toplam Parametre Adedi : @Model.TotalRecordCount</b></h2>
+                            <h2>Parametre Detay Listesi - <b>Toplam Parametre Adedi : @Model.TotalRecordCount</b></h2>
                             <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
                                 <p>
-                                    @Html.AuthActionLink(" Parametre Ekle", "Ekle", "SistemParametreleri", "btn btn-primary", "glyphicon glyphicon-plus", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
-
+                                    <a href="@Url.Action("Index","SistemParametreleri")" class="btn btn-warning" title="" rel="tooltip" data-placement="bottom" data-original-title="Sistem Parametreleri Listesine Dön"><span class="glyphicon glyphicon-chevron-left"></span>Listeye Dön</a>
+                                    <a href="@Url.Action("Ekle","SistemParametreDetay",new { ParametreId=Request.QueryString["ParametreId"]})" class="btn btn-info" title="" rel="tooltip" data-placement="bottom" data-original-title="Parametre Detay Ekle"><span class="glyphicon glyphicon-chevron-left"></span>Parametre Detay Ekle</a>
                                 </p>
                             </div>
                         </header>
@@ -53,28 +53,24 @@
                                                 <thead>
                                                     <tr role="row">
                                                         <th style="width: 20px;">No</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Adı</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Değer</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Başlangıç Tarihi</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Bitiş Tarihi</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Parametre Adı</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Değer Adı</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 250px;">Durum</th>
                                                         <th class="sorting_disabled text-center" rowspan="1" colspan="1" style="text-align: right;  padding-right: 30px; width: 100px;">İşlem</th>
                                                     </tr>
                                                 </thead>
-                                                @if (Model.Parametreler != null && Model.Parametreler.Count > 0)
+                                                @if (Model.ParametreDetay != null && Model.ParametreDetay.Count > 0)
                                                 {
                                                     <tbody>
 
                                                         @{int i = ((Model.PageNumber - 1) * Model.PageSize) + 1;}
 
-                                                        @foreach (var item in Model.Parametreler)
+                                                        @foreach (var item in Model.ParametreDetay)
                                                         {
                                                             <tr role="row" class="odd">
                                                                 <td>@(i++)</td>
+                                                                <td>@Html.DisplayFor(model => item.SistemParametreleri.Ad)</td>
                                                                 <td>@Html.DisplayFor(model => item.Ad)</td>
-                                                                <td>@Html.DisplayFor(model => item.Deger)</td>
-                                                                <td>@Html.DisplayFor(model => item.BaslangicTarihi)</td>
-                                                                <td>@Html.DisplayFor(model => item.BitisTarihi)</td>
                                                                 <td>
                                                                     @if (item.AktifMi.HasValue && item.AktifMi.Value)
                                                                     {
@@ -86,17 +82,13 @@
                                                                     }
                                                                 </td>
                                                                 <td class="text-center">
-                                                                    @Html.AuthAction(" ", "Duzenle", "SistemParametreleri", new { item.Guid },
+                                                                    @Html.AuthAction(" ", "Duzenle", "SistemParametreDetay", new {ParametreId = item.Id},
                                                                           new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
                                                                           Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
-                                                                    @Html.AuthAction(" ", "Sil", "SistemParametreleri", new { item.Id },
+                                                                    @Html.AuthAction(" ", "Sil", "SistemParametreDetay", new { Id = item.Id },
                                                                                     new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = item.Ad, @data_id = item.Id },
                                                                                     Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
-
-                                                                    @Html.AuthAction("", "Index", "SistemParametreDetay", new { ParametreId = item.Id },
-                                                                        new { @class = "no-underline margin-right-5 fa fa-search-plus font-md txt-color-blue" },
-                                                                        Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                                                                 </td>
                                                             </tr>
                                                         }
@@ -120,7 +112,7 @@
 
     </div>
 
-    using (Html.BeginForm("Index", "SistemParametreleri", new { page = 1 }, FormMethod.Post, new { @id = "sorgulamaKriterleri" }))
+    using (Html.BeginForm("Index", "SistemParametre_Detay", new { page = 1 }, FormMethod.Post, new { @id = "sorgulamaKriterleri" }))
     {
         <input id="page" name="page" type="hidden" value="">
     }
@@ -155,7 +147,7 @@
 
     </script>
 
-    <!--SistemParametreleriSilme İşlemi -->
+    <!--Sistem Parametre Detay Silme İşlemi -->
     <script type="text/javascript">
         var dt;
 
@@ -164,7 +156,6 @@
                 "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Turkish.json"
             },
             "searching": true,
-            "bPaginate": false,
         };
 
         $(".delete-row").click(function (e) {
@@ -193,7 +184,7 @@
             }).then(function (isConfirm) {
                 if (isConfirm) {
                     $.ajax({
-                        url: "/SistemParametreleri/Sil/" + Id,
+                        url: "/SistemParametreDetay/Sil/" + Id,
                         type: 'POST',
                         success: function (result) {
                             if (result.success) {

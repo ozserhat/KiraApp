@@ -12,9 +12,9 @@ namespace Framework.Business.Abstract
 
         SistemParametreleri GetirGuid(Guid guid);
 
-        SistemParametreleri Ekle(SistemParametreleri tur);
+        SistemParametreleri Ekle(SistemParametreleri parametre);
 
-        SistemParametreleri Guncelle(SistemParametreleri tur);
+        SistemParametreleri Guncelle(SistemParametreleri parametre);
         bool Sil(int id);
     }
 }
