@@ -11,7 +11,6 @@ namespace Framework.DataAccess.Concrete.EntityFramework
 {
     public class EfDenemeDal : EfEntityRepositoryBase<Deneme, DtContext>, IDenemeDal
     {
-
         public List<Deneme> GetirDenemeList()
         {
             using (DtContext context = new DtContext())

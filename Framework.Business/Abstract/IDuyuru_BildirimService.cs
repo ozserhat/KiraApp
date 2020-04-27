@@ -8,7 +8,6 @@ namespace Framework.Business.Abstract
     {
         IEnumerable<Duyuru_Bildirim> GetirListe();
         IEnumerable<Duyuru_Bildirim> GetirKullaniciMesajlari(int KullaniciId);
-
         Duyuru_Bildirim Getir(int id);
 
         Duyuru_Bildirim Ekle(Duyuru_Bildirim bildirim);
@@ -16,6 +15,7 @@ namespace Framework.Business.Abstract
         bool Ekle(IEnumerable<Duyuru_Bildirim> entities);
 
         Duyuru_Bildirim Guncelle(Duyuru_Bildirim bildirim);
+
         bool Sil(int id);
 
         int OkunmamisMesajSayisi(int KullaniciId);

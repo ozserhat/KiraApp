@@ -39,7 +39,7 @@
                             <h2>Duyuru Tür Listesi - <b>Toplam Tür Adedi : @Model.TotalRecordCount</b></h2>
                             <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
                                 <p>
-                                    @Html.AuthActionLink(" Duyuru Ekle", "Ekle", "Duyuru", "btn btn-primary", "glyphicon glyphicon-plus", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                                    @Html.AuthActionLink(" Duyuru Tür Ekle", "Ekle", "DuyuruTur", "btn btn-primary", "glyphicon glyphicon-plus", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                                 </p>
                             </div>
                         </header>
@@ -57,17 +57,16 @@
                                                         <th class="sorting_disabled text-center" rowspan="1" colspan="1" style="text-align: right;  padding-right: 30px; width: 100px;">İşlem</th>
                                                     </tr>
                                                 </thead>
-                                                @if (Model.Duyurular != null && Model.Duyurular.Count > 0)
+                                                @if (Model.DuyuruTurleri != null && Model.DuyuruTurleri.Count > 0)
                                                 {
                                                     <tbody>
 
                                                         @{int i = ((Model.PageNumber - 1) * Model.PageSize) + 1;}
 
-                                                        @foreach (var item in Model.Duyurular)
+                                                        @foreach (var item in Model.DuyuruTurleri)
                                                         {
                                                             <tr role="row" class="odd">
                                                                 <td>@(i++)</td>
-                                                                <td>@Html.DisplayFor(model => item.Duyuru_Turleri.Ad)</td>
                                                                 <td>@Html.DisplayFor(model => item.Ad)</td>
                                                                 <td>
                                                                     @if (item.AktifMi.HasValue && item.AktifMi.Value)
@@ -80,27 +79,17 @@
                                                                     }
                                                                 </td>
                                                                 <td class="text-center">
-                                                                    @*@Html.AuthAction(" ", "Bildirim", "Duyuru", new { item.Guid },
-                                                                        new { @class = "no-underline margin-right-5 fa fa-paper-plane font-md txt-color-blue", @data_target = "#bildirimModal" },
-                                                                        Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))*@
-
-                                                                    <a href="#" id="btnBildirim" class="no-underline margin-right-5 fa fa-paper-plane font-md txt-color-blue
-                                                                       bildirimPopup" rel="tooltip" data-toggle="modal"
-                                                                       data-target="#bildirimModal" data-original-title="Duyuru Bildirim Gönder" data-id="@item.Id" data-name="@item.Ad">
-                                                                    </a>
-
-                                                                    @Html.AuthAction(" ", "Duzenle", "Duyuru", new { item.Guid },
-                                                                       new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue btnDuzenle" },
+                                                                    @Html.AuthAction(" ", "Duzenle", "DuyuruTur", new { item.Guid },
+                                                                          new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
                                                                           Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
-                                                                    @Html.AuthAction(" ", "Sil", "Duyuru", new { item.Id },
+                                                                    @Html.AuthAction(" ", "Sil", "DuyuruTur", new { item.Id },
                                                                                     new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = item.Ad, @data_id = item.Id },
                                                                                     Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                                                                 </td>
                                                             </tr>
                                                         }
                                                     </tbody>
-                                            
                                                 }
                                                 else
                                                 {
