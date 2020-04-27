@@ -14,6 +14,8 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Kullanıcı Adı")]
         public string KullaniciAdi { get; set; }
 
+        [Display(Name = "Bölüm Adı")]
+        public string BolumAdi { get; set; }
         [Display(Name = "Sayfa Adı")]
         public string SayfaAdi { get; set; }
 
@@ -76,6 +78,7 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Kullanıcı Adı")]
         public string KullaniciAdi { get; set; }
+
 
         [Display(Name = "Sayfa Adı")]
         public string SayfaAdi { get; set; }

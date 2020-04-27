@@ -63,6 +63,7 @@
                                                 <thead>
                                                     <tr role="row">
                                                         <th style="width: 20px;"></th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Area Adı</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Sayfa Adı</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Metod Adı</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Tür</th>
@@ -78,12 +79,13 @@
                                                         {
                                                             string controllerName = item.ControllerActions.Controller.Replace("Controller", "");
                                                             string typeName = (string.IsNullOrEmpty(item.ControllerActions.Attributes) ? "HttpGet" : item.ControllerActions.Attributes);
-                                                            <tr role="row" class="odd">
-                                                                <td>@Html.DisplayFor(model => item.Id)</td>
-                                                                <td>@Html.DisplayFor(model => controllerName)</td>
-                                                                <td>@Html.DisplayFor(model => item.ControllerActions.Action)</td>
-                                                                <td>@Html.DisplayFor(model => typeName)</td>
-                                                            </tr>
+                                                        <tr role="row" class="odd">
+                                                            <td>@Html.DisplayFor(model => item.Id)</td>
+                                                            <td>@Html.DisplayFor(model => item.ControllerActions.AreaName)</td>
+                                                            <td>@Html.DisplayFor(model => controllerName)</td>
+                                                            <td>@Html.DisplayFor(model => item.ControllerActions.Action)</td>
+                                                            <td>@Html.DisplayFor(model => typeName)</td>
+                                                        </tr>
                                                         }
                                                     </tbody>
                                                 }
@@ -110,6 +112,7 @@
                                                 <thead>
                                                     <tr role="row">
                                                         <th style="width: 20px;"></th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Area Adı</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Sayfa Adı</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Metod Adı</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Tür</th>
@@ -126,12 +129,13 @@
                                                             string controllerName = item.Controller.Replace("Controller", "");
                                                             string typeName = (string.IsNullOrEmpty(item.Attributes) ? "HttpGet" : item.Attributes);
 
-                                                            <tr role="row" class="odd">
-                                                                <td>@Html.DisplayFor(model => item.Id)</td>
-                                                                <td>@Html.DisplayFor(model => controllerName)</td>
-                                                                <td>@Html.DisplayFor(model => item.Action)</td>
-                                                                <td>@Html.DisplayFor(model => typeName)</td>
-                                                            </tr>
+                                                        <tr role="row" class="odd">
+                                                            <td>@Html.DisplayFor(model => item.Id)</td>
+                                                            <td>@Html.DisplayFor(model => item.AreaName)</td>
+                                                            <td>@Html.DisplayFor(model => controllerName)</td>
+                                                            <td>@Html.DisplayFor(model => item.Action)</td>
+                                                            <td>@Html.DisplayFor(model => typeName)</td>
+                                                        </tr>
                                                         }
                                                     </tbody>
                                                 }

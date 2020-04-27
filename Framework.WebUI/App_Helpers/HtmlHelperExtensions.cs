@@ -558,5 +558,13 @@ namespace Framework.WebUI
                 }
             }
         }
+
+        public static string Area(this HtmlHelper htmlHelper)
+        {
+            var dataTokens = HttpContext.Current.Request.RequestContext.RouteData.DataTokens;
+            if (dataTokens.ContainsKey("area"))
+                return (string)dataTokens["area"];
+            return string.Empty;
+        }
     }
 }

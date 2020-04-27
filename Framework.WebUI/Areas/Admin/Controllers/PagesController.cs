@@ -53,6 +53,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                 controllerAction.Add(new ControllerAction()
                 {
                     Guid=Guid.NewGuid(),
+                    AreaName=item.AreaName,
                     Action = item.Action,
                     Controller = item.Controller,
                     Attributes = item.Attributes,

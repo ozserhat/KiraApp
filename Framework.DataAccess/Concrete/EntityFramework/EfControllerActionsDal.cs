@@ -74,7 +74,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             {
                 foreach (var item in controller)
                 {
-                    entity = context.ControllerActions.Where(a => a.Controller == item.Controller && a.Action == item.Action&&a.Attributes==item.Attributes).FirstOrDefault();
+                    entity = context.ControllerActions.Where(a => a.AreaName == item.AreaName && a.Controller == item.Controller && a.Action == item.Action&&a.Attributes==item.Attributes).FirstOrDefault();
 
                     if (entity is null)
                         entity = Add(item);

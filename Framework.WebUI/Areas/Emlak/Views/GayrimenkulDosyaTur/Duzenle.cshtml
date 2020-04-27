@@ -1,21 +1,21 @@
-﻿@model Framework.WebUI.Models.ViewModels.GayrimenkulDosya_TurEkleVM
+﻿@model Framework.WebUI.Models.ViewModels.GayrimenkulDosya_TurDuzenleVM
 @{
-    ViewBag.Title = "Ekle";
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    ViewBag.Title = "Düzenle";
+    Layout = "~/Areas/Emlak/Views/Shared/_LayoutEmlak.cshtml";
 }
+
 
 @if (!Model.HideContent)
 {
     <div id="content">
         <section id="widget-grid" class="sayfaust_bosluk">
-
             <div class="row">
                 <article class="col-sm-12 col-md-12 col-lg-12">
                     <div class="jarviswidget sorgulama-kriteri" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
                         <header>
                             <div style="margin-top: -5px;">
                                 <p>
-                                    <a href="@Url.Action("Index")" class="btn btn-warning" title="" rel="tooltip" data-placement="bottom" data-original-title="Gayrimenkul Dosya Tür  Listesine Dön"><span class="glyphicon glyphicon-chevron-left"></span> Gayrimenkul Dosya Tür Listesine Dön</a>
+                                    <a href="@Url.Action("Index")" class="btn btn-warning" title="" rel="tooltip" data-placement="bottom" data-original-title="Gayrimenkul Dosya Tür Listesine Dön"><span class="glyphicon glyphicon-chevron-left"></span> Gayrimenkul Dosya Tür Listesine Dön</a>
                                 </p>
                             </div>
                         </header>
@@ -23,23 +23,26 @@
                 </article>
             </div>
         </section>
-
         <section id="widget-grid" class="">
             <div class="row">
                 <article class="col-sm-12 col-md-12 col-lg-12">
                     <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
                         <header>
                             <span class="widget-icon"> <i class="fa fa-list"></i> </span>
-                            <h2>Dosya Tür Tanım</h2>
+                            <h2>Gayrimenkul Dosya Tür Düzenle</h2>
                         </header>
                         <div role="contentinfo">
                             <div class="widget-body">
                                 <div class="tab-pane fade active in">
-                                    @using (Html.BeginForm("Ekle", "GayrimenkulDosyaTur", FormMethod.Post, new { enctype = "multipart/form-data", id = "submitForm" }))
+                                    @using (Html.BeginForm("Duzenle", "GayrimenkulDosyaTur", FormMethod.Post, new { enctype = "multipart/form-data", id = "submitForm" }))
                                     {
                                         @Html.AntiForgeryToken()
+                                        @Html.HiddenFor(model => model.Id)
+                                        @Html.HiddenFor(model => model.Guid)
                                         <div class="widget-body">
                                             <fieldset>
+
+                                                @Html.ValidationSummary(true)
                                                 <div class="row">
                                                     <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
                                                         @Html.LabelFor(model => model.DosyaTurAdi, new { @class = "control-label col-md-4 zorunluYildiz" })
@@ -62,8 +65,8 @@
                                         <div class="form-actions">
                                             <div class="row">
                                                 <div class="col-md-6 col-xs-offset-2" style="padding-right: 30px;">
-                                                    <input id="btnReset" type="reset" value="Temizle" class="btn btn-warning">
-                                                    <input id="btnSubmit" type="button" value="Kaydet" class="btn btn-primary">
+                                                    <input id="btnReset" type="button" onclick="clearForm()" value="Temizle" class="btn btn-warning">
+                                                    <input id="btnSubmit" type="submit" value="Kaydet" class="btn btn-primary">
                                                 </div>
                                             </div>
                                         </div>
@@ -78,47 +81,14 @@
     </div>
 }
 
+
 @section pagespecific {
-    <!-- Sweet Alert -->
-    <link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
-    <script src="~/Content/SweetAlert/sweetalert2.min.js"></script>
     @Scripts.Render("~/bundles/jqueryval")
-
-
-    <!--GayrimenkulDosyaTur Ekle-->
+    <!--Form Temizleme İşlemi -->
     <script type="text/javascript">
-        $(function () {
-            $('#btnSubmit').on('click', function () {
-                tur = new Object();
-                tur.DosyaTurAdi = $("#DosyaTurAdi").val();
-                tur.AktifMi = $("#AktifMi").val();
-
-                if($("#submitForm").valid())
-                {
-                   $.ajax({
-                    type: 'POST',
-                    url: '@Url.Action("Ekle", "GayrimenkulDosyaTur")',
-                    data: { tur: tur },
-                    success: function (result) {
-                        if (result != null && result.success) {
-
-                            swal('Uyarı!', result.Message, 'warning');
-
-                            setTimeout(function () {
-                                window.location.href = "../GayrimenkulDosyaTur/Index";
-                            }, 2000);
-                        }
-                        else {
-                            swal('Uyarı!', result.Message, 'success');
-                        }
-                    },
-                    error: function (xhr) {
-                        swal('Uyarı!', result.Message, 'warning');
-                    }
-                 });
-                }
-            });
-        });
+        function clearForm() {
+            document.getElementById("AktifMi").checked = false;
+            document.getElementById("DosyaTurAdi").value = "";
+        }
     </script>
 }
-

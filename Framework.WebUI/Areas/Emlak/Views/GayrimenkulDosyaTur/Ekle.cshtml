@@ -1,7 +1,7 @@
 ﻿@model Framework.WebUI.Models.ViewModels.GayrimenkulDosya_TurEkleVM
 @{
     ViewBag.Title = "Ekle";
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    Layout = "~/Areas/Emlak/Views/Shared/_LayoutEmlak.cshtml";
 }
 
 @if (!Model.HideContent)
@@ -102,14 +102,14 @@
                     success: function (result) {
                         if (result != null && result.success) {
 
-                            swal('Uyarı!', result.Message, 'warning');
+                            swal('Uyarı!', result.Message, 'success');
 
                             setTimeout(function () {
                                 window.location.href = "../GayrimenkulDosyaTur/Index";
                             }, 2000);
                         }
                         else {
-                            swal('Uyarı!', result.Message, 'success');
+                            swal('Uyarı!', result.Message, 'warning');
                         }
                     },
                     error: function (xhr) {

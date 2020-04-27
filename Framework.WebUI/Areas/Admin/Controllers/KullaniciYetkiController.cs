@@ -68,10 +68,12 @@ namespace Framework.WebUI.Areas.Admin.Controllers
             return View(model);
         }
 
+       
+
         #endregion
 
         #region KullaniciYetkiEklemeKaldirma
-     
+
         [HttpPost]
         public JsonResult YetkiKaldir(string[] kullaniciYetki, string KullaniciId)
         {
