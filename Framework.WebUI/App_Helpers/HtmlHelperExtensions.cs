@@ -300,8 +300,10 @@ namespace Framework.WebUI
                 else
                 {
                     if (routeValues != null)
-                        tagBuilder.MergeAttribute("href", returnUrl + "?"+ routeValues.Keys.FirstOrDefault() + "="+
-                            routeValues[routeValues.Keys.FirstOrDefault()].ToString());
+                    {
+                        foreach (var item in routeValues)                        
+                         tagBuilder.MergeAttribute("href", returnUrl + "?" + item.Key + "=" + item.Value);
+                    }
                     else if (routeValues != null && routeValues["Id"] != null)
                         tagBuilder.MergeAttribute("href", returnUrl + "?Id=" + routeValues["Id"].ToString());
                     else

@@ -71,6 +71,7 @@
     <Compile Include="Concrete\OdemePeriyotTur.cs" />
     <Compile Include="Concrete\Role.cs" />
     <Compile Include="Concrete\SistemParametreleri.cs" />
+    <Compile Include="Concrete\SistemParametre_Detay.cs" />
     <Compile Include="Concrete\User.cs" />
     <Compile Include="Concrete\User_Permission.cs" />
     <Compile Include="Concrete\User_Role.cs" />

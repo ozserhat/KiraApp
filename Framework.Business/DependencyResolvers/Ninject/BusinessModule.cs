@@ -68,6 +68,9 @@ namespace Framework.Business.DependencyResolvers.Ninject
             Bind<ISistemParametreleriService>().To<SistemParametreleriManager>().InTransientScope();
             Bind<ISistemParametreleriDal>().To<EfSistemParametreleriDal>().InTransientScope();
 
+            Bind<ISistemParametre_DetayService>().To<SistemParametre_DetayManager>().InTransientScope();
+            Bind<ISistemParametre_DetayDal>().To<EfSistemParametre_Detay>().InTransientScope();
+
             Bind<IOdemePeriyotTurService>().To<OdemePeriyotTurManager>().InTransientScope();
             Bind<IOdemePeriyotTurDal>().To<EfOdemePeriyotTurDal>().InTransientScope();
 

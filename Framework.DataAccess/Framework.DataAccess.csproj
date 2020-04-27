@@ -65,6 +65,7 @@
     <Compile Include="Abstract\IRolesDal.cs" />
     <Compile Include="Abstract\ISistemParametreleriDal.cs" />
     <Compile Include="Abstract\IOdemePeriyotTurDal.cs" />
+    <Compile Include="Abstract\ISistemParametre_DetayDal.cs" />
     <Compile Include="Abstract\IUserDal.cs" />
     <Compile Include="Abstract\IUserPermissionsDal.cs" />
     <Compile Include="Abstract\IUserRolesDal.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="Concrete\EntityFramework\EfRolesDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfSistemParametreleriDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfOdemePeriyotTurDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfSistemParametre_Detay.cs" />
     <Compile Include="Concrete\EntityFramework\EfUserDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfUserPermissionsDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfUserRolesDal.cs" />

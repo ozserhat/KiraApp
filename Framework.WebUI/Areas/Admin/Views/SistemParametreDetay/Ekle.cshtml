@@ -1,0 +1,138 @@
+﻿@model Framework.WebUI.Models.ViewModels.SistemParametre_DetayEkleVM
+@{
+    ViewBag.Title = "Ekle";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@if (!Model.HideContent)
+{
+    <div id="content">
+        <section id="widget-grid" class="sayfaust_bosluk">
+
+            <div class="row">
+                <article class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="jarviswidget sorgulama-kriteri" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
+                        <header>
+                            <div style="margin-top: -5px;">
+                                <p>
+                                    <a href="../SistemParametreDetay/Index?ParametreId=@Request.QueryString["ParametreId"]" class="btn btn-warning" title="" rel="tooltip" data-placement="bottom" data-original-title="Parametre Detay Listesi"><span class="glyphicon glyphicon-chevron-left"></span>Parametre Detay Listesi</a>
+                                </p>
+                            </div>
+                        </header>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="widget-grid" class="">
+            <div class="row">
+                <article class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
+                        <header>
+                            <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+                            <h2>Sistem Parametre Detay Tanım</h2>
+                        </header>
+                        <div role="contentinfo">
+                            <div class="widget-body">
+                                <div class="tab-pane fade active in">
+                                    @using (Html.BeginForm("Ekle", "SistemParametreDetay", FormMethod.Post, new { enctype = "multipart/form-data", id = "submitForm" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <div class="widget-body">
+                                            <fieldset>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
+                                                        @Html.LabelFor(model => model.SistemParametre_Id, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                        <div class="col-md-8">
+                                                            @Html.DropDownList("SistemParametre_Id", Model.SelectListSistemParametresi, "Seçiniz", new { @class = "select2" })
+                                                            @Html.ValidationMessageFor(model => model.SistemParametre_Id, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
+                                                        @Html.LabelFor(model => model.Ad, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                        <div class="col-md-8">
+                                                            @Html.TextBoxFor(model => model.Ad, new { @class = "form-control col-md-4 required" })
+                                                            @Html.ValidationMessageFor(model => model.Ad, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
+                                                        @Html.LabelFor(model => model.Deger, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                        <div class="col-md-8">
+                                                            @Html.TextAreaFor(model => model.Deger, new { @class = "form-control col-md-4 required", placeholder = "Açıklama Giriniz" })
+                                                            @Html.ValidationMessageFor(model => model.Deger, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                        <div class="form-actions">
+                                            <div class="row">
+                                                <div class="col-md-6 col-xs-offset-2" style="padding-right: 30px;">
+                                                    <input id="btnReset" type="reset" value="Temizle" class="btn btn-warning">
+                                                    <input id="btnSubmit" type="button" value="Kaydet" class="btn btn-primary">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </div>
+}
+
+@section pagespecific {
+
+    <!-- Sweet Alert -->
+    <link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
+    <script src="~/Content/SweetAlert/sweetalert2.min.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+
+    <!--Sistem Parametre Detay Ekle-->
+    <script type="text/javascript">
+        $(function () {
+            $('#btnSubmit').on('click', function () {
+                parametre = new Object();
+                parametre.Ad = $("#Ad").val();
+                parametre.Deger = $("#Deger").val();
+                parametre.SistemParametre_Id = $("#SistemParametre_Id").val();
+                parametre.AktifMi = $("#AktifMi").val();
+
+                if($("#submitForm").valid())
+                {
+                   $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Ekle", "SistemParametreDetay")',
+                    data: { model: parametre },
+                    success: function (result) {
+                        if (result != null && result.success) {
+
+                            swal('Uyarı!', result.Message, 'success');
+
+                            //setTimeout(function () {
+                            //    window.location.href = "../SistemParametreDetay/Index?ParametreId="+parametre.SistemParametre_Id;
+                            //}, 2000);
+                        }
+                        else {
+                            swal('Uyarı!', result.Message, 'warning');
+                        }
+                    },
+                    error: function (xhr) {
+                        swal('Uyarı!', result.Message, 'warning');
+                    }
+                 });
+                }
+            });
+        });
+    </script>
+}
+

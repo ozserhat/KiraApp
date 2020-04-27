@@ -9,7 +9,6 @@ using Framework.Entities.Concrete;
 using System.Collections.Generic;
 using Framework.WebUI.App_Helpers;
 using Framework.WebUI.Models.ViewModels;
-
 using System.Web.Mvc;
 
 namespace Framework.WebUI.Areas.Admin.Controllers

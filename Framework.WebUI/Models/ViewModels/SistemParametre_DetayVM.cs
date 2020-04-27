@@ -4,13 +4,15 @@ using System.Web.Mvc;
 using Framework.Entities.Concrete;
 using System.ComponentModel.DataAnnotations;
 
-
 namespace Framework.WebUI.Models.ViewModels
 {
-    public class SistemParametreleriVM : PagingVMBase
+    public class SistemParametre_DetayVM : PagingVMBase
     {
         [Display(Name = "Id")]
         public int Id { get; set; }
+
+        [Display(Name = "SistemParametre_Id")]
+        public int SistemParametre_Id { get; set; }
 
         [Display(Name = "Guid")]
         public Guid Guid { get; set; }
@@ -20,16 +22,6 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Değer")]
         public string Deger { get; set; }
-
-        [Display(Name = "Başlangıç Tarihi")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        [DataType(DataType.DateTime)]
-        public DateTime? BaslangicTarihi { get; set; }
-
-        [Display(Name = "Bitiş Tarihi")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        [DataType(DataType.DateTime)]
-        public DateTime? BitisTarihi { get; set; }
 
         [Display(Name = "Oluşturan Kullanıcı")]
         public int? OlusturanKullanici_Id { get; set; }
@@ -46,11 +38,14 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Aktif Mi")]
         public bool? AktifMi { get; set; }
 
-        public IPagedList<SistemParametreleri> Parametreler { get; set; }
+        public IPagedList<SistemParametre_Detay> ParametreDetay { get; set; }
     }
 
-    public class SistemParametresiEkleVM : VMBase
+    public class SistemParametre_DetayEkleVM : VMBase
     {
+        [Display(Name = "Sistem Parametresi")]
+        public int SistemParametre_Id { get; set; }
+
         [Display(Name = "Guid")]
         public Guid Guid { get; set; }
 
@@ -59,16 +54,6 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Değer")]
         public string Deger { get; set; }
-
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        [DataType(DataType.DateTime)]
-        [Display(Name = "Başlangıç Tarihi")]
-        public Nullable<DateTime> BaslangicTarihi { get; set; }
-
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        [DataType(DataType.DateTime)]
-        [Display(Name = "Bitiş Tarihi")]
-        public Nullable<DateTime> BitisTarihi { get; set; }
 
         [Display(Name = "Oluşturan Kullanıcı")]
         public int? OlusturanKullanici_Id { get; set; }
@@ -78,12 +63,19 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Aktif Mi")]
         public bool AktifMi { get; set; }
+
+        [Display(Name = "Sistem Parametresi")]
+        public SelectList SelectListSistemParametresi { get; set; }
+
     }
 
-    public class SistemParametresiDuzenleVM : VMBase
+    public class SistemParametre_DetayDuzenleVM : VMBase
     {
         [Display(Name = "Id")]
         public int Id { get; set; }
+
+        [Display(Name = "Sistem Parametresi")]
+        public int SistemParametre_Id { get; set; }
 
         [Display(Name = "Guid")]
         public Guid Guid { get; set; }
@@ -94,16 +86,6 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Değer")]
         public string Deger { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        [DataType(DataType.DateTime)]
-        [Display(Name = "Başlangıç Tarihi")]
-        public DateTime BaslangicTarihi { get; set; }
-
-         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        [DataType(DataType.DateTime)]
-        [Display(Name = "Bitiş Tarihi")]
-        public DateTime BitisTarihi { get; set; }
-
         [Display(Name = "Güncelleyen Kullanıcı")]
         public int? GuncelleyenKullanici_Id { get; set; }
 
@@ -112,5 +94,8 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Aktif Mi")]
         public bool AktifMi { get; set; }
+
+        [Display(Name = "Sistem Parametresi")]
+        public SelectList SelectListSistemParametresi { get; set; }
     }
 }
