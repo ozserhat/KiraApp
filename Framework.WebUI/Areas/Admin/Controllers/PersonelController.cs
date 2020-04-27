@@ -22,7 +22,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
         }
         public ActionResult Index(int? page, int pageSize = 1)
         {
-            var roller = _personelService.GetirPersonelList();
+           
 
             //var model = new PersonelVm();
 

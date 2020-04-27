@@ -65,8 +65,6 @@ namespace Framework.WebUI.Areas.Admin.Controllers
 
             return View(model);
 
-        }
-
         } 
         #endregion
 
