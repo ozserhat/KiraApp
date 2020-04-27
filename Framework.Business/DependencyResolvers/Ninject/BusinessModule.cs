@@ -84,7 +84,7 @@ namespace Framework.Business.DependencyResolvers.Ninject
             Bind<IIlService>().To<IlManager>().InTransientScope();
 
             Bind<IIlceDal>().To<EfIlceDal>().InTransientScope();
-            Bind<IMahalleService>().To<IlceManager>().InTransientScope();
+            Bind<IIlceService>().To<IlceManager>().InTransientScope();
 
             Bind<IMahalleDal>().To<EfMahalleDal>().InTransientScope();
             Bind<IMahalleService>().To<MahalleManager>().InTransientScope();
