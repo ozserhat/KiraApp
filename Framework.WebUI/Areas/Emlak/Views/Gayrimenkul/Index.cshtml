@@ -54,9 +54,11 @@
                                                     <tr role="row">
                                                         <th style="width: 20px;">No</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Tür Adı</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Gayrimenkul No</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Adı</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">İl</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">İlçe</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Mahalle</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 250px;">Durum</th>
                                                         <th class="sorting_disabled text-center" rowspan="1" colspan="1" style="text-align: right;  padding-right: 30px; width: 100px;">İşlem</th>
                                                     </tr>
@@ -72,8 +74,11 @@
                                                         <tr role="row" class="odd">
                                                             <td>@(i++)</td>
                                                             <td>@Html.DisplayFor(model => item.GayrimenkulTur.Ad)</td>
+                                                            <td>@Html.DisplayFor(model => item.GayrimenkulNo)</td>
                                                             <td>@Html.DisplayFor(model => item.Ad)</td>
-                                                            <td>@Html.DisplayFor(model => item.Ad)</td>
+                                                            <td>@Html.DisplayFor(model => item.Mahalleler.Ilceler.Iller.Ad)</td>
+                                                            <td>@Html.DisplayFor(model => item.Mahalleler.Ilceler.Ad)</td>
+                                                            <td>@Html.DisplayFor(model => item.Mahalleler.Ad)</td>
                                                             <td>
                                                                 @if (item.AktifMi.HasValue && item.AktifMi.Value)
                                                                 {

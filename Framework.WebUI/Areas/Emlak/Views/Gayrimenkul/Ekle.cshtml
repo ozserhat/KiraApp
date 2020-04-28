@@ -31,12 +31,29 @@
                         <header>
                             <span class="widget-icon"> <i class="fa fa-list"></i> </span>
                             <h2>Gayrimenkul Tanım</h2>
+                            @*<div class="btn-group" style="float: right; margin-top: 4px; margin-right: 11px;" role="menu">
+                                    <button class="btn btn-primary">
+                                        Gayrimenkul İşlemleri
+                                    </button>
+                                    <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="@Url.Action("DosyaEkle", new { Guid = Model.Guid})" id="gayrimenkulDosya">
+                                                <span class="glyphicon glyphicon-upload"></span> Dosya Yükleme
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>*@
                         </header>
                         <div role="content" style="display: block;">
                             <div class="jarviswidget-editbox">
                             </div>
                             <div class="widget-body">
+
                                 <div class="row">
+
                                     <div id="wizard-1" novalidate="novalidate">
                                         <div id="bootstrap-wizard-1" class="col-sm-12">
                                             @{
@@ -61,6 +78,7 @@
                                                                     <span class="title" style="z-index:2;">Tapu Bilgileri</span>
                                                                 </a>
                                                             </li>
+
                                                             <li data-target="#step3" id="step3" style="width: 30%;">
                                                                 <a href="#tab3" data-toggle="tab" aria-expanded="false">
                                                                     <span class="step">
@@ -75,13 +93,31 @@
                                                     </div>
                                                     <div class="tab-content">
                                                         <div class="tab-pane active" id="tab1">
-
                                                             <legend>
                                                                 <h3><strong>1. Adım </strong> - Gayrimenkul Bilgileri</h3>
                                                             </legend>
                                                             <form class="form-horizontal" id="gayrimenkulForm" novalidate="novalidate">
                                                                 @Html.AntiForgeryToken()
                                                                 <fieldset>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.Label("Taşınmaz No", new { @class = "col-md-4 font-bold" })
+                                                                                    <div class="col-md-6">
+                                                                                        @Html.TextBox("GayrimenkulNo", "", new { @class = "form-control required", @type = "number" })
+                                                                                        @Html.HiddenFor(model => model.GayrimenkulNo, new { @class = "form-control" })
+                                                                                    </div>
+                                                                                    <div class="col-md-2">
+                                                                                        <button class="btn btn-primary" id="btnTasinmazSorgula" type="button"
+                                                                                                data-loading-text="<i class='fa fa-spinner fa-spin '></i> Tapu Sorgulanıyor...">
+                                                                                            <span class="glyphicon glyphicon-search"></span> Sorgula
+                                                                                        </button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                     <div class="row">
                                                                         <div class="col-md-6">
                                                                             <div class="form-group">
@@ -136,7 +172,7 @@
                                                                                 <div class="input-group" style="width: 100%;">
                                                                                     @Html.LabelFor(model => model.IlceSelectList, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
-                                                                                        @Html.DropDownList("Ilce_Id", Model.IlceSelectList, "Seçiniz", new { @class = "select2" })
+                                                                                        @Html.DropDownList("Ilce_Id", new SelectList(string.Empty, "Value", "Text"), "Seçiniz", new { @class = "select2" })
                                                                                         @Html.ValidationMessage("Ilce_Id", new { @class = "text-danger" })
                                                                                     </div>
                                                                                 </div>
@@ -147,7 +183,7 @@
                                                                                 <div class="input-group" style="width: 100%;">
                                                                                     @Html.LabelFor(model => model.MahalleSelectList, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
-                                                                                        @Html.DropDownList("Mahalle_Id", Model.MahalleSelectList, "Seçiniz", new { @class = "select2" })
+                                                                                        @Html.DropDownList("Mahalle_Id", new SelectList(string.Empty, "Value", "Text"), "Seçiniz", new { @class = "select2" })
                                                                                         @Html.ValidationMessage("Mahalle_Id", new { @class = "text-danger" })
                                                                                     </div>
                                                                                 </div>
@@ -267,9 +303,42 @@
                                                             <legend>
                                                                 <h3><strong>3. Adım </strong> - Dosya Bilgileri</h3>
                                                             </legend>
-                                                            <form class="form-horizontal" id="dosyaForm" novalidate="novalidate">
+                                                            <form class="form-horizontal" id="BelgeEkleForm" novalidate="novalidate">
                                                                 @Html.AntiForgeryToken()
-                                                                <fieldset>
+                                                                <fieldset class="dosyaSatirlari" id="dosyaSatiri_1">
+                                                                    <div class="col-md-10 col-md-offset-1">
+                                                                        <div class="col-md-6 smart-form" style="padding: 0;">
+                                                                            @foreach (var item in Model.DosyaTurleri)
+                                                                            {
+                                                                                <div class="col-md-11" style="padding: 0;">
+                                                                                    <section>
+
+                                                                                        <div class="form-group">
+                                                                                            <label for="file" class="input input-file">
+                                                                                                <div class="button">
+                                                                                                    @Html.TextBox("dosya" + item.Id, "", new { @class = "form-control taranmisDosya", type = "file", data_id = item.Id })Belge Ekle
+                                                                                                </div>
+                                                                                                <input type="text" id="placeholder_@item.Id" placeholder="@item.Ad" readonly="">
+                                                                                            </label>
+                                                                                        </div>
+
+                                                                                    </section>
+                                                                                </div>
+                                                                                <div class="col-md-1" style="padding: 0;">
+                                                                                    <i class="fa fa-check-square dogru" id="dogru__@item.Id" style="display:none"></i>
+                                                                                    <i class="fa fa-times-circle yanlis" id="yanlis__@item.Id" style="display:none"></i>
+                                                                                </div>
+                                                                            }
+                                                                        </div>
+
+                                                                        <div id="loadingbtnBelgeEkleme" class="hide" style="float:left;"><i class="fa fa-spinner fa-spin fa-2x"></i> İşleminiz yapılıyor ...</div>
+
+                                                                        <button class="btn btn-primary" id="btnBelgeKaydet" onclick="BelgeEkle(@Model.Guid)" type="button">
+                                                                            <span class="glyphicon glyphicon-floppy-save"></span> Yükle
+                                                                        </button>
+
+
+                                                                    </div>
                                                                 </fieldset>
                                                             </form>
                                                         </div>
@@ -327,7 +396,66 @@
     <link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
     <script src="~/Content/SweetAlert/sweetalert2.min.js"></script>
     <script src="~/Scripts/plugin/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+    <script src="~/Scripts/loadingoverlay.min.js"></script>
+
+    <style type="text/css">
+        .loadingoverlay_element {
+            position: fixed;
+            z-index: 999;
+            height: 10em;
+            width: 20em;
+            overflow: visible;
+            margin: auto;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+        }
+    </style>
+
     @Scripts.Render("~/bundles/jqueryval")
+
+    <!--Belge Ekleme -->
+    <script type="text/javascript">
+
+        $(document).on("change", ".taranmisDosya", function () {
+
+            var BasvuruGrupTipi_DosyaTipi_Id = $(this).attr("data-id");
+            $("#placeholder_" + BasvuruGrupTipi_DosyaTipi_Id).val($(this).val().replace(/C:\\fakepath\\/, ''));
+        });
+
+        function BelgeEkle(gayrimenkulId) {
+
+            var $valid = $("#BelgeEkleForm").valid();
+            if (!$valid) {
+                $validatorBelgeEkle.focusInvalid();
+                return false;
+            } else {
+
+                $("#path").val("");
+
+                $('#loadingbtnBelgeEkleme').removeClass();
+                $("#btnBelgeKaydet").removeClass();
+                $("#btnBelgeKaydet").addClass('btn btn-warning hide');
+
+
+                var sonuc = true;
+                var sayac = 0;
+                var elems = $("form .taranmisDosya");
+                var count = elems.length;
+                var tumDosyalarYuklendiMi = true;
+                setTimeout(function () {
+                    if (tumDosyalarYuklendiMi) {
+                        $("#btnBelgeKaydet").removeClass();
+                        $("#btnBelgeKaydet").addClass('btn btn-primary');
+                        $('#loadingbtnBelgeEkleme').addClass('hide');
+                    }
+                }, 1500);
+            
+
+            }
+        }
+    </script>
     <!--Tab Control-->
     <script type="text/javascript">
         $(document).ready(function () {
@@ -385,7 +513,94 @@
                     $('#Metrekare').val('');
                     $('#AracKapasitesi').val('');
                 }
+
+
             });
+        });
+    </script>
+
+    <!--İlçe Bilgileri-->
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#Il_Id").change(function (e) {
+
+                var ilId = $(this).val();
+
+                if (ilId != null) {
+                    $.ajax({
+                        type: 'Post',
+                        url: '/Gayrimenkul/IlceSelectList/ilId=' + ilId,
+                        data: { ilId: ilId },
+                        success: function (result) {
+                            if (result != null && result.success) {
+                                $("#Ilce_Id").empty();
+                                $("#Ilce_Id").append(
+                                    $('<option></option>').val(null).html('Lütfen Seçiniz'));
+                                $.each(result.Data, function (i, data) {
+                                    $('<option></option>').val(null).html('');
+                                    $("#Ilce_Id").append(
+                                        $('<option></option>').val(data.Id).html(data.Ad));
+                                });
+                            }
+                            else {
+                                swal('Uyarı!', result.Message, 'warning');
+                            }
+                        },
+                        error: function (xhr) {
+                            swal('Uyarı!', result.Message, 'warning');
+                        }
+                    });
+                }
+            });
+
+            $("#Ilce_Id").change(function (e) {
+
+                var ilceId = $(this).val();
+
+                if (ilceId != null) {
+                    $.ajax({
+                        type: 'Post',
+                        url: '/Gayrimenkul/MahalleSelectList/ilceId=' + ilceId,
+                        data: { ilceId: ilceId },
+                        success: function (result) {
+                            if (result != null && result.success) {
+                                $("#Mahalle_Id").empty();
+                                $("#Mahalle_Id").append(
+                                    $('<option></option>').val(null).html('Lütfen Seçiniz'));
+                                $.each(result.Data, function (i, data) {
+                                    $('<option></option>').val(null).html('');
+                                    $("#Mahalle_Id").append(
+                                        $('<option></option>').val(data.Id).html(data.Ad));
+                                });
+                            }
+                            else {
+                                swal('Uyarı!', result.Message, 'warning');
+                            }
+                        },
+                        error: function (xhr) {
+                            swal('Uyarı!', result.Message, 'warning');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+    <!--Tapu Bilgileri Sorgulama-->
+    <script type="text/javascript">
+        $("#btnTasinmazSorgula").click(function (e) {
+
+            var tasinmazNo = $('#TasinmazNo').val();
+
+            if (tasinmazNo != '') {
+
+                $.LoadingOverlay("show", { text: "Tapu Bilgileri Sorgulanıyor...", textResizeFactor: 0.2, background: "rgba(0, 0, 0, 0.5)" });
+
+                setTimeout(function () {
+                    $.LoadingOverlay("hide");
+                }, 2000);
+            }
         });
     </script>
 
