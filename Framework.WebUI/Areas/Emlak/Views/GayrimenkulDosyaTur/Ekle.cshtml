@@ -1,0 +1,124 @@
+﻿@model Framework.WebUI.Models.ViewModels.GayrimenkulDosya_TurEkleVM
+@{
+    ViewBag.Title = "Ekle";
+    Layout = "~/Areas/Emlak/Views/Shared/_LayoutEmlak.cshtml";
+}
+
+@if (!Model.HideContent)
+{
+    <div id="content">
+        <section id="widget-grid" class="sayfaust_bosluk">
+
+            <div class="row">
+                <article class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="jarviswidget sorgulama-kriteri" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
+                        <header>
+                            <div style="margin-top: -5px;">
+                                <p>
+                                    <a href="@Url.Action("Index")" class="btn btn-warning" title="" rel="tooltip" data-placement="bottom" data-original-title="Gayrimenkul Dosya Tür  Listesine Dön"><span class="glyphicon glyphicon-chevron-left"></span> Gayrimenkul Dosya Tür Listesine Dön</a>
+                                </p>
+                            </div>
+                        </header>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="widget-grid" class="">
+            <div class="row">
+                <article class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
+                        <header>
+                            <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+                            <h2>Dosya Tür Tanım</h2>
+                        </header>
+                        <div role="contentinfo">
+                            <div class="widget-body">
+                                <div class="tab-pane fade active in">
+                                    @using (Html.BeginForm("Ekle", "GayrimenkulDosyaTur", FormMethod.Post, new { enctype = "multipart/form-data", id = "submitForm" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <div class="widget-body">
+                                            <fieldset>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
+                                                        @Html.LabelFor(model => model.DosyaTurAdi, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                        <div class="col-md-8">
+                                                            @Html.TextBoxFor(model => model.DosyaTurAdi, new { @class = "form-control col-md-4 required" })
+                                                            @Html.ValidationMessageFor(model => model.DosyaTurAdi, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
+                                                        @Html.LabelFor(model => model.AktifMi, new { @class = "control-label col-md-4" })
+                                                        <div class="col-md-8 form-control-static">
+                                                            @Html.CheckBoxFor(model => model.AktifMi, new { @style = "width: 16px; height: 16px;" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                        <div class="form-actions">
+                                            <div class="row">
+                                                <div class="col-md-6 col-xs-offset-2" style="padding-right: 30px;">
+                                                    <input id="btnReset" type="reset" value="Temizle" class="btn btn-warning">
+                                                    <input id="btnSubmit" type="button" value="Kaydet" class="btn btn-primary">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </div>
+}
+
+@section pagespecific {
+    <!-- Sweet Alert -->
+    <link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
+    <script src="~/Content/SweetAlert/sweetalert2.min.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+    <!--GayrimenkulDosyaTur Ekle-->
+    <script type="text/javascript">
+        $(function () {
+            $('#btnSubmit').on('click', function () {
+                tur = new Object();
+                tur.DosyaTurAdi = $("#DosyaTurAdi").val();
+                tur.AktifMi = $("#AktifMi").val();
+
+                if($("#submitForm").valid())
+                {
+                   $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Ekle", "GayrimenkulDosyaTur")',
+                    data: { tur: tur },
+                    success: function (result) {
+                        if (result != null && result.success) {
+
+                            swal('Uyarı!', result.Message, 'success');
+
+                            setTimeout(function () {
+                                window.location.href = "../GayrimenkulDosyaTur/Index";
+                            }, 2000);
+                        }
+                        else {
+                            swal('Uyarı!', result.Message, 'warning');
+                        }
+                    },
+                    error: function (xhr) {
+                        swal('Uyarı!', result.Message, 'warning');
+                    }
+                 });
+                }
+            });
+        });
+    </script>
+}
+

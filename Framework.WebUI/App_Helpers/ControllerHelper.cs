@@ -23,6 +23,7 @@ namespace Framework.WebUI.App_Helpers
         public IEnumerable<ControllerActionList> GetAll()
         {
             Assembly asm = Assembly.GetAssembly(typeof(MvcApplication));
+            var projectName = Assembly.GetExecutingAssembly().FullName.Split(',')[0];
 
             var controlleractionlist = asm.GetTypes()
                     .Where(type => typeof(Controller).IsAssignableFrom(type))
@@ -30,6 +31,7 @@ namespace Framework.WebUI.App_Helpers
                     .Where(m => !m.GetCustomAttributes(typeof(System.Runtime.CompilerServices.CompilerGeneratedAttribute), true).Any())
                     .Select(x => new
                     {
+                        Area = x.DeclaringType.Namespace.Split('.').Reverse().Skip(1).First(),
                         Controller = x.DeclaringType.Name,
                         Action = x.Name,
                         ReturnType = x.ReturnType.Name,
@@ -43,6 +45,7 @@ namespace Framework.WebUI.App_Helpers
             {
                 list.Add(new ControllerActionList()
                 {
+                    AreaName =item.Area,
                     Controller = item.Controller,
                     Action = item.Action,
                     Attributes = item.Attributes,

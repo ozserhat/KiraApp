@@ -66,9 +66,12 @@
     <Compile Include="Concrete\GayrimenkulDosya_Tur.cs" />
     <Compile Include="Concrete\GayrimenkulTur.cs" />
     <Compile Include="Concrete\Gayrimenkul_Dosya.cs" />
+    <Compile Include="Concrete\Il.cs" />
+    <Compile Include="Concrete\Ilce.cs" />
     <Compile Include="Concrete\KiraciTur.cs" />
     <Compile Include="Concrete\Kira_Durum.cs" />
     <Compile Include="Concrete\Logs.cs" />
+    <Compile Include="Concrete\Mahalle.cs" />
     <Compile Include="Concrete\OdemePeriyotTur.cs" />
     <Compile Include="Concrete\Role.cs" />
     <Compile Include="Concrete\SistemParametreleri.cs" />

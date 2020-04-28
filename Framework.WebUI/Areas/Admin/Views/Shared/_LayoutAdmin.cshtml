@@ -56,7 +56,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $.ajax({
-                url: '/Anasayfa/_bildirimListesi',
+                url: '@Url.Action("_bildirimListesi", "Anasayfa", new { area="admin"})',
                 datatype: "html",
                 type: "Get",
                 async: true,

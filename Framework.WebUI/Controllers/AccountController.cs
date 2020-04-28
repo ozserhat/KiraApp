@@ -96,10 +96,10 @@ namespace Framework.WebUI.Controllers
             {
                 model.Roller = kullanici.User_Roles.Where(a => a.IsDeleted == false).Select(x => new RolSecItem()
                 {
-                    Aciklama = x.Roles.Name,
+                    Description = x.Roles.Description,
                     ActionName = "Index",
                     ControllerName = "Anasayfa",
-                    AreaName = x.Roles.Description
+                    AreaName = x.Roles.Name
                 }).ToList();
             }
             else

@@ -14,21 +14,36 @@ namespace Framework.WebUI
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            //routes.MapRoute(
-            //    name: "Default",
-            //    url: "{controller}/{action}/{id}",
-            //    defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional },
-            //    namespaces: new[] { "CsbUygTemplate.Web.Controllers" }
-            //);
-
+          
             #region smart config
+
             routes.LowercaseUrls = true;
+
             routes.MapRoute("Default", "{controller}/{action}/{id}", new
             {
                 controller = "Account",
                 action = "Login",
-                id = UrlParameter.Optional
-            }).RouteHandler = new DashRouteHandler();
+                id = UrlParameter.Optional,
+            },
+            namespaces: new string[] { "Framework.WebUI.Controllers" }
+            ).RouteHandler = new DashRouteHandler();
+
+          //  routes.MapRoute(
+          //    name: "Admin",
+          //    url: "{controller}/{action}/{id}",
+          //    defaults: new { controller = "Anasayfa", action = "Index", id = UrlParameter.Optional },
+          //    namespaces: new[] { "Framework.WebUI.Areas.Controllers" }
+          //);
+
+          //  routes.MapRoute(
+          //    name: "Emlak",
+          //    url: "{controller}/{action}/{id}",
+          //    defaults: new { controller = "Anasayfa", action = "Index", id = UrlParameter.Optional },
+          //    namespaces: new[] { "Framework.WebUI.Areas.Controllers" }
+          //);
+
+            //route.DataTokens["UseNamespaceFallback"] = false;
+
             #endregion
         }
     }

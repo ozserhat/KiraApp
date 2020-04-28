@@ -79,7 +79,16 @@ namespace Framework.Business.DependencyResolvers.Ninject
 
             Bind<IKira_DurumDal>().To<EfKira_DurumDal>().InTransientScope();
             Bind<IKira_DurumService>().To<Kira_DurumManager>().InTransientScope();
+          
+            Bind<IIlDal>().To<EfIlDal>().InTransientScope();
+            Bind<IIlService>().To<IlManager>().InTransientScope();
 
+            Bind<IIlceDal>().To<EfIlceDal>().InTransientScope();
+            Bind<IIlceService>().To<IlceManager>().InTransientScope();
+
+            Bind<IMahalleDal>().To<EfMahalleDal>().InTransientScope();
+            Bind<IMahalleService>().To<MahalleManager>().InTransientScope();
+            
             Bind(typeof(IQueryableRepository<>)).To(typeof(EfQueryableRepository<>));
             Bind<DbContext>().To<DtContext>();
 

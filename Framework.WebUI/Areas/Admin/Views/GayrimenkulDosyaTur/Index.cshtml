@@ -79,11 +79,11 @@
                                                                     }
                                                                 </td>
                                                                 <td class="text-center">
-                                                                    @Html.AuthAction(" ", "Duzenle", "GayrimenkulAltTur", new { item.Guid },
+                                                                    @Html.AuthAction(" ", "Duzenle", "GayrimenkulDosyaTur", new { item.Guid },
                                                                           new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
                                                                           Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
-                                                                    @Html.AuthAction(" ", "Sil", "GayrimenkulAltTur", new { item.Id },
+                                                                    @Html.AuthAction(" ", "Sil", "GayrimenkulDosyaTur", new { item.Id },
                                                                                     new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = item.Ad, @data_id = item.Id },
                                                                                     Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                                                                 </td>
@@ -118,8 +118,8 @@
 
 @section pagespecific {
     @Scripts.Render("~/bundles/jqueryval")
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.1.0/sweetalert2.css" />
-    <script src="https://cdn.jsdelivr.net/sweetalert2/6.1.0/sweetalert2.min.js"></script>
+     <link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
+    <script src="~/Content/SweetAlert/sweetalert2.min.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {

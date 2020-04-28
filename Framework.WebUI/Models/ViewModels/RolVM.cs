@@ -43,7 +43,7 @@ namespace Framework.WebUI.Models.ViewModels
 
         public string AreaName { get; set; }
 
-        public string Aciklama { get; set; }
+        public string Description { get; set; }
     }
 
     public class RolEkleVM : VMBase

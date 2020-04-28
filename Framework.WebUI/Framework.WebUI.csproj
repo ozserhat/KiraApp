@@ -191,7 +191,10 @@
     <Compile Include="Areas\Admin\Controllers\UserPermissionsController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserRolesController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
-    <Compile Include="Areas\Birim\BirimAreaRegistration.cs" />
+    <Compile Include="Areas\Emlak\Controllers\AnasayfaController.cs" />
+    <Compile Include="Areas\Emlak\Controllers\GayrimenkulController.cs" />
+    <Compile Include="Areas\Emlak\Controllers\GayrimenkulDosyaTurController.cs" />
+    <Compile Include="Areas\Emlak\EmlakAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UnauthorizedController.cs" />
@@ -209,6 +212,7 @@
     <Compile Include="Models\ViewModels\GayrimenkulAlt_TurVM.cs" />
     <Compile Include="Models\ViewModels\GayrimenkulDosya_TurVM.cs" />
     <Compile Include="Models\ViewModels\GayrimenkulTurVM.cs" />
+    <Compile Include="Models\ViewModels\GayrimenkulVM.cs" />
     <Compile Include="Models\ViewModels\KiraciTurVM.cs" />
     <Compile Include="Models\ViewModels\KiraDurumVM.cs" />
     <Compile Include="Models\ViewModels\KullaniciYetkiDuzenleVM.cs" />
@@ -985,7 +989,6 @@
     <Content Include="Areas\Admin\Views\Users\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Users\Ekle.cshtml" />
     <Content Include="Areas\Admin\Views\Users\Duzenle.cshtml" />
-    <Content Include="Areas\Birim\Views\web.config" />
     <Content Include="Areas\Admin\Views\UserPermissions\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Pages\Index.cshtml" />
     <Content Include="Areas\Admin\Views\UserRoles\Index.cshtml" />
@@ -1024,6 +1027,16 @@
     <Content Include="Areas\Admin\Views\SistemParametreDetay\Index.cshtml" />
     <Content Include="Areas\Admin\Views\SistemParametreDetay\Ekle.cshtml" />
     <Content Include="Areas\Admin\Views\SistemParametreDetay\Duzenle.cshtml" />
+    <Content Include="Areas\Emlak\Views\web.config" />
+    <Content Include="Areas\Emlak\Views\Shared\_bildirimListesi.cshtml" />
+    <Content Include="Areas\Emlak\Views\Shared\_LayoutEmlak.cshtml" />
+    <Content Include="Areas\Emlak\Views\Anasayfa\Index.cshtml" />
+    <Content Include="Areas\Emlak\Views\GayrimenkulDosyaTur\Index.cshtml" />
+    <Content Include="Areas\Emlak\Views\GayrimenkulDosyaTur\Ekle.cshtml" />
+    <Content Include="Areas\Emlak\Views\GayrimenkulDosyaTur\Duzenle.cshtml" />
+    <Content Include="Areas\Emlak\Views\Shared\_AsideEmlak.cshtml" />
+    <Content Include="Areas\Emlak\Views\Gayrimenkul\Index.cshtml" />
+    <Content Include="Areas\Emlak\Views\Gayrimenkul\Ekle.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\customModal.js" />
@@ -1638,14 +1651,13 @@
     <Content Include="Views\Shared\_Unauthorized.cshtml" />
     <Content Include="Views\Unauthorized\Error.cshtml" />
     <Content Include="Views\Shared\_bildirimListesi.cshtml" />
+    <Content Include="Views\Shared\_HeaderEmlak.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Views\DuyuruBildirim\" />
-    <Folder Include="Areas\Birim\Controllers\" />
-    <Folder Include="Areas\Birim\Data\" />
-    <Folder Include="Areas\Birim\Views\Shared\" />
+    <Folder Include="Areas\Emlak\Data\" />
     <Folder Include="Content\img\realestate\thumbs\" />
     <Folder Include="Content\login\css\" />
     <Folder Include="Content\login\js\" />

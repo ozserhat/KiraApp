@@ -13,6 +13,7 @@ namespace Framework.Entities.Concrete
         [Key]
         public int Id { get; set; }
         public Guid Guid { get; set; }
+        public string AreaName { get; set; }
         public string Controller { get; set; }
         public string Action { get; set; }
         public string Attributes { get; set; }
