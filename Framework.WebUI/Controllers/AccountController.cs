@@ -59,6 +59,7 @@ namespace Framework.WebUI.Controllers
                 {
                     var UserId = User.GetUserPropertyValue("UserId");
 
+
                     if (UserId != null)
                     {
                         var kullanici = _userService.GetById(int.Parse(UserId));
