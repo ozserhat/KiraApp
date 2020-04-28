@@ -16,6 +16,8 @@ namespace Framework.Entities.Concrete
         [ForeignKey("Il_Id")]
         public virtual Il Iller { get; set; }
 
+        public int IlKodu { get; set; }
+
         public int IlceKodu { get; set; }
 
         public string Ad { get; set; }

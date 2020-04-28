@@ -1,4 +1,4 @@
-﻿<aside id="left-panel" style="margin-top:120px !important" class="sidebar">
+﻿<aside id="left-panel" style="margin-top:80px !important" class="sidebar">
     <nav>
 
         <ul>
@@ -16,7 +16,10 @@
                         @Html.AuthMainAction("Gayrimenkul Dosya Türleri", "Index", "GayrimenkulDosyaTur",
                       "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                     </li>
-                  
+                    <li class="@Html.RouteIf("Gayrimenkul", "active")">
+                        @Html.AuthMainAction("Gayrimenkuller", "Index", "Gayrimenkul",
+                      "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                    </li>
                 </ul>
             </li>
         </ul>

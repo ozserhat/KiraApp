@@ -38,13 +38,13 @@ namespace Framework.WebUI.Models.ViewModels
         public string DosyaNo { get; set; }
 
         [Display(Name = "Bina Kimlik No")]
-        public string BinaKimlikNo { get; set; }
+        public int? BinaKimlikNo { get; set; }
 
         [Display(Name = "Numarataj Kimlik  No")]
-        public string NumaratajKimlikNo { get; set; }
+        public int? NumaratajKimlikNo { get; set; }
 
         [Display(Name = "Adres No")]
-        public string AdresNo { get; set; }
+        public int? AdresNo { get; set; }
 
         [Display(Name = "Cadde")]
         public string Cadde { get; set; }
@@ -132,13 +132,13 @@ namespace Framework.WebUI.Models.ViewModels
         public string DosyaNo { get; set; }
 
         [Display(Name = "Bina Kimlik No")]
-        public string BinaKimlikNo { get; set; }
+        public int? BinaKimlikNo { get; set; }
 
         [Display(Name = "Numarataj Kimlik  No")]
-        public string NumaratajKimlikNo { get; set; }
+        public int? NumaratajKimlikNo { get; set; }
 
         [Display(Name = "Adres No")]
-        public string AdresNo { get; set; }
+        public int? AdresNo { get; set; }
 
         [Display(Name = "Cadde")]
         public string Cadde { get; set; }

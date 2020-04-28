@@ -18,11 +18,17 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
     {
         #region Constructor
 
-        private IGayrimenkulService _gayrimenkulservice;
+        private IIlService _ilService;
+        private IIlceService _ilceService;
+        private IMahalleService _mahalleService;
         private IGayrimenkulTurService _turService;
-
-        public GayrimenkulController(IGayrimenkulService gayrimenkulservice, IGayrimenkulTurService turService)
+        private IGayrimenkulService _gayrimenkulservice;
+        public GayrimenkulController(IGayrimenkulService gayrimenkulservice, IGayrimenkulTurService turService, 
+            IIlService ilService,IIlceService ilceService, IMahalleService mahalleService)
         {
+            _ilService = ilService;
+            _ilceService = ilceService;
+            _mahalleService = mahalleService;
             _turService = turService;
             _gayrimenkulservice = gayrimenkulservice;
         }
@@ -45,6 +51,99 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
             }
 
             return View(model);
+        }
+
+        public SelectList TurSelectList()
+        {
+            var turler = _turService.GetirListe().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+
+            return new SelectList(turler, "Id", "Ad");
+        }
+
+        public SelectList IlSelectList()
+        {
+            var turler = _ilService.GetirListe().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+
+            return new SelectList(turler, "Id", "Ad");
+        }
+
+        public SelectList IlceSelectList()
+        {
+            var turler = _ilceService.GetirListe().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+
+            return new SelectList(turler, "Id", "Ad");
+        }
+        public SelectList MahalleSelectList()
+        {
+            var turler = _mahalleService.GetirListe().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+
+            return new SelectList(turler, "Id", "Ad");
+        }
+
+        #endregion
+
+        #region Ekle
+
+        [HttpGet]
+        public ActionResult Ekle()
+        {
+            var model = new GayrimenkulEkleVM();
+            model.TurSelectList = TurSelectList();
+            model.IlSelectList = IlSelectList();
+            model.IlceSelectList = IlceSelectList();
+            model.MahalleSelectList = MahalleSelectList();
+            return View(model);
+        }
+
+        [HttpPost]
+        public JsonResult Ekle(GayrimenkulEkleVM model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    Gayrimenkul gayrimenkul = new Gayrimenkul()
+                    {
+                        Guid = Guid.NewGuid(),
+                        Ad = model.GayrimenkulAdi,
+                        GayrimenkulTur_Id= model.GayrimenkulTur_Id,
+                        Il_Id=model.Il_Id,
+                        Ilce_Id=model.Ilce_Id,
+                        Mahalle_Id=model.Mahalle_Id,
+                        BinaKimlikNo=model.BinaKimlikNo,
+                        NumaratajKimlikNo=model.NumaratajKimlikNo,
+                        AdresNo=model.AdresNo,
+                        Cadde=model.Cadde,
+                        Sokak=model.Sokak,
+                        DisKapiNo=model.DisKapiNo,
+                        IcKapiNo=model.IcKapiNo,
+                        AcikAdres=model.AcikAdres,
+                        Koordinat=model.Koordinat,
+                        Ada=model.Ada,
+                        Pafta=model.Pafta,
+                        Parsel=model.Parsel,
+                        GayrimenkulNo =model.GayrimenkulNo,
+                        DosyaNo=model.DosyaNo,
+                        AracKapasitesi=model.AracKapasitesi,
+                        Metrekare=model.Metrekare,
+                        OlusturulmaTarihi = DateTime.Now,
+                        OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
+                        AktifMi = false
+                    };
+
+                    var result = _gayrimenkulservice.Ekle(gayrimenkul);
+
+                    if (result.Id > 0)
+                        return Json(new { Message = "Gayrimenkul Bilgisi Başarıyla Kaydedildi.", success = true }, JsonRequestBehavior.AllowGet);
+
+                }
+
+                return Json(new { Message = "Gayrimenkul Bilgisi Kaydedilemedi!!!", success = false }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Message = ex.Message, success = false }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         #endregion

@@ -15,6 +15,8 @@ namespace Framework.Entities.Concrete
 
         [ForeignKey("Ilce_Id")]
         public virtual Ilce Ilceler { get; set; }
+        
+        public int IlceKodu { get; set; }
 
         public int MahalleKodu { get; set; }
 
