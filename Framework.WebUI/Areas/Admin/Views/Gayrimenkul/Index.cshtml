@@ -5,7 +5,7 @@
 @{
     int sonSayfa = 0;
     ViewBag.Title = "Index";
-    Layout = "~/Areas/Emlak/Views/Shared/_LayoutEmlak.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 
@@ -69,32 +69,32 @@
 
                                                         @foreach (var item in Model.Gayrimenkuller)
                                                         {
-                                                        <tr role="row" class="odd">
-                                                            <td>@(i++)</td>
-                                                            <td>@Html.DisplayFor(model => item.GayrimenkulTur.Ad)</td>
-                                                            <td>@Html.DisplayFor(model => item.Ad)</td>
-                                                            <td>@Html.DisplayFor(model => item.Ad)</td>
-                                                            <td>
-                                                                @if (item.AktifMi.HasValue && item.AktifMi.Value)
-                                                                {
-                                                                    <b class="label aktif-buton">Aktif</b>
-                                                                }
-                                                                else
-                                                                {
-                                                                    <b class="label pasif-buton">Pasif</b>
-                                                                }
-                                                            </td>
-                                                            <td class="text-center">
-                                                                @Html.AuthAction(" ", "Duzenle", "Gayrimenkul", new { item.Guid },
-                                                                        new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
-                                                                        Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                                                            <tr role="row" class="odd">
+                                                                <td>@(i++)</td>
+                                                                <td>@Html.DisplayFor(model => item.GayrimenkulTur.Ad)</td>
+                                                                <td>@Html.DisplayFor(model => item.Ad)</td>
+                                                                <td>@Html.DisplayFor(model => item.Ad)</td>
+                                                                <td>
+                                                                    @if (item.AktifMi.HasValue && item.AktifMi.Value)
+                                                                    {
+                                                                        <b class="label aktif-buton">Aktif</b>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <b class="label pasif-buton">Pasif</b>
+                                                                    }
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    @Html.AuthAction(" ", "Duzenle", "Gayrimenkul", new { item.Guid },
+                                                                            new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
+                                                                            Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
-                                                                @Html.AuthAction(" ", "Sil", "Gayrimenkul", new { item.Id },
-                                                                                new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = item.Ad, @data_id = item.Id },
-                                                                                Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                                                                    @Html.AuthAction(" ", "Sil", "Gayrimenkul", new { item.Id },
+                                                                                    new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = item.Ad, @data_id = item.Id },
+                                                                                    Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
-                                                            </td>
-                                                        </tr>
+                                                                </td>
+                                                            </tr>
                                                         }
                                                     </tbody>
                                                 }
@@ -125,7 +125,7 @@
 
 @section pagespecific {
     @Scripts.Render("~/bundles/jqueryval")
-     <link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
+    <link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
     <script src="~/Content/SweetAlert/sweetalert2.min.js"></script>
 
     <script type="text/javascript">
