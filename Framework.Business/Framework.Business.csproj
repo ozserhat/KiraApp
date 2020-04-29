@@ -141,6 +141,7 @@
     <Compile Include="Abstract\IGayrimenkulTurService.cs" />
     <Compile Include="Abstract\IIlceService.cs" />
     <Compile Include="Abstract\IIlService.cs" />
+    <Compile Include="Abstract\IKiraciService.cs" />
     <Compile Include="Abstract\IKiraciTurService.cs" />
     <Compile Include="Abstract\IKira_DurumService.cs" />
     <Compile Include="Abstract\ILogService.cs" />
@@ -163,6 +164,7 @@
     <Compile Include="Concrete\Managers\GayrimenkulTurManager.cs" />
     <Compile Include="Concrete\Managers\IlceManager.cs" />
     <Compile Include="Concrete\Managers\IlManager.cs" />
+    <Compile Include="Concrete\Managers\KiraciManager.cs" />
     <Compile Include="Concrete\Managers\KiraciTurManager.cs" />
     <Compile Include="Concrete\Managers\Kira_DurumManager.cs" />
     <Compile Include="Concrete\Managers\LogsManager.cs" />

@@ -41,6 +41,10 @@ namespace Framework.DataAccess.Concrete.EntityFramework
         public DbSet<Il> Iller { get; set; }
         public DbSet<Ilce> Ilceler { get; set; }
         public DbSet<Mahalle> Mahalleler { get; set; }
+        public DbSet<Kiraci> Kiracilar { get; set; }
+        public DbSet<BeyanDosya_Tur> BeyanDosya_Turleri { get; set; }
+        public DbSet<Beyan_Dosya> Beyan_Dosyalari { get; set; }
+        public DbSet<Beyan> Beyanlar { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

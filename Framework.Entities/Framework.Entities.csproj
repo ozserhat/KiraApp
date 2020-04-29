@@ -56,6 +56,9 @@
     <Compile Include="ComplexTypes\UserDetail.cs" />
     <Compile Include="ComplexTypes\UserRoleItem.cs" />
     <Compile Include="ComplexTypes\VMBase.cs" />
+    <Compile Include="Concrete\Beyan.cs" />
+    <Compile Include="Concrete\BeyanDosya_Tur.cs" />
+    <Compile Include="Concrete\Beyan_Dosya.cs" />
     <Compile Include="Concrete\ControllerAction.cs" />
     <Compile Include="Concrete\Deneme.cs" />
     <Compile Include="Concrete\Duyuru.cs" />
@@ -68,6 +71,7 @@
     <Compile Include="Concrete\Gayrimenkul_Dosya.cs" />
     <Compile Include="Concrete\Il.cs" />
     <Compile Include="Concrete\Ilce.cs" />
+    <Compile Include="Concrete\Kiraci.cs" />
     <Compile Include="Concrete\KiraciTur.cs" />
     <Compile Include="Concrete\Kira_Durum.cs" />
     <Compile Include="Concrete\Logs.cs" />
