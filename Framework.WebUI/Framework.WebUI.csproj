@@ -196,6 +196,8 @@
     <Compile Include="Areas\Emlak\Controllers\GayrimenkulController.cs" />
     <Compile Include="Areas\Emlak\Controllers\GayrimenkulDosyaTurController.cs" />
     <Compile Include="Areas\Emlak\EmlakAreaRegistration.cs" />
+    <Compile Include="Areas\Kira\Controllers\AnasayfaController.cs" />
+    <Compile Include="Areas\Kira\KiraAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UnauthorizedController.cs" />
@@ -1038,10 +1040,12 @@
     <Content Include="Areas\Emlak\Views\Shared\_AsideEmlak.cshtml" />
     <Content Include="Areas\Emlak\Views\Gayrimenkul\Index.cshtml" />
     <Content Include="Areas\Emlak\Views\Gayrimenkul\Ekle.cshtml" />
-
     <Content Include="Areas\Admin\Views\Gayrimenkul\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Gayrimenkul\Ekle.cshtml" />
-
+    <Content Include="Areas\Kira\Views\web.config" />
+    <Content Include="Areas\Kira\Views\Shared\_AsideKira.cshtml" />
+    <Content Include="Areas\Kira\Views\Shared\_LayoutKira.cshtml" />
+    <Content Include="Areas\Kira\Views\Anasayfa\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\customModal.js" />
@@ -1664,6 +1668,7 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Views\DuyuruBildirim\" />
     <Folder Include="Areas\Emlak\Data\" />
+    <Folder Include="Areas\Kira\Data\" />
     <Folder Include="Content\img\realestate\thumbs\" />
     <Folder Include="Content\login\css\" />
     <Folder Include="Content\login\js\" />
