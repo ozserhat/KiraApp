@@ -133,6 +133,7 @@
     <Compile Include="Abstract\IBeyanDosya_TurService.cs" />
     <Compile Include="Abstract\IBeyanService.cs" />
     <Compile Include="Abstract\IBeyan_DosyaService.cs" />
+    <Compile Include="Abstract\IBeyan_TurService.cs" />
     <Compile Include="Abstract\IDuyuruService.cs" />
     <Compile Include="Abstract\IDuyuru_BildirimService.cs" />
     <Compile Include="Abstract\IDuyuru_TurService.cs" />
@@ -146,6 +147,7 @@
     <Compile Include="Abstract\IIlService.cs" />
     <Compile Include="Abstract\IKiraciService.cs" />
     <Compile Include="Abstract\IKiraciTurService.cs" />
+    <Compile Include="Abstract\IKira_BeyanService.cs" />
     <Compile Include="Abstract\IKira_DurumService.cs" />
     <Compile Include="Abstract\ILogService.cs" />
     <Compile Include="Abstract\IMahalleService.cs" />
@@ -159,6 +161,7 @@
     <Compile Include="Concrete\Managers\BeyanDosya_TurManager.cs" />
     <Compile Include="Concrete\Managers\BeyanManager.cs" />
     <Compile Include="Concrete\Managers\Beyan_DosyaManager.cs" />
+    <Compile Include="Concrete\Managers\Beyan_TurManager.cs" />
     <Compile Include="Concrete\Managers\ControllerActionManager.cs" />
     <Compile Include="Concrete\Managers\DenemeManager.cs" />
     <Compile Include="Concrete\Managers\DuyuruManager.cs" />
@@ -172,6 +175,7 @@
     <Compile Include="Concrete\Managers\IlManager.cs" />
     <Compile Include="Concrete\Managers\KiraciManager.cs" />
     <Compile Include="Concrete\Managers\KiraciTurManager.cs" />
+    <Compile Include="Concrete\Managers\Kira_BeyanManager.cs" />
     <Compile Include="Concrete\Managers\Kira_DurumManager.cs" />
     <Compile Include="Concrete\Managers\LogsManager.cs" />
     <Compile Include="Concrete\Managers\MahalleManager.cs" />
