@@ -177,6 +177,7 @@
     <Compile Include="Areas\Admin\Controllers\DuyuruController.cs" />
     <Compile Include="Areas\Admin\Controllers\DuyuruTurController.cs" />
     <Compile Include="Areas\Admin\Controllers\GayrimenkulAltTurController.cs" />
+    <Compile Include="Areas\Admin\Controllers\GayrimenkulController.cs" />
     <Compile Include="Areas\Admin\Controllers\GayrimenkulDosyaTurController.cs" />
     <Compile Include="Areas\Admin\Controllers\GayrimenkulTurController.cs" />
     <Compile Include="Areas\Admin\Controllers\KiraciTurController.cs" />
@@ -1037,6 +1038,10 @@
     <Content Include="Areas\Emlak\Views\Shared\_AsideEmlak.cshtml" />
     <Content Include="Areas\Emlak\Views\Gayrimenkul\Index.cshtml" />
     <Content Include="Areas\Emlak\Views\Gayrimenkul\Ekle.cshtml" />
+
+    <Content Include="Areas\Admin\Views\Gayrimenkul\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Gayrimenkul\Ekle.cshtml" />
+
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\customModal.js" />

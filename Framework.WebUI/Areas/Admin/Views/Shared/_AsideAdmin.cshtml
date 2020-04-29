@@ -109,6 +109,11 @@
                     <span class="menu-item-parent">Kira İşlemleri</span>
                 </a>
                 <ul>
+                    <li class="@Html.RouteIf("Gayrimenkul", "active")">
+                        @Html.AuthMainAction("Gayrimenkuller", "Index", "Gayrimenkul",
+                      "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                    </li>
+
                     <li class="@Html.RouteIf("GayrimenkulTur", "active")">
                         @Html.AuthMainAction("Gayrimenkul Türleri", "Index", "GayrimenkulTur",
                        "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
