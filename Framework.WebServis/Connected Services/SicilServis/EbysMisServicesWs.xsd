@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/" targetNamespace="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="cokluKisiBilgileri" type="tns:cokluKisiBilgileri" />
+  <xs:element name="cokluKisiBilgileriResponse" type="tns:cokluKisiBilgileriResponse" />
+  <xs:element name="grouptahakkukList" type="tns:grouptahakkukList" />
+  <xs:element name="grouptahakkukListResponse" type="tns:grouptahakkukListResponse" />
+  <xs:element name="ilIlceSorgula" type="tns:ilIlceSorgula" />
+  <xs:element name="ilIlceSorgulaResponse" type="tns:ilIlceSorgulaResponse" />
+  <xs:element name="kiraBeyanListesi" type="tns:kiraBeyanListesi" />
+  <xs:element name="kiraBeyanListesiResponse" type="tns:kiraBeyanListesiResponse" />
+  <xs:element name="kiraIslemUpdate" type="tns:kiraIslemUpdate" />
+  <xs:element name="kiraIslemUpdateResponse" type="tns:kiraIslemUpdateResponse" />
+  <xs:element name="kisiBilgileri" type="tns:kisiBilgileri" />
+  <xs:element name="kisiBilgileriContainingName" type="tns:kisiBilgileriContainingName" />
+  <xs:element name="kisiBilgileriContainingNameResponse" type="tns:kisiBilgileriContainingNameResponse" />
+  <xs:element name="kisiBilgileriFromPersonel" type="tns:kisiBilgileriFromPersonel" />
+  <xs:element name="kisiBilgileriFromPersonelResponse" type="tns:kisiBilgileriFromPersonelResponse" />
+  <xs:element name="kisiBilgileriFromPersonelWithTCKN" type="tns:kisiBilgileriFromPersonelWithTCKN" />
+  <xs:element name="kisiBilgileriFromPersonelWithTCKNResponse" type="tns:kisiBilgileriFromPersonelWithTCKNResponse" />
+  <xs:element name="kisiBilgileriResponse" type="tns:kisiBilgileriResponse" />
+  <xs:element name="kisiBilgileriSicil" type="tns:kisiBilgileriSicil" />
+  <xs:element name="kisiBilgileriSicilResponse" type="tns:kisiBilgileriSicilResponse" />
+  <xs:element name="kisiBilgileriWithContainGivenValues" type="tns:kisiBilgileriWithContainGivenValues" />
+  <xs:element name="kisiBilgileriWithContainGivenValuesResponse" type="tns:kisiBilgileriWithContainGivenValuesResponse" />
+  <xs:element name="kisiBilgileriWithContainGivenValuesWithType" type="tns:kisiBilgileriWithContainGivenValuesWithType" />
+  <xs:element name="kisiBilgileriWithContainGivenValuesWithTypeResponse" type="tns:kisiBilgileriWithContainGivenValuesWithTypeResponse" />
+  <xs:element name="kisiBorclari" type="tns:kisiBorclari" />
+  <xs:element name="kisiBorclariResponse" type="tns:kisiBorclariResponse" />
+  <xs:element name="kisiDurumSorgulamaSV" type="tns:kisiDurumSorgulamaSV" />
+  <xs:element name="kisiDurumSorgulamaSVResponse" type="tns:kisiDurumSorgulamaSVResponse" />
+  <xs:element name="personelInformationByRegistryNumber" type="tns:personelInformationByRegistryNumber" />
+  <xs:element name="personelInformationByRegistryNumberResponse" type="tns:personelInformationByRegistryNumberResponse" />
+  <xs:element name="ruhsatAktarimBilgileri" type="tns:ruhsatAktarimBilgileri" />
+  <xs:element name="ruhsatAktarimBilgileriResponse" type="tns:ruhsatAktarimBilgileriResponse" />
+  <xs:element name="sicilKayit" type="tns:sicilKayit" />
+  <xs:element name="sicilKayitResponse" type="tns:sicilKayitResponse" />
+  <xs:element name="sokakMahalleSorgula" type="tns:sokakMahalleSorgula" />
+  <xs:element name="sokakMahalleSorgulaResponse" type="tns:sokakMahalleSorgulaResponse" />
+  <xs:element name="tahakkukBilgi" type="tns:tahakkukBilgi" />
+  <xs:element name="tahakkukBilgiResponse" type="tns:tahakkukBilgiResponse" />
+  <xs:element name="tahakkukList" type="tns:tahakkukList" />
+  <xs:element name="tahakkukListForVariation" type="tns:tahakkukListForVariation" />
+  <xs:element name="tahakkukListForVariationResponse" type="tns:tahakkukListForVariationResponse" />
+  <xs:element name="tahakkukListResponse" type="tns:tahakkukListResponse" />
+  <xs:element name="tahsilatBilgi" type="tns:tahsilatBilgi" />
+  <xs:element name="tahsilatBilgiList" type="tns:tahsilatBilgiList" />
+  <xs:element name="tahsilatBilgiListResponse" type="tns:tahsilatBilgiListResponse" />
+  <xs:element name="tahsilatBilgiResponse" type="tns:tahsilatBilgiResponse" />
+  <xs:element name="taxRecipeByContainingName" type="tns:taxRecipeByContainingName" />
+  <xs:element name="taxRecipeByContainingNameResponse" type="tns:taxRecipeByContainingNameResponse" />
+  <xs:element name="taxRecipeByTaxRecipeNo" type="tns:taxRecipeByTaxRecipeNo" />
+  <xs:element name="taxRecipeByTaxRecipeNoResponse" type="tns:taxRecipeByTaxRecipeNoResponse" />
+  <xs:element name="updateSicil" type="tns:updateSicil" />
+  <xs:element name="updateSicilResponse" type="tns:updateSicilResponse" />
+  <xs:complexType name="grouptahakkukList">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="thkYil" type="xs:string" />
+      <xs:element minOccurs="0" name="tarifeNo" type="xs:string" />
+      <xs:element minOccurs="0" name="tip" type="xs:string" />
+      <xs:element minOccurs="0" name="surec_id" type="xs:string" />
+      <xs:element minOccurs="0" name="kb" type="tns:kullaniciBilgi" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kullaniciBilgi">
+    <xs:sequence>
+      <xs:element name="kulNo" type="xs:int" />
+      <xs:element minOccurs="0" name="sifre" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="grouptahakkukListResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:tahakkukBilgiBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="tahakkukBilgiBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="artan" type="xs:string" />
+      <xs:element minOccurs="0" name="azaltan" type="xs:string" />
+      <xs:element minOccurs="0" name="beyanId" type="xs:string" />
+      <xs:element minOccurs="0" name="cepTel" type="xs:string" />
+      <xs:element minOccurs="0" name="genelToplam" type="xs:string" />
+      <xs:element minOccurs="0" name="makbuzNo" type="xs:string" />
+      <xs:element minOccurs="0" name="mernisNo" type="xs:string" />
+      <xs:element minOccurs="0" name="odemeTar" type="xs:string" />
+      <xs:element minOccurs="0" name="odenenTutar" type="xs:string" />
+      <xs:element minOccurs="0" name="sicilNo" type="xs:string" />
+      <xs:element minOccurs="0" name="sonuc" type="xs:string" />
+      <xs:element minOccurs="0" name="tarifeNo" type="xs:string" />
+      <xs:element minOccurs="0" name="thkNo" type="xs:string" />
+      <xs:element minOccurs="0" name="thkTar" type="xs:string" />
+      <xs:element minOccurs="0" name="thkTutar" type="xs:string" />
+      <xs:element minOccurs="0" name="thkYil" type="xs:string" />
+      <xs:element minOccurs="0" name="vezneNo" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="sicilKayit">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="kisi" type="tns:kisiBilgiBean" />
+      <xs:element minOccurs="0" name="kb" type="tns:kullaniciBilgi" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kisiBilgiBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="adi" type="xs:string" />
+      <xs:element minOccurs="0" name="adiSoyadi" type="xs:string" />
+      <xs:element minOccurs="0" name="adres" type="xs:string" />
+      <xs:element minOccurs="0" name="anaAdi" type="xs:string" />
+      <xs:element minOccurs="0" name="babaAdi" type="xs:string" />
+      <xs:element minOccurs="0" name="binaNo" type="xs:string" />
+      <xs:element minOccurs="0" name="cepTel" type="xs:string" />
+      <xs:element minOccurs="0" name="daireNo" type="xs:string" />
+      <xs:element minOccurs="0" name="dogumTar" type="xs:string" />
+      <xs:element minOccurs="0" name="dogumYer" type="xs:string" />
+      <xs:element minOccurs="0" name="evNo" type="xs:string" />
+      <xs:element minOccurs="0" name="faks" type="xs:string" />
+      <xs:element minOccurs="0" name="il" type="xs:string" />
+      <xs:element minOccurs="0" name="ilKodu" type="xs:string" />
+      <xs:element minOccurs="0" name="ilce" type="xs:string" />
+      <xs:element minOccurs="0" name="ilceKodu" type="xs:string" />
+      <xs:element minOccurs="0" name="isAdres" type="xs:string" />
+      <xs:element minOccurs="0" name="isBinaNo" type="xs:string" />
+      <xs:element minOccurs="0" name="isDaireNo" type="xs:string" />
+      <xs:element minOccurs="0" name="isIlAdi" type="xs:string" />
+      <xs:element minOccurs="0" name="isIlKod" type="xs:string" />
+      <xs:element minOccurs="0" name="isIlceAdi" type="xs:string" />
+      <xs:element minOccurs="0" name="isIlceKod" type="xs:string" />
+      <xs:element minOccurs="0" name="isKapiNo" type="xs:string" />
+      <xs:element minOccurs="0" name="isMahalleAdi" type="xs:string" />
+      <xs:element minOccurs="0" name="isMahalleKodu" type="xs:string" />
+      <xs:element minOccurs="0" name="isSokakAdi" type="xs:string" />
+      <xs:element minOccurs="0" name="isSokakKodu" type="xs:string" />
+      <xs:element minOccurs="0" name="isTel" type="xs:string" />
+      <xs:element minOccurs="0" name="kep" type="xs:string" />
+      <xs:element minOccurs="0" name="mahalleAdi" type="xs:string" />
+      <xs:element minOccurs="0" name="mahalleKodu" type="xs:string" />
+      <xs:element minOccurs="0" name="mernisNo" type="xs:string" />
+      <xs:element minOccurs="0" name="mernisVergiNo" type="xs:string" />
+      <xs:element minOccurs="0" name="mesaj" type="xs:string" />
+      <xs:element minOccurs="0" name="mukellefTur" type="xs:string" />
+      <xs:element minOccurs="0" name="sahisTuru" type="xs:string" />
+      <xs:element minOccurs="0" name="sicilNo" type="xs:string" />
+      <xs:element minOccurs="0" name="sokakAdi" type="xs:string" />
+      <xs:element minOccurs="0" name="sokakKodu" type="xs:string" />
+      <xs:element name="sonucKodu" type="xs:int" />
+      <xs:element minOccurs="0" name="soyadi" type="xs:string" />
+      <xs:element minOccurs="0" name="ulke" type="xs:string" />
+      <xs:element minOccurs="0" name="unvan" type="xs:string" />
+      <xs:element minOccurs="0" name="vergiDairesi" type="xs:string" />
+      <xs:element minOccurs="0" name="vergiNo" type="xs:string" />
+      <xs:element minOccurs="0" name="eMail" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="sicilKayitResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="tahsilatBilgiList">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="sicilNo" type="xs:string" />
+      <xs:element minOccurs="0" name="thkNO" type="xs:string" />
+      <xs:element minOccurs="0" name="kb" type="tns:kullaniciBilgi" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="tahsilatBilgiListResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:tahakkukBilgiBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kisiDurumSorgulamaSV">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="tcNo" type="xs:string" />
+      <xs:element minOccurs="0" name="sicilNo" type="xs:string" />
+      <xs:element minOccurs="0" name="kb" type="tns:kullaniciBilgi" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kisiDurumSorgulamaSVResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:kisiBilgiBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="tahsilatBilgi">
+    <xs:sequence>
+      <xs:element name="sicilThkMap">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="entry">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element minOccurs="0" name="key" type="xs:string" />
+                  <xs:element minOccurs="0" name="value" type="xs:string" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="kb" type="tns:kullaniciBilgi" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="tahsilatBilgiResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:tahakkukBilgiBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kiraIslemUpdate">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="SicilNo" type="xs:string" />
+      <xs:element minOccurs="0" name="DosyaAdi" type="xs:string" />
+      <xs:element minOccurs="0" name="Donem_yil" type="xs:string" />
+      <xs:element minOccurs="0" name="kb" type="tns:kullaniciBilgi" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kiraIslemUpdateResponse">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="kisiBilgileriFromPersonel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="searchText" type="xs:string" />
+      <xs:element minOccurs="0" name="kb" type="tns:kullaniciBilgi" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kisiBilgileriFromPersonelResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:kisiBilgiBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cokluKisiBilgileri">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="sicilNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="kb" type="tns:kullaniciBilgi" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cokluKisiBilgileriResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:kisiBilgiBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="updateSicil">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="sicilNo" type="xs:string" />
+      <xs:element minOccurs="0" name="kb" type="tns:kullaniciBilgi" />
+      <xs:element minOccurs="0" name="kisiBilgiBean" type="tns:kisiBilgiBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="updateSicilResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:kisiBilgiBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kisiBorclari">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="tcNo" type="xs:string" />
+      <xs:element minOccurs="0" name="vNo" type="xs:string" />
+      <xs:element minOccurs="0" name="thkNO" type="xs:string" />
+      <xs:element minOccurs="0" name="kb" type="tns:kullaniciBilgi" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kisiBorclariResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:kisiBorclariBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kisiBorclariBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ctvBorcSayisi" type="xs:string" />
+      <xs:element minOccurs="0" name="cvtBorc" type="xs:string" />
+      <xs:element minOccurs="0" name="digerBorc" type="xs:string" />
+      <xs:element minOccurs="0" name="digerBorcSayisi" type="xs:string" />
+      <xs:element minOccurs="0" name="emlakBorc" type="xs:string" />
+      <xs:element minOccurs="0" name="emlakBorcSayisi" type="xs:string" />
+      <xs:element minOccurs="0" name="ilanReklamBorc" type="xs:string" />
+      <xs:element minOccurs="0" name="ilanReklamSayisi" type="xs:string" />
+      <xs:element minOccurs="0" name="mesaj" type="xs:string" />
+      <xs:element minOccurs="0" name="ruhsatBorcSayisi" type="xs:string" />
+      <xs:element minOccurs="0" name="ruhsatHarc" type="xs:string" />
+      <xs:element name="sicilNo" type="xs:int" />
+      <xs:element name="sonucKodu" type="xs:int" />
+      <xs:element minOccurs="0" name="yolKatilimBorc" type="xs:string" />
+      <xs:element minOccurs="0" name="yolKatilimSayisi" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kisiBilgileriWithContainGivenValues">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="searchText" type="xs:string" />
+      <xs:element minOccurs="0" name="kb" type="tns:kullaniciBilgi" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kisiBilgileriWithContainGivenValuesResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:kisiBilgiBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="tahakkukList">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="thkYil" type="xs:string" />
+      <xs:element minOccurs="0" name="tarifeNo" type="xs:string" />
+      <xs:element minOccurs="0" name="surecId" type="xs:string" />
+      <xs:element minOccurs="0" name="kb" type="tns:kullaniciBilgi" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="tahakkukListResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:tahakkukBilgiBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="tahakkukListForVariation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ilkTarih" type="xs:string" />
+      <xs:element minOccurs="0" name="sonTarih" type="xs:string" />
+      <xs:element minOccurs="0" name="sicilNo" type="xs:string" />
+      <xs:element minOccurs="0" name="thkYil" type="xs:string" />
+      <xs:element minOccurs="0" name="tip" type="xs:string" />
+      <xs:element minOccurs="0" name="surec_id" type="xs:string" />
+      <xs:element minOccurs="0" name="kb" type="tns:kullaniciBilgi" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="tahakkukListForVariationResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:tahakkukBilgiBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="tahakkukBilgi">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="sicilNo" type="xs:string" />
+      <xs:element minOccurs="0" name="thkNO" type="xs:string" />
+      <xs:element minOccurs="0" name="kb" type="tns:kullaniciBilgi" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="tahakkukBilgiResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:tahakkukBilgiBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kisiBilgileriFromPersonelWithTCKN">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="tcNo" type="xs:string" />
+      <xs:element minOccurs="0" name="kb" type="tns:kullaniciBilgi" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kisiBilgileriFromPersonelWithTCKNResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:kisiBilgiBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="taxRecipeByTaxRecipeNo">
+    <xs:sequence>
+      <xs:element name="taxRecipeNo" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="taxRecipeByTaxRecipeNoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:tarifeBilgiBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="tarifeBilgiBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="taxRecipeName" type="xs:string" />
+      <xs:element name="taxRecipeNo" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kisiBilgileriSicil">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="tcNo" type="xs:string" />
+      <xs:element minOccurs="0" name="vNo" type="xs:string" />
+      <xs:element minOccurs="0" name="kb" type="tns:kullaniciBilgi" />
+      <xs:element minOccurs="0" name="sicilNo" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kisiBilgileriSicilResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:kisiBilgiBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ilIlceSorgula">
+    <xs:sequence>
+      <xs:element name="ilceKod" type="xs:int" />
+      <xs:element name="ilKod" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ilIlceSorgulaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:ilIlce" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ilIlce">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ilIlceAdi" type="xs:string" />
+      <xs:element name="ilKod" type="xs:int" />
+      <xs:element name="ilceKod" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="taxRecipeByContainingName">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="taxRecipeName" type="xs:string" />
+      <xs:element minOccurs="0" name="kb" type="tns:kullaniciBilgi" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="taxRecipeByContainingNameResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" nillable="true" type="tns:tarifeBilgiBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="sokakMahalleSorgula">
+    <xs:sequence>
+      <xs:element name="mahKod" type="xs:int" />
+      <xs:element name="skKod" type="xs:int" />
+      <xs:element name="ilceKod" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="sokakMahalleSorgulaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:sokakMahalle" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="sokakMahalle">
+    <xs:sequence>
+      <xs:element name="mahalleKod" type="xs:int" />
+      <xs:element minOccurs="0" name="mahalleSokakAdi" type="xs:string" />
+      <xs:element name="sokakKod" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kisiBilgileriWithContainGivenValuesWithType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="searchText" type="xs:string" />
+      <xs:element minOccurs="0" name="sahisTuru" type="xs:string" />
+      <xs:element minOccurs="0" name="kb" type="tns:kullaniciBilgi" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kisiBilgileriWithContainGivenValuesWithTypeResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:kisiBilgiBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kiraBeyanListesi">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="kirabeyantarih" type="xs:string" />
+      <xs:element minOccurs="0" name="kirabeyantarih2" type="xs:string" />
+      <xs:element minOccurs="0" name="islemDurum" type="xs:string" />
+      <xs:element minOccurs="0" name="kb" type="tns:kullaniciBilgi" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kiraBeyanListesiResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:kiraBeyanBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kiraBeyanBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="adi" type="xs:string" />
+      <xs:element minOccurs="0" name="adiSoyadi" type="xs:string" />
+      <xs:element minOccurs="0" name="adres" type="xs:string" />
+      <xs:element minOccurs="0" name="baslama_tar" type="xs:string" />
+      <xs:element minOccurs="0" name="bitis_tar" type="xs:string" />
+      <xs:element minOccurs="0" name="donem_yil" type="xs:string" />
+      <xs:element minOccurs="0" name="dosyaAdi" type="xs:string" />
+      <xs:element minOccurs="0" name="isin_adi" type="xs:string" />
+      <xs:element minOccurs="0" name="islem_durum" type="xs:string" />
+      <xs:element minOccurs="0" name="mernis_no" type="xs:string" />
+      <xs:element minOccurs="0" name="mesaj" type="xs:string" />
+      <xs:element name="sicilNo" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ruhsatAktarimBilgileri">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ruhsatNo" type="xs:string" />
+      <xs:element minOccurs="0" name="ruhsatYili" type="xs:string" />
+      <xs:element minOccurs="0" name="ruhsatSira" type="xs:string" />
+      <xs:element minOccurs="0" name="kb" type="tns:kullaniciBilgi" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ruhsatAktarimBilgileriResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:ruhsatBilgiBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ruhsatBilgiBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="acilisSaati" type="xs:string" />
+      <xs:element minOccurs="0" name="adiSoyadi" type="xs:string" />
+      <xs:element minOccurs="0" name="beyanTarihi" type="xs:string" />
+      <xs:element minOccurs="0" name="digerFaaliyetAlan" type="xs:string" />
+      <xs:element minOccurs="0" name="faaliyetAdi" type="xs:string" />
+      <xs:element name="faaliyetKodu" type="xs:int" />
+      <xs:element minOccurs="0" name="firmaSahis" type="xs:string" />
+      <xs:element minOccurs="0" name="kapanisSaati" type="xs:string" />
+      <xs:element minOccurs="0" name="mernisNo" type="xs:string" />
+      <xs:element name="personelSayisi" type="xs:int" />
+      <xs:element minOccurs="0" name="ruhsatBitisTarihi" type="xs:string" />
+      <xs:element minOccurs="0" name="ruhsatNo" type="xs:string" />
+      <xs:element minOccurs="0" name="ruhsatSiraNo" type="xs:string" />
+      <xs:element minOccurs="0" name="ruhsatTarihi" type="xs:string" />
+      <xs:element minOccurs="0" name="ruhsatVermeDurumu" type="xs:string" />
+      <xs:element minOccurs="0" name="ruhsatYili" type="xs:string" />
+      <xs:element minOccurs="0" name="ruhsatinDurumu" type="xs:string" />
+      <xs:element minOccurs="0" name="ruhsatinTuru" type="xs:string" />
+      <xs:element name="sicilNo" type="xs:int" />
+      <xs:element minOccurs="0" name="sinifAdi" type="xs:string" />
+      <xs:element minOccurs="0" name="tesisinAdresi" type="xs:string" />
+      <xs:element minOccurs="0" name="tesisinUnvani" type="xs:string" />
+      <xs:element minOccurs="0" name="vergiNo" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="personelInformationByRegistryNumber">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="sicilNo" type="xs:string" />
+      <xs:element minOccurs="0" name="kb" type="tns:kullaniciBilgi" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="personelInformationByRegistryNumberResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:kisiBilgiBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kisiBilgileriContainingName">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="name" type="xs:string" />
+      <xs:element minOccurs="0" name="kb" type="tns:kullaniciBilgi" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kisiBilgileriContainingNameResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" nillable="true" type="tns:kisiBilgiBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kisiBilgileri">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="tcNo" type="xs:string" />
+      <xs:element minOccurs="0" name="vNo" type="xs:string" />
+      <xs:element minOccurs="0" name="kb" type="tns:kullaniciBilgi" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kisiBilgileriResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:kisiBilgiBean" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

@@ -20,11 +20,13 @@ namespace Framework.WebUI.Areas.Admin.Controllers
         private IDuyuruService _service;
 
         private IDuyuru_BildirimService _bildirimService;
-
+        private ISicilService _sicilService;
         public AnasayfaController(IDuyuruService service,
-            IDuyuru_BildirimService bildirimService)
+            IDuyuru_BildirimService bildirimService,
+            ISicilService sicilService)
         {
             _service = service;
+            _sicilService = sicilService;
             _bildirimService = bildirimService;
         }
 
@@ -62,7 +64,15 @@ namespace Framework.WebUI.Areas.Admin.Controllers
 
             ModelState.AddModelError("LogMessage", "Duyuru Bildirim Mesajları Getirildi.");
             return PartialView("~/Views/Shared/_bildirimListesi.cshtml", model);
-        } 
+        }
+
+        [HttpPost]
+        public ActionResult SicilSorgulama(string VergiNo, string TcKimlikNo)
+        {
+            var sicilBilgisi = _sicilService.GetirSicilBilgisi(VergiNo, TcKimlikNo);
+            return View("Index",sicilBilgisi);
+        }
+
         #endregion
     }
 }

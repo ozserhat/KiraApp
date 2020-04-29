@@ -101,6 +101,8 @@ namespace Framework.Business.DependencyResolvers.Ninject
             Bind<IBeyan_DosyaDal>().To<EfBeyan_DosyaDal>().InTransientScope();
             Bind<IBeyan_DosyaService>().To<Beyan_DosyaManager>().InTransientScope();
 
+            Bind<ISicilService>().To<SicilServiceManager>().InTransientScope();
+
             Bind(typeof(IQueryableRepository<>)).To(typeof(EfQueryableRepository<>));
             Bind<DbContext>().To<DtContext>();
 
