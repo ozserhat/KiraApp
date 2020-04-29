@@ -35,5 +35,8 @@ namespace Framework.Entities.Concrete
         public DateTime? GuncellenmeTarihi { get; set; }
 
         public bool? AktifMi { get; set; }
+
+        [StringLength(1500)]
+        public string Aciklama { get; set; }
     }
 }
