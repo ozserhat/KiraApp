@@ -1038,8 +1038,10 @@
     <Content Include="Areas\Emlak\Views\Shared\_AsideEmlak.cshtml" />
     <Content Include="Areas\Emlak\Views\Gayrimenkul\Index.cshtml" />
     <Content Include="Areas\Emlak\Views\Gayrimenkul\Ekle.cshtml" />
+
     <Content Include="Areas\Admin\Views\Gayrimenkul\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Gayrimenkul\Ekle.cshtml" />
+
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\customModal.js" />
