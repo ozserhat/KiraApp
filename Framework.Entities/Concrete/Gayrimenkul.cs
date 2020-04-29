@@ -2,13 +2,21 @@
 using Framework.Core.Entities;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Framework.Entities.Concrete
 {
     [Table("Gayrimenkul")]
     public class Gayrimenkul : IEntity
     {
+        public Gayrimenkul()
+        {
+            this.KiraBeyanlari = new HashSet<Kira_Beyan>();
+        }
+
         [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         public Guid Guid { get; set; }
@@ -81,5 +89,8 @@ namespace Framework.Entities.Concrete
         public DateTime? GuncellenmeTarihi { get; set; }
 
         public bool? AktifMi { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<Kira_Beyan> KiraBeyanlari { get; set; }
     }
 }

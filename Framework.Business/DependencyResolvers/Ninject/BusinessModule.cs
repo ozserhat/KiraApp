@@ -91,7 +91,16 @@ namespace Framework.Business.DependencyResolvers.Ninject
 
             Bind<IMahalleDal>().To<EfMahalleDal>().InTransientScope();
             Bind<IMahalleService>().To<MahalleManager>().InTransientScope();
-            
+
+            Bind<IBeyanDal>().To<EfBeyanDal>().InTransientScope();
+            Bind<IBeyanService>().To<BeyanManager>().InTransientScope();
+
+            Bind<IBeyanDosya_TurDal>().To<EfBeyanDosya_TurDal>().InTransientScope();
+            Bind<IBeyanDosya_TurService>().To<BeyanDosya_TurManager>().InTransientScope();
+
+            Bind<IBeyan_DosyaDal>().To<EfBeyan_DosyaDal>().InTransientScope();
+            Bind<IBeyan_DosyaService>().To<Beyan_DosyaManager>().InTransientScope();
+
             Bind(typeof(IQueryableRepository<>)).To(typeof(EfQueryableRepository<>));
             Bind<DbContext>().To<DtContext>();
 

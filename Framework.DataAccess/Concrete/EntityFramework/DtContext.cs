@@ -43,8 +43,9 @@ namespace Framework.DataAccess.Concrete.EntityFramework
         public DbSet<Mahalle> Mahalleler { get; set; }
         public DbSet<Kiraci> Kiracilar { get; set; }
         public DbSet<BeyanDosya_Tur> BeyanDosya_Turleri { get; set; }
-        public DbSet<Beyan_Dosya> Beyan_Dosyalari { get; set; }
         public DbSet<Beyan> Beyanlar { get; set; }
+        public DbSet<Beyan_Dosya> Beyan_Dosyalari { get; set; }
+        public DbSet<Kira_Beyan> Kira_Beyanlari { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -74,6 +75,22 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             modelBuilder.Entity<User_Permission>()
             .HasKey(x => new { x.User_Id, x.ControllerAction_Id });
 
+            //  modelBuilder.Entity<Kiraci>()
+            //  .HasRequired(c => c.KiraBeyanlari)
+            //  .WithMany()
+            //  .WillCascadeOnDelete(false);
+
+            //  modelBuilder.Entity<Gayrimenkul>()
+            //  .HasRequired(c => c.KiraBeyanlari)
+            //  .WithMany()
+            //  .WillCascadeOnDelete(false);
+            //  modelBuilder.Entity<Kira_Beyan>()
+            //.HasKey(x => new { x.Kiraci_Id, x.Gayrimenkul_Id });
+            modelBuilder.Entity<Kira_Beyan>().HasRequired(p => p.Kiracilar)
+                                       .WithMany(p => p.KiraBeyanlari)
+                                       .HasForeignKey(p => p.Kiraci_Id)
+                                       .WillCascadeOnDelete(false);
+          
             //modelBuilder.Entity<Duyuru_Bildirim>()
             //.HasKey(x => new { x.Kullanici_Id, x.Duyuru_Id });
         }

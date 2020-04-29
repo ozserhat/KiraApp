@@ -130,6 +130,9 @@
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IBeyanDosya_TurService.cs" />
+    <Compile Include="Abstract\IBeyanService.cs" />
+    <Compile Include="Abstract\IBeyan_DosyaService.cs" />
     <Compile Include="Abstract\IDuyuruService.cs" />
     <Compile Include="Abstract\IDuyuru_BildirimService.cs" />
     <Compile Include="Abstract\IDuyuru_TurService.cs" />
@@ -153,6 +156,9 @@
     <Compile Include="Abstract\IUserPermissionsService.cs" />
     <Compile Include="Abstract\IUserRoleService.cs" />
     <Compile Include="Abstract\IUserService.cs" />
+    <Compile Include="Concrete\Managers\BeyanDosya_TurManager.cs" />
+    <Compile Include="Concrete\Managers\BeyanManager.cs" />
+    <Compile Include="Concrete\Managers\Beyan_DosyaManager.cs" />
     <Compile Include="Concrete\Managers\ControllerActionManager.cs" />
     <Compile Include="Concrete\Managers\DenemeManager.cs" />
     <Compile Include="Concrete\Managers\DuyuruManager.cs" />
