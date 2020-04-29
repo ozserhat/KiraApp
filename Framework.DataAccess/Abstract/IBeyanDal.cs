@@ -4,7 +4,7 @@ using Framework.Core.DataAccess;
 using Framework.Entities.Concrete;
 namespace Framework.DataAccess.Abstract
 {
-   public interface IBeyanDal : IEntityRepository<Beyan>
+    public interface IBeyanDal : IEntityRepository<Beyan>
     {
         IEnumerable<Beyan> GetirListe();
         Beyan GetById(int id);

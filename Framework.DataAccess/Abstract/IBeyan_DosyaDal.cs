@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Framework.DataAccess.Abstract
 {
-   public interface IBeyan_DosyaDal: IEntityRepository<Beyan_Dosya>
+    public interface IBeyan_DosyaDal : IEntityRepository<Beyan_Dosya>
     {
         IEnumerable<Beyan_Dosya> GetirListe();
         Beyan_Dosya GetById(int id);

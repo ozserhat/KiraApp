@@ -8,41 +8,41 @@ namespace Framework.Business.Concrete.Managers
 {
     public class KiraciTurManager : IKiraciTurService
     {
-        private IKiraciTurDal _KiraciTurDal;
+        private IKiraciTurDal _kiraciTurDal;
 
-        public KiraciTurManager(IKiraciTurDal KiraciTurDal)
+        public KiraciTurManager(IKiraciTurDal kiraciTurDal)
         {
-            _KiraciTurDal = KiraciTurDal;
+            _kiraciTurDal = kiraciTurDal;
         }
 
         public KiraciTur Ekle(KiraciTur tur)
         {
-            return _KiraciTurDal.Add(tur);
+            return _kiraciTurDal.Add(tur);
         }
 
         public KiraciTur Getir(int id)
         {
-            return _KiraciTurDal.GetById(id);
+            return _kiraciTurDal.GetById(id);
         }
 
         public KiraciTur GetirGuid(Guid guid)
         {
-            return _KiraciTurDal.GetByGuid(guid);
+            return _kiraciTurDal.GetByGuid(guid);
         }
 
         public IEnumerable<KiraciTur> GetirListe()
         {
-            return _KiraciTurDal.GetList();
+            return _kiraciTurDal.GetList();
         }
 
         public KiraciTur Guncelle(KiraciTur tur)
         {
-            return _KiraciTurDal.Update(tur);
+            return _kiraciTurDal.Update(tur);
         }
 
         public bool Sil(int id)
         {
-            return _KiraciTurDal.Delete(id);
+            return _kiraciTurDal.Delete(id);
         }
     }
 }

@@ -10,13 +10,13 @@ using System.Data.Entity;
 
 namespace Framework.DataAccess.Concrete.EntityFramework
 {
-   public class EfBeyan_DosyaDal : EfEntityRepositoryBase<Beyan_Dosya, DtContext>, IBeyan_DosyaDal
+    public class EfBeyan_DosyaDal : EfEntityRepositoryBase<Beyan_Dosya, DtContext>, IBeyan_DosyaDal
     {
         public Beyan_Dosya GetById(int id)
         {
             using (DtContext context = new DtContext())
             {
-                return context.Beyan_Dosyalar.Include(gt => gt.BeyanDosyaTurleri).Where(gta => gta.Id == id).FirstOrDefault();
+                return context.Beyan_Dosyalari.Include(gt => gt.BeyanDosyaTurleri).Where(gta => gta.Id == id).FirstOrDefault();
             }
         }
 
@@ -24,7 +24,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
         {
             using (DtContext context = new DtContext())
             {
-                return context.Beyan_Dosyalar.Include(gt => gt.BeyanDosyaTurleri).Where(gta => gta.Guid == guid).FirstOrDefault();
+                return context.Beyan_Dosyalari.Include(gt => gt.BeyanDosyaTurleri).Where(gta => gta.Guid == guid).FirstOrDefault();
             }
         }
 
@@ -34,11 +34,11 @@ namespace Framework.DataAccess.Concrete.EntityFramework
 
             using (var context = new DtContext())
             {
-                var tur = context.Beyan_Dosyalar.FirstOrDefault(i => i.Id == id);
+                var tur = context.Beyan_Dosyalari.FirstOrDefault(i => i.Id == id);
 
                 if (tur != null)
                 {
-                    context.Beyan_Dosyalar.Remove(tur);
+                    context.Beyan_Dosyalari.Remove(tur);
                     context.SaveChanges();
                     sonuc = true;
                 }
@@ -51,7 +51,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
         {
             using (DtContext context = new DtContext())
             {
-                return context.Beyan_Dosyalar.Include(gt => gt.BeyanDosyaTurleri).ToList();
+                return context.Beyan_Dosyalari.Include(gt => gt.BeyanDosyaTurleri).ToList();
             }
         }
     }

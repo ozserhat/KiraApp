@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace Framework.Business.Abstract
 {
-   public interface IBeyanDosya_TurService
+    public interface IBeyanDosya_TurService
     {
         IEnumerable<BeyanDosya_Tur> GetirListe();
+
         BeyanDosya_Tur Getir(int id);
 
         BeyanDosya_Tur GetirGuid(Guid guid);

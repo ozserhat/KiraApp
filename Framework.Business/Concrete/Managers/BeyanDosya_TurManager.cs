@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Framework.Business.Concrete.Managers
 {
-   public class BeyanDosya_TurManager : IBeyanDosya_TurService
+    public class BeyanDosya_TurManager : IBeyanDosya_TurService
     {
         private IBeyanDosya_TurDal _beyanDosyaTurDal;
 

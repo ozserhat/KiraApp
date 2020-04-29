@@ -1,15 +1,12 @@
-﻿using Framework.Business.Abstract;
+﻿using System;
+using Framework.Business.Abstract;
 using Framework.DataAccess.Abstract;
 using Framework.Entities.Concrete;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Framework.Business.Concrete.Managers
 {
-    class KiraciManager : IKiraciService
+    public class KiraciManager : IKiraciService
     {
         private IKiraciDal _kiraciDal;
 
@@ -18,9 +15,9 @@ namespace Framework.Business.Concrete.Managers
             _kiraciDal = kiraciDal;
         }
 
-        public Kiraci Ekle(Kiraci tur)
+        public Kiraci Ekle(Kiraci kiraci)
         {
-            return _kiraciDal.Add(tur);
+            return _kiraciDal.Add(kiraci);
         }
 
         public Kiraci Getir(int id)
@@ -35,12 +32,37 @@ namespace Framework.Business.Concrete.Managers
 
         public IEnumerable<Kiraci> GetirListe()
         {
-            return _kiraciDal.GetirListe();
+            return _kiraciDal.GetList();
         }
 
-        public Kiraci Guncelle(Kiraci tur)
+        public Kiraci GetirMernisNo(int MernisNo)
         {
-            return _kiraciDal.Update(tur);
+            return _kiraciDal.Get(a=>a.MernisNo==MernisNo);
+        }
+
+        public Kiraci GetirSicilNo(int SicilNo)
+        {
+            return _kiraciDal.Get(a => a.SicilNo == SicilNo);
+        }
+
+        public Kiraci GetirTcNo(int TcKimlikNo)
+        {
+            return _kiraciDal.Get(a => a.TcKimlikNo == TcKimlikNo);
+        }
+
+        public IEnumerable<Kiraci> GetirTurId(int TurId)
+        {
+            return _kiraciDal.GetList(a => a.KiraciTur_Id == TurId);
+        }
+
+        public Kiraci GetirVergiNo(int VergiNo)
+        {
+            return _kiraciDal.Get(a => a.VergiNo == VergiNo);
+        }
+
+        public Kiraci Guncelle(Kiraci kiraci)
+        {
+            return _kiraciDal.Update(kiraci);
         }
 
         public bool Sil(int id)

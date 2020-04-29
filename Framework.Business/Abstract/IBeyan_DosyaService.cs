@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Framework.Business.Abstract
 {
-   public interface IBeyan_DosyaService
+    public interface IBeyan_DosyaService
     {
         IEnumerable<Beyan_Dosya> GetirListe();
         Beyan_Dosya Getir(int id);

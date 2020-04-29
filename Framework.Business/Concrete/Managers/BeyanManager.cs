@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Framework.Business.Concrete.Managers
 {
-   public class BeyanManager : IBeyanService
+    public class BeyanManager : IBeyanService
     {
         private IBeyanDal _beyanDal;
 
