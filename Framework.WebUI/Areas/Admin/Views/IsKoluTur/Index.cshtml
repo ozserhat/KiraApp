@@ -1,11 +1,11 @@
-﻿@model Framework.WebUI.Models.ViewModels.GayrimenkulVM
+﻿@model Framework.WebUI.Models.ViewModels.IsKoluTurVM
 @using PagedList;
 @using PagedList.Mvc;
 
 @{
     int sonSayfa = 0;
     ViewBag.Title = "Index";
-    Layout = "~/Areas/Emlak/Views/Shared/_LayoutEmlak.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 
@@ -36,10 +36,10 @@
                     <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
                         <header>
                             <span class="widget-icon"> <i class="fa fa-list"></i> </span>
-                            <h2>Gayrimenkul Listesi - <b>Toplam Gayrimenkul Adedi : @Model.TotalRecordCount</b></h2>
+                            <h2>İş Kolu Tür Listesi - <b>Toplam Tür Adedi : @Model.TotalRecordCount</b></h2>
                             <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
                                 <p>
-                                    @Html.AuthActionLink(" Gayrimenkul Ekle", "Ekle", "Gayrimenkul", "btn btn-primary",
+                                    @Html.AuthActionLink(" Tür Ekle", "Ekle", "IsKoluTur", "btn btn-primary", 
                                    "glyphicon glyphicon-plus", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                                 </p>
                             </div>
@@ -54,52 +54,43 @@
                                                     <tr role="row">
                                                         <th style="width: 20px;">No</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Tür Adı</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Gayrimenkul No</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Adı</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1">İl</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1">İlçe</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Mahalle</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 250px;">Durum</th>
                                                         <th class="sorting_disabled text-center" rowspan="1" colspan="1" style="text-align: right;  padding-right: 30px; width: 100px;">İşlem</th>
                                                     </tr>
                                                 </thead>
-                                                @if (Model.Gayrimenkuller != null && Model.Gayrimenkuller.Count > 0)
+                                                @if (Model.IsKoluTur != null && Model.IsKoluTur.Count > 0)
                                                 {
                                                     <tbody>
 
                                                         @{int i = ((Model.PageNumber - 1) * Model.PageSize) + 1;}
 
-                                                        @foreach (var item in Model.Gayrimenkuller)
+                                                        @foreach (var item in Model.IsKoluTur)
                                                         {
-                                                        <tr role="row" class="odd">
-                                                            <td>@(i++)</td>
-                                                            <td>@Html.DisplayFor(model => item.GayrimenkulTur.Ad)</td>
-                                                            <td>@Html.DisplayFor(model => item.GayrimenkulNo)</td>
-                                                            <td>@Html.DisplayFor(model => item.Ad)</td>
-                                                            <td>@Html.DisplayFor(model => item.Mahalleler.Ilceler.Iller.Ad)</td>
-                                                            <td>@Html.DisplayFor(model => item.Mahalleler.Ilceler.Ad)</td>
-                                                            <td>@Html.DisplayFor(model => item.Mahalleler.Ad)</td>
-                                                            <td>
-                                                                @if (item.AktifMi.HasValue && item.AktifMi.Value)
-                                                                {
-                                                                    <b class="label aktif-buton">Aktif</b>
-                                                                }
-                                                                else
-                                                                {
-                                                                    <b class="label pasif-buton">Pasif</b>
-                                                                }
-                                                            </td>
-                                                            <td class="text-center">
-                                                                @Html.AuthAction(" ", "Duzenle", "Gayrimenkul", new { item.Guid },
-                                                                        new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
-                                                                        Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                                                            <tr role="row" class="odd">
+                                                                <td>@(i++)</td>
+                                                                <td>@Html.DisplayFor(model => item.Ad)</td>
 
-                                                                @Html.AuthAction(" ", "Sil", "Gayrimenkul", new { item.Id },
-                                                                                new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = item.Ad, @data_id = item.Id },
-                                                                                Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                                                                <td>
+                                                                    @if (item.AktifMi.HasValue && item.AktifMi.Value)
+                                                                    {
+                                                                        <b class="label aktif-buton">Aktif</b>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <b class="label pasif-buton">Pasif</b>
+                                                                    }
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    @Html.AuthAction(" ", "Duzenle", "IsKoluTur", new { item.Guid },
+                                                                            new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
+                                                                            Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
-                                                            </td>
-                                                        </tr>
+                                                                    @Html.AuthAction(" ", "Sil", "IsKoluTur", new { item.Id },
+                                                                                    new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = item.Ad, @data_id = item.Id },
+                                                                                    Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+
+                                                                </td>
+                                                            </tr>
                                                         }
                                                     </tbody>
                                                 }
@@ -121,7 +112,7 @@
 
     </div>
 
-    using (Html.BeginForm("Index", "Gayrimenkul", new { page = 1 }, FormMethod.Post, new { @id = "sorgulamaKriterleri" }))
+    using (Html.BeginForm("Index", "Roles", new { page = 1 }, FormMethod.Post, new { @id = "sorgulamaKriterleri" }))
     {
         <input id="page" name="page" type="hidden" value="">
     }
@@ -130,8 +121,8 @@
 
 @section pagespecific {
     @Scripts.Render("~/bundles/jqueryval")
-     <link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
-    <script src="~/Content/SweetAlert/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.1.0/sweetalert2.css" />
+    <script src="https://cdn.jsdelivr.net/sweetalert2/6.1.0/sweetalert2.min.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -156,7 +147,7 @@
 
     </script>
 
-    <!--Gayrimenkul Silme İşlemi -->
+    <!--Gayrimenkul Tur Silme İşlemi -->
     <script type="text/javascript">
         var dt;
 
@@ -170,8 +161,8 @@
 
         $(".delete-row").click(function (e) {
             e.preventDefault();
-            var id = $(this).attr("data-id");
-            var name = $(this).attr("data-name");
+            var id = $(this).attr("data_id");
+            var name = $(this).attr("data_name");
             var closestTR = $(this).closest("tr");
             var vl = deletealert(id, name, closestTR);
         });
@@ -185,7 +176,7 @@
         function deletealert(Id, name, closestTR) {
             swal({
                 title: "Uyarı",
-                text: name + " Adlı Gayrimenkulu Silmek İstediğinizden Emin misiniz?",
+                text: name + " Adlı Türü Silmek İstediğinizden Emin misiniz?",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
@@ -194,7 +185,7 @@
             }).then(function (isConfirm) {
                 if (isConfirm) {
                     $.ajax({
-                        url: "/Gayrimenkul/Sil/" + Id,
+                        url: "/IsKoluTur/Sil/" + Id,
                         type: 'POST',
                         success: function (result) {
                             if (result.success) {
@@ -213,3 +204,5 @@
     </script>
 
 }
+
+

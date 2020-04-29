@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:tns="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" name="EbysMisServicesWs" targetNamespace="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="https://tahsilat.ankara.bel.tr:443/MISServices/EbysMisServicesWs?xsd=1" namespace="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/" />
+    </xsd:schema>
+  </types>
+  <message name="personelInformationByRegistryNumber">
+    <part name="parameters" element="tns:personelInformationByRegistryNumber" />
+  </message>
+  <message name="personelInformationByRegistryNumberResponse">
+    <part name="parameters" element="tns:personelInformationByRegistryNumberResponse" />
+  </message>
+  <message name="kisiBilgileri">
+    <part name="parameters" element="tns:kisiBilgileri" />
+  </message>
+  <message name="kisiBilgileriResponse">
+    <part name="parameters" element="tns:kisiBilgileriResponse" />
+  </message>
+  <message name="ilIlceSorgula">
+    <part name="parameters" element="tns:ilIlceSorgula" />
+  </message>
+  <message name="ilIlceSorgulaResponse">
+    <part name="parameters" element="tns:ilIlceSorgulaResponse" />
+  </message>
+  <message name="ruhsatAktarimBilgileri">
+    <part name="parameters" element="tns:ruhsatAktarimBilgileri" />
+  </message>
+  <message name="ruhsatAktarimBilgileriResponse">
+    <part name="parameters" element="tns:ruhsatAktarimBilgileriResponse" />
+  </message>
+  <message name="kisiDurumSorgulamaSV">
+    <part name="parameters" element="tns:kisiDurumSorgulamaSV" />
+  </message>
+  <message name="kisiDurumSorgulamaSVResponse">
+    <part name="parameters" element="tns:kisiDurumSorgulamaSVResponse" />
+  </message>
+  <message name="sokakMahalleSorgula">
+    <part name="parameters" element="tns:sokakMahalleSorgula" />
+  </message>
+  <message name="sokakMahalleSorgulaResponse">
+    <part name="parameters" element="tns:sokakMahalleSorgulaResponse" />
+  </message>
+  <message name="updateSicil">
+    <part name="parameters" element="tns:updateSicil" />
+  </message>
+  <message name="updateSicilResponse">
+    <part name="parameters" element="tns:updateSicilResponse" />
+  </message>
+  <message name="kisiBilgileriSicil">
+    <part name="parameters" element="tns:kisiBilgileriSicil" />
+  </message>
+  <message name="kisiBilgileriSicilResponse">
+    <part name="parameters" element="tns:kisiBilgileriSicilResponse" />
+  </message>
+  <message name="taxRecipeByTaxRecipeNo">
+    <part name="parameters" element="tns:taxRecipeByTaxRecipeNo" />
+  </message>
+  <message name="taxRecipeByTaxRecipeNoResponse">
+    <part name="parameters" element="tns:taxRecipeByTaxRecipeNoResponse" />
+  </message>
+  <message name="taxRecipeByContainingName">
+    <part name="parameters" element="tns:taxRecipeByContainingName" />
+  </message>
+  <message name="taxRecipeByContainingNameResponse">
+    <part name="parameters" element="tns:taxRecipeByContainingNameResponse" />
+  </message>
+  <message name="kisiBilgileriContainingName">
+    <part name="parameters" element="tns:kisiBilgileriContainingName" />
+  </message>
+  <message name="kisiBilgileriContainingNameResponse">
+    <part name="parameters" element="tns:kisiBilgileriContainingNameResponse" />
+  </message>
+  <message name="kisiBilgileriWithContainGivenValuesWithType">
+    <part name="parameters" element="tns:kisiBilgileriWithContainGivenValuesWithType" />
+  </message>
+  <message name="kisiBilgileriWithContainGivenValuesWithTypeResponse">
+    <part name="parameters" element="tns:kisiBilgileriWithContainGivenValuesWithTypeResponse" />
+  </message>
+  <message name="kisiBorclari">
+    <part name="parameters" element="tns:kisiBorclari" />
+  </message>
+  <message name="kisiBorclariResponse">
+    <part name="parameters" element="tns:kisiBorclariResponse" />
+  </message>
+  <message name="tahakkukBilgi">
+    <part name="parameters" element="tns:tahakkukBilgi" />
+  </message>
+  <message name="tahakkukBilgiResponse">
+    <part name="parameters" element="tns:tahakkukBilgiResponse" />
+  </message>
+  <message name="tahsilatBilgiList">
+    <part name="parameters" element="tns:tahsilatBilgiList" />
+  </message>
+  <message name="tahsilatBilgiListResponse">
+    <part name="parameters" element="tns:tahsilatBilgiListResponse" />
+  </message>
+  <message name="tahakkukList">
+    <part name="parameters" element="tns:tahakkukList" />
+  </message>
+  <message name="tahakkukListResponse">
+    <part name="parameters" element="tns:tahakkukListResponse" />
+  </message>
+  <message name="grouptahakkukList">
+    <part name="parameters" element="tns:grouptahakkukList" />
+  </message>
+  <message name="grouptahakkukListResponse">
+    <part name="parameters" element="tns:grouptahakkukListResponse" />
+  </message>
+  <message name="sicilKayit">
+    <part name="parameters" element="tns:sicilKayit" />
+  </message>
+  <message name="sicilKayitResponse">
+    <part name="parameters" element="tns:sicilKayitResponse" />
+  </message>
+  <message name="kisiBilgileriWithContainGivenValues">
+    <part name="parameters" element="tns:kisiBilgileriWithContainGivenValues" />
+  </message>
+  <message name="kisiBilgileriWithContainGivenValuesResponse">
+    <part name="parameters" element="tns:kisiBilgileriWithContainGivenValuesResponse" />
+  </message>
+  <message name="tahakkukListForVariation">
+    <part name="parameters" element="tns:tahakkukListForVariation" />
+  </message>
+  <message name="tahakkukListForVariationResponse">
+    <part name="parameters" element="tns:tahakkukListForVariationResponse" />
+  </message>
+  <message name="kiraBeyanListesi">
+    <part name="parameters" element="tns:kiraBeyanListesi" />
+  </message>
+  <message name="kiraBeyanListesiResponse">
+    <part name="parameters" element="tns:kiraBeyanListesiResponse" />
+  </message>
+  <message name="kiraIslemUpdate">
+    <part name="parameters" element="tns:kiraIslemUpdate" />
+  </message>
+  <message name="kiraIslemUpdateResponse">
+    <part name="parameters" element="tns:kiraIslemUpdateResponse" />
+  </message>
+  <message name="kisiBilgileriFromPersonel">
+    <part name="parameters" element="tns:kisiBilgileriFromPersonel" />
+  </message>
+  <message name="kisiBilgileriFromPersonelResponse">
+    <part name="parameters" element="tns:kisiBilgileriFromPersonelResponse" />
+  </message>
+  <message name="kisiBilgileriFromPersonelWithTCKN">
+    <part name="parameters" element="tns:kisiBilgileriFromPersonelWithTCKN" />
+  </message>
+  <message name="kisiBilgileriFromPersonelWithTCKNResponse">
+    <part name="parameters" element="tns:kisiBilgileriFromPersonelWithTCKNResponse" />
+  </message>
+  <message name="cokluKisiBilgileri">
+    <part name="parameters" element="tns:cokluKisiBilgileri" />
+  </message>
+  <message name="cokluKisiBilgileriResponse">
+    <part name="parameters" element="tns:cokluKisiBilgileriResponse" />
+  </message>
+  <message name="tahsilatBilgi">
+    <part name="parameters" element="tns:tahsilatBilgi" />
+  </message>
+  <message name="tahsilatBilgiResponse">
+    <part name="parameters" element="tns:tahsilatBilgiResponse" />
+  </message>
+  <portType name="EbysMisServicesWs">
+    <operation name="personelInformationByRegistryNumber">
+      <input wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/personelInformationByRegistryNumberRequest" message="tns:personelInformationByRegistryNumber" />
+      <output wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/personelInformationByRegistryNumberResponse" message="tns:personelInformationByRegistryNumberResponse" />
+    </operation>
+    <operation name="kisiBilgileri">
+      <input wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/kisiBilgileriRequest" message="tns:kisiBilgileri" />
+      <output wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/kisiBilgileriResponse" message="tns:kisiBilgileriResponse" />
+    </operation>
+    <operation name="ilIlceSorgula">
+      <input wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/ilIlceSorgulaRequest" message="tns:ilIlceSorgula" />
+      <output wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/ilIlceSorgulaResponse" message="tns:ilIlceSorgulaResponse" />
+    </operation>
+    <operation name="ruhsatAktarimBilgileri">
+      <input wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/ruhsatAktarimBilgileriRequest" message="tns:ruhsatAktarimBilgileri" />
+      <output wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/ruhsatAktarimBilgileriResponse" message="tns:ruhsatAktarimBilgileriResponse" />
+    </operation>
+    <operation name="kisiDurumSorgulamaSV">
+      <input wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/kisiDurumSorgulamaSVRequest" message="tns:kisiDurumSorgulamaSV" />
+      <output wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/kisiDurumSorgulamaSVResponse" message="tns:kisiDurumSorgulamaSVResponse" />
+    </operation>
+    <operation name="sokakMahalleSorgula">
+      <input wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/sokakMahalleSorgulaRequest" message="tns:sokakMahalleSorgula" />
+      <output wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/sokakMahalleSorgulaResponse" message="tns:sokakMahalleSorgulaResponse" />
+    </operation>
+    <operation name="updateSicil">
+      <input wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/updateSicilRequest" message="tns:updateSicil" />
+      <output wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/updateSicilResponse" message="tns:updateSicilResponse" />
+    </operation>
+    <operation name="kisiBilgileriSicil">
+      <input wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/kisiBilgileriSicilRequest" message="tns:kisiBilgileriSicil" />
+      <output wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/kisiBilgileriSicilResponse" message="tns:kisiBilgileriSicilResponse" />
+    </operation>
+    <operation name="taxRecipeByTaxRecipeNo">
+      <input wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/taxRecipeByTaxRecipeNoRequest" message="tns:taxRecipeByTaxRecipeNo" />
+      <output wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/taxRecipeByTaxRecipeNoResponse" message="tns:taxRecipeByTaxRecipeNoResponse" />
+    </operation>
+    <operation name="taxRecipeByContainingName">
+      <input wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/taxRecipeByContainingNameRequest" message="tns:taxRecipeByContainingName" />
+      <output wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/taxRecipeByContainingNameResponse" message="tns:taxRecipeByContainingNameResponse" />
+    </operation>
+    <operation name="kisiBilgileriContainingName">
+      <input wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/kisiBilgileriContainingNameRequest" message="tns:kisiBilgileriContainingName" />
+      <output wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/kisiBilgileriContainingNameResponse" message="tns:kisiBilgileriContainingNameResponse" />
+    </operation>
+    <operation name="kisiBilgileriWithContainGivenValuesWithType">
+      <input wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/kisiBilgileriWithContainGivenValuesWithTypeRequest" message="tns:kisiBilgileriWithContainGivenValuesWithType" />
+      <output wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/kisiBilgileriWithContainGivenValuesWithTypeResponse" message="tns:kisiBilgileriWithContainGivenValuesWithTypeResponse" />
+    </operation>
+    <operation name="kisiBorclari">
+      <input wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/kisiBorclariRequest" message="tns:kisiBorclari" />
+      <output wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/kisiBorclariResponse" message="tns:kisiBorclariResponse" />
+    </operation>
+    <operation name="tahakkukBilgi">
+      <input wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/tahakkukBilgiRequest" message="tns:tahakkukBilgi" />
+      <output wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/tahakkukBilgiResponse" message="tns:tahakkukBilgiResponse" />
+    </operation>
+    <operation name="tahsilatBilgiList">
+      <input wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/tahsilatBilgiListRequest" message="tns:tahsilatBilgiList" />
+      <output wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/tahsilatBilgiListResponse" message="tns:tahsilatBilgiListResponse" />
+    </operation>
+    <operation name="tahakkukList">
+      <input wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/tahakkukListRequest" message="tns:tahakkukList" />
+      <output wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/tahakkukListResponse" message="tns:tahakkukListResponse" />
+    </operation>
+    <operation name="grouptahakkukList">
+      <input wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/grouptahakkukListRequest" message="tns:grouptahakkukList" />
+      <output wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/grouptahakkukListResponse" message="tns:grouptahakkukListResponse" />
+    </operation>
+    <operation name="sicilKayit">
+      <input wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/sicilKayitRequest" message="tns:sicilKayit" />
+      <output wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/sicilKayitResponse" message="tns:sicilKayitResponse" />
+    </operation>
+    <operation name="kisiBilgileriWithContainGivenValues">
+      <input wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/kisiBilgileriWithContainGivenValuesRequest" message="tns:kisiBilgileriWithContainGivenValues" />
+      <output wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/kisiBilgileriWithContainGivenValuesResponse" message="tns:kisiBilgileriWithContainGivenValuesResponse" />
+    </operation>
+    <operation name="tahakkukListForVariation">
+      <input wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/tahakkukListForVariationRequest" message="tns:tahakkukListForVariation" />
+      <output wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/tahakkukListForVariationResponse" message="tns:tahakkukListForVariationResponse" />
+    </operation>
+    <operation name="kiraBeyanListesi">
+      <input wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/kiraBeyanListesiRequest" message="tns:kiraBeyanListesi" />
+      <output wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/kiraBeyanListesiResponse" message="tns:kiraBeyanListesiResponse" />
+    </operation>
+    <operation name="kiraIslemUpdate">
+      <input wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/kiraIslemUpdateRequest" message="tns:kiraIslemUpdate" />
+      <output wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/kiraIslemUpdateResponse" message="tns:kiraIslemUpdateResponse" />
+    </operation>
+    <operation name="kisiBilgileriFromPersonel">
+      <input wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/kisiBilgileriFromPersonelRequest" message="tns:kisiBilgileriFromPersonel" />
+      <output wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/kisiBilgileriFromPersonelResponse" message="tns:kisiBilgileriFromPersonelResponse" />
+    </operation>
+    <operation name="kisiBilgileriFromPersonelWithTCKN">
+      <input wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/kisiBilgileriFromPersonelWithTCKNRequest" message="tns:kisiBilgileriFromPersonelWithTCKN" />
+      <output wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/kisiBilgileriFromPersonelWithTCKNResponse" message="tns:kisiBilgileriFromPersonelWithTCKNResponse" />
+    </operation>
+    <operation name="cokluKisiBilgileri">
+      <input wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/cokluKisiBilgileriRequest" message="tns:cokluKisiBilgileri" />
+      <output wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/cokluKisiBilgileriResponse" message="tns:cokluKisiBilgileriResponse" />
+    </operation>
+    <operation name="tahsilatBilgi">
+      <input wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/tahsilatBilgiRequest" message="tns:tahsilatBilgi" />
+      <output wsam:Action="http://ebysIntegration.esenlerbld.misservices.indbilisim.com/EbysMisServicesWs/tahsilatBilgiResponse" message="tns:tahsilatBilgiResponse" />
+    </operation>
+  </portType>
+  <binding name="EbysMisServicesWsPortBinding" type="tns:EbysMisServicesWs">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="personelInformationByRegistryNumber">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="kisiBilgileri">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="ilIlceSorgula">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="ruhsatAktarimBilgileri">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="kisiDurumSorgulamaSV">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="sokakMahalleSorgula">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="updateSicil">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="kisiBilgileriSicil">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="taxRecipeByTaxRecipeNo">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="taxRecipeByContainingName">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="kisiBilgileriContainingName">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="kisiBilgileriWithContainGivenValuesWithType">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="kisiBorclari">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="tahakkukBilgi">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="tahsilatBilgiList">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="tahakkukList">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="grouptahakkukList">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="sicilKayit">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="kisiBilgileriWithContainGivenValues">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="tahakkukListForVariation">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="kiraBeyanListesi">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="kiraIslemUpdate">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="kisiBilgileriFromPersonel">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="kisiBilgileriFromPersonelWithTCKN">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="cokluKisiBilgileri">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="tahsilatBilgi">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="EbysMisServicesWs">
+    <port name="EbysMisServicesWsPort" binding="tns:EbysMisServicesWsPortBinding">
+      <soap:address location="https://tahsilat.ankara.bel.tr:443/MISServices/EbysMisServicesWs" />
+    </port>
+  </service>
+</definitions>

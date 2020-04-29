@@ -1,0 +1,217 @@
+﻿@model Framework.WebUI.Models.ViewModels.DuyuruMesajBildirimiVM
+    @{
+        ViewBag.Title = "MesajBildirimi";
+        Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    }
+
+    @if (!Model.HideContent)
+    {
+        <div id="content">
+            <section id="widget-grid" class="sayfaust_bosluk">
+
+                <div class="row">
+                    <article class="col-sm-12 col-md-12 col-lg-12">
+                        <div class="jarviswidget sorgulama-kriteri" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
+                            <header>
+                                <div style="margin-top: -5px;">
+                                    <p>
+                                        <a href="@Url.Action("Index")" class="btn btn-warning" title="" rel="tooltip" data-placement="bottom" data-original-title="Duyuru Listesine Dön"><span class="glyphicon glyphicon-chevron-left"></span> Duyuru Listesine Dön</a>
+                                    </p>
+                                </div>
+                            </header>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section id="widget-grid" class="">
+                <div class="row">
+                    <article class="col-sm-12 col-md-12 col-lg-12">
+                        <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
+                            <header>
+                                <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+                                <h2>Mesaj Bildirim</h2>
+                            </header>
+                            <div role="contentinfo">
+                                <div class="widget-body">
+                                    <div class="tab-pane fade active in">
+                                        @using (Html.BeginForm("MesajBildirimi", "Duyuru", FormMethod.Post, new { enctype = "multipart/form-data", id = "submitForm" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            <div class="widget-body">
+                                                <fieldset>
+                                                    <div class="row">
+                                                        <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
+                                                            @Html.LabelFor(model => model.KullaniciRolSelectList, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                            <div class="col-md-8">
+                                                                @Html.DropDownList("RoleId", Model.KullaniciRolSelectList, "Seçiniz", new { @class = "select2" })
+                                                                @Html.ValidationMessageFor(model => model.KullaniciRolSelectList, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
+                                                            @Html.LabelFor(model => model.KullaniciSelectList, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                            <div class="col-md-8">
+                                                                @Html.DropDownList("UserId", Model.KullaniciSelectList, "Seçiniz", new { @class = "select2" })
+                                                                @Html.ValidationMessageFor(model => model.KullaniciSelectList, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </fieldset>
+                                            </div>
+                                            <div class="form-actions">
+                                                <div class="row">
+                                                    <div class="col-md-6 col-xs-offset-2" style="padding-right: 30px;">
+                                                        <input id="btnSubmit" type="button" value="Kaydet" class="btn btn-primary">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </div>
+
+    }
+
+    @section pagespecific {
+        @Scripts.Render("~/bundles/jqueryval")
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.1.0/sweetalert2.css" />
+        <script src="https://cdn.jsdelivr.net/sweetalert2/6.1.0/sweetalert2.min.js"></script>
+
+
+
+        <!--Kullanıcı ve Rol Seçme İşlemi -->
+        <script type="text/javascript">
+
+            $("#RolId").click(function (e) {
+                var rolId = $("#RolId").val();
+
+                if (rolId != null && rolId.length > 0)
+                    $("#KullaniciId").prop("disabled", true);
+                else
+                    $("#KullaniciId").prop("disabled", false);
+            });
+
+            $("#KullaniciId").click(function (e) {
+
+                var kullaniciId = $("#KullaniciId").val();
+
+                if (kullaniciId != null && kullaniciId.length > 0)
+                    $("#RolId").prop("disabled", true);
+                else
+                    $("#RolId").prop("disabled", false);
+            });
+
+        </script>
+
+
+
+
+        <!--Duyuru Bildirim İşlemi -->
+        <script type="text/javascript">
+
+        $("#btnSubmit").click(function (e) {
+            e.preventDefault();
+            //var duyuruId = $(this).attr("data-id");
+            //var duyuruAd = $(this).attr("data-name");
+            var name = $("#duyuruAd").val();
+            var rolId = $("#RolId").val();
+            var duyuruId = $("#duyuruId").val();
+            var kullaniciId = $("#KullaniciId").val();
+
+
+            //if (duyuruId != null && duyuruId > 0) {
+            //    document.getElementById("duyuruId").value = duyuruId;
+            //    document.getElementById("duyuruAd").value = duyuruAd;
+            //}
+
+            if (duyuruId > 0 && (rolId != null || kullaniciId.length > 0))
+                {
+
+
+                   if ($("#submitForm").valid())
+                   {
+
+
+
+
+                    $.ajax({
+                        url: '@Url.Action("MesajBildirimi", "Duyuru")',
+                        type: 'POST',
+                        data: {
+                            DuyuruId: duyuruId,
+                            RolId: rolId,
+                            KullaniciId: kullaniciId
+                        },
+                        success: function (result) {
+                            if (result.success) {
+
+                                swal('Uyarı!', result.Message, 'success');
+
+                                setTimeout(function () {
+                                    window.location.href = "../Duyuru/MesajBildirimi";
+                                }, 2000);
+                            }
+                            else swal('Uyarı!', name + ' ' + result.Message, 'error');
+                        }
+                    });
+                }
+            }
+
+            });
+
+
+        </script>
+
+
+
+
+
+
+
+
+        <!--Duyuru Ekleme İşlemi -->
+        <script type="text/javascript">
+        $(function () {
+            $('#btnSubmit').on('click', function () {
+                duyuru = new Object();
+                duyuru.DuyuruId = $("#DuyuruId").val();
+                duyuru.RoleId = $("#RoleId").val();
+                duyuru.UserId = $("#UserId").val();
+
+                if($("#submitForm").valid())
+                {
+                   $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("MesajBildirimi", "Duyuru")',
+                    data: { DuyuruId: DuyuruId, RoleId: RoleId, UserId: UserId},
+                    success: function (result) {
+                        if (result != null && result.success) {
+
+                            swal('Uyarı!', result.Message, 'success');
+
+                            setTimeout(function () {
+                                window.location.href = "../Duyuru/Index";
+                            }, 2000);
+                        }
+                        else {
+                            swal('Uyarı!', result.Message, 'warning');
+                        }
+                    },
+                    error: function (xhr) {
+                        swal('Uyarı!', result.Message, 'warning');
+                    }
+                 });
+                }
+            });
+        });
+        </script>
+    }
+
