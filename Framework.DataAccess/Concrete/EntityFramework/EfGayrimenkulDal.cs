@@ -10,7 +10,7 @@ using Framework.Core.DataAccess.EntityFramework;
 
 namespace Framework.DataAccess.Concrete.EntityFramework
 {
-    public class EfGayrimenkulDal:EfEntityRepositoryBase<Gayrimenkul, DtContext>, IGayrimenkulDal
+    public class EfGayrimenkulDal : EfEntityRepositoryBase<Gayrimenkul, DtContext>, IGayrimenkulDal
     {
         public Gayrimenkul GetById(int id)
         {
@@ -51,8 +51,36 @@ namespace Framework.DataAccess.Concrete.EntityFramework
         {
             using (DtContext context = new DtContext())
             {
-                return context.Gayrimenkuller.Include(gt => gt.GayrimenkulTur).ToList();
+                return context.Gayrimenkuller.Include(gt => gt.GayrimenkulTur)
+                                             .Include(a=>a.Mahalleler)
+                                             .Include(a=>a.Mahalleler.Ilceler)
+                                             .Include(a=>a.Mahalleler.Ilceler.Iller)
+                                             .ToList();
             }
         }
+
+        public string GayrimenkulNoUret(int Yil)
+        {
+            try
+            {
+                using (DtContext context = new DtContext())
+                {
+                    var result = context.Gayrimenkuller.Where(x => x.OlusturulmaTarihi.Value.Year == Yil).OrderByDescending(x => x.Id).First().GayrimenkulNo.Split('-').Last();
+                    
+                    int Numara = int.Parse(result);
+                    
+                    Numara++;
+
+                    string Num = Numara.ToString().PadLeft(7, '0');
+
+                    return Num;
+                }
+            }
+            catch (Exception ex)
+            {
+                return "000001";
+            }
+        }
+
     }
 }

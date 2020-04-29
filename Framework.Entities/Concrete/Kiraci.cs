@@ -2,15 +2,15 @@
 using Framework.Core.Entities;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Framework.Entities.Concrete
 {
-    [Table("Gayrimenkul")]
-    public class Gayrimenkul : IEntity
+    [Table("Kiracilar")]
+    public class Kiraci : IEntity
     {
-        public Gayrimenkul()
+        public Kiraci()
         {
             this.KiraBeyanlari = new HashSet<Kira_Beyan>();
         }
@@ -20,65 +20,43 @@ namespace Framework.Entities.Concrete
         public int Id { get; set; }
 
         public Guid Guid { get; set; }
+        
+        public int KiraciTur_Id { get; set; }
 
-        [StringLength(500)]
-        public string GayrimenkulNo { get; set; }
+        [ForeignKey("KiraciTur_Id")]
+        public virtual KiraciTur KiraciTurleri { get; set; }
+        
+        public int SicilNo { get; set; }
 
-        [StringLength(500)]
-        public string DosyaNo { get; set; }
+        public int? VergiNo { get; set; }
+
+        public int? TcKimlikNo { get; set; }
+
+        public int MernisNo { get; set; }
 
         [StringLength(500)]
         public string Ad { get; set; }
+
+        [StringLength(500)]
+        public string Soyad { get; set; }
+
+        [StringLength(500)]
+        public string Tanim { get; set; }
 
         public int Il_Id { get; set; }
 
         public int Ilce_Id { get; set; }
 
         public int Mahalle_Id { get; set; }
+
         [ForeignKey("Mahalle_Id")]
         public virtual Mahalle Mahalleler { get; set; }
 
-        public int? BinaKimlikNo { get; set; }
-
-        public int? NumaratajKimlikNo { get; set; }
-
         [StringLength(500)]
-        public string Ada { get; set; }
-
-        [StringLength(500)]
-        public string Pafta { get; set; }
-
-        [StringLength(500)]
-        public string Parsel { get; set; }
-
-        public int? AdresNo { get; set; }
-
-        [StringLength(500)]
-        public string Cadde { get; set; }
-
-        [StringLength(500)]
-        public string Sokak { get; set; }
-
-        [StringLength(10)]
-        public string DisKapiNo { get; set; }
-
-        [StringLength(10)]
-        public string IcKapiNo { get; set; }
+        public string VergiDairesi { get; set; }
 
         [StringLength(1500)]
         public string AcikAdres { get; set; }
-
-        [StringLength(500)]
-        public string Koordinat { get; set; }
-
-        public int? AracKapasitesi { get; set; }
-
-        public int? Metrekare { get; set; }
-
-        public int GayrimenkulTur_Id { get; set; }
-
-        [ForeignKey("GayrimenkulTur_Id")]
-        public virtual GayrimenkulTur GayrimenkulTur { get; set; }       
 
         public int? OlusturanKullanici_Id { get; set; }
 

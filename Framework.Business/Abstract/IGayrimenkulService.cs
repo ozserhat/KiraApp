@@ -16,5 +16,7 @@ namespace Framework.Business.Abstract
         Gayrimenkul Guncelle(Gayrimenkul tur);
 
         bool Sil(int id);
+
+        string GayrimenkulNoUret(int Yil);
     }
 }

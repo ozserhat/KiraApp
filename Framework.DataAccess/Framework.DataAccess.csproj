@@ -51,6 +51,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IBeyanDal.cs" />
+    <Compile Include="Abstract\IBeyanDosya_TurDal.cs" />
+    <Compile Include="Abstract\IBeyan_DosyaDal.cs" />
     <Compile Include="Abstract\IControllerActionsDal.cs" />
     <Compile Include="Abstract\IDenemeDal.cs" />
     <Compile Include="Abstract\IDuyuruDal.cs" />
@@ -62,6 +65,7 @@
     <Compile Include="Abstract\IGayrimenkulTurDal.cs" />
     <Compile Include="Abstract\IIlceDal.cs" />
     <Compile Include="Abstract\IIlDal.cs" />
+    <Compile Include="Abstract\IKiraciDal.cs" />
     <Compile Include="Abstract\IKira_DurumDal.cs" />
     <Compile Include="Abstract\ILogsDal.cs" />
     <Compile Include="Abstract\IMahalleDal.cs" />
@@ -73,6 +77,9 @@
     <Compile Include="Abstract\IUserPermissionsDal.cs" />
     <Compile Include="Abstract\IUserRolesDal.cs" />
     <Compile Include="Abstract\IKiraciTurDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfBeyanDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfBeyanDosya_TurDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfBeyan_DosyaDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfDuyuruDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfDuyuru_BildirimDal.cs" />
     <Compile Include="Concrete\EntityFramework\DtContext.cs" />
@@ -85,6 +92,7 @@
     <Compile Include="Concrete\EntityFramework\EfGayrimenkulTurDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfIlceDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfIlDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfKiraciDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfKiraciTurDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfKira_DurumDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfLogDal.cs" />

@@ -10,6 +10,7 @@ using Framework.Entities.Concrete;
 using System.Collections.Generic;
 using Framework.WebUI.App_Helpers;
 using Framework.WebUI.Models.ViewModels;
+using Framework.DataAccess.Abstract;
 
 namespace Framework.WebUI.Areas.Emlak.Controllers
 {
@@ -23,14 +24,17 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
         private IMahalleService _mahalleService;
         private IGayrimenkulTurService _turService;
         private IGayrimenkulService _gayrimenkulservice;
-        public GayrimenkulController(IGayrimenkulService gayrimenkulservice, IGayrimenkulTurService turService, 
-            IIlService ilService,IIlceService ilceService, IMahalleService mahalleService)
+        private IGayrimenkulDosya_TurService _dosyaTurService;
+
+        public GayrimenkulController(IGayrimenkulService gayrimenkulservice, IGayrimenkulTurService turService,
+            IIlService ilService, IIlceService ilceService, IMahalleService mahalleService, IGayrimenkulDosya_TurService dosyaTurService)
         {
             _ilService = ilService;
             _ilceService = ilceService;
             _mahalleService = mahalleService;
             _turService = turService;
             _gayrimenkulservice = gayrimenkulservice;
+            _dosyaTurService = dosyaTurService;
         }
         #endregion
         // GET: Emlak/Gayrimenkul
@@ -46,7 +50,7 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
 
             if (gayrimenkul != null)
             {
-                model.Gayrimenkuller= new StaticPagedList<Gayrimenkul>(gayrimenkul, model.PageNumber, model.PageSize, gayrimenkul.Count());
+                model.Gayrimenkuller = new StaticPagedList<Gayrimenkul>(gayrimenkul, model.PageNumber, model.PageSize, gayrimenkul.Count());
                 model.TotalRecordCount = gayrimenkul.Count();
             }
 
@@ -62,22 +66,26 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
 
         public SelectList IlSelectList()
         {
-            var turler = _ilService.GetirListe().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+            var iller = _ilService.GetirListe().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
 
-            return new SelectList(turler, "Id", "Ad");
+            return new SelectList(iller, "Id", "Ad");
         }
 
-        public SelectList IlceSelectList()
+        [HttpPost]
+        public JsonResult IlceSelectList(int ilId)
         {
-            var turler = _ilceService.GetirListe().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+            var ilceler = _ilceService.GetirListe().Where(a => a.Il_Id == ilId).Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
 
-            return new SelectList(turler, "Id", "Ad");
+            return Json(new { Data = ilceler, success = true }, JsonRequestBehavior.AllowGet);
         }
-        public SelectList MahalleSelectList()
-        {
-            var turler = _mahalleService.GetirListe().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
 
-            return new SelectList(turler, "Id", "Ad");
+        [HttpPost]
+
+        public JsonResult MahalleSelectList(int ilceId)
+        {
+            var mahalleler = _mahalleService.GetirListe().Where(a => a.Ilce_Id == ilceId).Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+
+            return Json(new { Data = mahalleler, success = true }, JsonRequestBehavior.AllowGet);
         }
 
         #endregion
@@ -88,10 +96,15 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
         public ActionResult Ekle()
         {
             var model = new GayrimenkulEkleVM();
+            string gayrimenkulNo = "GY-";
+            int yil = DateTime.Now.Year;
+
+            gayrimenkulNo += yil ;
+            gayrimenkulNo += DateTime.Now.Month+"-";
+            model.GayrimenkulNo = gayrimenkulNo + "-"+_gayrimenkulservice.GayrimenkulNoUret(yil);
             model.TurSelectList = TurSelectList();
             model.IlSelectList = IlSelectList();
-            model.IlceSelectList = IlceSelectList();
-            model.MahalleSelectList = MahalleSelectList();
+            model.DosyaTurleri = _dosyaTurService.GetirListe();
             return View(model);
         }
 
@@ -106,26 +119,26 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
                     {
                         Guid = Guid.NewGuid(),
                         Ad = model.GayrimenkulAdi,
-                        GayrimenkulTur_Id= model.GayrimenkulTur_Id,
-                        Il_Id=model.Il_Id,
-                        Ilce_Id=model.Ilce_Id,
-                        Mahalle_Id=model.Mahalle_Id,
-                        BinaKimlikNo=model.BinaKimlikNo,
-                        NumaratajKimlikNo=model.NumaratajKimlikNo,
-                        AdresNo=model.AdresNo,
-                        Cadde=model.Cadde,
-                        Sokak=model.Sokak,
-                        DisKapiNo=model.DisKapiNo,
-                        IcKapiNo=model.IcKapiNo,
-                        AcikAdres=model.AcikAdres,
-                        Koordinat=model.Koordinat,
-                        Ada=model.Ada,
-                        Pafta=model.Pafta,
-                        Parsel=model.Parsel,
-                        GayrimenkulNo =model.GayrimenkulNo,
-                        DosyaNo=model.DosyaNo,
-                        AracKapasitesi=model.AracKapasitesi,
-                        Metrekare=model.Metrekare,
+                        GayrimenkulTur_Id = model.GayrimenkulTur_Id,
+                        Il_Id = model.Il_Id,
+                        Ilce_Id = model.Ilce_Id,
+                        Mahalle_Id = model.Mahalle_Id,
+                        BinaKimlikNo = model.BinaKimlikNo,
+                        NumaratajKimlikNo = model.NumaratajKimlikNo,
+                        AdresNo = model.AdresNo,
+                        Cadde = model.Cadde,
+                        Sokak = model.Sokak,
+                        DisKapiNo = model.DisKapiNo,
+                        IcKapiNo = model.IcKapiNo,
+                        AcikAdres = model.AcikAdres,
+                        Koordinat = model.Koordinat,
+                        Ada = model.Ada,
+                        Pafta = model.Pafta,
+                        Parsel = model.Parsel,
+                        GayrimenkulNo = model.GayrimenkulNo,
+                        DosyaNo = model.DosyaNo,
+                        AracKapasitesi = model.AracKapasitesi,
+                        Metrekare = model.Metrekare,
                         OlusturulmaTarihi = DateTime.Now,
                         OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
                         AktifMi = false

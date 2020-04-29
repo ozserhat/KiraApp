@@ -3,6 +3,7 @@ using PagedList;
 using System.Web.Mvc;
 using Framework.Entities.Concrete;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace Framework.WebUI.Models.ViewModels
 {
@@ -100,6 +101,8 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Mahalleler")]
         public SelectList MahalleSelectList { get; set; }
+
+        public IEnumerable<GayrimenkulDosya_Tur> DosyaTurleri { get; set; }
     }
 
     public class GayrimenkulDuzenleVM : VMBase
