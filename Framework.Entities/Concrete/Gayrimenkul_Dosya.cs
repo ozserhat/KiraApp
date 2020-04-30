@@ -36,9 +36,7 @@ namespace Framework.Entities.Concrete
 
         public bool? AktifMi { get; set; }
 
-
         [StringLength(1500)]
         public string Aciklama { get; set; }
-
     }
 }

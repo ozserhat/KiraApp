@@ -152,6 +152,7 @@
     <Compile Include="Abstract\ILogService.cs" />
     <Compile Include="Abstract\IMahalleService.cs" />
     <Compile Include="Abstract\IRoleService.cs" />
+    <Compile Include="Abstract\ISicilService.cs" />
     <Compile Include="Abstract\ISistemParametreleriService.cs" />
     <Compile Include="Abstract\IOdemePeriyotTurService.cs" />
     <Compile Include="Abstract\ISistemParametre_DetayService.cs" />
@@ -180,6 +181,7 @@
     <Compile Include="Concrete\Managers\LogsManager.cs" />
     <Compile Include="Concrete\Managers\MahalleManager.cs" />
     <Compile Include="Concrete\Managers\RoleManager.cs" />
+    <Compile Include="Concrete\Managers\SicilServiceManager.cs" />
     <Compile Include="Concrete\Managers\SistemParametreleriManager.cs" />
     <Compile Include="Concrete\Managers\OdemePeriyotTurManager.cs" />
     <Compile Include="Concrete\Managers\SistemParametre_DetayManager.cs" />
@@ -216,6 +218,10 @@
     <ProjectReference Include="..\Framework.Entities\Framework.Entities.csproj">
       <Project>{543227f6-bde4-4b0a-81cb-b7a99a39fc06}</Project>
       <Name>Framework.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework.WebServis\Framework.WebServis.csproj">
+      <Project>{1dfa89a2-0322-4114-ae70-5676b79ad789}</Project>
+      <Name>Framework.WebServis</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

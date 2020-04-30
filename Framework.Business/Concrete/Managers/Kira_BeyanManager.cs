@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace Framework.Business.Concrete.Managers
 {
-   public class Kira_BeyanManager : IKira_BeyanService
+
+    public class Kira_BeyanManager : IKira_BeyanService
     {
         private IKira_BeyanDal _Kira_BeyanDal;
 
@@ -45,7 +46,7 @@ namespace Framework.Business.Concrete.Managers
 
         void GetAll()
         {
-           _Kira_BeyanDal.GetList();
+            _Kira_BeyanDal.GetList();
         }
     }
 }

@@ -4,6 +4,7 @@ using System;
 
 namespace Framework.DataAccess.Abstract
 {
+
    public  interface IBeyan_TurDal : IEntityRepository<Beyan_Tur>
     {
         Beyan_Tur GetById(int id);

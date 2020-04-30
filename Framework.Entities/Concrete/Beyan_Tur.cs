@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Framework.Entities.Concrete
 {
     [Table("Beyan_Turleri")]
-  public  class Beyan_Tur: IEntity
+    public class Beyan_Tur : IEntity
     {
         [Key]
         public int Id { get; set; }
