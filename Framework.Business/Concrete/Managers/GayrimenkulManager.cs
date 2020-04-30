@@ -30,6 +30,11 @@ namespace Framework.Business.Concrete.Managers
             return _gayrimenkulDal.GetById(id);
         }
 
+        public Gayrimenkul GetirGayrimenkul(string GayrimenkulNo)
+        {
+            return _gayrimenkulDal.GetirGayrimenkul(GayrimenkulNo);
+        }
+
         public Gayrimenkul GetirGuid(Guid guid)
         {
             return _gayrimenkulDal.GetByGuid(guid);

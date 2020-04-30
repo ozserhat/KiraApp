@@ -28,13 +28,16 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         private IBeyanService _beyanService;
         private IKira_BeyanService _kiraBeyanService;
         private ISicilService _sicilService;
+        public static KiraBeyanEkleVM _beyanVM;
+
         public BeyanController(IGayrimenkulService gayrimenkulservice, IGayrimenkulTurService turService,
             IIlService ilService, IIlceService ilceService,
             IMahalleService mahalleService,
             IGayrimenkulDosya_TurService dosyaTurService,
             IBeyanService beyanService,
             IKira_BeyanService kiraBeyanService,
-            ISicilService sicilService)
+            ISicilService sicilService,
+            KiraBeyanEkleVM beyanVM)
         {
             _ilService = ilService;
             _ilceService = ilceService;
@@ -45,6 +48,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             _beyanService = beyanService;
             _kiraBeyanService = kiraBeyanService;
             _sicilService = sicilService;
+            _beyanVM = beyanVM;
         }
         #endregion
         // GET: Kira/Beyan
@@ -102,8 +106,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
         #region SicilSorgulama
 
-        [HttpPost]
-        public ActionResult GetirSicilBilgisi(string TcVergiNo)
+
+        public void GetirSicilBilgi(string TcVergiNo)
         {
             string tcNo = "";
             string vergiNo = "";
@@ -117,25 +121,79 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
                 var sicilBilgisi = _sicilService.GetirSicilBilgisi(vergiNo, tcNo);
 
-                KiraBeyanEkleVM beyanVM=new KiraBeyanEkleVM();
-                beyanVM.Kiraci = new KiraciEkleVM() { 
-                SicilNo=long.Parse(sicilBilgisi.SicilNo),
-                VergiNo= long.Parse(sicilBilgisi.VergiNo),
-                Ad=sicilBilgisi.Ad,
-                Soyad=sicilBilgisi.Soyad,
-                Tanim=sicilBilgisi.Tanim,
-                IlAdi=sicilBilgisi.Il,
-                IlceAdi=sicilBilgisi.Ilce,
-                MahalleAdi=sicilBilgisi.Mahalle,
-                AcikAdres=sicilBilgisi.AcikAdres,
-                VergiDairesi=sicilBilgisi.VergiDairesi,
+                _beyanVM.Kiraci = new KiraciEkleVM()
+                {
+                    SicilNo = long.Parse(sicilBilgisi.SicilNo),
+                    VergiNo = long.Parse(sicilBilgisi.VergiNo),
+                    Ad = sicilBilgisi.Ad,
+                    Soyad = sicilBilgisi.Soyad,
+                    Tanim = sicilBilgisi.Tanim,
+                    IlAdi = sicilBilgisi.Il,
+                    IlceAdi = sicilBilgisi.Ilce,
+                    MahalleAdi = sicilBilgisi.Mahalle,
+                    AcikAdres = sicilBilgisi.AcikAdres,
+                    VergiDairesi = sicilBilgisi.VergiDairesi,
                 };
-
-                return View("Ekle", beyanVM);
-
             }
 
-            return Json(new { Message = "Sicil Bilgisi Bulunamadı.", success = false }, JsonRequestBehavior.AllowGet);
+        }
+
+        public void GetirGayrimenkulBilgi(string GayrimenkulNo)
+        {
+            if (!string.IsNullOrEmpty(GayrimenkulNo))
+            {
+                var gayrimenkul = _gayrimenkulservice.GetirGayrimenkul(GayrimenkulNo);
+
+                _beyanVM.Gayrimenkul = new Beyan_GayrimenkulEkleVM()
+                {
+                    GayrimenkulNo = gayrimenkul.GayrimenkulNo,
+                    BinaKimlikNo = gayrimenkul.BinaKimlikNo,
+                    NumaratajKimlikNo = gayrimenkul.NumaratajKimlikNo,
+                    AdresNo = gayrimenkul.AdresNo,
+                    DosyaNo = gayrimenkul.DosyaNo,
+                    GayrimenkulAdi = gayrimenkul.Ad,
+                    GayrimenkulTur_Id = gayrimenkul.GayrimenkulTur_Id,
+                    GayrimenkulTur = gayrimenkul.GayrimenkulTur.Ad,
+                    Il = gayrimenkul.Mahalleler.Ilceler.Iller.Ad,
+                    Ilce = gayrimenkul.Mahalleler.Ilceler.Ad,
+                    Mahalle = gayrimenkul.Mahalleler.Ad,
+                    Il_Id = gayrimenkul.Il_Id,
+                    Ilce_Id = gayrimenkul.Ilce_Id,
+                    Mahalle_Id = gayrimenkul.Mahalle_Id,
+                    Sokak = gayrimenkul.Sokak,
+                    IcKapiNo = gayrimenkul.IcKapiNo,
+                    DisKapiNo = gayrimenkul.DisKapiNo,
+                    Koordinat = gayrimenkul.Koordinat,
+                    Ada = gayrimenkul.Ada,
+                    Pafta = gayrimenkul.Pafta,
+                    Parsel = gayrimenkul.Parsel,
+                    AcikAdres = gayrimenkul.AcikAdres,
+                    Metrekare = gayrimenkul.Metrekare,
+                    AracKapasitesi = gayrimenkul.AracKapasitesi
+                };
+            }
+        }
+
+        [HttpPost]
+        public ActionResult GetirSicilBilgisi(string TcVergiNo, string GayrimenkulNo)
+        {
+            GetirSicilBilgi(TcVergiNo);
+            TempData["TcVergiNo"] = TcVergiNo;
+
+            if (TempData["GayrimenkulNo"] != null)
+                GetirGayrimenkulBilgi(TempData["GayrimenkulNo"].ToString());
+            return View("Ekle", _beyanVM);
+        }
+
+        [HttpPost]
+        public ActionResult GetirGayrimenkulBilgisi(string TcVergiNo, string GayrimenkulNo)
+        {
+            if (TempData["TcVergiNo"] != null)
+                GetirSicilBilgi(TempData["TcVergiNo"].ToString());
+
+            TempData["GayrimenkulNo"] = GayrimenkulNo;
+            GetirGayrimenkulBilgi(GayrimenkulNo);
+            return View("Ekle", _beyanVM);
         }
         #endregion
 

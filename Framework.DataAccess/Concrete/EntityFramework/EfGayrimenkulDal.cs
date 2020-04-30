@@ -82,5 +82,17 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             }
         }
 
+        public Gayrimenkul GetirGayrimenkul(string GayrimenkulNo)
+        {
+            using (DtContext context = new DtContext())
+            {
+                return context.Gayrimenkuller.Include(gt => gt.GayrimenkulTur)
+                                             .Include(a => a.Mahalleler)
+                                             .Include(a => a.Mahalleler.Ilceler)
+                                             .Include(a => a.Mahalleler.Ilceler.Iller)
+                                             .Where(g=>g.GayrimenkulNo==GayrimenkulNo)
+                                             .FirstOrDefault();
+            }
+        }
     }
 }
