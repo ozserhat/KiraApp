@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Framework.Business.Concrete.Managers
 {
+
     public class Kira_BeyanManager : IKira_BeyanService
     {
         private IKira_BeyanDal _Kira_BeyanDal;

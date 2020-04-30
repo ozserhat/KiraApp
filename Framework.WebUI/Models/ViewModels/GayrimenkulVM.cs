@@ -103,6 +103,19 @@ namespace Framework.WebUI.Models.ViewModels
         public SelectList MahalleSelectList { get; set; }
 
         public IEnumerable<GayrimenkulDosya_Tur> DosyaTurleri { get; set; }
+
+        [Display(Name = "Dosya Türleri")]
+        public SelectList DosyaTurSelectList { get; set; }
+
+        [Display(Name = "Dosya")]
+        public string Dosya { get; set; }
+
+        [Display(Name = " Açıklama")]
+        public string Aciklama { get; set; }
+
+        public IPagedList<Gayrimenkul_Dosya> Gayrimenkul_Dosyalar { get; set; }
+
+
     }
 
     public class GayrimenkulDuzenleVM : VMBase

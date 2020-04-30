@@ -10,6 +10,7 @@ using Framework.Core.DataAccess.EntityFramework;
 
 namespace Framework.DataAccess.Concrete.EntityFramework
 {
+
     public class EfBeyan_TurDal : EfEntityRepositoryBase<Beyan_Tur, DtContext>, IBeyan_TurDal
     {
         public Beyan_Tur GetById(int id)

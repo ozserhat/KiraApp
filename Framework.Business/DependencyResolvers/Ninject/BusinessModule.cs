@@ -108,7 +108,6 @@ namespace Framework.Business.DependencyResolvers.Ninject
             Bind<IKira_BeyanService>().To<Kira_BeyanManager>().InTransientScope();
 
 
-
             Bind<ISicilService>().To<SicilServiceManager>().InTransientScope();
 
             Bind(typeof(IQueryableRepository<>)).To(typeof(EfQueryableRepository<>));

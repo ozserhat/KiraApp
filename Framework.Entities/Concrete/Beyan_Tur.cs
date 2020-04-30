@@ -2,6 +2,7 @@
 using Framework.Core.Entities;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Framework.Entities.Concrete
 {
     [Table("Beyan_Turleri")]

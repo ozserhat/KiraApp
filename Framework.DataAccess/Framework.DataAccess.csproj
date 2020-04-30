@@ -79,6 +79,7 @@
     <Compile Include="Abstract\IUserPermissionsDal.cs" />
     <Compile Include="Abstract\IUserRolesDal.cs" />
     <Compile Include="Abstract\IKiraciTurDal.cs" />
+    <Compile Include="Abstract\Kiraci_Beyan.cs" />
     <Compile Include="Concrete\EntityFramework\EfBeyanDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfBeyanDosya_TurDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfBeyan_DosyaDal.cs" />
