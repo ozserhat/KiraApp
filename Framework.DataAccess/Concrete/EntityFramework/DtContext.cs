@@ -7,6 +7,7 @@ using System.Data.Entity;
 using Framework.Entities.Concrete;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Data.Entity.ModelConfiguration.Configuration;
+using System.Web.Mvc;
 
 namespace Framework.DataAccess.Concrete.EntityFramework
 {
@@ -16,6 +17,9 @@ namespace Framework.DataAccess.Concrete.EntityFramework
         {
             this.Configuration.LazyLoadingEnabled = false;
             Database.SetInitializer<DtContext>(null);
+            ViewEngines.Engines.Clear();
+            ViewEngines.Engines.Add(new RazorViewEngine());
+
         }
 
         public DbSet<User> Users { get; set; }

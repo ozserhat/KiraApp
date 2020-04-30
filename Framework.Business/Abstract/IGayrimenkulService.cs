@@ -11,6 +11,8 @@ namespace Framework.Business.Abstract
 
         Gayrimenkul GetirGuid(Guid guid);
 
+        Gayrimenkul GetirGayrimenkul(string GayrimenkulNo);
+
         Gayrimenkul Ekle(Gayrimenkul tur);
 
         Gayrimenkul Guncelle(Gayrimenkul tur);

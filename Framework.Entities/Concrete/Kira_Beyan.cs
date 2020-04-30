@@ -12,6 +12,11 @@ namespace Framework.Entities.Concrete
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
+        public int Beyan_Id { get; set; }
+
+        [ForeignKey("Beyan_Id")]
+        public virtual Beyan Beyanlar { get; set; }
+
         public int Kiraci_Id { get; set; }
 
         [ForeignKey("Kiraci_Id")]

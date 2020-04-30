@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace Framework.DataAccess.Concrete.EntityFramework
 {
@@ -50,7 +51,8 @@ namespace Framework.DataAccess.Concrete.EntityFramework
         {
             using (DtContext context = new DtContext())
             {
-                return context.Beyanlar.ToList();
+                return context.Beyanlar
+                              .ToList();
             }
         }
     }

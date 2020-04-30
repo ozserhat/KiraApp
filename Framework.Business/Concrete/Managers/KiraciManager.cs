@@ -35,11 +35,6 @@ namespace Framework.Business.Concrete.Managers
             return _kiraciDal.GetList();
         }
 
-        public Kiraci GetirMernisNo(int MernisNo)
-        {
-            return _kiraciDal.Get(a=>a.MernisNo==MernisNo);
-        }
-
         public Kiraci GetirSicilNo(int SicilNo)
         {
             return _kiraciDal.Get(a => a.SicilNo == SicilNo);

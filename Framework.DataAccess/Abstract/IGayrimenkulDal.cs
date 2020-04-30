@@ -11,7 +11,7 @@ namespace Framework.DataAccess.Abstract
         Gayrimenkul GetById(int id);
         Gayrimenkul GetByGuid(Guid guid);
         bool Delete(int id);
-
+        Gayrimenkul GetirGayrimenkul(string GayrimenkulNo);
         string GayrimenkulNoUret(int Yil);
     }
 }

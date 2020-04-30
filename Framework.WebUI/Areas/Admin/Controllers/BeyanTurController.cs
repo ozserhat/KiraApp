@@ -13,13 +13,13 @@ using System.Web.Mvc;
 
 namespace Framework.WebUI.Areas.Admin.Controllers
 {
-    public class Beyan_TurController : Controller
+    public class BeyanTurController : Controller
     {
         #region Constructor
 
         private IBeyan_TurService _service;
 
-        public Beyan_TurController(IBeyan_TurService service)
+        public BeyanTurController(IBeyan_TurService service)
         {
             _service = service;
         }

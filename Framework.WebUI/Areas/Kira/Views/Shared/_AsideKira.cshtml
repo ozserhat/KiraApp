@@ -15,12 +15,8 @@
                 </a>
                 <ul>
                     <li class="@Html.RouteIf("Beyan", "active")">
-                        <a href="#">
-                            <i class="fa fa-lg fa-fw fa-barcode"></i>
-                            <span class="menu-item-parent">Beyanlar</span>
-                        </a>
-                        @*@Html.AuthMainAction("Beyanlar", "Index", "Beyan",
-        "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))*@
+                        @Html.AuthMainAction("Beyanlar", "Index", "Beyan",
+                        "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                     </li>
                 </ul>
             </li>
