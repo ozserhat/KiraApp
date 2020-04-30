@@ -200,6 +200,7 @@
     <Compile Include="Areas\Emlak\Controllers\GayrimenkulDosyaTurController.cs" />
     <Compile Include="Areas\Emlak\EmlakAreaRegistration.cs" />
     <Compile Include="Areas\Kira\Controllers\AnasayfaController.cs" />
+    <Compile Include="Areas\Kira\Controllers\BeyanController.cs" />
     <Compile Include="Areas\Kira\KiraAreaRegistration.cs" />
     <Compile Include="Areas\SosyalYardim\Controllers\AnasayfaController.cs" />
     <Compile Include="Areas\SosyalYardim\SosyalYardimAreaRegistration.cs" />
@@ -213,6 +214,7 @@
     <Compile Include="Helpers\EncDecHelper.cs" />
     <Compile Include="Helpers\UserExtended.cs" />
     <Compile Include="Models\ViewModels\BeyanDosya_TurVM.cs" />
+    <Compile Include="Models\ViewModels\BeyanVM.cs" />
     <Compile Include="Models\ViewModels\Beyan_DosyaVM.cs" />
     <Compile Include="Models\ViewModels\Beyan_TurVM.cs" />
     <Compile Include="Models\ViewModels\ControllerActionsVm.cs" />
@@ -224,7 +226,9 @@
     <Compile Include="Models\ViewModels\GayrimenkulDosya_TurVM.cs" />
     <Compile Include="Models\ViewModels\GayrimenkulTurVM.cs" />
     <Compile Include="Models\ViewModels\GayrimenkulVM.cs" />
+    <Compile Include="Models\ViewModels\KiraBeyanVM.cs" />
     <Compile Include="Models\ViewModels\KiraciTurVM.cs" />
+    <Compile Include="Models\ViewModels\KiraciVM.cs" />
     <Compile Include="Models\ViewModels\KiraDurumVM.cs" />
     <Compile Include="Models\ViewModels\KullaniciYetkiDuzenleVM.cs" />
     <Compile Include="Models\ViewModels\LoginVm.cs" />
@@ -1067,6 +1071,8 @@
     <Content Include="Areas\Admin\Views\BeyanDosyaTur\Index.cshtml" />
     <Content Include="Areas\Admin\Views\BeyanDosyaTur\Ekle.cshtml" />
     <Content Include="Areas\Admin\Views\BeyanDosyaTur\Duzenle.cshtml" />
+    <Content Include="Areas\Kira\Views\Beyan\Ekle.cshtml" />
+    <Content Include="Areas\Kira\Views\Beyan\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\customModal.js" />
