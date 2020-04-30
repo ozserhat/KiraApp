@@ -46,6 +46,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
         public DbSet<Beyan> Beyanlar { get; set; }
         public DbSet<Beyan_Dosya> Beyan_Dosyalari { get; set; }
         public DbSet<Kira_Beyan> Kira_Beyanlari { get; set; }
+        public DbSet<Beyan_Tur> Beyan_Turleri { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -90,7 +91,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                                        .WithMany(p => p.KiraBeyanlari)
                                        .HasForeignKey(p => p.Kiraci_Id)
                                        .WillCascadeOnDelete(false);
-          
+
             //modelBuilder.Entity<Duyuru_Bildirim>()
             //.HasKey(x => new { x.Kullanici_Id, x.Duyuru_Id });
         }

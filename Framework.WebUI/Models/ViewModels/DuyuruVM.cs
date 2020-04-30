@@ -46,8 +46,8 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Kullanıcılar")]
         public SelectList KullaniciSelectList { get; set; }
-
         public IPagedList<Duyuru> Duyurular { get; set; }
+        
     }
 
     public class DuyuruEkleVM : VMBase
