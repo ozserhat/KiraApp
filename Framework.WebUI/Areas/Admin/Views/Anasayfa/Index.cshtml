@@ -11,37 +11,7 @@
             <!-- NEW COL START -->
             <article class="col-sm-12 col-md-12 col-lg-12">
                 <div class="well well-light well-sm no-margin no-padding">
-                    @using (Html.BeginForm("SicilSorgulama", "Anasayfa", FormMethod.Post, new { enctype = "multipart/form-data", id = "" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <div class="widget-body">
-                            <fieldset>
-                                <br /><br />
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
-                                        VergiNo
-                                        <div class="col-md-8">
-                                            @Html.TextBox("VergiNo", "", new { @class = "form-control col-md-4 required" })
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
-                                        TcKimlikNo                                        <div class="col-md-8">
-                                            @Html.TextBox("TcKimlikNo", "", new { @class = "form-control col-md-4 required" })
-                                        </div>
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </div>
-                        <div class="form-actions">
-                            <div class="row">
-                                <div class="col-md-6 col-xs-offset-2" style="padding-right: 30px;">
-                                    <input id="btn3242" type="submit" value="Kaydet" class="btn btn-primary">
-                                </div>
-                            </div>
-                        </div>
-                    }
+                  
                 </div>
             </article>
         </div>

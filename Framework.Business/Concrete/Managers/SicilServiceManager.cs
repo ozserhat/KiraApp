@@ -24,6 +24,7 @@ namespace Framework.Business.Concrete.Managers
                 VergiDairesi = result.vergiDairesi,
                 Ad = result.adi,
                 Soyad = result.soyadi,
+                Tanim=result.adiSoyadi,
                 Il=result.isIlAdi,
                 Ilce=result.isIlceAdi,
                 Mahalle=result.isMahalleAdi,
