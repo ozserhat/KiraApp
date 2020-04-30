@@ -18,8 +18,6 @@ namespace Framework.Business.Abstract
 
         Kiraci GetirTcNo(int TcKimlikNo);
 
-        Kiraci GetirMernisNo(int MernisNo);
-
         IEnumerable<Kiraci> GetirTurId(int TurId);
 
         Kiraci Ekle(Kiraci kiraci);

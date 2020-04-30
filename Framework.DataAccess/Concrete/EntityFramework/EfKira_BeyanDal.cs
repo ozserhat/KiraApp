@@ -38,5 +38,17 @@ namespace Framework.DataAccess.Concrete.EntityFramework
 
             return sonuc;
         }
+
+        public IEnumerable<Kira_Beyan> GetList()
+        {
+            using (DtContext context = new DtContext())
+            {
+                return context.Kira_Beyanlari
+                              .Include(b=>b.Beyanlar)
+                              .Include(k=>k.Kiracilar)
+                              .Include(g=>g.Gayrimenkuller)
+                              .ToList();
+            }
+        }
     }
 }
