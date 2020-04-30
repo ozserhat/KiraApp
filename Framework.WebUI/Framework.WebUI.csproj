@@ -198,6 +198,8 @@
     <Compile Include="Areas\Emlak\EmlakAreaRegistration.cs" />
     <Compile Include="Areas\Kira\Controllers\AnasayfaController.cs" />
     <Compile Include="Areas\Kira\KiraAreaRegistration.cs" />
+    <Compile Include="Areas\SosyalYardim\Controllers\AnasayfaController.cs" />
+    <Compile Include="Areas\SosyalYardim\SosyalYardimAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UnauthorizedController.cs" />
@@ -1046,6 +1048,10 @@
     <Content Include="Areas\Kira\Views\Shared\_AsideKira.cshtml" />
     <Content Include="Areas\Kira\Views\Shared\_LayoutKira.cshtml" />
     <Content Include="Areas\Kira\Views\Anasayfa\Index.cshtml" />
+    <Content Include="Areas\SosyalYardim\Views\web.config" />
+    <Content Include="Areas\SosyalYardim\Views\Shared\_LayoutSosyal.cshtml" />
+    <Content Include="Areas\SosyalYardim\Views\Shared\_AsideSosyal.cshtml" />
+    <Content Include="Areas\SosyalYardim\Views\Anasayfa\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\customModal.js" />
@@ -1669,6 +1675,7 @@
     <Folder Include="Areas\Admin\Views\DuyuruBildirim\" />
     <Folder Include="Areas\Emlak\Data\" />
     <Folder Include="Areas\Kira\Data\" />
+    <Folder Include="Areas\SosyalYardim\Data\" />
     <Folder Include="Content\img\realestate\thumbs\" />
     <Folder Include="Content\login\css\" />
     <Folder Include="Content\login\js\" />
