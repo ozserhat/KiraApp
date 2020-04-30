@@ -18,10 +18,11 @@ namespace Framework.WebUI.Areas.Admin.Controllers
         #region Constructor
 
         private IBeyan_DosyaService _service;
-
-        public Beyan_DosyaController(IBeyan_DosyaService service)
+        private IBeyanDosya_TurService _dosyaTurService;
+        public Beyan_DosyaController(IBeyan_DosyaService service, IBeyanDosya_TurService dosyaTurService)
         {
             _service = service;
+            _dosyaTurService = dosyaTurService;
         }
         #endregion
 
@@ -45,6 +46,14 @@ namespace Framework.WebUI.Areas.Admin.Controllers
 
             return View(model);
         }
+
+        public SelectList DosyaTurSelectList()
+        {
+            var roller = _dosyaTurService.GetirListe().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+
+            return new SelectList(roller, "Id", "Ad");
+        }
+
         #endregion
 
         #region Ekle
@@ -53,6 +62,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
         public ActionResult Ekle()
         {
             var model = new Beyan_DosyaEkleVM();
+            model.DosyaTur = DosyaTurSelectList();
             return View(model);
         }
 
@@ -63,10 +73,12 @@ namespace Framework.WebUI.Areas.Admin.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    Beyan_Dosya gayrimenkulTur = new Beyan_Dosya()
+                    Beyan_Dosya beyan_Dosya = new Beyan_Dosya()
                     {
                         Guid = Guid.NewGuid(),
                         Ad = tur.BeyanAdi,
+                        BeyanDosya_Tur_Id = tur.BeyanDosyaTur_Id,
+                        BeyanDosyaTurleri = null,
                         OlusturulmaTarihi = DateTime.Now,
                         OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
                         AktifMi = true

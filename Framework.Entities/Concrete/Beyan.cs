@@ -28,7 +28,7 @@ namespace Framework.Entities.Concrete
 
         public int BeyanYil { get; set; }
 
-        public int EncümenKararNo { get; set; }
+        public int EncumenKararNo { get; set; }
 
         public int NoterSozlesmeNo { get; set; }
 
@@ -36,7 +36,7 @@ namespace Framework.Entities.Concrete
 
         public DateTime? BeyanKapatmaTarihi { get; set; }
 
-        public int İhaleTutari { get; set; }
+        public int IhaleTutari { get; set; }
 
         public int BaslangicTaksitNo { get; set; }
 
@@ -58,13 +58,13 @@ namespace Framework.Entities.Concrete
 
         public DateTime? BeyanTarihi { get; set; }
 
-        public DateTime? İhaleEncüTarihi { get; set; }
+        public DateTime? IhaleEncuTarihi { get; set; }
 
         public DateTime? SozlesmeTarihi { get; set; }
 
         public DateTime? TeminatTarihi { get; set; }
 
-        public DateTime? KiraBaşlamaTarihi { get; set; }
+        public DateTime? KiraBaslamaTarihi { get; set; }
 
         public DateTime? SozlesmeBitimTarihi { get; set; }
 
