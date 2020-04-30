@@ -27,6 +27,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
         public DbSet<Deneme> Denemeler { get; set; }
         public DbSet<Gayrimenkul> Gayrimenkuller { get; set; }
         public DbSet<GayrimenkulTur> GayrimenkulTurleri { get; set; }
+        public DbSet<ResmiTatiller> ResmiTatiller { get; set; }
         public DbSet<GayrimenkulAlt_Tur> GayrimenkulAlt_Turleri { get; set; }
         public DbSet<GayrimenkulDosya_Tur> GayrimenkulDosya_Turleri { get; set; }
         public DbSet<Gayrimenkul_Dosya> Gayrimenkul_Dosyalar { get; set; }

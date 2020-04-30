@@ -1,24 +1,21 @@
-﻿using Framework.Entities.Concrete;
+﻿using System;
 using PagedList;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using Framework.Entities.Concrete;
+using System.ComponentModel.DataAnnotations;
+
 
 namespace Framework.WebUI.Models.ViewModels
 {
-    public class Beyan_DosyaVM : PagingVMBase
+    public class ResmiTatillerVM : PagingVMBase
     {
         [Display(Name = "Id")]
         public int Id { get; set; }
-
-        [Display(Name = "Guid")]
-        public Guid Guid { get; set; }
-
-        [Display(Name = "Gayrimenkul Adı")]
-        public string GayrimenkulAdi { get; set; }
+        [Display(Name = "Tarih")]
+        public DateTime Tarih { get; set; }
+    
+        [Display(Name = "Resmi Tatil Adı")]
+        public string ResmiTatilAdi { get; set; }
 
         [Display(Name = "Oluşturan Kullanıcı")]
         public int? OlusturanKullanici_Id { get; set; }
@@ -35,16 +32,17 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Aktif Mi")]
         public bool? AktifMi { get; set; }
 
-        public IPagedList<GayrimenkulTur> GayrimenkulTur { get; set; }
+        public IPagedList<ResmiTatiller> ResmiTatiller { get; set; }
     }
 
-    public class Beyan_DosyaEkleVM : VMBase
+    public class ResmiTatillerEkleVM : VMBase
     {
-        [Display(Name = "Guid")]
-        public Guid Guid { get; set; }
 
-        [Display(Name = "Gayrimenkul Adı")]
-        public string GayrimenkulAdi { get; set; }
+        [Display(Name = "Tarih")]
+        public DateTime Tarih { get; set; }
+
+        [Display(Name = "Resmi Tatil Adı")]
+        public string ResmiTatilAdi { get; set; }
 
         [Display(Name = "Oluşturan Kullanıcı")]
         public int? OlusturanKullanici_Id { get; set; }
@@ -56,16 +54,15 @@ namespace Framework.WebUI.Models.ViewModels
         public bool AktifMi { get; set; }
     }
 
-    public class Beyan_DosyaDuzenleVM : VMBase
+    public class ResmiTatillerDuzenleVM : VMBase
     {
         [Display(Name = "Id")]
         public int Id { get; set; }
+        [Display(Name = "Tarih")]
+        public DateTime Tarih { get; set; }
 
-        [Display(Name = "Guid")]
-        public Guid Guid { get; set; }
-
-        [Display(Name = "Gayrimenkul Adı")]
-        public string GayrimenkulAdi { get; set; }
+        [Display(Name = "Resmi Tatil Adı")]
+        public string ResmiTatilAdi { get; set; }
 
         [Display(Name = "Güncelleyen Kullanıcı")]
         public int? GuncelleyenKullanici_Id { get; set; }
