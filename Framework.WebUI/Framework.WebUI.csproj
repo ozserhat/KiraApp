@@ -172,6 +172,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AnasayfaController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Beyan_DosyaController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Beyan_TurController.cs" />
     <Compile Include="Areas\Admin\Controllers\DenemeController.cs" />
     <Compile Include="Areas\Admin\Controllers\DuyuruBildirimController.cs" />
     <Compile Include="Areas\Admin\Controllers\DuyuruController.cs" />
@@ -209,6 +211,7 @@
     <Compile Include="Helpers\DtContextWeb.cs" />
     <Compile Include="Helpers\EncDecHelper.cs" />
     <Compile Include="Helpers\UserExtended.cs" />
+    <Compile Include="Models\ViewModels\Beyan_DosyaVM.cs" />
     <Compile Include="Models\ViewModels\ControllerActionsVm.cs" />
     <Compile Include="Models\ViewModels\DenemeVm.cs" />
     <Compile Include="Models\ViewModels\DuyuruBildirimVM.cs" />
@@ -1672,6 +1675,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Views\Beyan_Tur\" />
     <Folder Include="Areas\Admin\Views\DuyuruBildirim\" />
     <Folder Include="Areas\Emlak\Data\" />
     <Folder Include="Areas\Kira\Data\" />
@@ -1680,6 +1684,7 @@
     <Folder Include="Content\login\css\" />
     <Folder Include="Content\login\js\" />
     <Folder Include="Content\login\webfonts\" />
+    <Folder Include="Views\Beyan_Dosya\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
