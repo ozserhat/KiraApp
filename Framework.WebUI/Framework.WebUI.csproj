@@ -1076,10 +1076,12 @@
     <Content Include="Areas\Admin\Views\BeyanDosyaTur\Duzenle.cshtml" />
     <Content Include="Areas\Kira\Views\Beyan\Ekle.cshtml" />
     <Content Include="Areas\Kira\Views\Beyan\Index.cshtml" />
+
     <Content Include="Areas\Kira\Views\Beyan\_SicilPartial.cshtml" />
     <Content Include="Areas\Kira\Views\Beyan\_GayrimenkulPartial.cshtml" />
     <Content Include="Areas\Kira\Views\Beyan\_BeyanPartial.cshtml" />
     <Content Include="Areas\Kira\Views\Beyan\_DosyaPartial.cshtml" />
+
     <Content Include="Areas\Admin\Views\ResmiTatiller\Duzenle.cshtml" />
     <Content Include="Areas\Admin\Views\ResmiTatiller\Ekle.cshtml" />
     <Content Include="Areas\Admin\Views\ResmiTatiller\Index.cshtml" />
