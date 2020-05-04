@@ -18,6 +18,11 @@ namespace Framework.Business.Concrete.Managers
             _beyanDal = beyanDal;
         }
 
+        public string BeyanNoUret(int Yil)
+        {
+            return _beyanDal.BeyanNoUret(Yil);
+        }
+
         public Beyan Ekle(Beyan tur)
         {
             return _beyanDal.Add(tur);

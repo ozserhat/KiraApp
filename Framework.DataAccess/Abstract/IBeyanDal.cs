@@ -10,5 +10,7 @@ namespace Framework.DataAccess.Abstract
         Beyan GetById(int id);
         Beyan GetByGuid(Guid guid);
         bool Delete(int id);
+        string BeyanNoUret(int Yil);
+
     }
 }
