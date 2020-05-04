@@ -173,6 +173,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AnasayfaController.cs" />
     <Compile Include="Areas\Admin\Controllers\BeyanDosyaTurController.cs" />
+    <Compile Include="Areas\Admin\Controllers\BeyanTurController.cs" />
     <Compile Include="Areas\Admin\Controllers\Beyan_DosyaController.cs" />
     <Compile Include="Areas\Admin\Controllers\Beyan_TurController.cs" />
     <Compile Include="Areas\Admin\Controllers\DenemeController.cs" />
@@ -1075,6 +1076,12 @@
     <Content Include="Areas\Admin\Views\BeyanDosyaTur\Duzenle.cshtml" />
     <Content Include="Areas\Kira\Views\Beyan\Ekle.cshtml" />
     <Content Include="Areas\Kira\Views\Beyan\Index.cshtml" />
+
+    <Content Include="Areas\Kira\Views\Beyan\_SicilPartial.cshtml" />
+    <Content Include="Areas\Kira\Views\Beyan\_GayrimenkulPartial.cshtml" />
+    <Content Include="Areas\Kira\Views\Beyan\_BeyanPartial.cshtml" />
+    <Content Include="Areas\Kira\Views\Beyan\_DosyaPartial.cshtml" />
+
     <Content Include="Areas\Admin\Views\ResmiTatiller\Duzenle.cshtml" />
     <Content Include="Areas\Admin\Views\ResmiTatiller\Ekle.cshtml" />
     <Content Include="Areas\Admin\Views\ResmiTatiller\Index.cshtml" />
@@ -1111,6 +1118,8 @@
     <Content Include="Scripts\jquery.dataTables.min.js" />
     <Content Include="Scripts\jquery.table2excel.js" />
     <Content Include="Scripts\jquery.table2excel.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />

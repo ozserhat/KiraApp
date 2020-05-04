@@ -1,0 +1,294 @@
+﻿@model Framework.WebUI.Models.ViewModels.BeyanEkleVM
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => Model.BeyanTurSelectList, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.DropDownList("BeyanTur_Id", Model.BeyanTurSelectList, "Seçiniz", new { @class = "select2" })
+                    @Html.ValidationMessage("BeyanTur_Id", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => Model.BeyanYilSelectList, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.DropDownList("BeyanYil", Model.BeyanYilSelectList, "Seçiniz", new { @class = "select2" })
+                    @Html.ValidationMessage("BeyanYil", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => Model.KiraDurumSelectList, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.DropDownList("KiraDurum_Id", Model.KiraDurumSelectList, "Seçiniz", new { @class = "select2" })
+                    @Html.ValidationMessage("KiraDurum_Id", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.BeyanNo, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.BeyanNo, "", new { @class = "form-control", @readonly = true })
+                    @Html.ValidationMessage("BeyanNo", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.NoterSozlesmeNo, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => Model.NoterSozlesmeNo, "", new { @class = "form-control" })
+                    @Html.ValidationMessage("NoterSozlesmeNo", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.EncumenKararNo, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.EncumenKararNo, "", new { @class = "form-control" })
+                    @Html.ValidationMessage("EncumenKararNo", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.BeyanTarihi, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.BeyanTarihi, "", new { @class = "form-control" })
+                    @Html.ValidationMessage("BeyanTarihi", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.IhaleEncumenTarihi, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.IhaleEncumenTarihi, "", new { @class = "form-control" })
+                    @Html.ValidationMessage("IhaleEncumenTarihi", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.KiraBaslangicTarihi, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.KiraBaslangicTarihi, "", new { @class = "form-control" })
+                    @Html.ValidationMessage("KiraBaslangicTarihi", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.SozlesmeTarihi, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.SozlesmeTarihi, "", new { @class = "form-control" })
+                    @Html.ValidationMessage("SozlesmeTarihi", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.SozlesmeBitisTarihi, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.SozlesmeBitisTarihi, "", new { @class = "form-control" })
+                    @Html.ValidationMessage("SozlesmeBitisTarihi", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.TeminatTarihi, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.TeminatTarihi, "", new { @class = "form-control" })
+                    @Html.ValidationMessage("TeminatTarihi", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.BeyanKapatmaTarihi, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.BeyanKapatmaTarihi, "", new { @class = "form-control" })
+                    @Html.ValidationMessage("BeyanKapatmaTarihi", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.TeminatNo, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => Model.TeminatNo, "", new { @class = "form-control" })
+                    @Html.ValidationMessage("TeminatNo", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.KullanimAlani, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.KullanimAlani, "", new { @class = "form-control" })
+                    @Html.ValidationMessage("KullanimAlani", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.OdemePeriyotSelectList, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.DropDownList("OdemePeriyotTur_Id", Model.OdemePeriyotSelectList, "Seçiniz", new { @class = "select2" })
+                    @Html.ValidationMessage("OdemePeriyotTur_Id", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.SozlesmeSuresi, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.SozlesmeSuresi, "", new { @class = "form-control" })
+                    @Html.ValidationMessage("SozlesmeSuresi", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.MusadeliGunSayisi, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.MusadeliGunSayisi, "", new { @class = "form-control" })
+                    @Html.ValidationMessage("MusadeliGunSayisi", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.IhaleTutari, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.IhaleTutari, "", new { @class = "form-control" })
+                    @Html.ValidationMessage("IhaleTutari", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.KiraTutari, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.KiraTutari, "", new { @class = "form-control" })
+                    @Html.ValidationMessage("KiraTutari", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.KdvOraniSelectList, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.DropDownList("Kdv", Model.KdvOraniSelectList, "Seçiniz", new { @class = "select2" })
+                    @Html.ValidationMessage("Kdv", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.BaslangicTaksitNo, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.BaslangicTaksitNo, "", new { @class = "form-control" })
+                    @Html.ValidationMessage("BaslangicTaksitNo", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.KalanAy, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.KalanAy, "", new { @class = "form-control" })
+                    @Html.ValidationMessage("KalanAy", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.DamgaVergisiDurumSelectList, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.DropDownList("DamgaAlinsinMi", Model.DamgaVergisiDurumSelectList, "Seçiniz", new { @class = "select2" })
+                    @Html.ValidationMessage("DamgaAlinsinMi", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.Aciklama, new { @class = "col-md-2 font-bold" })
+                <div class="col-md-4">
+                    @Html.TextAreaFor(model => model.Aciklama, new { @class = "form-control", @rows = "6" })
+                    @Html.ValidationMessage("Aciklama", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
