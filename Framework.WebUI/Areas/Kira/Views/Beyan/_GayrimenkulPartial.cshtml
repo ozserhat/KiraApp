@@ -1,22 +1,8 @@
 ﻿@model Framework.WebUI.Models.ViewModels.Beyan_GayrimenkulEkleVM
 @Html.HiddenFor(model => model.GayrimenkulId, new { @class = "form-control" })
-@if (Model.Errors != null && Model.Errors.Count > 0)
+@if (ViewData["GayrimenkulHata"] != null)
 {
-    <div id="contentMainError">
-        <section id="widget-grid">
-            <div class="row">
-                <div class="row alert alert-danger">
-                    <i class="glyphicon glyphicon-warning-sign col-md-1"></i>
-                    <ul style="list-style-type:none" class="col-md-11">
-                        @foreach (var item in Model.Errors)
-                        {
-                            <li>@item</li>
-                        }
-                    </ul>
-                </div>
-            </div>
-        </section>
-    </div>
+    @Html.Hidden("hdGayrimenkulError", ViewData["GayrimenkulHata"].ToString(), new { @class = "form-control" })
 }
 <div class="row">
     <div class="col-md-6">
@@ -153,19 +139,6 @@
     <div class="col-md-6">
         <div class="form-group">
             <div class="input-group" style="width: 100%;">
-                @Html.LabelFor(model => model.IcKapiNo, new { @class = "col-md-4 font-bold" })
-                <div class="col-md-6">
-                    @Html.TextBoxFor(model => model.IcKapiNo, new { @class = "form-control required", @readonly = true })
-                    @Html.ValidationMessage("IcKapiNo", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-6">
-        <div class="form-group">
-            <div class="input-group" style="width: 100%;">
                 @Html.LabelFor(model => model.Metrekare, new { @class = "col-md-4 font-bold" })
                 <div class="col-md-6">
                     @Html.TextBoxFor(model => model.Metrekare, new { @class = "form-control required", @readonly = true })
@@ -174,6 +147,8 @@
             </div>
         </div>
     </div>
+</div>
+<div class="row">
     <div class="col-md-6">
         <div class="form-group">
             <div class="input-group" style="width: 100%;">
@@ -185,27 +160,16 @@
             </div>
         </div>
     </div>
-</div>
-<div class="row">
     <div class="col-md-6">
         <div class="form-group">
             <div class="input-group" style="width: 100%;">
                 @Html.LabelFor(model => model.AcikAdres, new { @class = "col-md-4 font-bold" })
                 <div class="col-md-6">
-                    @Html.TextBoxFor(model => model.AcikAdres, "", new { @class = "form-control", @readonly = true })
+                    @Html.TextAreaFor(model => model.AcikAdres, new { @class = "form-control", @rows = "3", @readonly=true })
                     @Html.ValidationMessage("AcikAdres", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="col-md-6">
-        <div class="form-group">
-            <div class="input-group" style="width: 100%;">
-                <div class="col-md-6">
-
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
+

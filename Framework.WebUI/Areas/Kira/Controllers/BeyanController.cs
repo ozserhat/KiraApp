@@ -12,6 +12,7 @@ using Framework.WebUI.App_Helpers;
 using Framework.WebUI.Models.ViewModels;
 using Framework.DataAccess.Abstract;
 using System.Dynamic;
+using System.Web.Services.Description;
 
 namespace Framework.WebUI.Areas.Kira.Controllers
 {
@@ -182,6 +183,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 else
                 {
                     _beyanVM.Kiraci.Errors.Add("Sicil Bilgisi Bulunamadı!!!");
+                    ViewData["SicilHata"] = "Sicil Bilgisi Bulunamadı!!!";
                     ModelState.AddModelError("SicilHata", @"Sicil Bilgisi Bulunamadı!!!");
                 }
             }
@@ -235,6 +237,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 }
                 else
                 {
+                    ViewData["GayrimenkulHata"] = "Gayrimenkul Bilgisi Bulunamadı!!!";
                     _beyanVM.Gayrimenkul.Errors.Add("Gayrimenkul Bilgisi Bulunamadı!!!");
                     ModelState.AddModelError("GayrimenkulHata", @"Gayrimenkul Bilgisi Bulunamadı!!!");
                 }
@@ -269,6 +272,16 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         public ActionResult Ekle()
         {
             GetirSelectList();
+
+            string beyanNo = "BYN-";
+            int yil = DateTime.Now.Year;
+
+            beyanNo += yil;
+            beyanNo += DateTime.Now.Month;
+            beyanNo += DateTime.Now.Day;
+
+            _beyanVM.Beyan.BeyanNo = beyanNo + "-" + _beyanService.BeyanNoUret(yil);
+
             ModelState.AddModelError("LogMessage", "Kira Beyan Ekleme Sayfası Görüntülendi.");
             return View(_beyanVM);
         }

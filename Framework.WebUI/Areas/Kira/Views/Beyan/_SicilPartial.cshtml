@@ -1,23 +1,11 @@
 ﻿@model Framework.WebUI.Models.ViewModels.KiraciEkleVM
-@if (Model.Errors != null && Model.Errors.Count > 0)
-{
-    <div id="content">
-        <section id="widget-grid">
-            <div class="row">
-                <div class="row alert alert-danger">
-                    <i class="glyphicon glyphicon-warning-sign col-md-1"></i>
-                    <ul style="list-style-type:none" class="col-md-11">
-                        @foreach (var item in Model.Errors)
-                        {
-                            <li>@item</li>
-                        }
-                    </ul>
-                </div>
-            </div>
-        </section>
-    </div>
-}
 
+
+@if (ViewData["SicilHata"] != null)
+{
+    @Html.Hidden("hdSicilError", ViewData["SicilHata"].ToString(), new { @class = "form-control" })
+}
+    
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
@@ -161,3 +149,5 @@
         </div>
     </div>
 </div>
+
+

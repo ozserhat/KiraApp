@@ -16,7 +16,7 @@
             <div class="input-group" style="width: 100%;">
                 @Html.LabelFor(model => Model.BeyanYilSelectList, new { @class = "col-md-4 font-bold" })
                 <div class="col-md-6">
-                    @Html.DropDownList("BeyanYil", Model.BeyanYilSelectList, "Seçiniz", new { @class = "select2" })
+                    @Html.DropDownList("BeyanYil", Model.BeyanYilSelectList, "Seçiniz", new { @class = "select2 required" })
                     @Html.ValidationMessage("BeyanYil", new { @class = "text-danger" })
                 </div>
             </div>
@@ -27,7 +27,7 @@
             <div class="input-group" style="width: 100%;">
                 @Html.LabelFor(model => Model.KiraDurumSelectList, new { @class = "col-md-4 font-bold" })
                 <div class="col-md-6">
-                    @Html.DropDownList("KiraDurum_Id", Model.KiraDurumSelectList, "Seçiniz", new { @class = "select2" })
+                    @Html.DropDownList("KiraDurum_Id", Model.KiraDurumSelectList, "Seçiniz", new { @class = "select2 required" })
                     @Html.ValidationMessage("KiraDurum_Id", new { @class = "text-danger" })
                 </div>
             </div>
@@ -40,7 +40,7 @@
             <div class="input-group" style="width: 100%;">
                 @Html.LabelFor(model => model.BeyanNo, new { @class = "col-md-4 font-bold" })
                 <div class="col-md-6">
-                    @Html.TextBoxFor(model => model.BeyanNo, "", new { @class = "form-control", @readonly = true })
+                    @Html.TextBoxFor(model => model.BeyanNo, "", new { @class = "form-control required", @readonly = true })
                     @Html.ValidationMessage("BeyanNo", new { @class = "text-danger" })
                 </div>
             </div>
@@ -51,7 +51,7 @@
             <div class="input-group" style="width: 100%;">
                 @Html.LabelFor(model => model.NoterSozlesmeNo, new { @class = "col-md-4 font-bold" })
                 <div class="col-md-6">
-                    @Html.TextBoxFor(model => Model.NoterSozlesmeNo, "", new { @class = "form-control" })
+                    @Html.TextBoxFor(model => Model.NoterSozlesmeNo, "", new { @class = "form-control required" })
                     @Html.ValidationMessage("NoterSozlesmeNo", new { @class = "text-danger" })
                 </div>
             </div>
@@ -62,7 +62,7 @@
             <div class="input-group" style="width: 100%;">
                 @Html.LabelFor(model => model.EncumenKararNo, new { @class = "col-md-4 font-bold" })
                 <div class="col-md-6">
-                    @Html.TextBoxFor(model => model.EncumenKararNo, "", new { @class = "form-control" })
+                    @Html.TextBoxFor(model => model.EncumenKararNo, "", new { @class = "form-control required" })
                     @Html.ValidationMessage("EncumenKararNo", new { @class = "text-danger" })
                 </div>
             </div>
@@ -75,8 +75,15 @@
             <div class="input-group" style="width: 100%;">
                 @Html.LabelFor(model => model.BeyanTarihi, new { @class = "col-md-4 font-bold" })
                 <div class="col-md-6">
-                    @Html.TextBoxFor(model => model.BeyanTarihi, "", new { @class = "form-control" })
-                    @Html.ValidationMessage("BeyanTarihi", new { @class = "text-danger" })
+                    <div class="input-group date datetimepicker">
+                        @{
+                            @Html.TextBoxFor(model => model.BeyanTarihi, new { @class = "form-control datepicker required", @autocomplete = "off" })
+                            <span class="input-group-addon" id="openDate">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        }
+                    </div>
+                    @Html.ValidationMessageFor(model => model.BeyanTarihi, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
@@ -86,8 +93,15 @@
             <div class="input-group" style="width: 100%;">
                 @Html.LabelFor(model => model.IhaleEncumenTarihi, new { @class = "col-md-4 font-bold" })
                 <div class="col-md-6">
-                    @Html.TextBoxFor(model => model.IhaleEncumenTarihi, "", new { @class = "form-control" })
-                    @Html.ValidationMessage("IhaleEncumenTarihi", new { @class = "text-danger" })
+                    <div class="input-group date datetimepicker">
+                        @{
+                            @Html.TextBoxFor(model => model.IhaleEncumenTarihi, new { @class = "form-control datepicker required", @autocomplete = "off" })
+                            <span class="input-group-addon" id="openDate">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        }
+                    </div>
+                    @Html.ValidationMessageFor(model => model.IhaleEncumenTarihi, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
@@ -97,8 +111,15 @@
             <div class="input-group" style="width: 100%;">
                 @Html.LabelFor(model => model.KiraBaslangicTarihi, new { @class = "col-md-4 font-bold" })
                 <div class="col-md-6">
-                    @Html.TextBoxFor(model => model.KiraBaslangicTarihi, "", new { @class = "form-control" })
-                    @Html.ValidationMessage("KiraBaslangicTarihi", new { @class = "text-danger" })
+                    <div class="input-group date datetimepicker">
+                        @{
+                            @Html.TextBoxFor(model => model.KiraBaslangicTarihi, new { @class = "form-control datepicker required", @autocomplete = "off" })
+                            <span class="input-group-addon" id="openDate">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        }
+                    </div>
+                    @Html.ValidationMessageFor(model => model.KiraBaslangicTarihi, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
@@ -110,8 +131,15 @@
             <div class="input-group" style="width: 100%;">
                 @Html.LabelFor(model => model.SozlesmeTarihi, new { @class = "col-md-4 font-bold" })
                 <div class="col-md-6">
-                    @Html.TextBoxFor(model => model.SozlesmeTarihi, "", new { @class = "form-control" })
-                    @Html.ValidationMessage("SozlesmeTarihi", new { @class = "text-danger" })
+                    <div class="input-group date datetimepicker">
+                        @{
+                            @Html.TextBoxFor(model => model.SozlesmeTarihi, new { @class = "form-control datepicker required", @autocomplete = "off" })
+                            <span class="input-group-addon" id="openDate">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        }
+                    </div>
+                    @Html.ValidationMessageFor(model => model.SozlesmeTarihi, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
@@ -121,8 +149,15 @@
             <div class="input-group" style="width: 100%;">
                 @Html.LabelFor(model => model.SozlesmeBitisTarihi, new { @class = "col-md-4 font-bold" })
                 <div class="col-md-6">
-                    @Html.TextBoxFor(model => model.SozlesmeBitisTarihi, "", new { @class = "form-control" })
-                    @Html.ValidationMessage("SozlesmeBitisTarihi", new { @class = "text-danger" })
+                    <div class="input-group date datetimepicker">
+                        @{
+                            @Html.TextBoxFor(model => model.SozlesmeBitisTarihi, new { @class = "form-control datepicker required", @autocomplete = "off" })
+                            <span class="input-group-addon" id="openDate">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        }
+                    </div>
+                    @Html.ValidationMessageFor(model => model.SozlesmeBitisTarihi, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
@@ -132,8 +167,15 @@
             <div class="input-group" style="width: 100%;">
                 @Html.LabelFor(model => model.TeminatTarihi, new { @class = "col-md-4 font-bold" })
                 <div class="col-md-6">
-                    @Html.TextBoxFor(model => model.TeminatTarihi, "", new { @class = "form-control" })
-                    @Html.ValidationMessage("TeminatTarihi", new { @class = "text-danger" })
+                    <div class="input-group date datetimepicker">
+                        @{
+                            @Html.TextBoxFor(model => model.TeminatTarihi, new { @class = "form-control datepicker required", @autocomplete = "off" })
+                            <span class="input-group-addon" id="openDate">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        }
+                    </div>
+                    @Html.ValidationMessageFor(model => model.TeminatTarihi, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
@@ -145,8 +187,15 @@
             <div class="input-group" style="width: 100%;">
                 @Html.LabelFor(model => model.BeyanKapatmaTarihi, new { @class = "col-md-4 font-bold" })
                 <div class="col-md-6">
-                    @Html.TextBoxFor(model => model.BeyanKapatmaTarihi, "", new { @class = "form-control" })
-                    @Html.ValidationMessage("BeyanKapatmaTarihi", new { @class = "text-danger" })
+                    <div class="input-group date datetimepicker">
+                        @{
+                            @Html.TextBoxFor(model => model.BeyanKapatmaTarihi, new { @class = "form-control datepicker required", @autocomplete = "off" })
+                            <span class="input-group-addon" id="openDate">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        }
+                    </div>
+                    @Html.ValidationMessageFor(model => model.BeyanKapatmaTarihi, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
@@ -156,7 +205,7 @@
             <div class="input-group" style="width: 100%;">
                 @Html.LabelFor(model => model.TeminatNo, new { @class = "col-md-4 font-bold" })
                 <div class="col-md-6">
-                    @Html.TextBoxFor(model => Model.TeminatNo, "", new { @class = "form-control" })
+                    @Html.TextBoxFor(model => Model.TeminatNo, "", new { @class = "form-control required" })
                     @Html.ValidationMessage("TeminatNo", new { @class = "text-danger" })
                 </div>
             </div>
@@ -167,7 +216,7 @@
             <div class="input-group" style="width: 100%;">
                 @Html.LabelFor(model => model.KullanimAlani, new { @class = "col-md-4 font-bold" })
                 <div class="col-md-6">
-                    @Html.TextBoxFor(model => model.KullanimAlani, "", new { @class = "form-control" })
+                    @Html.TextBoxFor(model => model.KullanimAlani, "", new { @class = "form-control required" })
                     @Html.ValidationMessage("KullanimAlani", new { @class = "text-danger" })
                 </div>
             </div>
@@ -180,7 +229,7 @@
             <div class="input-group" style="width: 100%;">
                 @Html.LabelFor(model => model.OdemePeriyotSelectList, new { @class = "col-md-4 font-bold" })
                 <div class="col-md-6">
-                    @Html.DropDownList("OdemePeriyotTur_Id", Model.OdemePeriyotSelectList, "Seçiniz", new { @class = "select2" })
+                    @Html.DropDownList("OdemePeriyotTur_Id", Model.OdemePeriyotSelectList, "Seçiniz", new { @class = "select2 required" })
                     @Html.ValidationMessage("OdemePeriyotTur_Id", new { @class = "text-danger" })
                 </div>
             </div>
@@ -191,7 +240,7 @@
             <div class="input-group" style="width: 100%;">
                 @Html.LabelFor(model => model.SozlesmeSuresi, new { @class = "col-md-4 font-bold" })
                 <div class="col-md-6">
-                    @Html.TextBoxFor(model => model.SozlesmeSuresi, "", new { @class = "form-control" })
+                    @Html.TextBoxFor(model => model.SozlesmeSuresi, "", new { @class = "form-control required" })
                     @Html.ValidationMessage("SozlesmeSuresi", new { @class = "text-danger" })
                 </div>
             </div>
@@ -202,7 +251,7 @@
             <div class="input-group" style="width: 100%;">
                 @Html.LabelFor(model => model.MusadeliGunSayisi, new { @class = "col-md-4 font-bold" })
                 <div class="col-md-6">
-                    @Html.TextBoxFor(model => model.MusadeliGunSayisi, "", new { @class = "form-control" })
+                    @Html.TextBoxFor(model => model.MusadeliGunSayisi, "", new { @class = "form-control required" })
                     @Html.ValidationMessage("MusadeliGunSayisi", new { @class = "text-danger" })
                 </div>
             </div>
@@ -215,7 +264,7 @@
             <div class="input-group" style="width: 100%;">
                 @Html.LabelFor(model => model.IhaleTutari, new { @class = "col-md-4 font-bold" })
                 <div class="col-md-6">
-                    @Html.TextBoxFor(model => model.IhaleTutari, "", new { @class = "form-control" })
+                    @Html.TextBoxFor(model => model.IhaleTutari, "{0:c}", new { @class = "form-control required moneyFormat"})
                     @Html.ValidationMessage("IhaleTutari", new { @class = "text-danger" })
                 </div>
             </div>
@@ -226,7 +275,7 @@
             <div class="input-group" style="width: 100%;">
                 @Html.LabelFor(model => model.KiraTutari, new { @class = "col-md-4 font-bold" })
                 <div class="col-md-6">
-                    @Html.TextBoxFor(model => model.KiraTutari, "", new { @class = "form-control" })
+                    @Html.TextBoxFor(model => model.KiraTutari, "{0:c}", new { @class = "form-control required moneyFormat" })
                     @Html.ValidationMessage("KiraTutari", new { @class = "text-danger" })
                 </div>
             </div>
@@ -237,7 +286,7 @@
             <div class="input-group" style="width: 100%;">
                 @Html.LabelFor(model => model.KdvOraniSelectList, new { @class = "col-md-4 font-bold" })
                 <div class="col-md-6">
-                    @Html.DropDownList("Kdv", Model.KdvOraniSelectList, "Seçiniz", new { @class = "select2" })
+                    @Html.DropDownList("Kdv", Model.KdvOraniSelectList, "Seçiniz", new { @class = "select2 required" })
                     @Html.ValidationMessage("Kdv", new { @class = "text-danger" })
                 </div>
             </div>
@@ -272,7 +321,7 @@
             <div class="input-group" style="width: 100%;">
                 @Html.LabelFor(model => model.DamgaVergisiDurumSelectList, new { @class = "col-md-4 font-bold" })
                 <div class="col-md-6">
-                    @Html.DropDownList("DamgaAlinsinMi", Model.DamgaVergisiDurumSelectList, "Seçiniz", new { @class = "select2" })
+                    @Html.DropDownList("DamgaAlinsinMi", Model.DamgaVergisiDurumSelectList, "Seçiniz", new { @class = "select2 required" })
                     @Html.ValidationMessage("DamgaAlinsinMi", new { @class = "text-danger" })
                 </div>
             </div>
@@ -292,3 +341,5 @@
         </div>
     </div>
 </div>
+
+

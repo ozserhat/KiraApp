@@ -8,6 +8,7 @@
 
 
 
+
 @if (!Model.HideContent)
 {
     <div id="content">
@@ -51,6 +52,18 @@
                                     </ul>
                                 </div>*@
                         </header>
+                        <div id="errorContent" style="display:none; padding-left:30px; padding-right:20px;">
+                            <section id="widget-grid">
+                                <div class="row">
+                                    <div class="row alert alert-danger">
+                                        <i class="glyphicon glyphicon-warning-sign col-md-1"></i>
+                                        <ul style="list-style-type:none" class="col-md-11">
+                                            <span id="spnMessage"></span>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
                         <div role="content" style="display: block;">
                             <div class="jarviswidget-editbox">
                             </div>
@@ -100,6 +113,7 @@
                                                             </li>
 
                                                         </ul>
+
                                                         <div class="clearfix"></div>
                                                     </div>
                                                     <div class="tab-content">
@@ -107,12 +121,11 @@
                                                             <legend>
                                                                 <h3><strong>1. Adım </strong> - Kiracı Bilgileri</h3>
                                                             </legend>
-
                                                             @Html.AntiForgeryToken()
                                                             <fieldset>
                                                                 <div class="row">
                                                                     <div class="col-md-6">
-                                                                        @using (Ajax.BeginForm("GetirSicilBilgi", "Beyan", new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "dvSicilForm" }, new { enctype = "multipart/form-data", id = "kiraciForm" }))
+                                                                        @using (Ajax.BeginForm("GetirSicilBilgi", "Beyan", new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "dvSicilForm", OnSuccess = "onSuccess" }, new { enctype = "multipart/form-data", id = "kiraciForm" }))
                                                                         {
                                                                             <div class="form-group">
                                                                                 <div class="input-group" style="width: 100%;">
@@ -146,7 +159,7 @@
                                                             <fieldset>
                                                                 <div class="row">
                                                                     <div class="col-md-6">
-                                                                        @using (Ajax.BeginForm("GetirGayrimenkulBilgi", "Beyan", new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "dvGayrimenkulForm" }, new { enctype = "multipart/form-data", id = "gayrimenkulForm" }))
+                                                                        @using (Ajax.BeginForm("GetirGayrimenkulBilgi", "Beyan", new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "dvGayrimenkulForm", OnSuccess = "onSuccess" }, new { enctype = "multipart/form-data", id = "gayrimenkulForm" }))
                                                                         {
                                                                             <div class="form-group">
                                                                                 <div class="input-group" style="width: 100%;">
@@ -244,6 +257,7 @@
     <script src="~/Scripts/plugin/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
     <script src="~/Scripts/loadingoverlay.min.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery.formatCurrency-1.4.0.js"></script>
     <style type="text/css">
         .loadingoverlay_element {
             position: fixed;
@@ -258,6 +272,51 @@
             right: 0;
         }
     </style>
+
+    <!--Money Format -->
+    <script type="text/javascript">
+        $('.moneyFormat').change(function () {
+            $('.moneyFormat').formatCurrency();
+        });
+    </script>
+
+    <!--Datetime Picker Format -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            jQuery.validator.methods.date = function (value, element) {
+                var d = value.split(".");
+                return this.optional(element) || !/Invalid|NaN/.test(new Date((/chrom(e|ium)/.test(navigator.userAgent.toLowerCase())) ? d[1] + "." + d[0] + "." + d[2] : value));
+            };
+            $('.datepicker').on('click', function (e) {
+                e.preventDefault();
+                $(this).attr("autocomplete", "off");
+            });
+        });
+    </script>
+
+    <!--Ajax Form Kontrol -->
+    <script type="text/javascript">
+        function onSuccess(result) {
+
+            var errorContent = $('#errorContent');
+
+            var errorData = $('#hdSicilError').val();
+
+            var errorData2 = $('#hdGayrimenkulError').val();
+
+            if (errorData != null && errorData != '') {
+                $('#spnMessage').html(errorData);
+                errorContent.show();
+            }
+            else if (errorData2 != null && errorData2 != '') {
+                $('#spnMessage').html(errorData2);
+                errorContent.show();
+            }
+            else {
+                errorContent.hide();
+            }
+        }
+    </script>
 
 
     <!--Belge Ekleme -->
@@ -337,7 +396,7 @@
                             return false;
                         }
                     }
-                    else if (index == 3 && MuteahhitId == "") {
+                    else if (index == 3) {
                         if ($('#beyanForm').valid()) {
                             return true;
                         }
