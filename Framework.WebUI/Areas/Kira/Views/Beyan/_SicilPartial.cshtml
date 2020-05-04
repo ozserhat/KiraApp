@@ -1,4 +1,22 @@
 ﻿@model Framework.WebUI.Models.ViewModels.KiraciEkleVM
+@if (Model.Errors != null && Model.Errors.Count > 0)
+{
+    <div id="content">
+        <section id="widget-grid">
+            <div class="row">
+                <div class="row alert alert-danger">
+                    <i class="glyphicon glyphicon-warning-sign col-md-1"></i>
+                    <ul style="list-style-type:none" class="col-md-11">
+                        @foreach (var item in Model.Errors)
+                        {
+                            <li>@item</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+}
 
 <div class="row">
     <div class="col-md-6">
@@ -6,7 +24,7 @@
             <div class="input-group" style="width: 100%;">
                 @Html.LabelFor(model => model.SicilNo, new { @class = "col-md-4 font-bold" })
                 <div class="col-md-6">
-                    @Html.TextBoxFor(model => model.SicilNo, "", new {@class = "form-control", @readonly = true })
+                    @Html.TextBoxFor(model => model.SicilNo, "", new { @class = "form-control", @readonly = true })
                     @Html.ValidationMessage("SicilNo", new { @class = "text-danger" })
                 </div>
             </div>
@@ -30,7 +48,7 @@
             <div class="input-group" style="width: 100%;">
                 @Html.LabelFor(model => model.VergiNo, new { @class = "col-md-4 font-bold" })
                 <div class="col-md-6">
-                    @Html.TextBoxFor(model => model.VergiNo, "", new { @class = "form-control removeBorder", @readonly =true })
+                    @Html.TextBoxFor(model => model.VergiNo, "", new { @class = "form-control removeBorder", @readonly = true })
                     @Html.ValidationMessage("VergiNo", new { @class = "text-danger" })
                 </div>
             </div>

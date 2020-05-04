@@ -173,6 +173,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AnasayfaController.cs" />
     <Compile Include="Areas\Admin\Controllers\BeyanDosyaTurController.cs" />
+    <Compile Include="Areas\Admin\Controllers\BeyanTurController.cs" />
     <Compile Include="Areas\Admin\Controllers\Beyan_DosyaController.cs" />
     <Compile Include="Areas\Admin\Controllers\Beyan_TurController.cs" />
     <Compile Include="Areas\Admin\Controllers\DenemeController.cs" />
@@ -189,6 +190,7 @@
     <Compile Include="Areas\Admin\Controllers\LogsController.cs" />
     <Compile Include="Areas\Admin\Controllers\OdemePeriyotTurController.cs" />
     <Compile Include="Areas\Admin\Controllers\PagesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ResmiTatillerController.cs" />
     <Compile Include="Areas\Admin\Controllers\RolesController.cs" />
     <Compile Include="Areas\Admin\Controllers\SistemParametreleriController.cs" />
     <Compile Include="Areas\Admin\Controllers\SistemParametreDetayController.cs" />
@@ -234,6 +236,7 @@
     <Compile Include="Models\ViewModels\LoginVm.cs" />
     <Compile Include="Models\ViewModels\LogsVM.cs" />
     <Compile Include="Models\ViewModels\OdemePeriyotTurVM.cs" />
+    <Compile Include="Models\ViewModels\ResmiTatillerVM.cs" />
     <Compile Include="Models\ViewModels\RolVM.cs" />
     <Compile Include="Models\ViewModels\SistemParametreleriVM.cs" />
     <Compile Include="Models\ViewModels\SistemParametre_DetayVM.cs" />
@@ -1077,6 +1080,9 @@
     <Content Include="Areas\Kira\Views\Beyan\_GayrimenkulPartial.cshtml" />
     <Content Include="Areas\Kira\Views\Beyan\_BeyanPartial.cshtml" />
     <Content Include="Areas\Kira\Views\Beyan\_DosyaPartial.cshtml" />
+    <Content Include="Areas\Admin\Views\ResmiTatiller\Duzenle.cshtml" />
+    <Content Include="Areas\Admin\Views\ResmiTatiller\Ekle.cshtml" />
+    <Content Include="Areas\Admin\Views\ResmiTatiller\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\customModal.js" />

@@ -163,19 +163,27 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
                 var sicilBilgisi = _sicilService.GetirSicilBilgisi(vergiNo, tcNo);
 
-                _beyanVM.Kiraci = new KiraciEkleVM()
+                if (sicilBilgisi != null && sicilBilgisi.SicilNo != null)
                 {
-                    SicilNo = long.Parse(sicilBilgisi.SicilNo),
-                    VergiNo = long.Parse(sicilBilgisi.VergiNo),
-                    Ad = sicilBilgisi.Ad,
-                    Soyad = sicilBilgisi.Soyad,
-                    Tanim = sicilBilgisi.Tanim,
-                    IlAdi = sicilBilgisi.Il,
-                    IlceAdi = sicilBilgisi.Ilce,
-                    MahalleAdi = sicilBilgisi.Mahalle,
-                    AcikAdres = sicilBilgisi.AcikAdres,
-                    VergiDairesi = sicilBilgisi.VergiDairesi,
-                };
+                    _beyanVM.Kiraci = new KiraciEkleVM()
+                    {
+                        SicilNo = long.Parse(sicilBilgisi.SicilNo),
+                        VergiNo = long.Parse(sicilBilgisi.VergiNo),
+                        Ad = sicilBilgisi.Ad,
+                        Soyad = sicilBilgisi.Soyad,
+                        Tanim = sicilBilgisi.Tanim,
+                        IlAdi = sicilBilgisi.Il,
+                        IlceAdi = sicilBilgisi.Ilce,
+                        MahalleAdi = sicilBilgisi.Mahalle,
+                        AcikAdres = sicilBilgisi.AcikAdres,
+                        VergiDairesi = sicilBilgisi.VergiDairesi,
+                    };
+                }
+                else
+                {
+                    _beyanVM.Kiraci.Errors.Add("Sicil Bilgisi Bulunamadı!!!");
+                    ModelState.AddModelError("SicilHata", @"Sicil Bilgisi Bulunamadı!!!");
+                }
             }
 
             beyanDynamicModel.Kiraci = _beyanVM.Kiraci;
@@ -191,35 +199,45 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
                 var gayrimenkul = _gayrimenkulservice.GetirGayrimenkul(GayrimenkulNo);
 
-                _beyanVM.Gayrimenkul = new Beyan_GayrimenkulEkleVM()
+                if (gayrimenkul != null)
                 {
-                    GayrimenkulNo = gayrimenkul.GayrimenkulNo,
-                    BinaKimlikNo = gayrimenkul.BinaKimlikNo,
-                    NumaratajKimlikNo = gayrimenkul.NumaratajKimlikNo,
-                    AdresNo = gayrimenkul.AdresNo,
-                    DosyaNo = gayrimenkul.DosyaNo,
-                    GayrimenkulAdi = gayrimenkul.Ad,
-                    GayrimenkulTur_Id = gayrimenkul.GayrimenkulTur_Id,
-                    GayrimenkulTur = gayrimenkul.GayrimenkulTur.Ad,
-                    Il = gayrimenkul.Mahalleler.Ilceler.Iller.Ad,
-                    Ilce = gayrimenkul.Mahalleler.Ilceler.Ad,
-                    Mahalle = gayrimenkul.Mahalleler.Ad,
-                    Il_Id = gayrimenkul.Il_Id,
-                    Ilce_Id = gayrimenkul.Ilce_Id,
-                    Mahalle_Id = gayrimenkul.Mahalle_Id,
-                    Sokak = gayrimenkul.Sokak,
-                    IcKapiNo = gayrimenkul.IcKapiNo,
-                    DisKapiNo = gayrimenkul.DisKapiNo,
-                    Koordinat = gayrimenkul.Koordinat,
-                    Ada = gayrimenkul.Ada,
-                    Pafta = gayrimenkul.Pafta,
-                    Parsel = gayrimenkul.Parsel,
-                    AcikAdres = gayrimenkul.AcikAdres,
-                    Metrekare = gayrimenkul.Metrekare,
-                    AracKapasitesi = gayrimenkul.AracKapasitesi
-                };
 
-                _beyanVM.Gayrimenkul_Id = gayrimenkul.Id;
+                    _beyanVM.Gayrimenkul = new Beyan_GayrimenkulEkleVM()
+                    {
+                        GayrimenkulId = gayrimenkul.Id,
+                        GayrimenkulNo = gayrimenkul.GayrimenkulNo,
+                        BinaKimlikNo = gayrimenkul.BinaKimlikNo,
+                        NumaratajKimlikNo = gayrimenkul.NumaratajKimlikNo,
+                        AdresNo = gayrimenkul.AdresNo,
+                        DosyaNo = gayrimenkul.DosyaNo,
+                        GayrimenkulAdi = gayrimenkul.Ad,
+                        GayrimenkulTur_Id = gayrimenkul.GayrimenkulTur_Id,
+                        GayrimenkulTur = gayrimenkul.GayrimenkulTur.Ad,
+                        Il = gayrimenkul.Mahalleler.Ilceler.Iller.Ad,
+                        Ilce = gayrimenkul.Mahalleler.Ilceler.Ad,
+                        Mahalle = gayrimenkul.Mahalleler.Ad,
+                        Il_Id = gayrimenkul.Il_Id,
+                        Ilce_Id = gayrimenkul.Ilce_Id,
+                        Mahalle_Id = gayrimenkul.Mahalle_Id,
+                        Sokak = gayrimenkul.Sokak,
+                        IcKapiNo = gayrimenkul.IcKapiNo,
+                        DisKapiNo = gayrimenkul.DisKapiNo,
+                        Koordinat = gayrimenkul.Koordinat,
+                        Ada = gayrimenkul.Ada,
+                        Pafta = gayrimenkul.Pafta,
+                        Parsel = gayrimenkul.Parsel,
+                        AcikAdres = gayrimenkul.AcikAdres,
+                        Metrekare = gayrimenkul.Metrekare,
+                        AracKapasitesi = gayrimenkul.AracKapasitesi
+                    };
+
+                    _beyanVM.Gayrimenkul_Id = gayrimenkul.Id;
+                }
+                else
+                {
+                    _beyanVM.Gayrimenkul.Errors.Add("Gayrimenkul Bilgisi Bulunamadı!!!");
+                    ModelState.AddModelError("GayrimenkulHata", @"Gayrimenkul Bilgisi Bulunamadı!!!");
+                }
             }
 
             beyanDynamicModel.Gayrimenkul = _beyanVM.Gayrimenkul;

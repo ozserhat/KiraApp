@@ -6,6 +6,8 @@
     Layout = "~/Areas/Kira/Views/Shared/_LayoutKira.cshtml";
 }
 
+
+
 @if (!Model.HideContent)
 {
     <div id="content">
@@ -117,12 +119,11 @@
                                                                                     @Html.Label("Vergi/TC No", new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
                                                                                         @Html.TextBox("TcVergiNo", "", new { @class = "form-control required", @type = "number" })
+                                                                                        @Html.ValidationMessage("TcVergiNo", new { @class = "text-danger" })
                                                                                         @*@Html.HiddenFor(model => model, new { @class = "form-control" })*@
                                                                                     </div>
                                                                                     <div class="col-md-2">
-                                                                                        <button class="btn btn-primary" id="btnSicilSorgulas" type="submit"
-                                                                                                data-loading-text="<i class='fa fa-spinner fa-spin '></i>
-                                                                                         Sicil Sorgulanıyor...">
+                                                                                        <button class="btn btn-primary" id="btnSicilSorgulas" type="submit">
                                                                                             <span class="glyphicon glyphicon-search"></span> Sorgula
                                                                                         </button>
                                                                                     </div>
@@ -152,12 +153,10 @@
                                                                                     @Html.Label("Gayrimenkul No", new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
                                                                                         @Html.TextBox("GayrimenkulNo", "", new { @class = "form-control required", @type = "text" })
-
+                                                                                        @Html.ValidationMessage("GayrimenkulNo", new { @class = "text-danger" })
                                                                                     </div>
                                                                                     <div class="col-md-2">
-                                                                                        <button class="btn btn-primary" id="btnGayrimenkulSorgula" type="submit"
-                                                                                                data-loading-text="<i class='fa fa-spinner fa-spin '></i>
-                                                                                         Gayrimenkul Sorgulanıyor...">
+                                                                                        <button class="btn btn-primary" id="btnGayrimenkulSorgula" type="submit">
                                                                                             <span class="glyphicon glyphicon-search"></span> Sorgula
                                                                                         </button>
                                                                                     </div>
@@ -179,7 +178,7 @@
                                                             <form class="form-horizontal" id="beyanForm" novalidate="novalidate">
                                                                 @Html.AntiForgeryToken()
                                                                 <fieldset>
-                                                                    @{ Html.RenderPartial("_BeyanPartial",Model.Beyan); }
+                                                                    @{ Html.RenderPartial("_BeyanPartial", Model.Beyan); }
                                                                 </fieldset>
                                                             </form>
                                                         </div>
@@ -302,6 +301,7 @@
             }
         }
     </script>
+
     <!--Tab Control-->
     <script type="text/javascript">
         $(document).ready(function () {
@@ -314,9 +314,42 @@
                     return false;
                 },
                 onNext: function (tab, navigation, index) {
+
+                    var gayrimenkulId = $('#GayrimenkulId').val();
+
+                    var sicilNo = $('#SicilNo').val();
+
+                    if (index == 1) {
+                        if (sicilNo != null && sicilNo != "") {
+                            return true;
+                        }
+                        else {
+                            swal('Uyarı!', 'Sicil Bilgisi Bulunamadı!!!', 'warning');
+                            return false;
+                        }
+                    }
+                    else if (index == 2) {
+                        if (gayrimenkulId != "0") {
+                            return true;
+                        }
+                        else {
+                            swal('Uyarı!', 'Gayrimenkul Bilgisi Bulunamadı!!!', 'warning');
+                            return false;
+                        }
+                    }
+                    else if (index == 3 && MuteahhitId == "") {
+                        if ($('#beyanForm').valid()) {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+                    }
+                    else if (index == 5) {
+                        return false;
+                    }
                 },
                 onTabShow: function (tab, navigation, index) {
-
                     const $total = navigation.find('li').length;
                     const $current = index + 1;
 
@@ -335,6 +368,119 @@
             });
 
         });
+    </script>
+
+    <!--Custom Validation-->
+    <script type="text/javascript">
+
+        var kaydetButtonBasildi = false;
+
+        $.validator.addMethod("tcvergiKontrol", function (value, element) {
+
+            var durum = false;
+
+            value = value.toString();
+
+            if (value != "")
+                durum = true;
+            else
+                durum = false;
+
+            return durum;
+
+        }, "Lütfen Tc veya Vergi Kimlik Numaranızı Kontrol Ediniz");
+
+        var $validatorKiraci = $("#kiraciForm").validate({
+            rules: {
+                TcVergiNo: {
+                    required: true,
+                    minlength: 10
+                }
+            },
+            messages: {
+                SantiyeSefiTcKimlikNo: {
+                    required: 'Bu alan boş bırakılamaz.',
+                    minlength: "Minimum 10 Karakter Olmalıdır."
+                }
+            },
+
+            highlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+            },
+            unhighlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-error');
+            },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) {
+                if (element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
+
+        $("#kiraciForm").on("change", function () {
+            var $valid = $("#kiraciForm").valid();
+            if (!$valid) {
+                $validatorKiraci.focusInvalid();
+                return false;
+            }
+        });
+
+        $.validator.addMethod("gayrimenkulNoKontrol", function (value, element) {
+
+            var durum = false;
+
+            value = value.toString();
+
+            if (value != "")
+                durum = true;
+            else
+                durum = false;
+
+            return durum;
+
+        }, "Lütfen Gayrimenkul Numaranızı Kontrol Ediniz");
+
+        var $validatorGayrimenkul = $("#gayrimenkulForm").validate({
+            rules: {
+                GayrimenkulNo: {
+                    required: true
+                }
+            },
+            messages: {
+                GayrimenkulNo: {
+                    required: 'Bu alan boş bırakılamaz.',
+                }
+            },
+
+            highlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+            },
+            unhighlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-error');
+            },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) {
+                if (element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
+
+        $("#gayrimenkulForm").on("change", function () {
+            var $valid = $("#gayrimenkulForm").valid();
+            if (!$valid) {
+                $validatorGayrimenkul.focusInvalid();
+                return false;
+            }
+        });
+
     </script>
 
     <!--Beyan Ekle-->
