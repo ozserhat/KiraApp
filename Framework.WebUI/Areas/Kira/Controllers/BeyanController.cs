@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using Framework.WebUI.App_Helpers;
 using Framework.WebUI.Models.ViewModels;
 using Framework.DataAccess.Abstract;
+using System.Dynamic;
 
 namespace Framework.WebUI.Areas.Kira.Controllers
 {
@@ -19,36 +20,40 @@ namespace Framework.WebUI.Areas.Kira.Controllers
     {
         #region Constructor
 
-        private IIlService _ilService;
-        private IIlceService _ilceService;
-        private IMahalleService _mahalleService;
-        private IGayrimenkulTurService _turService;
         private IGayrimenkulService _gayrimenkulservice;
-        private IGayrimenkulDosya_TurService _dosyaTurService;
         private IBeyanService _beyanService;
+        private IBeyanDosya_TurDal _dosyaService;
         private IKira_BeyanService _kiraBeyanService;
+        private IKira_DurumService _kiraDurumService;
+        private IOdemePeriyotTurService _odemePeriyotService;
         private ISicilService _sicilService;
         public static KiraBeyanEkleVM _beyanVM;
+        private IBeyan_TurService _beyanTurService;
+        private ISistemParametre_DetayService _parametreService;
+        dynamic beyanDynamicModel;
 
-        public BeyanController(IGayrimenkulService gayrimenkulservice, IGayrimenkulTurService turService,
-            IIlService ilService, IIlceService ilceService,
-            IMahalleService mahalleService,
-            IGayrimenkulDosya_TurService dosyaTurService,
+        public BeyanController(IGayrimenkulService gayrimenkulservice,
             IBeyanService beyanService,
             IKira_BeyanService kiraBeyanService,
             ISicilService sicilService,
-            KiraBeyanEkleVM beyanVM)
+            KiraBeyanEkleVM beyanVM,
+            ISistemParametre_DetayService parametreService,
+            IKira_DurumService kiraDurumService,
+            IOdemePeriyotTurService odemePeriyotService,
+        IBeyan_TurService beyanTurService,
+        IBeyanDosya_TurDal dosyaService)
         {
-            _ilService = ilService;
-            _ilceService = ilceService;
-            _mahalleService = mahalleService;
-            _turService = turService;
             _gayrimenkulservice = gayrimenkulservice;
-            _dosyaTurService = dosyaTurService;
             _beyanService = beyanService;
             _kiraBeyanService = kiraBeyanService;
             _sicilService = sicilService;
             _beyanVM = beyanVM;
+            _dosyaService = dosyaService;
+            _beyanTurService = beyanTurService;
+            _parametreService = parametreService;
+            _odemePeriyotService = odemePeriyotService;
+            _kiraDurumService = kiraDurumService;
+            beyanDynamicModel = new ExpandoObject();
         }
         #endregion
         // GET: Kira/Beyan
@@ -71,43 +76,78 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             return View(model);
         }
 
-        public SelectList TurSelectList()
+        public SelectList BeyanTurSelectList()
         {
-            var turler = _turService.GetirListe().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+            var turler = _beyanTurService.GetirListe().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
 
             return new SelectList(turler, "Id", "Ad");
         }
 
-        public SelectList IlSelectList()
+        public SelectList BeyanYilSelectList()
         {
-            var iller = _ilService.GetirListe().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+            var iller = _parametreService.GetirListe(1).Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
 
             return new SelectList(iller, "Id", "Ad");
         }
 
-        [HttpPost]
-        public JsonResult IlceSelectList(int ilId)
+        public SelectList KdvOraniSelectList()
         {
-            var ilceler = _ilceService.GetirListe().Where(a => a.Il_Id == ilId).Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+            var iller = _parametreService.GetirListe(9).Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
 
-            return Json(new { Data = ilceler, success = true }, JsonRequestBehavior.AllowGet);
+            return new SelectList(iller, "Id", "Ad");
         }
 
-        [HttpPost]
-
-        public JsonResult MahalleSelectList(int ilceId)
+        public SelectList DamgaVergisiDurumSelectList()
         {
-            var mahalleler = _mahalleService.GetirListe().Where(a => a.Ilce_Id == ilceId).Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+            var iller = _parametreService.GetirListe(9).Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+            List<SelectListItem> newList = new List<SelectListItem>() {
+                                  new SelectListItem(){
+                                    Text="Evet",
+                                    Value="1"
+                                  },
+                                    new SelectListItem(){
+                                    Text="Hayır",
+                                    Value="0"
+                                  }
+            };
 
-            return Json(new { Data = mahalleler, success = true }, JsonRequestBehavior.AllowGet);
+            return new SelectList(newList, "Value", "Text");
+        }
+
+        public SelectList KiraDurumSelectList()
+        {
+            var iller = _kiraDurumService.GetirListe().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+
+            return new SelectList(iller, "Id", "Ad");
+        }
+
+        public SelectList OdemePeriyotSelectList()
+        {
+            var iller = _odemePeriyotService.GetirListe().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+
+            return new SelectList(iller, "Id", "Ad");
         }
 
         #endregion
 
         #region SicilSorgulama
 
+        void GetirSelectList()
+        {
+            _beyanVM.Beyan = new BeyanEkleVM();
+            _beyanVM.Kiraci = new KiraciEkleVM();
+            _beyanVM.Gayrimenkul = new Beyan_GayrimenkulEkleVM();
+            _beyanVM.Beyan.BeyanTurSelectList = BeyanTurSelectList();
+            _beyanVM.Beyan.BeyanYilSelectList = BeyanYilSelectList();
+            _beyanVM.Beyan.KiraDurumSelectList = KiraDurumSelectList();
+            _beyanVM.Beyan.OdemePeriyotSelectList = OdemePeriyotSelectList();
+            _beyanVM.Beyan.KdvOraniSelectList = KdvOraniSelectList();
+            _beyanVM.Beyan.DamgaVergisiDurumSelectList = DamgaVergisiDurumSelectList();
+            _beyanVM.Beyan.DosyaTurleri = _dosyaService.GetList();
 
-        public void GetirSicilBilgi(string TcVergiNo)
+        }
+
+        public ActionResult GetirSicilBilgi(string TcVergiNo)
         {
             string tcNo = "";
             string vergiNo = "";
@@ -118,6 +158,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                     tcNo = TcVergiNo;
                 else
                     vergiNo = TcVergiNo;
+
+                GetirSelectList();
 
                 var sicilBilgisi = _sicilService.GetirSicilBilgisi(vergiNo, tcNo);
 
@@ -136,12 +178,17 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 };
             }
 
+            beyanDynamicModel.Kiraci = _beyanVM.Kiraci;
+            //return Json(new { Data = _beyanVM, Message = "Sicil Bilgisi Başarıyla Getirildi.", success = true }, JsonRequestBehavior.AllowGet);
+            return PartialView("_SicilPartial", _beyanVM.Kiraci);
         }
 
-        public void GetirGayrimenkulBilgi(string GayrimenkulNo)
+        public ActionResult GetirGayrimenkulBilgi(string GayrimenkulNo)
         {
             if (!string.IsNullOrEmpty(GayrimenkulNo))
             {
+                GetirSelectList();
+
                 var gayrimenkul = _gayrimenkulservice.GetirGayrimenkul(GayrimenkulNo);
 
                 _beyanVM.Gayrimenkul = new Beyan_GayrimenkulEkleVM()
@@ -171,30 +218,31 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                     Metrekare = gayrimenkul.Metrekare,
                     AracKapasitesi = gayrimenkul.AracKapasitesi
                 };
+
+                _beyanVM.Gayrimenkul_Id = gayrimenkul.Id;
             }
+
+            beyanDynamicModel.Gayrimenkul = _beyanVM.Gayrimenkul;
+            return PartialView("_GayrimenkulPartial", _beyanVM.Gayrimenkul);
+
+            //return View("Ekle", _beyanVM);
+            //return Json(new { Data = _beyanVM, Message = "Gayrimenkul Bilgisi Başarıyla Getirildi.", success = true }, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
-        public ActionResult GetirSicilBilgisi(string TcVergiNo, string GayrimenkulNo)
+        public ActionResult GetirBeyanBilgi()
         {
-            GetirSicilBilgi(TcVergiNo);
-            TempData["TcVergiNo"] = TcVergiNo;
+            GetirSelectList();
 
-            if (TempData["GayrimenkulNo"] != null)
-                GetirGayrimenkulBilgi(TempData["GayrimenkulNo"].ToString());
-            return View("Ekle", _beyanVM);
+            return PartialView("_BeyanPartial", _beyanVM);
         }
 
-        [HttpPost]
-        public ActionResult GetirGayrimenkulBilgisi(string TcVergiNo, string GayrimenkulNo)
+        public ActionResult GetirDosyaBilgi()
         {
-            if (TempData["TcVergiNo"] != null)
-                GetirSicilBilgi(TempData["TcVergiNo"].ToString());
+            GetirSelectList();
 
-            TempData["GayrimenkulNo"] = GayrimenkulNo;
-            GetirGayrimenkulBilgi(GayrimenkulNo);
-            return View("Ekle", _beyanVM);
+            return PartialView("_DosyaPartial", _beyanVM);
         }
+
         #endregion
 
         #region Ekle
@@ -202,11 +250,17 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         [HttpGet]
         public ActionResult Ekle()
         {
-            var model = new KiraBeyanEkleVM();
+            GetirSelectList();
             ModelState.AddModelError("LogMessage", "Kira Beyan Ekleme Sayfası Görüntülendi.");
-            return View(model);
+            return View(_beyanVM);
         }
 
+        [HttpPost]
+        public ActionResult KiraBeyanEkle(BeyanEkleVM kiraBeyanModel)
+        {
+            ModelState.AddModelError("LogMessage", "Kira Beyan Ekleme Sayfası Görüntülendi.");
+            return View(_beyanVM);
+        }
 
         #endregion
     }
