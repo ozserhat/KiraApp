@@ -546,6 +546,53 @@
     <script type="text/javascript">
         $(function () {
             $('#btnSonKaydet').on('click', function () {
+
+                var gayrimenkulBilgi = {
+                    GayrimenkulId: $('#GayrimenkulId').val()
+                }
+
+                var sicilBilgi = {
+                    SicilNo: $('#SicilNo').val(),
+                    TcKimlikNo: $('#TcKimlikNo').val(),
+                    VergiNo: $('#VergiNo').val(),
+                    VergiDairesi: $('#VergiDairesi').val(),
+                    Ad: $('#Ad').val(),
+                    Soyad: $('#Soyad').val(),
+                    Tanim: $('#Tanim').val(),
+                    IlAdi: $('#IlAdi').val(),
+                    IlceAdi: $('#IlceAdi').val(),
+                    MahalleAdi: $('#MahalleAdi').val(),
+                    AcikAdres: $('#AcikAdres').val(),
+                }
+
+                var beyanBilgi = {
+                    BeyanTur_Id: $('#BeyanTur_Id').val(),
+                    KiraDurum_Id: $('#KiraDurum_Id').val(),
+                    OdemePeriyotTur_Id: $('#OdemePeriyotTur_Id').val(),
+                    BeyanYil: $("#BeyanYil option:selected").text(),
+                    BeyanNo: $('#BeyanNo').val(),
+                    TeminatNo: $('#TeminatNo').val(),
+                    NoterSozlesmeNo: $('#NoterSozlesmeNo').val(),
+                    EncumenKararNo: $('#EncumenKararNo').val(),
+                    BeyanTarihi: $('#BeyanTarihi').val(),
+                    IhaleEncumenTarihi: $('#IhaleEncumenTarihi').val(),
+                    KiraBaslangicTarihi: $('#KiraBaslangicTarihi').val(),
+                    SozlesmeTarihi: $('#SozlesmeTarihi').val(),
+                    SozlesmeBitisTarihi: $('#SozlesmeBitisTarihi').val(),
+                    TeminatTarihi: $('#TeminatTarihi').val(),
+                    BeyanKapatmaTarihi: $('#BeyanKapatmaTarihi').val(),
+                    KullanimAlani: $('#KullanimAlani').val(),
+                    SozlesmeSuresi: $('#SozlesmeSuresi').val(),
+                    MusadeliGunSayisi: $('#MusadeliGunSayisi').val(),
+                    IhaleTutari: $('#IhaleTutari').val(),
+                    KiraTutari: $('#KiraTutari').val(),
+                    Kdv: $("#Kdv option:selected").text(),
+                    BaslangicTaksitNo: $('#BaslangicTaksitNo').val(),
+                    KalanAy: $('#KalanAy').val(),
+                    DamgaAlinsinMi: $('#DamgaAlinsinMi').val(),
+                    Aciklama: $('#Aciklama').val()
+                }
+
                 kiraBeyanModel = new Object();
                 kiraBeyanModel.EncumenKararNo = $("#Beyan_EncumenKararNo").val();
                 kiraBeyanModel.NoterSozlesmeNo = $("#Beyan_NoterSozlesmeNo").val();
