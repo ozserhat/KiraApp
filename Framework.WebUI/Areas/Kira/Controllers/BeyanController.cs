@@ -13,6 +13,7 @@ using Framework.WebUI.Models.ViewModels;
 using Framework.DataAccess.Abstract;
 using System.Dynamic;
 using System.Web.Services.Description;
+using System.IO;
 
 namespace Framework.WebUI.Areas.Kira.Controllers
 {
@@ -267,6 +268,17 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             return PartialView("_DosyaPartial", _beyanVM);
         }
 
+        private int BeyanDosyaEkle(List<Beyan_DosyaVM> dosyalar)
+        {
+            string filePath = Server.MapPath("~/Dosyalar/Beyan");
+
+            foreach (var item in dosyalar)
+            {
+                byte[] fileBytes = Convert.FromBase64String(item.BeyanDosya);
+                System.IO.File.WriteAllBytes(filePath, fileBytes);
+            }
+            return 1;
+        }
         #endregion
 
         #region Ekle
@@ -292,6 +304,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         [HttpPost]
         public ActionResult KiraBeyanEkle(KiraBeyanEkleVM kiraBeyanModel)
         {
+            BeyanDosyaEkle(kiraBeyanModel.BeyanDosyalar);
             ModelState.AddModelError("LogMessage", "Kira Beyan Ekleme Sayfası Görüntülendi.");
             return View(_beyanVM);
         }
