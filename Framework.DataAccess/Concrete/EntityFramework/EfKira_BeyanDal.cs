@@ -45,8 +45,12 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             {
                 return context.Kira_Beyanlari
                               .Include(b=>b.Beyanlar)
+                              .Include(bt=>bt.Beyanlar.BeyanTur)
                               .Include(k=>k.Kiracilar)
                               .Include(g=>g.Gayrimenkuller)
+                              .Include(m=>m.Gayrimenkuller.Mahalleler)
+                              .Include(ilc=>ilc.Gayrimenkuller.Mahalleler.Ilceler)
+                              .Include(ilc => ilc.Gayrimenkuller.Mahalleler.Ilceler.Iller)
                               .ToList();
             }
         }
