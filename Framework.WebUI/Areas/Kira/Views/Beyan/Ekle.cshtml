@@ -321,11 +321,13 @@
 
     <!--Belge Ekleme -->
     <script type="text/javascript">
+        var beyanDosyalar = [];
 
         $(document).on("change", ".taranmisDosya", function () {
-
-            var BasvuruGrupTipi_DosyaTipi_Id = $(this).attr("data-id");
-            $("#placeholder_" + BasvuruGrupTipi_DosyaTipi_Id).val($(this).val().replace(/C:\\fakepath\\/, ''));
+            var DosyaTipi_Id = $(this).attr("data-id");
+            var dosyaAdi = $(this).val().replace(/C:\\fakepath\\/, '');
+            $("#BeyanDosyaTur_" + DosyaTipi_Id).val(dosyaAdi);
+            beyanDosyalar.push({ BeyanDosyaTur_Id: DosyaTipi_Id, DosyaAdi:dosyaAdi});
         });
 
         function BelgeEkle(gayrimenkulId) {
@@ -396,14 +398,14 @@
                             return false;
                         }
                     }
-                    else if (index == 3) {
-                        if ($('#beyanForm').valid()) {
-                            return true;
-                        }
-                        else {
-                            return false;
-                        }
-                    }
+                    //else if (index == 3) {
+                    //    if ($('#beyanForm').valid()) {
+                    //        return true;
+                    //    }
+                    //    else {
+                    //        return false;
+                    //    }
+                    //}
                     else if (index == 5) {
                         return false;
                     }
@@ -593,9 +595,14 @@
                     Aciklama: $('#Aciklama').val()
                 }
 
-                kiraBeyanModel = new Object();
-                kiraBeyanModel.EncumenKararNo = $("#Beyan_EncumenKararNo").val();
-                kiraBeyanModel.NoterSozlesmeNo = $("#Beyan_NoterSozlesmeNo").val();
+                var dosyaBilgi = beyanDosyalar;
+
+               var kiraBeyanModel ={
+                   Kiraci: sicilBilgi,
+                   Gayrimenkul: gayrimenkulBilgi,
+                   Beyan: beyanBilgi,
+                   BeyanDosyalar: beyanDosyalar
+                };
 
                 if ($("#beyanForm").valid())
                 {

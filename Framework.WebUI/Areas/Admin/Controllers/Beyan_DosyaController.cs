@@ -76,7 +76,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                     Beyan_Dosya beyan_Dosya = new Beyan_Dosya()
                     {
                         Guid = Guid.NewGuid(),
-                        Ad = tur.BeyanAdi,
+                        Ad = tur.DosyaAdi,
                         BeyanDosya_Tur_Id = tur.BeyanDosyaTur_Id,
                         BeyanDosyaTurleri = null,
                         OlusturulmaTarihi = DateTime.Now,
@@ -114,7 +114,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
             {
                 model.Id = tur.Id;
                 model.Guid = tur.Guid;
-                model.BeyanAdi = tur.Ad;
+                model.DosyaAdi = tur.Ad;
                 model.GuncelleyenKullanici_Id = tur.OlusturanKullanici_Id;
                 model.GuncellenmeTarihi = tur.OlusturulmaTarihi;
                 model.AktifMi = tur.AktifMi.Value;
@@ -142,7 +142,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                     {
                         tur.Id = model.Id;
                         tur.Guid = model.Guid;
-                        tur.Ad = model.BeyanAdi;
+                        tur.Ad = model.DosyaAdi;
                         tur.GuncelleyenKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ?
                         User.GetUserPropertyValue("UserId") : null);
                         tur.GuncellenmeTarihi = DateTime.Now;

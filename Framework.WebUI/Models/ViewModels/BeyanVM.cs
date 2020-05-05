@@ -43,8 +43,7 @@ namespace Framework.WebUI.Models.ViewModels
         public string TeminatNo { get; set; }
 
         [Display(Name = "İhale Tutari")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:C}")]
-        public decimal? IhaleTutari { get; set; }
+        public string IhaleTutari { get; set; }
 
         [Display(Name = "Başlangıç Taksit No")]
         public int? BaslangicTaksitNo { get; set; }
@@ -59,11 +58,10 @@ namespace Framework.WebUI.Models.ViewModels
         public int? SozlesmeSuresi { get; set; }
 
         [Display(Name = "Kira Tutarı")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:C}")]
-        public decimal? KiraTutari { get; set; }
+        public string KiraTutari { get; set; }
 
         [Display(Name = "Damga Alınsın Mı?")]
-        public bool? DamgaAlinsinMi { get; set; }
+        public string DamgaAlinsinMi { get; set; }
 
         [Display(Name = "Müsade Süresi")]
         public int? MusadeliGunSayisi { get; set; }

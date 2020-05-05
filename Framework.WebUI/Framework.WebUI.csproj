@@ -1067,7 +1067,7 @@
     <Content Include="Areas\SosyalYardim\Views\Anasayfa\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Beyan_Dosya\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Beyan_Dosya\Ekle.cshtml" />
-    <Content Include="Areas\Admin\Views\Beyan_Dosya\Düzenle.cshtml" />
+    <Content Include="Areas\Admin\Views\Beyan_Dosya\Duzenle.cshtml" />
     <Content Include="Areas\Admin\Views\Beyan_Tur\Duzenle.cshtml" />
     <Content Include="Areas\Admin\Views\Beyan_Tur\Ekle.cshtml" />
     <Content Include="Areas\Admin\Views\Beyan_Tur\Index.cshtml" />
