@@ -91,7 +91,7 @@ namespace Framework.WebUI.Models.ViewModels
         public DateTime? SozlesmeBitisTarihi { get; set; }
 
         [Display(Name = "Açıklama")]
-        public string Aciklama { get; set; }
+        public string BeyanAciklama { get; set; }
 
 
         [Display(Name = "Beyan Türü")]

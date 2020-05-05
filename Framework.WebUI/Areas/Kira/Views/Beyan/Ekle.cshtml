@@ -323,11 +323,37 @@
     <script type="text/javascript">
         var beyanDosyalar = [];
 
-        $(document).on("change", ".taranmisDosya", function () {
+        $(document).on("change", ".taranmisDosya", function (evt) {
             var DosyaTipi_Id = $(this).attr("data-id");
             var dosyaAdi = $(this).val().replace(/C:\\fakepath\\/, '');
             $("#BeyanDosyaTur_" + DosyaTipi_Id).val(dosyaAdi);
-            beyanDosyalar.push({ BeyanDosyaTur_Id: DosyaTipi_Id, DosyaAdi:dosyaAdi});
+
+            var fileUpload = $("#DosyaTur_" + DosyaTipi_Id).get(0);
+          
+            var files = evt.target.files[0]; 
+
+            if (files.length > 0) {
+                if (window.FormData !== undefined) {
+                   var formData = new FormData();
+                    formData.append(DosyaTipi_Id, files);
+                }
+            }
+            var fileBinary;
+
+            var reader = new FileReader();
+            // Closure to capture the file information.    
+            reader.onload = (function (theFile) {
+                return function (e) {
+                    var binaryData = e.target.result;
+                    
+                    var base64String = window.btoa(binaryData);
+                   
+                    fileBinary = base64String;
+                    beyanDosyalar.push({ BeyanDosyaTur_Id: DosyaTipi_Id, DosyaAdi: dosyaAdi, BeyanDosya: fileBinary });
+                };
+            })(files);
+            // Read in the image file as a data URL.    
+            reader.readAsBinaryString(files);  
         });
 
         function BelgeEkle(gayrimenkulId) {
@@ -592,10 +618,9 @@
                     BaslangicTaksitNo: $('#BaslangicTaksitNo').val(),
                     KalanAy: $('#KalanAy').val(),
                     DamgaAlinsinMi: $('#DamgaAlinsinMi').val(),
-                    Aciklama: $('#Aciklama').val()
+                    BeyanAciklama: $('#BeyanAciklama').val()
                 }
 
-                var dosyaBilgi = beyanDosyalar;
 
                var kiraBeyanModel ={
                    Kiraci: sicilBilgi,
@@ -607,7 +632,7 @@
                 if ($("#beyanForm").valid())
                 {
                    $.ajax({
-                    type: 'POST',
+                    type: 'Post',
                     url: '@Url.Action("KiraBeyanEkle", "Beyan")',
                     data: { kiraBeyanModel: kiraBeyanModel },
                     success: function (result) {
