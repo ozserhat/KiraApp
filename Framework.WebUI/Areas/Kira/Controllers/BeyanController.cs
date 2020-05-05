@@ -23,7 +23,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
         private IGayrimenkulService _gayrimenkulservice;
         private IBeyanService _beyanService;
-        private IBeyanDosya_TurDal _dosyaService;
+        private IBeyanDosya_TurService _dosyaService;
+        private IBeyan_DosyaService _beyanDosyaService;
         private IKira_BeyanService _kiraBeyanService;
         private IKira_DurumService _kiraDurumService;
         private IOdemePeriyotTurService _odemePeriyotService;
@@ -42,7 +43,9 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             IKira_DurumService kiraDurumService,
             IOdemePeriyotTurService odemePeriyotService,
         IBeyan_TurService beyanTurService,
-        IBeyanDosya_TurDal dosyaService)
+        IBeyanDosya_TurService dosyaService,
+        IBeyan_DosyaService beyanDosyaService
+        )
         {
             _gayrimenkulservice = gayrimenkulservice;
             _beyanService = beyanService;
@@ -54,6 +57,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             _parametreService = parametreService;
             _odemePeriyotService = odemePeriyotService;
             _kiraDurumService = kiraDurumService;
+            _beyanDosyaService = beyanDosyaService;
             beyanDynamicModel = new ExpandoObject();
         }
         #endregion
@@ -144,7 +148,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             _beyanVM.Beyan.OdemePeriyotSelectList = OdemePeriyotSelectList();
             _beyanVM.Beyan.KdvOraniSelectList = KdvOraniSelectList();
             _beyanVM.Beyan.DamgaVergisiDurumSelectList = DamgaVergisiDurumSelectList();
-            _beyanVM.Beyan.DosyaTurleri = _dosyaService.GetList();
+            _beyanVM.Beyan.DosyaTurleri = _dosyaService.GetirListe();
 
         }
 
@@ -233,7 +237,6 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                         AracKapasitesi = gayrimenkul.AracKapasitesi
                     };
 
-                    _beyanVM.Gayrimenkul_Id = gayrimenkul.Id;
                 }
                 else
                 {
@@ -287,7 +290,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         }
 
         [HttpPost]
-        public ActionResult KiraBeyanEkle(BeyanEkleVM kiraBeyanModel)
+        public ActionResult KiraBeyanEkle(KiraBeyanEkleVM kiraBeyanModel)
         {
             ModelState.AddModelError("LogMessage", "Kira Beyan Ekleme Sayfası Görüntülendi.");
             return View(_beyanVM);

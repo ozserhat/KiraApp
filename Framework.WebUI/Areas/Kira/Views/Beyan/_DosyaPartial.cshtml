@@ -2,7 +2,7 @@
 
 <form class="form-horizontal" id="BelgeEkleForm" novalidate="novalidate">
     @Html.AntiForgeryToken()
-    <fieldset class="dosyaSatirlari" id="dosyaSatiri_1">
+    <fieldset class="dosyaSatirlari" id="dosyaSatiri">
         <div class="col-md-10 col-md-offset-1">
             <div class="col-md-6 smart-form" style="padding: 0;">
                 @foreach (var item in Model.DosyaTurleri)
@@ -13,9 +13,9 @@
                             <div class="form-group">
                                 <label for="file" class="input input-file">
                                     <div class="button">
-                                        @Html.TextBox("dosya" + item.Id, "", new { @class = "form-control taranmisDosya", type = "file", data_id = item.Id })Belge Ekle
+                                        @Html.TextBox("DosyaTur_" + item.Id, "", new { @class = "form-control taranmisDosya", type = "file", data_id = item.Id,data_name=item.Ad })Belge Ekle
                                     </div>
-                                    <input type="text" id="placeholder_@item.Id" placeholder="@item.Ad" readonly="">
+                                    <input type="text" id="BeyanDosyaTur_@item.Id" placeholder="@item.Ad" readonly="">
                                 </label>
                             </div>
 
