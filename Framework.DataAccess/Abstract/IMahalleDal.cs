@@ -8,6 +8,8 @@ namespace Framework.DataAccess.Abstract
     public interface IMahalleDal : IEntityRepository<Mahalle>
     {
         Mahalle GetById(int id);
+        Mahalle GetByName(string name);
+
         IEnumerable<Mahalle> GetirListe();
         bool Delete(int id);
     }

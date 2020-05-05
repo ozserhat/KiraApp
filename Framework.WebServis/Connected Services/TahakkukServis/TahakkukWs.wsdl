@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:tns="http://ws.tahakkuk.misservices.indbilisim.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" name="TahakkukWs" targetNamespace="http://ws.tahakkuk.misservices.indbilisim.com/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="https://tahsilat.ankara.bel.tr:443/MISServices/TahakkukWs?xsd=1" namespace="http://ws.tahakkuk.misservices.indbilisim.com/" />
+    </xsd:schema>
+  </types>
+  <message name="tahakkukOlustur">
+    <part name="parameters" element="tns:tahakkukOlustur" />
+  </message>
+  <message name="tahakkukOlusturResponse">
+    <part name="parameters" element="tns:tahakkukOlusturResponse" />
+  </message>
+  <message name="SQLException">
+    <part name="fault" element="tns:SQLException" />
+  </message>
+  <message name="tahakkukOlusturKdvli">
+    <part name="parameters" element="tns:tahakkukOlusturKdvli" />
+  </message>
+  <message name="tahakkukOlusturKdvliResponse">
+    <part name="parameters" element="tns:tahakkukOlusturKdvliResponse" />
+  </message>
+  <message name="TahakkukSorgula">
+    <part name="parameters" element="tns:TahakkukSorgula" />
+  </message>
+  <message name="TahakkukSorgulaResponse">
+    <part name="parameters" element="tns:TahakkukSorgulaResponse" />
+  </message>
+  <message name="BorcIptal">
+    <part name="parameters" element="tns:BorcIptal" />
+  </message>
+  <message name="BorcIptalResponse">
+    <part name="parameters" element="tns:BorcIptalResponse" />
+  </message>
+  <portType name="TahakkukWs">
+    <operation name="tahakkukOlustur">
+      <input wsam:Action="http://ws.tahakkuk.misservices.indbilisim.com/TahakkukWs/tahakkukOlusturRequest" message="tns:tahakkukOlustur" />
+      <output wsam:Action="http://ws.tahakkuk.misservices.indbilisim.com/TahakkukWs/tahakkukOlusturResponse" message="tns:tahakkukOlusturResponse" />
+      <fault wsam:Action="http://ws.tahakkuk.misservices.indbilisim.com/TahakkukWs/tahakkukOlustur/Fault/SQLException" name="SQLException" message="tns:SQLException" />
+    </operation>
+    <operation name="tahakkukOlusturKdvli">
+      <input wsam:Action="http://ws.tahakkuk.misservices.indbilisim.com/TahakkukWs/tahakkukOlusturKdvliRequest" message="tns:tahakkukOlusturKdvli" />
+      <output wsam:Action="http://ws.tahakkuk.misservices.indbilisim.com/TahakkukWs/tahakkukOlusturKdvliResponse" message="tns:tahakkukOlusturKdvliResponse" />
+      <fault wsam:Action="http://ws.tahakkuk.misservices.indbilisim.com/TahakkukWs/tahakkukOlusturKdvli/Fault/SQLException" name="SQLException" message="tns:SQLException" />
+    </operation>
+    <operation name="TahakkukSorgula">
+      <input wsam:Action="http://ws.tahakkuk.misservices.indbilisim.com/TahakkukWs/TahakkukSorgulaRequest" message="tns:TahakkukSorgula" />
+      <output wsam:Action="http://ws.tahakkuk.misservices.indbilisim.com/TahakkukWs/TahakkukSorgulaResponse" message="tns:TahakkukSorgulaResponse" />
+      <fault wsam:Action="http://ws.tahakkuk.misservices.indbilisim.com/TahakkukWs/TahakkukSorgula/Fault/SQLException" name="SQLException" message="tns:SQLException" />
+    </operation>
+    <operation name="BorcIptal">
+      <input wsam:Action="http://ws.tahakkuk.misservices.indbilisim.com/TahakkukWs/BorcIptalRequest" message="tns:BorcIptal" />
+      <output wsam:Action="http://ws.tahakkuk.misservices.indbilisim.com/TahakkukWs/BorcIptalResponse" message="tns:BorcIptalResponse" />
+      <fault wsam:Action="http://ws.tahakkuk.misservices.indbilisim.com/TahakkukWs/BorcIptal/Fault/SQLException" name="SQLException" message="tns:SQLException" />
+    </operation>
+  </portType>
+  <binding name="TahakkukWsPortBinding" type="tns:TahakkukWs">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="tahakkukOlustur">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="SQLException">
+        <soap:fault use="literal" name="SQLException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="tahakkukOlusturKdvli">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="SQLException">
+        <soap:fault use="literal" name="SQLException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="TahakkukSorgula">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="SQLException">
+        <soap:fault use="literal" name="SQLException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="BorcIptal">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="SQLException">
+        <soap:fault use="literal" name="SQLException" namespace="" />
+      </fault>
+    </operation>
+  </binding>
+  <service name="TahakkukWs">
+    <port name="TahakkukWsPort" binding="tns:TahakkukWsPortBinding">
+      <soap:address location="https://tahsilat.ankara.bel.tr:443/MISServices/TahakkukWs" />
+    </port>
+  </service>
+</definitions>

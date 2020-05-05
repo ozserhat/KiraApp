@@ -44,4 +44,27 @@ namespace Framework.WebUI.Models.ViewModels
         //public bool AktifMi { get; set; }
 
     }
+
+    public class KiraBeyaniEkleVM : VMBase
+    {
+
+        [Display(Name = "Kiraci_Id")]
+        public int Kiraci_Id { get; set; }
+
+        [Display(Name = "Gayrimenkul_Id")]
+        public int Gayrimenkul_Id { get; set; }
+
+        [Display(Name = "Beyan_Id")]
+        public int Beyan_Id { get; set; }
+
+        [Display(Name = "Oluşturan Kullanıcı")]
+        public int? OlusturanKullanici_Id { get; set; }
+
+        [Display(Name = "Oluşturulma Tarihi")]
+        public DateTime? OlusturulmaTarihi { get; set; }
+
+        [Display(Name = "Aktif Mi")]
+        public bool AktifMi { get; set; }
+
+    }
 }

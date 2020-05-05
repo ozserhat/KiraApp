@@ -9,6 +9,7 @@ namespace Framework.Business.Abstract
         IEnumerable<Il> GetirListe();
 
         Il Getir(int id);
+        Il GetirAdaGore(string IlAdi);
 
         Il Ekle(Il Il);
 

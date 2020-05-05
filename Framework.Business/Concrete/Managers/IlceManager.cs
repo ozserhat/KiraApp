@@ -24,6 +24,11 @@ namespace Framework.Business.Concrete.Managers
             return _ilceDal.GetById(id);
         }
 
+        public Ilce GetirAdaGore(string IlceAdi)
+        {
+            return _ilceDal.GetByName(IlceAdi);
+        }
+
         public IEnumerable<Ilce> GetirListe()
         {
             return _ilceDal.GetirListe();

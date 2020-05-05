@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://ws.tahakkuk.misservices.indbilisim.com/" targetNamespace="http://ws.tahakkuk.misservices.indbilisim.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="BorcIptal" type="tns:BorcIptal" />
+  <xs:element name="BorcIptalResponse" type="tns:BorcIptalResponse" />
+  <xs:element name="SQLException" type="tns:SQLException" />
+  <xs:element name="TahakkukSorgula" type="tns:TahakkukSorgula" />
+  <xs:element name="TahakkukSorgulaResponse" type="tns:TahakkukSorgulaResponse" />
+  <xs:element name="tahakkukOlustur" type="tns:tahakkukOlustur" />
+  <xs:element name="tahakkukOlusturKdvli" type="tns:tahakkukOlusturKdvli" />
+  <xs:element name="tahakkukOlusturKdvliResponse" type="tns:tahakkukOlusturKdvliResponse" />
+  <xs:element name="tahakkukOlusturResponse" type="tns:tahakkukOlusturResponse" />
+  <xs:complexType name="tahakkukOlusturKdvli">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="kullanici" type="tns:kullanici" />
+      <xs:element name="sicilNo" type="xs:int" />
+      <xs:element name="gelirId" type="xs:int" />
+      <xs:element name="kdvgelirId" type="xs:int" />
+      <xs:element name="borcYili" type="xs:int" />
+      <xs:element name=" taksit" type="xs:int" />
+      <xs:element minOccurs="0" name="sonOdemeTarihi" type="xs:string" />
+      <xs:element name="tutar" type="xs:double" />
+      <xs:element minOccurs="0" name="aciklama" type="xs:string" />
+      <xs:element name="modulGrup" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kullanici">
+    <xs:sequence>
+      <xs:element name="kulNo" type="xs:int" />
+      <xs:element minOccurs="0" name="sifre" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="tahakkukOlusturKdvliResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:tahakkukSonuc" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="tahakkukSonuc">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:wsSonuc">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="tahakkukId" type="xs:string" />
+          <xs:element minOccurs="0" name="tahakkukKdvId" type="xs:string" />
+          <xs:element minOccurs="0" name="tahakkukNo" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="wsSonuc">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="aciklama" type="xs:string" />
+      <xs:element name="basarili" type="xs:boolean" />
+      <xs:element minOccurs="0" name="hataKodu" type="tns:hata" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SQLException">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="SQLState" type="xs:string" />
+      <xs:element name="errorCode" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+      <xs:element minOccurs="0" name="nextException" type="tns:sqlException" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="sqlException">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:exception">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="nextException" type="tns:sqlException" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="exception">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:throwable">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="throwable">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="stackTrace" nillable="true" type="tns:stackTraceElement" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="stackTraceElement" final="extension restriction">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="BorcIptal">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="kullanici" type="tns:kullanici" />
+      <xs:element minOccurs="0" name="borcId" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="BorcIptalResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:arazSonuc" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="arazSonuc">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:wsSonuc">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="borcID" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="TahakkukSorgula">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="kullanici" type="tns:kullanici" />
+      <xs:element minOccurs="0" name="borcId" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TahakkukSorgulaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:tahakkukBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="tahakkukBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="adi" type="xs:string" />
+      <xs:element minOccurs="0" name="arazTutar" type="xs:double" />
+      <xs:element minOccurs="0" name="bakiye" type="xs:double" />
+      <xs:element minOccurs="0" name="borcId" type="xs:string" />
+      <xs:element minOccurs="0" name="hata" type="tns:hata" />
+      <xs:element name="makbuzNo" type="xs:int" />
+      <xs:element name="modulGrup" type="xs:int" />
+      <xs:element name="sicilNo" type="xs:int" />
+      <xs:element minOccurs="0" name="soyAdi" type="xs:string" />
+      <xs:element minOccurs="0" name="thkTar" type="tns:date" />
+      <xs:element minOccurs="0" name="thkTutar" type="xs:double" />
+      <xs:element minOccurs="0" name="thsTar" type="tns:date" />
+      <xs:element name="thsToplam" type="xs:double" />
+      <xs:element minOccurs="0" name="tip" type="xs:string" />
+      <xs:element minOccurs="0" name="turKod" type="xs:string" />
+      <xs:element minOccurs="0" name="vadeTar" type="tns:date" />
+      <xs:element name="vezneNo" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="date">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="tahakkukOlustur">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="kullanici" type="tns:kullanici" />
+      <xs:element name="sicilNo" type="xs:int" />
+      <xs:element name="gelirId" type="xs:int" />
+      <xs:element name="borcYili" type="xs:int" />
+      <xs:element name="taksit" type="xs:int" />
+      <xs:element minOccurs="0" name="sonOdemeTarihi" type="xs:string" />
+      <xs:element name="tutar" type="xs:double" />
+      <xs:element minOccurs="0" name="aciklama" type="xs:string" />
+      <xs:element name="modulGrup" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="tahakkukOlusturResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:tahakkukSonuc" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="hata">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="BASARILI" />
+      <xs:enumeration value="HATA0" />
+      <xs:enumeration value="HATA1" />
+      <xs:enumeration value="HATA2" />
+      <xs:enumeration value="HATA3" />
+      <xs:enumeration value="HATA4" />
+      <xs:enumeration value="HATA5" />
+      <xs:enumeration value="HATA6" />
+      <xs:enumeration value="HATA7" />
+      <xs:enumeration value="HATA8" />
+      <xs:enumeration value="HATA9" />
+      <xs:enumeration value="HATA10" />
+      <xs:enumeration value="HATA11" />
+      <xs:enumeration value="HATA12" />
+      <xs:enumeration value="HATA13" />
+      <xs:enumeration value="HATA14" />
+      <xs:enumeration value="HATA15" />
+      <xs:enumeration value="HATA16" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

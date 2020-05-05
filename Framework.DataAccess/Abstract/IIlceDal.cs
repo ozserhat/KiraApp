@@ -7,6 +7,7 @@ namespace Framework.DataAccess.Abstract
     public interface IIlceDal : IEntityRepository<Ilce>
     {
         Ilce GetById(int id);
+        Ilce GetByName(string name);
         IEnumerable<Ilce> GetirListe();
         bool Delete(int id);
     }
