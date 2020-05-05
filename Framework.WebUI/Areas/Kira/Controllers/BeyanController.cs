@@ -14,6 +14,7 @@ using Framework.DataAccess.Abstract;
 using System.Dynamic;
 using System.Web.Services.Description;
 using System.IO;
+using System.Globalization;
 
 namespace Framework.WebUI.Areas.Kira.Controllers
 {
@@ -282,17 +283,18 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         [HttpGet]
         private int BeyanDosyaEkle(int beyanId, List<Beyan_DosyaVM> dosyalar)
         {
+            Beyan_Dosya dosya = new Beyan_Dosya();
+            string dosyaAdi2 = "";
             string filePath = Server.MapPath("~/Dosyalar/Beyan/");
 
             foreach (var item in dosyalar)
             {
                 Guid guidDosya = Guid.NewGuid();
-
-                Beyan_Dosya dosya = new Beyan_Dosya();
+                dosyaAdi2 = item.DosyaAdi.Split('.').Last();
                 dosya.Guid = guidDosya;
                 dosya.BeyanDosya_Tur_Id = int.Parse(item.BeyanDosyaTur_Id);
                 dosya.Beyan_Id = beyanId;
-                dosya.Ad = guidDosya.ToString();
+                dosya.Ad = guidDosya.ToString() + "." + dosyaAdi2;
                 dosya.OlusturulmaTarihi = DateTime.Now;
                 dosya.OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null);
                 dosya.AktifMi = true;
@@ -303,9 +305,12 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 {
                     byte[] fileBytes = Convert.FromBase64String(item.BeyanDosya);
                     System.IO.File.WriteAllBytes(filePath + dosya.Ad, fileBytes);
-                    return result.Id;
                 }
             }
+
+            if (dosya.Id > 0)
+                return dosya.Id;
+
             return 0;
         }
 
@@ -357,6 +362,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         {
             if (beyanBilgi != null)
             {
+                CultureInfo cultures = new CultureInfo("en-US");
+
 
                 Beyan beyan = new Beyan()
                 {
@@ -379,8 +386,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                     SozlesmeTarihi = beyanBilgi.SozlesmeTarihi,
                     SozlesmeSuresi = beyanBilgi.SozlesmeSuresi,
                     Aciklama = beyanBilgi.BeyanAciklama,
-                    IhaleTutari = decimal.Parse(beyanBilgi.IhaleTutari),
-                    KiraTutari = decimal.Parse(beyanBilgi.KiraTutari),
+                    IhaleTutari = Convert.ToDecimal(beyanBilgi.IhaleTutari, cultures),
+                    KiraTutari = Convert.ToDecimal(beyanBilgi.KiraTutari, cultures),
                     KalanAy = beyanBilgi.KalanAy.Value,
                     MusadeliGunSayisi = beyanBilgi.MusadeliGunSayisi,
                     KullanimAlani = beyanBilgi.KullanimAlani.Value,
@@ -405,9 +412,9 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         {
             Kira_Beyan kiraBeyan = new Kira_Beyan()
             {
-                Beyan_Id=Beyan_Id,
-                Gayrimenkul_Id=Gayrimenkul_Id,
-                Kiraci_Id=Kiraci_Id,
+                Beyan_Id = Beyan_Id,
+                Gayrimenkul_Id = Gayrimenkul_Id,
+                Kiraci_Id = Kiraci_Id,
                 OlusturulmaTarihi = DateTime.Now,
                 OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null)
             };
@@ -442,7 +449,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         }
 
         [HttpPost]
-        public ActionResult KiraBeyanEkle(KiraBeyanEkleVM kiraBeyanModel)
+        public JsonResult KiraBeyanEkle(KiraBeyanEkleVM kiraBeyanModel)
         {
             int sicilId, beyanId, gayrimenkulId, beyanDosyaId, kiraBeyanId;
 
@@ -457,7 +464,11 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             kiraBeyanId = KiraBeyanEkle(beyanId, sicilId, gayrimenkulId);
 
             ModelState.AddModelError("LogMessage", "Kira Beyan Ekleme İşlemi Gerçekleşti.");
-            return View(_beyanVM);
+
+            if (kiraBeyanId > 0)
+                return Json(new { Data = _beyanVM, Message = "Kira Beyan Ekleme İşlemi Başarıyla Getirildi.", success = true }, JsonRequestBehavior.AllowGet);
+
+            return Json(new { Message = "Kira Beyan Ekleme İşlemi Gerçekleştirilemedi.", success = false }, JsonRequestBehavior.AllowGet);
         }
 
         #endregion
