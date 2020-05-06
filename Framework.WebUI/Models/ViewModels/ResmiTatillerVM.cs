@@ -41,8 +41,11 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Id")]
         public int Id { get; set; }
+       
         [Display(Name = "Tarih")]
-        public DateTime Tarih { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.DateTime)]
+        public DateTime? Tarih { get; set; }
 
         [Display(Name = "Resmi Tatil Adı")]
         public string ResmiTatilAdi { get; set; }
