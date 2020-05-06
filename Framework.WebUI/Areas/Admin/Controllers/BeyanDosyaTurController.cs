@@ -71,7 +71,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                         Ad = tur.DosyaTurAdi,
                         OlusturulmaTarihi = DateTime.Now,
                         OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
-                        AktifMi = false
+                        AktifMi = true
                     };
 
                     var result = _service.Ekle(BeyanAlt_Tur);
