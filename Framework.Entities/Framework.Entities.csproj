@@ -54,6 +54,7 @@
     <Compile Include="ComplexTypes\ControllerActionList.cs" />
     <Compile Include="ComplexTypes\GayrimenkulTurVM.cs" />
     <Compile Include="ComplexTypes\SicilServisVm.cs" />
+    <Compile Include="ComplexTypes\Tahakkuk.cs" />
     <Compile Include="ComplexTypes\UserDetail.cs" />
     <Compile Include="ComplexTypes\UserRoleItem.cs" />
     <Compile Include="ComplexTypes\VMBase.cs" />
