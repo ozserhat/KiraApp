@@ -177,11 +177,44 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Connected Services\TahakkukServis\configuration91.svcinfo" />
+    <None Include="Connected Services\TahakkukServis\configuration.svcinfo" />
+    <Content Include="Connected Services\TahakkukServis\Framework.WebServis.TahakkukServis.arazSonuc.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\TahakkukServis\Framework.WebServis.TahakkukServis.BorcIptalResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\TahakkukServis\Framework.WebServis.TahakkukServis.tahakkukBean.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\TahakkukServis\Framework.WebServis.TahakkukServis.tahakkukOlusturKdvliResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\TahakkukServis\Framework.WebServis.TahakkukServis.tahakkukOlusturResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\TahakkukServis\Framework.WebServis.TahakkukServis.tahakkukSonuc.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\TahakkukServis\Framework.WebServis.TahakkukServis.TahakkukSorgulaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Connected Services\TahakkukServis\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clients\SicilServiceClient.cs" />
+    <Compile Include="Clients\TahakkukServiceClient.cs" />
     <Compile Include="Connected Services\SicilServis\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\TahakkukServis\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -191,6 +224,10 @@
   <ItemGroup>
     <None Include="Connected Services\SicilServis\EbysMisServicesWs.wsdl" />
     <None Include="Connected Services\SicilServis\EbysMisServicesWs.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\TahakkukServis\TahakkukWs.wsdl" />
+    <None Include="Connected Services\TahakkukServis\TahakkukWs.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
@@ -206,6 +243,7 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\SicilServis\" />
+    <WCFMetadataStorage Include="Connected Services\TahakkukServis\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ServicesIntegration\" />

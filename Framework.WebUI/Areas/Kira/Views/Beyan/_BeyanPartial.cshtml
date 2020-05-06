@@ -332,9 +332,9 @@
     <div class="col-md-8">
         <div class="form-group">
             <div class="input-group" style="width: 100%;">
-                @Html.LabelFor(model => model.Aciklama, new { @class = "col-md-2 font-bold" })
+                @Html.LabelFor(model => model.BeyanAciklama, new { @class = "col-md-2 font-bold" })
                 <div class="col-md-4">
-                    @Html.TextAreaFor(model => model.Aciklama, new { @class = "form-control", @rows = "6" })
+                    @Html.TextAreaFor(model => model.BeyanAciklama, new { @class = "form-control", @rows = "6" })
                     @Html.ValidationMessage("Aciklama", new { @class = "text-danger" })
                 </div>
             </div>

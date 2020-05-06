@@ -1750,6 +1750,7 @@
     <Folder Include="Content\login\css\" />
     <Folder Include="Content\login\js\" />
     <Folder Include="Content\login\webfonts\" />
+    <Folder Include="Dosyalar\Beyan\" />
     <Folder Include="Views\BeyanDosya_TurVM\" />
   </ItemGroup>
   <ItemGroup>

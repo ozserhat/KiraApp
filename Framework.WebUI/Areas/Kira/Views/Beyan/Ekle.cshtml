@@ -1,13 +1,9 @@
 ﻿@model Framework.WebUI.Models.ViewModels.KiraBeyanEkleVM
 
-
 @{
     ViewBag.Title = "Ekle";
     Layout = "~/Areas/Kira/Views/Shared/_LayoutKira.cshtml";
 }
-
-
-
 
 @if (!Model.HideContent)
 {
@@ -83,7 +79,7 @@
                                                                     <span class="step">
                                                                         1 -
                                                                     </span>
-                                                                    <span class="title" style="z-index:2;">Kiracı Bilgileri</span>
+                                                                    <span class="title" style="z-index:2;">GayrimenkulBilgileri</span>
                                                                 </a>
                                                             </li>
 
@@ -92,7 +88,7 @@
                                                                     <span class="step">
                                                                         2 -
                                                                     </span>
-                                                                    <span class="title" style="z-index:2;">Gayrimenkul Bilgileri</span>
+                                                                    <span class="title" style="z-index:2;">Sicil Bilgileri</span>
                                                                 </a>
                                                             </li>
                                                             <li data-target="#step3" id="step3" style="width: 25%;">
@@ -119,41 +115,7 @@
                                                     <div class="tab-content">
                                                         <div class="tab-pane active" id="tab1">
                                                             <legend>
-                                                                <h3><strong>1. Adım </strong> - Kiracı Bilgileri</h3>
-                                                            </legend>
-                                                            @Html.AntiForgeryToken()
-                                                            <fieldset>
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        @using (Ajax.BeginForm("GetirSicilBilgi", "Beyan", new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "dvSicilForm", OnSuccess = "onSuccess" }, new { enctype = "multipart/form-data", id = "kiraciForm" }))
-                                                                        {
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.Label("Vergi/TC No", new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.TextBox("TcVergiNo", "", new { @class = "form-control required", @type = "number" })
-                                                                                        @Html.ValidationMessage("TcVergiNo", new { @class = "text-danger" })
-                                                                                        @*@Html.HiddenFor(model => model, new { @class = "form-control" })*@
-                                                                                    </div>
-                                                                                    <div class="col-md-2">
-                                                                                        <button class="btn btn-primary" id="btnSicilSorgulas" type="submit">
-                                                                                            <span class="glyphicon glyphicon-search"></span> Sorgula
-                                                                                        </button>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        }
-                                                                    </div>
-                                                                </div>
-                                                                <div id="dvSicilForm">
-                                                                    @{ Html.RenderPartial("_SicilPartial", Model.Kiraci); }
-                                                                </div>
-                                                            </fieldset>
-                                                        </div>
-
-                                                        <div class="tab-pane" id="tab2">
-                                                            <legend>
-                                                                <h3><strong>2. Adım </strong> - Gayrimenkul Bilgileri</h3>
+                                                                <h3><strong>1. Adım </strong> - Gayrimenkul Bilgileri</h3>
                                                             </legend>
                                                             @Html.AntiForgeryToken()
                                                             <fieldset>
@@ -177,9 +139,44 @@
                                                                             </div>
                                                                         }
                                                                     </div>
-                                                                </div>
-                                                                <div id="dvGayrimenkulForm">
+                                                                </div><div id="dvGayrimenkulForm">
                                                                     @{ Html.RenderPartial("_GayrimenkulPartial", Model.Gayrimenkul); }
+                                                                </div>
+
+                                                            </fieldset>
+                                                        </div>
+
+                                                        <div class="tab-pane" id="tab2">
+                                                            <legend>
+                                                                <h3><strong>2. Adım </strong> - Sicil Bilgileri</h3>
+                                                            </legend>
+                                                            @Html.AntiForgeryToken()
+                                                            <fieldset>
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        @using (Ajax.BeginForm("GetirSicilBilgi", "Beyan", new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "dvSicilForm", OnSuccess = "onSuccess" }, new { enctype = "multipart/form-data", id = "kiraciForm" }))
+                                                                        {
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.Label("Vergi/TC No", new { @class = "col-md-4 font-bold" })
+                                                                                    <div class="col-md-6">
+                                                                                        @Html.TextBox("TcVergiNo", "", new { @class = "form-control required", @type = "number" })
+                                                                                        @Html.ValidationMessage("TcVergiNo", new { @class = "text-danger" })
+                                                                                        @*@Html.HiddenFor(model => model, new { @class = "form-control" })*@
+                                                                                    </div>
+                                                                                    <div class="col-md-2">
+                                                                                        <button class="btn btn-primary" id="btnSicilSorgulas" type="submit">
+                                                                                            <span class="glyphicon glyphicon-search"></span> Sorgula
+                                                                                        </button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        }
+
+                                                                    </div>
+                                                                </div>
+                                                                <div id="dvSicilForm">
+                                                                    @{ Html.RenderPartial("_SicilPartial", Model.Kiraci); }
                                                                 </div>
                                                             </fieldset>
                                                         </div>
@@ -258,6 +255,7 @@
     <script src="~/Scripts/loadingoverlay.min.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script src="~/Scripts/jquery.formatCurrency-1.4.0.js"></script>
+   
     <style type="text/css">
         .loadingoverlay_element {
             position: fixed;
@@ -323,11 +321,37 @@
     <script type="text/javascript">
         var beyanDosyalar = [];
 
-        $(document).on("change", ".taranmisDosya", function () {
+        $(document).on("change", ".taranmisDosya", function (evt) {
             var DosyaTipi_Id = $(this).attr("data-id");
             var dosyaAdi = $(this).val().replace(/C:\\fakepath\\/, '');
             $("#BeyanDosyaTur_" + DosyaTipi_Id).val(dosyaAdi);
-            beyanDosyalar.push({ BeyanDosyaTur_Id: DosyaTipi_Id, DosyaAdi:dosyaAdi});
+
+            var fileUpload = $("#DosyaTur_" + DosyaTipi_Id).get(0);
+
+            var files = evt.target.files[0];
+
+            if (files.length > 0) {
+                if (window.FormData !== undefined) {
+                    var formData = new FormData();
+                    formData.append(DosyaTipi_Id, files);
+                }
+            }
+            var fileBinary;
+
+            var reader = new FileReader();
+            // Closure to capture the file information.
+            reader.onload = (function (theFile) {
+                return function (e) {
+                    var binaryData = e.target.result;
+
+                    var base64String = window.btoa(binaryData);
+
+                    fileBinary = base64String;
+                    beyanDosyalar.push({ BeyanDosyaTur_Id: DosyaTipi_Id, DosyaAdi: dosyaAdi, BeyanDosya: fileBinary });
+                };
+            })(files);
+            // Read in the image file as a data URL.
+            reader.readAsBinaryString(files);
         });
 
         function BelgeEkle(gayrimenkulId) {
@@ -381,15 +405,6 @@
                     var sicilNo = $('#SicilNo').val();
 
                     if (index == 1) {
-                        if (sicilNo != null && sicilNo != "") {
-                            return true;
-                        }
-                        else {
-                            swal('Uyarı!', 'Sicil Bilgisi Bulunamadı!!!', 'warning');
-                            return false;
-                        }
-                    }
-                    else if (index == 2) {
                         if (gayrimenkulId != "0") {
                             return true;
                         }
@@ -398,14 +413,23 @@
                             return false;
                         }
                     }
-                    //else if (index == 3) {
-                    //    if ($('#beyanForm').valid()) {
-                    //        return true;
-                    //    }
-                    //    else {
-                    //        return false;
-                    //    }
-                    //}
+                    else if (index == 2) {
+                        if (sicilNo != null && sicilNo != "") {
+                            return true;
+                        }
+                        else {
+                            swal('Uyarı!', 'Sicil Bilgisi Bulunamadı!!!', 'warning');
+                            return false;
+                        }
+                    }
+                    else if (index == 3) {
+                        if ($('#beyanForm').valid()) {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+                    }
                     else if (index == 5) {
                         return false;
                     }
@@ -592,10 +616,9 @@
                     BaslangicTaksitNo: $('#BaslangicTaksitNo').val(),
                     KalanAy: $('#KalanAy').val(),
                     DamgaAlinsinMi: $('#DamgaAlinsinMi').val(),
-                    Aciklama: $('#Aciklama').val()
+                    BeyanAciklama: $('#BeyanAciklama').val()
                 }
 
-                var dosyaBilgi = beyanDosyalar;
 
                var kiraBeyanModel ={
                    Kiraci: sicilBilgi,
@@ -607,7 +630,7 @@
                 if ($("#beyanForm").valid())
                 {
                    $.ajax({
-                    type: 'POST',
+                    type: 'Post',
                     url: '@Url.Action("KiraBeyanEkle", "Beyan")',
                     data: { kiraBeyanModel: kiraBeyanModel },
                     success: function (result) {
@@ -616,7 +639,7 @@
                             swal('Uyarı!', result.Message, 'success');
 
                             setTimeout(function () {
-                                window.location.href = "../Beyan_Tur/Index";
+                                window.location.href = "../Beyan/Index";
                             }, 2000);
                         }
                         else {

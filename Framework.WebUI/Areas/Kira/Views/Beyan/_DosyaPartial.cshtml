@@ -1,6 +1,8 @@
 ﻿@model Framework.WebUI.Models.ViewModels.BeyanEkleVM
 
-<form class="form-horizontal" id="BelgeEkleForm" novalidate="novalidate">
+
+@using (Html.BeginForm("GetirDosyaBilgi", "Beyan", FormMethod.Post, new { enctype = "multipart/form-data", id = "BelgeEkleForm" }))
+{
     @Html.AntiForgeryToken()
     <fieldset class="dosyaSatirlari" id="dosyaSatiri">
         <div class="col-md-10 col-md-offset-1">
@@ -13,7 +15,7 @@
                             <div class="form-group">
                                 <label for="file" class="input input-file">
                                     <div class="button">
-                                        @Html.TextBox("DosyaTur_" + item.Id, "", new { @class = "form-control taranmisDosya", type = "file", data_id = item.Id,data_name=item.Ad })Belge Ekle
+                                        @Html.TextBox("DosyaTur_" + item.Id, "", new { @class = "form-control taranmisDosya", type = "file", data_id = item.Id, data_name = item.Ad })Belge Ekle
                                     </div>
                                     <input type="text" id="BeyanDosyaTur_@item.Id" placeholder="@item.Ad" readonly="">
                                 </label>
@@ -31,10 +33,10 @@
             <div id="loadingbtnBelgeEkleme" class="hide" style="float:left;"><i class="fa fa-spinner fa-spin fa-2x"></i> İşleminiz yapılıyor ...</div>
 
             @*<button class="btn btn-primary" id="btnBelgeKaydet" onclick="BelgeEkle(@Model.Guid)" type="button">
-                <span class="glyphicon glyphicon-floppy-save"></span> Yükle
-            </button>*@
+                    <span class="glyphicon glyphicon-floppy-save"></span> Yükle
+                </button>*@
 
 
         </div>
     </fieldset>
-</form>
+}

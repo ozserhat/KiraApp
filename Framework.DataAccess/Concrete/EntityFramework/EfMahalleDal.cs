@@ -39,6 +39,14 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             }
         }
 
+        public Mahalle GetByName(string name)
+        {
+            using (DtContext context = new DtContext())
+            {
+                return context.Mahalleler.Include(x => x.Ilceler).Where(gta => gta.Ad.Contains(name)).FirstOrDefault();
+            }
+        }
+
         public IEnumerable<Mahalle> GetirListe()
         {
             using (DtContext context = new DtContext())

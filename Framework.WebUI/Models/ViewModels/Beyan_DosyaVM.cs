@@ -3,6 +3,7 @@ using PagedList;
 using System.Web.Mvc;
 using Framework.Entities.Concrete;
 using System.ComponentModel.DataAnnotations;
+using System.Web;
 
 namespace Framework.WebUI.Models.ViewModels
 {
@@ -19,6 +20,9 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Beyan Dosya Adı")]
         public string DosyaAdi { get; set; }
+
+        [Display(Name = "Dosya")]
+        public string BeyanDosya { get; set; }
 
         [Display(Name = "Oluşturan Kullanıcı")]
         public int? OlusturanKullanici_Id { get; set; }
