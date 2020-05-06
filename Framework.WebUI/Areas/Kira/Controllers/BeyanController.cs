@@ -78,22 +78,56 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         #endregion
         // GET: Kira/Beyan
         #region Listeleme
-        public ActionResult Index(int? page, int pageSize = 15)
+        public ActionResult Index(KiraBeyanRequest request, int? page, int pageSize = 15)
         {
-            var beyanlar = _kiraBeyanService.GetirListe();
-
             var model = new KiraBeyanVM();
+
+            var beyanlar = _kiraBeyanService.GetirSorguListe(request);
 
             model.PageNumber = page ?? 1;
             model.PageSize = pageSize;
 
             if (beyanlar != null)
             {
+                model.IlceSelectList = IlceSelectList();
+                model.GayrimenkulSelectList = GayrimenkulSelectList();
+                model.BeyanTurSelectList = BeyanTurSelectList();
+                model.KiraDurumSelectList = KiraDurumSelectList();
+                model.OdemePeriyotSelectList = OdemePeriyotSelectList();
                 model.Beyanlar = new StaticPagedList<Kira_Beyan>(beyanlar, model.PageNumber, model.PageSize, beyanlar.Count());
                 model.TotalRecordCount = beyanlar.Count();
             }
 
             return View(model);
+        }
+
+        public SelectList IlSelectList()
+        {
+            var iller = _ilService.GetirListe().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+
+            return new SelectList(iller, "Id", "Ad");
+        }
+
+        public SelectList IlceSelectList()
+        {
+            var ilceler = _ilceService.GetirListe().Where(a => a.Il_Id == 6).Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+
+            return new SelectList(ilceler, "Id", "Ad");
+        }
+
+        [HttpPost]
+        public JsonResult MahalleSelectList(int ilceId)
+        {
+            var mahalleler = _mahalleService.GetirListe().Where(a => a.Ilce_Id == ilceId).Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+
+            return Json(new { Data = mahalleler, success = true }, JsonRequestBehavior.AllowGet);
+        }
+
+        public SelectList GayrimenkulSelectList()
+        {
+            var iller = _gayrimenkulservice.GetirListe().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+
+            return new SelectList(iller, "Id", "Ad");
         }
 
         public SelectList BeyanTurSelectList()
@@ -150,7 +184,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
         #endregion
 
-        #region SicilSorgulama
+        #region Metodlar
 
         void GetirSelectList()
         {

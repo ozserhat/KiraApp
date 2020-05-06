@@ -45,7 +45,7 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "İhale Tutari")]
         public string IhaleTutari { get; set; }
 
-        [Display(Name = "Başlangıç Taksit No")]
+        [Display(Name = "Başlangıç Ay")]
         public int? BaslangicTaksitNo { get; set; }
 
         [Display(Name = "Kalan Ay")]
@@ -100,7 +100,7 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Beyan Yıl")]
         public SelectList BeyanYilSelectList { get; set; }
 
-        [Display(Name = "Kira Durum")]
+        [Display(Name = "Taşınmaz Durum")]
         public SelectList KiraDurumSelectList { get; set; }
 
         [Display(Name = "Ödeme Periyodu")]
