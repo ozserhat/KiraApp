@@ -30,7 +30,7 @@
                         <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
                             <header>
                                 <span class="widget-icon"> <i class="fa fa-list"></i> </span>
-                                <h2>Tür Tanım</h2>
+                                <h2>Resmi Tatil Tanım</h2>
                             </header>
                             <div role="contentinfo">
                                 <div class="widget-body">
@@ -58,10 +58,10 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
-                                                            @Html.LabelFor(model => model, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                            @Html.LabelFor(model => model.ResmiTatilAdi, new { @class = "control-label col-md-4 zorunluYildiz" })
                                                             <div class="col-md-8">
-                                                                @Html.TextBoxFor(model => model.ResmiTatilAdi, new { @class = "form-control col-md-4 required" })
-                                                                @Html.ValidationMessageFor(model => model.ResmiTatilAdi, "", new { @class = "text-danger" })
+                                                                @Html.TextBoxFor(model => model.ResmiTatilAdi,  new { @class = "form-control col-md-4 required" })
+                                                                @Html.ValidationMessageFor(model => model.ResmiTatilAdi, "refresh", new { @class = "text-danger" })
                                                             </div>
                                                         </div>
                                                     </div>
@@ -99,6 +99,24 @@
         <link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
         <script src="~/Content/SweetAlert/sweetalert2.min.js"></script>
         @Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+    $(document).ready(function () {
+        jQuery.validator.methods.date = function (value, element) {
+            var d = value.split(".");
+            return this.optional(element) || !/Invalid|NaN/.test(new Date((/chrom(e|ium)/.test(navigator.userAgent.toLowerCase())) ? d[1] + "." + d[0] + "." + d[2] : value));
+        };
+        $('.datepicker').on('click', function (e) {
+            e.preventDefault();
+            $(this).attr("autocomplete", "off");
+        });
+        $('#Tarih').datepicker({
+            dateFormat: 'dd.mm.yy',
+            monthNames: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
+            dayNamesMin: ["Pa", "Pt", "Sl", "Ça", "Pe", "Cu", "Ct"],
+            firstDay: 1
+        });
+    });
+</script>
 
 
         <!--GayrimenkulTur Ekle-->
@@ -106,7 +124,8 @@
         $(function () {
             $('#btnSubmit').on('click', function () {
                 tur = new Object();
-                tur.GayrimenkulAdi = $("#ResmiTatilAdi").val();
+                tur.Tarih = $("#Tarih").val();
+                tur.ResmiTatilAdi = $("#ResmiTatilAdi").val();
                 tur.AktifMi = $("#AktifMi").val();
 
                 if($("#submitForm").valid())
