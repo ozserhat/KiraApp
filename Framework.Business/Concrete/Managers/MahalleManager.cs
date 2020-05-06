@@ -24,6 +24,11 @@ namespace Framework.Business.Concrete.Managers
             return _mahalleDal.GetById(id);
         }
 
+        public Mahalle GetirAdaGore(string MahalleAdi)
+        {
+            return _mahalleDal.GetByName(MahalleAdi);
+        }
+
         public IEnumerable<Mahalle> GetirListe()
         {
             return _mahalleDal.GetirListe();

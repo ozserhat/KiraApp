@@ -9,6 +9,7 @@ namespace Framework.Business.Abstract
         IEnumerable<Ilce> GetirListe();
 
         Ilce Getir(int id);
+        Ilce GetirAdaGore(string IlceAdi);
 
         Ilce Ekle(Ilce Il);
 

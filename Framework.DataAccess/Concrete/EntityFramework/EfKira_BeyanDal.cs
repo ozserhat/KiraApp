@@ -44,11 +44,45 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             using (DtContext context = new DtContext())
             {
                 return context.Kira_Beyanlari
-                              .Include(b=>b.Beyanlar)
-                              .Include(k=>k.Kiracilar)
-                              .Include(g=>g.Gayrimenkuller)
+                              .Include(b => b.Beyanlar)
+                              .Include(bt => bt.Beyanlar.BeyanTur)
+                              .Include(k => k.Kiracilar)
+                              .Include(g => g.Gayrimenkuller)
+                              .Include(m => m.Gayrimenkuller.Mahalleler)
+                              .Include(ilc => ilc.Gayrimenkuller.Mahalleler.Ilceler)
+                              .Include(ilc => ilc.Gayrimenkuller.Mahalleler.Ilceler.Iller)
                               .ToList();
             }
+        }
+
+        public IEnumerable<Kira_Beyan> GetListByCriterias(KiraBeyanRequest request)
+        {
+            List<Kira_Beyan> result = new List<Kira_Beyan>();
+
+            using (DtContext context = new DtContext())
+            {
+                var query = context.Kira_Beyanlari
+                              .Include(b => b.Beyanlar)
+                              .Include(bt => bt.Beyanlar.BeyanTur)
+                              .Include(k => k.Kiracilar)
+                              .Include(g => g.Gayrimenkuller)
+                              .Include(m => m.Gayrimenkuller.Mahalleler)
+                              .Include(ilc => ilc.Gayrimenkuller.Mahalleler.Ilceler)
+                              .Include(ilc => ilc.Gayrimenkuller.Mahalleler.Ilceler.Iller)
+                              .AsQueryable();
+
+                query = request.BeyanTur_Id.HasValue ? query.Where(x => x.Beyanlar.BeyanTur_Id == request.BeyanTur_Id) : query;
+                query = request.KiraDurum_Id.HasValue ? query.Where(x => x.Beyanlar.KiraDurum_Id == request.KiraDurum_Id) : query;
+                query = request.OdemePeriyotTur_Id.HasValue ? query.Where(x => x.Beyanlar.OdemePeriyotTur_Id == request.OdemePeriyotTur_Id) : query;
+                query = request.Gayrimenkul_Id.HasValue ? query.Where(x => x.Gayrimenkul_Id == request.Gayrimenkul_Id) : query;
+                query = request.Ilce_Id.HasValue ? query.Where(x => x.Gayrimenkuller.Ilce_Id == request.Ilce_Id) : query;
+                query = request.Mahalle_Id.HasValue ? query.Where(x => x.Gayrimenkuller.Mahalle_Id == request.Ilce_Id) : query;
+
+
+                result = query.ToList();
+            }
+
+            return result;
         }
     }
 }
