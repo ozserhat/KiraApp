@@ -103,7 +103,7 @@ namespace Framework.Core.Aspects.Postsharp.LogAspects
 
         }
 
-        public void OnException(ExceptionContext filterContext)
+        public void OnException(ExceptionContext filterContext) 
         {
             int userId = 0;
             string userName = "";
