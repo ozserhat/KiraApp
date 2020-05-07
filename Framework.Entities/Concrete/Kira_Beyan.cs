@@ -33,7 +33,9 @@ namespace Framework.Entities.Concrete
 
         public DateTime? OlusturulmaTarihi { get; set; }
 
-        public DateTime? GuncellenmeTarihi { get; set; }       
+        public DateTime? GuncellenmeTarihi { get; set; }
+
+
     }
 
     [NotMapped]

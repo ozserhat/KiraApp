@@ -152,6 +152,10 @@
                         @Html.AuthMainAction("Kira Durumları", "Index", "KiraDurum",
                       "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                     </li>
+                    <li class="@Html.RouteIf("Beyan", "active")">
+                        @Html.AuthMainAction("Beyanlar", "Index", "Beyan",
+                        "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                    </li>
                 </ul>
             </li>
             <li>

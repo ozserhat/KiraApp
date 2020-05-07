@@ -172,6 +172,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AnasayfaController.cs" />
+    <Compile Include="Areas\Admin\Controllers\BeyanController.cs" />
     <Compile Include="Areas\Admin\Controllers\BeyanDosyaTurController.cs" />
     <Compile Include="Areas\Admin\Controllers\BeyanTurController.cs" />
     <Compile Include="Areas\Admin\Controllers\Beyan_DosyaController.cs" />
@@ -1095,6 +1096,8 @@
     <Content Include="Areas\Admin\Views\ResmiTatiller\Index.cshtml" />
     <Content Include="Areas\Kira\Views\Beyan\_tablePartial.cshtml" />
     <Content Include="Areas\Kira\Views\Beyan\BeyanDetay.cshtml" />
+    <Content Include="Areas\Admin\Views\Beyan\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Beyan\_tablePartial.cshtml" />
     <Content Include="Areas\Admin\Views\KiraParametre\Duzenle.cshtml" />
     <Content Include="Areas\Admin\Views\KiraParametre\Ekle.cshtml" />
     <Content Include="Areas\Admin\Views\KiraParametre\Index.cshtml" />

@@ -28,6 +28,9 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Mahalleler")]
         public SelectList MahalleSelectList { get; set; }
 
+        [Display(Name = "Kullanıcılar")]
+        public SelectList KullaniciSelectList { get; set; }
+
         public IPagedList<Kira_Beyan> Beyanlar { get; set; }
     }
 

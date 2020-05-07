@@ -153,6 +153,7 @@
     <Compile Include="Abstract\IKira_DurumService.cs" />
     <Compile Include="Abstract\ILogService.cs" />
     <Compile Include="Abstract\IMahalleService.cs" />
+    <Compile Include="Abstract\IPersonel_BeyanService.cs" />
     <Compile Include="Abstract\IResmiTatillerService.cs" />
     <Compile Include="Abstract\IRoleService.cs" />
     <Compile Include="Abstract\ISicilService.cs" />
@@ -186,6 +187,7 @@
     <Compile Include="Concrete\Managers\Kira_DurumManager.cs" />
     <Compile Include="Concrete\Managers\LogsManager.cs" />
     <Compile Include="Concrete\Managers\MahalleManager.cs" />
+    <Compile Include="Concrete\Managers\Personel_BeyanManager.cs" />
     <Compile Include="Concrete\Managers\ResmiTatillerManager.cs" />
     <Compile Include="Concrete\Managers\RoleManager.cs" />
     <Compile Include="Concrete\Managers\SicilServiceManager.cs" />

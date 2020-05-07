@@ -95,5 +95,6 @@ namespace Framework.Entities.Concrete
 
         [JsonIgnore]
         public virtual ICollection<Kira_Beyan> Kira_Beyanlari { get; set; }
+  
     }
 }
