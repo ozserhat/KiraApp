@@ -264,7 +264,7 @@
             <div class="input-group" style="width: 100%;">
                 @Html.LabelFor(model => model.IhaleTutari, new { @class = "col-md-4 font-bold" })
                 <div class="col-md-6">
-                    @Html.TextBoxFor(model => model.IhaleTutari, "{0:c}", new { @class = "form-control required moneyFormat"})
+                    @Html.TextBoxFor(model => model.IhaleTutari, "{0:c}", new { @class = "form-control required moneyFormat" })
                     @Html.ValidationMessage("IhaleTutari", new { @class = "text-danger" })
                 </div>
             </div>
