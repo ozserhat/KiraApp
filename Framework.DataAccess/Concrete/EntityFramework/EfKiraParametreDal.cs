@@ -8,23 +8,24 @@ using Framework.Entities.Concrete;
 using Framework.DataAccess.Abstract;
 using Framework.Core.DataAccess.EntityFramework;
 
+
 namespace Framework.DataAccess.Concrete.EntityFramework
 {
-  public  class EfBeyan_TurDal : EfEntityRepositoryBase<Beyan_Tur, DtContext>, IBeyan_TurDal
+    public class EfKiraParametreDal : EfEntityRepositoryBase<KiraParametre, DtContext>, IKiraParametreDal
     {
-        public Beyan_Tur GetById(int id)
+        public KiraParametre GetById(int id)
         {
             using (DtContext context = new DtContext())
             {
-                return context.Beyan_Turleri.Where(gt => gt.Id == id).FirstOrDefault();
+                return context.KiraParametreleri.Where(gt => gt.Id == id).FirstOrDefault();
             }
         }
 
-        public Beyan_Tur GetByGuid(Guid guid)
+        public KiraParametre GetByGuid(Guid guid)
         {
             using (DtContext context = new DtContext())
             {
-                return context.Beyan_Turleri.Where(gt => gt.Guid == guid).FirstOrDefault();
+                return context.KiraParametreleri.Where(gt => gt.Guid == guid).FirstOrDefault();
             }
         }
 
@@ -34,11 +35,11 @@ namespace Framework.DataAccess.Concrete.EntityFramework
 
             using (var context = new DtContext())
             {
-                var tur = context.Beyan_Turleri.FirstOrDefault(i => i.Id == id);
+                var parameter = context.KiraParametreleri.FirstOrDefault(i => i.Id == id);
 
-                if (tur != null)
+                if (parameter != null)
                 {
-                    context.Beyan_Turleri.Remove(tur);
+                    context.KiraParametreleri.Remove(parameter);
                     context.SaveChanges();
                     sonuc = true;
                 }

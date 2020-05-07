@@ -57,7 +57,7 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Required(ErrorMessage = "Açıklama Bilgisi Boş Bırakılamaz!!")]
         [Display(Name = "Açıklama")]
-        public string Aciklama { get; set; }
+        public string RolAciklama { get; set; }
 
         [Display(Name = "Aktif Mi")]
         public bool? AktifMi { get; set; }

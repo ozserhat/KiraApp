@@ -15,7 +15,7 @@
                         <header>
                             <div style="margin-top: -5px;">
                                 <p>
-                                    <a href="@Url.Action("Index")" class="btn btn-warning" title="" rel="tooltip" data-placement="bottom" data-original-title="Gayrimenkul Tür Listesine Dön"><span class="glyphicon glyphicon-chevron-left"></span> Resmi Tatil Listesine Dön</a>
+                                    <a href="@Url.Action("Index")" class="btn btn-warning" title="" rel="tooltip" data-placement="bottom" data-original-title="Resmi Tatil Listesine Dön"><span class="glyphicon glyphicon-chevron-left"></span> Resmi Tatil Listesine Dön</a>
                                 </p>
                             </div>
                         </header>
@@ -93,8 +93,20 @@
     <!--Form Temizleme İşlemi -->
     <script type="text/javascript">
         function clearForm() {
+            document.getElementById("Tarih").value = "";
             document.getElementById("AktifMi").checked = false;
             document.getElementById("ResmiTatilAdi").value = "";
         }
+        $('.datepicker').on('click', function (e) {
+            e.preventDefault();
+            $(this).attr("autocomplete", "off");
+        });
+
+        $('#Tarih').datepicker({
+            dateFormat: 'dd.mm.yy',
+            monthNames: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
+            dayNamesMin: ["Pa", "Pt", "Sl", "Ça", "Pe", "Cu", "Ct"],
+            firstDay: 1
+        });
     </script>
 }

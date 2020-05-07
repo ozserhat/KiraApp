@@ -100,10 +100,12 @@ namespace Framework.Core.Aspects.Postsharp.LogAspects
 
         public void OnActionExecuting(ActionExecutingContext filterContext)
         {
-
+            filterContext.RequestContext.HttpContext.Response.AddHeader("Access-Control-Allow-Origin", "*");
+            filterContext.RequestContext.HttpContext.Response.AddHeader("Access-Control-Allow-Headers", "*");
+            filterContext.RequestContext.HttpContext.Response.AddHeader("Access-Control-Allow-Credentials", "true");
         }
 
-        public void OnException(ExceptionContext filterContext)
+        public void OnException(ExceptionContext filterContext) 
         {
             int userId = 0;
             string userName = "";

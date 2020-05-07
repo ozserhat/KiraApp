@@ -165,7 +165,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
 
             tur = _service.Guncelle(tur);
 
-            if (tur.AktifMi.HasValue && tur.AktifMi.Value)
+            if (tur.AktifMi.HasValue && !tur.AktifMi.Value)
                 return Json(new { success = true, Message = "Beyan Tür Bilgisi Başarıyla Silindi" }, JsonRequestBehavior.AllowGet);
             else
                 return Json(new { success = false, Message = "Beyan Tür Bilgisi Silinemedi!!!" }, JsonRequestBehavior.AllowGet);

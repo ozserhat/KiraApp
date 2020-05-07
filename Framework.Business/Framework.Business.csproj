@@ -147,6 +147,8 @@
     <Compile Include="Abstract\IIlService.cs" />
     <Compile Include="Abstract\IKiraciService.cs" />
     <Compile Include="Abstract\IKiraciTurService.cs" />
+    <Compile Include="Abstract\IKiraHesapMetod.Service.cs" />
+    <Compile Include="Abstract\IKiraParametreService.cs" />
     <Compile Include="Abstract\IKira_BeyanService.cs" />
     <Compile Include="Abstract\IKira_DurumService.cs" />
     <Compile Include="Abstract\ILogService.cs" />
@@ -179,6 +181,8 @@
     <Compile Include="Concrete\Managers\IlManager.cs" />
     <Compile Include="Concrete\Managers\KiraciManager.cs" />
     <Compile Include="Concrete\Managers\KiraciTurManager.cs" />
+    <Compile Include="Concrete\Managers\KiraHesapMetodManager.cs" />
+    <Compile Include="Concrete\Managers\KiraParametreManager.cs" />
     <Compile Include="Concrete\Managers\Kira_BeyanManager.cs" />
     <Compile Include="Concrete\Managers\Kira_DurumManager.cs" />
     <Compile Include="Concrete\Managers\LogsManager.cs" />

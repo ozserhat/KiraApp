@@ -1,5 +1,4 @@
-﻿
-@model Framework.WebUI.Models.ViewModels.Beyan_TurVM
+﻿@model Framework.WebUI.Models.ViewModels.KiraParametreVM
 @using PagedList;
 @using PagedList.Mvc;
 
@@ -37,10 +36,10 @@
                     <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
                         <header>
                             <span class="widget-icon"> <i class="fa fa-list"></i> </span>
-                            <h2>Beyan Tür Listesi - <b>Toplam Tür Adedi : @Model.TotalRecordCount</b></h2>
+                            <h2>Parametre Listesi </h2>
                             <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
                                 <p>
-                                    @Html.AuthActionLink(" Tür Ekle", "Ekle", "Beyan_Tur", "btn btn-primary",
+                                    @Html.AuthActionLink("Parametre Ekle", "Ekle", "KiraParametre", "btn btn-primary", 
                                    "glyphicon glyphicon-plus", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                                 </p>
                             </div>
@@ -54,44 +53,65 @@
                                                 <thead>
                                                     <tr role="row">
                                                         <th style="width: 20px;">No</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Tür Adı</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 250px;">Durum</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Beyan Yılı</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Kira Tarife Kodu</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Otopark Tarife Kodu</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Ecrimisil Tarife Kodu</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Damga Vergisi Tarife Kodu</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Teminat Tarife Kodu</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Karar Harcı Tarife Kodu</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Kapatma Tarife Kodu</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Kdv Tarife Kodu</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Damga Vergisi Oranı</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Teminat Oranı</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Karar Harcı Oranı</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Durum</th>
                                                         <th class="sorting_disabled text-center" rowspan="1" colspan="1" style="text-align: right;  padding-right: 30px; width: 100px;">İşlem</th>
                                                     </tr>
                                                 </thead>
-                                                @if (Model.Beyan_Tur != null && Model.Beyan_Tur.Count > 0)
+                                                @if (Model.KiraParametre != null && Model.KiraParametre.Count > 0)
                                                 {
                                                     <tbody>
 
                                                         @{int i = ((Model.PageNumber - 1) * Model.PageSize) + 1;}
 
-                                                        @foreach (var item in Model.Beyan_Tur)
+                                                        @foreach (var item in Model.KiraParametre)
                                                         {
-                                                            <tr role="row" class="odd">
-                                                                <td>@(i++)</td>
-                                                                <td>@Html.DisplayFor(model => item.Ad)</td>
+                                                        <tr role="row" class="odd">
+                                                            <td>@(i++)</td>
+                                                            <td>@Html.DisplayFor(model => item.BeyanYili)</td>
+                                                            <td>@Html.DisplayFor(model => item.KiraTarifeKodu)</td>
+                                                            <td>@Html.DisplayFor(model => item.OtoparkTarifeKodu)</td>
+                                                            <td>@Html.DisplayFor(model => item.EcrimisilTarifeKodu)</td>
+                                                            <td>@Html.DisplayFor(model => item.DamgaTarifeKodu)</td>
+                                                            <td>@Html.DisplayFor(model => item.TeminatTarifeKodu)</td>
+                                                            <td>@Html.DisplayFor(model => item.KararHarciTarifeKodu)</td>
+                                                            <td>@Html.DisplayFor(model => item.KapatmaTarifeKodu)</td>
+                                                            <td>@Html.DisplayFor(model => item.KdvTarifeKodu)</td>
+                                                            <td>@Html.DisplayFor(model => item.DamgaOran)</td>
+                                                            <td>@Html.DisplayFor(model => item.TeminatOran)</td>
+                                                            <td>@Html.DisplayFor(model => item.KararHarciOran)</td>
+                                                            <td>
+                                                                @if (item.AktifMi.HasValue && item.AktifMi.Value)
+                                                                {
+                                                                    <b class="label aktif-buton">Aktif</b>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <b class="label pasif-buton">Pasif</b>
+                                                                }
+                                                            </td>
+                                                            <td class="text-center">
+                                                                @Html.AuthAction(" ", "Duzenle", "KiraParametre", new { item.Guid },
+                                                                        new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
+                                                                        Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
-                                                                <td>
-                                                                    @if (item.AktifMi.HasValue && item.AktifMi.Value)
-                                                                    {
-                                                                        <b class="label aktif-buton">Aktif</b>
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        <b class="label pasif-buton">Pasif</b>
-                                                                    }
-                                                                </td>
-                                                                <td class="text-center">
-                                                                    @Html.AuthAction(" ", "Duzenle", "Beyan_Tur", new { item.Guid },
-                                                                            new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
-                                                                            Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                                                                @Html.AuthAction(" ", "Sil", "KiraParametre", new { item.Id },
+                                                                                new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = item.BeyanYili, @data_id = item.Id },
+                                                                                Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
-                                                                    @Html.AuthAction(" ", "Sil", "Beyan_Tur", new { item.Id },
-                                                                                    new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = item.Ad, @data_id = item.Id },
-                                                                                    Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
-
-                                                                </td>
-                                                            </tr>
+                                                            </td>
+                                                        </tr>
                                                         }
                                                     </tbody>
                                                 }
@@ -113,16 +133,17 @@
 
     </div>
 
-    using (Html.BeginForm("Index", "Beyan", new { page = 1 }, FormMethod.Post, new { @id = "sorgulamaKriterleri" }))
+    using (Html.BeginForm("Index", "KiraPrametre", new { page = 1 }, FormMethod.Post, new { @id = "sorgulamaKriterleri" }))
     {
         <input id="page" name="page" type="hidden" value="">
     }
+
 }
 
 
 @section pagespecific {
     @Scripts.Render("~/bundles/jqueryval")
-    <link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
+     <link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
     <script src="~/Content/SweetAlert/sweetalert2.min.js"></script>
 
     <script type="text/javascript">
@@ -148,7 +169,7 @@
 
     </script>
 
-    <!--Beyan_Tur Silme İşlemi -->
+    <!--Gayrimenkul Tur Silme İşlemi -->
     <script type="text/javascript">
         var dt;
 
@@ -177,7 +198,7 @@
         function deletealert(Id, name, closestTR) {
             swal({
                 title: "Uyarı",
-                text: name + " Adlı Türü Silmek İstediğinizden Emin misiniz?",
+                text: name + " Parametrelerini Silmek İstediğinizden Emin misiniz?",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
@@ -186,7 +207,7 @@
             }).then(function (isConfirm) {
                 if (isConfirm) {
                     $.ajax({
-                        url: "/Beyan_Tur/Sil/" + Id,
+                        url: "/KiraParametre/Sil/" + Id,
                         type: 'POST',
                         success: function (result) {
                             if (result.success) {
@@ -205,6 +226,5 @@
     </script>
 
 }
-
 
 
