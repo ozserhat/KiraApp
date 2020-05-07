@@ -15,6 +15,7 @@ using System.Dynamic;
 using System.Web.Services.Description;
 using System.IO;
 using System.Globalization;
+using System.Configuration;
 
 namespace Framework.WebUI.Areas.Kira.Controllers
 {
@@ -40,6 +41,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         private IIlService _ilService;
         private IIlceService _ilceService;
         private IMahalleService _mahalleService;
+        public string DosyaYolu = ConfigurationManager.AppSettings["DosyaYolu"].ToString();
 
 
         public BeyanController(IGayrimenkulService gayrimenkulservice,
@@ -76,7 +78,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             _kiraciService = kiraciService;
         }
         #endregion
-        // GET: Kira/Beyan
+
         #region Listeleme
         public ActionResult Index(int? page, int pageSize = 15)
         {
@@ -483,6 +485,25 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
             return 0;
         }
+
+        [Route("ControllerName/GetAgreementToReview/{fileName?}")]
+        public ActionResult PdfGoruntule(string DosyaAdi, string DosyaTipi)
+        {
+            //ECM_FileManager fileManager = new ECM_FileManager();
+            //byte[] bytes = fileManager.FileDisplay(null, DosyaAdi);
+
+            string path = Path.Combine(Server.MapPath(DosyaYolu), DosyaAdi);
+
+            byte[] bytes = System.IO.File.ReadAllBytes(path);
+
+            string resultFileName = string.Format(DosyaAdi, DosyaTipi);
+
+            Response.AppendHeader("Content-Disposition", "inline; filename=" + resultFileName);
+
+            return new FileContentResult(bytes, MimeMapping.GetMimeMapping(path));
+        }
+
+
         #endregion
 
         #region Ekle

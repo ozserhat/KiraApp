@@ -26,8 +26,6 @@ namespace Framework.WebUI.Areas.Admin.Controllers
         }
         #endregion
 
-        // GET: Admin/Beyan_Dosya
-
         #region Listeleme
         public ActionResult Index(int? page, int pageSize = 15)
         {
