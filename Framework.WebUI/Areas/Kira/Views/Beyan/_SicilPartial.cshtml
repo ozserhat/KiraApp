@@ -1,0 +1,153 @@
+﻿@model Framework.WebUI.Models.ViewModels.KiraciEkleVM
+
+
+@if (ViewData["SicilHata"] != null)
+{
+    @Html.Hidden("hdSicilError", ViewData["SicilHata"].ToString(), new { @class = "form-control" })
+}
+    
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.SicilNo, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.SicilNo, "", new { @class = "form-control", @readonly = true })
+                    @Html.ValidationMessage("SicilNo", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.TcKimlikNo, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.TcKimlikNo, "", new { @class = "form-control removeBorder", @readonly = true })
+                    @Html.ValidationMessage("TcKimlikNo", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.VergiNo, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.VergiNo, "", new { @class = "form-control removeBorder", @readonly = true })
+                    @Html.ValidationMessage("VergiNo", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.VergiDairesi, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.VergiDairesi, "", new { @class = "form-control removeBorder", @readonly = true })
+                    @Html.ValidationMessage("VergiDairesi", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.Ad, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.Ad, "", new { @class = "form-control removeBorder", @readonly = true })
+                    @Html.ValidationMessage("Ad", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.Soyad, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.Soyad, "", new { @class = "form-control removeBorder", @readonly = true })
+                    @Html.ValidationMessage("VergiNo", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.Tanim, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.Tanim, "", new { @class = "form-control removeBorder", @readonly = true })
+                    @Html.ValidationMessage("Tanim", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.IlAdi, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.IlAdi, "", new { @class = "form-control removeBorder", @readonly = true })
+                    @Html.ValidationMessage("IlAdi", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.IlceAdi, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.IlceAdi, "", new { @class = "form-control removeBorder", @readonly = true })
+                    @Html.ValidationMessage("IlceAdi", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.MahalleAdi, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.MahalleAdi, "", new { @class = "form-control removeBorder", @readonly = true })
+                    @Html.ValidationMessage("MahalleAdi", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.AcikAdres, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.AcikAdres, "", new { @class = "form-control removeBorder", @readonly = true })
+                    @Html.ValidationMessage("AcikAdres", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                <div class="col-md-6">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

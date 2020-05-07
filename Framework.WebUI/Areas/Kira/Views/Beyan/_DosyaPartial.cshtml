@@ -1,0 +1,42 @@
+﻿@model Framework.WebUI.Models.ViewModels.BeyanEkleVM
+
+
+@using (Html.BeginForm("GetirDosyaBilgi", "Beyan", FormMethod.Post, new { enctype = "multipart/form-data", id = "BelgeEkleForm" }))
+{
+    @Html.AntiForgeryToken()
+    <fieldset class="dosyaSatirlari" id="dosyaSatiri">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="col-md-6 smart-form" style="padding: 0;">
+                @foreach (var item in Model.DosyaTurleri)
+                {
+                    <div class="col-md-11" style="padding: 0;">
+                        <section>
+
+                            <div class="form-group">
+                                <label for="file" class="input input-file">
+                                    <div class="button">
+                                        @Html.TextBox("DosyaTur_" + item.Id, "", new { @class = "form-control taranmisDosya", type = "file", data_id = item.Id, data_name = item.Ad })Belge Ekle
+                                    </div>
+                                    <input type="text" id="BeyanDosyaTur_@item.Id" placeholder="@item.Ad" readonly="">
+                                </label>
+                            </div>
+
+                        </section>
+                    </div>
+                    <div class="col-md-1" style="padding: 0;">
+                        <i class="fa fa-check-square dogru" id="dogru__@item.Id" style="display:none"></i>
+                        <i class="fa fa-times-circle yanlis" id="yanlis__@item.Id" style="display:none"></i>
+                    </div>
+                }
+            </div>
+
+            <div id="loadingbtnBelgeEkleme" class="hide" style="float:left;"><i class="fa fa-spinner fa-spin fa-2x"></i> İşleminiz yapılıyor ...</div>
+
+            @*<button class="btn btn-primary" id="btnBelgeKaydet" onclick="BelgeEkle(@Model.Guid)" type="button">
+                    <span class="glyphicon glyphicon-floppy-save"></span> Yükle
+                </button>*@
+
+
+        </div>
+    </fieldset>
+}

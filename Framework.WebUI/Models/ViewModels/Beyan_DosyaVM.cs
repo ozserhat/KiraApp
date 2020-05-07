@@ -3,6 +3,8 @@ using PagedList;
 using System.Web.Mvc;
 using Framework.Entities.Concrete;
 using System.ComponentModel.DataAnnotations;
+using System.Web;
+using System.Collections.Generic;
 
 namespace Framework.WebUI.Models.ViewModels
 {
@@ -14,8 +16,20 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Guid")]
         public Guid Guid { get; set; }
 
+        [Display(Name = "Dosya Tür")]
+        public int BeyanDosyaTur_Id { get; set; }
+
+        [Display(Name = "Beyan_Id")]
+        public int Beyan_Id { get; set; }
+
+        [Display(Name = "Dosya Tür")]
+        public string BeyanDosyaTur { get; set; }
+
         [Display(Name = "Beyan Dosya Adı")]
-        public string BeyanAdi { get; set; }
+        public string DosyaAdi { get; set; }
+
+        [Display(Name = "Dosya")]
+        public string BeyanDosya { get; set; }
 
         [Display(Name = "Oluşturan Kullanıcı")]
         public int? OlusturanKullanici_Id { get; set; }
@@ -40,10 +54,13 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Guid")]
         public Guid Guid { get; set; }
 
-        [Display(Name = "Beyan Dosya Adı")]
-        public string BeyanAdi { get; set; }
+        [Display(Name = "Beyan_Id")]
+        public int Beyan_Id { get; set; }
 
         [Display(Name = "Beyan Dosya Adı")]
+        public string DosyaAdi { get; set; }
+
+        [Display(Name = "Dosya Tür Adı")]
         public int BeyanDosyaTur_Id { get; set; }
 
         [Display(Name = "Dosya Tür Adı")]
@@ -67,12 +84,14 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Guid")]
         public Guid Guid { get; set; }
 
-        [Display(Name = "Beyan Dosya Adı")]
+        [Display(Name = "Beyan_Id")]
+        public int Beyan_Id { get; set; }
+
+        [Display(Name = "Dosya Tür Adı")]
         public int BeyanDosyaTur_Id { get; set; }
- 
 
         [Display(Name = "Beyan Dosya Adı")]
-        public string BeyanAdi { get; set; }
+        public string DosyaAdi { get; set; }
 
         [Display(Name = "Dosya Tür Adı")]
         public SelectList DosyaTur { get; set; }

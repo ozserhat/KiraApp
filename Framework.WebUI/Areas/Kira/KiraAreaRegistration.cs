@@ -17,7 +17,8 @@ namespace Framework.WebUI.Areas.Kira
             context.MapRoute(
                 "Kira_default",
                 "Kira/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                new { action = "Index", id = UrlParameter.Optional },
+                            new[] { "Framework.WebUI.Areas.Kira.Controllers" }
             );
         }
     }

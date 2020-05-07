@@ -35,4 +35,16 @@ namespace Framework.Entities.Concrete
 
         public DateTime? GuncellenmeTarihi { get; set; }       
     }
+
+    [NotMapped]
+    public class KiraBeyanRequest
+    {
+        public Guid? Guid { get; set; }
+        public int? BeyanTur_Id { get; set; }
+        public int? KiraDurum_Id { get; set; }
+        public int? OdemePeriyotTur_Id { get; set; }
+        public int? Gayrimenkul_Id { get; set; }
+        public int? Ilce_Id { get; set; }
+        public int? Mahalle_Id { get; set; }
+    }
 }

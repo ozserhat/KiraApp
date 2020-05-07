@@ -24,6 +24,11 @@ namespace Framework.Business.Concrete.Managers
             return _ilDal.GetById(id);
         }
 
+        public Il GetirAdaGore(string IlAdi)
+        {
+            return _ilDal.GetByName(IlAdi);
+        }
+
         public IEnumerable<Il> GetirListe()
         {
             return _ilDal.GetirListe();

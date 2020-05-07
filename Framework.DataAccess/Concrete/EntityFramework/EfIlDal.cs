@@ -40,6 +40,14 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             }
         }
 
+        public Il GetByName(string name)
+        {
+            using (DtContext context = new DtContext())
+            {
+                return context.Iller.FirstOrDefault(i => i.Ad.Contains(name));
+            }
+        }
+
         public IEnumerable<Il> GetirListe()
         {
             using (DtContext context = new DtContext())

@@ -39,6 +39,14 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             }
         }
 
+        public Ilce GetByName(string name)
+        {
+            using (DtContext context = new DtContext())
+            {
+                return context.Ilceler.Include(x => x.Iller).Where(gta => gta.Ad.Contains(name)).FirstOrDefault();
+            }
+        }
+
         public IEnumerable<Ilce> GetirListe()
         {
             using (DtContext context = new DtContext())

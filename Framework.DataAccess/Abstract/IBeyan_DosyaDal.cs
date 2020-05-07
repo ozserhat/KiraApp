@@ -12,6 +12,9 @@ namespace Framework.DataAccess.Abstract
     {
         IEnumerable<Beyan_Dosya> GetirListe();
         Beyan_Dosya GetById(int id);
+
+        IEnumerable<Beyan_Dosya> GetirBeyanId(int BeyanId);
+
         Beyan_Dosya GetByGuid(Guid guid);
         bool Delete(int id);
     }

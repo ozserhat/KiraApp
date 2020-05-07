@@ -14,6 +14,9 @@ namespace Framework.WebUI.Models.ViewModels
 
     public class Beyan_GayrimenkulEkleVM : VMBase
     {
+        [Display(Name = "GayrimenkulId")]
+        public int GayrimenkulId { get; set; }
+
         [Display(Name = "Guid")]
         public Guid Guid { get; set; }
 

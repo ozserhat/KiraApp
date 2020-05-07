@@ -1,15 +1,15 @@
-﻿using System;
-using PagedList;
-using System.Web;
-using System.Linq;
-using System.Web.Mvc;
-using Framework.WebUI.Models;
-using Framework.WebUI.Helpers;
-using Framework.Business.Abstract;
+﻿using Framework.Business.Abstract;
+using Framework.Entities.ComplexTypes;
 using Framework.Entities.Concrete;
-using System.Collections.Generic;
 using Framework.WebUI.App_Helpers;
+using Framework.WebUI.Helpers;
 using Framework.WebUI.Models.ViewModels;
+using PagedList;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 
 namespace Framework.WebUI.Areas.Admin.Controllers
 {
@@ -71,7 +71,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                         Ad = tur.DosyaTurAdi,
                         OlusturulmaTarihi = DateTime.Now,
                         OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
-                        AktifMi = false
+                        AktifMi = true
                     };
 
                     var result = _service.Ekle(GayrimenkulAlt_Tur);

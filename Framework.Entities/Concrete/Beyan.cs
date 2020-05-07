@@ -79,6 +79,10 @@ namespace Framework.Entities.Concrete
 
         public DateTime? SozlesmeBitisTarihi { get; set; }
 
+        [StringLength(2500)]
+        public string Aciklama { get; set; }
+
+
         public int? OlusturanKullanici_Id { get; set; }
 
         public int? GuncelleyenKullanici_Id { get; set; }

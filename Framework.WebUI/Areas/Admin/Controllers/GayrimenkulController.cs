@@ -128,7 +128,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                         Metrekare = model.Metrekare,
                         OlusturulmaTarihi = DateTime.Now,
                         OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
-                        AktifMi = false
+                        AktifMi = true
                     };
 
                     var result = _gayrimenkulservice.Ekle(gayrimenkul);

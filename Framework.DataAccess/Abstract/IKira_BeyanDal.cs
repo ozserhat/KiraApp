@@ -9,6 +9,9 @@ namespace Framework.DataAccess.Abstract
     {
         IEnumerable<Kira_Beyan> GetList();
 
+        IEnumerable<Kira_Beyan> GetListByCriterias(KiraBeyanRequest request);
+        Kira_Beyan GetirBeyan(int BeyanId);
+
         Kira_Beyan GetById(int id);
 
         bool Delete(int id);

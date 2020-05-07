@@ -30,6 +30,7 @@
     <link rel="apple-touch-startup-image" href="~/Content/img/splash/ipad-landscape.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)">
     <link rel="apple-touch-startup-image" href="~/Content/img/splash/ipad-portrait.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)">
     <link rel="apple-touch-startup-image" href="~/Content/img/splash/iphone.png" media="screen and (max-device-width: 320px)">
+    @*<link href="~/Content/css/style.css" rel="stylesheet" />*@
 </head>
 <body class="smart-style-4">
     @{ Html.RenderPartial("_HeaderAdmin", RenderSection("topright", false)); }
@@ -41,13 +42,14 @@
         <div id="uyariView">
         </div>
         <div id="partialResult"></div>
+
         @RenderBody()
     </div>
     <div id="copyright" class="page-footer navbar-fixed-bottom ">
         <div class="row">
             <div class="col-xs-12 col-sm-12 text-align-center">
                 <span class="">
-                    Agartha Yazılım Teknolojileri Her Hakkı Saklıdır © @DateTime.Now.Year
+                    <a href="http://agarthateknoloji.com.tr" target="_blank" style="color:white;">Agartha Teknoloji Her Hakkı Saklıdır</a> © @DateTime.Now.Year
                 </span>
             </div>
         </div>

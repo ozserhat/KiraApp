@@ -1,0 +1,175 @@
+﻿@model Framework.WebUI.Models.ViewModels.Beyan_GayrimenkulEkleVM
+@Html.HiddenFor(model => model.GayrimenkulId, new { @class = "form-control" })
+@if (ViewData["GayrimenkulHata"] != null)
+{
+    @Html.Hidden("hdGayrimenkulError", ViewData["GayrimenkulHata"].ToString(), new { @class = "form-control" })
+}
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.GayrimenkulTur, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.GayrimenkulTur, new { @class = "form-control required", @readonly = true })
+                    @Html.ValidationMessage("GayrimenkulTur", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.GayrimenkulAdi, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.GayrimenkulAdi, "", new { @class = "form-control", @readonly = true })
+                    @Html.ValidationMessage("GayrimenkulAdi", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.AdresNo, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.AdresNo, new { @class = "form-control required", @readonly = true })
+                    @Html.ValidationMessage("AdresNo", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.NumaratajKimlikNo, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.NumaratajKimlikNo, new { @class = "form-control required", @readonly = true })
+                    @Html.ValidationMessage("GayrimenkulAdi", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.Il, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.Il, new { @class = "form-control required", @readonly = true })
+                    @Html.ValidationMessage("Il", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.Ilce, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.Ilce, new { @class = "form-control required", @readonly = true })
+                    @Html.ValidationMessage("Ilce", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.Mahalle, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.Mahalle, new { @class = "form-control required", @readonly = true })
+                    @Html.ValidationMessage("Mahalle", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.Sokak, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.Sokak, new { @class = "form-control required", @readonly = true })
+                    @Html.ValidationMessage("Sokak", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.DisKapiNo, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.DisKapiNo, new { @class = "form-control required", @readonly = true })
+                    @Html.ValidationMessage("DisKapiNo", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.IcKapiNo, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.IcKapiNo, new { @class = "form-control required", @readonly = true })
+                    @Html.ValidationMessage("IcKapiNo", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.Koordinat, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.Koordinat, new { @class = "form-control required", @readonly = true })
+                    @Html.ValidationMessage("Koordinat", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.Metrekare, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.Metrekare, new { @class = "form-control required", @readonly = true })
+                    @Html.ValidationMessage("Metrekare", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.AracKapasitesi, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.AracKapasitesi, new { @class = "form-control required", @readonly = true })
+                    @Html.ValidationMessage("AracKapasitesi", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="input-group" style="width: 100%;">
+                @Html.LabelFor(model => model.AcikAdres, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
+                    @Html.TextAreaFor(model => model.AcikAdres, new { @class = "form-control", @rows = "3", @readonly=true })
+                    @Html.ValidationMessage("AcikAdres", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -35,84 +35,130 @@
                 <article class="col-sm-12 col-md-12 col-lg-12">
                     <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
                         <header>
-                            <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+                            <div style="float:left; margin-top: -5px; padding-bottom: 8px;">
+
+                                <span id="spnFiltre">
+                                    <a href="#" id="btnAcKriter" class="btn btn-info" data-toggle="canvas" data-target="#bs-canvas-right" title="Filtreleme" aria-expanded="false" aria-controls="bs-canvas-right">
+                                        <span>Filtrele</span>
+                                        <i class="fa fa-filter">
+                                        </i>
+                                    </a>
+                                </span>
+                            </div>
                             <h2>Beyan Listesi - <b>Toplam Beyan Adedi : @Model.TotalRecordCount</b></h2>
                             <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
-                                <p>
-                                    @Html.AuthActionLink(" Beyan Ekle", "Ekle", "Beyan", "btn btn-primary",
-                                   "glyphicon glyphicon-plus", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
-                                </p>
+                                @Html.AuthActionLink(" Beyan Ekle", "Ekle", "Beyan", "btn btn-primary",
+                               "glyphicon glyphicon-plus", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                             </div>
+
                         </header>
                         <div role="contentinfo">
                             <div class="widget-body">
                                 <div class="tab-pane fade active in">
                                     <div class="form-group">
                                         <div class="col-md-12">
-                                            <table id="dt_basic" class="table table-striped table-bordered table-hover dataTable no-footer" role="grid" aria-describedby="dt_basic_info">
-                                                <thead>
-                                                    <tr role="row">
-                                                        <th style="width: 20px;">No</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Tür Adı</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Beyan No</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Sicil No</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Kiracı Bilgi</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Gayrimenkul No</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1">İl</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1">İlçe</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Mahalle</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Durum</th>
-                                                        <th class="sorting_disabled text-center" rowspan="1" colspan="1" style="text-align: right;  padding-right: 30px; width: 100px;">İşlem</th>
-                                                    </tr>
-                                                </thead>
-                                                @if (Model.Beyanlar != null && Model.Beyanlar.Count > 0)
-                                                {
-                                                    <tbody>
-
-                                                        @{int i = ((Model.PageNumber - 1) * Model.PageSize) + 1;}
-
-                                                        @foreach (var item in Model.Beyanlar)
+                                            <div id="pnlKriter" class="bs-offset-main bs-canvas-anim" style="display:none;">
+                                                <div id="bs-canvas-right" class="bs-canvas bs-canvas-anim bs-canvas-left position-fixed bg-light h-100" data-width="100%">
+                                                    <header class="bs-canvas-header p-3 bg-success overflow-auto">
+                                                        <button type="button" class="bs-canvas-close float-left close" aria-label="Close">
+                                                            <span aria-hidden="true" class="text-light">&times;</span>
+                                                        </button>
+                                                        <h4 class="d-inline-block text-light mb-0 float-right">Sorgulama Kriterleri</h4><br />
+                                                    </header>
+                                                    <div class="bs-canvas-content px-3 py-5" style="height:250px">
+                                                        @using (Ajax.BeginForm("GetirBeyanTable", "Beyan", new AjaxOptions
                                                         {
-                                                        <tr role="row" class="odd">
-                                                            <td>@(i++)</td>
-                                                            <td>@Html.DisplayFor(model => item.Beyanlar.BeyanTur.Ad)</td>
-                                                            <td>@Html.DisplayFor(model => item.Beyanlar.BeyanNo)</td>
-                                                            <td>@Html.DisplayFor(model => item.Kiracilar.SicilNo)</td>
-                                                            <td>@Html.DisplayFor(model => item.Kiracilar.Tanim)</td>
-                                                            <td>@Html.DisplayFor(model => item.Gayrimenkuller.GayrimenkulNo)</td>
-                                                            <td>@Html.DisplayFor(model => item.Gayrimenkuller.Mahalleler.Ilceler.Iller.Ad)</td>
-                                                            <td>@Html.DisplayFor(model => item.Gayrimenkuller.Mahalleler.Ilceler.Ad)</td>
-                                                            <td>@Html.DisplayFor(model => item.Gayrimenkuller.Mahalleler.Ad)</td>
-                                                            <td>
-                                                                @if (item.Beyanlar.AktifMi.HasValue && item.Beyanlar.AktifMi.Value)
-                                                                {
-                                                                    <b class="label aktif-buton">Aktif</b>
-                                                                }
-                                                                else
-                                                                {
-                                                                    <b class="label pasif-buton">Pasif</b>
-                                                                }
-                                                            </td>
-                                                            <td class="text-center">
-                                                                @Html.AuthAction(" ", "Duzenle", "Beyan", new { item.Beyanlar.Guid },
-                                                                        new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
-                                                                        Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
-
-                                                                @Html.AuthAction(" ", "Sil", "Beyan", new { item.Id },
-                                                                                new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = item.Beyanlar.BeyanNo, @data_id = item.Beyanlar.Id },
-                                                                                Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
-
-                                                            </td>
-                                                        </tr>
+                                                            HttpMethod = "Post",
+                                                            InsertionMode = InsertionMode.Replace,
+                                                            LoadingElementId = "progress",
+                                                            UpdateTargetId = "dvTable",
+                                                            OnSuccess= "OnSuccess"
+                                                        }, new { enctype = "multipart/form-data", id = "sorgulamaKriterleri" }))
+                                                        {
+                                                            <div class="widget-body">
+                                                                @Html.HiddenFor(model => model.PageSize)
+                                                                <fieldset>
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.BeyanTurSelectList, new { @class = "control-label col-md-4 font-bold" })
+                                                                                    <div class="col-md-8">
+                                                                                        @Html.DropDownList("BeyanTur_Id", Model.BeyanTurSelectList, "Seçiniz", new { @class = "select2" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.KiraDurumSelectList, new { @class = "control-label col-md-4 font-bold" })
+                                                                                    <div class="col-md-8">
+                                                                                        @Html.DropDownList("KiraDurum_Id", Model.KiraDurumSelectList, "Seçiniz", new { @class = "select2" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.OdemePeriyotSelectList, new { @class = "control-label col-md-4 font-bold" })
+                                                                                    <div class="col-md-8">
+                                                                                        @Html.DropDownList("OdemePeriyotTur_Id", Model.OdemePeriyotSelectList, "Seçiniz", new { @class = "select2" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.GayrimenkulSelectList, new { @class = "control-label col-md-4 font-bold" })
+                                                                                    <div class="col-md-8">
+                                                                                        @Html.DropDownList("Gayrimenkul_Id", Model.GayrimenkulSelectList, "Seçiniz", new { @class = "select2" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.IlceSelectList, new { @class = "control-label col-md-4 font-bold" })
+                                                                                    <div class="col-md-8">
+                                                                                        @Html.DropDownList("Ilce_Id", Model.IlceSelectList, "Seçiniz", new { @class = "select2" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.MahalleSelectList, new { @class = "col-md-4 font-bold" })
+                                                                                    <div class="col-md-8">
+                                                                                        @Html.DropDownList("Mahalle_Id", new SelectList(string.Empty, "Value", "Text"), "Seçiniz", new { @class = "select2" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <input id="btnSubmit" type="submit" value="Sorgula" class="btn btn-primary btn-header-btn">
+                                                                        </div>
+                                                                        <div class="col-md-12">
+                                                                            <input id="btnReset" type="reset" value="Temizle" class="btn btn-warning btn-header-btn">
+                                                                        </div>
+                                                                    </div>
+                                                                </fieldset>
+                                                            </div>
                                                         }
-                                                    </tbody>
-                                                }
-                                                else
-                                                {
-                                                    <tbody>
-                                                    </tbody>
-                                                }
-                                            </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="dvTable" class="col-md-12">
+                                            @{ Html.RenderPartial("_tablePartial", Model); }
                                         </div>
                                     </div>
                                 </div>
@@ -122,7 +168,6 @@
                 </article>
             </div>
         </section>
-
     </div>
 
     using (Html.BeginForm("Index", "Beyan", new { page = 1 }, FormMethod.Post, new { @id = "sorgulamaKriterleri" }))
@@ -136,6 +181,77 @@
     @Scripts.Render("~/bundles/jqueryval")
     <link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
     <script src="~/Content/SweetAlert/sweetalert2.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/loadingoverlay.min.js"></script>
+    <style type="text/css">
+        .loadingoverlay_element {
+            position: fixed;
+            z-index: 999;
+            height: 10em;
+            width: 20em;
+            overflow: visible;
+            margin: auto;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+        }
+    </style>
+
+    <style type="text/css">
+        #icon {
+            background-color: #bbb;
+            position: relative;
+        }
+
+        #not {
+            position: absolute;
+            top: -20px;
+            right: -10px;
+            background-color: #f00;
+            width: 28px;
+            height: 28px;
+            color: #fff;
+            font-size: 12px;
+            border-radius: 20px -moz-border-radius:20px;
+            -webkit-border-radius: 20px;
+            text-align: center;
+            border: 2px solid #fff;
+        }
+
+        .bs-canvas-overlay {
+            opacity: 0;
+            z-index: -1;
+        }
+
+            .bs-canvas-overlay.show {
+                opacity: 0.85;
+                z-index: 1100;
+            }
+
+        .bs-canvas {
+            top: 0;
+            width: 0;
+            z-index: 1110;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .bs-canvas-left {
+            left: 0;
+        }
+
+        .bs-canvas-right {
+            right: 0;
+        }
+
+        .bs-canvas-anim {
+            transition: all .4s ease-out;
+            -webkit-transition: all .4s ease-out;
+            -moz-transition: all .4s ease-out;
+            -ms-transition: all .4s ease-out;
+        }
+    </style>
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -160,6 +276,99 @@
 
     </script>
 
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            var bsDefaults = {
+                offset: false,
+                overlay: true,
+                height: '450px'
+            },
+                bsMain = $('.bs-offset-main'),
+                bsOverlay = $('.bs-canvas-overlay');
+
+            $('[data-toggle="canvas"][aria-expanded="false"]').on('click', function () {
+                $('#pnlKriter').show();
+                var canvas = $(this).data('target'),
+                    opts = $.extend({}, bsDefaults, $(canvas).data()),
+                    prop = $(canvas).hasClass('bs-canvas-right') ? 'margin-right' : 'margin-left';
+
+                if (opts.width === '100%')
+                    opts.offset = false;
+
+                $(canvas).css('width', opts.width);
+                if (opts.offset && bsMain.length)
+                    bsMain.css(prop, opts.width);
+
+                $(canvas + ' .bs-canvas-close').attr('aria-expanded', "true");
+                $('[data-toggle="canvas"][data-target="' + canvas + '"]').attr('aria-expanded', "true");
+                if (opts.overlay && bsOverlay.length)
+                    bsOverlay.addClass('show');
+                return false;
+            });
+
+            $('.bs-canvas-close, .bs-canvas-overlay').on('click', function () {
+                $('#pnlKriter').hide();
+                var canvas, aria;
+                if ($(this).hasClass('bs-canvas-close')) {
+                    canvas = $(this).closest('.bs-canvas');
+                    aria = $(this).add($('[data-toggle="canvas"][data-target="#' + canvas.attr('id') + '"]'));
+                    if (bsMain.length)
+                        bsMain.css(($(canvas).hasClass('bs-canvas-right') ? 'margin-right' : 'margin-left'), '');
+                } else {
+                    canvas = $('.bs-canvas');
+                    aria = $('.bs-canvas-close, [data-toggle="canvas"]');
+                    if (bsMain.length)
+                        bsMain.css({
+                            'margin-left': '',
+                            'margin-right': ''
+                        });
+                }
+                canvas.css('width', '');
+                aria.attr('aria-expanded', "false");
+                if (bsOverlay.length)
+                    bsOverlay.removeClass('show');
+                return false;
+            });
+        });
+    </script>
+
+    <!--İlçe Bilgileri-->
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#Ilce_Id").change(function (e) {
+
+                var ilceId = $(this).val();
+
+                if (ilceId != null && ilceId != '') {
+                    $.ajax({
+                        type: 'Post',
+                        url: '/Beyan/MahalleSelectList/ilceId=' + ilceId,
+                        data: { ilceId: ilceId },
+                        success: function (result) {
+                            if (result != null && result.success) {
+                                $("#Mahalle_Id").empty();
+                                $("#Mahalle_Id").append(
+                                    $('<option></option>').val(null).html('Lütfen Seçiniz'));
+                                $.each(result.Data, function (i, data) {
+                                    $('<option></option>').val(null).html('');
+                                    $("#Mahalle_Id").append(
+                                        $('<option></option>').val(data.Id).html(data.Ad));
+                                });
+                            }
+                            else {
+                                swal('Uyarı!', result.Message, 'warning');
+                            }
+                        },
+                        error: function (xhr) {
+                            swal('Uyarı!', result.Message, 'warning');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
     <!--Beyan Silme İşlemi -->
     <script type="text/javascript">
         var dt;
@@ -180,10 +389,17 @@
             var vl = deletealert(id, name, closestTR);
         });
 
+        function OnSuccess() {
+            $.LoadingOverlay("show", { text: "Beyan Bilgileri Sorgulanıyor...", textResizeFactor: 0.2, background: "rgba(0, 0, 0, 0.5)" });
+            setTimeout(function () {
+                $.LoadingOverlay("hide");
+            }, 2000);
+        }
+
         $(document).ready(function () {
             dt = $('#dt_basic').DataTable(dt_settings);
         });
-    </script>x
+    </script>
 
     <script type="text/javascript">
         function deletealert(Id, name, closestTR) {

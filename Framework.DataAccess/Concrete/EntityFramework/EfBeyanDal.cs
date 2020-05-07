@@ -55,6 +55,29 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                               .ToList();
             }
         }
+
+        public string BeyanNoUret(int Yil)
+        {
+            try
+            {
+                using (DtContext context = new DtContext())
+                {
+                    var result = context.Beyanlar.Where(x => x.OlusturulmaTarihi.Value.Year == Yil).OrderByDescending(x => x.Id).First().BeyanNo.Split('-').Last();
+
+                    int Numara = int.Parse(result);
+
+                    Numara++;
+
+                    string Num = Numara.ToString().PadLeft(7, '0');
+
+                    return Num;
+                }
+            }
+            catch (Exception ex)
+            {
+                return "000001";
+            }
+        }
     }
 }
 
