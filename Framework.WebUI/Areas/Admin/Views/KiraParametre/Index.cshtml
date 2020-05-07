@@ -1,4 +1,4 @@
-﻿@model Framework.WebUI.Models.ViewModels.ResmiTatillerVM
+﻿@model Framework.WebUI.Models.ViewModels.KiraParametreVM
 @using PagedList;
 @using PagedList.Mvc;
 
@@ -36,10 +36,10 @@
                     <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
                         <header>
                             <span class="widget-icon"> <i class="fa fa-list"></i> </span>
-                            <h2>Resmi Tatil Listesi </h2>
+                            <h2>Parametre Listesi </h2>
                             <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
                                 <p>
-                                    @Html.AuthActionLink(" Tatil Ekle", "Ekle", "ResmiTatiller", "btn btn-primary", 
+                                    @Html.AuthActionLink("Parametre Ekle", "Ekle", "KiraParametre", "btn btn-primary", 
                                    "glyphicon glyphicon-plus", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                                 </p>
                             </div>
@@ -53,25 +53,44 @@
                                                 <thead>
                                                     <tr role="row">
                                                         <th style="width: 20px;">No</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Tarih</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Resmi Tatil Adı</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 250px;">Durum</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Beyan Yılı</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Kira Tarife Kodu</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Otopark Tarife Kodu</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Ecrimisil Tarife Kodu</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Damga Vergisi Tarife Kodu</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Teminat Tarife Kodu</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Karar Harcı Tarife Kodu</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Kapatma Tarife Kodu</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Kdv Tarife Kodu</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Damga Vergisi Oranı</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Teminat Oranı</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Karar Harcı Oranı</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Durum</th>
                                                         <th class="sorting_disabled text-center" rowspan="1" colspan="1" style="text-align: right;  padding-right: 30px; width: 100px;">İşlem</th>
                                                     </tr>
                                                 </thead>
-                                                @if (Model.ResmiTatiller != null && Model.ResmiTatiller.Count > 0)
+                                                @if (Model.KiraParametre != null && Model.KiraParametre.Count > 0)
                                                 {
                                                     <tbody>
 
                                                         @{int i = ((Model.PageNumber - 1) * Model.PageSize) + 1;}
 
-                                                        @foreach (var item in Model.ResmiTatiller)
+                                                        @foreach (var item in Model.KiraParametre)
                                                         {
                                                         <tr role="row" class="odd">
                                                             <td>@(i++)</td>
-                                                            <td>@Html.DisplayFor(model => item.Tarih)</td>
-                                                            <td>@Html.DisplayFor(model => item.ResmiTatilAdi)</td>
-
+                                                            <td>@Html.DisplayFor(model => item.BeyanYili)</td>
+                                                            <td>@Html.DisplayFor(model => item.KiraTarifeKodu)</td>
+                                                            <td>@Html.DisplayFor(model => item.OtoparkTarifeKodu)</td>
+                                                            <td>@Html.DisplayFor(model => item.EcrimisilTarifeKodu)</td>
+                                                            <td>@Html.DisplayFor(model => item.DamgaTarifeKodu)</td>
+                                                            <td>@Html.DisplayFor(model => item.TeminatTarifeKodu)</td>
+                                                            <td>@Html.DisplayFor(model => item.KararHarciTarifeKodu)</td>
+                                                            <td>@Html.DisplayFor(model => item.KapatmaTarifeKodu)</td>
+                                                            <td>@Html.DisplayFor(model => item.KdvTarifeKodu)</td>
+                                                            <td>@Html.DisplayFor(model => item.DamgaOran)</td>
+                                                            <td>@Html.DisplayFor(model => item.TeminatOran)</td>
+                                                            <td>@Html.DisplayFor(model => item.KararHarciOran)</td>
                                                             <td>
                                                                 @if (item.AktifMi.HasValue && item.AktifMi.Value)
                                                                 {
@@ -83,12 +102,12 @@
                                                                 }
                                                             </td>
                                                             <td class="text-center">
-                                                                @Html.AuthAction(" ", "Duzenle", "ResmiTatiller", new { item.Id },
+                                                                @Html.AuthAction(" ", "Duzenle", "KiraParametre", new { item.Guid },
                                                                         new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
                                                                         Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
-                                                                @Html.AuthAction(" ", "Sil", "ResmiTatiller", new { item.Id },
-                                                                                new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = item.ResmiTatilAdi, @data_id = item.Id },
+                                                                @Html.AuthAction(" ", "Sil", "KiraParametre", new { item.Id },
+                                                                                new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = item.BeyanYili, @data_id = item.Id },
                                                                                 Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
                                                             </td>
@@ -114,10 +133,11 @@
 
     </div>
 
-    using (Html.BeginForm("Index", "ResmiTatiller", new { page = 1 }, FormMethod.Post, new { @id = "sorgulamaKriterleri" }))
+    using (Html.BeginForm("Index", "KiraPrametre", new { page = 1 }, FormMethod.Post, new { @id = "sorgulamaKriterleri" }))
     {
         <input id="page" name="page" type="hidden" value="">
     }
+
 }
 
 
@@ -178,7 +198,7 @@
         function deletealert(Id, name, closestTR) {
             swal({
                 title: "Uyarı",
-                text: name + " Adlı Tatili Silmek İstediğinizden Emin misiniz?",
+                text: name + " Parametrelerini Silmek İstediğinizden Emin misiniz?",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
@@ -187,7 +207,7 @@
             }).then(function (isConfirm) {
                 if (isConfirm) {
                     $.ajax({
-                        url: "/ResmiTatiller/Sil/" + Id,
+                        url: "/KiraParametre/Sil/" + Id,
                         type: 'POST',
                         success: function (result) {
                             if (result.success) {
