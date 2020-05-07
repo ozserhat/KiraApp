@@ -81,7 +81,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                         GayrimenkulTur_Id = tur.GayrimenkulTur_Id,
                         OlusturulmaTarihi = DateTime.Now,
                         OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
-                        AktifMi = false
+                        AktifMi = true
                     };
 
                     var result = _service.Ekle(GayrimenkulAlt_Tur);

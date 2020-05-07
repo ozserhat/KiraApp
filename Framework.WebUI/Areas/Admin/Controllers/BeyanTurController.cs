@@ -165,10 +165,17 @@ namespace Framework.WebUI.Areas.Admin.Controllers
 
             tur = _service.Guncelle(tur);
 
-            if (tur.AktifMi.HasValue && tur.AktifMi.Value)
+            if (tur.AktifMi.HasValue && !tur.AktifMi.Value)
+            {
+                ModelState.AddModelError("LogMessage", "Beyan Tür Bilgisi Bilgisi Silindi.");
+
                 return Json(new { success = true, Message = "Beyan Tür Bilgisi Başarıyla Silindi" }, JsonRequestBehavior.AllowGet);
+            }
             else
+            {
+                ModelState.AddModelError("LogMessage", "Beyan Tür Bilgisi Bilgisi Silinemedi.");
                 return Json(new { success = false, Message = "Beyan Tür Bilgisi Silinemedi!!!" }, JsonRequestBehavior.AllowGet);
+            }
 
         }
         #endregion

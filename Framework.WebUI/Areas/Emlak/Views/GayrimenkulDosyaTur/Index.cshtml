@@ -182,7 +182,7 @@
             }).then(function (isConfirm) {
                 if (isConfirm) {
                     $.ajax({
-                        url: "/GayrimenkulDosyaTur/Sil/" + Id,
+                        url: "/Emlak/GayrimenkulDosyaTur/Sil/" + Id,
                         type: 'POST',
                         success: function (result) {
                             if (result.success) {
