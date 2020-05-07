@@ -49,10 +49,11 @@
                             <h2>Beyan Listesi - <b>Toplam Beyan Adedi : @Model.TotalRecordCount</b></h2>
 
                             <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
-                                <a href="#" id="btnBeyanPersonelEkle" class="btn btn-primary glyphicon glyphicon-plus
-                                                                       bildirimPopup" rel="tooltip" data-toggle="modal"
+                                <a href="#" id="btnBeyanPersonelEkle" class="btn btn-primary bildirimPopup" rel="tooltip" data-toggle="modal"
                                    data-target="#personelBeyanModal" data-original-title="Personel Beyan Ekle">
-                                    Personel Beyan Ekle
+                                    <span>Personel Beyan Ekle  </span> 
+                                    <i class="glyphicon glyphicon-plus">
+                                    </i>
                                 </a>
                             </div>
 
@@ -78,7 +79,7 @@
                                                             LoadingElementId = "progress",
                                                             UpdateTargetId = "dvTable",
                                                             OnSuccess = "OnSuccess"
-                                                        }, new { enctype = "multipart/form-data", id = "sorgulamaKriterleri" }))
+                                                        }, new { enctype = "multipart/form-data", id = "sorgulamaKriterleri"}))
                                                         {
                                                             <div class="widget-body">
                                                                 @Html.HiddenFor(model => model.PageSize)
@@ -181,13 +182,14 @@
         <input id="page" name="page" type="hidden" value="">
     }
 }
+
 <div class="modal" id="personelBeyanModal">
     <div class="modal-dialog">
         <div class="modal-content">
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title"><b>Persone Beyan Ekle</b></h4>
+                <h4 class="modal-title"><b>Personel Beyan Ekle</b></h4>
             </div>
             <!-- Modal body -->
             <div class="modal-body">
@@ -197,7 +199,7 @@
                             <div class="col-sm-12 col-md-12 col-lg-12 form-group">
                                 @Html.LabelFor(model => model.KullaniciSelectList, new { @class = "control-label col-md-4" })
                                 <div class="col-md-8">
-                                    <p>@Html.DropDownList("KullaniciId", Model.KullaniciSelectList, new { @class = "select2", multiple = "multiple" })</p>
+                                    <p> @Html.DropDownList("KullaniciId", Model.KullaniciSelectList, "Seçiniz", new { @class = "select2" })</p>
                                 </div>
                             </div>
                         </div>
@@ -408,16 +410,7 @@
 
     <!--Beyan Silme İşlemi -->
     <script type="text/javascript">
-        var dt;
-
-        var dt_settings = {
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Turkish.json"
-            },
-            "searching": true,
-            "bPaginate": false,
-        };
-
+       
         $(".delete-row").click(function (e) {
             e.preventDefault();
             var id = $(this).attr("data-id");
@@ -429,13 +422,11 @@
         function OnSuccess() {
             $.LoadingOverlay("show", { text: "Beyan Bilgileri Sorgulanıyor...", textResizeFactor: 0.2, background: "rgba(0, 0, 0, 0.5)" });
             setTimeout(function () {
+                $('#dt_basic').DataTable().destroy();
                 $.LoadingOverlay("hide");
             }, 2000);
         }
 
-        $(document).ready(function () {
-            //dt = $('#dt_basic').DataTable(dt_settings);
-        });
     </script>
 
     <script type="text/javascript">
@@ -473,40 +464,38 @@
         var dt;
         var closestRow = [];
         var removeList = [];
-
-            dt = $('#dt_basic').DataTable({
-                "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Turkish.json"
-                },
-                'columnDefs': [
-                    {
-                        'targets': 0,
-                        'searchable': false,
-                        'orderable': false,
-                        'className': 'dt-body-center', "select": {
-                            "style": "multi",
-                            selector: 'tr>td:nth-child(0), tr>td:nth-child(0)'
-                        },
-                        'render': function (data, type, row) {
-                            if (type === 'display') {
-                                return '<input type="checkbox" class="chcBox" value="' + $('<div/>').text(data).html() + '">';
-                            }
-                            return data;
+        dt = $('#dt_basic').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Turkish.json"
+            },
+            'columnDefs': [
+                {
+                    'targets': 0,
+                    'searchable': false,
+                    'orderable': false,
+                    'className': 'dt-body-center', "select": {
+                        "style": "multi",
+                        selector: 'tr>td:nth-child(0), tr>td:nth-child(0)'
+                    },
+                    'render': function (data, type, row) {
+                        if (type === 'display') {
+                            return '<input type="checkbox" class="chcBox" value="' + $('<div/>').text(data).html() + '">';
                         }
-                    }],
-                order: [1, 'asc'],
-            });
+                        return data;
+                    }
+                }],
+            order: [1, 'asc'],
+        });
 
+       if (@sonSayfa < 8) {
+                $("#sayfalama").css("display", "none");
+        }
 
-            if (@sonSayfa < 8) {
+       if (@sonSayfa < 8) {
                 $("#sayfalama").css("display", "none");
             }
 
-            if (@sonSayfa < 8) {
-                $("#sayfalama").css("display", "none");
-            }
-
-            $('.chcBox').on("click", function () {
+       $('.chcBox').on("click", function () {
                 debugger;
                 var dt = $("#dt_basic").dataTable();
                 var row = $(this).closest('tr');
@@ -523,8 +512,6 @@
                 }
             });
 
-
-
         $('#btnGonder').on('click', function (e) {
             debugger;
                 e.preventDefault();
@@ -533,8 +520,8 @@
 
                   $.ajax({
                     type: 'POST',
-                    url: '@Url.Action("PersonelBeyanEkle", "Beyan")',
-                      data: { kullaniciYetki: removeList, KullaniciId: kullaniciId },
+                    url: '/Admin/Beyan/PersonelBeyanEkle',
+                    data: { kullaniciYetki: removeList, KullaniciId: kullaniciId },
                     success: function (result) {
                         if (result != null && result.success) {
 
@@ -559,15 +546,12 @@
                  });
             });
 
-            $('#btnKaldir').on('click', function (e) {
+        $('#btnKaldir').on('click', function (e) {
                 e.preventDefault();
                 var kullaniciId = $('#User_Id').val();
                 var closestTR = $(this).closest("tr");
                 var vl = deletePermissions(kullaniciId, closestRow);
             });
-
-
-
 
     </script>
 
