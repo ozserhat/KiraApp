@@ -191,9 +191,10 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                 }
             }
             else
-            {
+            {  
                 model.Errors = new List<string>();
                 model.Errors.Add(VMErrors.ValidationError);
+
             }
 
             return View(model);
