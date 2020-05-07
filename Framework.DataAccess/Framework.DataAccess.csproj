@@ -92,6 +92,7 @@
     <Compile Include="Abstract\IKira_DurumDal.cs" />
     <Compile Include="Abstract\ILogsDal.cs" />
     <Compile Include="Abstract\IMahalleDal.cs" />
+    <Compile Include="Abstract\IPersonelBeyanDal.cs" />
     <Compile Include="Abstract\IResmiTatillerDal.cs" />
     <Compile Include="Abstract\IRolesDal.cs" />
     <Compile Include="Abstract\ISistemParametreleriDal.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="Concrete\EntityFramework\EfKira_DurumDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfLogDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfMahalleDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfPersonelBeyanDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfResmiTatillerDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfRolesDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfSistemParametreleriDal.cs" />

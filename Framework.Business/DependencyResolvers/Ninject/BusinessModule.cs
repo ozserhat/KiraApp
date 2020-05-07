@@ -110,6 +110,8 @@ namespace Framework.Business.DependencyResolvers.Ninject
             Bind<IKira_BeyanDal>().To<EfKira_BeyanDal>().InTransientScope();
             Bind<IKira_BeyanService>().To<Kira_BeyanManager>().InTransientScope();
 
+            Bind<IPersonelBeyanDal>().To<EfPersonelBeyanDal>().InTransientScope();
+            Bind<IPersonel_BeyanService>().To<Personel_BeyanManager>().InTransientScope();
 
             Bind<ISicilService>().To<SicilServiceManager>().InTransientScope();
 

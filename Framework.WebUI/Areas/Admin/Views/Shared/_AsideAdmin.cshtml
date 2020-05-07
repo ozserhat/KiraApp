@@ -128,7 +128,7 @@
                         @Html.AuthMainAction("Gayrimenkul Alt Türleri", "Index", "GayrimenkulAltTur",
                        "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                     </li>
-                  
+
                     <li class="@Html.RouteIf("Beyan_Tur", "active")">
                         @Html.AuthMainAction("Beyan Türleri", "Index", "Beyan_Tur",
                       "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
@@ -146,6 +146,10 @@
                     <li class="@Html.RouteIf("KiraDurum", "active")">
                         @Html.AuthMainAction("Kira Durumları", "Index", "KiraDurum",
                       "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                    </li>
+                    <li class="@Html.RouteIf("Beyan", "active")">
+                        @Html.AuthMainAction("Beyanlar", "Index", "Beyan",
+                        "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                     </li>
                 </ul>
             </li>

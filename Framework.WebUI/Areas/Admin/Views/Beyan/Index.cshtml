@@ -1,0 +1,613 @@
+﻿@model Framework.WebUI.Models.ViewModels.KiraBeyanVM
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    int sonSayfa = 0;
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+@if (Model.Errors != null && Model.Errors.Count > 0)
+{
+    <div id="content">
+        <section id="widget-grid">
+            <div class="row">
+                <div class="row alert alert-danger">
+                    <i class="glyphicon glyphicon-warning-sign col-md-1"></i>
+                    <ul style="list-style-type:none" class="col-md-11">
+                        @foreach (var item in Model.Errors)
+                        {
+                            <li>@item</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+}
+@if (!Model.HideContent)
+{
+    <div id="content">
+
+        <section id="widget-grid" class="sayfaust_bosluk">
+            <div class="row">
+                <article class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
+                        <header>
+                            <div style="float:left; margin-top: -5px; padding-bottom: 8px;">
+
+                                <span id="spnFiltre">
+                                    <a href="#" id="btnAcKriter" class="btn btn-info" data-toggle="canvas" data-target="#bs-canvas-right" title="Filtreleme" aria-expanded="false" aria-controls="bs-canvas-right">
+                                        <span>Filtrele</span>
+                                        <i class="fa fa-filter">
+                                        </i>
+                                    </a>
+                                </span>
+                            </div>
+                            <h2>Beyan Listesi - <b>Toplam Beyan Adedi : @Model.TotalRecordCount</b></h2>
+
+                            <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
+                                <a href="#" id="btnBeyanPersonelEkle" class="btn btn-primary glyphicon glyphicon-plus
+                                                                       bildirimPopup" rel="tooltip" data-toggle="modal"
+                                   data-target="#personelBeyanModal" data-original-title="Personel Beyan Ekle">
+                                    Personel Beyan Ekle
+                                </a>
+                            </div>
+
+                        </header>
+                        <div role="contentinfo">
+                            <div class="widget-body">
+                                <div class="tab-pane fade active in">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <div id="pnlKriter" class="bs-offset-main bs-canvas-anim" style="display:none;">
+                                                <div id="bs-canvas-right" class="bs-canvas bs-canvas-anim bs-canvas-left position-fixed bg-light h-100" data-width="100%">
+                                                    <header class="bs-canvas-header p-3 bg-success overflow-auto">
+                                                        <button type="button" class="bs-canvas-close float-left close" aria-label="Close">
+                                                            <span aria-hidden="true" class="text-light">&times;</span>
+                                                        </button>
+                                                        <h4 class="d-inline-block text-light mb-0 float-right">Sorgulama Kriterleri</h4><br />
+                                                    </header>
+                                                    <div class="bs-canvas-content px-3 py-5" style="height:250px">
+                                                        @using (Ajax.BeginForm("GetirBeyanTable", "Beyan", new AjaxOptions
+                                                        {
+                                                            HttpMethod = "Post",
+                                                            InsertionMode = InsertionMode.Replace,
+                                                            LoadingElementId = "progress",
+                                                            UpdateTargetId = "dvTable",
+                                                            OnSuccess = "OnSuccess"
+                                                        }, new { enctype = "multipart/form-data", id = "sorgulamaKriterleri" }))
+                                                        {
+                                                            <div class="widget-body">
+                                                                @Html.HiddenFor(model => model.PageSize)
+                                                                <fieldset>
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.BeyanTurSelectList, new { @class = "control-label col-md-4 font-bold" })
+                                                                                    <div class="col-md-8">
+                                                                                        @Html.DropDownList("BeyanTur_Id", Model.BeyanTurSelectList, "Seçiniz", new { @class = "select2" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.KiraDurumSelectList, new { @class = "control-label col-md-4 font-bold" })
+                                                                                    <div class="col-md-8">
+                                                                                        @Html.DropDownList("KiraDurum_Id", Model.KiraDurumSelectList, "Seçiniz", new { @class = "select2" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.OdemePeriyotSelectList, new { @class = "control-label col-md-4 font-bold" })
+                                                                                    <div class="col-md-8">
+                                                                                        @Html.DropDownList("OdemePeriyotTur_Id", Model.OdemePeriyotSelectList, "Seçiniz", new { @class = "select2" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.GayrimenkulSelectList, new { @class = "control-label col-md-4 font-bold" })
+                                                                                    <div class="col-md-8">
+                                                                                        @Html.DropDownList("Gayrimenkul_Id", Model.GayrimenkulSelectList, "Seçiniz", new { @class = "select2" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.IlceSelectList, new { @class = "control-label col-md-4 font-bold" })
+                                                                                    <div class="col-md-8">
+                                                                                        @Html.DropDownList("Ilce_Id", Model.IlceSelectList, "Seçiniz", new { @class = "select2" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.MahalleSelectList, new { @class = "col-md-4 font-bold" })
+                                                                                    <div class="col-md-8">
+                                                                                        @Html.DropDownList("Mahalle_Id", new SelectList(string.Empty, "Value", "Text"), "Seçiniz", new { @class = "select2" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <input id="btnSubmit" type="submit" value="Sorgula" class="btn btn-primary btn-header-btn">
+                                                                        </div>
+                                                                        <div class="col-md-12">
+                                                                            <input id="btnReset" type="reset" value="Temizle" class="btn btn-warning btn-header-btn">
+                                                                        </div>
+                                                                    </div>
+                                                                </fieldset>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="dvTable" class="col-md-12">
+                                            @{ Html.RenderPartial("_tablePartial", Model); }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+    </div>
+
+    using (Html.BeginForm("Index", "Beyan", new { page = 1 }, FormMethod.Post, new { @id = "sorgulamaKriterleri" }))
+    {
+        <input id="page" name="page" type="hidden" value="">
+    }
+}
+<div class="modal" id="personelBeyanModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title"><b>Persone Beyan Ekle</b></h4>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form id="frmBildirim">
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-12 form-group">
+                                @Html.LabelFor(model => model.KullaniciSelectList, new { @class = "control-label col-md-4" })
+                                <div class="col-md-8">
+                                    <p>@Html.DropDownList("KullaniciId", Model.KullaniciSelectList, new { @class = "select2", multiple = "multiple" })</p>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Kapat</button>
+                        <input type="button" value="Gönder" id="btnGonder" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+            <!-- Modal footer -->
+        </div>
+    </div>
+</div>
+
+
+@section pagespecific {
+    @Scripts.Render("~/bundles/jqueryval")
+    <link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
+    <script src="~/Content/SweetAlert/sweetalert2.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/loadingoverlay.min.js"></script>
+    <style type="text/css">
+        .loadingoverlay_element {
+            position: fixed;
+            z-index: 999;
+            height: 10em;
+            width: 20em;
+            overflow: visible;
+            margin: auto;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+        }
+    </style>
+
+    <style type="text/css">
+        #icon {
+            background-color: #bbb;
+            position: relative;
+        }
+
+        #not {
+            position: absolute;
+            top: -20px;
+            right: -10px;
+            background-color: #f00;
+            width: 28px;
+            height: 28px;
+            color: #fff;
+            font-size: 12px;
+            border-radius: 20px -moz-border-radius:20px;
+            -webkit-border-radius: 20px;
+            text-align: center;
+            border: 2px solid #fff;
+        }
+
+        .bs-canvas-overlay {
+            opacity: 0;
+            z-index: -1;
+        }
+
+            .bs-canvas-overlay.show {
+                opacity: 0.85;
+                z-index: 1100;
+            }
+
+        .bs-canvas {
+            top: 0;
+            width: 0;
+            z-index: 1110;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .bs-canvas-left {
+            left: 0;
+        }
+
+        .bs-canvas-right {
+            right: 0;
+        }
+
+        .bs-canvas-anim {
+            transition: all .4s ease-out;
+            -webkit-transition: all .4s ease-out;
+            -moz-transition: all .4s ease-out;
+            -ms-transition: all .4s ease-out;
+        }
+    </style>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if (@sonSayfa < 8) {
+                $("#sayfalama").css("display", "none");
+            }
+        });
+    </script>
+
+    <script type="text/javascript">
+
+        $("#btnGit").on("click", function () {
+            if (@sonSayfa > $("#sayfayaGit").val()) {
+                $("#page").val($("#sayfayaGit").val());
+                $("#sorgulamaKriterleri").submit();
+            }
+            else {
+                $("#page").val(@sonSayfa);
+                $("#sorgulamaKriterleri").submit();
+            }
+        });
+
+    </script>
+
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            var bsDefaults = {
+                offset: false,
+                overlay: true,
+                height: '450px'
+            },
+                bsMain = $('.bs-offset-main'),
+                bsOverlay = $('.bs-canvas-overlay');
+
+            $('[data-toggle="canvas"][aria-expanded="false"]').on('click', function () {
+                $('#pnlKriter').show();
+                var canvas = $(this).data('target'),
+                    opts = $.extend({}, bsDefaults, $(canvas).data()),
+                    prop = $(canvas).hasClass('bs-canvas-right') ? 'margin-right' : 'margin-left';
+
+                if (opts.width === '100%')
+                    opts.offset = false;
+
+                $(canvas).css('width', opts.width);
+                if (opts.offset && bsMain.length)
+                    bsMain.css(prop, opts.width);
+
+                $(canvas + ' .bs-canvas-close').attr('aria-expanded', "true");
+                $('[data-toggle="canvas"][data-target="' + canvas + '"]').attr('aria-expanded', "true");
+                if (opts.overlay && bsOverlay.length)
+                    bsOverlay.addClass('show');
+                return false;
+            });
+
+            $('.bs-canvas-close, .bs-canvas-overlay').on('click', function () {
+                $('#pnlKriter').hide();
+                var canvas, aria;
+                if ($(this).hasClass('bs-canvas-close')) {
+                    canvas = $(this).closest('.bs-canvas');
+                    aria = $(this).add($('[data-toggle="canvas"][data-target="#' + canvas.attr('id') + '"]'));
+                    if (bsMain.length)
+                        bsMain.css(($(canvas).hasClass('bs-canvas-right') ? 'margin-right' : 'margin-left'), '');
+                } else {
+                    canvas = $('.bs-canvas');
+                    aria = $('.bs-canvas-close, [data-toggle="canvas"]');
+                    if (bsMain.length)
+                        bsMain.css({
+                            'margin-left': '',
+                            'margin-right': ''
+                        });
+                }
+                canvas.css('width', '');
+                aria.attr('aria-expanded', "false");
+                if (bsOverlay.length)
+                    bsOverlay.removeClass('show');
+                return false;
+            });
+        });
+    </script>
+
+    <!--İlçe Bilgileri-->
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#Ilce_Id").change(function (e) {
+
+                var ilceId = $(this).val();
+
+                if (ilceId != null && ilceId != '') {
+                    $.ajax({
+                        type: 'Post',
+                        url: '/Beyan/MahalleSelectList/ilceId=' + ilceId,
+                        data: { ilceId: ilceId },
+                        success: function (result) {
+                            if (result != null && result.success) {
+                                $("#Mahalle_Id").empty();
+                                $("#Mahalle_Id").append(
+                                    $('<option></option>').val(null).html('Lütfen Seçiniz'));
+                                $.each(result.Data, function (i, data) {
+                                    $('<option></option>').val(null).html('');
+                                    $("#Mahalle_Id").append(
+                                        $('<option></option>').val(data.Id).html(data.Ad));
+                                });
+                            }
+                            else {
+                                swal('Uyarı!', result.Message, 'warning');
+                            }
+                        },
+                        error: function (xhr) {
+                            swal('Uyarı!', result.Message, 'warning');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+    <!--Beyan Silme İşlemi -->
+    <script type="text/javascript">
+        var dt;
+
+        var dt_settings = {
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Turkish.json"
+            },
+            "searching": true,
+            "bPaginate": false,
+        };
+
+        $(".delete-row").click(function (e) {
+            e.preventDefault();
+            var id = $(this).attr("data-id");
+            var name = $(this).attr("data-name");
+            var closestTR = $(this).closest("tr");
+            var vl = deletealert(id, name, closestTR);
+        });
+
+        function OnSuccess() {
+            $.LoadingOverlay("show", { text: "Beyan Bilgileri Sorgulanıyor...", textResizeFactor: 0.2, background: "rgba(0, 0, 0, 0.5)" });
+            setTimeout(function () {
+                $.LoadingOverlay("hide");
+            }, 2000);
+        }
+
+        $(document).ready(function () {
+            //dt = $('#dt_basic').DataTable(dt_settings);
+        });
+    </script>
+
+    <script type="text/javascript">
+        function deletealert(Id, name, closestTR) {
+            swal({
+                title: "Uyarı",
+                text: name + " No'lu Beyanı Silmek İstediğinizden Emin misiniz?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Evet",
+                cancelButtonText: "İptal"
+            }).then(function (isConfirm) {
+                if (isConfirm) {
+                    $.ajax({
+                        url: "/Beyan/Sil/" + Id,
+                        type: 'POST',
+                        success: function (result) {
+                            if (result.success) {
+                                closestTR.fadeOut(2000, function () {
+                                    dt = $('#dt_basic').DataTable();
+                                    swal('Uyarı!', name + ' ' + result.Message, 'success');
+                                    location.reload();
+                                });
+                            }
+                            else swal('Uyarı!', name + ' ' + result.Message, 'error');
+                        }
+                    });
+                }
+            })
+        }
+    </script>
+
+    <script type="text/javascript">
+        var dt;
+        var closestRow = [];
+        var removeList = [];
+
+            dt = $('#dt_basic').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Turkish.json"
+                },
+                'columnDefs': [
+                    {
+                        'targets': 0,
+                        'searchable': false,
+                        'orderable': false,
+                        'className': 'dt-body-center', "select": {
+                            "style": "multi",
+                            selector: 'tr>td:nth-child(0), tr>td:nth-child(0)'
+                        },
+                        'render': function (data, type, row) {
+                            if (type === 'display') {
+                                return '<input type="checkbox" class="chcBox" value="' + $('<div/>').text(data).html() + '">';
+                            }
+                            return data;
+                        }
+                    }],
+                order: [1, 'asc'],
+            });
+
+
+            if (@sonSayfa < 8) {
+                $("#sayfalama").css("display", "none");
+            }
+
+            if (@sonSayfa < 8) {
+                $("#sayfalama").css("display", "none");
+            }
+
+            $('.chcBox').on("click", function () {
+                debugger;
+                var dt = $("#dt_basic").dataTable();
+                var row = $(this).closest('tr');
+                var chkbox_checked = $('tbody input[type="checkbox"]:checked', dt);
+                var tuisre = $(this).is(":checked");
+                if (tuisre) {
+                    closestRow.push(row);
+                    var ID = this.value;
+                    removeList.push(ID);
+                }
+                else {
+                    removeList.splice($.inArray(this.value, removeList), 1);
+
+                }
+            });
+
+
+
+        $('#btnGonder').on('click', function (e) {
+            debugger;
+                e.preventDefault();
+            var kullaniciId = $('#KullaniciId').val();
+                var closestTR = $(this).closest("tr");
+
+                  $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("PersonelBeyanEkle", "Beyan")',
+                      data: { kullaniciYetki: removeList, KullaniciId: kullaniciId },
+                    success: function (result) {
+                        if (result != null && result.success) {
+
+                            var i;
+                            for (i = 0; i < closestRow2.length; i++) {
+                                closestRow2[i].fadeOut(2000, function () {
+                                    dt = $('#dt_basic').DataTable();
+                                     removeList = [];
+                                    location.reload();
+                                });
+                            }
+
+                            swal('Uyarı!', name + ' ' + result.Message, 'success');
+                        }
+                        else {
+                            swal('Uyarı!', result.Message, 'warning');
+                        }
+                    },
+                    error: function (xhr) {
+                        swal('Uyarı!', result.Message, 'warning');
+                    }
+                 });
+            });
+
+            $('#btnKaldir').on('click', function (e) {
+                e.preventDefault();
+                var kullaniciId = $('#User_Id').val();
+                var closestTR = $(this).closest("tr");
+                var vl = deletePermissions(kullaniciId, closestRow);
+            });
+
+
+
+
+    </script>
+
+    <script type="text/javascript">
+        function deletePermissions(kullaniciId, closestTR) {
+            swal({
+                title: "Uyarı",
+                text: " Kullanıcının Yetkileri Silmek İstediğinizden Emin misiniz?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Evet",
+                cancelButtonText: "İptal"
+            }).then(function (isConfirm) {
+                if (isConfirm) {
+                $.ajax({
+                    type: 'POST',
+                    url: "@Url.Content("~/KullaniciYetki/YetkiKaldir")",
+                    data: { kullaniciYetki: removeList, KullaniciId: kullaniciId },
+                    success: function (result) {
+                        if (result.success) {
+                            var i;
+                            for (i = 0; i < closestTR.length; i++) {
+                                closestTR[i].fadeOut(2000, function () {
+                                    dt = $('#dt_basic').DataTable();
+                                    location.reload();
+                                });
+                            }
+
+                            swal('Uyarı!', name + ' ' + result.Message, 'success');
+                        }
+                        else swal('Uyarı!', name + ' ' + result.Message, 'error');
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+                }
+            })
+        }
+    </script>
+
+}
