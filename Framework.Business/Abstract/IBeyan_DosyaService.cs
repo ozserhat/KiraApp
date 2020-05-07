@@ -14,6 +14,8 @@ namespace Framework.Business.Abstract
 
         Beyan_Dosya GetirGuid(Guid guid);
 
+        IEnumerable<Beyan_Dosya> GetirBeyanId(int BeyanId);
+
         Beyan_Dosya Ekle(Beyan_Dosya tur);
 
         Beyan_Dosya Guncelle(Beyan_Dosya tur);

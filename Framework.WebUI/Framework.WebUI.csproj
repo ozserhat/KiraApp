@@ -1083,6 +1083,8 @@
     <Content Include="Areas\Admin\Views\ResmiTatiller\Duzenle.cshtml" />
     <Content Include="Areas\Admin\Views\ResmiTatiller\Ekle.cshtml" />
     <Content Include="Areas\Admin\Views\ResmiTatiller\Index.cshtml" />
+    <Content Include="Areas\Kira\Views\Beyan\_tablePartial.cshtml" />
+    <Content Include="Areas\Kira\Views\Beyan\BeyanDetay.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\customModal.js" />

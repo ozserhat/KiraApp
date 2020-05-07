@@ -34,14 +34,14 @@ namespace Framework.WebUI.Models.ViewModels
     public class KiraBeyanEkleVM : VMBase
     {
 
-    //    [Display(Name = "Kiraci_Id")]
-    //    public int Kiraci_Id { get; set; }
+        //    [Display(Name = "Kiraci_Id")]
+        //    public int Kiraci_Id { get; set; }
 
-    //    [Display(Name = "Gayrimenkul_Id")]
-    //    public int Gayrimenkul_Id { get; set; }
+        //    [Display(Name = "Gayrimenkul_Id")]
+        //    public int Gayrimenkul_Id { get; set; }
 
-    //    [Display(Name = "Beyan_Id")]
-    //    public int Beyan_Id { get; set; }
+        //    [Display(Name = "Beyan_Id")]
+        //    public int Beyan_Id { get; set; }
 
         public KiraciEkleVM Kiraci { get; set; }
 
@@ -49,9 +49,12 @@ namespace Framework.WebUI.Models.ViewModels
 
         public BeyanEkleVM Beyan { get; set; }
 
+        public BeyanDetayVM BeyanDetay { get; set; }
+
         //public KiraBeyanVM KiraBeyan { get; set; }
 
         public List<Beyan_DosyaVM> BeyanDosyalar { get; set; }
+        public List<Beyan_DosyaVM> BeyanDetayDosyalar { get; set; }
 
         //[Display(Name = "Oluşturan Kullanıcı")]
         //public int? OlusturanKullanici_Id { get; set; }
@@ -84,6 +87,21 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Aktif Mi")]
         public bool AktifMi { get; set; }
+
+    }
+
+    public class KiraBeyanDetayVM : VMBase
+    {
+        public KiraciEkleVM Kiraci { get; set; }
+
+        public Beyan_GayrimenkulEkleVM Gayrimenkul { get; set; }
+
+        public BeyanDetayVM Beyan { get; set; }
+
+        public List<Beyan_DosyaVM> BeyanDosyalar { get; set; }
+
+
+        public KiraBeyanEkleVM Kira_Beyan { get; set; }
 
     }
 

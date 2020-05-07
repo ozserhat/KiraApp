@@ -71,6 +71,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                               .Include(ilc => ilc.Gayrimenkuller.Mahalleler.Ilceler.Iller)
                               .AsQueryable();
 
+                query = request.Guid.HasValue ? query.Where(x => x.Beyanlar.Guid == request.Guid) : query;
                 query = request.BeyanTur_Id.HasValue ? query.Where(x => x.Beyanlar.BeyanTur_Id == request.BeyanTur_Id) : query;
                 query = request.KiraDurum_Id.HasValue ? query.Where(x => x.Beyanlar.KiraDurum_Id == request.KiraDurum_Id) : query;
                 query = request.OdemePeriyotTur_Id.HasValue ? query.Where(x => x.Beyanlar.OdemePeriyotTur_Id == request.OdemePeriyotTur_Id) : query;
@@ -83,6 +84,26 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             }
 
             return result;
+        }
+
+        public Kira_Beyan GetirBeyan(int BeyanId)
+        {
+            using (DtContext context = new DtContext())
+            {
+                var query = context.Kira_Beyanlari
+                             .Include(b => b.Beyanlar)
+                             .Include(b => b.Beyanlar.KiraDurum)
+                             .Include(kd=>kd.Beyanlar.OdemePeriyotTur)
+                             .Include(bt => bt.Beyanlar.BeyanTur)
+                             .Include(k => k.Kiracilar)
+                             .Include(g => g.Gayrimenkuller)
+                             .Include(m => m.Gayrimenkuller.Mahalleler)
+                             .Include(ilc => ilc.Gayrimenkuller.Mahalleler.Ilceler)
+                             .Include(ilc => ilc.Gayrimenkuller.Mahalleler.Ilceler.Iller)
+                             .Where(a => a.Beyan_Id == BeyanId)
+                             .FirstOrDefault();
+                return query;
+            }
         }
     }
 }
