@@ -11,8 +11,9 @@ namespace Framework.WebUI.Models.ViewModels
     {
         [Display(Name = "Id")]
         public int Id { get; set; }
+
         [Display(Name = "Tarih")]
-        public DateTime Tarih { get; set; }
+        public DateTime? Tarih { get; set; }
     
         [Display(Name = "Resmi Tatil Adı")]
         public string ResmiTatilAdi { get; set; }
@@ -38,7 +39,12 @@ namespace Framework.WebUI.Models.ViewModels
     public class ResmiTatillerEkleVM : VMBase
     {
 
+        [Display(Name = "Id")]
+        public int Id { get; set; }
+       
         [Display(Name = "Tarih")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.DateTime)]
         public DateTime? Tarih { get; set; }
 
         [Display(Name = "Resmi Tatil Adı")]

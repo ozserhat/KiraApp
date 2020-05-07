@@ -105,7 +105,7 @@ namespace Framework.Core.Aspects.Postsharp.LogAspects
             filterContext.RequestContext.HttpContext.Response.AddHeader("Access-Control-Allow-Credentials", "true");
         }
 
-        public void OnException(ExceptionContext filterContext)
+        public void OnException(ExceptionContext filterContext) 
         {
             int userId = 0;
             string userName = "";

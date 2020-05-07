@@ -1,122 +1,130 @@
 ﻿@model Framework.WebUI.Models.ViewModels.ResmiTatillerEkleVM
-@{
-    ViewBag.Title = "Ekle";
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
-}
+    @{
+        ViewBag.Title = "Ekle";
+        Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    }
 
-@if (!Model.HideContent)
-{
-    <div id="content">
-        <section id="widget-grid" class="sayfaust_bosluk">
+    @if (!Model.HideContent)
+    {
+        <div id="content">
+            <section id="widget-grid" class="sayfaust_bosluk">
 
-            <div class="row">
-                <article class="col-sm-12 col-md-12 col-lg-12">
-                    <div class="jarviswidget sorgulama-kriteri" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
-                        <header>
-                            <div style="margin-top: -5px;">
-                                <p>
-                                    <a href="@Url.Action("Index")" class="btn btn-warning" title="" rel="tooltip" data-placement="bottom" data-original-title="Resmi Tatil Listesine Dön"><span class="glyphicon glyphicon-chevron-left"></span>Resmi Tatil Listesine Dön</a>
-                                </p>
-                            </div>
-                        </header>
-                    </div>
-                </article>
-            </div>
-        </section>
+                <div class="row">
+                    <article class="col-sm-12 col-md-12 col-lg-12">
+                        <div class="jarviswidget sorgulama-kriteri" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
+                            <header>
+                                <div style="margin-top: -5px;">
+                                    <p>
+                                        <a href="@Url.Action("Index")" class="btn btn-warning" title="" rel="tooltip" data-placement="bottom" data-original-title="Resmi Tatil Listesine Dön"><span class="glyphicon glyphicon-chevron-left"></span>Resmi Tatil Listesine Dön</a>
+                                    </p>
+                                </div>
+                            </header>
+                        </div>
+                    </article>
+                </div>
+            </section>
 
-        <section id="widget-grid" class="">
-            <div class="row">
-                <article class="col-sm-12 col-md-12 col-lg-12">
-                    <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
-                        <header>
-                            <span class="widget-icon"> <i class="fa fa-list"></i> </span>
-                            <h2>Tür Tanım</h2>
-                        </header>
-                        <div role="contentinfo">
-                            <div class="widget-body">
-                                <div class="tab-pane fade active in">
-                                    @using (Html.BeginForm("Ekle", "ResmiTatiller", FormMethod.Post, new { enctype = "multipart/form-data", id = "submitForm" }))
-                                    {
-                                        @Html.AntiForgeryToken()
-                                        <div class="widget-body">
-                                            <fieldset>
-                                                <div class="row">
-                                                    <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
-                                                        @Html.LabelFor(model => model.Tarih, new { @class = "control-label col-md-4 zorunluYildiz" })
-                                                        <div class="col-md-8">
-                                                            <div class="input-group  date datetimepicker">
-                                                                @Html.TextBoxFor(model => model.Tarih, new { @class = "form-control datepicker", @autocomplete = "off" })
+            <section id="widget-grid" class="">
+                <div class="row">
+                    <article class="col-sm-12 col-md-12 col-lg-12">
+                        <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
+                            <header>
+                                <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+                                <h2>Resmi Tatil Tanım</h2>
+                            </header>
+                            <div role="contentinfo">
+                                <div class="widget-body">
+                                    <div class="tab-pane fade active in">
+                                        @using (Html.BeginForm("Ekle", "ResmiTatiller", FormMethod.Post, new { enctype = "multipart/form-data", id = "submitForm" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            <div class="widget-body">
+                                                <fieldset>
+                                                    <div class="row">
+                                                        <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
+                                                            @Html.LabelFor(model => model.Tarih, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                            <div class="col-md-8">
+                                                                <div class="input-group date datetimepicker">
+                                                                    @{
+                                                                        @Html.TextBoxFor(model => model.Tarih, new { @class = "form-control datepicker", @autocomplete = "off" })
+                                                                        <span class="input-group-addon" id="openDate">
+                                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                                        </span>
+                                                                    }
+                                                                </div>
                                                                 @Html.ValidationMessageFor(model => model.Tarih, "", new { @class = "text-danger" })
-
-                                                                <span class="input-group-addon" id="openDate">
-                                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                                </span>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
-                                                        @Html.LabelFor(model => model.ResmiTatilAdi, new { @class = "control-label col-md-4 zorunluYildiz" })
-                                                        <div class="col-md-8">
-                                                            @Html.TextBoxFor(model => model.ResmiTatilAdi, new { @class = "form-control col-md-4 required" })
-                                                            @Html.ValidationMessageFor(model => model.ResmiTatilAdi, "", new { @class = "text-danger" })
+                                                    <div class="row">
+                                                        <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
+                                                            @Html.LabelFor(model => model.ResmiTatilAdi, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                            <div class="col-md-8">
+                                                                @Html.TextBoxFor(model => model.ResmiTatilAdi,  new { @class = "form-control col-md-4 required" })
+                                                                @Html.ValidationMessageFor(model => model.ResmiTatilAdi, "refresh", new { @class = "text-danger" })
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                @*<div class="row">
+                                                    <div class="row">
                                                         <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
                                                             @Html.LabelFor(model => model.AktifMi, new { @class = "control-label col-md-4" })
                                                             <div class="col-md-8 form-control-static">
                                                                 @Html.CheckBoxFor(model => model.AktifMi, new { @style = "width: 16px; height: 16px;" })
                                                             </div>
                                                         </div>
-                                                    </div>*@
-                                            </fieldset>
-                                        </div>
-                                        <div class="form-actions">
-                                            <div class="row">
-                                                <div class="col-md-6 col-xs-offset-2" style="padding-right: 30px;">
-                                                    <input id="btnReset" type="reset" value="Temizle" class="btn btn-warning">
-                                                    <input id="btnSubmit" type="button" value="Kaydet" class="btn btn-primary">
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                            <div class="form-actions">
+                                                <div class="row">
+                                                    <div class="col-md-6 col-xs-offset-2" style="padding-right: 30px;">
+                                                        <input id="btnReset" type="reset" value="Temizle" class="btn btn-warning">
+                                                        <input id="btnSubmit" type="button" value="Kaydet" class="btn btn-primary">
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    }
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </article>
-            </div>
-        </section>
-    </div>
-}
+                    </article>
+                </div>
+            </section>
+        </div>
+    }
 
-@section pagespecific {
-    <!-- Sweet Alert -->
-    <link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
-    <script src="~/Content/SweetAlert/sweetalert2.min.js"></script>
-    @Scripts.Render("~/bundles/jqueryval")
-    <!--Datetime Picker Format -->
-    <script type="text/javascript">
-        $(document).ready(function () {
-            jQuery.validator.methods.date = function (value, element) {
-                var d = value.split(".");
-                return this.optional(element) || !/Invalid|NaN/.test(new Date((/chrom(e|ium)/.test(navigator.userAgent.toLowerCase())) ? d[1] + "." + d[0] + "." + d[2] : value));
-            };
-            $('.datepicker').on('click', function (e) {
-                e.preventDefault();
-                $(this).attr("autocomplete", "off");
-            });
+    @section pagespecific {
+        <!-- Sweet Alert -->
+        <link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
+        <script src="~/Content/SweetAlert/sweetalert2.min.js"></script>
+        @Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+    $(document).ready(function () {
+        jQuery.validator.methods.date = function (value, element) {
+            var d = value.split(".");
+            return this.optional(element) || !/Invalid|NaN/.test(new Date((/chrom(e|ium)/.test(navigator.userAgent.toLowerCase())) ? d[1] + "." + d[0] + "." + d[2] : value));
+        };
+        $('.datepicker').on('click', function (e) {
+            e.preventDefault();
+            $(this).attr("autocomplete", "off");
         });
-    </script>
+        $('#Tarih').datepicker({
+            dateFormat: 'dd.mm.yy',
+            monthNames: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
+            dayNamesMin: ["Pa", "Pt", "Sl", "Ça", "Pe", "Cu", "Ct"],
+            firstDay: 1
+        });
+    });
+</script>
 
-    <!--Resmi Tatil Ekle-->
-    <script type="text/javascript">
+
+        <!--GayrimenkulTur Ekle-->
+        <script type="text/javascript">
         $(function () {
             $('#btnSubmit').on('click', function () {
                 tur = new Object();
+                tur.Tarih = $("#Tarih").val();
                 tur.ResmiTatilAdi = $("#ResmiTatilAdi").val();
                 tur.AktifMi = $("#AktifMi").val();
 
@@ -129,7 +137,7 @@
                     success: function (result) {
                         if (result != null && result.success) {
 
-                            swal('Uyarı!', result.Message, 'success');
+                            swal('Uyarı!', result.Message, 'warning');
 
                             setTimeout(function () {
                                 window.location.href = "../ResmiTatiller/Index";
@@ -146,6 +154,6 @@
                 }
             });
         });
-    </script>
-}
+        </script>
+    }
 
