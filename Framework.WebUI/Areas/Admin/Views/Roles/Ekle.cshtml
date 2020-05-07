@@ -51,10 +51,10 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
-                                                        @Html.LabelFor(model => model.Aciklama, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                        @Html.LabelFor(model => model.RolAciklama, new { @class = "control-label col-md-4 zorunluYildiz" })
                                                         <div class="col-md-8">
-                                                            @Html.TextAreaFor(model => model.Aciklama, new { @class = "form-control col-md-4 required", rows = "3", placeholder = "Açıklama Giriniz" })
-                                                            @Html.ValidationMessageFor(model => model.Aciklama, "", new { @class = "text-danger" })
+                                                            @Html.TextAreaFor(model => model.RolAciklama, new { @class = "form-control col-md-4 required", rows = "3", placeholder = "Açıklama Giriniz" })
+                                                            @Html.ValidationMessageFor(model => model.RolAciklama, "", new { @class = "text-danger" })
                                                         </div>
                                                     </div>
                                                 </div>
@@ -90,16 +90,17 @@
     <script type="text/javascript">
         $(function () {
             $('#btnSubmit').on('click', function () {
-                rol = new Object();
-                rol.RolAdi = $("#RolAdi").val();
-                rol.Aciklama = $("#Aciklama").val();
+                rolModel = new Object();
+                rolModel.RolAdi = $("#RolAdi").val();
+                rolModel.RolAciklama = $("#RolAciklama").val();
+                rolModel.AktifMi = true;
 
                 if($("#submitForm").valid())
                 {
                    $.ajax({
                     type: 'POST',
                     url: '@Url.Action("Ekle", "Roles")',
-                    data: { rol:rol },
+                    data: { rolModel: rolModel },
                     success: function (result) {
                         if (result != null && result.success) {
 
