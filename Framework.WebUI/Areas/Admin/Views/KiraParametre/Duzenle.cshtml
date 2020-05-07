@@ -1,0 +1,205 @@
+﻿@model Framework.WebUI.Models.ViewModels.KiraParametreDuzenleVM
+@{
+    ViewBag.Title = "Düzenle";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+@if (!Model.HideContent)
+{
+    <div id="content">
+        <section id="widget-grid" class="sayfaust_bosluk">
+            <div class="row">
+                <article class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="jarviswidget sorgulama-kriteri" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
+                        <header>
+                            <div style="margin-top: -5px;">
+                                <p>
+                                    <a href="@Url.Action("Index")" class="btn btn-warning" title="" rel="tooltip" data-placement="bottom" data-original-title="Parametre Listesine Dön"><span class="glyphicon glyphicon-chevron-left"></span> Parametre Listesine Dön</a>
+                                </p>
+                            </div>
+                        </header>
+                    </div>
+                </article>
+            </div>
+        </section>
+        <section id="widget-grid" class="">
+            <div class="row">
+                <article class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
+                        <header>
+                            <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+                            <h2>Parametre Düzenle</h2>
+                        </header>
+                        <div role="contentinfo">
+                            <div class="widget-body">
+                                <div class="tab-pane fade active in">
+                                    @using (Html.BeginForm("Duzenle", "KiraParametre", FormMethod.Post, new { enctype = "multipart/form-data", id = "submitForm" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.HiddenFor(model => model.Id)
+                                        @Html.HiddenFor(model => model.Guid)
+                                        <div class="widget-body">
+                                            <fieldset>
+
+                                                @Html.ValidationSummary(true)
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
+                                                        @Html.LabelFor(model => model.BeyanYili, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                        <div class="col-md-8">
+                                                            @Html.TextBoxFor(model => model.BeyanYili, new { @class = "form-control col-md-4 required" })
+                                                            @Html.ValidationMessageFor(model => model.BeyanYili, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
+                                                        @Html.LabelFor(model => model.KiraTarifeKodu, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                        <div class="col-md-8">
+                                                            @Html.TextBoxFor(model => model.KiraTarifeKodu, new { @class = "form-control col-md-4 required" })
+                                                            @Html.ValidationMessageFor(model => model.KiraTarifeKodu, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
+                                                        @Html.LabelFor(model => model.OtoparkTarifeKodu, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                        <div class="col-md-8">
+                                                            @Html.TextBoxFor(model => model.OtoparkTarifeKodu, new { @class = "form-control col-md-4 required" })
+                                                            @Html.ValidationMessageFor(model => model.OtoparkTarifeKodu, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
+                                                        @Html.LabelFor(model => model.EcrimisilTarifeKodu, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                        <div class="col-md-8">
+                                                            @Html.TextBoxFor(model => model.EcrimisilTarifeKodu, new { @class = "form-control col-md-4 required" })
+                                                            @Html.ValidationMessageFor(model => model.EcrimisilTarifeKodu, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
+                                                        @Html.LabelFor(model => model.DamgaTarifeKodu, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                        <div class="col-md-8">
+                                                            @Html.TextBoxFor(model => model.DamgaTarifeKodu, new { @class = "form-control col-md-4 required" })
+                                                            @Html.ValidationMessageFor(model => model.DamgaTarifeKodu, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
+                                                        @Html.LabelFor(model => model.TeminatTarifeKodu, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                        <div class="col-md-8">
+                                                            @Html.TextBoxFor(model => model.TeminatTarifeKodu, new { @class = "form-control col-md-4 required" })
+                                                            @Html.ValidationMessageFor(model => model.TeminatTarifeKodu, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
+                                                        @Html.LabelFor(model => model.KararHarciTarifeKodu, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                        <div class="col-md-8">
+                                                            @Html.TextBoxFor(model => model.KararHarciTarifeKodu, new { @class = "form-control col-md-4 required" })
+                                                            @Html.ValidationMessageFor(model => model.KararHarciTarifeKodu, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
+                                                        @Html.LabelFor(model => model.KapatmaTarifeKodu, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                        <div class="col-md-8">
+                                                            @Html.TextBoxFor(model => model.KapatmaTarifeKodu, new { @class = "form-control col-md-4 required" })
+                                                            @Html.ValidationMessageFor(model => model.KapatmaTarifeKodu, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
+                                                        @Html.LabelFor(model => model.KdvTarifeKodu, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                        <div class="col-md-8">
+                                                            @Html.TextBoxFor(model => model.KdvTarifeKodu, new { @class = "form-control col-md-4 required" })
+                                                            @Html.ValidationMessageFor(model => model.KdvTarifeKodu, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
+                                                        @Html.LabelFor(model => model.DamgaOran, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                        <div class="col-md-8">
+                                                            @Html.TextBoxFor(model => model.DamgaOran, new { @class = "form-control col-md-4 required" })
+                                                            @Html.ValidationMessageFor(model => model.DamgaOran, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
+                                                        @Html.LabelFor(model => model.TeminatOran, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                        <div class="col-md-8">
+                                                            @Html.TextBoxFor(model => model.TeminatOran, new { @class = "form-control col-md-4 required" })
+                                                            @Html.ValidationMessageFor(model => model.TeminatOran, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
+                                                        @Html.LabelFor(model => model.KararHarciOran, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                        <div class="col-md-8">
+                                                            @Html.TextBoxFor(model => model.KararHarciOran, new { @class = "form-control col-md-4 required" })
+                                                            @Html.ValidationMessageFor(model => model.KararHarciOran, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
+                                                        @Html.LabelFor(model => model.AktifMi, new { @class = "control-label col-md-4" })
+                                                        <div class="col-md-8 form-control-static">
+                                                            @Html.CheckBoxFor(model => model.AktifMi, new { @style = "width: 16px; height: 16px;" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                        <div class="form-actions">
+                                            <div class="row">
+                                                <div class="col-md-6 col-xs-offset-2" style="padding-right: 30px;">
+                                                    <input id="btnReset" type="button" onclick="clearForm()" value="Temizle" class="btn btn-warning">
+                                                    <input id="btnSubmit" type="submit" value="Kaydet" class="btn btn-primary">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </div>
+}
+
+
+@section pagespecific {
+    @Scripts.Render("~/bundles/jqueryval")
+    <!--Form Temizleme İşlemi -->
+    <script type="text/javascript">
+        function clearForm() {
+            document.getElementById("AktifMi").checked = false;
+            document.getElementById("KiraTarifeKodu").value = "";
+            document.getElementById("OtoparkTarifeKodu").value = "";
+            document.getElementById("EcrimisilTarifeKodu").value = "";
+            document.getElementById("DamgaTarifeKodu").value = "";
+            document.getElementById("TeminatTarifeKodu").value = "";
+            document.getElementById("KararHarciTarifeKodu").value = "";
+            document.getElementById("KapatmaTarifeKodu").value = "";
+            document.getElementById("KdvTarifeKodu").value = "";
+            document.getElementById("DamgaOran").value = "";
+            document.getElementById("TeminatOran").value = "";
+            document.getElementById("BeyanYili").value = "";
+            document.getElementById("KararHarciOran").value = "";
+        }
+    </script>
+}
+

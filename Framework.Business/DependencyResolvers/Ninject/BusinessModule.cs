@@ -44,6 +44,9 @@ namespace Framework.Business.DependencyResolvers.Ninject
             Bind<IResmiTatillerService>().To<ResmiTatillerManager>().InSingletonScope();
             Bind<IResmiTatillerDal>().To<EfResmiTatillerDal>().InSingletonScope();
 
+            Bind<IKiraParametreService>().To<KiraParametreManager>().InSingletonScope();
+            Bind<IKiraParametreDal>().To<EfKiraParametreDal>().InSingletonScope();
+
             Bind<IGayrimenkulAlt_TurService>().To<GayrimenkulAlt_TurManager>().InSingletonScope();
             Bind<IGayrimenkulAlt_TurDal>().To<EfGayrimenkulAlt_TurDal>().InSingletonScope();
 

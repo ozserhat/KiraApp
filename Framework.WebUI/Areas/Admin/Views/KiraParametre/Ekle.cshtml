@@ -1,0 +1,276 @@
+﻿@model Framework.WebUI.Models.ViewModels.KiraParametreEkleVM
+@{
+    ViewBag.Title = "Ekle";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@if (!Model.HideContent)
+{
+    <div id="content">
+        <section id="widget-grid" class="sayfaust_bosluk">
+
+            <div class="row">
+                <article class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="jarviswidget sorgulama-kriteri" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
+                        <header>
+                            <div style="margin-top: -5px;">
+                                <p>
+                                    <a href="@Url.Action("Index")" class="btn btn-warning" title="" rel="tooltip" data-placement="bottom" data-original-title="Parametre Listesine Dön"><span class="glyphicon glyphicon-chevron-left"></span> Parametre  Listesine Dön</a>
+                                </p>
+                            </div>
+                        </header>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="widget-grid" class="">
+            <div class="row">
+                <article class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
+                        <header>
+                            <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+                            <h2>Parametre Tanım</h2>
+                        </header>
+                        <div role="contentinfo">
+                            <div class="widget-body">
+                                <div class="tab-pane fade active in">
+                                    @using (Html.BeginForm("Ekle", "KiraParametre", FormMethod.Post, new { enctype = "multipart/form-data", id = "submitForm" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <div class="widget-body">
+                                            <fieldset>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.LabelFor(model => model.BeyanYili, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                                <div class="col-md-6">
+                                                                    @Html.DropDownList("BeyanYili", Model.BeyanYiliSelectList, "Seçiniz", new { @class = "select2" })
+                                                                    @Html.ValidationMessageFor(model => model.BeyanYili, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.LabelFor(model => model.KiraTarifeKodu, new { @class = "control-label col-md-4" })
+                                                                <div class="col-md-6">
+                                                                    @Html.TextBoxFor(model => model.KiraTarifeKodu, "", new { @class = "form-control" })
+                                                                    @Html.ValidationMessage("KiraTarifeKodu", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.LabelFor(model => model.OtoparkTarifeKodu, new { @class = "control-label col-md-4" })
+                                                                <div class="col-md-6">
+                                                                    @Html.TextBoxFor(model => model.OtoparkTarifeKodu, "", new { @class = "form-control" })
+                                                                    @Html.ValidationMessage("OtoparkTarifeKodu", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.LabelFor(model => model.EcrimisilTarifeKodu, new { @class = "control-label col-md-4" })
+                                                                <div class="col-md-6">
+                                                                    @Html.TextBoxFor(model => model.EcrimisilTarifeKodu, "", new { @class = "form-control" })
+                                                                    @Html.ValidationMessage("EcrimisilTarifeKodu", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.LabelFor(model => model.DamgaTarifeKodu, new { @class = "control-label col-md-4" })
+                                                                <div class="col-md-6">
+                                                                    @Html.TextBoxFor(model => model.DamgaTarifeKodu, "", new { @class = "form-control" })
+                                                                    @Html.ValidationMessage("DamgaTarifeKodu", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.LabelFor(model => model.TeminatTarifeKodu, new { @class = "control-label col-md-4" })
+                                                                <div class="col-md-6">
+                                                                    @Html.TextBoxFor(model => model.TeminatTarifeKodu, "", new { @class = "form-control" })
+                                                                    @Html.ValidationMessage("TeminatTarifeKodu", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.LabelFor(model => model.KararHarciTarifeKodu, new { @class = "control-label col-md-4" })
+                                                                <div class="col-md-6">
+                                                                    @Html.TextBoxFor(model => model.KararHarciTarifeKodu, "", new { @class = "form-control" })
+                                                                    @Html.ValidationMessage("KararHarciTarifeKodu", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.LabelFor(model => model.KapatmaTarifeKodu, new { @class = "control-label col-md-4" })
+                                                                <div class="col-md-6">
+                                                                    @Html.TextBoxFor(model => model.KapatmaTarifeKodu, "", new { @class = "form-control" })
+                                                                    @Html.ValidationMessage("KapatmaTarifeKodu", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.LabelFor(model => model.KdvTarifeKodu, new { @class = "control-label col-md-4" })
+                                                                <div class="col-md-6">
+                                                                    @Html.TextBoxFor(model => model.KdvTarifeKodu, "", new { @class = "form-control" })
+                                                                    @Html.ValidationMessage("KdvTarifeKodu", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.LabelFor(model => model.DamgaOran, new { @class = "control-label col-md-4" })
+                                                                <div class="col-md-6">
+                                                                    @Html.TextBoxFor(model => model.DamgaOran, "", new { @class = "form-control" })
+                                                                    @Html.ValidationMessage("DamgaOran", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.LabelFor(model => model.TeminatOran, new { @class = "control-label col-md-4" })
+                                                                <div class="col-md-6">
+                                                                    @Html.TextBoxFor(model => model.TeminatOran, "", new { @class = "form-control" })
+                                                                    @Html.ValidationMessage("TeminatOran", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.LabelFor(model => model.KararHarciOran, new { @class = "control-label col-md-4" })
+                                                                <div class="col-md-6">
+                                                                    @Html.TextBoxFor(model => model.KararHarciOran, "", new { @class = "form-control" })
+
+                                                                    @Html.ValidationMessage("KararHarciOran", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.LabelFor(model => model.AktifMi, new { @class = "control-label col-md-4" })
+                                                                <div class="col-md-6">
+                                                                    @Html.CheckBoxFor(model => model.AktifMi, new { @style = "width: 16px; height: 16px;" })
+                                                                    @Html.ValidationMessage("AktifMi", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                        <div class="form-actions">
+                                            <div class="row">
+                                                <div class="col-md-6 col-xs-offset-2" style="padding-right: 30px;">
+                                                    <input id="btnReset" type="reset" value="Temizle" class="btn btn-warning">
+                                                    <input id="btnSubmit" type="button" value="Kaydet" class="btn btn-primary">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </div>
+}
+
+@section pagespecific {
+    <!-- Sweet Alert -->
+    <link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
+    <script src="~/Content/SweetAlert/sweetalert2.min.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+    <!--GayrimenkulTur Ekle-->
+    <script type="text/javascript">
+        $(function () {
+            $('#btnSubmit').on('click', function () {
+                parametre = new Object();
+                parametre.BeyanYili = $("#BeyanYili option:selected").text();
+                parametre.KiraTarifeKodu = $("#KiraTarifeKodu").val();
+                parametre.OtoparkTarifeKodu = $("#OtoparkTarifeKodu").val();
+                parametre.EcrimisilTarifeKodu = $("#EcrimisilTarifeKodu").val();
+                parametre.DamgaTarifeKodu = $("#DamgaTarifeKodu").val();
+                parametre.TeminatTarifeKodu = $("#TeminatTarifeKodu").val();
+                parametre.KararHarciTarifeKodu = $("#KararHarciTarifeKodu").val();
+                parametre.KapatmaTarifeKodu = $("#KapatmaTarifeKodu").val();
+                parametre.KdvTarifeKodu = $("#KdvTarifeKodu").val();
+                parametre.DamgaOran = $("#DamgaOran").val();
+                parametre.TeminatOran = $("#TeminatOran").val();
+                parametre.KararHarciOran = $("#KararHarciOran").val();
+                parametre.AktifMi = $("#AktifMi").val();
+
+                if($("#submitForm").valid())
+                {
+                   $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Ekle", "KiraParametre")',
+                    data: { parametreModel: parametre},
+                    success: function (result) {
+                     if (result != null && result.success) {
+                        swal('Uyarı!', result.Message, 'success');
+                            setTimeout(function () {
+                                window.location.href = "../KiraParametre/Index";
+                            }, 2000);
+                        }
+                        else {
+                            swal('Uyarı!', result.Message, 'warning');
+                        }
+                    },
+                    error: function (xhr) {
+                        swal('Uyarı!', result.Message, 'warning');
+                    }
+                 });
+                }
+            });
+        });
+    </script>
+}
+
