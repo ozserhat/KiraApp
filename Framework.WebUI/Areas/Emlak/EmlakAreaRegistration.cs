@@ -17,7 +17,8 @@ namespace Framework.WebUI.Areas.Emlak
             context.MapRoute(
                 "Emlak_default",
                 "Emlak/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                new { action = "Index", id = UrlParameter.Optional },
+                            new[] { "Framework.WebUI.Areas.Emlak.Controllers" }
             );
         }
     }

@@ -164,7 +164,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
 
             tur = _service.Guncelle(tur);
 
-            if (tur.AktifMi.HasValue && tur.AktifMi.Value)
+            if (tur.AktifMi.HasValue && !tur.AktifMi.Value)
                 return Json(new { success = true, Message = "Resmi Tatil Bilgisi Başarıyla Silindi" }, JsonRequestBehavior.AllowGet);
             else
                 return Json(new { success = false, Message = "Resmi Tatil Bilgisi Silinemedi!!!" }, JsonRequestBehavior.AllowGet);

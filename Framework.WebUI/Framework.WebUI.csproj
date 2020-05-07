@@ -1024,7 +1024,6 @@
     <Content Include="Areas\Admin\Views\GayrimenkulAltTur\Index.cshtml" />
     <Content Include="Areas\Admin\Views\GayrimenkulAltTur\Ekle.cshtml" />
     <Content Include="Areas\Admin\Views\GayrimenkulAltTur\Duzenle.cshtml" />
-    <Content Include="Areas\Admin\Views\GayrimenkulDosyaTur\Index.cshtml" />
     <Content Include="Areas\Admin\Views\GayrimenkulDosyaTur\Ekle.cshtml" />
     <Content Include="Areas\Admin\Views\GayrimenkulDosyaTur\Duzenle.cshtml" />
     <Content Include="Areas\Admin\Views\SistemParametreleri\Index.cshtml" />
@@ -1090,6 +1089,7 @@
     <Content Include="Areas\Admin\Views\ResmiTatiller\Duzenle.cshtml" />
     <Content Include="Areas\Admin\Views\ResmiTatiller\Ekle.cshtml" />
     <Content Include="Areas\Admin\Views\ResmiTatiller\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\GayrimenkulDosyaTur\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\customModal.js" />

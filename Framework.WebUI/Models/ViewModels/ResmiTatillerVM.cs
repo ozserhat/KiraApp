@@ -39,7 +39,7 @@ namespace Framework.WebUI.Models.ViewModels
     {
 
         [Display(Name = "Tarih")]
-        public DateTime Tarih { get; set; }
+        public DateTime? Tarih { get; set; }
 
         [Display(Name = "Resmi Tatil Adı")]
         public string ResmiTatilAdi { get; set; }
