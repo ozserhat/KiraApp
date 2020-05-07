@@ -58,7 +58,7 @@
                                                     <div class="form-bootstrapWizard">
                                                         <ul class="form-wizard nav nav-tabs">
 
-                                                            <li data-target="#step1" class="active" id="step1" style="width:25%;">
+                                                            <li data-target="#step1" class="active" id="step1" style="width:20%;">
                                                                 <a href="#tab1" data-toggle="tab" aria-expanded="true">
                                                                     <span class="step">
                                                                         1 -
@@ -67,7 +67,7 @@
                                                                 </a>
                                                             </li>
 
-                                                            <li data-target="#step2" id="step2" style="width:25%;">
+                                                            <li data-target="#step2" id="step2" style="width:20%;">
                                                                 <a href="#tab2" data-toggle="tab" aria-expanded="false">
                                                                     <span class="step">
                                                                         2 -
@@ -75,7 +75,7 @@
                                                                     <span class="title" style="z-index:2;">Sicil Bilgileri</span>
                                                                 </a>
                                                             </li>
-                                                            <li data-target="#step3" id="step3" style="width: 25%;">
+                                                            <li data-target="#step3" id="step3" style="width: 20%;">
                                                                 <a href="#tab3" data-toggle="tab" aria-expanded="false">
                                                                     <span class="step">
                                                                         3 -
@@ -91,7 +91,14 @@
                                                                     <span class="title" style="z-index:2;">Dosya Bilgileri</span>
                                                                 </a>
                                                             </li>
-
+                                                            <li data-target="#step5" id="step4" style="width: 20%;">
+                                                                <a href="#tab5" data-toggle="tab" aria-expanded="false">
+                                                                    <span class="step">
+                                                                        5 -
+                                                                    </span>
+                                                                    <span class="title" style="z-index:2;">Tahakkuk Bilgileri</span>
+                                                                </a>
+                                                            </li>
                                                         </ul>
 
                                                         <div class="clearfix"></div>
@@ -788,6 +795,17 @@
                                                             </form>
                                                         </div>
 
+                                                        <div class="tab-pane" id="tab5">
+                                                            <legend>
+                                                                <h3><strong>5. Adım </strong> - Tahakkuk Bilgileri</h3>
+                                                            </legend>
+                                                            <form class="form-horizontal" id="tahakkukForm" novalidate="novalidate">
+                                                                @Html.AntiForgeryToken()
+                                                                <fieldset>
+                                                                    
+                                                                </fieldset>
+                                                            </form>
+                                                        </div>
                                                         <div class="form-actions sonStep" style="margin-right: -18px;">
                                                             <div class="row">
                                                                 <div class="col-sm-12">
@@ -800,11 +818,7 @@
                                                                             <div id="loadingbtnIleri" class="hide" style="float:right;"><i class="fa fa-spinner fa-spin fa-2x"></i> İşleminiz yapılıyor ...</div>
                                                                         </li>
                                                                         <li class="finish" style="float: right; margin-right: 15px; display: block;">
-                                                                            @*@using (Ajax.BeginForm("KiraBeyanEkle", "Beyan", new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "dvGayrimenkulForm" }, new { enctype = "multipart/form-data", id = "gayrimenkulForm" }))
-                                                                                {*@
-
                                                                             <div id="dvSonKaydet" class="hide" style="float:right;"><i class="fa fa-spinner fa-spin fa-2x"></i> İşleminiz yapılıyor ...</div>
-                                                                            @*  *@
                                                                         </li>
                                                                     </ul>
                                                                 </div>
