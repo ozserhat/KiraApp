@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using Framework.Entities.Concrete;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
+using System.Collections.Generic;
 
 namespace Framework.WebUI.Models.ViewModels
 {
@@ -15,8 +16,14 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Guid")]
         public Guid Guid { get; set; }
 
-        [Display(Name = "Dosya Tür Adı")]
-        public string BeyanDosyaTur_Id { get; set; }
+        [Display(Name = "Dosya Tür")]
+        public int BeyanDosyaTur_Id { get; set; }
+
+        [Display(Name = "Beyan_Id")]
+        public int Beyan_Id { get; set; }
+
+        [Display(Name = "Dosya Tür")]
+        public string BeyanDosyaTur { get; set; }
 
         [Display(Name = "Beyan Dosya Adı")]
         public string DosyaAdi { get; set; }

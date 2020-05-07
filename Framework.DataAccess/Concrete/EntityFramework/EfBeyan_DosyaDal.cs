@@ -54,6 +54,14 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                 return context.Beyan_Dosyalari.Include(gt => gt.BeyanDosyaTurleri).ToList();
             }
         }
+
+        public IEnumerable<Beyan_Dosya> GetirBeyanId(int BeyanId)
+        {
+            using (DtContext context = new DtContext())
+            {
+                return context.Beyan_Dosyalari.Include(gt => gt.BeyanDosyaTurleri).Where(gta => gta.Beyan_Id == BeyanId).ToList();
+            }
+        }
     }
 }
 

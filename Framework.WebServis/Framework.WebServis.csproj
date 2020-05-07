@@ -248,6 +248,12 @@
   <ItemGroup>
     <Folder Include="ServicesIntegration\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Framework.Entities\Framework.Entities.csproj">
+      <Project>{543227f6-bde4-4b0a-81cb-b7a99a39fc06}</Project>
+      <Name>Framework.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
