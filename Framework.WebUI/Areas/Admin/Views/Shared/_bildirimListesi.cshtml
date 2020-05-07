@@ -1,20 +1,20 @@
 ﻿@model Framework.WebUI.Models.ViewModels.DuyuruBildirimVM
 <span id="icon">
-    <a href="#" data-toggle="canvas" data-target="#bs-canvas-right" title="Mesajlar" aria-expanded="false" aria-controls="bs-canvas-right">
+    <a href="#" data-toggle="canvas" data-target="#pnlKriter-right" title="Mesajlar" aria-expanded="false" aria-controls="pnlKriter-right">
         <span id="not">@Model.MesajSayisi</span>
         <i class="fa fa-envelope">
         </i>
     </a>
 </span>
-<div class="bs-offset-main bs-canvas-anim">
-    <div id="bs-canvas-right" class="bs-canvas bs-canvas-anim bs-canvas-right position-fixed bg-light h-100">
-        <header class="bs-canvas-header p-3 bg-primary overflow-auto">
-            <button type="button" class="bs-canvas-close float-left close" aria-label="Close">
+<div class="bs-offset-main pnlKriter-anim">
+    <div id="pnlKriter-right" class="pnlKriter pnlKriter-anim pnlKriter-right position-fixed bg-light h-100">
+        <header class="pnlKriter-header p-3 bg-primary overflow-auto">
+            <button type="button" class="pnlKriter-close float-left close" aria-label="Close">
                 <span aria-hidden="true" class="text-light">&times;</span>
             </button>
             <h4 class="d-inline-block text-light mb-0 float-right">Duyurular</h4>
         </header>
-        <div class="bs-canvas-content px-3 py-5">
+        <div class="pnlKriter-content px-3 py-5">
             <table class="table">
                 <thead class="thead-light">
                     <tr>
@@ -80,17 +80,17 @@
         border: 2px solid #fff;
     }
 
-    .bs-canvas-overlay {
+    .pnlKriter-overlay {
         opacity: 0;
         z-index: -1;
     }
 
-        .bs-canvas-overlay.show {
+        .pnlKriter-overlay.show {
             opacity: 0.85;
             z-index: 1100;
         }
 
-    .bs-canvas {
+    .pnlKriter {
         top: 0;
         width: 0;
         z-index: 1110;
@@ -98,15 +98,15 @@
         overflow-y: auto;
     }
 
-    .bs-canvas-left {
+    .pnlKriter-left {
         left: 0;
     }
 
-    .bs-canvas-right {
+    .pnlKriter-right {
         right: 0;
     }
 
-    .bs-canvas-anim {
+    .pnlKriter-anim {
         transition: all .4s ease-out;
         -webkit-transition: all .4s ease-out;
         -moz-transition: all .4s ease-out;
@@ -121,12 +121,12 @@
             width: '330px'
         },
             bsMain = $('.bs-offset-main'),
-            bsOverlay = $('.bs-canvas-overlay');
+            bsOverlay = $('.pnlKriter-overlay');
 
         $('[data-toggle="canvas"][aria-expanded="false"]').on('click', function () {
             var canvas = $(this).data('target'),
                 opts = $.extend({}, bsDefaults, $(canvas).data()),
-                prop = $(canvas).hasClass('bs-canvas-right') ? 'margin-right' : 'margin-left';
+                prop = $(canvas).hasClass('pnlKriter-right') ? 'margin-right' : 'margin-left';
 
             if (opts.width === '100%')
                 opts.offset = false;
@@ -135,23 +135,23 @@
             if (opts.offset && bsMain.length)
                 bsMain.css(prop, opts.width);
 
-            $(canvas + ' .bs-canvas-close').attr('aria-expanded', "true");
+            $(canvas + ' .pnlKriter-close').attr('aria-expanded', "true");
             $('[data-toggle="canvas"][data-target="' + canvas + '"]').attr('aria-expanded', "true");
             if (opts.overlay && bsOverlay.length)
                 bsOverlay.addClass('show');
             return false;
         });
 
-        $('.bs-canvas-close, .bs-canvas-overlay').on('click', function () {
+        $('.pnlKriter-close, .pnlKriter-overlay').on('click', function () {
             var canvas, aria;
-            if ($(this).hasClass('bs-canvas-close')) {
-                canvas = $(this).closest('.bs-canvas');
+            if ($(this).hasClass('pnlKriter-close')) {
+                canvas = $(this).closest('.pnlKriter');
                 aria = $(this).add($('[data-toggle="canvas"][data-target="#' + canvas.attr('id') + '"]'));
                 if (bsMain.length)
-                    bsMain.css(($(canvas).hasClass('bs-canvas-right') ? 'margin-right' : 'margin-left'), '');
+                    bsMain.css(($(canvas).hasClass('pnlKriter-right') ? 'margin-right' : 'margin-left'), '');
             } else {
-                canvas = $('.bs-canvas');
-                aria = $('.bs-canvas-close, [data-toggle="canvas"]');
+                canvas = $('.pnlKriter');
+                aria = $('.pnlKriter-close, [data-toggle="canvas"]');
                 if (bsMain.length)
                     bsMain.css({
                         'margin-left': '',

@@ -29,6 +29,12 @@ namespace Framework.Business.Concrete.Managers
             return _Kira_BeyanDal.GetById(id);
         }
 
+        public Kira_Beyan GetirBeyan(int BeyanId)
+        {
+            return _Kira_BeyanDal.GetirBeyan(BeyanId);
+
+        }
+
         public IEnumerable<Kira_Beyan> GetirListe()
         {
             return _Kira_BeyanDal.GetList();

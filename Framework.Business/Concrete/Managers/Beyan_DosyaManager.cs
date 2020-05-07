@@ -24,6 +24,11 @@ namespace Framework.Business.Concrete.Managers
             return _beyandosyaDal.GetById(id);
         }
 
+        public IEnumerable<Beyan_Dosya> GetirBeyanId(int BeyanId)
+        {
+            return _beyandosyaDal.GetirBeyanId(BeyanId);
+        }
+
         public Beyan_Dosya GetirGuid(Guid guid)
         {
             return _beyandosyaDal.GetByGuid(guid);

@@ -37,8 +37,9 @@ namespace Framework.Entities.Concrete
     }
 
     [NotMapped]
-    public class KiraBeyanRequest 
+    public class KiraBeyanRequest
     {
+        public Guid? Guid { get; set; }
         public int? BeyanTur_Id { get; set; }
         public int? KiraDurum_Id { get; set; }
         public int? OdemePeriyotTur_Id { get; set; }

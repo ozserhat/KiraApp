@@ -78,11 +78,11 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         #endregion
         // GET: Kira/Beyan
         #region Listeleme
-        public ActionResult Index(KiraBeyanRequest request, int? page, int pageSize = 15)
+        public ActionResult Index(int? page, int pageSize = 15)
         {
             var model = new KiraBeyanVM();
 
-            var beyanlar = _kiraBeyanService.GetirSorguListe(request);
+            var beyanlar = _kiraBeyanService.GetirListe();
 
             model.PageNumber = page ?? 1;
             model.PageSize = pageSize;
@@ -200,6 +200,29 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             _beyanVM.Beyan.DosyaTurleri = _dosyaService.GetirListe();
 
         }
+
+        public ActionResult GetirBeyanTable(KiraBeyanRequest request, int? page, int pageSize = 15)
+        {
+            var model = new KiraBeyanVM();
+
+            var beyanlar = _kiraBeyanService.GetirSorguListe(request);
+
+            if (beyanlar != null)
+            {
+                model.PageNumber = page ?? 1;
+                model.PageSize = pageSize;
+                model.IlceSelectList = IlceSelectList();
+                model.GayrimenkulSelectList = GayrimenkulSelectList();
+                model.BeyanTurSelectList = BeyanTurSelectList();
+                model.KiraDurumSelectList = KiraDurumSelectList();
+                model.OdemePeriyotSelectList = OdemePeriyotSelectList();
+                model.Beyanlar = new StaticPagedList<Kira_Beyan>(beyanlar, model.PageNumber, model.PageSize, beyanlar.Count());
+                model.TotalRecordCount = beyanlar.Count();
+            }
+
+            return PartialView("_tablePartial", model);
+        }
+
 
         public ActionResult GetirSicilBilgi(string TcVergiNo)
         {
@@ -326,7 +349,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 Guid guidDosya = Guid.NewGuid();
                 dosyaAdi2 = item.DosyaAdi.Split('.').Last();
                 dosya.Guid = guidDosya;
-                dosya.BeyanDosya_Tur_Id = int.Parse(item.BeyanDosyaTur_Id);
+                dosya.BeyanDosya_Tur_Id = item.BeyanDosyaTur_Id;
                 dosya.Beyan_Id = beyanId;
                 dosya.Ad = guidDosya.ToString() + "." + dosyaAdi2;
                 dosya.OlusturulmaTarihi = DateTime.Now;
@@ -505,6 +528,210 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             return Json(new { Message = "Kira Beyan Ekleme İşlemi Gerçekleştirilemedi.", success = false }, JsonRequestBehavior.AllowGet);
         }
 
+        public KiraciEkleVM GetirSicil(string TcVergiNo)
+        {
+            string tcNo = "";
+            string vergiNo = "";
+
+            if (TcVergiNo != null)
+            {
+                if (TcVergiNo.Length > 10)
+                    tcNo = TcVergiNo;
+                else
+                    vergiNo = TcVergiNo;
+
+                GetirSelectList();
+
+                var sicilBilgisi = _sicilService.GetirSicilBilgisi(vergiNo, tcNo);
+
+                if (sicilBilgisi != null && sicilBilgisi.SicilNo != null)
+                {
+                    _beyanVM.Kiraci = new KiraciEkleVM()
+                    {
+                        SicilNo = long.Parse(sicilBilgisi.SicilNo),
+                        VergiNo = long.Parse(sicilBilgisi.VergiNo),
+                        Ad = sicilBilgisi.Ad,
+                        Soyad = sicilBilgisi.Soyad,
+                        Tanim = sicilBilgisi.Tanim,
+                        IlAdi = sicilBilgisi.Il,
+                        IlceAdi = sicilBilgisi.Ilce,
+                        MahalleAdi = sicilBilgisi.Mahalle,
+                        AcikAdres = sicilBilgisi.AcikAdres,
+                        VergiDairesi = sicilBilgisi.VergiDairesi,
+                    };
+                }
+                else
+                {
+                    _beyanVM.Kiraci.Errors.Add("Sicil Bilgisi Bulunamadı!!!");
+                    ViewData["SicilHata"] = "Sicil Bilgisi Bulunamadı!!!";
+                    ModelState.AddModelError("SicilHata", @"Sicil Bilgisi Bulunamadı!!!");
+                }
+            }
+
+            //return Json(new { Data = _beyanVM, Message = "Sicil Bilgisi Başarıyla Getirildi.", success = true }, JsonRequestBehavior.AllowGet);
+            return _beyanVM.Kiraci;
+        }
+
+        public Beyan_GayrimenkulEkleVM GetirGayrimenkul(string GayrimenkulNo)
+        {
+            if (!string.IsNullOrEmpty(GayrimenkulNo))
+            {
+                GetirSelectList();
+
+                var gayrimenkul = _gayrimenkulservice.GetirGayrimenkul(GayrimenkulNo);
+
+                if (gayrimenkul != null)
+                {
+                    _beyanVM.Gayrimenkul = new Beyan_GayrimenkulEkleVM()
+                    {
+                        GayrimenkulId = gayrimenkul.Id,
+                        GayrimenkulNo = gayrimenkul.GayrimenkulNo,
+                        BinaKimlikNo = gayrimenkul.BinaKimlikNo,
+                        NumaratajKimlikNo = gayrimenkul.NumaratajKimlikNo,
+                        AdresNo = gayrimenkul.AdresNo,
+                        DosyaNo = gayrimenkul.DosyaNo,
+                        GayrimenkulAdi = gayrimenkul.Ad,
+                        GayrimenkulTur_Id = gayrimenkul.GayrimenkulTur_Id,
+                        GayrimenkulTur = gayrimenkul.GayrimenkulTur.Ad,
+                        Il = gayrimenkul.Mahalleler.Ilceler.Iller.Ad,
+                        Ilce = gayrimenkul.Mahalleler.Ilceler.Ad,
+                        Mahalle = gayrimenkul.Mahalleler.Ad,
+                        Il_Id = gayrimenkul.Il_Id,
+                        Ilce_Id = gayrimenkul.Ilce_Id,
+                        Mahalle_Id = gayrimenkul.Mahalle_Id,
+                        Sokak = gayrimenkul.Sokak,
+                        IcKapiNo = gayrimenkul.IcKapiNo,
+                        DisKapiNo = gayrimenkul.DisKapiNo,
+                        Koordinat = gayrimenkul.Koordinat,
+                        Ada = gayrimenkul.Ada,
+                        Pafta = gayrimenkul.Pafta,
+                        Parsel = gayrimenkul.Parsel,
+                        AcikAdres = gayrimenkul.AcikAdres,
+                        Metrekare = gayrimenkul.Metrekare,
+                        AracKapasitesi = gayrimenkul.AracKapasitesi
+                    };
+                }
+                else
+                {
+                    ViewData["GayrimenkulHata"] = "Gayrimenkul Bilgisi Bulunamadı!!!";
+                    _beyanVM.Gayrimenkul.Errors.Add("Gayrimenkul Bilgisi Bulunamadı!!!");
+                    ModelState.AddModelError("GayrimenkulHata", @"Gayrimenkul Bilgisi Bulunamadı!!!");
+                }
+            }
+
+            return _beyanVM.Gayrimenkul;
+        }
+
+        public BeyanDetayVM GetirBeyan(int BeyanId)
+        {
+            if (BeyanId > 0)
+            {
+                var beyan = _kiraBeyanService.GetirBeyan(BeyanId);
+
+                if (beyan != null)
+                {
+                    _beyanVM.BeyanDetay = new BeyanDetayVM()
+                    {
+                        BeyanTur_Id = beyan.Beyanlar.BeyanTur_Id,
+                        KiraDurum_Id = beyan.Beyanlar.KiraDurum_Id,
+                        OdemePeriyotTur_Id = beyan.Beyanlar.OdemePeriyotTur_Id,
+                        BeyanTuru = beyan.Beyanlar.BeyanTur.Ad,
+                        BeyanNo = beyan.Beyanlar.BeyanNo,
+                        TeminatNo = beyan.Beyanlar.TeminatNo.ToString(),
+                        EncumenKararNo = beyan.Beyanlar.EncumenKararNo,
+                        NoterSozlesmeNo = beyan.Beyanlar.NoterSozlesmeNo.ToString(),
+                        BaslangicTaksitNo = beyan.Beyanlar.BaslangicTaksitNo,
+                        BeyanAciklama = beyan.Beyanlar.Aciklama,
+                        BeyanKapatmaTarihi = beyan.Beyanlar.BeyanKapatmaTarihi,
+                        BeyanTarihi = beyan.Beyanlar.BeyanTarihi,
+                        BeyanYil = beyan.Beyanlar.BeyanYil,
+                        IhaleEncumenTarihi = beyan.Beyanlar.IhaleEncumenTarihi,
+                        TeminatTarihi = beyan.Beyanlar.TeminatTarihi,
+                        KiraBaslangicTarihi = beyan.Beyanlar.KiraBaslangicTarihi,
+                        SozlesmeBitisTarihi = beyan.Beyanlar.SozlesmeBitisTarihi,
+                        SozlesmeTarihi = beyan.Beyanlar.SozlesmeTarihi,
+                        IhaleTutari = beyan.Beyanlar.IhaleTutari.ToString(),
+                        KiraTutari = beyan.Beyanlar.KiraTutari.ToString(),
+                        SozlesmeSuresi = beyan.Beyanlar.SozlesmeSuresi,
+                        Kdv = beyan.Beyanlar.Kdv,
+                        MusadeliGunSayisi = beyan.Beyanlar.MusadeliGunSayisi,
+                        KalanAy = beyan.Beyanlar.KalanAy,
+                        KullanimAlani = beyan.Beyanlar.KullanimAlani,
+                        OdemePeriyotu = beyan.Beyanlar.OdemePeriyotTur.Ad,
+                        KiraDurumu = beyan.Beyanlar.KiraDurum.Ad,
+                        DamgaAlinsinMi = (beyan.Beyanlar.DamgaAlinsinMi == true ? "Evet" : "Hayır"),
+                        AktifMi = beyan.Beyanlar.AktifMi.Value,
+                    };
+                }
+                else
+                {
+                    ViewData["BeyanHata"] = "Beyan Bilgisi Bulunamadı!!!";
+                    _beyanVM.Beyan.Errors.Add("Beyan Bilgisi Bulunamadı!!!");
+                    ModelState.AddModelError("Beyan", @"Gayrimenkul Bilgisi Bulunamadı!!!");
+                }
+            }
+
+            return _beyanVM.BeyanDetay;
+        }
+
+        public List<Beyan_DosyaVM> GetirBeyanDosyalar(int BeyanId)
+        {
+            if (BeyanId > 0)
+            {
+                var dosyalar = _beyanDosyaService.GetirBeyanId(BeyanId);
+               
+
+                _beyanVM.BeyanDetayDosyalar = new List<Beyan_DosyaVM>();
+
+
+                if (dosyalar != null)
+                {
+                    foreach (var item in dosyalar)
+                    {
+                        _beyanVM.BeyanDetayDosyalar.Add(new Beyan_DosyaVM()
+                        {
+                            Id=item.Id,
+                            Beyan_Id = item.Beyan_Id,
+                            BeyanDosyaTur_Id =item.BeyanDosyaTurleri.Id,
+                            BeyanDosyaTur=item.BeyanDosyaTurleri.Ad,
+                            DosyaAdi=item.Ad,
+                        });
+                    }
+                }
+                else
+                {
+                    ViewData["BeyanHata"] = "Beyan Dosya Bilgisi Bulunamadı!!!";
+                    _beyanVM.Beyan.Errors.Add("Beyan Bilgisi Bulunamadı!!!");
+                    ModelState.AddModelError("Beyan", @"Gayrimenkul Bilgisi Bulunamadı!!!");
+                }
+            }
+
+            return _beyanVM.BeyanDetayDosyalar;
+        }
+
+
+        #endregion
+
+        #region BeyanDetay
+        [HttpGet]
+        public ActionResult BeyanDetay(KiraBeyanRequest request)
+        {
+            var model = new KiraBeyanDetayVM();
+
+            var kiraBeyan = _kiraBeyanService.GetirSorguListe(request).FirstOrDefault();
+
+            if (kiraBeyan != null)
+            {
+                var beyanDosya = _beyanDosyaService.GetirListe().Where(a => a.Beyan_Id == kiraBeyan.Beyan_Id).ToList();
+
+                model.Kiraci = GetirSicil(kiraBeyan.Kiracilar.VergiNo.ToString());
+                model.Gayrimenkul = GetirGayrimenkul(kiraBeyan.Gayrimenkuller.GayrimenkulNo);
+                model.Beyan = GetirBeyan(kiraBeyan.Beyanlar.Id);
+                model.BeyanDosyalar = GetirBeyanDosyalar(kiraBeyan.Beyanlar.Id);
+            }
+
+            return View(model);
+        }
         #endregion
     }
 }

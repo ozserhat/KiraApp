@@ -1,0 +1,946 @@
+﻿@model Framework.WebUI.Models.ViewModels.KiraBeyanDetayVM
+
+@{
+    ViewBag.Title = "Ekle";
+    Layout = "~/Areas/Kira/Views/Shared/_LayoutKira.cshtml";
+}
+
+@if (!Model.HideContent)
+{
+    <div id="content">
+   
+        <section id="widget-grid" class="sayfaust_bosluk">
+            <div class="row">
+                <article class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
+                        <header>
+                            <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+                            <h2>Beyan Detay Bilgileri</h2>
+                            @*<div class="btn-group" style="float: right; margin-top: 4px; margin-right: 11px;" role="menu">
+                                    <button class="btn btn-primary">
+                                        Gayrimenkul İşlemleri
+                                    </button>
+                                    <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="@Url.Action("DosyaEkle", new { Guid = Model.Guid})" id="gayrimenkulDosya">
+                                                <span class="glyphicon glyphicon-upload"></span> Dosya Yükleme
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>*@
+                        </header>
+                        <div id="errorContent" style="display:none; padding-left:30px; padding-right:20px;">
+                            <section id="widget-grid">
+                                <div class="row">
+                                    <div class="row alert alert-danger">
+                                        <i class="glyphicon glyphicon-warning-sign col-md-1"></i>
+                                        <ul style="list-style-type:none" class="col-md-11">
+                                            <span id="spnMessage"></span>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <div role="content" style="display: block;">
+                            <div class="jarviswidget-editbox">
+                            </div>
+                            <div class="widget-body">
+
+                                <div class="row">
+
+                                    <div id="wizard-1" novalidate="novalidate">
+                                        <div id="bootstrap-wizard-1" class="col-sm-12">
+                                            @{
+                                                <div id="wizard">
+                                                    <div class="form-bootstrapWizard">
+                                                        <ul class="form-wizard nav nav-tabs">
+
+                                                            <li data-target="#step1" class="active" id="step1" style="width:25%;">
+                                                                <a href="#tab1" data-toggle="tab" aria-expanded="true">
+                                                                    <span class="step">
+                                                                        1 -
+                                                                    </span>
+                                                                    <span class="title" style="z-index:2;">Gayrimenkul Bilgileri</span>
+                                                                </a>
+                                                            </li>
+
+                                                            <li data-target="#step2" id="step2" style="width:25%;">
+                                                                <a href="#tab2" data-toggle="tab" aria-expanded="false">
+                                                                    <span class="step">
+                                                                        2 -
+                                                                    </span>
+                                                                    <span class="title" style="z-index:2;">Sicil Bilgileri</span>
+                                                                </a>
+                                                            </li>
+                                                            <li data-target="#step3" id="step3" style="width: 25%;">
+                                                                <a href="#tab3" data-toggle="tab" aria-expanded="false">
+                                                                    <span class="step">
+                                                                        3 -
+                                                                    </span>
+                                                                    <span class="title" style="z-index:2;">Beyan Bilgileri</span>
+                                                                </a>
+                                                            </li>
+                                                            <li data-target="#step4" id="step4" style="width: 20%;">
+                                                                <a href="#tab4" data-toggle="tab" aria-expanded="false">
+                                                                    <span class="step">
+                                                                        4 -
+                                                                    </span>
+                                                                    <span class="title" style="z-index:2;">Dosya Bilgileri</span>
+                                                                </a>
+                                                            </li>
+
+                                                        </ul>
+
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                    <div class="tab-content">
+                                                        <div class="tab-pane active" id="tab1">
+                                                            <legend>
+                                                                <h3><strong>1. Adım </strong> - Gayrimenkul Bilgileri</h3>
+                                                            </legend>
+                                                            @Html.AntiForgeryToken()
+                                                        <fieldset>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <div class="input-group" style="width: 100%;">
+                                                                            @Html.LabelFor(model => model.Gayrimenkul.GayrimenkulTur, new { @class = "col-md-4 font-bold" })
+                                                                            <div class="col-md-6">
+                                                                                @Html.DisplayFor(model => model.Gayrimenkul.GayrimenkulTur, new { @class = "form-control required", @readonly = true })
+                                                                                @Html.ValidationMessage("GayrimenkulTur", new { @class = "text-danger" })
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <div class="input-group" style="width: 100%;">
+                                                                            @Html.LabelFor(model => model.Gayrimenkul.GayrimenkulAdi, new { @class = "col-md-4 font-bold" })
+                                                                            <div class="col-md-6">
+                                                                                @Html.DisplayFor(model => model.Gayrimenkul.GayrimenkulAdi, "", new { @class = "form-control", @readonly = true })
+                                                                                @Html.ValidationMessage("GayrimenkulAdi", new { @class = "text-danger" })
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <div class="input-group" style="width: 100%;">
+                                                                            @Html.LabelFor(model => model.Gayrimenkul.AdresNo, new { @class = "col-md-4 font-bold" })
+                                                                            <div class="col-md-6">
+                                                                                @Html.DisplayFor(model => model.Gayrimenkul.AdresNo, new { @class = "form-control required", @readonly = true })
+                                                                                @Html.ValidationMessage("AdresNo", new { @class = "text-danger" })
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <div class="input-group" style="width: 100%;">
+                                                                            @Html.LabelFor(model => model.Gayrimenkul.NumaratajKimlikNo, new { @class = "col-md-4 font-bold" })
+                                                                            <div class="col-md-6">
+                                                                                @Html.DisplayFor(model => model.Gayrimenkul.NumaratajKimlikNo, new { @class = "form-control required", @readonly = true })
+                                                                                @Html.ValidationMessage("GayrimenkulAdi", new { @class = "text-danger" })
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <div class="input-group" style="width: 100%;">
+                                                                            @Html.LabelFor(model => model.Gayrimenkul.Il, new { @class = "col-md-4 font-bold" })
+                                                                            <div class="col-md-6">
+                                                                                @Html.DisplayFor(model => model.Gayrimenkul.Il, new { @class = "form-control required", @readonly = true })
+                                                                                @Html.ValidationMessage("Il", new { @class = "text-danger" })
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <div class="input-group" style="width: 100%;">
+                                                                            @Html.LabelFor(model => model.Gayrimenkul.Ilce, new { @class = "col-md-4 font-bold" })
+                                                                            <div class="col-md-6">
+                                                                                @Html.DisplayFor(model => model.Gayrimenkul.Ilce, new { @class = "form-control required", @readonly = true })
+                                                                                @Html.ValidationMessage("Ilce", new { @class = "text-danger" })
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <div class="input-group" style="width: 100%;">
+                                                                            @Html.LabelFor(model => model.Gayrimenkul.Mahalle, new { @class = "col-md-4 font-bold" })
+                                                                            <div class="col-md-6">
+                                                                                @Html.DisplayFor(model => model.Gayrimenkul.Mahalle, new { @class = "form-control required", @readonly = true })
+                                                                                @Html.ValidationMessage("Mahalle", new { @class = "text-danger" })
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <div class="input-group" style="width: 100%;">
+                                                                            @Html.LabelFor(model => model.Gayrimenkul.Sokak, new { @class = "col-md-4 font-bold" })
+                                                                            <div class="col-md-6">
+                                                                                @Html.DisplayFor(model => model.Gayrimenkul.Sokak, new { @class = "form-control required", @readonly = true })
+                                                                                @Html.ValidationMessage("Sokak", new { @class = "text-danger" })
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <div class="input-group" style="width: 100%;">
+                                                                            @Html.LabelFor(model => model.Gayrimenkul.DisKapiNo, new { @class = "col-md-4 font-bold" })
+                                                                            <div class="col-md-6">
+                                                                                @Html.DisplayFor(model => model.Gayrimenkul.DisKapiNo, new { @class = "form-control required", @readonly = true })
+                                                                                @Html.ValidationMessage("DisKapiNo", new { @class = "text-danger" })
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <div class="input-group" style="width: 100%;">
+                                                                            @Html.LabelFor(model => model.Gayrimenkul.IcKapiNo, new { @class = "col-md-4 font-bold" })
+                                                                            <div class="col-md-6">
+                                                                                @Html.DisplayFor(model => model.Gayrimenkul.IcKapiNo, new { @class = "form-control required", @readonly = true })
+                                                                                @Html.ValidationMessage("IcKapiNo", new { @class = "text-danger" })
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <div class="input-group" style="width: 100%;">
+                                                                            @Html.LabelFor(model => model.Gayrimenkul.Koordinat, new { @class = "col-md-4 font-bold" })
+                                                                            <div class="col-md-6">
+                                                                                @Html.DisplayFor(model => model.Gayrimenkul.Koordinat, new { @class = "form-control required", @readonly = true })
+                                                                                @Html.ValidationMessage("Koordinat", new { @class = "text-danger" })
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <div class="input-group" style="width: 100%;">
+                                                                            @Html.LabelFor(model => model.Gayrimenkul.Metrekare, new { @class = "col-md-4 font-bold" })
+                                                                            <div class="col-md-6">
+                                                                                @Html.DisplayFor(model => model.Gayrimenkul.Metrekare, new { @class = "form-control required", @readonly = true })
+                                                                                @Html.ValidationMessage("Metrekare", new { @class = "text-danger" })
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <div class="input-group" style="width: 100%;">
+                                                                            @Html.LabelFor(model => model.Gayrimenkul.AracKapasitesi, new { @class = "col-md-4 font-bold" })
+                                                                            <div class="col-md-6">
+                                                                                @Html.DisplayFor(model => model.Gayrimenkul.AracKapasitesi, new { @class = "form-control required", @readonly = true })
+                                                                                @Html.ValidationMessage("AracKapasitesi", new { @class = "text-danger" })
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <div class="input-group" style="width: 100%;">
+                                                                            @Html.LabelFor(model => model.Gayrimenkul.AcikAdres, new { @class = "col-md-4 font-bold" })
+                                                                            <div class="col-md-6">
+                                                                                @Html.DisplayFor(model => model.Gayrimenkul.AcikAdres, new { @class = "form-control", @rows = "3", @readonly = true })
+                                                                                @Html.ValidationMessage("AcikAdres", new { @class = "text-danger" })
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </fieldset>
+                                                        </div>
+
+                                                        <div class="tab-pane" id="tab2">
+                                                            <legend>
+                                                                <h3><strong>2. Adım </strong> - Sicil Bilgileri</h3>
+                                                            </legend>
+                                                            @Html.AntiForgeryToken()
+                                                        <fieldset>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <div class="input-group" style="width: 100%;">
+                                                                            @Html.LabelFor(model => model.Kiraci.SicilNo, new { @class = "col-md-4 font-bold" })
+                                                                            <div class="col-md-6">
+                                                                                @Html.DisplayFor(model => model.Kiraci.SicilNo, "", new { @class = "form-control", @readonly = true })
+                                                                                @Html.ValidationMessage("SicilNo", new { @class = "text-danger" })
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <div class="input-group" style="width: 100%;">
+                                                                            @Html.LabelFor(model => model.Kiraci.TcKimlikNo, new { @class = "col-md-4 font-bold" })
+                                                                            <div class="col-md-6">
+                                                                                @Html.DisplayFor(model => model.Kiraci.TcKimlikNo, "", new { @class = "form-control removeBorder", @readonly = true })
+                                                                                @Html.ValidationMessage("TcKimlikNo", new { @class = "text-danger" })
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <div class="input-group" style="width: 100%;">
+                                                                            @Html.LabelFor(model => model.Kiraci.VergiNo, new { @class = "col-md-4 font-bold" })
+                                                                            <div class="col-md-6">
+                                                                                @Html.DisplayFor(model => model.Kiraci.VergiNo, "", new { @class = "form-control removeBorder", @readonly = true })
+                                                                                @Html.ValidationMessage("VergiNo", new { @class = "text-danger" })
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <div class="input-group" style="width: 100%;">
+                                                                            @Html.LabelFor(model => model.Kiraci.VergiDairesi, new { @class = "col-md-4 font-bold" })
+                                                                            <div class="col-md-6">
+                                                                                @Html.DisplayFor(model => model.Kiraci.VergiDairesi, "", new { @class = "form-control removeBorder", @readonly = true })
+                                                                                @Html.ValidationMessage("VergiDairesi", new { @class = "text-danger" })
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <div class="input-group" style="width: 100%;">
+                                                                            @Html.LabelFor(model => model.Kiraci.Ad, new { @class = "col-md-4 font-bold" })
+                                                                            <div class="col-md-6">
+                                                                                @Html.DisplayFor(model => model.Kiraci.Ad, "", new { @class = "form-control removeBorder", @readonly = true })
+                                                                                @Html.ValidationMessage("Ad", new { @class = "text-danger" })
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <div class="input-group" style="width: 100%;">
+                                                                            @Html.LabelFor(model => model.Kiraci.Soyad, new { @class = "col-md-4 font-bold" })
+                                                                            <div class="col-md-6">
+                                                                                @Html.DisplayFor(model => model.Kiraci.Soyad, "", new { @class = "form-control removeBorder", @readonly = true })
+                                                                                @Html.ValidationMessage("VergiNo", new { @class = "text-danger" })
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <div class="input-group" style="width: 100%;">
+                                                                            @Html.LabelFor(model => model.Kiraci.Tanim, new { @class = "col-md-4 font-bold" })
+                                                                            <div class="col-md-6">
+                                                                                @Html.DisplayFor(model => model.Kiraci.Tanim, "", new { @class = "form-control removeBorder", @readonly = true })
+                                                                                @Html.ValidationMessage("Tanim", new { @class = "text-danger" })
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <div class="input-group" style="width: 100%;">
+                                                                            @Html.LabelFor(model => model.Kiraci.IlAdi, new { @class = "col-md-4 font-bold" })
+                                                                            <div class="col-md-6">
+                                                                                @Html.DisplayFor(model => model.Kiraci.IlAdi, "", new { @class = "form-control removeBorder", @readonly = true })
+                                                                                @Html.ValidationMessage("IlAdi", new { @class = "text-danger" })
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <div class="input-group" style="width: 100%;">
+                                                                            @Html.LabelFor(model => model.Kiraci.IlceAdi, new { @class = "col-md-4 font-bold" })
+                                                                            <div class="col-md-6">
+                                                                                @Html.DisplayFor(model => model.Kiraci.IlceAdi, "", new { @class = "form-control removeBorder", @readonly = true })
+                                                                                @Html.ValidationMessage("IlceAdi", new { @class = "text-danger" })
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <div class="input-group" style="width: 100%;">
+                                                                            @Html.LabelFor(model => model.Kiraci.MahalleAdi, new { @class = "col-md-4 font-bold" })
+                                                                            <div class="col-md-6">
+                                                                                @Html.DisplayFor(model => model.Kiraci.MahalleAdi, "", new { @class = "form-control removeBorder", @readonly = true })
+                                                                                @Html.ValidationMessage("MahalleAdi", new { @class = "text-danger" })
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <div class="input-group" style="width: 100%;">
+                                                                            @Html.LabelFor(model => model.Kiraci.AcikAdres, new { @class = "col-md-4 font-bold" })
+                                                                            <div class="col-md-6">
+                                                                                @Html.DisplayFor(model => model.Kiraci.AcikAdres, "", new { @class = "form-control removeBorder", @readonly = true })
+                                                                                @Html.ValidationMessage("AcikAdres", new { @class = "text-danger" })
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <div class="input-group" style="width: 100%;">
+                                                                            <div class="col-md-6">
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </fieldset>
+                                                        </div>
+
+                                                        <div class="tab-pane" id="tab3">
+                                                            <legend>
+                                                                <h3><strong>3. Adım </strong> - Beyan Bilgileri</h3>
+                                                            </legend>
+                                                            <form class="form-horizontal" id="beyanForm" novalidate="novalidate">
+                                                                @Html.AntiForgeryToken()
+                                                                <fieldset>
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.Beyan.BeyanTuru, new { @class = "col-md-4 font-bold" })
+                                                                                    <div class="col-md-6">
+                                                                                        @Html.DisplayFor(model => model.Beyan.BeyanTuru, "", new { @class = "form-control required", @readonly = true })
+                                                                                        @Html.ValidationMessage("BeyanTuru", new { @class = "text-danger" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.Beyan.BeyanYil, new { @class = "col-md-4 font-bold" })
+                                                                                    <div class="col-md-6">
+                                                                                        @Html.DisplayFor(model => model.Beyan.BeyanYil, "", new { @class = "form-control required", @readonly = true })
+                                                                                        @Html.ValidationMessage("BeyanYil", new { @class = "text-danger" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.Beyan.KiraDurumu, new { @class = "col-md-4 font-bold" })
+                                                                                    <div class="col-md-6">
+                                                                                        @Html.DisplayFor(model => model.Beyan.KiraDurumu, "", new { @class = "form-control required", @readonly = true })
+                                                                                        @Html.ValidationMessage("KiraDurumu", new { @class = "text-danger" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.Beyan.BeyanNo, new { @class = "col-md-4 font-bold" })
+                                                                                    <div class="col-md-6">
+                                                                                        @Html.DisplayFor(model => model.Beyan.BeyanNo, "", new { @class = "form-control required", @readonly = true })
+                                                                                        @Html.ValidationMessage("BeyanNo", new { @class = "text-danger" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.Beyan.NoterSozlesmeNo, new { @class = "col-md-4 font-bold" })
+                                                                                    <div class="col-md-6">
+                                                                                        @Html.DisplayFor(model => model.Beyan.NoterSozlesmeNo, "", new { @class = "form-control required" })
+                                                                                        @Html.ValidationMessage("NoterSozlesmeNo", new { @class = "text-danger" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.Beyan.EncumenKararNo, new { @class = "col-md-4 font-bold" })
+                                                                                    <div class="col-md-6">
+                                                                                        @Html.DisplayFor(model => model.Beyan.EncumenKararNo, "", new { @class = "form-control required" })
+                                                                                        @Html.ValidationMessage("EncumenKararNo", new { @class = "text-danger" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.Beyan.BeyanTarihi, new { @class = "col-md-4 font-bold" })
+                                                                                    <div class="col-md-6">
+                                                                                        @Html.DisplayFor(model => model.Beyan.BeyanTarihi, new { @class = "form-control datepicker required", @autocomplete = "off" })
+
+                                                                                        @Html.ValidationMessageFor(model => model.Beyan.BeyanTarihi, "", new { @class = "text-danger" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.Beyan.IhaleEncumenTarihi, new { @class = "col-md-4 font-bold" })
+                                                                                    <div class="col-md-6">
+                                                                                        @Html.DisplayFor(model => model.Beyan.IhaleEncumenTarihi, new { @class = "form-control datepicker required", @autocomplete = "off" })
+
+                                                                                        @Html.ValidationMessageFor(model => model.Beyan.IhaleEncumenTarihi, "", new { @class = "text-danger" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.Beyan.KiraBaslangicTarihi, new { @class = "col-md-4 font-bold" })
+                                                                                    <div class="col-md-6">
+                                                                                        @Html.DisplayFor(model => model.Beyan.KiraBaslangicTarihi, new { @class = "form-control datepicker required", @autocomplete = "off" })
+
+                                                                                        @Html.ValidationMessageFor(model => model.Beyan.KiraBaslangicTarihi, "", new { @class = "text-danger" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.Beyan.SozlesmeTarihi, new { @class = "col-md-4 font-bold" })
+                                                                                    <div class="col-md-6">
+                                                                                        @Html.DisplayFor(model => model.Beyan.SozlesmeTarihi, new { @class = "form-control datepicker required", @autocomplete = "off" })
+
+                                                                                        @Html.ValidationMessageFor(model => model.Beyan.SozlesmeTarihi, "", new { @class = "text-danger" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.Beyan.SozlesmeBitisTarihi, new { @class = "col-md-4 font-bold" })
+                                                                                    <div class="col-md-6">
+                                                                                        @Html.DisplayFor(model => model.Beyan.SozlesmeBitisTarihi, new { @class = "form-control datepicker required", @autocomplete = "off" })
+
+                                                                                        @Html.ValidationMessageFor(model => model.Beyan.SozlesmeBitisTarihi, "", new { @class = "text-danger" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.Beyan.TeminatTarihi, new { @class = "col-md-4 font-bold" })
+                                                                                    <div class="col-md-6">
+                                                                                        @Html.DisplayFor(model => model.Beyan.TeminatTarihi, new { @class = "form-control datepicker required", @autocomplete = "off" })
+
+                                                                                        @Html.ValidationMessageFor(model => model.Beyan.TeminatTarihi, "", new { @class = "text-danger" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.Beyan.BeyanKapatmaTarihi, new { @class = "col-md-4 font-bold" })
+                                                                                    <div class="col-md-6">
+                                                                                        @Html.DisplayFor(model => model.Beyan.BeyanKapatmaTarihi, new { @class = "form-control datepicker required", @autocomplete = "off" })
+
+                                                                                        @Html.ValidationMessageFor(model => model.Beyan.BeyanKapatmaTarihi, "", new { @class = "text-danger" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.Beyan.TeminatNo, new { @class = "col-md-4 font-bold" })
+                                                                                    <div class="col-md-6">
+                                                                                        @Html.DisplayFor(model => model.Beyan.TeminatNo, "", new { @class = "form-control required" })
+                                                                                        @Html.ValidationMessage("TeminatNo", new { @class = "text-danger" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.Beyan.KullanimAlani, new { @class = "col-md-4 font-bold" })
+                                                                                    <div class="col-md-6">
+                                                                                        @Html.DisplayFor(model => model.Beyan.KullanimAlani, "", new { @class = "form-control required" })
+                                                                                        @Html.ValidationMessage("KullanimAlani", new { @class = "text-danger" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.Beyan.OdemePeriyotu, new { @class = "col-md-4 font-bold" })
+                                                                                    <div class="col-md-6">
+                                                                                        @Html.DisplayFor(model => model.Beyan.OdemePeriyotu, "", new { @class = "form-control required" })
+                                                                                        @Html.ValidationMessage("OdemePeriyotTur_Id", new { @class = "text-danger" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.Beyan.SozlesmeSuresi, new { @class = "col-md-4 font-bold" })
+                                                                                    <div class="col-md-6">
+                                                                                        @Html.DisplayFor(model => model.Beyan.SozlesmeSuresi, "", new { @class = "form-control required" })
+                                                                                        @Html.ValidationMessage("SozlesmeSuresi", new { @class = "text-danger" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.Beyan.MusadeliGunSayisi, new { @class = "col-md-4 font-bold" })
+                                                                                    <div class="col-md-6">
+                                                                                        @Html.DisplayFor(model => model.Beyan.MusadeliGunSayisi, "", new { @class = "form-control required" })
+                                                                                        @Html.ValidationMessage("MusadeliGunSayisi", new { @class = "text-danger" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.Beyan.IhaleTutari, new { @class = "col-md-4 font-bold" })
+                                                                                    <div class="col-md-6">
+                                                                                        @Html.DisplayFor(model => model.Beyan.IhaleTutari, "{0:c}", new { @class = "form-control required moneyFormat" })
+                                                                                        @Html.ValidationMessage("IhaleTutari", new { @class = "text-danger" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.Beyan.KiraTutari, new { @class = "col-md-4 font-bold" })
+                                                                                    <div class="col-md-6">
+                                                                                        @Html.DisplayFor(model => model.Beyan.KiraTutari, "{0:c}", new { @class = "form-control required moneyFormat" })
+                                                                                        @Html.ValidationMessage("KiraTutari", new { @class = "text-danger" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.Beyan.Kdv, new { @class = "col-md-4 font-bold" })
+                                                                                    <div class="col-md-6">
+                                                                                        @Html.DisplayFor(model => model.Beyan.Kdv, "", new { @class = "form-control" })
+                                                                                        @Html.ValidationMessage("Kdv", new { @class = "text-danger" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.Beyan.BaslangicTaksitNo, new { @class = "col-md-4 font-bold" })
+                                                                                    <div class="col-md-6">
+                                                                                        @Html.DisplayFor(model => model.Beyan.BaslangicTaksitNo, "", new { @class = "form-control" })
+                                                                                        @Html.ValidationMessage("BaslangicTaksitNo", new { @class = "text-danger" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.Beyan.KalanAy, new { @class = "col-md-4 font-bold" })
+                                                                                    <div class="col-md-6">
+                                                                                        @Html.DisplayFor(model => model.Beyan.KalanAy, "", new { @class = "form-control" })
+                                                                                        @Html.ValidationMessage("KalanAy", new { @class = "text-danger" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.Beyan.DamgaAlinsinMi, new { @class = "col-md-4 font-bold" })
+                                                                                    <div class="col-md-6">
+                                                                                        @Html.DisplayFor(model => model.Beyan.DamgaAlinsinMi, "", new { @class = "form-control required", @readonly = true })
+                                                                                        @Html.ValidationMessage("DamgaAlinsinMi", new { @class = "text-danger" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-8">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.Beyan.BeyanAciklama, new { @class = "col-md-2 font-bold" })
+                                                                                    <div class="col-md-4">
+                                                                                        @Html.DisplayFor(model => model.Beyan.BeyanAciklama, new { @class = "form-control", @rows = "6" })
+                                                                                        @Html.ValidationMessage("Aciklama", new { @class = "text-danger" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </fieldset>
+                                                            </form>
+                                                        </div>
+
+                                                        <div class="tab-pane" id="tab4">
+                                                            <legend>
+                                                                <h3><strong>4. Adım </strong> - Dosya Bilgileri</h3>
+                                                            </legend>
+                                                            <form class="form-horizontal" id="belgeEkleForm" novalidate="novalidate">
+                                                                @Html.AntiForgeryToken()
+                                                                <fieldset class="dosyaSatirlari" id="dosyaSatiri_1">
+                                                                    <table id="dt_basic" class="table table-striped table-bordered table-hover dataTable no-footer" role="grid" aria-describedby="dt_basic_info">
+                                                                        <thead>
+                                                                            <tr role="row">
+                                                                                <th style="width: 20px;">No</th>
+                                                                                <th class="sorting_disabled" rowspan="1" colspan="1">Dosya Türü</th>
+                                                                                <th class="sorting_disabled" rowspan="1" colspan="1">Dosya Adı</th>
+                                                                                <th class="sorting_disabled text-center" rowspan="1" colspan="1" style="text-align: right;  padding-right: 30px; width: 100px;">İşlem</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        @if (Model != null && Model.BeyanDosyalar != null && Model.BeyanDosyalar.Count > 0)
+                                                                        {
+                                                                            <tbody>
+
+                                                                                @{int i = ((Model.BeyanDosyalar.Count - 1) * 1) + 1;}
+
+                                                                                @foreach (var item in Model.BeyanDosyalar)
+                                                                                {
+                                                                                    <tr role="row" class="odd">
+                                                                                        <td>@(i++)</td>
+                                                                                        <td>@Html.DisplayFor(model => item.BeyanDosyaTur)</td>
+                                                                                        <td>@Html.DisplayFor(model => item.DosyaAdi)</td>
+                                                                                       
+                                                                                        <td class="text-center">
+                                                                                            @Html.AuthAction(" ", "BeyanDetay", "Beyan", new { item.Guid },
+                                                                                             new { @class = "no-underline margin-right-5 fa fa-eye font-md txt-color-blue", @data_name = item.DosyaAdi, @data_id = item.Id },
+                                                                                             Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                }
+                                                                            </tbody>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <tbody>
+                                                                            </tbody>
+                                                                        }
+                                                                    </table>
+                                                                </fieldset>
+                                                            </form>
+                                                        </div>
+
+                                                        <div class="form-actions sonStep" style="margin-right: -18px;">
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <ul class="pager wizard no-margin no-steps-container">
+                                                                        <li class="previous disabled">
+                                                                            <a href="javascript:void(0);" class="btn btn-lg btn-default" id="btnGeri"> Geri </a>
+                                                                        </li>
+                                                                        <li class="next">
+                                                                            <a href="javascript:void(0);" id="btnIleri" class="btn btn-lg txt-color-darken"> İlerle</a>
+                                                                            <div id="loadingbtnIleri" class="hide" style="float:right;"><i class="fa fa-spinner fa-spin fa-2x"></i> İşleminiz yapılıyor ...</div>
+                                                                        </li>
+                                                                        <li class="finish" style="float: right; margin-right: 15px; display: block;">
+                                                                            @*@using (Ajax.BeginForm("KiraBeyanEkle", "Beyan", new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "dvGayrimenkulForm" }, new { enctype = "multipart/form-data", id = "gayrimenkulForm" }))
+                                                                                {*@
+                                                                          
+                                                                            <div id="dvSonKaydet" class="hide" style="float:right;"><i class="fa fa-spinner fa-spin fa-2x"></i> İşleminiz yapılıyor ...</div>
+                                                                            @*  *@
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </div>
+}
+
+@section pagespecific {
+
+    @Scripts.Render("~/bundles/jqueryval")
+    <!-- Sweet Alert -->
+    <link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
+    <script src="~/Content/SweetAlert/sweetalert2.min.js"></script>
+    <script src="~/Scripts/plugin/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+    <script src="~/Scripts/loadingoverlay.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery.formatCurrency-1.4.0.js"></script>
+
+    <style type="text/css">
+        .loadingoverlay_element {
+            position: fixed;
+            z-index: 999;
+            height: 10em;
+            width: 20em;
+            overflow: visible;
+            margin: auto;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+        }
+    </style>
+
+    <!--Money Format -->
+    <script type="text/javascript">
+        $('.moneyFormat').change(function () {
+            $('.moneyFormat').formatCurrency();
+        });
+    </script>
+
+    <!--Datetime Picker Format -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            jQuery.validator.methods.date = function (value, element) {
+                var d = value.split(".");
+                return this.optional(element) || !/Invalid|NaN/.test(new Date((/chrom(e|ium)/.test(navigator.userAgent.toLowerCase())) ? d[1] + "." + d[0] + "." + d[2] : value));
+            };
+            $('.datepicker').on('click', function (e) {
+                e.preventDefault();
+                $(this).attr("autocomplete", "off");
+            });
+        });
+    </script>
+
+    <!--Belge Ekleme -->
+    <script type="text/javascript">
+        var beyanDosyalar = [];
+
+        $(document).on("change", ".taranmisDosya", function (evt) {
+            var DosyaTipi_Id = $(this).attr("data-id");
+            var dosyaAdi = $(this).val().replace(/C:\\fakepath\\/, '');
+            $("#BeyanDosyaTur_" + DosyaTipi_Id).val(dosyaAdi);
+
+            var fileUpload = $("#DosyaTur_" + DosyaTipi_Id).get(0);
+
+            var files = evt.target.files[0];
+
+            if (files.length > 0) {
+                if (window.FormData !== undefined) {
+                    var formData = new FormData();
+                    formData.append(DosyaTipi_Id, files);
+                }
+            }
+            var fileBinary;
+
+            var reader = new FileReader();
+            // Closure to capture the file information.
+            reader.onload = (function (theFile) {
+                return function (e) {
+                    var binaryData = e.target.result;
+
+                    var base64String = window.btoa(binaryData);
+
+                    fileBinary = base64String;
+                    beyanDosyalar.push({ BeyanDosyaTur_Id: DosyaTipi_Id, DosyaAdi: dosyaAdi, BeyanDosya: fileBinary });
+                };
+            })(files);
+            // Read in the image file as a data URL.
+            reader.readAsBinaryString(files);
+        });
+
+        function BelgeEkle(gayrimenkulId) {
+
+            var $valid = $("#BelgeEkleForm").valid();
+            if (!$valid) {
+                $validatorBelgeEkle.focusInvalid();
+                return false;
+            } else {
+
+                $("#path").val("");
+
+                $('#loadingbtnBelgeEkleme').removeClass();
+                $("#btnBelgeKaydet").removeClass();
+                $("#btnBelgeKaydet").addClass('btn btn-warning hide');
+
+
+                var sonuc = true;
+                var sayac = 0;
+                var elems = $("form .taranmisDosya");
+                var count = elems.length;
+                var tumDosyalarYuklendiMi = true;
+                setTimeout(function () {
+                    if (tumDosyalarYuklendiMi) {
+                        $("#btnBelgeKaydet").removeClass();
+                        $("#btnBelgeKaydet").addClass('btn btn-primary');
+                        $('#loadingbtnBelgeEkleme').addClass('hide');
+                    }
+                }, 1500);
+
+
+            }
+        }
+    </script>
+
+    <!--Tab Control-->
+
+
+}

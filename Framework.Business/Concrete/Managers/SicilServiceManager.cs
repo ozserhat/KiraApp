@@ -13,7 +13,7 @@ namespace Framework.Business.Concrete.Managers
     {
         public SicilServisVm GetirSicilBilgisi(string VergiNo, string TcKimlikNo)
         {
-            WebServis.Clients.SicilServiceClient serviceClient = new SicilServiceClient();
+            SicilServiceClient serviceClient = new SicilServiceClient();
 
             var result = serviceClient.GetirSicilBilgisi(VergiNo, TcKimlikNo);
 
