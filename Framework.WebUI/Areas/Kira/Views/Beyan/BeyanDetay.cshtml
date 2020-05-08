@@ -516,9 +516,13 @@
                                                                                 <div class="input-group" style="width: 100%;">
                                                                                     @Html.LabelFor(model => model.Beyan.BeyanTarihi, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
-                                                                                        @Html.DisplayFor(model => model.Beyan.BeyanTarihi, new { @class = "form-control datepicker required", @autocomplete = "off" })
+                                                                                        @{
+                                                                                            string beyanTarih = Model.Beyan.BeyanTarihi.Value.ToString("dd.MM.yyyy");
 
-                                                                                        @Html.ValidationMessageFor(model => model.Beyan.BeyanTarihi, "", new { @class = "text-danger" })
+                                                                                            @Html.DisplayFor(model => beyanTarih, new { @class = "form-control datepicker required", @autocomplete = "off" })
+
+                                                                                            @Html.ValidationMessageFor(model => model.Beyan.BeyanTarihi, "", new { @class = "text-danger" })
+                                                                                        }
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -528,9 +532,12 @@
                                                                                 <div class="input-group" style="width: 100%;">
                                                                                     @Html.LabelFor(model => model.Beyan.IhaleEncumenTarihi, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
-                                                                                        @Html.DisplayFor(model => model.Beyan.IhaleEncumenTarihi, new { @class = "form-control datepicker required", @autocomplete = "off" })
+                                                                                        @{
+                                                                                            string ihaleEncumenTarih = Model.Beyan.IhaleEncumenTarihi.Value.ToString("dd.MM.yyyy");
+                                                                                            @Html.DisplayFor(model => ihaleEncumenTarih, new { @class = "form-control datepicker required", @autocomplete = "off" })
 
-                                                                                        @Html.ValidationMessageFor(model => model.Beyan.IhaleEncumenTarihi, "", new { @class = "text-danger" })
+                                                                                            @Html.ValidationMessageFor(model => model.Beyan.IhaleEncumenTarihi, "", new { @class = "text-danger" })
+                                                                                        }
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -540,9 +547,16 @@
                                                                                 <div class="input-group" style="width: 100%;">
                                                                                     @Html.LabelFor(model => model.Beyan.KiraBaslangicTarihi, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
-                                                                                        @Html.DisplayFor(model => model.Beyan.KiraBaslangicTarihi, new { @class = "form-control datepicker required", @autocomplete = "off" })
+                                                                                        @{
+                                                                                            string kiraBaslangicTarih = Model.Beyan.KiraBaslangicTarihi.Value.ToString("dd.MM.yyyy");
+                                                                                            @Html.DisplayFor(model => kiraBaslangicTarih, new
+                                                                                            {
+                                                                                                @class = "form-control datepicker required",
+                                                                                                @autocomplete = "off"
+                                                                                            })
 
-                                                                                        @Html.ValidationMessageFor(model => model.Beyan.KiraBaslangicTarihi, "", new { @class = "text-danger" })
+                                                                                            @Html.ValidationMessageFor(model => model.Beyan.KiraBaslangicTarihi, "", new { @class = "text-danger" })
+                                                                                        }
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -554,9 +568,12 @@
                                                                                 <div class="input-group" style="width: 100%;">
                                                                                     @Html.LabelFor(model => model.Beyan.SozlesmeTarihi, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
-                                                                                        @Html.DisplayFor(model => model.Beyan.SozlesmeTarihi, new { @class = "form-control datepicker required", @autocomplete = "off" })
+                                                                                        @{
+                                                                                            string sozlesmeTarihi = Model.Beyan.SozlesmeTarihi.Value.ToString("dd.MM.yyyy");
+                                                                                            @Html.DisplayFor(model => sozlesmeTarihi, new { @class = "form-control datepicker required", @autocomplete = "off" })
 
-                                                                                        @Html.ValidationMessageFor(model => model.Beyan.SozlesmeTarihi, "", new { @class = "text-danger" })
+                                                                                            @Html.ValidationMessageFor(model => model.Beyan.SozlesmeTarihi, "", new { @class = "text-danger" })
+                                                                                        }
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -566,9 +583,12 @@
                                                                                 <div class="input-group" style="width: 100%;">
                                                                                     @Html.LabelFor(model => model.Beyan.SozlesmeBitisTarihi, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
-                                                                                        @Html.DisplayFor(model => model.Beyan.SozlesmeBitisTarihi, new { @class = "form-control datepicker required", @autocomplete = "off" })
+                                                                                        @{
+                                                                                            string sozlesmeBitisTarihi = Model.Beyan.SozlesmeBitisTarihi.Value.ToString("dd.MM.yyyy");
+                                                                                            @Html.DisplayFor(model => sozlesmeBitisTarihi, new { @class = "form-control datepicker required", @autocomplete = "off" })
 
-                                                                                        @Html.ValidationMessageFor(model => model.Beyan.SozlesmeBitisTarihi, "", new { @class = "text-danger" })
+                                                                                            @Html.ValidationMessageFor(model => model.Beyan.SozlesmeBitisTarihi, "", new { @class = "text-danger" })
+                                                                                        }
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -578,9 +598,12 @@
                                                                                 <div class="input-group" style="width: 100%;">
                                                                                     @Html.LabelFor(model => model.Beyan.TeminatTarihi, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
-                                                                                        @Html.DisplayFor(model => model.Beyan.TeminatTarihi, new { @class = "form-control datepicker required", @autocomplete = "off" })
+                                                                                        @{
+                                                                                            string teminatTarihi = Model.Beyan.TeminatTarihi.Value.ToString("dd.MM.yyyy");
+                                                                                            @Html.DisplayFor(model => teminatTarihi, new { @class = "form-control datepicker required", @autocomplete = "off" })
 
-                                                                                        @Html.ValidationMessageFor(model => model.Beyan.TeminatTarihi, "", new { @class = "text-danger" })
+                                                                                            @Html.ValidationMessageFor(model => model.Beyan.TeminatTarihi, "", new { @class = "text-danger" })
+                                                                                        }
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -592,9 +615,12 @@
                                                                                 <div class="input-group" style="width: 100%;">
                                                                                     @Html.LabelFor(model => model.Beyan.BeyanKapatmaTarihi, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
-                                                                                        @Html.DisplayFor(model => model.Beyan.BeyanKapatmaTarihi, new { @class = "form-control datepicker required", @autocomplete = "off" })
+                                                                                        @{
+                                                                                            string beyanKapatmaTarihi = Model.Beyan.BeyanKapatmaTarihi.Value.ToString("dd.MM.yyyy");
+                                                                                            @Html.DisplayFor(model => beyanKapatmaTarihi, new { @class = "form-control datepicker required", @autocomplete = "off" })
 
-                                                                                        @Html.ValidationMessageFor(model => model.Beyan.BeyanKapatmaTarihi, "", new { @class = "text-danger" })
+                                                                                            @Html.ValidationMessageFor(model => model.Beyan.BeyanKapatmaTarihi, "", new { @class = "text-danger" })
+                                                                                        }
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -662,10 +688,14 @@
                                                                             <div class="form-group">
                                                                                 <div class="input-group" style="width: 100%;">
                                                                                     @Html.LabelFor(model => model.Beyan.IhaleTutari, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.DisplayFor(model => model.Beyan.IhaleTutari, "{0:c}", new { @class = "form-control required moneyFormat" })
-                                                                                        @Html.ValidationMessage("IhaleTutari", new { @class = "text-danger" })
-                                                                                    </div>
+                                                                                    @{
+                                                                                        string ihaleTutar = string.Format("{0:0,0.00}", Model.Beyan.IhaleTutari);
+
+                                                                                        <div class="col-md-6">
+                                                                                            @Html.DisplayFor(model => ihaleTutar, "", new { @class = "form-control required moneyFormat" })
+                                                                                            @Html.ValidationMessage("IhaleTutari", new { @class = "text-danger" })
+                                                                                        </div>
+                                                                                    }
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -673,10 +703,13 @@
                                                                             <div class="form-group">
                                                                                 <div class="input-group" style="width: 100%;">
                                                                                     @Html.LabelFor(model => model.Beyan.KiraTutari, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.DisplayFor(model => model.Beyan.KiraTutari, "{0:c}", new { @class = "form-control required moneyFormat" })
-                                                                                        @Html.ValidationMessage("KiraTutari", new { @class = "text-danger" })
-                                                                                    </div>
+                                                                                    @{
+                                                                                        string kiraTutar = string.Format("{0:0,0.00}", Model.Beyan.KiraTutari);
+                                                                                        <div class="col-md-6">
+                                                                                            @Html.DisplayFor(model => kiraTutar, "", new { @class = "form-control required moneyFormat" })
+                                                                                            @Html.ValidationMessage("KiraTutari", new { @class = "text-danger" })
+                                                                                        </div>
+                                                                                    }
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -802,10 +835,56 @@
                                                             <form class="form-horizontal" id="tahakkukForm" novalidate="novalidate">
                                                                 @Html.AntiForgeryToken()
                                                                 <fieldset>
-                                                                    
+                                                                    <table id="dtTahakkuk" class="table table-striped table-bordered table-hover dataTable no-footer" role="grid" aria-describedby="dt_basic_info">
+                                                                        <thead>
+                                                                            <tr role="row">
+                                                                                <th class="sorting_disabled" rowspan="1" colspan="1">Beyan Yıl</th>
+                                                                                <th class="sorting_disabled" rowspan="1" colspan="1">Taksit No</th>
+                                                                                <th class="sorting_disabled" rowspan="1" colspan="1">Tahakkuk Tarihi</th>
+                                                                                <th class="sorting_disabled" rowspan="1" colspan="1">Vade Tarihi</th>
+                                                                                <th class="sorting_disabled" rowspan="1" colspan="1">Tutar</th>
+                                                                                <th class="sorting_disabled" rowspan="1" colspan="1">Açıklama</th>
+                                                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 250px;">Durum</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        @if (Model.Tahakkuklar != null && Model.Tahakkuklar.Count > 0)
+                                                                        {
+                                                                            <tbody>
+
+
+                                                                                @foreach (var item in Model.Tahakkuklar)
+                                                                                {
+                                                                                    <tr role="row" class="odd">
+                                                                                        <td>@Html.DisplayFor(model => item.Kira_Beyani.Beyanlar.BeyanYil)</td>
+                                                                                        <td>@Html.DisplayFor(model => item.TaksitSayisi)</td>
+                                                                                        <td>@Html.DisplayFor(model => item.TahakkukTarihi)</td>
+                                                                                        <td>@Html.DisplayFor(model => item.VadeTarihi)</td>
+                                                                                        <td>@Html.DisplayFor(model => item.Tutar)</td>
+                                                                                        <td>@Html.DisplayFor(model => item.Aciklama)</td>
+                                                                                        <td>
+                                                                                            @if (item.OdemeDurumu.HasValue && item.OdemeDurumu.Value)
+                                                                                            {
+                                                                                                <b class="label aktif-buton-beyandetay">Ödendi</b>
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <b class="label pasif-buton-beyandetay">Ödenmedi</b>
+                                                                                            }
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                }
+                                                                            </tbody>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <tbody>
+                                                                            </tbody>
+                                                                        }
+                                                                    </table>
                                                                 </fieldset>
                                                             </form>
                                                         </div>
+
                                                         <div class="form-actions sonStep" style="margin-right: -18px;">
                                                             <div class="row">
                                                                 <div class="col-sm-12">
@@ -892,8 +971,31 @@
             bottom: 0;
             right: 0;
         }
+        .pasif-buton-beyandetay {
+            padding: 3px 6px;
+            border: solid 2px;
+            background: none;
+            border-color: #e74c3c;
+            color: #e74c3c;
+            font-weight: 700;
+            display: block;
+            text-align: center;
+            font-size: 12px;
+            width: 75px;
+        }
+        .aktif-buton-beyandetay {
+            padding: 3px 6px;
+            border: solid 2px;
+            background: none;
+            border-color: #2ecc71;
+            color: #2ecc71;
+            font-weight: 700;
+            display: block;
+            text-align: center;
+            font-size: 12px;
+            width: 55px;
+        }
     </style>
-
     <!--Money Format -->
     <script type="text/javascript">
         $('.moneyFormat').change(function () {

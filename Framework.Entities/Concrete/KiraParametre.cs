@@ -31,6 +31,30 @@ namespace Framework.Entities.Concrete
 
         public int? KdvTarifeKodu { get; set; }
 
+        [StringLength(1000)]
+        public string KiraTarifeAciklama { get; set; }
+
+        [StringLength(1000)]
+        public string OtoparkTarifeAciklama { get; set; }
+
+        [StringLength(1000)]
+        public string EcrimisilTarifeAciklama { get; set; }
+
+        [StringLength(1000)]
+        public string DamgaTarifeAciklama { get; set; }
+
+        [StringLength(1000)]
+        public string TeminatTarifeAciklama { get; set; }
+
+        [StringLength(1000)]
+        public string KararHarciTarifeAciklama { get; set; }
+
+        [StringLength(1000)]
+        public string KapatmaTarifeAciklama { get; set; }
+
+        [StringLength(1000)]
+        public string KdvTarifeAciklama { get; set; }
+
         public decimal? DamgaOran { get; set; }
 
         public decimal? TeminatOran { get; set; }

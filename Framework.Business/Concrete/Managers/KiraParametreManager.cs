@@ -28,6 +28,11 @@ namespace Framework.Business.Concrete.Managers
             return _kiraParametreDal.GetById(id);
         }
 
+        public KiraParametre GetirBeyanYil(int BeyanYili)
+        {
+            return _kiraParametreDal.GetByYear(BeyanYili);
+        }
+
         public KiraParametre GetirGuid(Guid guid)
         {
             return _kiraParametreDal.GetByGuid(guid);

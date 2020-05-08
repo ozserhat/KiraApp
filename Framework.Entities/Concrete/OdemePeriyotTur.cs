@@ -14,6 +14,8 @@ namespace Framework.Entities.Concrete
         [StringLength(500)]
         public string Ad { get; set; }
 
+        public int? OdemeAySayisi { get; set; }
+
         [StringLength(2500)]
         public string Aciklama { get; set; }
 

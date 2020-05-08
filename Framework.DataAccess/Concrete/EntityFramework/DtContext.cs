@@ -33,6 +33,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
         public DbSet<GayrimenkulTur> GayrimenkulTurleri { get; set; }
         public DbSet<ResmiTatiller> ResmiTatiller { get; set; }
         public DbSet<KiraParametre> KiraParametreleri { get; set; }
+
         public DbSet<GayrimenkulAlt_Tur> GayrimenkulAlt_Turleri { get; set; }
         public DbSet<GayrimenkulDosya_Tur> GayrimenkulDosya_Turleri { get; set; }
         public DbSet<Gayrimenkul_Dosya> Gayrimenkul_Dosyalar { get; set; }
@@ -48,11 +49,13 @@ namespace Framework.DataAccess.Concrete.EntityFramework
         public DbSet<Ilce> Ilceler { get; set; }
         public DbSet<Mahalle> Mahalleler { get; set; }
         public DbSet<Kiraci> Kiracilar { get; set; }
-        public DbSet<BeyanDosya_Tur> BeyanDosya_Turleri { get; set; }
         public DbSet<Beyan> Beyanlar { get; set; }
+        public DbSet<Tahakkuk> Tahakkuklar { get; set; }
+        public DbSet<BeyanDosya_Tur> BeyanDosya_Turleri { get; set; }
         public DbSet<Beyan_Dosya> Beyan_Dosyalari { get; set; }
         public DbSet<Kira_Beyan> Kira_Beyanlari { get; set; }
         public DbSet<Beyan_Tur> Beyan_Turleri { get; set; }
+        public DbSet<PersonelBeyan> PersonelBeyanlari { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

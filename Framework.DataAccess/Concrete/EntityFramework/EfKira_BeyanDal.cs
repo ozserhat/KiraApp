@@ -45,6 +45,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             {
                 return context.Kira_Beyanlari
                               .Include(b => b.Beyanlar)
+                            .Include(h => h.Kiracilar)
                               .Include(bt => bt.Beyanlar.BeyanTur)
                               .Include(k => k.Kiracilar)
                               .Include(g => g.Gayrimenkuller)
@@ -93,7 +94,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                 var query = context.Kira_Beyanlari
                              .Include(b => b.Beyanlar)
                              .Include(b => b.Beyanlar.KiraDurum)
-                             .Include(kd=>kd.Beyanlar.OdemePeriyotTur)
+                             .Include(kd => kd.Beyanlar.OdemePeriyotTur)
                              .Include(bt => bt.Beyanlar.BeyanTur)
                              .Include(k => k.Kiracilar)
                              .Include(g => g.Gayrimenkuller)

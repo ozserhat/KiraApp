@@ -55,7 +55,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public JsonResult Ekle(RolEkleVM rol)
+        public JsonResult Ekle(RolEkleVM rolModel)
         {
             try
             {
@@ -64,8 +64,8 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                     Role role = new Role()
                     {
                         Guid = Guid.NewGuid(),
-                        Name = rol.RolAdi,
-                        Description = rol.Aciklama,
+                        Name = rolModel.RolAdi,
+                        Description = rolModel.RolAciklama,
                         IsActive = true,
                         IsDeleted=false
                     };

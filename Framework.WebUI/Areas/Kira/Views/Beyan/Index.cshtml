@@ -66,14 +66,7 @@
                                                         <h4 class="d-inline-block text-light mb-0 float-right">Sorgulama Kriterleri</h4><br />
                                                     </header>
                                                     <div class="bs-canvas-content px-3 py-5" style="height:250px">
-                                                        @using (Ajax.BeginForm("GetirBeyanTable", "Beyan", new AjaxOptions
-                                                        {
-                                                            HttpMethod = "Post",
-                                                            InsertionMode = InsertionMode.Replace,
-                                                            LoadingElementId = "progress",
-                                                            UpdateTargetId = "dvTable",
-                                                            OnSuccess= "OnSuccess"
-                                                        }, new { enctype = "multipart/form-data", id = "sorgulamaKriterleri" }))
+                                                        @using (Html.BeginForm("Index", "Beyan", FormMethod.Post, new { enctype = "multipart/form-data", id = "submitForm" }))
                                                         {
                                                             <div class="widget-body">
                                                                 @Html.HiddenFor(model => model.PageSize)

@@ -47,7 +47,6 @@ namespace Framework.Entities.Concrete
 
         public DateTime? BeyanKapatmaTarihi { get; set; }
 
-        [Column(TypeName = "Money")]
         public decimal IhaleTutari { get; set; }
 
         public int BaslangicTaksitNo { get; set; }
@@ -58,7 +57,6 @@ namespace Framework.Entities.Concrete
 
         public int? SozlesmeSuresi { get; set; }
 
-        [Column(TypeName = "Money")]
         public decimal KiraTutari { get; set; }
 
         public bool? DamgaAlinsinMi { get; set; }
@@ -95,5 +93,6 @@ namespace Framework.Entities.Concrete
 
         [JsonIgnore]
         public virtual ICollection<Kira_Beyan> Kira_Beyanlari { get; set; }
+  
     }
 }

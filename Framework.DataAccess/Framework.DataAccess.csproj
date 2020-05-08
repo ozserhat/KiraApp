@@ -93,11 +93,13 @@
     <Compile Include="Abstract\IKira_DurumDal.cs" />
     <Compile Include="Abstract\ILogsDal.cs" />
     <Compile Include="Abstract\IMahalleDal.cs" />
+    <Compile Include="Abstract\IPersonelBeyanDal.cs" />
     <Compile Include="Abstract\IResmiTatillerDal.cs" />
     <Compile Include="Abstract\IRolesDal.cs" />
     <Compile Include="Abstract\ISistemParametreleriDal.cs" />
     <Compile Include="Abstract\IOdemePeriyotTurDal.cs" />
     <Compile Include="Abstract\ISistemParametre_DetayDal.cs" />
+    <Compile Include="Abstract\ITahakkukDal.cs" />
     <Compile Include="Abstract\IUserDal.cs" />
     <Compile Include="Abstract\IUserPermissionsDal.cs" />
     <Compile Include="Abstract\IUserRolesDal.cs" />
@@ -126,11 +128,13 @@
     <Compile Include="Concrete\EntityFramework\EfKira_DurumDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfLogDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfMahalleDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfPersonelBeyanDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfResmiTatillerDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfRolesDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfSistemParametreleriDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfOdemePeriyotTurDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfSistemParametre_Detay.cs" />
+    <Compile Include="Concrete\EntityFramework\EfTahakkukDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfUserDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfUserPermissionsDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfUserRolesDal.cs" />

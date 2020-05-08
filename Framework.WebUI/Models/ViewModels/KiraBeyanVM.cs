@@ -23,10 +23,13 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "İlçeler")]
         public SelectList IlceSelectList { get; set; }
-
+        public bool Post { get; set; }
 
         [Display(Name = "Mahalleler")]
         public SelectList MahalleSelectList { get; set; }
+
+        [Display(Name = "Kullanıcılar")]
+        public SelectList KullaniciSelectList { get; set; }
 
         public IPagedList<Kira_Beyan> Beyanlar { get; set; }
     }
@@ -100,6 +103,7 @@ namespace Framework.WebUI.Models.ViewModels
 
         public List<Beyan_DosyaVM> BeyanDosyalar { get; set; }
 
+        public List<Tahakkuk> Tahakkuklar { get; set; }
 
         public KiraBeyanEkleVM Kira_Beyan { get; set; }
 

@@ -6,10 +6,6 @@ using System.Threading.Tasks;
 
 namespace Framework.Entities.ComplexTypes
 {
-    public class Tahakkuk
-    {
-    }
-
     public class TahakkukSorguSonucVm
     {
         public string BorcId { get; set; }

@@ -82,10 +82,12 @@
     <Compile Include="Concrete\Logs.cs" />
     <Compile Include="Concrete\Mahalle.cs" />
     <Compile Include="Concrete\OdemePeriyotTur.cs" />
+    <Compile Include="Concrete\PersonelBeyan.cs" />
     <Compile Include="Concrete\ResmiTatiller.cs" />
     <Compile Include="Concrete\Role.cs" />
     <Compile Include="Concrete\SistemParametreleri.cs" />
     <Compile Include="Concrete\SistemParametre_Detay.cs" />
+    <Compile Include="Concrete\Tahakkuk.cs" />
     <Compile Include="Concrete\User.cs" />
     <Compile Include="Concrete\User_Permission.cs" />
     <Compile Include="Concrete\User_Role.cs" />
