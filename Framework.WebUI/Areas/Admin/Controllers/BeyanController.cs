@@ -75,11 +75,11 @@ namespace Framework.WebUI.Areas.Admin.Controllers
         // GET: Admin/Beyan
 
         #region Listeleme
-        public ActionResult Index(int? page, int pageSize = 15)
+        public ActionResult Index(KiraBeyanRequest request, int? page, int pageSize = 15)
         {
             var model = new KiraBeyanVM();
 
-            var beyanlar = _kiraBeyanService.GetirListe();
+            var beyanlar = _kiraBeyanService.GetirSorguListe(request);
 
             model.PageNumber = page ?? 1;
             model.PageSize = pageSize;

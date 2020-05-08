@@ -116,6 +116,9 @@ namespace Framework.Business.DependencyResolvers.Ninject
             Bind<IPersonelBeyanDal>().To<EfPersonelBeyanDal>().InTransientScope();
             Bind<IPersonel_BeyanService>().To<Personel_BeyanManager>().InTransientScope();
 
+            Bind<ITahakkukDal>().To<EfTahakkukDal>().InTransientScope();
+            Bind<ITahakkukService>().To<TahakkukManager>().InTransientScope();
+
             Bind<ISicilService>().To<SicilServiceManager>().InTransientScope();
 
             Bind(typeof(IQueryableRepository<>)).To(typeof(EfQueryableRepository<>));

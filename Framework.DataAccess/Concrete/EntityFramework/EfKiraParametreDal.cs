@@ -47,5 +47,13 @@ namespace Framework.DataAccess.Concrete.EntityFramework
 
             return sonuc;
         }
+
+        public KiraParametre GetByYear(int BeyanYil)
+        {
+            using (DtContext context = new DtContext())
+            {
+                return context.KiraParametreleri.Where(gt => gt.BeyanYili == BeyanYil).FirstOrDefault();
+            }
+        }
     }
 }

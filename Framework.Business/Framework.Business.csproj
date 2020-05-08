@@ -194,6 +194,7 @@
     <Compile Include="Concrete\Managers\SistemParametreleriManager.cs" />
     <Compile Include="Concrete\Managers\OdemePeriyotTurManager.cs" />
     <Compile Include="Concrete\Managers\SistemParametre_DetayManager.cs" />
+    <Compile Include="Concrete\Managers\TahakkukManager.cs" />
     <Compile Include="Concrete\Managers\TahakkukServiceManager.cs" />
     <Compile Include="Concrete\Managers\UserManager.cs" />
     <Compile Include="Concrete\Managers\UserPermissionManager.cs" />

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Framework.Business.Concrete.Managers
 {
-    public class TahakkukServiceManager : ITahakkukService
+    public class TahakkukServiceManager : ITahakkukDisServis
     {
         public TahakkukEkleSonucVm TahakkukOlustur(TahakkukEkleVm tahakkukBilgi)
         {

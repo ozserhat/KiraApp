@@ -103,6 +103,7 @@ namespace Framework.WebUI.Models.ViewModels
 
         public List<Beyan_DosyaVM> BeyanDosyalar { get; set; }
 
+        public List<Tahakkuk> Tahakkuklar { get; set; }
 
         public KiraBeyanEkleVM Kira_Beyan { get; set; }
 

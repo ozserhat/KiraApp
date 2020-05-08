@@ -34,11 +34,11 @@ namespace Framework.DataAccess.Concrete.EntityFramework
 
             using (var context = new DtContext())
             {
-                var tur = context.Beyanlar.FirstOrDefault(i => i.Id == id);
+                var beyan = context.Beyanlar.FirstOrDefault(i => i.Id == id);
 
-                if (tur != null)
+                if (beyan != null)
                 {
-                    context.Beyanlar.Remove(tur);
+                    context.Beyanlar.Remove(beyan);
                     context.SaveChanges();
                     sonuc = true;
                 }
