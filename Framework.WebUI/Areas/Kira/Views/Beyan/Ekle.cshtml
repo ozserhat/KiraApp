@@ -255,7 +255,7 @@
     <script src="~/Scripts/loadingoverlay.min.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script src="~/Scripts/jquery.formatCurrency-1.4.0.js"></script>
-   
+
     <style type="text/css">
         .loadingoverlay_element {
             position: fixed;
@@ -654,6 +654,48 @@
             });
         });
     </script>
+
+
+    <!--KiraTutariHesaplama -->
+    <script type="text/javascript">
+        $(document).on("change keyup blur", "#KiraTutari", function () {
+
+            var it = $('#IhaleTutari').val();
+            var ss = $('#SozlesmeSuresi').val();
+            var kt = $('#KiraTutari').val();
+
+
+            if (kt != null && ss != null && it != null) {
+                //var it = $('#IhaleTutari').val();
+                //var ss = $('#SozlesmeSuresi').val();
+                //var kt = $('#KiraTutari').val();
+                var dec = (ss * 12);
+                var result = it / dec;
+                $('#result').val(result);
+
+                if (result == kt) {
+                    kt = result;
+                    $('#KiraTutariUyari').val("Kira tutarı uyuşuyor.");
+
+                }
+
+                else if (kt == null) {
+
+                    $('#KiraTutariUyari').val(" ");
+                }
+
+                else {
+                    $('#KiraTutariUyari').val("Kira tutarı uyuşmuyor!");
+
+                }
+
+            }
+
+
+
+        });
+    </script>
+
 
 }
 
