@@ -48,5 +48,6 @@ namespace Framework.Entities.Concrete
         public int? Gayrimenkul_Id { get; set; }
         public int? Ilce_Id { get; set; }
         public int? Mahalle_Id { get; set; }
+       
     }
 }

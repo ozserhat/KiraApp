@@ -914,6 +914,7 @@
     <Content Include="Content\sweetalert.css" />
     <Content Include="Content\SweetAlert\sweetalert2.css" />
     <Content Include="Content\SweetAlert\sweetalert2.min.js" />
+    <Content Include="Scripts\table2excel.js" />
     <Content Include="Content\xml\gmap\pins.xml" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />

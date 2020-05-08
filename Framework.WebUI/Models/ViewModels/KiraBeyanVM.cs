@@ -23,7 +23,7 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "İlçeler")]
         public SelectList IlceSelectList { get; set; }
-
+        public bool Post { get; set; }
 
         [Display(Name = "Mahalleler")]
         public SelectList MahalleSelectList { get; set; }

@@ -8,7 +8,6 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-
 @if (Model.Errors != null && Model.Errors.Count > 0)
 {
     <div id="content">
@@ -29,153 +28,153 @@
 }
 @if (!Model.HideContent)
 {
-    <div id="content">
+<div id="content">
 
-        <section id="widget-grid" class="sayfaust_bosluk">
-            <div class="row">
-                <article class="col-sm-12 col-md-12 col-lg-12">
-                    <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
-                        <header>
-                            <div style="float:left; margin-top: -5px; padding-bottom: 8px;">
-
-                                <span id="spnFiltre">
-                                    <a href="#" id="btnAcKriter" class="btn btn-info" data-toggle="canvas" data-target="#bs-canvas-right" title="Filtreleme" aria-expanded="false" aria-controls="bs-canvas-right">
-                                        <span>Filtrele</span>
-                                        <i class="fa fa-filter">
-                                        </i>
-                                    </a>
-                                </span>
-                            </div>
-                            <h2>Beyan Listesi - <b>Toplam Beyan Adedi : @Model.TotalRecordCount</b></h2>
-
-                            <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
-                                <a href="#" id="btnBeyanPersonelEkle" class="btn btn-primary bildirimPopup" rel="tooltip" data-toggle="modal"
-                                   data-target="#personelBeyanModal" data-original-title="Personel Beyan Ekle">
-                                    <span>Personel Beyan Ekle  </span> 
-                                    <i class="glyphicon glyphicon-plus">
+    <section id="widget-grid" class="sayfaust_bosluk">
+        <div class="row">
+            <article class="col-sm-12 col-md-12 col-lg-12">
+                <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
+                    <header>
+                        <div style="float:left; margin-top: -5px; padding-bottom: 8px;">
+                            <span id="spnFiltre">
+                                <a href="#" id="btnAcKriter" class="btn btn-info" data-toggle="canvas" data-target="#bs-canvas-right" title="Filtreleme" aria-expanded="false" aria-controls="bs-canvas-right">
+                                    <span>Filtrele</span>
+                                    <i class="fa fa-filter">
                                     </i>
                                 </a>
-                            </div>
+                            </span>
+                        </div>
+                        <h2>Beyan Listesi - <b>Toplam Beyan Adedi : @Model.TotalRecordCount</b></h2>
 
-                        </header>
-                        <div role="contentinfo">
-                            <div class="widget-body">
-                                <div class="tab-pane fade active in">
-                                    <div class="form-group">
-                                        <div class="col-md-12">
-                                            <div id="pnlKriter" class="bs-offset-main bs-canvas-anim" style="display:none;">
-                                                <div id="bs-canvas-right" class="bs-canvas bs-canvas-anim bs-canvas-left position-fixed bg-light h-100" data-width="100%">
-                                                    <header class="bs-canvas-header p-3 bg-success overflow-auto">
-                                                        <button type="button" class="bs-canvas-close float-left close" aria-label="Close">
-                                                            <span aria-hidden="true" class="text-light">&times;</span>
-                                                        </button>
-                                                        <h4 class="d-inline-block text-light mb-0 float-right">Sorgulama Kriterleri</h4><br />
-                                                    </header>
-                                                    <div class="bs-canvas-content px-3 py-5" style="height:250px">
-                                                        @using (Ajax.BeginForm("GetirBeyanTable", "Beyan", new AjaxOptions
-                                                        {
-                                                            HttpMethod = "Post",
-                                                            InsertionMode = InsertionMode.Replace,
-                                                            LoadingElementId = "progress",
-                                                            UpdateTargetId = "dvTable",
-                                                            OnSuccess = "OnSuccess"
-                                                        }, new { enctype = "multipart/form-data", id = "sorgulamaKriterleri"}))
-                                                        {
-                                                            <div class="widget-body">
-                                                                @Html.HiddenFor(model => model.PageSize)
-                                                                <fieldset>
-                                                                    <div class="row">
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.BeyanTurSelectList, new { @class = "control-label col-md-4 font-bold" })
-                                                                                    <div class="col-md-8">
-                                                                                        @Html.DropDownList("BeyanTur_Id", Model.BeyanTurSelectList, "Seçiniz", new { @class = "select2" })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.KiraDurumSelectList, new { @class = "control-label col-md-4 font-bold" })
-                                                                                    <div class="col-md-8">
-                                                                                        @Html.DropDownList("KiraDurum_Id", Model.KiraDurumSelectList, "Seçiniz", new { @class = "select2" })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.OdemePeriyotSelectList, new { @class = "control-label col-md-4 font-bold" })
-                                                                                    <div class="col-md-8">
-                                                                                        @Html.DropDownList("OdemePeriyotTur_Id", Model.OdemePeriyotSelectList, "Seçiniz", new { @class = "select2" })
-                                                                                    </div>
+                        <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
+                            <a href="#" id="btnBeyanPersonelEkle" class="btn btn-primary bildirimPopup" rel="tooltip" data-toggle="modal"
+                               data-target="#personelBeyanModal" data-original-title="Personel Beyan Ekle">
+                                <span>Personel Beyan Ekle  </span>
+                                <i class="glyphicon glyphicon-plus">
+                                </i>
+                            </a>
+                            <a href="#" id="btnExport" class="btn btn-primary bildirim" rel="tooltip"
+                               data-original-title="Excell Raporu">
+                                <span>Excell</span>
+                                <i class="fa fa-file-excel-o">
+                                </i>
+                            </a>
+
+                        </div>
+
+                    </header>
+                    <div role="contentinfo">
+                        <div class="widget-body">
+                            <div class="tab-pane fade active in">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div id="pnlKriter" class="bs-offset-main bs-canvas-anim" style="display:none;">
+                                            <div id="bs-canvas-right" class="bs-canvas bs-canvas-anim bs-canvas-left position-fixed bg-light h-100" data-width="100%">
+                                                <header class="bs-canvas-header p-3 bg-success overflow-auto">
+                                                    <button type="button" class="bs-canvas-close float-left close" aria-label="Close">
+                                                        <span aria-hidden="true" class="text-light">&times;</span>
+                                                    </button>
+                                                    <h4 class="d-inline-block text-light mb-0 float-right">Sorgulama Kriterleri</h4><br />
+                                                </header>
+                                                <div class="bs-canvas-content px-3 py-5" style="height:250px">
+                                                    @using (Html.BeginForm("Index", "Beyan", FormMethod.Post, new { enctype = "multipart/form-data", id = "submitForm" }))
+                                                    {
+                                                        <div class="widget-body">
+                                                            @Html.HiddenFor(model => model.PageSize)
+                                                            <fieldset>
+                                                                <div class="row">
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-group">
+                                                                            <div class="input-group" style="width: 100%;">
+                                                                                @Html.LabelFor(model => model.BeyanTurSelectList, new { @class = "control-label col-md-4 font-bold" })
+                                                                                <div class="col-md-8">
+                                                                                    @Html.DropDownList("BeyanTur_Id", Model.BeyanTurSelectList, "Seçiniz", new { @class = "select2" })
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="row">
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.GayrimenkulSelectList, new { @class = "control-label col-md-4 font-bold" })
-                                                                                    <div class="col-md-8">
-                                                                                        @Html.DropDownList("Gayrimenkul_Id", Model.GayrimenkulSelectList, "Seçiniz", new { @class = "select2" })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.IlceSelectList, new { @class = "control-label col-md-4 font-bold" })
-                                                                                    <div class="col-md-8">
-                                                                                        @Html.DropDownList("Ilce_Id", Model.IlceSelectList, "Seçiniz", new { @class = "select2" })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.MahalleSelectList, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-8">
-                                                                                        @Html.DropDownList("Mahalle_Id", new SelectList(string.Empty, "Value", "Text"), "Seçiniz", new { @class = "select2" })
-                                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-group">
+                                                                            <div class="input-group" style="width: 100%;">
+                                                                                @Html.LabelFor(model => model.KiraDurumSelectList, new { @class = "control-label col-md-4 font-bold" })
+                                                                                <div class="col-md-8">
+                                                                                    @Html.DropDownList("KiraDurum_Id", Model.KiraDurumSelectList, "Seçiniz", new { @class = "select2" })
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="row">
-                                                                        <div class="col-md-12">
-                                                                            <input id="btnSubmit" type="submit" value="Sorgula" class="btn btn-primary btn-header-btn">
-                                                                        </div>
-                                                                        <div class="col-md-12">
-                                                                            <input id="btnReset" type="reset" value="Temizle" class="btn btn-warning btn-header-btn">
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-group">
+                                                                            <div class="input-group" style="width: 100%;">
+                                                                                @Html.LabelFor(model => model.OdemePeriyotSelectList, new { @class = "control-label col-md-4 font-bold" })
+                                                                                <div class="col-md-8">
+                                                                                    @Html.DropDownList("OdemePeriyotTur_Id", Model.OdemePeriyotSelectList, "Seçiniz", new { @class = "select2" })
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </fieldset>
-                                                            </div>
-                                                        }
-                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-group">
+                                                                            <div class="input-group" style="width: 100%;">
+                                                                                @Html.LabelFor(model => model.GayrimenkulSelectList, new { @class = "control-label col-md-4 font-bold" })
+                                                                                <div class="col-md-8">
+                                                                                    @Html.DropDownList("Gayrimenkul_Id", Model.GayrimenkulSelectList, "Seçiniz", new { @class = "select2" })
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-group">
+                                                                            <div class="input-group" style="width: 100%;">
+                                                                                @Html.LabelFor(model => model.IlceSelectList, new { @class = "control-label col-md-4 font-bold" })
+                                                                                <div class="col-md-8">
+                                                                                    @Html.DropDownList("Ilce_Id", Model.IlceSelectList, "Seçiniz", new { @class = "select2" })
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-group">
+                                                                            <div class="input-group" style="width: 100%;">
+                                                                                @Html.LabelFor(model => model.MahalleSelectList, new { @class = "col-md-4 font-bold" })
+                                                                                <div class="col-md-8">
+                                                                                    @Html.DropDownList("Mahalle_Id", new SelectList(string.Empty, "Value", "Text"), "Seçiniz", new { @class = "select2" })
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <input id="btnSubmit" type="submit" value="Sorgula" class="btn btn-primary btn-header-btn">
+                                                                    </div>
+                                                                    <div class="col-md-12">
+                                                                        <input id="btnReset" type="reset" value="Temizle" class="btn btn-warning btn-header-btn">
+                                                                    </div>
+                                                                </div>
+                                                            </fieldset>
+                                                        </div>
+                                                        @Html.HiddenFor(x => x.Post)
+                                                    }
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="dvTable" class="col-md-12">
-                                            @{ Html.RenderPartial("_tablePartial", Model); }
-                                        </div>
+                                    </div>
+                                    <div id="dvTable" class="col-md-12">
+                                        @{ Html.RenderPartial("_tablePartial", Model); }
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </article>
-            </div>
-        </section>
+                </div>
+            </article>
+        </div>
+    </section>
 
-    </div>
+</div>
 
     using (Html.BeginForm("Index", "Beyan", new { page = 1 }, FormMethod.Post, new { @id = "sorgulamaKriterleri" }))
     {
@@ -217,6 +216,7 @@
 
 
 @section pagespecific {
+    <script src="~/Scripts/table2excel.js"></script>
     @Scripts.Render("~/bundles/jqueryval")
     <link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
     <script src="~/Content/SweetAlert/sweetalert2.min.js"></script>
@@ -293,6 +293,16 @@
     </style>
 
     <script type="text/javascript">
+        $(function () {
+            $("#btnExport").click(function () {
+                $("#dt_basicBeyan").table2excel({
+                    filename: "Table.xls"
+                });
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
         $(document).ready(function () {
             if (@sonSayfa < 8) {
                 $("#sayfalama").css("display", "none");
@@ -316,7 +326,13 @@
     </script>
 
     <script type="text/javascript">
+
+
         jQuery(document).ready(function ($) {
+            if ($("#Post").val() != "False") {
+                FilterPanelAc();
+
+            }
             var bsDefaults = {
                 offset: false,
                 overlay: true,
@@ -325,6 +341,9 @@
                 bsMain = $('.bs-offset-main'),
                 bsOverlay = $('.bs-canvas-overlay');
 
+            function FilterPanelAc() {
+
+            }
             $('[data-toggle="canvas"][aria-expanded="false"]').on('click', function () {
                 $('#pnlKriter').show();
                 var canvas = $(this).data('target'),
@@ -410,7 +429,7 @@
 
     <!--Beyan Silme İşlemi -->
     <script type="text/javascript">
-       
+
         $(".delete-row").click(function (e) {
             e.preventDefault();
             var id = $(this).attr("data-id");
@@ -420,11 +439,14 @@
         });
 
         function OnSuccess() {
+            debugger;
             $.LoadingOverlay("show", { text: "Beyan Bilgileri Sorgulanıyor...", textResizeFactor: 0.2, background: "rgba(0, 0, 0, 0.5)" });
             setTimeout(function () {
-                $('#dt_basic').DataTable().destroy();
+                $('#dt_basicBeyan').DataTable().destroy();
                 $.LoadingOverlay("hide");
             }, 2000);
+
+            TableDesign();
         }
 
     </script>
@@ -447,7 +469,7 @@
                         success: function (result) {
                             if (result.success) {
                                 closestTR.fadeOut(2000, function () {
-                                    dt = $('#dt_basic').DataTable();
+                                    dt = $('#dt_basicBeyan').DataTable();
                                     swal('Uyarı!', name + ' ' + result.Message, 'success');
                                     location.reload();
                                 });
@@ -464,7 +486,9 @@
         var dt;
         var closestRow = [];
         var removeList = [];
-        dt = $('#dt_basic').DataTable({
+        TableDesign();
+        function TableDesign() {
+            dt = $('#dt_basicBeyan').DataTable({
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Turkish.json"
             },
@@ -496,8 +520,7 @@
             }
 
        $('.chcBox').on("click", function () {
-                debugger;
-                var dt = $("#dt_basic").dataTable();
+           var dt = $("#dt_basicBeyan").dataTable();
                 var row = $(this).closest('tr');
                 var chkbox_checked = $('tbody input[type="checkbox"]:checked', dt);
                 var tuisre = $(this).is(":checked");
@@ -510,10 +533,11 @@
                     removeList.splice($.inArray(this.value, removeList), 1);
 
                 }
-            });
+       });
+        }
+
 
         $('#btnGonder').on('click', function (e) {
-            debugger;
                 e.preventDefault();
             var kullaniciId = $('#KullaniciId').val();
                 var closestTR = $(this).closest("tr");
@@ -528,7 +552,7 @@
                             var i;
                             for (i = 0; i < closestRow2.length; i++) {
                                 closestRow2[i].fadeOut(2000, function () {
-                                    dt = $('#dt_basic').DataTable();
+                                    dt = $('#dt_basicBeyan').DataTable();
                                      removeList = [];
                                     location.reload();
                                 });
@@ -576,7 +600,7 @@
                             var i;
                             for (i = 0; i < closestTR.length; i++) {
                                 closestTR[i].fadeOut(2000, function () {
-                                    dt = $('#dt_basic').DataTable();
+                                    dt = $('#dt_basicBeyan').DataTable();
                                     location.reload();
                                 });
                             }
