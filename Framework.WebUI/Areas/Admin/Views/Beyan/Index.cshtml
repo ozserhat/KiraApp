@@ -59,36 +59,35 @@
                                 <i class="fa fa-file-excel-o">
                                 </i>
                             </a>
+       </header>
+                        <div role="contentinfo">
+                            <div class="widget-body">
+                                <div class="tab-pane fade active in">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <div id="pnlKriter" class="bs-offset-main bs-canvas-anim" style="display:none;">
+                                                <div id="bs-canvas-right" class="bs-canvas bs-canvas-anim bs-canvas-left position-fixed bg-light h-100" data-width="100%">
+                                                    <header class="bs-canvas-header p-3 bg-success overflow-auto">
+                                                        <button type="button" class="bs-canvas-close float-left close" aria-label="Close">
+                                                            <span aria-hidden="true" class="text-light">&times;</span>
+                                                        </button>
+                                                        <h4 class="d-inline-block text-light mb-0 float-right">Sorgulama Kriterleri</h4><br />
+                                                    </header>
+                                                    <div class="bs-canvas-content px-3 py-5" style="height:250px">
+                                                        @using (Html.BeginForm("Index", "Beyan", FormMethod.Post, new { enctype = "multipart/form-data", id = "submitForm" }))
+                                                        {
+                                                            <div class="widget-body">
+                                                                @Html.HiddenFor(model => model.PageSize)
+                                                                <fieldset>
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.BeyanTurSelectList, new { @class = "control-label col-md-4 font-bold" })
+                                                                                    <div class="col-md-8">
+                                                                                        @Html.DropDownList("BeyanTur_Id", Model.BeyanTurSelectList, "Seçiniz", new { @class = "select2" })
+                                                                                    </div>
 
-                        </div>
-
-                    </header>
-                    <div role="contentinfo">
-                        <div class="widget-body">
-                            <div class="tab-pane fade active in">
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        <div id="pnlKriter" class="bs-offset-main bs-canvas-anim" style="display:none;">
-                                            <div id="bs-canvas-right" class="bs-canvas bs-canvas-anim bs-canvas-left position-fixed bg-light h-100" data-width="100%">
-                                                <header class="bs-canvas-header p-3 bg-success overflow-auto">
-                                                    <button type="button" class="bs-canvas-close float-left close" aria-label="Close">
-                                                        <span aria-hidden="true" class="text-light">&times;</span>
-                                                    </button>
-                                                    <h4 class="d-inline-block text-light mb-0 float-right">Sorgulama Kriterleri</h4><br />
-                                                </header>
-                                                <div class="bs-canvas-content px-3 py-5" style="height:250px">
-                                                    @using (Html.BeginForm("Index", "Beyan", FormMethod.Post, new { enctype = "multipart/form-data", id = "submitForm" }))
-                                                    {
-                                                        <div class="widget-body">
-                                                            @Html.HiddenFor(model => model.PageSize)
-                                                            <fieldset>
-                                                                <div class="row">
-                                                                    <div class="col-md-4">
-                                                                        <div class="form-group">
-                                                                            <div class="input-group" style="width: 100%;">
-                                                                                @Html.LabelFor(model => model.BeyanTurSelectList, new { @class = "control-label col-md-4 font-bold" })
-                                                                                <div class="col-md-8">
-                                                                                    @Html.DropDownList("BeyanTur_Id", Model.BeyanTurSelectList, "Seçiniz", new { @class = "select2" })
                                                                                 </div>
                                                                             </div>
                                                                         </div>

@@ -10,6 +10,8 @@ namespace Framework.Business.Abstract
 
         KiraParametre Getir(int id);
 
+        KiraParametre GetirBeyanYil(int BeyanYili);
+
         KiraParametre GetirGuid(Guid guid);
 
         KiraParametre Ekle(KiraParametre kiraParametre);

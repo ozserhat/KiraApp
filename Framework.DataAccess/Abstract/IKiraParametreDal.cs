@@ -12,6 +12,7 @@ namespace Framework.DataAccess.Abstract
     {
         KiraParametre GetById(int id);
         KiraParametre GetByGuid(Guid guid);
+        KiraParametre GetByYear(int BeyanYil);
         bool Delete(int id);
     }
 }

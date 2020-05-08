@@ -78,9 +78,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
         public ActionResult Index(KiraBeyanRequest request, int? page, int pageSize = 15)
         {
             var model = new KiraBeyanVM();
-            if (request.BeyanTur_Id != null || request.Gayrimenkul_Id != null || request.Ilce_Id != null
-                || request.KiraDurum_Id != null || request.Mahalle_Id != null || request.OdemePeriyotTur_Id != null)
-                model.Post = true;
+
             var beyanlar = _kiraBeyanService.GetirSorguListe(request);
 
             model.PageNumber = page ?? 1;
