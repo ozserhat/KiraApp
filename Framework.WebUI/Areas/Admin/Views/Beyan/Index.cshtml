@@ -45,8 +45,12 @@
                             </div>
                             <h2>Beyan Listesi - <b>Toplam Beyan Adedi : @Model.TotalRecordCount</b></h2>
                             <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
-                                @Html.AuthActionLink(" Beyan Ekle", "Ekle", "Beyan", "btn btn-primary",
-                               "glyphicon glyphicon-plus", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                                <a href="#" id="btnBeyanPersonelEkle" class="btn btn-primary bildirimPopup" rel="tooltip" data-toggle="modal"
+                                   data-target="#personelBeyanModal" data-original-title="Personel Beyan Ekle">
+                                    <span>Personel Beyan Ekle  </span>
+                                    <i class="glyphicon glyphicon-plus">
+                                    </i>
+                                </a>
                             </div>
 
                         </header>
@@ -437,7 +441,6 @@
         }
 
     </script>
-
     <script type="text/javascript">
         function deletealert(Id, name, closestTR) {
             swal({
@@ -469,6 +472,7 @@
         }
     </script>
 
+    <!--Personel Beyan Atama İşlemi -->
     <script type="text/javascript">
         var dt;
         var closestRow = [];
@@ -503,11 +507,11 @@
         }
 
        if (@sonSayfa < 8) {
-                $("#sayfalama").css("display", "none");
-            }
+           $("#sayfalama").css("display", "none");
+         }
 
-       $('.chcBox').on("click", function () {
-           var dt = $("#dt_basicBeyan").dataTable();
+         $('.chcBox').on("click", function () {
+                var dt = $("#dt_basic").dataTable();
                 var row = $(this).closest('tr');
                 var chkbox_checked = $('tbody input[type="checkbox"]:checked', dt);
                 var tuisre = $(this).is(":checked");
@@ -520,89 +524,50 @@
                     removeList.splice($.inArray(this.value, removeList), 1);
 
                 }
-       });
+            });
         }
-
 
         $('#btnGonder').on('click', function (e) {
-                e.preventDefault();
+
+            e.preventDefault();
             var kullaniciId = $('#KullaniciId').val();
-                var closestTR = $(this).closest("tr");
+            var closestTR = $(this).closest("tr");
 
-                  $.ajax({
-                    type: 'POST',
-                    url: '/Admin/Beyan/PersonelBeyanEkle',
-                    data: { kullaniciYetki: removeList, KullaniciId: kullaniciId },
-                    success: function (result) {
-                        if (result != null && result.success) {
+            $.ajax({
+                type: 'POST',
+                url: '/Admin/Beyan/PersonelBeyanEkle',
+                data: { kullaniciYetki: removeList, KullaniciId: kullaniciId },
+                success: function (result) {
+                    if (result != null && result.success) {
 
-                            var i;
-                            for (i = 0; i < closestRow2.length; i++) {
-                                closestRow2[i].fadeOut(2000, function () {
-                                    dt = $('#dt_basicBeyan').DataTable();
-                                     removeList = [];
-                                    location.reload();
-                                });
-                            }
-
-                            swal('Uyarı!', name + ' ' + result.Message, 'success');
+                        var i;
+                        for (i = 0; i < closestRow.length; i++) {
+                            closestRow[i].fadeOut(2000, function () {
+                                dt = $('#dt_basic').DataTable();
+                                removeList = [];
+                                location.reload();
+                            });
                         }
-                        else {
-                            swal('Uyarı!', result.Message, 'warning');
-                        }
-                    },
-                    error: function (xhr) {
+
+                        swal('Uyarı!', name + ' ' + result.Message, 'success');
+                    }
+                    else {
                         swal('Uyarı!', result.Message, 'warning');
                     }
-                 });
+                },
+                error: function (xhr) {
+                    swal('Uyarı!', result.Message, 'warning');
+                }
             });
+        });
 
         $('#btnKaldir').on('click', function (e) {
-                e.preventDefault();
-                var kullaniciId = $('#User_Id').val();
-                var closestTR = $(this).closest("tr");
-                var vl = deletePermissions(kullaniciId, closestRow);
-            });
+            e.preventDefault();
+            var kullaniciId = $('#User_Id').val();
+            var closestTR = $(this).closest("tr");
+            var vl = deletePermissions(kullaniciId, closestRow);
+        });
 
-    </script>
-
-    <script type="text/javascript">
-        function deletePermissions(kullaniciId, closestTR) {
-            swal({
-                title: "Uyarı",
-                text: " Kullanıcının Yetkileri Silmek İstediğinizden Emin misiniz?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Evet",
-                cancelButtonText: "İptal"
-            }).then(function (isConfirm) {
-                if (isConfirm) {
-                $.ajax({
-                    type: 'POST',
-                    url: "@Url.Content("~/KullaniciYetki/YetkiKaldir")",
-                    data: { kullaniciYetki: removeList, KullaniciId: kullaniciId },
-                    success: function (result) {
-                        if (result.success) {
-                            var i;
-                            for (i = 0; i < closestTR.length; i++) {
-                                closestTR[i].fadeOut(2000, function () {
-                                    dt = $('#dt_basicBeyan').DataTable();
-                                    location.reload();
-                                });
-                            }
-
-                            swal('Uyarı!', name + ' ' + result.Message, 'success');
-                        }
-                        else swal('Uyarı!', name + ' ' + result.Message, 'error');
-                    },
-                    error: function (err) {
-                        console.log(err);
-                    }
-                });
-                }
-            })
-        }
     </script>
 
 }

@@ -1102,6 +1102,7 @@
     <Content Include="Areas\Admin\Views\KiraParametre\Duzenle.cshtml" />
     <Content Include="Areas\Admin\Views\KiraParametre\Ekle.cshtml" />
     <Content Include="Areas\Admin\Views\KiraParametre\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\customModal.js" />

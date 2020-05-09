@@ -160,13 +160,13 @@ namespace Framework.WebUI.Areas.Admin.Controllers
 
             return new SelectList(roller, "Id", "Ad");
         }
+
         public SelectList IlceSelectList()
         {
             var ilceler = _ilceService.GetirListe().Where(a => a.Il_Id == 6).Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
 
             return new SelectList(ilceler, "Id", "Ad");
         }
-
 
         public SelectList GayrimenkulSelectList()
         {
