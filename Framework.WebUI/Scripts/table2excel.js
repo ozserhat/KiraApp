@@ -63,7 +63,7 @@
 
                     tempRows += "<tr>";
                     $(p).find("td,th").not(e.settings.exclude).each(function (i, q) { // p did not exist, I corrected
-                        debugger;
+                       
                         var rc = {
                             rows: $(this).attr("rowspan"),
                             cols: $(this).attr("colspan"),

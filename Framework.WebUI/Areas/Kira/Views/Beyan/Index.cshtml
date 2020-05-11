@@ -46,15 +46,39 @@
                                 </span>
                             </div>
                             <h2>Beyan Listesi - <b>Toplam Beyan Adedi : @Model.TotalRecordCount</b></h2>
+
                             <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
                                 @Html.AuthActionLink(" Beyan Ekle", "Ekle", "Beyan", "btn btn-primary",
-                               "glyphicon glyphicon-plus", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
-                                <a href="#" id="btnExport" class="btn btn-info" rel="tooltip"
-                                   data-original-title="Excel Raporu">
-                                    <span>Excell</span>
-                                    <i class="glyphicon glyphicon-export">
-                                    </i>
-                                </a>
+                                 "glyphicon glyphicon-plus", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                                <div class="btn-group" role="menu">
+                                    <button class="btn btn-info">
+                                        <i class="glyphicon glyphicon-export"></i>
+                                            Dosya İşlemleri
+                                    </button>
+                                    <button class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="#" id="btnExport" rel="tooltip"
+                                               data-original-title="Excel Raporu">
+                                                <span>Excel</span>
+                                                <i class="fa fa-file-excel-o">
+                                                </i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" id="btnPdfConverter" title="Pdf" onclick="createPDF()">
+                                                <span>Pdf</span>
+                                                <i class="fa fa-file-pdf-o">
+                                                </i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                
+                                
                             </div>
 
                         </header>
@@ -175,14 +199,14 @@
     }
 }
 
-
 @section pagespecific {
     @Scripts.Render("~/bundles/jqueryval")
     <link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
     <script src="~/Content/SweetAlert/sweetalert2.min.js"></script>
     <script src="~/Scripts/loadingoverlay.min.js"></script>
     <script src="~/Scripts/table2excel.js"></script>
-
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
     <style type="text/css">
         .pasif-buton-beyandetay {
             padding: 3px 6px;
@@ -410,7 +434,7 @@
         var dt_settings = {
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Turkish.json"
-            },           
+            },
             "searching": true,
             "bPaginate": true
         };
@@ -471,12 +495,30 @@
     <script type="text/javascript">
         $(function () {
             $("#btnExport").click(function () {
-              
+
                 $("#tblBeyan").table2excel({
                     filename: "Beyanlar.xls"
                 });
             });
         });
+    </script>
+
+    <!--Export PDf-->
+    <script>
+        function createPDF() {
+            html2canvas(document.getElementById('dvTable'), {
+                onrendered: function (canvas) {
+                    var data = canvas.toDataURL();
+                    var docDefinition = {
+                        content: [{
+                            image: data,
+                            width: 500
+                        }]
+                    };
+                    pdfMake.createPdf(docDefinition).download("Beyan.pdf");
+                }
+            });
+        }
     </script>
 
     <!--Tahakkuk Bilgileri-->
