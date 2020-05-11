@@ -32,6 +32,7 @@ namespace Framework.WebUI.Models.ViewModels
         public SelectList KullaniciSelectList { get; set; }
 
         public IPagedList<Kira_Beyan> Beyanlar { get; set; }
+
         public IEnumerable<TahakkukDetayVM> TahakkukDetay { get; set; }
         [Display(Name = "Beyan Yıl")]
         public SelectList BeyanYilSelectList { get; set; }
@@ -81,6 +82,9 @@ namespace Framework.WebUI.Models.ViewModels
         public int? KalanAy { get; set; }
         [Display(Name = "Damga Vergisi Alınsın Mı?")]
         public SelectList DamgaVergisiDurumSelectList { get; set; }
+
+        public List<TahakkukVM> TahakkukDetay { get; set; }
+
     }
 
     public class KiraBeyanEkleVM : VMBase

@@ -532,7 +532,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         [HttpPost]
         public JsonResult GetirDetayTable(int BeyanId)
         {
-            var model = new TahakkukDetayVM();
+            var model = new KiraBeyanVM();
 
             model.TahakkukDetay = new List<TahakkukVM>();
 
