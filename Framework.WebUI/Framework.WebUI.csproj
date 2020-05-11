@@ -243,6 +243,7 @@
     <Compile Include="Models\ViewModels\RolVM.cs" />
     <Compile Include="Models\ViewModels\SistemParametreleriVM.cs" />
     <Compile Include="Models\ViewModels\SistemParametre_DetayVM.cs" />
+    <Compile Include="Models\ViewModels\TahakkukVM.cs" />
     <Compile Include="Models\ViewModels\UserRolesVm.cs" />
     <Compile Include="Models\ViewModels\UserVm.cs" />
     <Compile Include="Models\VMBase.cs" />

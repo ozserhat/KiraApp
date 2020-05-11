@@ -174,8 +174,8 @@
     @Scripts.Render("~/bundles/jqueryval")
     <link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
     <script src="~/Content/SweetAlert/sweetalert2.min.js"></script>
-    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script src="~/Scripts/loadingoverlay.min.js"></script>
+
     <style type="text/css">
         .loadingoverlay_element {
             position: fixed;
@@ -189,9 +189,16 @@
             bottom: 0;
             right: 0;
         }
-    </style>
 
-    <style type="text/css">
+        td.details-control {
+            background: url('http://www.datatables.net/examples/resources/details_open.png') no-repeat center center;
+            cursor: pointer;
+        }
+
+        tr.shown td.details-control {
+            background: url('http://www.datatables.net/examples/resources/details_close.png') no-repeat center center;
+        }
+
         #icon {
             background-color: #bbb;
             position: relative;
@@ -391,6 +398,7 @@
 
         $(document).ready(function () {
             dt = $('#dt_basic').DataTable(dt_settings);
+            table = $('#tblDetay').DataTable(dt_settings);
         });
     </script>
 
@@ -425,4 +433,81 @@
         }
     </script>
 
+    <!--Tahakkuk Bilgileri-->
+    <script type="text/javascript">
+        function ParseDate(input) {
+            var offset = new Date().getTimezoneOffset() * 60000;
+            var parts = /\/Date\((-?\d+)([+-]\d{2})?(\d{2})?.*/.exec(input);
+
+            if (parts[2] == undefined)
+                parts[2] = 0;
+
+            if (parts[3] == undefined)
+                parts[3] = 0;
+            return new Date(+(parts[1]) + (parts[2]) * 3600000 + (parts[3]) * 60000);
+        }
+
+        $('#dt_basic td:first-child').click(function (e) {
+
+            var id = $(this).attr("data-id");
+            var beyanYil = $(this).attr("data-yil");
+            
+            var tr = $(this).closest('tr');
+
+            var row = dt.row(tr);
+
+            $.ajax({
+                url: "/Kira/Beyan/GetirDetayTable/",
+                type: "Post",
+                dataType: 'Json',
+                data: { BeyanId: id },
+                success: function (success) {
+                    var KiraBeyan_Id = success.data[0].KiraBeyan_Id;
+                    $("#hdDetayValue").val(KiraBeyan_Id);
+                    if (row.child.isShown()) {
+                        row.child.hide();
+                        tr.removeClass('shown');
+                    } else {
+                        row.child.isShown();
+                        var result = row.child(subTable(KiraBeyan_Id, beyanYil, success.data)).show();
+
+                        if (result != null) {
+                            result.show();
+                            tr.addClass('shown');
+                        }
+                    }
+                },
+            });
+        });
+
+        function subTable(KiraBeyan_Id, BeyanYil, dataSource) {
+
+            var html = '<table id="tblDetay" cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;width:100%;">'
+                + '<thead><tr>' +
+                '<th>Beyan Yıl</th>' +
+                '<th>Taksit No</th>' +
+                '<th>Vade Tarihi</th>' +
+                '<th>Tutar</th>' +
+                '<th>Açıklama</th>' +
+                '<th>Durum</th></tr>';
+
+            if (dataSource != null) {
+                for (var i = 0; i < dataSource.length; i++) {
+
+                    if (KiraBeyan_Id == dataSource[i].KiraBeyan_Id) {
+                        html += '<tr>' +
+                            '<td>' + BeyanYil + '</td>' +
+                            '<td>' + dataSource[i].TaksitNo + '</td>' +
+                            '<td>' + ParseDate(dataSource[i].VadeTarihi) + '</td>' +
+                            '<td>' + dataSource[i].Tutar + '</td>' +
+                            '<td>' + dataSource[i].Aciklama + '</td>' +
+                            '<td>' + dataSource[i].OdemeDurumu + '</td>' +
+                            '</tr>';
+                    }
+                }
+            }
+
+            return html += '</table>';
+        }
+    </script>
 }

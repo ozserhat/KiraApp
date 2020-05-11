@@ -317,8 +317,6 @@
     </script>
 
     <script type="text/javascript">
-
-
         jQuery(document).ready(function ($) {
             if ($("#Post").val() != "False") {
                 FilterPanelAc();
@@ -568,6 +566,68 @@
             var vl = deletePermissions(kullaniciId, closestRow);
         });
 
+    </script>
+
+    <!--Tahakkuk Bilgileri-->
+    <script type="text/javascript">
+        $('#dt_basic td:last-child').click(function () {
+
+            var id = $(this).attr("data-id");
+
+            var table = $('#dt_basic').DataTable();
+
+            var tr = $(this).closest('tr');
+
+            var row = table.row(tr);
+
+            var KiraBeyanId = $("#hdKiraBeyanId_" + id).val();
+
+            $.ajax({
+                url: "/Beyan/GetirTahakkukBilgi/",
+                type: "Post",
+                dataType: 'Json',
+                data: { KiraBeyanId: KiraBeyanId },
+                success: function (success) {
+                    if (row.child.isShown()) {
+                        row.child.hide();
+                        tr.removeClass('shown');
+                    } else {
+
+                        row.child.isShown();
+                        tr.addClass('shown');
+                    }
+                },
+            });
+        });
+
+        function subTable(BeyanId, dataSource) {
+
+            var html = '<table id="tblDetay" cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;width:100%;">'
+                + '<thead><tr>' +
+                '<th>Beyan Yıl</th>' +
+                '<th>Taksit No</th>' +
+                '<th>Vade Tarihi</th>' +
+                '<th>Tutar</th>' +
+                '<th>Açıklama</th>' +
+                '<th>Durum</th>';
+
+            if (dataSource != null) {
+                for (var i = 0; i < dataSource.length; i++) {
+
+                    if (BeyanId == dataSource[i].KiraBeyan_Id) {
+                        html += '<tbody><tr>' +
+                            '<td>' + dataSource[i].BeyanYil + '</td>' +
+                            '<td>' + dataSource[i].TaksitSayisi + '</td>' +
+                            '<td>' + dataSource[i].VadeTarihi + '</td>' +
+                            '<td>' + dataSource[i].Tutar + '</td>' +
+                            '<td>' + dataSource[i].Aciklama + '</td>' +
+                            '<td>' + dataSource[i].OdemeDurumu + '</td>';
+                    }
+                }
+            }
+
+            return html += '</table>';
+        }
     </script>
 
 }

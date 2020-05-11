@@ -521,6 +521,36 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             return new FileContentResult(bytes, MimeMapping.GetMimeMapping(path));
         }
 
+        [HttpPost]
+        public JsonResult GetirDetayTable(int BeyanId)
+        {
+            var model = new TahakkukDetayVM();
+
+            model.TahakkukDetay = new List<TahakkukVM>();
+
+            int kiraBeyanId = _kiraBeyanService.GetirBeyan(BeyanId).Id;
+            var tahakkukBilgi = _tahakkukService.GetirListe(kiraBeyanId);
+
+            if (tahakkukBilgi != null)
+            {
+                #region Tahakkuk
+                foreach (var item in tahakkukBilgi)
+                {
+                    model.TahakkukDetay.Add(new TahakkukVM()
+                    {
+                        KiraBeyan_Id = item.KiraBeyan_Id,
+                        TaksitNo = item.TaksitSayisi.Value,
+                        Tutar = item.Tutar.Value,
+                        VadeTarihi = item.VadeTarihi.Value,
+                        Aciklama = item.Aciklama,
+                        OdemeDurumu = item.OdemeDurumu.Value
+                    });
+                }
+                #endregion
+            }
+
+            return Json(new { data = model.TahakkukDetay, success = true }, JsonRequestBehavior.AllowGet);
+        }
 
         #endregion
 
