@@ -83,10 +83,10 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Araç Kapasitesi")]
         public int? AracKapasitesi { get; set; }
 
-        [Display(Name = "Il")]
+        [Display(Name = "İl")]
         public string Il { get; set; }
 
-        [Display(Name = "Ilçe")]
+        [Display(Name = "İlçe")]
         public string Ilce { get; set; }
 
         [Display(Name = "Mahalle")]
@@ -186,10 +186,10 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Türler")]
         public SelectList TurSelectList { get; set; }
 
-        [Display(Name = "Iller")]
+        [Display(Name = "İller")]
         public SelectList IlSelectList { get; set; }
 
-        [Display(Name = "Ilceler")]
+        [Display(Name = "İlçeler")]
         public SelectList IlceSelectList { get; set; }
 
         [Display(Name = "Mahalleler")]
@@ -294,10 +294,10 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Türler")]
         public SelectList TurSelectList { get; set; }
 
-        [Display(Name = "Iller")]
+        [Display(Name = "İller")]
         public SelectList IlSelectList { get; set; }
 
-        [Display(Name = "Ilceler")]
+        [Display(Name = "İlçeler")]
         public SelectList IlceSelectList { get; set; }
 
         [Display(Name = "Mahalleler")]

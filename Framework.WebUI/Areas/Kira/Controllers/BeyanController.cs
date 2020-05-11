@@ -89,6 +89,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         #endregion
 
         #region Listeleme
+
+
         public ActionResult Index(KiraBeyanRequest request, int? page, int pageSize = 15)
         {
             var model = new KiraBeyanVM();
@@ -106,6 +108,12 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 model.BeyanTurSelectList = BeyanTurSelectList();
                 model.KiraDurumSelectList = KiraDurumSelectList();
                 model.OdemePeriyotSelectList = OdemePeriyotSelectList();
+                model.BeyanYilSelectList = BeyanYilSelectList();
+                model.KdvOraniSelectList = KdvOraniSelectList();
+                model.DamgaVergisiDurumSelectList = DamgaVergisiDurumSelectList();
+                model.GayrimenkulSelectList = GayrimenkulSelectList();
+                model.OdemePeriyotSelectList = OdemePeriyotSelectList();
+
                 model.Beyanlar = new StaticPagedList<Kira_Beyan>(beyanlar, model.PageNumber, model.PageSize, beyanlar.Count());
                 model.TotalRecordCount = beyanlar.Count();
             }
