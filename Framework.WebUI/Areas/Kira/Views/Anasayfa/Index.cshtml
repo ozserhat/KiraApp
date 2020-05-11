@@ -4,31 +4,7 @@
     Layout = "~/Areas/Kira/Views/Shared/_LayoutKira.cshtml";
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> SmartAdmin - Responsive admin template..</title>
-    <link rel="shortcut icon" href="img/favicon.ico">
-    <!--STYLESHEET-->
-    <!--=================================================-->
-    <!--Jasmine Stylesheet [ REQUIRED ]-->
-    <link href="https://localhost:44336/Content/css/style.css" rel="stylesheet">
-    <!--Switchery [ OPTIONAL ]-->
-    <link href="https://localhost:44336/Content/css/switchery.min.css" rel="stylesheet">
-    <!--Bootstrap Select [ OPTIONAL ]-->
-    <link href="https://localhost:44336/Content/css/bootstrap-select.min.css" rel="stylesheet">
-    <!--Demo [ DEMONSTRATION ]-->
-    <link href="https://localhost:44336/Content/css/jasmine.css" rel="stylesheet">
-    <!--SCRIPT-->
-    <!--=================================================-->
-    <!--Page Load Progress Bar [ OPTIONAL ]-->
-    <link href="https://localhost:44336/Content/css/pace.min.css" rel="stylesheet">
-    <script src="https://localhost:44336/Scripts/jsdashboard/pace.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
-</head>
-<body>
+
     <div id="content">
         <section id="widget-grid" class="sayfaust_bosluk">
             <div class="row">
@@ -146,8 +122,7 @@
     <!--=================================================-->
     <!--BootstrapJS [ RECOMMENDED ]-->
 
-</body>
-</html>
+
 
 @section pagespecific {
     @Scripts.Render("~/bundles/jqueryval")
@@ -241,6 +216,8 @@
                 e.chart2.render();
 
             }
+            $(".canvasjs-chart-canvas").attr('style', 'position: absolute;width:500px');
+
         }
     </script>
 }
