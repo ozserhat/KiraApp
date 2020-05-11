@@ -251,7 +251,7 @@
             <div class="input-group" style="width: 100%;">
                 @Html.LabelFor(model => model.MusadeliGunSayisi, new { @class = "col-md-4 font-bold" })
                 <div class="col-md-6">
-                    @Html.TextBoxFor(model => model.MusadeliGunSayisi, "", new { @class = "form-control required" })
+                    @Html.TextBoxFor(model => model.MusadeliGunSayisi, "", new { @class = "form-control required moneyFormat" })
                     @Html.ValidationMessage("MusadeliGunSayisi", new { @class = "text-danger" })
                 </div>
             </div>
@@ -277,7 +277,7 @@
                 <div class="col-md-6">
                     @Html.TextBoxFor(model => model.KiraTutari, "{0:c}", new { @class = "form-control required moneyFormat" })
                     @Html.ValidationMessage("KiraTutari", new { @class = "text-danger" })
-                    @Html.Label("KiraTutariUyari2", "", new { @class = "text-danger " }) <br />
+
                     <div id="dvTutarUyari" style="display:none; color:red;">Kira Tutarı Bilgisi Hatalı!!!</div>
                 </div>
             </div>

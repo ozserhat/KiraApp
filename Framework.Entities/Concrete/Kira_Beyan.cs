@@ -48,6 +48,26 @@ namespace Framework.Entities.Concrete
         public int? Gayrimenkul_Id { get; set; }
         public int? Ilce_Id { get; set; }
         public int? Mahalle_Id { get; set; }
-       
+        public int? BeyanYil { get; set; }
+        public int? Kdv { get; set; }
+        public int? DamgaAlinsinMi { get; set; }
+        public string BeyanNo { get; set; }
+        public int? NoterSozlesmeNo { get; set; }
+        public int? EncumenKararNo { get; set; }
+        public DateTime? BeyanTarihi { get; set; }
+        public DateTime? IhaleEncumenTarihi { get; set; }
+        public DateTime? KiraBaslangicTarihi { get; set; }
+        public DateTime? SozlesmeTarihi { get; set; }
+        public DateTime? SozlesmeBitisTarihi { get; set; }
+        public DateTime? TeminatTarihi { get; set; }
+        public DateTime? BeyanKapatmaTarihi { get; set; }
+        public int? TeminatNo { get; set; }
+        public decimal? KullanimAlani { get; set; }
+        public int? SozlesmeSuresi { get; set; }
+        public int? MusadeliGunSayisi { get; set; }
+        public int? KalanAy { get; set; }
+        public decimal? IhaleTutari { get; set; }
+        public decimal? KiraTutari { get; set; }
+        public int? BaslangicTaksitNo { get; set; }
     }
 }

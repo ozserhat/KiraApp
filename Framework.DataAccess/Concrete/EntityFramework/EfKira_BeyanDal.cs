@@ -79,7 +79,26 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                 query = request.Gayrimenkul_Id.HasValue ? query.Where(x => x.Gayrimenkul_Id == request.Gayrimenkul_Id) : query;
                 query = request.Ilce_Id.HasValue ? query.Where(x => x.Gayrimenkuller.Ilce_Id == request.Ilce_Id) : query;
                 query = request.Mahalle_Id.HasValue ? query.Where(x => x.Gayrimenkuller.Mahalle_Id == request.Ilce_Id) : query;
-
+                query = request.BaslangicTaksitNo.HasValue ? query.Where(x => x.Beyanlar.BaslangicTaksitNo == request.BaslangicTaksitNo) : query;
+                query = request.KiraTutari.HasValue ? query.Where(x => x.Beyanlar.KiraTutari == request.KiraTutari) : query;
+                query = request.IhaleTutari.HasValue ? query.Where(x => x.Beyanlar.IhaleTutari == request.IhaleTutari) : query;
+                query = request.KalanAy.HasValue ? query.Where(x => x.Beyanlar.KalanAy == request.KalanAy) : query;
+                query = request.MusadeliGunSayisi.HasValue ? query.Where(x => x.Beyanlar.MusadeliGunSayisi == request.MusadeliGunSayisi) : query;
+                query = request.SozlesmeSuresi.HasValue ? query.Where(x => x.Beyanlar.SozlesmeSuresi == request.SozlesmeSuresi) : query;
+                query = request.KullanimAlani.HasValue ? query.Where(x => x.Beyanlar.KullanimAlani == request.KullanimAlani) : query;
+                query = request.TeminatNo.HasValue ? query.Where(x => x.Beyanlar.TeminatNo == request.TeminatNo) : query;
+                query = request.BeyanKapatmaTarihi.HasValue ? query.Where(x => x.Beyanlar.BeyanKapatmaTarihi == request.BeyanKapatmaTarihi) : query;
+                query = request.TeminatTarihi.HasValue ? query.Where(x => x.Beyanlar.TeminatTarihi == request.TeminatTarihi) : query;
+                query = request.SozlesmeBitisTarihi.HasValue ? query.Where(x => x.Beyanlar.SozlesmeBitisTarihi == request.SozlesmeBitisTarihi) : query;
+                query = request.SozlesmeTarihi.HasValue ? query.Where(x => x.Beyanlar.SozlesmeTarihi == request.SozlesmeTarihi) : query;
+                query = request.KiraBaslangicTarihi.HasValue ? query.Where(x => x.Beyanlar.KiraBaslangicTarihi == request.KiraBaslangicTarihi) : query;
+                query = request.IhaleEncumenTarihi.HasValue ? query.Where(x => x.Beyanlar.IhaleEncumenTarihi == request.IhaleEncumenTarihi) : query;
+                query = request.BeyanTarihi.HasValue ? query.Where(x => x.Beyanlar.BeyanTarihi == request.BeyanTarihi) : query;
+                query = request.EncumenKararNo.HasValue ? query.Where(x => x.Beyanlar.EncumenKararNo == request.EncumenKararNo) : query;
+                query = request.NoterSozlesmeNo.HasValue ? query.Where(x => x.Beyanlar.NoterSozlesmeNo == request.NoterSozlesmeNo) : query;
+                query = request.BeyanNo != null ? query.Where(x => x.Beyanlar.BeyanNo == request.BeyanNo) : query;
+                query = request.Kdv.HasValue ? query.Where(x => x.Beyanlar.Kdv == request.Kdv) : query;
+                query = request.BeyanYil.HasValue ? query.Where(x => x.Beyanlar.BeyanYil == request.BeyanYil) : query;
 
                 result = query.ToList();
             }

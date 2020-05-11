@@ -108,6 +108,12 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 model.BeyanTurSelectList = BeyanTurSelectList();
                 model.KiraDurumSelectList = KiraDurumSelectList();
                 model.OdemePeriyotSelectList = OdemePeriyotSelectList();
+                model.BeyanYilSelectList = BeyanYilSelectList();
+                model.KdvOraniSelectList = KdvOraniSelectList();
+                model.DamgaVergisiDurumSelectList = DamgaVergisiDurumSelectList();
+                model.GayrimenkulSelectList = GayrimenkulSelectList();
+                model.OdemePeriyotSelectList = OdemePeriyotSelectList();
+
                 model.Beyanlar = new StaticPagedList<Kira_Beyan>(beyanlar, model.PageNumber, model.PageSize, beyanlar.Count());
                 model.TotalRecordCount = beyanlar.Count();
             }
@@ -526,7 +532,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         [HttpPost]
         public JsonResult GetirDetayTable(int BeyanId)
         {
-            var model = new TahakkukDetayVM();
+            var model = new KiraBeyanVM();
 
             model.TahakkukDetay = new List<TahakkukVM>();
 

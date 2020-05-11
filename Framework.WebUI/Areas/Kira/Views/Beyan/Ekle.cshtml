@@ -271,17 +271,19 @@
         }
     </style>
 
+    <!--Para Formatı -->
     <script type="text/javascript">
         $('.moneyFormat').change(function (e) {
             //$('.moneyFormat').formatCurrency();
+
             var money = $(this).val();
 
             money = money.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
 
             $(this).val(money)
         });
-
     </script>
+
 
     <!--Datetime Picker Format -->
     <script type="text/javascript">
@@ -334,7 +336,12 @@
             var DosyaTipi_Id = $(this).attr("data-id");
             var dosyaAdi = $(this).val().replace(/C:\\fakepath\\/, '');
             $("#BeyanDosyaTur_" + DosyaTipi_Id).val(dosyaAdi);
-
+            var regex = new RegExp("(.*?)\.(pdf)$");
+            if (!(regex.test(dosyaAdi))) {
+                UyariVer("Hata", "Sadece PDF Dosyası Yükleyebilirsiniz.", false, 4000);
+                $("#yanlis_" + BasvuruGrupTipi_DosyaTipi_Id).show();
+                Dosya = "";
+            }
             var fileUpload = $("#DosyaTur_" + DosyaTipi_Id).get(0);
 
             var files = evt.target.files[0];
@@ -673,13 +680,8 @@
             var ss = $('#SozlesmeSuresi').val();
             var kt = $('#KiraTutari').val();
 
-        
-            
-         
-
-
             if (kt != null && ss != null && it != null) {
-             
+
                 var dec = (ss * 12);
                 var result = it / dec;
                 $('#result').val(result);
@@ -694,12 +696,8 @@
                 }
 
             }
-
-
-
         });
     </script>
-
 
 }
 
