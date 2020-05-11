@@ -172,7 +172,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AnasayfaController.cs" />
-    <Compile Include="Areas\Admin\Controllers\BeyanController.cs" />
     <Compile Include="Areas\Admin\Controllers\BeyanDosyaTurController.cs" />
     <Compile Include="Areas\Admin\Controllers\BeyanTurController.cs" />
     <Compile Include="Areas\Admin\Controllers\Beyan_DosyaController.cs" />
@@ -915,7 +914,6 @@
     <Content Include="Content\sweetalert.css" />
     <Content Include="Content\SweetAlert\sweetalert2.css" />
     <Content Include="Content\SweetAlert\sweetalert2.min.js" />
-    <Content Include="Scripts\table2excel.js" />
     <Content Include="Content\xml\gmap\pins.xml" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -934,7 +932,6 @@
     <Content Include="Scripts\bootstrap-datepicker.tr.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\canvasjs.min.js" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
@@ -1098,8 +1095,6 @@
     <Content Include="Areas\Admin\Views\ResmiTatiller\Index.cshtml" />
     <Content Include="Areas\Kira\Views\Beyan\_tablePartial.cshtml" />
     <Content Include="Areas\Kira\Views\Beyan\BeyanDetay.cshtml" />
-    <Content Include="Areas\Admin\Views\Beyan\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Beyan\_tablePartial.cshtml" />
     <Content Include="Areas\Admin\Views\KiraParametre\Duzenle.cshtml" />
     <Content Include="Areas\Admin\Views\KiraParametre\Ekle.cshtml" />
     <Content Include="Areas\Admin\Views\KiraParametre\Index.cshtml" />
