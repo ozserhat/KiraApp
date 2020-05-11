@@ -277,6 +277,7 @@
                 <div class="col-md-6">
                     @Html.TextBoxFor(model => model.KiraTutari, "{0:c}", new { @class = "form-control required moneyFormat" })
                     @Html.ValidationMessage("KiraTutari", new { @class = "text-danger" })
+
                     <div id="dvTutarUyari" style="display:none; color:red;">Kira Tutarı Bilgisi Hatalı!!!</div>
                 </div>
             </div>

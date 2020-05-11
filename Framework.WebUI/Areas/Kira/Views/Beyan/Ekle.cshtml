@@ -274,6 +274,8 @@
     <!--Para Formatı -->
     <script type="text/javascript">
         $('.moneyFormat').change(function (e) {
+            //$('.moneyFormat').formatCurrency();
+
             var money = $(this).val();
 
             money = money.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
