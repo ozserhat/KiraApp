@@ -89,6 +89,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         #endregion
 
         #region Listeleme
+
+
         public ActionResult Index(KiraBeyanRequest request, int? page, int pageSize = 15)
         {
             var model = new KiraBeyanVM();
