@@ -75,11 +75,11 @@ namespace Framework.WebUI.Areas.Admin.Controllers
         // GET: Admin/Beyan
 
         #region Listeleme
-        public ActionResult Index(int? page, int pageSize = 15)
+        public ActionResult Index(KiraBeyanRequest request, int? page, int pageSize = 15)
         {
             var model = new KiraBeyanVM();
 
-            var beyanlar = _kiraBeyanService.GetirListe();
+            var beyanlar = _kiraBeyanService.GetirSorguListe(request);
 
             model.PageNumber = page ?? 1;
             model.PageSize = pageSize;
@@ -98,6 +98,28 @@ namespace Framework.WebUI.Areas.Admin.Controllers
 
             return View(model);
 
+        }
+
+        public ActionResult GetirBeyanTable(KiraBeyanRequest request, int? page, int pageSize = 15)
+        {
+            var model = new KiraBeyanVM();
+
+            var beyanlar = _kiraBeyanService.GetirSorguListe(request);
+
+            if (beyanlar != null)
+            {
+                model.PageNumber = page ?? 1;
+                model.PageSize = pageSize;
+                model.IlceSelectList = IlceSelectList();
+                model.GayrimenkulSelectList = GayrimenkulSelectList();
+                model.BeyanTurSelectList = BeyanTurSelectList();
+                model.KiraDurumSelectList = KiraDurumSelectList();
+                model.OdemePeriyotSelectList = OdemePeriyotSelectList();
+                model.Beyanlar = new StaticPagedList<Kira_Beyan>(beyanlar, model.PageNumber, model.PageSize, beyanlar.Count());
+                model.TotalRecordCount = beyanlar.Count();
+            }
+
+            return PartialView("_tablePartial", model);
         }
 
         [HttpPost]

@@ -13,6 +13,7 @@ namespace Framework.Business.Abstract
         ResmiTatiller Getir(int id);
 
         ResmiTatiller Ekle(ResmiTatiller tur);
+        DateTime TatilGunuKontrol(DateTime tarih);
 
         ResmiTatiller Guncelle(ResmiTatiller tur);
 
