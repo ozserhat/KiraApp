@@ -108,8 +108,6 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             {
                 return context.Tahakkuklar
                      .Include(kb => kb.Kira_Beyani)
-                     .Include(kb => kb.Kira_Beyani.Beyanlar)
-                     .Include(kb => kb.Kira_Beyani.Gayrimenkuller)
                      .Where(a=>a.KiraBeyan_Id==KiraBeyanId)
                      .ToList();
             }

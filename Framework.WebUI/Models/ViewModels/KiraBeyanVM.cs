@@ -32,6 +32,8 @@ namespace Framework.WebUI.Models.ViewModels
         public SelectList KullaniciSelectList { get; set; }
 
         public IPagedList<Kira_Beyan> Beyanlar { get; set; }
+        public IEnumerable<TahakkukDetayVM> TahakkukDetay { get; set; }
+
     }
 
     public class KiraBeyanEkleVM : VMBase
