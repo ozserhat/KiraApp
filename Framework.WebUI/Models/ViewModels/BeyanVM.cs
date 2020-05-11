@@ -42,7 +42,7 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Teminat No")]
         public string TeminatNo { get; set; }
 
-        [Display(Name = "İhale Tutari")]
+        [Display(Name = "İhale Tutarı")]
         public string IhaleTutari { get; set; }
 
         [Display(Name = "Başlangıç Ay")]
@@ -51,7 +51,7 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Kalan Ay")]
         public int? KalanAy { get; set; }
 
-        [Display(Name = "Kullanim Alani")]
+        [Display(Name = "Kullanım Alanı")]
         public decimal? KullanimAlani { get; set; }
 
         [Display(Name = "Sözleşme Süresi (Yıl)")]
@@ -75,7 +75,7 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Beyan Kapatma Tarihi")]
         public DateTime? BeyanKapatmaTarihi { get; set; }
 
-        [Display(Name = "Ihale Encümen Tarihi")]
+        [Display(Name = "İhale Encümen Tarihi")]
         public DateTime? IhaleEncumenTarihi { get; set; }
 
         [Display(Name = "Sözleşme Tarihi")]
@@ -154,7 +154,7 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Teminat No")]
         public string TeminatNo { get; set; }
 
-        [Display(Name = "İhale Tutari")]
+        [Display(Name = "İhale Tutarı")]
         public decimal? IhaleTutari { get; set; }
 
         [Display(Name = "Başlangıç Taksit No")]
@@ -163,7 +163,7 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Kalan Ay")]
         public int? KalanAy { get; set; }
 
-        [Display(Name = "Kullanim Alani")]
+        [Display(Name = "Kullanım Alanı")]
         public decimal? KullanimAlani { get; set; }
 
         [Display(Name = "Sözleşme Süresi (Yıl)")]
@@ -187,7 +187,7 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Beyan Kapatma Tarihi")]
         public DateTime? BeyanKapatmaTarihi { get; set; }
 
-        [Display(Name = "Ihale Encümen Tarihi")]
+        [Display(Name = "İhale Encümen Tarihi")]
         public DateTime? IhaleEncumenTarihi { get; set; }
 
         [Display(Name = "Sözleşme Tarihi")]
@@ -241,7 +241,7 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Teminat No")]
         public string TeminatNo { get; set; }
 
-        [Display(Name = "İhale Tutari")]
+        [Display(Name = "İhale Tutarı")]
         public string IhaleTutari { get; set; }
 
         [Display(Name = "Başlangıç Ay")]
@@ -250,7 +250,7 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Kalan Ay")]
         public int? KalanAy { get; set; }
 
-        [Display(Name = "Kullanim Alani")]
+        [Display(Name = "Kullanım Alanı")]
         public decimal? KullanimAlani { get; set; }
 
         [Display(Name = "Sözleşme Süresi (Yıl)")]
@@ -274,7 +274,7 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Beyan Kapatma Tarihi")]
         public DateTime? BeyanKapatmaTarihi { get; set; }
 
-        [Display(Name = "Ihale Encümen Tarihi")]
+        [Display(Name = "İhale Encümen Tarihi")]
         public DateTime? IhaleEncumenTarihi { get; set; }
 
         [Display(Name = "Sözleşme Tarihi")]

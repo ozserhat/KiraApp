@@ -48,10 +48,10 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Vergi Dairesi")]
         public string VergiDairesi { get; set; }
 
-        [Display(Name = "Il")]
+        [Display(Name = "İl")]
         public string IlAdi { get; set; }
 
-        [Display(Name = "Ilce")]
+        [Display(Name = "İlçe")]
         public string IlceAdi { get; set; }
 
         [Display(Name = "Mahalle")]
@@ -108,10 +108,10 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Vergi Dairesi")]
         public string VergiDairesi { get; set; }
 
-        [Display(Name = "Il")]
+        [Display(Name = "İl")]
         public string IlAdi { get; set; }
 
-        [Display(Name = "Ilce")]
+        [Display(Name = "İlçe")]
         public string IlceAdi { get; set; }
 
         [Display(Name = "Mahalle")]
