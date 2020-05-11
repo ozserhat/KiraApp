@@ -271,16 +271,26 @@
         }
     </style>
 
- 
+    <script type="text/javascript">
+        $('.moneyFormat').change(function (e) {
+            //$('.moneyFormat').formatCurrency();
+            var money = $(this).val();
+
+            money = money.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+
+            $(this).val(money)
+        });
+
+    </script>
 
     <!--Datetime Picker Format -->
     <script type="text/javascript">
         $(document).ready(function () {
-          
+
             $(".datepicker").datepicker("option", "maxDate", new Date())
 
             jQuery.validator.methods.date = function (value, element) {
-             
+
                 var d = value.split(".");
                 return this.optional(element) || !/Invalid|NaN/.test(new Date((/chrom(e|ium)/.test(navigator.userAgent.toLowerCase())) ? d[1] + "." + d[0] + "." + d[2] : value));
             };
@@ -663,29 +673,24 @@
             var ss = $('#SozlesmeSuresi').val();
             var kt = $('#KiraTutari').val();
 
+        
+            
+         
+
 
             if (kt != null && ss != null && it != null) {
-                //var it = $('#IhaleTutari').val();
-                //var ss = $('#SozlesmeSuresi').val();
-                //var kt = $('#KiraTutari').val();
+             
                 var dec = (ss * 12);
                 var result = it / dec;
                 $('#result').val(result);
+                var uyari = $('#dvTutarUyari');
 
                 if (result == kt) {
                     kt = result;
-                    $('#KiraTutariUyari').val("Kira tutarı uyuşuyor.");
-
+                    uyari.hide();
                 }
-
-                else if (kt == null) {
-
-                    $('#KiraTutariUyari').val(" ");
-                }
-
                 else {
-                    $('#KiraTutariUyari').val("Kira tutarı uyuşmuyor!");
-
+                    uyari.show();
                 }
 
             }
