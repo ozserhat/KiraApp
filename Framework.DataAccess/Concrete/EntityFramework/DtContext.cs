@@ -90,9 +90,9 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             //  .WithMany()
             //  .WillCascadeOnDelete(false);
 
-            //  modelBuilder.Entity<Gayrimenkul>()
-            //  .HasRequired(c => c.KiraBeyanlari)
-            //  .WithMany()
+            //modelBuilder.Entity<Gayrimenkul>()
+            //.HasRequired(c => c.KiraBeyanlari)
+            //.WithMany()
             //  .WillCascadeOnDelete(false);
             //  modelBuilder.Entity<Kira_Beyan>()
             //.HasKey(x => new { x.Kiraci_Id, x.Gayrimenkul_Id });
@@ -103,6 +103,8 @@ namespace Framework.DataAccess.Concrete.EntityFramework
 
             //modelBuilder.Entity<Duyuru_Bildirim>()
             //.HasKey(x => new { x.Kullanici_Id, x.Duyuru_Id });
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+
         }
     }
 }

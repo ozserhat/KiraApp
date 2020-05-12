@@ -118,6 +118,7 @@ namespace Framework.Business.DependencyResolvers.Ninject
 
             Bind<ITahakkukDal>().To<EfTahakkukDal>().InTransientScope();
             Bind<ITahakkukService>().To<TahakkukManager>().InTransientScope();
+            Bind<ITahakkukDisServis>().To<TahakkukServiceManager>().InTransientScope();
 
             Bind<ISicilService>().To<SicilServiceManager>().InTransientScope();
 

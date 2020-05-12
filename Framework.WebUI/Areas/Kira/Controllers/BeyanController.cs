@@ -37,7 +37,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         private ITahakkukService _tahakkukService;
         private IKiraParametreService _kiraParametreService;
         private IResmiTatillerService _resmiTatilService;
-        //private ITahakkukDisServis _tahakkukDisServis;
+        private ITahakkukDisServis _tahakkukDisServis;
         public static KiraBeyanEkleVM _beyanVM;
         private IBeyan_TurService _beyanTurService;
         private ISistemParametre_DetayService _parametreService;
@@ -65,7 +65,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         IIlceService ilceService,
         IMahalleService mahalleService,
         IKiraParametreService kiraParametreService,
-        IResmiTatillerService resmiTatilService
+        IResmiTatillerService resmiTatilService,
+        ITahakkukDisServis tahakkukDisServis
         )
         {
             _gayrimenkulservice = gayrimenkulservice;
@@ -86,7 +87,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             _tahakkukService = tahakkukService;
             _kiraParametreService = kiraParametreService;
             _resmiTatilService = resmiTatilService;
-            //_tahakkukDisServis = tahakkukDisServis;
+            _tahakkukDisServis = tahakkukDisServis;
         }
         #endregion
 
@@ -679,39 +680,46 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 kiraTutar = decimal.Parse(kiraBeyanModel.Beyan.KiraTutari);
 
                 #region StandartTahakkukVeri
+
                 DateTime vadeTarih = _resmiTatilService.TatilGunuKontrol(kiraBeyanModel.Beyan.KiraBaslangicTarihi.Value.AddDays(kiraBeyanModel.Beyan.MusadeliGunSayisi.Value));
 
-                tahakkukListe.Add(
-                        new Tahakkuk()
-                        {
-                            Guid = Guid.NewGuid(),
-                            KiraBeyan_Id = kiraBeyanId,
-                            KiraParametre_Id = kiraParametre.Id,
-                            ServisSonucTahakkukId = null,
-                            KiraParametreKodu = kiraParametre.KararHarciTarifeKodu.Value,
-                            TahakkukTarihi = DateTime.Now,
-                            VadeTarihi = vadeTarih,
-                            TaksitSayisi = 1,
-                            Tutar = karakHarciTutar,
-                            KalanBorcTutari = null,
-                            OdemeDurumu = false,
-                            Aciklama = kiraParametre.KararHarciTarifeAciklama,
-                            OlusturulmaTarihi = DateTime.Now,
-                            OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
-                            AktifMi = true
-                        }
-                        );
+                string sicil = kiraBeyanModel.Kiraci.SicilNo.ToString();
+                string tutari = tahakkukListe.FirstOrDefault().Tutar.ToString();
+
+                Tahakkuk tahakkuk1 = new Tahakkuk()
+                {
+                    Guid = Guid.NewGuid(),
+                    KiraBeyan_Id = kiraBeyanId,
+                    KiraParametre_Id = kiraParametre.Id,
+                    ServisSonucTahakkukId = null,
+                    KiraParametreKodu = kiraParametre.KararHarciTarifeKodu.Value,
+                    TahakkukTarihi = DateTime.Now,
+                    VadeTarihi = vadeTarih,
+                    TaksitSayisi = 1,
+                    Tutar = karakHarciTutar,
+                    KalanBorcTutari = null,
+                    OdemeDurumu = false,
+                    Aciklama = kiraParametre.KararHarciTarifeAciklama,
+                    OlusturulmaTarihi = DateTime.Now,
+                    OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
+                    AktifMi = true
+                };
                 TahakkukEkleVm tahakkukEkleVm = new TahakkukEkleVm()
                 {
                     GelirId = kiraParametre.KararHarciTarifeKodu.Value,
-                    SicilNo = int.Parse(tahakkukListe.FirstOrDefault().Kira_Beyani.Kiracilar.SicilNo.ToString()),
-
-
+                    SicilNo = int.Parse(sicil),
+                    TaksitNo = 1,
+                    Aciklama = tahakkuk1.Aciklama,
+                    ModulGrup = 5,
+                    Yil = kiraBeyanModel.Beyan.BeyanYil.Value,
+                    Tutar = double.Parse(tutari),
+                    SonOdemeTarihi = tahakkuk1.VadeTarihi
                 };
-
                 //var result1 = _tahakkukDisServis.TahakkukOlustur(tahakkukEkleVm);
-                tahakkukListe.Add(
-                new Tahakkuk()
+                //tahakkuk1.ServisSonucTahakkukId = result1.TahakkukId;
+                tahakkukListe.Add(tahakkuk1);
+
+                Tahakkuk tahakkuk2 = new Tahakkuk()
                 {
                     Guid = Guid.NewGuid(),
                     KiraBeyan_Id = kiraBeyanId,
@@ -728,11 +736,24 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                     OlusturulmaTarihi = DateTime.Now,
                     OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
                     AktifMi = true
-                }
-                );
+                };
+                TahakkukEkleVm tahakkukEkleVm2 = new TahakkukEkleVm()
+                {
+                    GelirId = kiraParametre.KararHarciTarifeKodu.Value,
+                    SicilNo = int.Parse(sicil),
+                    TaksitNo = 1,
+                    Aciklama = tahakkuk2.Aciklama,
+                    ModulGrup = 5,
+                    Yil = kiraBeyanModel.Beyan.BeyanYil.Value,
+                    Tutar = double.Parse(tutari),
+                    SonOdemeTarihi = tahakkuk2.VadeTarihi
+                };
+                //var result2 = _tahakkukDisServis.TahakkukOlustur(tahakkukEkleVm2);
+                //tahakkuk2.ServisSonucTahakkukId = result2.TahakkukId;
+                tahakkukListe.Add(tahakkuk2);
 
-                tahakkukListe.Add(
-                new Tahakkuk()
+
+                Tahakkuk tahakkuk3 = new Tahakkuk()
                 {
                     Guid = Guid.NewGuid(),
                     KiraBeyan_Id = kiraBeyanId,
@@ -749,15 +770,29 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                     OlusturulmaTarihi = DateTime.Now,
                     OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
                     AktifMi = true
-                });
+                };
+                TahakkukEkleVm tahakkukEkleVm3 = new TahakkukEkleVm()
+                {
+                    GelirId = kiraParametre.KararHarciTarifeKodu.Value,
+                    SicilNo = int.Parse(sicil),
+                    TaksitNo = 1,
+                    Aciklama = tahakkuk3.Aciklama,
+                    ModulGrup = 5,
+                    Yil = kiraBeyanModel.Beyan.BeyanYil.Value,
+                    Tutar = double.Parse(tutari),
+                    SonOdemeTarihi = tahakkuk3.VadeTarihi
+                };
+                //var result3 = _tahakkukDisServis.TahakkukOlustur(tahakkukEkleVm3);
+                //tahakkuk3.ServisSonucTahakkukId = result3.TahakkukId;
+                tahakkukListe.Add(tahakkuk3);
+
                 #endregion
 
                 var dateSon = _resmiTatilService.TatilGunuKontrol(kiraBeyanModel.Beyan.KiraBaslangicTarihi.Value.AddDays(kiraBeyanModel.Beyan.MusadeliGunSayisi.Value));
 
                 for (int i = 0; i < AySayisi; i++)
                 {
-                    tahakkukListe.Add(new Tahakkuk()
-                    {
+                    Tahakkuk kiraTahakkuk = new Tahakkuk() {
                         Guid = Guid.NewGuid(),
                         KiraBeyan_Id = kiraBeyanId,
                         KiraParametre_Id = kiraParametre.Id,
@@ -773,9 +808,24 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                         OlusturulmaTarihi = DateTime.Now,
                         OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
                         AktifMi = true
-                    });
+                    };
 
-                    tahakkukListe.Add(new Tahakkuk()
+                    //TahakkukEkleVm kiraTahakkukEkleVm = new TahakkukEkleVm()
+                    //{
+                    //    GelirId = kiraParametre.KararHarciTarifeKodu.Value,
+                    //    SicilNo = int.Parse(sicil),
+                    //    TaksitNo = 1,
+                    //    Aciklama = kiraTahakkuk.Aciklama,
+                    //    ModulGrup = 5,
+                    //    Yil = kiraBeyanModel.Beyan.BeyanYil.Value,
+                    //    Tutar = double.Parse(tutari),
+                    //    SonOdemeTarihi = kiraTahakkuk.VadeTarihi
+                    //};
+                    //var servisSonuc1 = _tahakkukDisServis.TahakkukOlustur(kiraTahakkukEkleVm);
+                    //kiraTahakkuk.ServisSonucTahakkukId = servisSonuc1.TahakkukId;
+                    tahakkukListe.Add(kiraTahakkuk);
+
+                    Tahakkuk kdvTahakkuk = new Tahakkuk()
                     {
                         Guid = Guid.NewGuid(),
                         KiraBeyan_Id = kiraBeyanId,
@@ -792,8 +842,23 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                         OlusturulmaTarihi = DateTime.Now,
                         OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
                         AktifMi = true
-                    });
+                    };
+                    
+                    //TahakkukEkleVm kdvTahakkukEkleVm = new TahakkukEkleVm()
+                    //{
+                    //    GelirId = kiraParametre.KararHarciTarifeKodu.Value,
+                    //    SicilNo = int.Parse(sicil),
+                    //    TaksitNo = 1,
+                    //    Aciklama = kiraTahakkuk.Aciklama,
+                    //    ModulGrup = 5,
+                    //    Yil = kiraBeyanModel.Beyan.BeyanYil.Value,
+                    //    Tutar = double.Parse(tutari),
+                    //    SonOdemeTarihi = kiraTahakkuk.VadeTarihi
+                    //};
 
+                    //var servisSonuc2 = _tahakkukDisServis.TahakkukOlustur(kdvTahakkukEkleVm);
+                    //kdvTahakkuk.ServisSonucTahakkukId = servisSonuc2.TahakkukId;
+                    tahakkukListe.Add(kdvTahakkuk);
 
                     if (AySayisi == 4)
                         dateSon = _resmiTatilService.TatilGunuKontrol(dateSon.AddMonths(3));
