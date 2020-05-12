@@ -52,5 +52,21 @@ namespace Framework.Entities.Concrete
         public DateTime? GuncellenmeTarihi { get; set; }
 
         public bool? AktifMi { get; set; }
+
+    }
+
+    [NotMapped]
+    public class TahakkukRequest
+    {
+        public int? KiraBeyan_Id { get; set; }
+        public bool? OdemeDurumu { get; set; }
+        public DateTime? VadeTarihi { get; set; }
+        public DateTime? TahakkukTarihi { get; set; }
+        public int? BeyanYil { get; set; }
+        public int? TaksitNo { get; set; }
+        public decimal? Tutar { get; set; }
+        public string Aciklama { get; set; }
+
+
     }
 }

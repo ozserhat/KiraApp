@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -17,6 +17,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
     [CustomAuthorize(Roles = "Kira")]
     public class TahakkukController : Controller
     {
+
         #region Constructor
 
         private ITahakkukService _tahakkukService;
@@ -48,5 +49,4 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         }
 
         #endregion
-    }
 }
