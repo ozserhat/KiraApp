@@ -200,11 +200,13 @@
     <Compile Include="Areas\Admin\Controllers\UserRolesController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Areas\Emlak\Controllers\AnasayfaController.cs" />
+    <Compile Include="Areas\Emlak\Controllers\GayrimenkulAltTurController.cs" />
     <Compile Include="Areas\Emlak\Controllers\GayrimenkulController.cs" />
     <Compile Include="Areas\Emlak\Controllers\GayrimenkulDosyaTurController.cs" />
     <Compile Include="Areas\Emlak\EmlakAreaRegistration.cs" />
     <Compile Include="Areas\Kira\Controllers\AnasayfaController.cs" />
     <Compile Include="Areas\Kira\Controllers\BeyanController.cs" />
+    <Compile Include="Areas\Kira\Controllers\TahakkukController.cs" />
     <Compile Include="Areas\Kira\KiraAreaRegistration.cs" />
     <Compile Include="Areas\SosyalYardim\Controllers\AnasayfaController.cs" />
     <Compile Include="Areas\SosyalYardim\SosyalYardimAreaRegistration.cs" />
@@ -1101,6 +1103,10 @@
     <Content Include="Areas\Admin\Views\KiraParametre\Index.cshtml" />
     <Content Include="Areas\Kira\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Kira\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Kira\Views\Tahakkuk\Index.cshtml" />
+    <Content Include="Areas\Emlak\Views\GayrimenkulAltTur\Index.cshtml" />
+    <Content Include="Areas\Emlak\Views\GayrimenkulAltTur\Ekle.cshtml" />
+    <Content Include="Areas\Emlak\Views\GayrimenkulAltTur\Duzenle.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />

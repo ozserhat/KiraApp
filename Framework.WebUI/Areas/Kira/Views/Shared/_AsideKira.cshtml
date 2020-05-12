@@ -18,6 +18,11 @@
                         @Html.AuthMainAction("Beyanlar", "Index", "Beyan",
                         "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                     </li>
+                    <li class="@Html.RouteIf("Tahakkuk", "active")">
+                        @Html.AuthMainAction("Tahakkuklar", "Index", "Tahakkuk",
+                        "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                    </li>
+
                 </ul>
             </li>
         </ul>

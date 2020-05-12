@@ -112,5 +112,6 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                      .ToList();
             }
         }
+
     }
 }
