@@ -277,16 +277,16 @@
 
     <!--Para Formatı -->
     @*<script type="text/javascript">
-        $('.moneyFormat').change(function (e) {
-            //$('.moneyFormat').formatCurrency();
+            $('.moneyFormat').change(function (e) {
+                //$('.moneyFormat').formatCurrency();
 
-            var money = $(this).val();
+                var money = $(this).val();
 
-            money = money.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+                money = money.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
 
-            $(this).val(money)
-        });
-    </script>*@
+                $(this).val(money)
+            });
+        </script>*@
 
 
     <!--Datetime Picker Format -->
@@ -676,7 +676,7 @@
     </script>
 
 
-    @*KiraTutariHesaplama 
+    <!--KiraTutariHesaplama-->
     <script type="text/javascript">
         $(document).on("change keyup blur", "#KiraTutari", function () {
 
@@ -693,7 +693,7 @@
 
             kt = kt.replace(/\./g, '');
             it = it.replace(/\./g, '');
-            
+
 
             if (kt != null && ss != null && it != null) {
 
@@ -714,7 +714,7 @@
 
             }
         });
-    </script>*@
+    </script>*
 
 }
 
