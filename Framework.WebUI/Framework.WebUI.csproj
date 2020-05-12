@@ -93,6 +93,7 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -229,6 +230,7 @@
     <Compile Include="Models\ViewModels\DuyuruTurVM.cs" />
     <Compile Include="Models\ViewModels\DuyuruVM.cs" />
     <Compile Include="Models\ViewModels\GayrimenkulAlt_TurVM.cs" />
+    <Compile Include="Models\ViewModels\GayrimenkulChartModel.cs" />
     <Compile Include="Models\ViewModels\GayrimenkulDosya_TurVM.cs" />
     <Compile Include="Models\ViewModels\GayrimenkulTurVM.cs" />
     <Compile Include="Models\ViewModels\GayrimenkulVM.cs" />
@@ -236,6 +238,7 @@
     <Compile Include="Models\ViewModels\KiraciTurVM.cs" />
     <Compile Include="Models\ViewModels\KiraciVM.cs" />
     <Compile Include="Models\ViewModels\KiraDurumVM.cs" />
+    <Compile Include="Models\ViewModels\KiralikTasinmazlarChart.cs" />
     <Compile Include="Models\ViewModels\KiraParametreVM.cs" />
     <Compile Include="Models\ViewModels\KullaniciYetkiDuzenleVM.cs" />
     <Compile Include="Models\ViewModels\LoginVm.cs" />

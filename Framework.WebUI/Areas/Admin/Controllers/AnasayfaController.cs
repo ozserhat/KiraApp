@@ -9,6 +9,7 @@ using Framework.WebUI.Helpers;
 using Framework.WebUI.Models;
 using Framework.WebUI.Models.ViewModels;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Framework.WebUI.Areas.Admin.Controllers
 {
@@ -18,16 +19,17 @@ namespace Framework.WebUI.Areas.Admin.Controllers
         #region Constructor
 
         private IDuyuruService _service;
-
+        private IKira_BeyanService _kiraBeyanService;
         private IDuyuru_BildirimService _bildirimService;
         private ISicilService _sicilService;
         public AnasayfaController(IDuyuruService service,
             IDuyuru_BildirimService bildirimService,
-            ISicilService sicilService)
+            ISicilService sicilService, IKira_BeyanService kiraBeyanService)
         {
             _service = service;
             _sicilService = sicilService;
             _bildirimService = bildirimService;
+            _kiraBeyanService = kiraBeyanService;
         }
 
         #endregion
@@ -70,8 +72,10 @@ namespace Framework.WebUI.Areas.Admin.Controllers
         public ActionResult SicilSorgulama(string VergiNo, string TcKimlikNo)
         {
             var sicilBilgisi = _sicilService.GetirSicilBilgisi(VergiNo, TcKimlikNo);
-            return View("Index",sicilBilgisi);
+            return View("Index", sicilBilgisi);
         }
+
+
 
         #endregion
     }

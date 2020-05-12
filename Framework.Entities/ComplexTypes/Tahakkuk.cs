@@ -60,8 +60,6 @@ namespace Framework.Entities.ComplexTypes
     {
         public int GelirId { get; set; }
 
-        public int KdvGelirId { get; set; }
-
         public int SicilNo { get; set; }
 
         public int Yil { get; set; }
