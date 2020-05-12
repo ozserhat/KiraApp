@@ -16,6 +16,7 @@ using System.Web.Services.Description;
 using System.IO;
 using System.Globalization;
 using System.Configuration;
+using Framework.Entities.ComplexTypes;
 
 namespace Framework.WebUI.Areas.Kira.Controllers
 {
@@ -36,7 +37,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         private ITahakkukService _tahakkukService;
         private IKiraParametreService _kiraParametreService;
         private IResmiTatillerService _resmiTatilService;
-
+        //private ITahakkukDisServis _tahakkukDisServis;
         public static KiraBeyanEkleVM _beyanVM;
         private IBeyan_TurService _beyanTurService;
         private ISistemParametre_DetayService _parametreService;
@@ -85,6 +86,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             _tahakkukService = tahakkukService;
             _kiraParametreService = kiraParametreService;
             _resmiTatilService = resmiTatilService;
+            //_tahakkukDisServis = tahakkukDisServis;
         }
         #endregion
 
@@ -397,11 +399,21 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         {
             if (kiraciBilgi != null)
             {
-                int IlId, IlceId, MahalleId;
+                int IlId = 0;
+                int IlceId = 0;
+                int MahalleId = 0;
 
-                IlId = _ilService.GetirAdaGore(kiraciBilgi.IlAdi).Id;
-                IlceId = _ilceService.GetirAdaGore(kiraciBilgi.IlceAdi).Id;
-                MahalleId = _mahalleService.GetirAdaGore(kiraciBilgi.MahalleAdi).Id;
+                var il = _ilService.GetirAdaGore(kiraciBilgi.IlAdi);
+                var ilce = _ilceService.GetirAdaGore(kiraciBilgi.IlceAdi);
+                var mahalle = _mahalleService.GetirAdaGore(kiraciBilgi.MahalleAdi);
+
+                if (il != null)
+                    IlId = il.Id;
+                if (ilce != null)
+                    IlceId = ilce.Id;
+
+                if (mahalle != null)
+                    MahalleId = mahalle.Id;
 
                 Kiraci kiraci = new Kiraci()
                 {
@@ -411,8 +423,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                     Ilce_Id = IlceId,
                     Mahalle_Id = MahalleId,
                     SicilNo = kiraciBilgi.SicilNo.Value,
-                    VergiNo = kiraciBilgi.VergiNo,
-                    TcKimlikNo = kiraciBilgi.TcKimlikNo,
+                    VergiNo = (kiraciBilgi.VergiNo.HasValue ? kiraciBilgi.VergiNo : null),
+                    TcKimlikNo = (kiraciBilgi.TcKimlikNo.HasValue ? kiraciBilgi.TcKimlikNo : null),
                     Ad = kiraciBilgi.Ad,
                     Soyad = kiraciBilgi.Soyad,
                     Tanim = kiraciBilgi.Tanim,
@@ -662,7 +674,15 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                             AktifMi = true
                         }
                         );
+                TahakkukEkleVm tahakkukEkleVm = new TahakkukEkleVm()
+                {
+                    GelirId = kiraParametre.KararHarciTarifeKodu.Value,
+                    SicilNo = int.Parse(tahakkukListe.FirstOrDefault().Kira_Beyani.Kiracilar.SicilNo.ToString()),
 
+
+                };
+
+                //var result1 = _tahakkukDisServis.TahakkukOlustur(tahakkukEkleVm);
                 tahakkukListe.Add(
                 new Tahakkuk()
                 {

@@ -36,7 +36,7 @@
                     <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
                         <header>
                             <span class="widget-icon"> <i class="fa fa-list"></i> </span>
-                            <h2>Kira Durum Listesi - <b>Toplam Tür Adedi : @Model.TotalRecordCount</b></h2>
+                            <h2>Taşınmaz Durum Listesi - <b>Toplam Tür Adedi : @Model.TotalRecordCount</b></h2>
                             <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
                                 <p>
                                     @Html.AuthActionLink(" Kira Durum Ekle", "Ekle", "KiraDurum", "btn btn-primary", "glyphicon glyphicon-plus", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
@@ -181,7 +181,7 @@
                             if (result.success) {
                                 closestTR.fadeOut(2000, function () {
                                     dt = $('#dt_basic').DataTable();
-                                    swal('Uyarı!', name + ' ' + result.Message, 'success');
+                                    swal('Bilgi!', name + ' ' + result.Message, 'success');
                                     location.reload();
                                 });
                             }

@@ -19,6 +19,9 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Periyot Tür Adı")]
         public string PeriyotTurAd { get; set; }
 
+        [Display(Name = "Ödeme Ay Sayısı")]
+        public int OdemeAySayisi { get; set; }
+
         [Display(Name = "Açıklama")]
         public string PeriyotAciklama { get; set; }
 
@@ -42,6 +45,9 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Periyot Tür Adı")]
         public string PeriyotTurAd { get; set; }
+
+        [Display(Name = "Ödeme Ay Sayısı")]
+        public int OdemeAySayisi { get; set; }
 
         [Display(Name = "Açıklama")]
         public string PeriyotAciklama { get; set; }
