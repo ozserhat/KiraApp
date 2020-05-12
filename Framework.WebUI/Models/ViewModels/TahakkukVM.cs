@@ -9,15 +9,15 @@ using System.Web.Mvc;
 
 namespace Framework.WebUI.Models.ViewModels
 {
-    public class TahakkukVM : PagingVMBase
-    {
 
+    public class TahakkukVM: PagingVMBase
+    {
         [Display(Name = "KiraBeyan_Id")]
         public int? KiraBeyan_Id { get; set; }
 
         [Display(Name = "Beyan Yıl")]
         public int BeyanYil { get; set; }
-       
+
         [Display(Name = " Tahakkuk Tur")]
         public string TahakkukTur { get; set; }
 
@@ -40,7 +40,6 @@ namespace Framework.WebUI.Models.ViewModels
         public bool OdemeDurumu { get; set; }
          
         public IPagedList<Tahakkuk> Tahakkuklar { get; set; }
-
         [Display(Name = "Tahakkuk Türü")]
         public SelectList TahakkukTurSelectList { get; set; }
 

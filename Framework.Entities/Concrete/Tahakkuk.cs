@@ -25,7 +25,8 @@ namespace Framework.Entities.Concrete
         [ForeignKey("KiraBeyan_Id")]
         public Kira_Beyan Kira_Beyani { get; set; }
 
-        public int? ServisSonucTahakkukId { get; set; }
+        [StringLength(500)]
+        public string ServisSonucTahakkukId { get; set; }
 
         public int? TaksitSayisi { get; set; }
 
