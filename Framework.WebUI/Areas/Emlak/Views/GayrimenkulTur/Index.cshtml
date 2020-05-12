@@ -1,13 +1,10 @@
 ﻿@model Framework.WebUI.Models.ViewModels.GayrimenkulTurVM
 @using PagedList;
 @using PagedList.Mvc;
-
 @{
-    int sonSayfa = 0;
     ViewBag.Title = "Index";
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    Layout = "~/Areas/Emlak/Views/Shared/_LayoutEmlak.cshtml";
 }
-
 
 @if (Model.Errors != null && Model.Errors.Count > 0)
 {
@@ -39,7 +36,7 @@
                             <h2>Gayrimenkul Tür Listesi - <b>Toplam Tür Adedi : @Model.TotalRecordCount</b></h2>
                             <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
                                 <p>
-                                    @Html.AuthActionLink(" Tür Ekle", "Ekle", "GayrimenkulTur", "btn btn-primary", 
+                                    @Html.AuthActionLink(" Tür Ekle", "Ekle", "GayrimenkulTur", "btn btn-primary",
                                    "glyphicon glyphicon-plus", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                                 </p>
                             </div>
@@ -121,31 +118,8 @@
 
 @section pagespecific {
     @Scripts.Render("~/bundles/jqueryval")
-     <link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
+    <link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
     <script src="~/Content/SweetAlert/sweetalert2.min.js"></script>
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            if (@sonSayfa < 8) {
-                $("#sayfalama").css("display", "none");
-            }
-        });
-    </script>
-
-    <script type="text/javascript">
-
-        $("#btnGit").on("click", function () {
-            if (@sonSayfa > $("#sayfayaGit").val()) {
-                $("#page").val($("#sayfayaGit").val());
-                $("#sorgulamaKriterleri").submit();
-            }
-            else {
-                $("#page").val(@sonSayfa);
-                $("#sorgulamaKriterleri").submit();
-            }
-        });
-
-    </script>
 
     <!--Gayrimenkul Tur Silme İşlemi -->
     <script type="text/javascript">
@@ -185,7 +159,7 @@
             }).then(function (isConfirm) {
                 if (isConfirm) {
                     $.ajax({
-                        url: "/Admin/GayrimenkulTur/Sil/" + Id,
+                        url: "/Emlak/GayrimenkulTur/Sil/" + Id,
                         type: 'POST',
                         success: function (result) {
                             if (result.success) {
