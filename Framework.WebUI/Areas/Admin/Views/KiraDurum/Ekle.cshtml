@@ -30,7 +30,7 @@
                     <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
                         <header>
                             <span class="widget-icon"> <i class="fa fa-list"></i> </span>
-                            <h2>Kira Durumu Tanım</h2>
+                            <h2>Taşınmaz Durumu Tanım</h2>
                         </header>
                         <div role="contentinfo">
                             <div class="widget-body">
@@ -94,7 +94,7 @@
                     success: function (result) {
                         if (result != null && result.success) {
 
-                            swal('Uyarı!', result.Message, 'success');
+                            swal('Bilgi!', result.Message, 'success');
 
                             setTimeout(function () {
                                 window.location.href = "../KiraDurum/Index";

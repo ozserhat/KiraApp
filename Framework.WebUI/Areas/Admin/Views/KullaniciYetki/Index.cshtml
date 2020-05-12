@@ -188,7 +188,7 @@
                             if (result.success) {
                                 closestTR.fadeOut(2000, function () {
                                     dt = $('#dt_basic').DataTable();
-                                    swal('Uyarı!', name + ' ' + result.Message, 'success');
+                                    swal('Bilgi!', name + ' ' + result.Message, 'success');
                                     location.reload();
                                 });
                             }
@@ -213,7 +213,7 @@
                     success: function (result) {
                         if (result != null && result.success) {
 
-                            swal('Uyarı!', result.Message, 'success');
+                            swal('Bilgi!', result.Message, 'success');
 
                             setTimeout(function () {
                                 window.location.reload();
