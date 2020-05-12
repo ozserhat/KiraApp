@@ -98,7 +98,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
         {
             using (DtContext context = new DtContext())
             {
-                return context.Tahakkuklar.Include(kb => kb.Kira_Beyani).ToList();
+                return context.Tahakkuklar.Include(kb => kb.Kira_Beyani).Include(b=>b.Kira_Beyani.Beyanlar).ToList();
             }
         }
 

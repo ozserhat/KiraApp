@@ -78,7 +78,7 @@ namespace Framework.WebServis.Clients
                     sifre = sifre
                 };
 
-                var sonuc = _client.tahakkukOlustur(kullanici, tahakkukBilgi.SicilNo, tahakkukBilgi.GelirId, tahakkukBilgi.Yil, tahakkukBilgi.TaksitNo, tahakkukBilgi.SonOdemeTarihi.ToString(),
+                var sonuc = _client.tahakkukOlustur(kullanici, tahakkukBilgi.SicilNo, tahakkukBilgi.GelirId, tahakkukBilgi.Yil, tahakkukBilgi.TaksitNo, tahakkukBilgi.SonOdemeTarihi.Value.ToString("dd/M/yyyy").Replace(".", "/"),
                                    tahakkukBilgi.Tutar, tahakkukBilgi.Aciklama, tahakkukBilgi.ModulGrup);
 
                 if (sonuc != null)
