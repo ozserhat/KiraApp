@@ -560,6 +560,33 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             return Json(new { data = model.TahakkukDetay, success = true }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public JsonResult GetirGayrimenkulChart()
+        {
+            var liste = _gayrimenkulservice.GetirListe().GroupBy(a => a.GayrimenkulTur.Ad)
+                         .Select(g => new { g.Key, Count = g.Count() });
+
+            List<GayrimenkulChartModel> modelList = new List<GayrimenkulChartModel>();
+            foreach (var item in liste)
+            {
+                modelList.Add(new GayrimenkulChartModel() { y = item.Count, name = item.Key });
+            }
+            return Json(modelList.ToArray(), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult KiralikTasinmazlarChart()
+        {
+            var liste = _kiraBeyanService.GetirListe().GroupBy(a => a.Gayrimenkuller.Ilceler.Ad)
+                          .Select(g => new { g.Key, Count = g.Count() });
+
+            List<KiralikTasinmazlarChart> modelList = new List<KiralikTasinmazlarChart>();
+            foreach (var item in liste)
+            {
+                modelList.Add(new KiralikTasinmazlarChart() { y = item.Count, label = item.Key });
+            }
+            return Json(modelList.ToArray(), JsonRequestBehavior.AllowGet);
+        }
         #endregion
 
         #region Ekle
