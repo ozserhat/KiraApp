@@ -28,7 +28,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
         {
             using (DtContext context = new DtContext())
             {
-                var result = context.Roles.Where(r=>r.IsDeleted==false).ToList();
+                var result = context.Roles.Where(r => r.IsDeleted == false && r.IsActive == true).ToList();
 
                 return result;
             }
@@ -48,7 +48,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
         {
             using (DtContext context = new DtContext())
             {
-                var result = context.Roles.Where(a=>a.Id==id).FirstOrDefault();
+                var result = context.Roles.Where(a => a.Id == id).FirstOrDefault();
 
                 return result;
             }

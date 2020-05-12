@@ -43,7 +43,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                 model.TotalRecordCount = turler.Count();
             }
 
-            ModelState.AddModelError("LogMessage", "Duyuru Tür Bilgisi Görüntülendi.");
+            ModelState.AddModelError("LogMessage", "Ödeme Tür Bilgisi Görüntülendi.");
             return View(model);
         }
         #endregion
@@ -69,6 +69,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                     {
                         Guid = Guid.NewGuid(),
                         Ad = tur.PeriyotTurAd,
+                        OdemeAySayisi=tur.OdemeAySayisi,
                         Aciklama=tur.PeriyotAciklama,
                         OlusturulmaTarihi = DateTime.Now,
                         OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
@@ -108,6 +109,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                 model.Id = tur.Id;
                 model.Guid = tur.Guid;
                 model.PeriyotTurAd = tur.Ad;
+                model.OdemeAySayisi = tur.OdemeAySayisi.Value;
                 model.PeriyotAciklama = tur.Aciklama;
                 model.GuncelleyenKullanici_Id = tur.OlusturanKullanici_Id;
                 model.GuncellenmeTarihi = tur.OlusturulmaTarihi;
@@ -138,6 +140,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                         tur.Id = model.Id;
                         tur.Guid = model.Guid;
                         tur.Ad = model.PeriyotTurAd;
+                        tur.OdemeAySayisi = model.OdemeAySayisi;
                         tur.Aciklama = model.PeriyotAciklama;
                         tur.GuncelleyenKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ?
                         User.GetUserPropertyValue("UserId") : null);

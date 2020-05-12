@@ -272,7 +272,7 @@
     </style>
 
     <!--Para Formatı -->
-    <script type="text/javascript">
+    @*<script type="text/javascript">
         $('.moneyFormat').change(function (e) {
             //$('.moneyFormat').formatCurrency();
 
@@ -282,7 +282,7 @@
 
             $(this).val(money)
         });
-    </script>
+    </script>*@
 
 
     <!--Datetime Picker Format -->
@@ -339,7 +339,7 @@
             var regex = new RegExp("(.*?)\.(pdf)$");
             if (!(regex.test(dosyaAdi))) {
                 UyariVer("Hata", "Sadece PDF Dosyası Yükleyebilirsiniz.", false, 4000);
-                $("#yanlis_" + BasvuruGrupTipi_DosyaTipi_Id).show();
+                $("#yanlis_" + DosyaTipi_Id).show();
                 Dosya = "";
             }
             var fileUpload = $("#DosyaTur_" + DosyaTipi_Id).get(0);
@@ -652,7 +652,7 @@
                     success: function (result) {
                         if (result != null && result.success) {
 
-                            swal('Uyarı!', result.Message, 'success');
+                            swal('Bilgi!', result.Message, 'success');
 
                             setTimeout(function () {
                                 window.location.href = "../Beyan/Index";
@@ -672,7 +672,7 @@
     </script>
 
 
-    <!--KiraTutariHesaplama -->
+    @*KiraTutariHesaplama 
     <script type="text/javascript">
         $(document).on("change keyup blur", "#KiraTutari", function () {
 
@@ -697,7 +697,7 @@
 
             }
         });
-    </script>
+    </script>*@
 
 }
 
