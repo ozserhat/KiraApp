@@ -12,6 +12,7 @@
             <th class="sorting_disabled" rowspan="1" colspan="1">Sicil No</th>
             <th class="sorting_disabled" rowspan="1" colspan="1">Kiracı Bilgi</th>
             <th class="sorting_disabled" rowspan="1" colspan="1">Gayrimenkul No</th>
+            <th class="sorting_disabled" rowspan="1" colspan="1">Sorumlu Personel</th>
             <th class="sorting_disabled" rowspan="1" colspan="1">İl</th>
             <th class="sorting_disabled" rowspan="1" colspan="1">İlçe</th>
             <th class="sorting_disabled" rowspan="1" colspan="1">Mahalle</th>
@@ -26,27 +27,29 @@
 
             @foreach (var item in Model.Beyanlar)
             {
-                <tr role="row" class="odd">
-                    <td>@Html.DisplayFor(model => item.Beyanlar.Id)</td>
-                    <td>@Html.DisplayFor(model => item.Beyanlar.BeyanTur.Ad)</td>
-                    <td>@Html.DisplayFor(model => item.Beyanlar.BeyanNo)</td>
-                    <td>@Html.DisplayFor(model => item.Kiracilar.SicilNo)</td>
-                    <td>@Html.DisplayFor(model => item.Kiracilar.Ad)</td>
-                    <td>@Html.DisplayFor(model => item.Gayrimenkuller.GayrimenkulNo)</td>
-                    <td>@Html.DisplayFor(model => item.Gayrimenkuller.Mahalleler.Ilceler.Iller.Ad)</td>
-                    <td>@Html.DisplayFor(model => item.Gayrimenkuller.Mahalleler.Ilceler.Ad)</td>
-                    <td>@Html.DisplayFor(model => item.Gayrimenkuller.Mahalleler.Ad)</td>
-                    <td>
-                        @if (item.Beyanlar.AktifMi.HasValue && item.Beyanlar.AktifMi.Value)
-                        {
-                            <b class="label aktif-buton">Aktif</b>
-                        }
-                        else
-                        {
-                            <b class="label pasif-buton">Pasif</b>
-                        }
-                    </td>
-                </tr>
+            <tr role="row" class="odd">
+                <td>@Html.DisplayFor(model => item.Id)</td>
+                <td>@Html.DisplayFor(model => item.Beyanlar.BeyanTur.Ad)</td>
+                <td>@Html.DisplayFor(model => item.Beyanlar.BeyanNo)</td>
+                <td>@Html.DisplayFor(model => item.Kiracilar.SicilNo)</td>
+                <td>@Html.DisplayFor(model => item.Kiracilar.Ad)</td>
+                <td>@Html.DisplayFor(model => item.Gayrimenkuller.GayrimenkulNo)</td>
+                <td>@Html.DisplayFor(model => item.SorumluPersoneller.FirstName)</td>
+
+                <td>@Html.DisplayFor(model => item.Gayrimenkuller.Mahalleler.Ilceler.Iller.Ad)</td>
+                <td>@Html.DisplayFor(model => item.Gayrimenkuller.Mahalleler.Ilceler.Ad)</td>
+                <td>@Html.DisplayFor(model => item.Gayrimenkuller.Mahalleler.Ad)</td>
+                <td>
+                    @if (item.Beyanlar.AktifMi.HasValue && item.Beyanlar.AktifMi.Value)
+                    {
+                        <b class="label aktif-buton">Aktif</b>
+                    }
+                    else
+                    {
+                        <b class="label pasif-buton">Pasif</b>
+                    }
+                </td>
+            </tr>
             }
         </tbody>
     }

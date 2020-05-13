@@ -17,6 +17,11 @@ namespace Framework.Entities.Concrete
         [ForeignKey("Beyan_Id")]
         public virtual Beyan Beyanlar { get; set; }
 
+        public int? SorumluPersonelId { get; set; }
+
+        [ForeignKey("SorumluPersonelId")]
+        public virtual User SorumluPersoneller { get; set; }
+
         public int Kiraci_Id { get; set; }
 
         [ForeignKey("Kiraci_Id")]

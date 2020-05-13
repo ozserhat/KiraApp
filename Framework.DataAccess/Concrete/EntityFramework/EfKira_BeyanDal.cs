@@ -45,7 +45,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             {
                 return context.Kira_Beyanlari
                               .Include(b => b.Beyanlar)
-                            .Include(h => h.Kiracilar)
+                              .Include(h => h.Kiracilar)
                               .Include(bt => bt.Beyanlar.BeyanTur)
                               .Include(k => k.Kiracilar)
                               .Include(g => g.Gayrimenkuller)
@@ -113,8 +113,8 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                 query = request.IlId.HasValue ? query.Where(x => x.Kiracilar.Il_Id == request.IlId) : query;
                 query = request.IlceId.HasValue ? query.Where(x => x.Kiracilar.Ilce_Id == request.IlceId) : query;
                 query = request.MahalleId.HasValue ? query.Where(x => x.Kiracilar.Mahalle_Id == request.MahalleId) : query;
-                query = request.SicilNo.HasValue? query.Where(x => x.Kiracilar.SicilNo == request.SicilNo) : query;
-                query = request.VergiNo.HasValue? query.Where(x => x.Kiracilar.VergiNo == request.VergiNo) : query;
+                query = request.SicilNo.HasValue ? query.Where(x => x.Kiracilar.SicilNo == request.SicilNo) : query;
+                query = request.VergiNo.HasValue ? query.Where(x => x.Kiracilar.VergiNo == request.VergiNo) : query;
                 query = request.TcKimlikNo.HasValue ? query.Where(x => x.Kiracilar.TcKimlikNo == request.TcKimlikNo) : query;
                 query = request.VergiDairesi != null ? query.Where(x => x.Kiracilar.VergiDairesi == request.VergiDairesi) : query;
 
@@ -131,14 +131,16 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             using (DtContext context = new DtContext())
             {
                 var query = context.Kira_Beyanlari
-                              .Include(b => b.Beyanlar)
-                              .Include(bt => bt.Beyanlar.BeyanTur)
-                              .Include(k => k.Kiracilar)
-                              .Include(g => g.Gayrimenkuller)
-                              .Include(m => m.Gayrimenkuller.Mahalleler)
-                              .Include(ilc => ilc.Gayrimenkuller.Mahalleler.Ilceler)
-                              .Include(ilc => ilc.Gayrimenkuller.Mahalleler.Ilceler.Iller)
-                              .AsQueryable();
+                                      .Include(b => b.Beyanlar)
+                                .Include(bt => bt.Beyanlar.BeyanTur)
+                                .Include(k => k.Kiracilar)
+                                .Include(g => g.Gayrimenkuller)
+                                .Include(m => m.Gayrimenkuller.Mahalleler)
+                                .Include(ilc => ilc.Gayrimenkuller.Mahalleler.Ilceler)
+                                .Include(ilc => ilc.Gayrimenkuller.Mahalleler.Ilceler.Iller)
+                                .Include(pb=>pb.SorumluPersoneller)
+                                .AsQueryable();
+
 
                 query = request.Guid.HasValue ? query.Where(x => x.Beyanlar.Guid == request.Guid) : query;
                 query = request.BeyanTur_Id.HasValue ? query.Where(x => x.Beyanlar.BeyanTur_Id == request.BeyanTur_Id) : query;

@@ -41,7 +41,7 @@ namespace Framework.Entities.Concrete
         [StringLength(150)]
         public string Email { get; set; }
 
-        public  bool? IsActive { get; set; }
+        public bool? IsActive { get; set; }
 
         public bool? IsDeleted { get; set; }
 
@@ -50,5 +50,7 @@ namespace Framework.Entities.Concrete
 
         [JsonIgnore]
         public virtual ICollection<User_Role> User_Roles { get; set; }
+
+
     }
 }
