@@ -32,7 +32,7 @@ namespace Framework.Entities.Concrete
 
         public int Il_Id { get; set; }
 
-        public int Ilce_Id { get; set; }
+        public int? Ilce_Id { get; set; }
         [ForeignKey("Ilce_Id")]
         public virtual Ilce Ilceler { get; set; }
         public int Mahalle_Id { get; set; }

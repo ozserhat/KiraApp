@@ -42,7 +42,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         public static KiraBeyanEkleVM _beyanVM;
         private IBeyan_TurService _beyanTurService;
         private ISistemParametre_DetayService _parametreService;
-
+        private IGayrimenkulTurService _gayrimenkulTurService;
         private IIlService _ilService;
         private IIlceService _ilceService;
         private IMahalleService _mahalleService;
@@ -67,7 +67,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         IMahalleService mahalleService,
         IKiraParametreService kiraParametreService,
         IResmiTatillerService resmiTatilService,
-        ITahakkukDisServis tahakkukDisServis
+        ITahakkukDisServis tahakkukDisServis,
+        IGayrimenkulTurService gayrimenkulTurService
         )
         {
             _gayrimenkulservice = gayrimenkulservice;
@@ -89,11 +90,58 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             _kiraParametreService = kiraParametreService;
             _resmiTatilService = resmiTatilService;
             _tahakkukDisServis = tahakkukDisServis;
+            _gayrimenkulTurService = gayrimenkulTurService;
+            //_tahakkukDisServis = tahakkukDisServis;
         }
         #endregion
 
         #region Listeleme
 
+        public ActionResult GayrimenkulSorgula(GayrimenkulBeyanRequest request, int? page, int pageSize = 15)
+        {
+            var model = new GayrimenkulBeyanVM();
+
+            var beyanlar = _kiraBeyanService.GetirSorguListeGayrimenkul(request);
+
+
+            model.PageNumber = page ?? 1;
+            model.PageSize = pageSize;
+
+            if (beyanlar != null)
+            {
+                model.IlceSelectList = IlceSelectList();
+                model.IlSelectList = IlSelectList();
+                model.GayrimenkulTuruSelectList = GayrimenkulTuruSelectList();
+
+                model.KiraBeyanVm = new KiraBeyanVM();
+                model.KiraBeyanVm.Beyanlar = new StaticPagedList<Kira_Beyan>(beyanlar, model.PageNumber, model.PageSize, beyanlar.Count());
+                model.TotalRecordCount = model.KiraBeyanVm.Beyanlar.Count();
+            }
+
+            return View(model);
+        }
+
+        public ActionResult SicilSorgula(SicilBeyanRequest request, int? page, int pageSize = 15)
+        {
+            var model = new SicilBeyanVM();
+
+            var beyanlar = _kiraBeyanService.GetirSorguListeSicil(request);
+
+
+            model.PageNumber = page ?? 1;
+            model.PageSize = pageSize;
+
+            if (beyanlar != null)
+            {
+                model.IlceSelectList = IlceSelectList();
+                model.IlSelectList = IlSelectList();
+                model.KiraBeyanVm = new KiraBeyanVM();
+                model.KiraBeyanVm.Beyanlar = new StaticPagedList<Kira_Beyan>(beyanlar, model.PageNumber, model.PageSize, beyanlar.Count());
+                model.TotalRecordCount = model.KiraBeyanVm.Beyanlar.Count();
+            }
+
+            return View(model);
+        }
 
         public ActionResult Index(KiraBeyanRequest request, int? page, int pageSize = 15)
         {
@@ -138,6 +186,15 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
             return new SelectList(ilceler, "Id", "Ad");
         }
+
+
+        public SelectList GayrimenkulTuruSelectList()
+        {
+            var gayrimenkulTuru = _gayrimenkulTurService.GetirListe().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+
+            return new SelectList(gayrimenkulTuru, "Id", "Ad");
+        }
+
 
         [HttpPost]
         public JsonResult MahalleSelectList(int ilceId)
@@ -847,7 +904,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                         OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
                         AktifMi = true
                     };
-                    
+
                     //TahakkukEkleVm kdvTahakkukEkleVm = new TahakkukEkleVm()
                     //{
                     //    GelirId = kiraParametre.KararHarciTarifeKodu.Value,

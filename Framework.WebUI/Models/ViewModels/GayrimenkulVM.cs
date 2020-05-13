@@ -27,7 +27,7 @@ namespace Framework.WebUI.Models.ViewModels
         public int Il_Id { get; set; }
 
         [Display(Name = "Ilce_Id")]
-        public int Ilce_Id { get; set; }
+        public int? Ilce_Id { get; set; }
 
         [Display(Name = "Mahalle_Id")]
         public int Mahalle_Id { get; set; }

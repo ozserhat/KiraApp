@@ -939,6 +939,7 @@
     <Content Include="Scripts\bootstrap-datepicker.tr.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\canvasjs.min.js" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
@@ -1114,6 +1115,10 @@
     <Content Include="Areas\Emlak\Views\GayrimenkulTur\Index.cshtml" />
     <Content Include="Areas\Emlak\Views\GayrimenkulTur\Ekle.cshtml" />
     <Content Include="Areas\Emlak\Views\GayrimenkulTur\Duzenle.cshtml" />
+
+    <Content Include="Areas\Kira\Views\Beyan\GayrimenkulSorgula.cshtml" />
+    <Content Include="Areas\Kira\Views\Beyan\SicilSorgula.cshtml" />
+
     <Content Include="Areas\Admin\Views\Beyan\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Beyan\_tablePartial.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
