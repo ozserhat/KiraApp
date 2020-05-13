@@ -125,11 +125,13 @@
 
 
 @section pagespecific {
+  
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     @Scripts.Render("~/bundles/jqueryval")
-    <script src="~/Scripts/canvasjs.min.js"></script>
-    <script>
+    <script type="text/javascript">
 
         $(document).ready(function () {
+
             $.ajax({
                 type: 'GET',
                 url: '@Url.Action("GetirGayrimenkulChart", "Beyan")',
@@ -178,6 +180,8 @@
             var chart2 = new CanvasJS.Chart("chartContainer2", {
                 exportEnabled: false,
                 animationEnabled: true,
+                width: 700,//in pixels
+                height: 450,//in pixels
                 title: {
                     text: "Gayrimenkul Bazlı Beyan Bilgileri"
                 },
@@ -189,7 +193,6 @@
                     type: "pie",
                     showInLegend: true,
                     toolTipContent: "{name}: <strong>{y}%</strong>",
-                    indexLabel: "{name} - {y}%",
                     dataPoints:data
                 }]
             });
@@ -199,10 +202,12 @@
         }
 
         function KiralikTasinmazlar(data) {
-            debugger;
 
-             var chart = new CanvasJS.Chart("chartContainer", {
+
+            var chart = new CanvasJS.Chart("chartContainer", {
                 animationEnabled: true,
+                width: 700,//in pixels
+                height: 450,//in pixels
                 title: {
                     text: "Kiralanan Taşınmazlar"
                 },
@@ -222,10 +227,11 @@
                 },
                 data: [{
                     type: "column",
-                    name: "Aktif Kiralık Taşınmazlar",
-                    legendText: "Pasif Kiralık Taşınmazlar",
+                    name: "",
+                    legendText: "",
                     showInLegend: true,
-                    dataPoints: data
+                    indexLabel: "%{y}%",
+                    dataPoints:data
                 }]
             });
             chart.render();
@@ -233,6 +239,6 @@
 
 
         }
-        
+
     </script>
 }

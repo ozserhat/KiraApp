@@ -17,6 +17,7 @@ using System.IO;
 using System.Globalization;
 using System.Configuration;
 using Framework.Entities.ComplexTypes;
+using Newtonsoft.Json;
 
 namespace Framework.WebUI.Areas.Kira.Controllers
 {
@@ -598,6 +599,9 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             {
                 modelList.Add(new KiralikTasinmazlarChart() { y = item.Count, label = item.Key });
             }
+
+            ViewBag.DataPoints = JsonConvert.SerializeObject(modelList);
+
             return Json(modelList.ToArray(), JsonRequestBehavior.AllowGet);
         }
         #endregion
