@@ -1114,6 +1114,8 @@
     <Content Include="Areas\Emlak\Views\GayrimenkulTur\Index.cshtml" />
     <Content Include="Areas\Emlak\Views\GayrimenkulTur\Ekle.cshtml" />
     <Content Include="Areas\Emlak\Views\GayrimenkulTur\Duzenle.cshtml" />
+    <Content Include="Areas\Admin\Views\Beyan\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Beyan\_tablePartial.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
