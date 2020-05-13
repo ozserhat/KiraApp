@@ -35,6 +35,17 @@ namespace Framework.Business.Concrete.Managers
 
         }
 
+
+       public IEnumerable<Kira_Beyan> GetirSorguListeGayrimenkul(GayrimenkulBeyanRequest request)
+        {
+            return _Kira_BeyanDal.GetListByCriteriasGayrimenkul(request);
+        }
+
+        public IEnumerable<Kira_Beyan> GetirSorguListeSicil(SicilBeyanRequest request)
+        {
+            return _Kira_BeyanDal.GetListByCriteriasSicil(request);
+        }
+
         public IEnumerable<Kira_Beyan> GetirListe()
         {
             return _Kira_BeyanDal.GetList();

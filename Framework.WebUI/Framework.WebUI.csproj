@@ -1104,6 +1104,8 @@
     <Content Include="Areas\Admin\Views\KiraParametre\Index.cshtml" />
     <Content Include="Areas\Kira\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Kira\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Kira\Views\Beyan\GayrimenkulSorgula.cshtml" />
+    <Content Include="Areas\Kira\Views\Beyan\SicilSorgula.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
