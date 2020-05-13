@@ -46,6 +46,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         private IIlService _ilService;
         private IIlceService _ilceService;
         private IMahalleService _mahalleService;
+        private IUserService _userService;
+
         public string DosyaYolu = ConfigurationManager.AppSettings["DosyaYolu"].ToString();
 
 
@@ -68,7 +70,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         IKiraParametreService kiraParametreService,
         IResmiTatillerService resmiTatilService,
         ITahakkukDisServis tahakkukDisServis,
-        IGayrimenkulTurService gayrimenkulTurService
+        IGayrimenkulTurService gayrimenkulTurService,
+        IUserService userService
         )
         {
             _gayrimenkulservice = gayrimenkulservice;
@@ -92,6 +95,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             _tahakkukDisServis = tahakkukDisServis;
             _gayrimenkulTurService = gayrimenkulTurService;
             //_tahakkukDisServis = tahakkukDisServis;
+            _userService = userService;
         }
         #endregion
 
@@ -1071,6 +1075,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                         OdemePeriyotu = beyan.Beyanlar.OdemePeriyotTur.Ad,
                         KiraDurumu = beyan.Beyanlar.KiraDurum.Ad,
                         DamgaAlinsinMi = (beyan.Beyanlar.DamgaAlinsinMi == true ? "Evet" : "Hayır"),
+                        OlusturanKullanici=_userService.GetById(beyan.OlusturanKullanici_Id.Value).UserName,
+                        SorumluPersonel= _userService.GetById(beyan.SorumluPersonelId.Value).UserName,
                         AktifMi = beyan.Beyanlar.AktifMi.Value,
                     };
                 }

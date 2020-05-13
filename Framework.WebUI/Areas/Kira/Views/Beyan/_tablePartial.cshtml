@@ -10,7 +10,7 @@
             <th class="sorting_disabled" rowspan="1" colspan="1">Sicil No</th>
             <th class="sorting_disabled" rowspan="1" colspan="1">Kiracı Bilgi</th>
             <th class="sorting_disabled" rowspan="1" colspan="1">Gayrimenkul No</th>
-            <th class="sorting_disabled" rowspan="1" colspan="1">Atanan Personel</th>
+            <th class="sorting_disabled" rowspan="1" colspan="1">Sorumlu Personel</th>
 
             <th class="sorting_disabled" rowspan="1" colspan="1">İl</th>
             <th class="sorting_disabled" rowspan="1" colspan="1">İlçe</th>
@@ -36,7 +36,7 @@
                 <td>@Html.DisplayFor(model => item.Kiracilar.SicilNo)</td>
                 <td>@Html.DisplayFor(model => item.Kiracilar.Ad)</td>
                 <td>@Html.DisplayFor(model => item.Gayrimenkuller.GayrimenkulNo)</td>
-                <td>@Html.DisplayFor(model => item.SorumluPersoneller.FirstName) </td>
+                <td>@Html.DisplayFor(model => item.SorumluPersoneller.UserName) </td>
 
                 <td>@Html.DisplayFor(model => item.Gayrimenkuller.Mahalleler.Ilceler.Iller.Ad)</td>
                 <td>@Html.DisplayFor(model => item.Gayrimenkuller.Mahalleler.Ilceler.Ad)</td>
