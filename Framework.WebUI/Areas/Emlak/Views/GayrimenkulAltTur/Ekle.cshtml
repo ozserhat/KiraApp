@@ -1,8 +1,9 @@
-﻿@model Framework.WebUI.Models.ViewModels.GayrimenkulTurEkleVM
+﻿@model Framework.WebUI.Models.ViewModels.GayrimenkulAlt_TurEkleVM
 @{
     ViewBag.Title = "Ekle";
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    Layout = "~/Areas/Emlak/Views/Shared/_LayoutEmlak.cshtml";
 }
+
 
 @if (!Model.HideContent)
 {
@@ -15,7 +16,7 @@
                         <header>
                             <div style="margin-top: -5px;">
                                 <p>
-                                    <a href="@Url.Action("Index")" class="btn btn-warning" title="" rel="tooltip" data-placement="bottom" data-original-title="Gayrimenkul Tür Listesine Dön"><span class="glyphicon glyphicon-chevron-left"></span> Gayrimenkul Tür  Listesine Dön</a>
+                                    <a href="@Url.Action("Index")" class="btn btn-warning" title="" rel="tooltip" data-placement="bottom" data-original-title="Gayrimenkul Alt Tür Listesine Dön"><span class="glyphicon glyphicon-chevron-left"></span> Alt Tür  Listesine Dön</a>
                                 </p>
                             </div>
                         </header>
@@ -35,28 +36,29 @@
                         <div role="contentinfo">
                             <div class="widget-body">
                                 <div class="tab-pane fade active in">
-                                    @using (Html.BeginForm("Ekle", "GayrimenkulTur", FormMethod.Post, new { enctype = "multipart/form-data", id = "submitForm" }))
+                                    @using (Html.BeginForm("Ekle", "GayrimenkulAltTur", FormMethod.Post, new { enctype = "multipart/form-data", id = "submitForm" }))
                                     {
                                         @Html.AntiForgeryToken()
                                         <div class="widget-body">
                                             <fieldset>
                                                 <div class="row">
                                                     <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
-                                                        @Html.LabelFor(model => model.GayrimenkulAdi, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                        @Html.LabelFor(model => model.GayrimenkulTur_Id, new { @class = "control-label col-md-4 zorunluYildiz" })
                                                         <div class="col-md-8">
-                                                            @Html.TextBoxFor(model => model.GayrimenkulAdi, new { @class = "form-control col-md-4 required" })
-                                                            @Html.ValidationMessageFor(model => model.GayrimenkulAdi, "", new { @class = "text-danger" })
+                                                            @Html.DropDownList("GayrimenkulTur_Id", Model.TurSelectList, "Seçiniz", new { @class = "select2" })
+                                                            @Html.ValidationMessageFor(model => model.GayrimenkulTur_Id, "", new { @class = "text-danger" })
                                                         </div>
                                                     </div>
                                                 </div>
-                                                @*<div class="row">
-                                                        <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
-                                                            @Html.LabelFor(model => model.AktifMi, new { @class = "control-label col-md-4" })
-                                                            <div class="col-md-8 form-control-static">
-                                                                @Html.CheckBoxFor(model => model.AktifMi, new { @style = "width: 16px; height: 16px;" })
-                                                            </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
+                                                        @Html.LabelFor(model => model.AltTurAdi, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                        <div class="col-md-8">
+                                                            @Html.TextBoxFor(model => model.AltTurAdi, new { @class = "form-control col-md-4 required" })
+                                                            @Html.ValidationMessageFor(model => model.AltTurAdi, "", new { @class = "text-danger" })
                                                         </div>
-                                                    </div>*@
+                                                    </div>
+                                                </div>
                                             </fieldset>
                                         </div>
                                         <div class="form-actions">
@@ -85,36 +87,37 @@
     @Scripts.Render("~/bundles/jqueryval")
 
 
-    <!--GayrimenkulTur Ekle-->
+    <!--GayrimenkulAltTur Ekle-->
     <script type="text/javascript">
         $(function () {
             $('#btnSubmit').on('click', function () {
                 tur = new Object();
-                tur.GayrimenkulAdi = $("#GayrimenkulAdi").val();
-                tur.AktifMi = $("#AktifMi").val();
+                tur.GayrimenkulTur_Id = $("#GayrimenkulTur_Id").val();
+                tur.AltTurAdi = $("#AltTurAdi").val();
 
-                if ($("#submitForm").valid()) {
-                    $.ajax({
-                        type: 'POST',
-                        url: '/Admin/GayrimenkulTur/Ekle',
-                        data: { tur: tur },
-                        success: function (result) {
-                            if (result != null && result.success) {
+                if($("#submitForm").valid())
+                {
+                   $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Ekle", "GayrimenkulAltTur")',
+                    data: { tur: tur },
+                    success: function (result) {
+                        if (result != null && result.success) {
 
-                                swal('Bilgi!', result.Message, 'success');
+                            swal('Uyarı!', result.Message, 'success');
 
-                                setTimeout(function () {
-                                    window.location.href = "../GayrimenkulTur/Index";
-                                }, 2000);
-                            }
-                            else {
-                                swal('Uyarı!', result.Message, 'warning');
-                            }
-                        },
-                        error: function (xhr) {
+                            setTimeout(function () {
+                                window.location.href = "../GayrimenkulAltTur/Index";
+                            }, 2000);
+                        }
+                        else {
                             swal('Uyarı!', result.Message, 'warning');
                         }
-                    });
+                    },
+                    error: function (xhr) {
+                        swal('Uyarı!', result.Message, 'warning');
+                    }
+                 });
                 }
             });
         });

@@ -269,20 +269,24 @@
             bottom: 0;
             right: 0;
         }
+
+        .outputview {
+            margin-top: 10px;
+        }
     </style>
 
     <!--Para Formatı -->
     @*<script type="text/javascript">
-        $('.moneyFormat').change(function (e) {
-            //$('.moneyFormat').formatCurrency();
+            $('.moneyFormat').change(function (e) {
+                //$('.moneyFormat').formatCurrency();
 
-            var money = $(this).val();
+                var money = $(this).val();
 
-            money = money.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+                money = money.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
 
-            $(this).val(money)
-        });
-    </script>*@
+                $(this).val(money)
+            });
+        </script>*@
 
 
     <!--Datetime Picker Format -->
@@ -672,7 +676,7 @@
     </script>
 
 
-    @*KiraTutariHesaplama 
+    <!--KiraTutariHesaplama-->
     <script type="text/javascript">
         $(document).on("change keyup blur", "#KiraTutari", function () {
 
@@ -680,10 +684,23 @@
             var ss = $('#SozlesmeSuresi').val();
             var kt = $('#KiraTutari').val();
 
+            //function round(value, decimals) {
+            //   return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
+            //}
+
+            //kt = round(kt, 2);
+
+
+            kt = kt.replace(/\./g, '');
+            it = it.replace(/\./g, '');
+
+
             if (kt != null && ss != null && it != null) {
 
                 var dec = (ss * 12);
-                var result = it / dec;
+                var result = (it / dec);
+
+
                 $('#result').val(result);
                 var uyari = $('#dvTutarUyari');
 
@@ -697,7 +714,7 @@
 
             }
         });
-    </script>*@
+    </script>*
 
 }
 

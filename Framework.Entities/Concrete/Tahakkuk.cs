@@ -25,7 +25,8 @@ namespace Framework.Entities.Concrete
         [ForeignKey("KiraBeyan_Id")]
         public Kira_Beyan Kira_Beyani { get; set; }
 
-        public int? ServisSonucTahakkukId { get; set; }
+        [StringLength(500)]
+        public string ServisSonucTahakkukId { get; set; }
 
         public int? TaksitSayisi { get; set; }
 
@@ -51,5 +52,21 @@ namespace Framework.Entities.Concrete
         public DateTime? GuncellenmeTarihi { get; set; }
 
         public bool? AktifMi { get; set; }
+
+    }
+
+    [NotMapped]
+    public class TahakkukRequest
+    {
+        public int? KiraBeyan_Id { get; set; }
+        public bool? OdemeDurumu { get; set; }
+        public DateTime? VadeTarihi { get; set; }
+        public DateTime? TahakkukTarihi { get; set; }
+        public int? BeyanYil { get; set; }
+        public int? TaksitNo { get; set; }
+        public decimal? Tutar { get; set; }
+        public string Aciklama { get; set; }
+
+
     }
 }

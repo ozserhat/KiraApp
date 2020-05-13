@@ -1,11 +1,10 @@
-﻿@model Framework.WebUI.Models.ViewModels.GayrimenkulTurVM
+﻿@model Framework.WebUI.Models.ViewModels.GayrimenkulAlt_TurVM
 @using PagedList;
 @using PagedList.Mvc;
-
 @{
     int sonSayfa = 0;
     ViewBag.Title = "Index";
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    Layout = "~/Areas/Emlak/Views/Shared/_LayoutEmlak.cshtml";
 }
 
 
@@ -39,8 +38,7 @@
                             <h2>Gayrimenkul Tür Listesi - <b>Toplam Tür Adedi : @Model.TotalRecordCount</b></h2>
                             <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
                                 <p>
-                                    @Html.AuthActionLink(" Tür Ekle", "Ekle", "GayrimenkulTur", "btn btn-primary", 
-                                   "glyphicon glyphicon-plus", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                                    @Html.AuthActionLink(" Alt Tür Ekle", "Ekle", "GayrimenkulAltTur", "btn btn-primary", "glyphicon glyphicon-plus", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                                 </p>
                             </div>
                         </header>
@@ -54,22 +52,23 @@
                                                     <tr role="row">
                                                         <th style="width: 20px;">No</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Tür Adı</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Alt Tür Adı</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 250px;">Durum</th>
                                                         <th class="sorting_disabled text-center" rowspan="1" colspan="1" style="text-align: right;  padding-right: 30px; width: 100px;">İşlem</th>
                                                     </tr>
                                                 </thead>
-                                                @if (Model.GayrimenkulTur != null && Model.GayrimenkulTur.Count > 0)
+                                                @if (Model.GayrimenkulAltTur != null && Model.GayrimenkulAltTur.Count > 0)
                                                 {
                                                     <tbody>
 
                                                         @{int i = ((Model.PageNumber - 1) * Model.PageSize) + 1;}
 
-                                                        @foreach (var item in Model.GayrimenkulTur)
+                                                        @foreach (var item in Model.GayrimenkulAltTur)
                                                         {
                                                             <tr role="row" class="odd">
                                                                 <td>@(i++)</td>
+                                                                <td>@Html.DisplayFor(model => item.GayrimenkulTur.Ad)</td>
                                                                 <td>@Html.DisplayFor(model => item.Ad)</td>
-
                                                                 <td>
                                                                     @if (item.AktifMi.HasValue && item.AktifMi.Value)
                                                                     {
@@ -81,14 +80,13 @@
                                                                     }
                                                                 </td>
                                                                 <td class="text-center">
-                                                                    @Html.AuthAction(" ", "Duzenle", "GayrimenkulTur", new { item.Guid },
-                                                                            new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
-                                                                            Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                                                                    @Html.AuthAction(" ", "Duzenle", "GayrimenkulAltTur", new { item.Guid },
+                                                                                new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
+                                                                                Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
-                                                                    @Html.AuthAction(" ", "Sil", "GayrimenkulTur", new { item.Id },
+                                                                    @Html.AuthAction(" ", "Sil", "GayrimenkulAltTur", new { item.Id },
                                                                                     new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = item.Ad, @data_id = item.Id },
                                                                                     Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
-
                                                                 </td>
                                                             </tr>
                                                         }
@@ -112,7 +110,7 @@
 
     </div>
 
-    using (Html.BeginForm("Index", "Gayrimenkul", new { page = 1 }, FormMethod.Post, new { @id = "sorgulamaKriterleri" }))
+    using (Html.BeginForm("Index", "GayrimenkulAltTur", new { page = 1 }, FormMethod.Post, new { @id = "sorgulamaKriterleri" }))
     {
         <input id="page" name="page" type="hidden" value="">
     }
@@ -121,7 +119,7 @@
 
 @section pagespecific {
     @Scripts.Render("~/bundles/jqueryval")
-     <link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
+    <link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
     <script src="~/Content/SweetAlert/sweetalert2.min.js"></script>
 
     <script type="text/javascript">
@@ -147,7 +145,7 @@
 
     </script>
 
-    <!--Gayrimenkul Tur Silme İşlemi -->
+    <!--Gayrimenkul Alt Tur Silme İşlemi -->
     <script type="text/javascript">
         var dt;
 
@@ -161,8 +159,8 @@
 
         $(".delete-row").click(function (e) {
             e.preventDefault();
-            var id = $(this).attr("data-id");
-            var name = $(this).attr("data-name");
+            var id = $(this).attr("data_id");
+            var name = $(this).attr("data_name");
             var closestTR = $(this).closest("tr");
             var vl = deletealert(id, name, closestTR);
         });
@@ -170,7 +168,7 @@
         $(document).ready(function () {
             dt = $('#dt_basic').DataTable(dt_settings);
         });
-    </script>
+    </script>x
 
     <script type="text/javascript">
         function deletealert(Id, name, closestTR) {
@@ -185,13 +183,13 @@
             }).then(function (isConfirm) {
                 if (isConfirm) {
                     $.ajax({
-                        url: "/Admin/GayrimenkulTur/Sil/" + Id,
+                        url: "/GayrimenkulAltTur/Sil/" + Id,
                         type: 'POST',
                         success: function (result) {
                             if (result.success) {
                                 closestTR.fadeOut(2000, function () {
                                     dt = $('#dt_basic').DataTable();
-                                    swal('Bilgi!', name + ' ' + result.Message, 'success');
+                                    swal('Uyarı!', name + ' ' + result.Message, 'success');
                                     location.reload();
                                 });
                             }
@@ -204,5 +202,3 @@
     </script>
 
 }
-
-
