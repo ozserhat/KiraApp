@@ -67,7 +67,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         IMahalleService mahalleService,
         IKiraParametreService kiraParametreService,
         IResmiTatillerService resmiTatilService,
-        ITahakkukDisServis tahakkukDisServis
+        ITahakkukDisServis tahakkukDisServis,
         IGayrimenkulTurService gayrimenkulTurService
         )
         {
@@ -904,7 +904,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                         OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
                         AktifMi = true
                     };
-                    
+
                     //TahakkukEkleVm kdvTahakkukEkleVm = new TahakkukEkleVm()
                     //{
                     //    GelirId = kiraParametre.KararHarciTarifeKodu.Value,
