@@ -525,6 +525,30 @@
             });
         }
 
+        $("#checkAll").change(function () {
+            debugger;
+                     $("input:checkbox").prop('checked', $(this).prop("checked"));
+            $("input:checkbox").prop('checked', $(this).prop("checked")).each(function () {
+                 var dt = $("#dt_basic").dataTable();
+                var row = $(this).closest('tr');
+                var tuisre = $(this).is(":checked");
+                if (tuisre) {
+                    if ($(this).val() != "on") {
+                        closestRow.push(row);
+                        removeList.push($(this).val());
+
+                    }
+                }
+                else {
+                      removeList.splice($.inArray(this.value, removeList), 1);
+
+                }
+            })
+
+                 });
+
+
+
         $('#btnGonder').on('click', function (e) {
 
             e.preventDefault();
@@ -537,7 +561,7 @@
                 data: { kullaniciYetki: removeList, KullaniciId: kullaniciId },
                 success: function (result) {
                     if (result != null && result.success) {
-
+                        debugger;
                         var i;
                         for (i = 0; i < closestRow.length; i++) {
                             closestRow[i].fadeOut(2000, function () {
