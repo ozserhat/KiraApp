@@ -3,6 +3,8 @@ using Framework.Business.Abstract;
 using Framework.DataAccess.Abstract;
 using Framework.Entities.Concrete;
 using System.Collections.Generic;
+using System.Linq;
+
 namespace Framework.Business.Concrete.Managers
 {
     public class Beyan_DosyaManager : IBeyan_DosyaService
@@ -37,6 +39,11 @@ namespace Framework.Business.Concrete.Managers
         public IEnumerable<Beyan_Dosya> GetirListe()
         {
             return _beyandosyaDal.GetirListe();
+        }
+
+        public IEnumerable<Beyan_Dosya> GetirListeAktif()
+        {
+            return _beyandosyaDal.GetirListe().Where(a => a.AktifMi == true);
         }
 
         public Beyan_Dosya Guncelle(Beyan_Dosya tur)

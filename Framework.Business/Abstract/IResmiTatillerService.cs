@@ -10,6 +10,7 @@ namespace Framework.Business.Abstract
     public interface IResmiTatillerService
     {
         IEnumerable<ResmiTatiller> GetirListe();
+        IEnumerable<ResmiTatiller> GetirListeAktif();
         ResmiTatiller Getir(int id);
 
         ResmiTatiller Ekle(ResmiTatiller tur);

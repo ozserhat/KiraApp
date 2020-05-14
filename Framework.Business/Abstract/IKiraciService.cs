@@ -7,6 +7,7 @@ namespace Framework.Business.Abstract
     public interface IKiraciService
     {
         IEnumerable<Kiraci> GetirListe();
+        IEnumerable<Kiraci> GetirListeAktif();
 
         Kiraci Getir(int id);
 

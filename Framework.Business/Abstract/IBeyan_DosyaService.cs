@@ -10,6 +10,8 @@ namespace Framework.Business.Abstract
     public interface IBeyan_DosyaService
     {
         IEnumerable<Beyan_Dosya> GetirListe();
+
+        IEnumerable<Beyan_Dosya> GetirListeAktif();
         Beyan_Dosya Getir(int id);
 
         Beyan_Dosya GetirGuid(Guid guid);

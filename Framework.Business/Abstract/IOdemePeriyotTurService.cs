@@ -10,6 +10,7 @@ namespace Framework.Business.Abstract
     public interface IOdemePeriyotTurService
     {
         IEnumerable<OdemePeriyotTur> GetirListe();
+        IEnumerable<OdemePeriyotTur> GetirListeAktif();
 
         OdemePeriyotTur Getir(int id);
 

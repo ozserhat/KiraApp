@@ -20,7 +20,6 @@ namespace Framework.Business.Concrete.Managers
             _roleDal = roleDal;
         }
 
-
         public Role Ekle(Role role)
         {
             return _roleDal.Ekle(role);
@@ -29,6 +28,10 @@ namespace Framework.Business.Concrete.Managers
         public IEnumerable<Role> GetAll()
         {
             return _roleDal.GetAll();
+        }
+        public IEnumerable<Role> GetirListeAktif()
+        {
+            return _roleDal.GetAll().Where(a => a.IsActive == true);
         }
 
         public Role GetByGuid(Guid guid)

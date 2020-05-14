@@ -15,7 +15,6 @@ namespace Framework.Entities.Concrete
 
         [Column(Order = 1)]
         public int User_Id { get; set; }
-
         
         [Column(Order = 2)]
         public int Role_Id { get; set; }

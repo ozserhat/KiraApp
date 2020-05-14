@@ -43,6 +43,11 @@ namespace Framework.Business.Concrete.Managers
             return _beyanDal.GetirListe();
         }
 
+        public IEnumerable<Beyan> GetirListeAktif()
+        {
+            return _beyanDal.GetirListe().Where(a => a.AktifMi == true).ToList();
+        }
+
         public Beyan Guncelle(Beyan tur)
         {
             return _beyanDal.Update(tur);

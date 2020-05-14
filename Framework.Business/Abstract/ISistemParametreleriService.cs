@@ -8,6 +8,7 @@ namespace Framework.Business.Abstract
     public interface ISistemParametreleriService
     {
         IEnumerable<SistemParametreleri> GetirListe();
+        IEnumerable<SistemParametreleri> GetirListeAktif();
         SistemParametreleri Getir(int id);
 
         SistemParametreleri GetirGuid(Guid guid);

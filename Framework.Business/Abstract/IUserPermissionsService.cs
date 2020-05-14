@@ -11,6 +11,7 @@ namespace Framework.Business.Abstract
     public interface IUserPermissionsService
     {
         IEnumerable<User_Permission> GetAll();
+        IEnumerable<User_Permission> GetirListeAktif();
 
         List<User_Permission> GetUserByPermissions(int UserId);
 

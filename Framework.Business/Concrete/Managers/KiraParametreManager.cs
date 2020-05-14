@@ -42,6 +42,10 @@ namespace Framework.Business.Concrete.Managers
         {
             return _kiraParametreDal.GetList();
         }
+        public IEnumerable<KiraParametre> GetirListeAktif()
+        {
+            return _kiraParametreDal.GetList().Where(a => a.AktifMi == true);
+        }
 
         public KiraParametre Guncelle(KiraParametre parameter)
         {

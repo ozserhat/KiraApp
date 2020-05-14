@@ -38,6 +38,11 @@ namespace Framework.Business.Concrete.Managers
             return _gayrimenkulTurDal.GetList();
         }
 
+        public IEnumerable<GayrimenkulTur> GetirListeAktif()
+        {
+            return _gayrimenkulTurDal.GetList().Where(a=>a.AktifMi==true);
+        }
+
         public GayrimenkulTur Guncelle(GayrimenkulTur tur)
         {
             return _gayrimenkulTurDal.Update(tur);

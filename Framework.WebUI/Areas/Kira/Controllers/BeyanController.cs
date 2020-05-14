@@ -94,11 +94,9 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
         #region Listeleme
 
-
         public ActionResult Index(KiraBeyanRequest request, int? page, int pageSize = 15)
         {
             var model = new KiraBeyanVM();
-
             var beyanlar = _kiraBeyanService.GetirSorguListe(request);
 
 
@@ -149,14 +147,14 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
         public SelectList GayrimenkulSelectList()
         {
-            var iller = _gayrimenkulservice.GetirListe().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+            var iller = _gayrimenkulservice.GetirListeAktif().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
 
             return new SelectList(iller, "Id", "Ad");
         }
 
         public SelectList BeyanTurSelectList()
         {
-            var turler = _beyanTurService.GetirListe().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+            var turler = _beyanTurService.GetirListeAktif().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
 
             return new SelectList(turler, "Id", "Ad");
         }
@@ -194,14 +192,14 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
         public SelectList KiraDurumSelectList()
         {
-            var iller = _kiraDurumService.GetirListe().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+            var iller = _kiraDurumService.GetirListeAktif().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
 
             return new SelectList(iller, "Id", "Ad");
         }
 
         public SelectList OdemePeriyotSelectList()
         {
-            var iller = _odemePeriyotService.GetirListe().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+            var iller = _odemePeriyotService.GetirListeAktif().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
 
             return new SelectList(iller, "Id", "Ad");
         }

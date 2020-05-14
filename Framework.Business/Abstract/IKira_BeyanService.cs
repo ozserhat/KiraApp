@@ -10,10 +10,8 @@ namespace Framework.Business.Abstract
     public interface IKira_BeyanService
     {
         IEnumerable<Kira_Beyan> GetirListe();
-
         IEnumerable<Kira_Beyan> GetirSorguListe(KiraBeyanRequest request);
         Kira_Beyan GetirBeyan(int BeyanId);
-
 
         Kira_Beyan Getir(int id);
 

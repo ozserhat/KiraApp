@@ -10,7 +10,7 @@ namespace Framework.Business.Abstract
     public interface IUserRoleService
     {
         IEnumerable<User_Role> GetAll();
-
+        IEnumerable<User_Role> GetirListeAktif();
         User_Role GetById(int id);
 
         User_Role GetByUserId(int UserId);

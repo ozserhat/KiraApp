@@ -3,6 +3,7 @@ using Framework.Business.Abstract;
 using Framework.DataAccess.Abstract;
 using Framework.Entities.Concrete;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Framework.Business.Concrete.Managers
 {
@@ -43,6 +44,10 @@ namespace Framework.Business.Concrete.Managers
         public IEnumerable<Gayrimenkul> GetirListe()
         {
             return _gayrimenkulDal.GetirListe();
+        }
+        public IEnumerable<Gayrimenkul> GetirListeAktif()
+        {
+            return _gayrimenkulDal.GetirListe().Where(a => a.AktifMi == true);
         }
 
         public Gayrimenkul Guncelle(Gayrimenkul tur)

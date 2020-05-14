@@ -7,6 +7,7 @@ namespace Framework.Business.Abstract
     public interface IDuyuru_TurService
     {
         IEnumerable<Duyuru_Tur> GetirListe();
+        IEnumerable<Duyuru_Tur> GetirListeAktif();
 
         Duyuru_Tur Getir(int id);
 

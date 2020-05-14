@@ -38,6 +38,10 @@ namespace Framework.Business.Concrete.Managers
             return _beyanDosyaTurDal.GetList();
         }
 
+        public IEnumerable<BeyanDosya_Tur> GetirListeAktif()
+        {
+            return _beyanDosyaTurDal.GetList().Where(a => a.AktifMi == true);
+        }
         public BeyanDosya_Tur Guncelle(BeyanDosya_Tur tur)
         {
             return _beyanDosyaTurDal.Update(tur);
