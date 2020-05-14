@@ -42,10 +42,12 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         public static KiraBeyanEkleVM _beyanVM;
         private IBeyan_TurService _beyanTurService;
         private ISistemParametre_DetayService _parametreService;
-
+        private IGayrimenkulTurService _gayrimenkulTurService;
         private IIlService _ilService;
         private IIlceService _ilceService;
         private IMahalleService _mahalleService;
+        private IUserService _userService;
+
         public string DosyaYolu = ConfigurationManager.AppSettings["DosyaYolu"].ToString();
 
 
@@ -67,7 +69,9 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         IMahalleService mahalleService,
         IKiraParametreService kiraParametreService,
         IResmiTatillerService resmiTatilService,
-        ITahakkukDisServis tahakkukDisServis
+        ITahakkukDisServis tahakkukDisServis,
+        IGayrimenkulTurService gayrimenkulTurService,
+        IUserService userService
         )
         {
             _gayrimenkulservice = gayrimenkulservice;
@@ -89,14 +93,64 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             _kiraParametreService = kiraParametreService;
             _resmiTatilService = resmiTatilService;
             _tahakkukDisServis = tahakkukDisServis;
+            _gayrimenkulTurService = gayrimenkulTurService;
+            //_tahakkukDisServis = tahakkukDisServis;
+            _userService = userService;
         }
         #endregion
 
         #region Listeleme
 
+        public ActionResult GayrimenkulSorgula(GayrimenkulBeyanRequest request, int? page, int pageSize = 15)
+        {
+            var model = new GayrimenkulBeyanVM();
+
+            var beyanlar = _kiraBeyanService.GetirSorguListeGayrimenkul(request);
+
+
+            model.PageNumber = page ?? 1;
+            model.PageSize = pageSize;
+
+            if (beyanlar != null)
+            {
+                model.IlceSelectList = IlceSelectList();
+                model.IlSelectList = IlSelectList();
+                model.GayrimenkulTuruSelectList = GayrimenkulTuruSelectList();
+
+                model.KiraBeyanVm = new KiraBeyanVM();
+                model.KiraBeyanVm.Beyanlar = new StaticPagedList<Kira_Beyan>(beyanlar, model.PageNumber, model.PageSize, beyanlar.Count());
+                model.TotalRecordCount = model.KiraBeyanVm.Beyanlar.Count();
+            }
+
+            return View(model);
+        }
+
+        public ActionResult SicilSorgula(SicilBeyanRequest request, int? page, int pageSize = 15)
+        {
+            var model = new SicilBeyanVM();
+
+            var beyanlar = _kiraBeyanService.GetirSorguListeSicil(request);
+
+
+            model.PageNumber = page ?? 1;
+            model.PageSize = pageSize;
+
+            if (beyanlar != null)
+            {
+                model.IlceSelectList = IlceSelectList();
+                model.IlSelectList = IlSelectList();
+                model.KiraBeyanVm = new KiraBeyanVM();
+                model.KiraBeyanVm.Beyanlar = new StaticPagedList<Kira_Beyan>(beyanlar, model.PageNumber, model.PageSize, beyanlar.Count());
+                model.TotalRecordCount = model.KiraBeyanVm.Beyanlar.Count();
+            }
+
+            return View(model);
+        }
+
         public ActionResult Index(KiraBeyanRequest request, int? page, int pageSize = 15)
         {
             var model = new KiraBeyanVM();
+
             var beyanlar = _kiraBeyanService.GetirSorguListe(request);
 
 
@@ -137,6 +191,15 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             return new SelectList(ilceler, "Id", "Ad");
         }
 
+
+        public SelectList GayrimenkulTuruSelectList()
+        {
+            var gayrimenkulTuru = _gayrimenkulTurService.GetirListe().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+
+            return new SelectList(gayrimenkulTuru, "Id", "Ad");
+        }
+
+
         [HttpPost]
         public JsonResult MahalleSelectList(int ilceId)
         {
@@ -147,14 +210,14 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
         public SelectList GayrimenkulSelectList()
         {
-            var iller = _gayrimenkulservice.GetirListeAktif().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+            var iller = _gayrimenkulservice.GetirListe().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
 
             return new SelectList(iller, "Id", "Ad");
         }
 
         public SelectList BeyanTurSelectList()
         {
-            var turler = _beyanTurService.GetirListeAktif().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+            var turler = _beyanTurService.GetirListe().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
 
             return new SelectList(turler, "Id", "Ad");
         }
@@ -192,14 +255,14 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
         public SelectList KiraDurumSelectList()
         {
-            var iller = _kiraDurumService.GetirListeAktif().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+            var iller = _kiraDurumService.GetirListe().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
 
             return new SelectList(iller, "Id", "Ad");
         }
 
         public SelectList OdemePeriyotSelectList()
         {
-            var iller = _odemePeriyotService.GetirListeAktif().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+            var iller = _odemePeriyotService.GetirListe().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
 
             return new SelectList(iller, "Id", "Ad");
         }
@@ -589,11 +652,12 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         [HttpGet]
         public JsonResult KiralikTasinmazlarChart()
         {
-            var liste = _kiraBeyanService.GetirListe().GroupBy(a => a.Gayrimenkuller.Ilceler.Ad)
-                          .Select(g => new { g.Key, Count = g.Count() });
+            var liste = _kiraBeyanService.GetirListe().Where(x => x.Gayrimenkuller.Ilce_Id != null).ToList();
+            var data = liste.GroupBy(a => a.Gayrimenkuller.Ilceler.Ad)
+                          .Select(g => new { g.Key, Count = g.Count() }).ToList();
 
             List<KiralikTasinmazlarChart> modelList = new List<KiralikTasinmazlarChart>();
-            foreach (var item in liste)
+            foreach (var item in data)
             {
                 modelList.Add(new KiralikTasinmazlarChart() { y = item.Count, label = item.Key });
             }
@@ -794,7 +858,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
                 for (int i = 0; i < AySayisi; i++)
                 {
-                    Tahakkuk kiraTahakkuk = new Tahakkuk() {
+                    Tahakkuk kiraTahakkuk = new Tahakkuk()
+                    {
                         Guid = Guid.NewGuid(),
                         KiraBeyan_Id = kiraBeyanId,
                         KiraParametre_Id = kiraParametre.Id,
@@ -845,7 +910,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                         OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
                         AktifMi = true
                     };
-                    
+
                     //TahakkukEkleVm kdvTahakkukEkleVm = new TahakkukEkleVm()
                     //{
                     //    GelirId = kiraParametre.KararHarciTarifeKodu.Value,
@@ -1012,6 +1077,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                         OdemePeriyotu = beyan.Beyanlar.OdemePeriyotTur.Ad,
                         KiraDurumu = beyan.Beyanlar.KiraDurum.Ad,
                         DamgaAlinsinMi = (beyan.Beyanlar.DamgaAlinsinMi == true ? "Evet" : "Hayır"),
+                        OlusturanKullanici = _userService.GetById(beyan.OlusturanKullanici_Id.Value).UserName,
+                        SorumluPersonel = _userService.GetById(beyan.SorumluPersonelId.Value).UserName,
                         AktifMi = beyan.Beyanlar.AktifMi.Value,
                     };
                 }

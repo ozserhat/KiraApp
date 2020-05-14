@@ -45,7 +45,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             {
                 return context.Kira_Beyanlari
                               .Include(b => b.Beyanlar)
-                            .Include(h => h.Kiracilar)
+                              .Include(h => h.Kiracilar)
                               .Include(bt => bt.Beyanlar.BeyanTur)
                               .Include(k => k.Kiracilar)
                               .Include(g => g.Gayrimenkuller)
@@ -55,6 +55,74 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                               .ToList();
             }
         }
+        public IEnumerable<Kira_Beyan> GetListByCriteriasGayrimenkul(GayrimenkulBeyanRequest request)
+        {
+            List<Kira_Beyan> result = new List<Kira_Beyan>();
+
+            using (DtContext context = new DtContext())
+            {
+                var query = context.Kira_Beyanlari
+                                    .Include(b => b.Beyanlar)
+                              .Include(bt => bt.Beyanlar.BeyanTur)
+                              .Include(k => k.Kiracilar)
+                              .Include(g => g.Gayrimenkuller)
+                              .Include(m => m.Gayrimenkuller.Mahalleler)
+                              .Include(ilc => ilc.Gayrimenkuller.Mahalleler.Ilceler)
+                              .Include(ilc => ilc.Gayrimenkuller.Mahalleler.Ilceler.Iller)
+                              .AsQueryable();
+
+                query = request.Il_Id.HasValue ? query.Where(x => x.Gayrimenkuller.Il_Id == request.Il_Id) : query;
+                query = request.Ilce_Id.HasValue ? query.Where(x => x.Gayrimenkuller.Ilce_Id == request.Ilce_Id) : query;
+                query = request.Mahalle_Id.HasValue ? query.Where(x => x.Gayrimenkuller.Mahalle_Id == request.Mahalle_Id) : query;
+                query = request.Sokak != null ? query.Where(x => x.Gayrimenkuller.Sokak == request.Sokak) : query;
+                query = request.DisKapiNo != null ? query.Where(x => x.Gayrimenkuller.DisKapiNo == request.DisKapiNo) : query;
+                query = request.IcKapiNo != null ? query.Where(x => x.Gayrimenkuller.IcKapiNo == request.IcKapiNo) : query;
+                query = request.GayrimenkulAdi != null ? query.Where(x => x.Gayrimenkuller.Ad == request.GayrimenkulAdi) : query;
+                query = request.AdresNo != null ? query.Where(x => x.Gayrimenkuller.AdresNo == request.AdresNo) : query;
+                query = request.GayrimenkulTur.HasValue ? query.Where(x => x.Gayrimenkuller.GayrimenkulTur_Id == request.GayrimenkulTur) : query;
+                query = request.AracKapasitesi.HasValue ? query.Where(x => x.Gayrimenkuller.AracKapasitesi == request.AracKapasitesi) : query;
+                query = request.Metrekare.HasValue ? query.Where(x => x.Gayrimenkuller.Metrekare == request.Metrekare) : query;
+                query = request.NumaratajKimlikNo.HasValue ? query.Where(x => x.Gayrimenkuller.NumaratajKimlikNo == request.NumaratajKimlikNo) : query;
+
+
+
+                result = query.ToList();
+            }
+
+            return result;
+        }
+
+        public IEnumerable<Kira_Beyan> GetListByCriteriasSicil(SicilBeyanRequest request)
+        {
+            List<Kira_Beyan> result = new List<Kira_Beyan>();
+
+            using (DtContext context = new DtContext())
+            {
+                var query = context.Kira_Beyanlari
+                                    .Include(b => b.Beyanlar)
+                              .Include(bt => bt.Beyanlar.BeyanTur)
+                              .Include(k => k.Kiracilar)
+                              .Include(g => g.Gayrimenkuller)
+                              .Include(m => m.Gayrimenkuller.Mahalleler)
+                              .Include(ilc => ilc.Gayrimenkuller.Mahalleler.Ilceler)
+                              .Include(ilc => ilc.Gayrimenkuller.Mahalleler.Ilceler.Iller)
+                              .AsQueryable();
+
+                query = request.Ad != null ? query.Where(x => x.Kiracilar.Ad == request.Ad) : query;
+                query = request.SoyAd != null ? query.Where(x => x.Kiracilar.Soyad == request.SoyAd) : query;
+                query = request.IlId.HasValue ? query.Where(x => x.Kiracilar.Il_Id == request.IlId) : query;
+                query = request.IlceId.HasValue ? query.Where(x => x.Kiracilar.Ilce_Id == request.IlceId) : query;
+                query = request.MahalleId.HasValue ? query.Where(x => x.Kiracilar.Mahalle_Id == request.MahalleId) : query;
+                query = request.SicilNo.HasValue ? query.Where(x => x.Kiracilar.SicilNo == request.SicilNo) : query;
+                query = request.VergiNo.HasValue ? query.Where(x => x.Kiracilar.VergiNo == request.VergiNo) : query;
+                query = request.TcKimlikNo.HasValue ? query.Where(x => x.Kiracilar.TcKimlikNo == request.TcKimlikNo) : query;
+                query = request.VergiDairesi != null ? query.Where(x => x.Kiracilar.VergiDairesi == request.VergiDairesi) : query;
+
+                result = query.ToList();
+            }
+
+            return result;
+        }
 
         public IEnumerable<Kira_Beyan> GetListByCriterias(KiraBeyanRequest request)
         {
@@ -63,14 +131,16 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             using (DtContext context = new DtContext())
             {
                 var query = context.Kira_Beyanlari
-                              .Include(b => b.Beyanlar)
-                              .Include(bt => bt.Beyanlar.BeyanTur)
-                              .Include(k => k.Kiracilar)
-                              .Include(g => g.Gayrimenkuller)
-                              .Include(m => m.Gayrimenkuller.Mahalleler)
-                              .Include(ilc => ilc.Gayrimenkuller.Mahalleler.Ilceler)
-                              .Include(ilc => ilc.Gayrimenkuller.Mahalleler.Ilceler.Iller)
-                              .AsQueryable();
+                                      .Include(b => b.Beyanlar)
+                                .Include(bt => bt.Beyanlar.BeyanTur)
+                                .Include(k => k.Kiracilar)
+                                .Include(g => g.Gayrimenkuller)
+                                .Include(m => m.Gayrimenkuller.Mahalleler)
+                                .Include(ilc => ilc.Gayrimenkuller.Mahalleler.Ilceler)
+                                .Include(ilc => ilc.Gayrimenkuller.Mahalleler.Ilceler.Iller)
+                                .Include(pb=>pb.SorumluPersoneller)
+                                .AsQueryable();
+
 
                 query = request.Guid.HasValue ? query.Where(x => x.Beyanlar.Guid == request.Guid) : query;
                 query = request.BeyanTur_Id.HasValue ? query.Where(x => x.Beyanlar.BeyanTur_Id == request.BeyanTur_Id) : query;

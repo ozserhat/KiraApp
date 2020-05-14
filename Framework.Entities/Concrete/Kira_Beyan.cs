@@ -17,6 +17,11 @@ namespace Framework.Entities.Concrete
         [ForeignKey("Beyan_Id")]
         public virtual Beyan Beyanlar { get; set; }
 
+        public int? SorumluPersonelId { get; set; }
+
+        [ForeignKey("SorumluPersonelId")]
+        public virtual User SorumluPersoneller { get; set; }
+
         public int Kiraci_Id { get; set; }
 
         [ForeignKey("Kiraci_Id")]
@@ -69,5 +74,38 @@ namespace Framework.Entities.Concrete
         public decimal? IhaleTutari { get; set; }
         public decimal? KiraTutari { get; set; }
         public int? BaslangicTaksitNo { get; set; }
+    }
+
+    [NotMapped]
+    public class GayrimenkulBeyanRequest
+    {
+        public int? GayrimenkulTur { get; set; }
+        public string GayrimenkulAdi { get; set; }
+        public int? AdresNo { get; set; }
+        public int? NumaratajKimlikNo { get; set; }
+        public int? Il_Id { get; set; }
+        public int? Ilce_Id { get; set; }
+        public int? Mahalle_Id { get; set; }
+        public string Sokak { get; set; }
+        public string DisKapiNo { get; set; }
+        public string IcKapiNo { get; set; }
+        public string Koordinat { get; set; }
+        public int? Metrekare { get; set; }
+        public int? AracKapasitesi { get; set; }
+    }
+
+    public class SicilBeyanRequest
+    {
+        public string VergiDairesi { get; set; }
+        public int? SicilNo { get; set; }
+        public int? TcKimlikNo { get; set; }
+        public int? VergiNo { get; set; }
+        public string Ad { get; set; }
+        public string SoyAd { get; set; }
+        public int? IlId { get; set; }
+        public int? IlceId { get; set; }
+        public int? MahalleId { get; set; }
+
+
     }
 }

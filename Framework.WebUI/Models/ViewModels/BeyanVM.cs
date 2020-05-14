@@ -306,8 +306,17 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Damga Vergisi Alınsın Mı?")]
         public bool DamgaVergisiDurum { get; set; }
 
-        [Display(Name = "Oluşturan Kullanıcı")]
+        [Display(Name = "SorumluPersonel_Id")]
+        public int SorumluPersonel_Id { get; set; }
+
+        [Display(Name = "Sorumlu Personel")]
+        public string SorumluPersonel { get; set; }
+
+        [Display(Name = "Oluşturan Personel")]
         public int? OlusturanKullanici_Id { get; set; }
+
+        [Display(Name = "Oluşturan Kullanıcı")]
+        public string OlusturanKullanici { get; set; }
 
         [Display(Name = "Oluşturulma Tarihi")]
         public DateTime? OlusturulmaTarihi { get; set; }

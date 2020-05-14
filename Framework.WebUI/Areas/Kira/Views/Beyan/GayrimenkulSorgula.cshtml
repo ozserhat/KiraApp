@@ -1,9 +1,10 @@
-﻿@model Framework.WebUI.Models.ViewModels.KiraBeyanVM
+﻿@model Framework.WebUI.Models.ViewModels.GayrimenkulBeyanVM
 @using PagedList;
 @using PagedList.Mvc;
 
 @{
-    ViewBag.Title = "Index";
+    int sonSayfa = 0;
+    ViewBag.Title = "Gayrimenkul Sorgula";
     Layout = "~/Areas/Kira/Views/Shared/_LayoutKira.cshtml";
 }
 
@@ -33,6 +34,7 @@
             <div class="row">
                 <article class="col-sm-12 col-md-12 col-lg-12">
                     <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
+                    <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
                         <header>
                             <div style="float:left; margin-top: -5px; padding-bottom: 8px;">
 
@@ -47,13 +49,11 @@
                             <h2>Beyan Listesi - <b>Toplam Beyan Adedi : @Model.TotalRecordCount</b></h2>
 
                             <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
-                                @Html.AuthActionLink(" Beyan Ekle", "Ekle", "Beyan", "btn btn-primary",
 
-                                 "glyphicon glyphicon-plus", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                                 <div class="btn-group" role="menu">
                                     <button class="btn btn-info">
                                         <i class="glyphicon glyphicon-export"></i>
-                                            Dosya İşlemleri
+                                        Dosya İşlemleri
                                     </button>
                                     <button class="btn btn-info dropdown-toggle" data-toggle="dropdown">
                                         <span class="caret"></span>
@@ -76,6 +76,10 @@
                                         </li>
                                     </ul>
                                 </div>
+
+
+
+
                             </div>
 
                         </header>
@@ -93,7 +97,7 @@
                                                         <h4 class="d-inline-block text-light mb-0 float-right">Sorgulama Kriterleri</h4><br />
                                                     </header>
                                                     <div class="bs-canvas-content px-3 py-5" style="height:250px">
-                                                        @using (Html.BeginForm("Index", "Beyan", FormMethod.Post, new { enctype = "multipart/form-data", id = "submitForm" }))
+                                                        @using (Html.BeginForm("GayrimenkulSorgula", "Beyan", FormMethod.Post, new { enctype = "multipart/form-data", id = "submitForm" }))
                                                         {
                                                             <div class="widget-body">
                                                                 @Html.HiddenFor(model => model.PageSize)
@@ -102,9 +106,9 @@
                                                                         <div class="col-md-4">
                                                                             <div class="form-group">
                                                                                 <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => Model.BeyanTurSelectList, new { @class = "col-md-4 font-bold" })
+                                                                                    @Html.LabelFor(model => Model.GayrimenkulTuruSelectList, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
-                                                                                        @Html.DropDownList("BeyanTur_Id", Model.BeyanTurSelectList, "Seçiniz", new { @class = "select2" })
+                                                                                        @Html.DropDownList("GayrimenkulTur", Model.GayrimenkulTuruSelectList, "Seçiniz", new { @class = "select2" })
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -112,9 +116,9 @@
                                                                         <div class="col-md-4">
                                                                             <div class="form-group">
                                                                                 <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => Model.BeyanYilSelectList, new { @class = "col-md-4 font-bold" })
+                                                                                    @Html.LabelFor(model => Model.GayrimenkulAdi, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
-                                                                                        @Html.DropDownList("BeyanYil", Model.BeyanYilSelectList, "Seçiniz", new { @class = "select2 " })
+                                                                                        @Html.TextBoxFor(model => model.GayrimenkulAdi, "", new { @class = "form-control " })
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -122,41 +126,9 @@
                                                                         <div class="col-md-4">
                                                                             <div class="form-group">
                                                                                 <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => Model.KiraDurumSelectList, new { @class = "col-md-4 font-bold" })
+                                                                                    @Html.LabelFor(model => Model.AdresNo, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
-                                                                                        @Html.DropDownList("KiraDurum_Id", Model.KiraDurumSelectList, "Seçiniz", new { @class = "select2 " })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row">
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.KdvOraniSelectList, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.DropDownList("Kdv", Model.KdvOraniSelectList, "Seçiniz", new { @class = "select2 " })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.OdemePeriyotSelectList, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.DropDownList("OdemePeriyotTur_Id", Model.OdemePeriyotSelectList, "Seçiniz", new { @class = "select2 " })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.DamgaVergisiDurumSelectList, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.DropDownList("DamgaAlinsinMi", Model.DamgaVergisiDurumSelectList, "Seçiniz", new { @class = "select2 " })
+                                                                                        @Html.TextBoxFor(model => model.AdresNo, "", new { @class = "form-control " })
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -166,9 +138,9 @@
                                                                         <div class="col-md-4">
                                                                             <div class="form-group">
                                                                                 <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.BeyanNo, new { @class = "col-md-4 font-bold" })
+                                                                                    @Html.LabelFor(model => model.IlceSelectList, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
-                                                                                        @Html.TextBoxFor(model => model.BeyanNo, "", new { @class = "form-control " })
+                                                                                        @Html.DropDownList("Ilce_Id", Model.IlceSelectList, "Seçiniz", new { @class = "select2 " })
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -176,19 +148,9 @@
                                                                         <div class="col-md-4">
                                                                             <div class="form-group">
                                                                                 <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.NoterSozlesmeNo, new { @class = "col-md-4 font-bold" })
+                                                                                    @Html.LabelFor(model => model.MahalleSelectList, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
-                                                                                        @Html.TextBoxFor(model => Model.NoterSozlesmeNo, "", new { @class = "form-control " })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.EncumenKararNo, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.TextBoxFor(model => model.EncumenKararNo, "", new { @class = "form-control " })
+                                                                                        @Html.DropDownList("Mahalle_Id", new SelectList(string.Empty, "Value", "Text"), "Seçiniz", new { @class = "select2" })
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -198,16 +160,9 @@
                                                                         <div class="col-md-4">
                                                                             <div class="form-group">
                                                                                 <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.BeyanTarihi, new { @class = "col-md-4 font-bold" })
+                                                                                    @Html.LabelFor(model => model.Sokak, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
-                                                                                        <div class="input-group date datetimepicker">
-                                                                                            @{
-                                                                                                @Html.TextBoxFor(model => model.BeyanTarihi, new { @class = "form-control datepicker ", @autocomplete = "off" })
-                                                                                                <span class="input-group-addon" id="openDate">
-                                                                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                                                                </span>
-                                                                                            }
-                                                                                        </div>
+                                                                                        @Html.TextBoxFor(model => model.Sokak, "", new { @class = "form-control " })
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -215,16 +170,9 @@
                                                                         <div class="col-md-4">
                                                                             <div class="form-group">
                                                                                 <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.IhaleEncumenTarihi, new { @class = "col-md-4 font-bold" })
+                                                                                    @Html.LabelFor(model => model.DisKapiNo, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
-                                                                                        <div class="input-group date datetimepicker">
-                                                                                            @{
-                                                                                                @Html.TextBoxFor(model => model.IhaleEncumenTarihi, new { @class = "form-control datepicker ", @autocomplete = "off" })
-                                                                                                <span class="input-group-addon" id="openDate">
-                                                                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                                                                </span>
-                                                                                            }
-                                                                                        </div>
+                                                                                        @Html.TextBoxFor(model => Model.DisKapiNo, "", new { @class = "form-control " })
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -232,16 +180,9 @@
                                                                         <div class="col-md-4">
                                                                             <div class="form-group">
                                                                                 <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.KiraBaslangicTarihi, new { @class = "col-md-4 font-bold" })
+                                                                                    @Html.LabelFor(model => model.IcKapiNo, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
-                                                                                        <div class="input-group date datetimepicker">
-                                                                                            @{
-                                                                                                @Html.TextBoxFor(model => model.KiraBaslangicTarihi, new { @class = "form-control datepicker ", @autocomplete = "off" })
-                                                                                                <span class="input-group-addon" id="openDate">
-                                                                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                                                                </span>
-                                                                                            }
-                                                                                        </div>
+                                                                                        @Html.TextBoxFor(model => model.IcKapiNo, "", new { @class = "form-control " })
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -251,16 +192,9 @@
                                                                         <div class="col-md-4">
                                                                             <div class="form-group">
                                                                                 <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.SozlesmeTarihi, new { @class = "col-md-4 font-bold" })
+                                                                                    @Html.LabelFor(model => model.MetreKare, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
-                                                                                        <div class="input-group date datetimepicker">
-                                                                                            @{
-                                                                                                @Html.TextBoxFor(model => model.SozlesmeTarihi, new { @class = "form-control datepicker ", @autocomplete = "off" })
-                                                                                                <span class="input-group-addon" id="openDate">
-                                                                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                                                                </span>
-                                                                                            }
-                                                                                        </div>
+                                                                                        @Html.TextBoxFor(model => model.MetreKare, "", new { @class = "form-control " })
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -268,16 +202,9 @@
                                                                         <div class="col-md-4">
                                                                             <div class="form-group">
                                                                                 <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.SozlesmeBitisTarihi, new { @class = "col-md-4 font-bold" })
+                                                                                    @Html.LabelFor(model => model.AracKapasitesi, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
-                                                                                        <div class="input-group date datetimepicker">
-                                                                                            @{
-                                                                                                @Html.TextBoxFor(model => model.SozlesmeBitisTarihi, new { @class = "form-control datepicker ", @autocomplete = "off" })
-                                                                                                <span class="input-group-addon" id="openDate">
-                                                                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                                                                </span>
-                                                                                            }
-                                                                                        </div>
+                                                                                        @Html.TextBoxFor(model => Model.AracKapasitesi, "", new { @class = "form-control " })
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -285,121 +212,9 @@
                                                                         <div class="col-md-4">
                                                                             <div class="form-group">
                                                                                 <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.TeminatTarihi, new { @class = "col-md-4 font-bold" })
+                                                                                    @Html.LabelFor(model => model.NumaratajKimlikNo, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
-                                                                                        <div class="input-group date datetimepicker">
-                                                                                            @{
-                                                                                                @Html.TextBoxFor(model => model.TeminatTarihi, new { @class = "form-control datepicker ", @autocomplete = "off" })
-                                                                                                <span class="input-group-addon" id="openDate">
-                                                                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                                                                </span>
-                                                                                            }
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row">
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.BeyanKapatmaTarihi, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="input-group date datetimepicker">
-                                                                                            @{
-                                                                                                @Html.TextBoxFor(model => model.BeyanKapatmaTarihi, new { @class = "form-control datepicker ", @autocomplete = "off" })
-                                                                                                <span class="input-group-addon" id="openDate">
-                                                                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                                                                </span>
-                                                                                            }
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.TeminatNo, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.TextBoxFor(model => Model.TeminatNo, "", new { @class = "form-control " })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.KullanimAlani, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.TextBoxFor(model => model.KullanimAlani, "", new { @class = "form-control " })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row">
-
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.SozlesmeSuresi, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.TextBoxFor(model => model.SozlesmeSuresi, "", new { @class = "form-control " })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.MusadeliGunSayisi, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.TextBoxFor(model => model.MusadeliGunSayisi, "", new { @class = "form-control " })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.KalanAy, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.TextBoxFor(model => model.KalanAy, "", new { @class = "form-control" })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row">
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.IhaleTutari, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.TextBoxFor(model => model.IhaleTutari, "{0:c}", new { @class = "form-control  moneyFormat" })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.KiraTutari, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.TextBoxFor(model => model.KiraTutari, "{0:c}", new { @class = "form-control  moneyFormat" })
-
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.BaslangicTaksitNo, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.TextBoxFor(model => model.BaslangicTaksitNo, "", new { @class = "form-control" })
+                                                                                        @Html.TextBoxFor(model => model.NumaratajKimlikNo, "", new { @class = "form-control " })
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -422,7 +237,7 @@
                                             </div>
                                         </div>
                                         <div id="dvTable" class="col-md-12">
-                                            @{ Html.RenderPartial("_tablePartial", Model); }
+                                            @{ Html.RenderPartial("_tablePartial", Model.KiraBeyanVm); }
                                         </div>
                                     </div>
                                 </div>
@@ -434,7 +249,7 @@
         </section>
     </div>
 
-    using (Html.BeginForm("Index", "Beyan", new { page = 1 }, FormMethod.Post, new { @id = "sorgulamaKriterleri" }))
+    using (Html.BeginForm("GayrimenkulSorgula", "Beyan", new { page = 1 }, FormMethod.Post, new { @id = "sorgulamaKriterleri" }))
     {
         <input id="page" name="page" type="hidden" value="">
     }
@@ -554,6 +369,14 @@
     </style>
 
     <script type="text/javascript">
+        $(document).ready(function () {
+            if (@sonSayfa < 8) {
+                $("#sayfalama").css("display", "none");
+            }
+        });
+    </script>
+
+    <script type="text/javascript">
 
         function clearForm() {
             debugger;
@@ -572,6 +395,21 @@
             $("#btnReset").bind("click", function () {
                 $("#ddlFruits")[0].selectedIndex = 0;
             });
+        });
+
+    </script>
+
+    <script type="text/javascript">
+
+        $("#btnGit").on("click", function () {
+            if (@sonSayfa > $("#sayfayaGit").val()) {
+                $("#page").val($("#sayfayaGit").val());
+                $("#sorgulamaKriterleri").submit();
+            }
+            else {
+                $("#page").val(@sonSayfa);
+                $("#sorgulamaKriterleri").submit();
+            }
         });
 
     </script>
@@ -632,6 +470,7 @@
         });
     </script>
 
+
     <!--İlçe Bilgileri-->
     <script type="text/javascript">
         $(document).ready(function () {
@@ -671,6 +510,7 @@
 
     <!--Beyan Silme İşlemi -->
     <script type="text/javascript">
+        var dt;
 
         var dt_settings = {
             "language": {
@@ -696,7 +536,7 @@
         }
 
         $(document).ready(function () {
-            var tblBeyan = $('#tblBeyan').DataTable(dt_settings);
+            dt = $('#tblBeyan').DataTable(dt_settings);
         });
     </script>
 
@@ -794,21 +634,20 @@
                 dataType: 'Json',
                 data: { BeyanId: id },
                 success: function (success) {
-                    if (success.data != null && success.data.length > 0) {
-                        var KiraBeyan_Id = success.data[0].KiraBeyan_Id;
-                        $("#hdDetayValue").val(KiraBeyan_Id);
+                    var KiraBeyan_Id = success.data[0].KiraBeyan_Id;
+                    $("#hdDetayValue").val(KiraBeyan_Id);
+                    debugger;
 
-                        if (row.child.isShown()) {
-                            row.child.hide();
-                            tr.removeClass('shown');
-                        } else {
-                            row.child.isShown();
-                            var result = row.child(subTable(KiraBeyan_Id, beyanYil, success.data)).show();
+                    if (row.child.isShown()) {
+                        row.child.hide();
+                        tr.removeClass('shown');
+                    } else {
+                        row.child.isShown();
+                        var result = row.child(subTable(KiraBeyan_Id, beyanYil, success.data)).show();
 
-                            if (result != null) {
-                                result.show();
-                                tr.addClass('shown');
-                            }
+                        if (result != null) {
+                            result.show();
+                            tr.addClass('shown');
                         }
                     }
                 },

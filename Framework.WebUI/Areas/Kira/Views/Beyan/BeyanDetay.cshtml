@@ -762,13 +762,35 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="row">
-                                                                        <div class="col-md-8">
+                                                                        <div class="col-md-4">
                                                                             <div class="form-group">
                                                                                 <div class="input-group" style="width: 100%;">
                                                                                     @Html.LabelFor(model => model.Beyan.BeyanAciklama, new { @class = "col-md-2 font-bold" })
-                                                                                    <div class="col-md-4 outputview">
+                                                                                    <div class="col-md-6 outputview">
                                                                                         @Html.DisplayFor(model => model.Beyan.BeyanAciklama, new { @class = "form-control", @rows = "6" })
                                                                                         @Html.ValidationMessage("Aciklama", new { @class = "text-danger" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.Beyan.SorumluPersonel, new { @class = "col-md-4 font-bold" })
+                                                                                    <div class="col-md-6 outputview">
+                                                                                        @Html.DisplayFor(model => model.Beyan.SorumluPersonel, new { @class = "form-control" })
+                                                                                        @Html.ValidationMessage("SorumluPersonel", new { @class = "text-danger" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.Beyan.OlusturanKullanici, new { @class = "col-md-4 font-bold" })
+                                                                                    <div class="col-md-6 outputview">
+                                                                                        @Html.DisplayFor(model => model.Beyan.OlusturanKullanici, new { @class = "form-control" })
+                                                                                        @Html.ValidationMessage("OlusturanKullanici", new { @class = "text-danger" })
                                                                                     </div>
                                                                                 </div>
                                                                             </div>

@@ -125,7 +125,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult PersonelBeyanEkle(string[] kullaniciYetki, string KullaniciId)
         {
-            PersonelBeyan personelBeyan = new PersonelBeyan();
+            Kira_Beyan kiraBeyan = new Kira_Beyan();
             if (kullaniciYetki == null)
                 return Json(new { success = false, Message = "Lütfen Beyan Seçiniz" }, JsonRequestBehavior.AllowGet);
             if (string.IsNullOrEmpty(KullaniciId))
@@ -133,25 +133,30 @@ namespace Framework.WebUI.Areas.Admin.Controllers
 
             foreach (string item in kullaniciYetki)
             {
-                var result = _personelBeyanService.BeyanSil(int.Parse(item));
-                personelBeyan = new PersonelBeyan()
-                {
+                kiraBeyan = _kiraBeyanService.Getir(Convert.ToInt32(item));
+                kiraBeyan.SorumluPersonelId = Convert.ToInt32(KullaniciId);
+                //var result = _personelBeyanService.BeyanSil(int.Parse(item));
+                //personelBeyan = new PersonelBeyan()
+                //{
 
-                    Beyan_Id = int.Parse(item),
-                    Personel_Id = int.Parse(KullaniciId),
-                    GuncellenmeTarihi = DateTime.Now,
-                    GuncelleyenKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
-                    AktifMi = true,
-                    OlusturulmaTarihi = DateTime.Now,
-                };
+                //    Beyan_Id = int.Parse(item),
+                //    Personel_Id = int.Parse(KullaniciId),
+                //    GuncellenmeTarihi = DateTime.Now,
+                //    GuncelleyenKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
+                //    AktifMi = true,
+                //    OlusturulmaTarihi = DateTime.Now,
+                //};
+                kiraBeyan = _kiraBeyanService.Guncelle(kiraBeyan);
+
             }
 
-            personelBeyan = _personelBeyanService.Ekle(personelBeyan);
+            if (kiraBeyan.Id > 0)
+                return Json(new { success = true, Message = "Personel Beyan Eklendi!!!" }, JsonRequestBehavior.AllowGet);
 
-            if (personelBeyan.AktifMi.HasValue && personelBeyan.AktifMi.Value)
-                return Json(new { success = true, Message = "Personel Beyan Eklendi." }, JsonRequestBehavior.AllowGet);
             else
                 return Json(new { success = false, Message = "Personel Beyan Eklenemedi!!!" }, JsonRequestBehavior.AllowGet);
+
+
         }
 
         public SelectList KullaniciSelectList()

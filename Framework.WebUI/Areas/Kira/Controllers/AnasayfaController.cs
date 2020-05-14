@@ -36,6 +36,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             return View();
         }
 
+
+
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult _bildirimListesi()
         {

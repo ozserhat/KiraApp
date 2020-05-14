@@ -213,6 +213,7 @@
     <script src="~/Content/SweetAlert/sweetalert2.min.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script src="~/Scripts/loadingoverlay.min.js"></script>
+   
     <style type="text/css">
         .loadingoverlay_element {
             position: fixed;
@@ -226,9 +227,6 @@
             bottom: 0;
             right: 0;
         }
-    </style>
-
-    <style type="text/css">
         #icon {
             background-color: #bbb;
             position: relative;
@@ -291,29 +289,6 @@
                 });
             });
         });
-    </script>
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            if (@sonSayfa < 8) {
-                $("#sayfalama").css("display", "none");
-            }
-        });
-    </script>
-
-    <script type="text/javascript">
-
-        $("#btnGit").on("click", function () {
-            if (@sonSayfa > $("#sayfayaGit").val()) {
-                $("#page").val($("#sayfayaGit").val());
-                $("#sorgulamaKriterleri").submit();
-            }
-            else {
-                $("#page").val(@sonSayfa);
-                $("#sorgulamaKriterleri").submit();
-            }
-        });
-
     </script>
 
     <script type="text/javascript">
@@ -525,6 +500,30 @@
             });
         }
 
+        $("#checkAll").change(function () {
+            debugger;
+                     $("input:checkbox").prop('checked', $(this).prop("checked"));
+            $("input:checkbox").prop('checked', $(this).prop("checked")).each(function () {
+                 var dt = $("#dt_basic").dataTable();
+                var row = $(this).closest('tr');
+                var tuisre = $(this).is(":checked");
+                if (tuisre) {
+                    if ($(this).val() != "on") {
+                        closestRow.push(row);
+                        removeList.push($(this).val());
+
+                    }
+                }
+                else {
+                      removeList.splice($.inArray(this.value, removeList), 1);
+
+                }
+            })
+
+                 });
+
+
+
         $('#btnGonder').on('click', function (e) {
 
             e.preventDefault();
@@ -537,7 +536,7 @@
                 data: { kullaniciYetki: removeList, KullaniciId: kullaniciId },
                 success: function (result) {
                     if (result != null && result.success) {
-
+                        debugger;
                         var i;
                         for (i = 0; i < closestRow.length; i++) {
                             closestRow[i].fadeOut(2000, function () {

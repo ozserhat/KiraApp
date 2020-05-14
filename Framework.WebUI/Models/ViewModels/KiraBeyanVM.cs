@@ -87,6 +87,82 @@ namespace Framework.WebUI.Models.ViewModels
 
     }
 
+
+    public class SicilBeyanVM : PagingVMBase
+    {
+        [Display(Name = "Sicil No")]
+        public int? SicilNo { get; set; }
+
+        [Display(Name = "Tc Kimlik No")]
+        public int? TcKimlikNo { get; set; }
+
+        [Display(Name = "Vergi No")]
+        public int? VergiNo { get; set; }
+        [Display(Name = "Adı")]
+        public string Ad { get; set; }
+
+        [Display(Name = "Soyadı")]
+        public string Soyad { get; set; }
+
+        public string VergiDairesi { get; set; }
+
+
+        [Display(Name = "İl")]
+        public SelectList IlSelectList { get; set; }
+
+        [Display(Name = "İlçeler")]
+        public SelectList IlceSelectList { get; set; }
+
+        [Display(Name = "Mahalle")]
+        public SelectList MahalleSelectList { get; set; }
+
+        public KiraBeyanVM KiraBeyanVm { get; set; }
+    }
+
+    public class GayrimenkulBeyanVM : PagingVMBase
+    {
+        [Display(Name = "Gayrimenkul Türü")]
+        public SelectList GayrimenkulTuruSelectList { get; set; }
+
+        [Display(Name = "Gayrimenkul Adı")]
+        public string GayrimenkulAdi { get; set; }
+
+        [Display(Name = "Adres No")]
+        public int? AdresNo { get; set; }
+
+        [Display(Name = "Numarataj Kimlik No")]
+        public int? NumaratajKimlikNo { get; set; }
+
+        [Display(Name = "İl")]
+        public SelectList IlSelectList { get; set; }
+
+        [Display(Name = "İlçeler")]
+        public SelectList IlceSelectList { get; set; }
+
+        [Display(Name = "Mahalle")]
+        public SelectList MahalleSelectList { get; set; }
+
+        [Display(Name = "Sokak")]
+        public string Sokak { get; set; }
+
+        [Display(Name = "Dış Kapı No")]
+        public string DisKapiNo { get; set; }
+
+        [Display(Name = "İç Kapı No")]
+        public string IcKapiNo { get; set; }
+
+        [Display(Name = "Metrekare")]
+        public int? MetreKare { get; set; }
+
+        [Display(Name = "Araç Kapasitesi")]
+        public int? AracKapasitesi { get; set; }
+
+        public KiraBeyanVM KiraBeyanVm { get; set; }
+    }
+
+
+
+
     public class KiraBeyanEkleVM : VMBase
     {
 
