@@ -64,7 +64,7 @@
                                                         <div class="col-md-8">
                                                             <div class="input-group date datetimepicker">
                                                                 @{
-                                                                    @Html.TextBoxFor(model => model.BaslangicTarihi, new { @class = "form-control datepicker" , @autocomplete = "off" })
+                                                                    @Html.TextBoxFor(model => model.BaslangicTarihi, new { @class = "form-control datepicker", @autocomplete = "off" })
                                                                     <span class="input-group-addon" id="openDate">
                                                                         <span class="glyphicon glyphicon-calendar"></span>
                                                                     </span>
@@ -80,7 +80,7 @@
                                                         <div class="col-md-8">
                                                             <div class="input-group date datetimepicker">
                                                                 @{
-                                                                    @Html.TextBoxFor(model => model.BitisTarihi, new { @class = "form-control datepicker" , @autocomplete = "off" })
+                                                                    @Html.TextBoxFor(model => model.BitisTarihi, new { @class = "form-control datepicker", @autocomplete = "off" })
                                                                     <span class="input-group-addon" id="openDate">
                                                                         <span class="glyphicon glyphicon-calendar"></span>
                                                                     </span>
@@ -144,7 +144,74 @@
             });
         });
     </script>
+  
+    <!--Custom Validation-->
+    <script type="text/javascript">
+        var baslangicTarihi, bitisTarihi;
+        $.validator.addMethod("baslangicTarihi", function (value, element) {
 
+            var durum = false;
+
+            baslangicTarihi = $('#BaslangicTarihi').val();
+            bitisTarihi = $('#BitisTarihi').val();
+
+            if ((bitisTarihi != "") && (baslangicTarihi > bitisTarihi))
+                durum = true;
+
+            return durum;
+
+        }, "Başlangıç Tarihi Bitiş Tarihinden Büyük Olamaz!!!");
+
+        $.validator.addMethod("bitisTarihi", function (value, element) {
+            var durum = true;
+
+            baslangicTarihi = $('#BaslangicTarihi').val();
+            bitisTarihi = $('#BitisTarihi').val();
+
+            if ((bitisTarihi != "") && (baslangicTarihi > bitisTarihi))
+                durum = true;
+
+            return durum;
+
+        }, "Başlangıç Tarihi Bitiş Tarihinden Büyük Olamaz!!!");
+
+        var $validatorTarih = $("#submitForm").validate({
+            rules: {
+                BaslangicTarihi: {
+                    baslangicTarihi: true
+                },
+                BitisTarihi: {
+                    bitisTarihi: true
+                }
+            },
+            messages: {
+                BaslangicTarihi: {
+                    baslangicTarihi: 'Başlangıç Tarihi Bitiş Tarihinden Büyük Olamaz!!!'
+                },
+                BitisTarihi: {
+                    bitisTarihi: 'Başlangıç Tarihi Bitiş Tarihinden Büyük Olamaz!!!'
+                }
+            },
+
+            highlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+            },
+            unhighlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-error');
+            },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) {
+                if (element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
+     
+
+    </script>
 
     <!--SistemParametreleri Ekle-->
     <script type="text/javascript">
