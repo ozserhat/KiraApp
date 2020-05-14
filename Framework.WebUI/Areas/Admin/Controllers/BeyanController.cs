@@ -146,14 +146,17 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                 //    AktifMi = true,
                 //    OlusturulmaTarihi = DateTime.Now,
                 //};
+                kiraBeyan = _kiraBeyanService.Guncelle(kiraBeyan);
+
             }
 
-            kiraBeyan = _kiraBeyanService.Guncelle(kiraBeyan);
-
             if (kiraBeyan.Id > 0)
-                return Json(new { success = true, Message = "Personel Beyan Eklendi." }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, Message = "Personel Beyan Eklendi!!!" }, JsonRequestBehavior.AllowGet);
+
             else
                 return Json(new { success = false, Message = "Personel Beyan Eklenemedi!!!" }, JsonRequestBehavior.AllowGet);
+
+
         }
 
         public SelectList KullaniciSelectList()

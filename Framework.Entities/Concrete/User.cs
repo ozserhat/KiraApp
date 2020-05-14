@@ -50,6 +50,14 @@ namespace Framework.Entities.Concrete
 
         [JsonIgnore]
         public virtual ICollection<User_Role> User_Roles { get; set; }
+        [NotMapped]
+        public string FullName
+        {
+            get
+            {
+                return FirstName.ToUpper() + " " + LastName.ToUpper();
+            }
+        }
 
 
     }
