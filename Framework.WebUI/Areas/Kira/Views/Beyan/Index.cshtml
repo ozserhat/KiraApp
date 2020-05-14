@@ -3,7 +3,6 @@
 @using PagedList.Mvc;
 
 @{
-    int sonSayfa = 0;
     ViewBag.Title = "Index";
     Layout = "~/Areas/Kira/Views/Shared/_LayoutKira.cshtml";
 }
@@ -77,10 +76,6 @@
                                         </li>
                                     </ul>
                                 </div>
-
-                                
-                                
-
                             </div>
 
                         </header>
@@ -559,14 +554,6 @@
     </style>
 
     <script type="text/javascript">
-        $(document).ready(function () {
-            if (@sonSayfa < 8) {
-                $("#sayfalama").css("display", "none");
-            }
-        });
-    </script>
-
-    <script type="text/javascript">
 
         function clearForm() {
             debugger;
@@ -585,21 +572,6 @@
             $("#btnReset").bind("click", function () {
                 $("#ddlFruits")[0].selectedIndex = 0;
             });
-        });
-
-    </script>
-
-    <script type="text/javascript">
-
-        $("#btnGit").on("click", function () {
-            if (@sonSayfa > $("#sayfayaGit").val()) {
-                $("#page").val($("#sayfayaGit").val());
-                $("#sorgulamaKriterleri").submit();
-            }
-            else {
-                $("#page").val(@sonSayfa);
-                $("#sorgulamaKriterleri").submit();
-            }
         });
 
     </script>
@@ -660,7 +632,6 @@
         });
     </script>
 
-
     <!--İlçe Bilgileri-->
     <script type="text/javascript">
         $(document).ready(function () {
@@ -700,8 +671,7 @@
 
     <!--Beyan Silme İşlemi -->
     <script type="text/javascript">
-        var dt;
-
+      
         var dt_settings = {
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Turkish.json"
@@ -726,8 +696,7 @@
         }
 
         $(document).ready(function () {
-            dt = $('#tblBeyan').DataTable(dt_settings);
-            table = $('#tblDetay').DataTable(dt_settings);
+            var tblBeyan = $('#tblBeyan').DataTable(dt_settings);
         });
     </script>
 
@@ -825,20 +794,21 @@
                 dataType: 'Json',
                 data: { BeyanId: id },
                 success: function (success) {
-                    var KiraBeyan_Id = success.data[0].KiraBeyan_Id;
-                    $("#hdDetayValue").val(KiraBeyan_Id);
-                    debugger;
+                    if (success.data != null && success.data.length > 0) {
+                        var KiraBeyan_Id = success.data[0].KiraBeyan_Id;
+                        $("#hdDetayValue").val(KiraBeyan_Id);
 
-                    if (row.child.isShown()) {
-                        row.child.hide();
-                        tr.removeClass('shown');
-                    } else {
-                        row.child.isShown();
-                        var result = row.child(subTable(KiraBeyan_Id, beyanYil, success.data)).show();
+                        if (row.child.isShown()) {
+                            row.child.hide();
+                            tr.removeClass('shown');
+                        } else {
+                            row.child.isShown();
+                            var result = row.child(subTable(KiraBeyan_Id, beyanYil, success.data)).show();
 
-                        if (result != null) {
-                            result.show();
-                            tr.addClass('shown');
+                            if (result != null) {
+                                result.show();
+                                tr.addClass('shown');
+                            }
                         }
                     }
                 },
