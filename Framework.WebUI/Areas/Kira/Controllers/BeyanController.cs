@@ -652,11 +652,12 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         [HttpGet]
         public JsonResult KiralikTasinmazlarChart()
         {
-            var liste = _kiraBeyanService.GetirListe().GroupBy(a => a.Gayrimenkuller.Ilceler.Ad)
-                          .Select(g => new { g.Key, Count = g.Count() });
+            var liste = _kiraBeyanService.GetirListe().Where(x => x.Gayrimenkuller.Ilce_Id != null).ToList();
+            var data = liste.GroupBy(a => a.Gayrimenkuller.Ilceler.Ad)
+                          .Select(g => new { g.Key, Count = g.Count() }).ToList();
 
             List<KiralikTasinmazlarChart> modelList = new List<KiralikTasinmazlarChart>();
-            foreach (var item in liste)
+            foreach (var item in data)
             {
                 modelList.Add(new KiralikTasinmazlarChart() { y = item.Count, label = item.Key });
             }
@@ -857,7 +858,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
                 for (int i = 0; i < AySayisi; i++)
                 {
-                    Tahakkuk kiraTahakkuk = new Tahakkuk() {
+                    Tahakkuk kiraTahakkuk = new Tahakkuk()
+                    {
                         Guid = Guid.NewGuid(),
                         KiraBeyan_Id = kiraBeyanId,
                         KiraParametre_Id = kiraParametre.Id,
@@ -1075,8 +1077,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                         OdemePeriyotu = beyan.Beyanlar.OdemePeriyotTur.Ad,
                         KiraDurumu = beyan.Beyanlar.KiraDurum.Ad,
                         DamgaAlinsinMi = (beyan.Beyanlar.DamgaAlinsinMi == true ? "Evet" : "Hayır"),
-                        OlusturanKullanici=_userService.GetById(beyan.OlusturanKullanici_Id.Value).UserName,
-                        SorumluPersonel= _userService.GetById(beyan.SorumluPersonelId.Value).UserName,
+                        OlusturanKullanici = _userService.GetById(beyan.OlusturanKullanici_Id.Value).UserName,
+                        SorumluPersonel = _userService.GetById(beyan.SorumluPersonelId.Value).UserName,
                         AktifMi = beyan.Beyanlar.AktifMi.Value,
                     };
                 }
