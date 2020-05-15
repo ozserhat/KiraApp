@@ -65,6 +65,10 @@ namespace Framework.Entities.Concrete
 
         public int? Kdv { get; set; }
 
+        [StringLength(200)]
+        public string OtoparkTatilGun { get; set; }
+
+        public bool? ResmiTatilVarmi { get; set; }
         public DateTime? BeyanTarihi { get; set; }
 
         public DateTime? IhaleEncumenTarihi { get; set; }

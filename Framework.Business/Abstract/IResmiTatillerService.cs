@@ -14,7 +14,11 @@ namespace Framework.Business.Abstract
         ResmiTatiller Getir(int id);
 
         ResmiTatiller Ekle(ResmiTatiller tur);
+        int TarihAraligiGunSayisi(DateTime baslangicTarihi, DateTime bitisTarihi);
+
         DateTime TatilGunuKontrol(DateTime tarih);
+
+        int TatilGunuKontrol(DateTime baslangic,DateTime bitisTarihi,string[] tarihler,bool? resmiTatilVarmi);
 
         ResmiTatiller Guncelle(ResmiTatiller tur);
 

@@ -16,21 +16,31 @@
                         <header>
                             <span class="widget-icon"> <i class="fa fa-list"></i> </span>
                             <h2>Beyan Detay Bilgileri</h2>
-                            @*<div class="btn-group" style="float: right; margin-top: 4px; margin-right: 11px;" role="menu">
+                            <div class="btn-group" style="float: right; margin-top: 4px; margin-right: 11px;" role="menu">
                                     <button class="btn btn-primary">
-                                        Gayrimenkul İşlemleri
+                                        Beyan İşlemleri
                                     </button>
                                     <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                                         <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a href="@Url.Action("DosyaEkle", new { Guid = Model.Guid})" id="gayrimenkulDosya">
-                                                <span class="glyphicon glyphicon-upload"></span> Dosya Yükleme
+                                            <a href="@Url.Action("DosyaEkle")" id="gayrimenkulDosya">
+                                                <span class="glyphicon glyphicon-file"></span> Ek Tahakkuk Oluştur
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("DosyaEkle")" id="gayrimenkulDosya">
+                                                <span class="glyphicon glyphicon-folder-close"></span> Beyan Kapama
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("DosyaEkle")" id="gayrimenkulDosya">
+                                                <span class="glyphicon glyphicon-upload"></span> Beyan Çıktısı Al
                                             </a>
                                         </li>
                                     </ul>
-                                </div>*@
+                                </div>
                         </header>
                         <div id="errorContent" style="display:none; padding-left:30px; padding-right:20px;">
                             <section id="widget-grid">

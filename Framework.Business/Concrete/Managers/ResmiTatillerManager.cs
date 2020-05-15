@@ -42,22 +42,29 @@ namespace Framework.Business.Concrete.Managers
             return _resmiTatilDal.Update(tur);
         }
 
+
         public bool Sil(int id)
         {
             return _resmiTatilDal.Delete(id);
+        }
+
+        public int TarihAraligiGunSayisi(DateTime baslangicTarihi, DateTime bitisTarihi)
+        {
+            TimeSpan timeSpan = bitisTarihi.Subtract(baslangicTarihi);
+            return timeSpan.Days;
         }
 
         public DateTime TatilGunuKontrol(DateTime tarih)
         {
             bool sonuc = false;
 
-            var resmiTatil = _resmiTatilDal.GetList().Select(a=>a.Tarih);
+            var resmiTatil = _resmiTatilDal.GetList().Select(a => a.Tarih);
 
-            DateTime kontrolluTarih = tarih;        
+            DateTime kontrolluTarih = tarih;
 
             while (!sonuc)
             {
-                if (kontrolluTarih.DayOfWeek == DayOfWeek.Saturday||kontrolluTarih.DayOfWeek == DayOfWeek.Saturday|| resmiTatil.Contains(kontrolluTarih))
+                if (kontrolluTarih.DayOfWeek == DayOfWeek.Saturday || kontrolluTarih.DayOfWeek == DayOfWeek.Saturday || resmiTatil.Contains(kontrolluTarih))
                 {
                     kontrolluTarih = kontrolluTarih.AddDays(1);
                 }
@@ -67,6 +74,28 @@ namespace Framework.Business.Concrete.Managers
             }
 
             return kontrolluTarih;
+        }
+
+        public int TatilGunuKontrol(DateTime baslangic, DateTime bitisTarihi, string[] tarihler, bool? resmiTatilVarmi)
+        {
+            int hesapSayisi = 0;
+
+            bool sonuc = false;
+
+            var resmiTatil = _resmiTatilDal.GetList().Select(a => a.Tarih);
+
+            for (DateTime x = baslangic; x <= bitisTarihi; x = x.AddDays(1))
+            {
+                sonuc = tarihler.Contains(x.DayOfWeek.ToString());
+
+                if (sonuc)
+                    hesapSayisi++;
+
+                if (!sonuc && resmiTatilVarmi.HasValue && resmiTatilVarmi.Value && resmiTatil.Contains(x))
+                    hesapSayisi++;
+            }
+
+            return hesapSayisi;
         }
 
         void GetAll()

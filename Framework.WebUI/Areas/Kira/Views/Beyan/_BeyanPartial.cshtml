@@ -27,7 +27,7 @@
             <div class="input-group" style="width: 100%;">
                 @Html.LabelFor(model => Model.KiraDurumSelectList, new { @class = "col-md-4 font-bold zorunluYildiz" })
                 <div class="col-md-6">
-                    @Html.DropDownList("KiraDurum_Id", Model.KiraDurumSelectList, "Seçiniz", new { @class = "select2 required" })
+                    @Html.DropDownList("KiraDurum_Id", Model.KiraDurumSelectList, new { @class = "select2 required"})
                     @Html.ValidationMessage("KiraDurum_Id", new { @class = "text-danger" })
                 </div>
             </div>
@@ -331,13 +331,38 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-4">
         <div class="form-group">
             <div class="input-group" style="width: 100%;">
-                @Html.LabelFor(model => model.BeyanAciklama, new { @class = "col-md-2 font-bold" })
-                <div class="col-md-4">
+                @Html.LabelFor(model => model.BeyanAciklama, new { @class = "col-md-4 font-bold" })
+                <div class="col-md-6">
                     @Html.TextAreaFor(model => model.BeyanAciklama, new { @class = "form-control", @rows = "6" })
                     @Html.ValidationMessage("Aciklama", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="otoparkDiv" style="display:none;">
+        @*<div id="otoparkDiv">*@
+        <div class="col-md-4">
+            <div class="form-group">
+                <div class="input-group" style="width: 100%;">
+                    @Html.LabelFor(model => Model.OtoparkTatilGunuSelectList, new { @class = "col-md-4 font-bold zorunluYildiz" })
+                    <div class="col-md-6">
+                        @Html.DropDownList("OtoparkTatilGun", Model.OtoparkTatilGunuSelectList, new { @class = "select2", multiple = "multiple" })
+                        @Html.ValidationMessage("OtoparkTatilGun", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <div class="input-group" style="width: 101%;">
+                    @Html.LabelFor(model => Model.ResmiTatilVarmi, new { @class = "col-md-4 font-bold zorunluYildiz" })
+                    <div class="col-md-6">
+                        @Html.CheckBoxFor(model => model.ResmiTatilVarmi, new { @style = "width: 16px; height: 16px;" })
+                        @Html.ValidationMessage("ResmiTatilVarmi", new { @class = "text-danger" })
+                    </div>
                 </div>
             </div>
         </div>
