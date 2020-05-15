@@ -3,6 +3,7 @@ using Framework.Business.Abstract;
 using Framework.DataAccess.Abstract;
 using Framework.Entities.Concrete;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Framework.Business.Concrete.Managers
 {
@@ -33,6 +34,10 @@ namespace Framework.Business.Concrete.Managers
         public IEnumerable<Kira_Durum> GetirListe()
         {
             return _kiraDurumDal.GetList();
+        }
+        public IEnumerable<Kira_Durum> GetirListeAktif()
+        {
+            return _kiraDurumDal.GetList().Where(a => a.AktifMi == true);
         }
 
         public Kira_Durum Guncelle(Kira_Durum kiraDurum)

@@ -8,6 +8,7 @@ namespace Framework.Business.Abstract
     public interface IKira_DurumService
     {
         IEnumerable<Kira_Durum> GetirListe();
+        IEnumerable<Kira_Durum> GetirListeAktif();
 
         Kira_Durum Getir(int id);
 

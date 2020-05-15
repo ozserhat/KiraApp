@@ -7,14 +7,10 @@ namespace Framework.Business.Abstract
     public interface IIlceService
     {
         IEnumerable<Ilce> GetirListe();
-
         Ilce Getir(int id);
         Ilce GetirAdaGore(string IlceAdi);
-
         Ilce Ekle(Ilce Il);
-
         Ilce Guncelle(Ilce Il);
-
         bool Sil(int id);
     }
 }

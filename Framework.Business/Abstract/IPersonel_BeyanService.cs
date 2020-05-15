@@ -6,6 +6,7 @@ namespace Framework.Business.Abstract
     public interface IPersonel_BeyanService
     {
         IEnumerable<PersonelBeyan> GetirListe();
+        IEnumerable<PersonelBeyan> GetirListeAktif();
         PersonelBeyan Getir(int id);
         PersonelBeyan Ekle(PersonelBeyan tur);
 

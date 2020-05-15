@@ -3,6 +3,8 @@ using Framework.Business.Abstract;
 using Framework.DataAccess.Abstract;
 using Framework.Entities.Concrete;
 using System.Collections.Generic;
+using System.Linq;
+
 namespace Framework.Business.Concrete.Managers
 {
     public class GayrimenkulDosya_TurManager : IGayrimenkulDosya_TurService
@@ -31,6 +33,10 @@ namespace Framework.Business.Concrete.Managers
         public IEnumerable<GayrimenkulDosya_Tur> GetirListe()
         {
             return _gayrimenkulDosya_TurDal.GetList();
+        }
+        public IEnumerable<GayrimenkulDosya_Tur> GetirListeAktif()
+        {
+            return _gayrimenkulDosya_TurDal.GetList().Where(a => a.AktifMi == true);
         }
 
         public GayrimenkulDosya_Tur Guncelle(GayrimenkulDosya_Tur tur)

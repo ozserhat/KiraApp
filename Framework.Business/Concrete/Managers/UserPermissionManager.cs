@@ -31,7 +31,10 @@ namespace Framework.Business.Concrete.Managers
         {
             return _userPermissionDal.GetAll();
         }
-
+        public IEnumerable<User_Permission> GetirListeAktif()
+        {
+            return _userPermissionDal.GetList().Where(a => a.AktifMi == true);
+        }
         public User_Permission GetById(int id)
         {
             return _userPermissionDal.GetById(id);

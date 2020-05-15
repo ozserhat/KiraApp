@@ -27,7 +27,6 @@ namespace Framework.Business.Concrete.Managers
         {
             return _userRolesDal.GetAll();
         }
-
         public User_Role GetById(int id)
         {
             return _userRolesDal.GetById(id);
@@ -61,6 +60,10 @@ namespace Framework.Business.Concrete.Managers
         public bool Sil(int id)
         {
             return _userRolesDal.Sil(id);
+        }
+        public IEnumerable<User_Role> GetirListeAktif()
+        {
+            return _userRolesDal.GetAll().Where(a => a.IsDeleted == false);
         }
     }
 }

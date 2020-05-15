@@ -184,7 +184,7 @@
             }).then(function (isConfirm) {
                 if (isConfirm) {
                     $.ajax({
-                        url: "/GayrimenkulAltTur/Sil/" + Id,
+                        url: "/Admin/GayrimenkulAltTur/Sil/" + Id,
                         type: 'POST',
                         success: function (result) {
                             if (result.success) {

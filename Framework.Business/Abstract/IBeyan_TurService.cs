@@ -10,6 +10,7 @@ namespace Framework.Business.Abstract
     public interface IBeyan_TurService
     {
         IEnumerable<Beyan_Tur> GetirListe();
+        IEnumerable<Beyan_Tur> GetirListeAktif();
         Beyan_Tur Getir(int id);
 
         Beyan_Tur GetirGuid(Guid guid);

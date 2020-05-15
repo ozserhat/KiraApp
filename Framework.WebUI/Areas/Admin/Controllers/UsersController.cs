@@ -172,8 +172,9 @@ namespace Framework.WebUI.Areas.Admin.Controllers
             user.IsDeleted = true;
 
             user = _userService.Guncelle(user);
-
+      
             if (user.IsDeleted.HasValue && user.IsDeleted.Value)
+            
                 return Json(new { success = true, Message = "Kullanıcı Bilgisi Başarıyla Silindi" }, JsonRequestBehavior.AllowGet);
             else
                 return Json(new { success = false, Message = "Kullanıcı Bilgisi Silinemedi!!!" }, JsonRequestBehavior.AllowGet);

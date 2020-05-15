@@ -33,7 +33,10 @@ namespace Framework.Business.Concrete.Managers
         {
             return _resmiTatilDal.GetList();
         }
-
+        public IEnumerable<ResmiTatiller> GetirListeAktif()
+        {
+            return _resmiTatilDal.GetList().Where(a => a.AktifMi == true);
+        }
         public ResmiTatiller Guncelle(ResmiTatiller tur)
         {
             return _resmiTatilDal.Update(tur);

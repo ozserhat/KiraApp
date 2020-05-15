@@ -7,6 +7,7 @@ namespace Framework.Business.Abstract
     public interface ISistemParametre_DetayService
     {
         IEnumerable<SistemParametre_Detay> GetirListe(int? parametreId);
+        IEnumerable<SistemParametre_Detay> GetirListeAktif();
         SistemParametre_Detay Getir(int id);
 
         SistemParametre_Detay GetirGuid(Guid guid);

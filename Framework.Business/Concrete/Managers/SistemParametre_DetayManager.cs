@@ -3,6 +3,7 @@ using Framework.Business.Abstract;
 using Framework.DataAccess.Abstract;
 using Framework.Entities.Concrete;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Framework.Business.Concrete.Managers
 {
@@ -34,7 +35,10 @@ namespace Framework.Business.Concrete.Managers
         {
             return _detayDal.GetirListe(parametreId);
         }
-
+        public IEnumerable<SistemParametre_Detay> GetirListeAktif()
+        {
+            return _detayDal.GetList().Where(a => a.AktifMi == true);
+        }
         public SistemParametre_Detay Guncelle(SistemParametre_Detay detay)
         {
             return _detayDal.Update(detay);

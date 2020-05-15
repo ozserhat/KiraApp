@@ -7,6 +7,7 @@ namespace Framework.Business.Abstract
     public interface IKiraParametreService
     {
         IEnumerable<KiraParametre> GetirListe();
+        IEnumerable<KiraParametre> GetirListeAktif();
 
         KiraParametre Getir(int id);
 

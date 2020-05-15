@@ -34,7 +34,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         {
             var model = new TahakkukVM();
 
-            var tahakkuklar = _tahakkukService.GetirListe();
+            var tahakkuklar = _tahakkukService.GetirListeAktif();
             model.PageNumber = page ?? 1;
             model.PageSize = pageSize;
 

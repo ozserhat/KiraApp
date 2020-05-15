@@ -37,6 +37,10 @@ namespace Framework.Business.Concrete.Managers
         {
             return _periyotDal.GetList();
         }
+        public IEnumerable<OdemePeriyotTur> GetirListeAktif()
+        {
+            return _periyotDal.GetList().Where(a => a.AktifMi == true);
+        }
 
         public OdemePeriyotTur Guncelle(OdemePeriyotTur tur)
         {

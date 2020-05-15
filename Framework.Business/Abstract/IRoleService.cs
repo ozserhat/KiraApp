@@ -10,7 +10,7 @@ namespace Framework.Business.Abstract
     public interface IRoleService
     {
         IEnumerable<Role> GetAll();
-
+        IEnumerable<Role> GetirListeAktif();
         Role GetById(int id);
         Role GetByGuid(Guid guid);
         Role Ekle(Role role);

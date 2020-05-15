@@ -63,7 +63,7 @@ namespace Framework.Business.Concrete.Managers
         {
             return _userDal.GetUserRoles(user);
         }
-
+        
         public bool UserExists(string username)
         {
             if (_userDal.UserExists(username))
@@ -190,6 +190,11 @@ namespace Framework.Business.Concrete.Managers
         public User GetById(int Id)
         {
             return _userDal.GetById(Id);
+        }
+
+        public IEnumerable<User> GetirListeAktif()
+        {
+            return _userDal.GetAll().Where(a => a.IsDeleted == false);
         }
     }
 }

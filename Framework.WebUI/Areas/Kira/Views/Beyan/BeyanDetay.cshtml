@@ -89,7 +89,7 @@
                                                                     <span class="title" style="z-index:2;">Dosya Bilgileri</span>
                                                                 </a>
                                                             </li>
-                                                            <li data-target="#step5" id="step4" style="width: 20%;">
+                                                            <li data-target="#step5" id="step4" style="width: 15%;">
                                                                 <a href="#tab5" data-toggle="tab" aria-expanded="false">
                                                                     <span class="step">
                                                                         5 -
@@ -113,7 +113,7 @@
                                                                         <div class="form-group">
                                                                             <div class="input-group" style="width: 100%;">
                                                                                 @Html.LabelFor(model => model.Gayrimenkul.GayrimenkulTur, new { @class = "col-md-4 font-bold" })
-                                                                                <div class="col-md-6 outputview" >
+                                                                                <div class="col-md-6 outputview">
                                                                                     @Html.DisplayFor(model => model.Gayrimenkul.GayrimenkulTur, new { @class = "form-control required", @readonly = true })
                                                                                     @Html.ValidationMessage("GayrimenkulTur", new { @class = "text-danger" })
                                                                                 </div>
@@ -688,7 +688,7 @@
                                                                                     @Html.LabelFor(model => model.Beyan.IhaleTutari, new { @class = "col-md-4 font-bold" })
                                                                                     @{
 
-                                                                                         string ihaleTutar = string.Format("{0:0,0.00}", Model.Beyan.IhaleTutari);
+                                                                                        string ihaleTutar = string.Format("{0:0,0.00}", Model.Beyan.IhaleTutari);
 
 
 
@@ -851,7 +851,7 @@
                                                             </form>
                                                         </div>
 
-                                                        <div class="tab-pane" id="tab5">
+                                                        <div class="tab-pane" id="tab5" style="width:%15">
                                                             <legend>
                                                                 <h3><strong>5. Adım </strong> - Tahakkuk Bilgileri</h3>
                                                             </legend>
@@ -985,6 +985,7 @@
         .outputview {
             margin-top: 10px;
         }
+
         .loadingoverlay_element {
             position: fixed;
             z-index: 999;
@@ -997,6 +998,7 @@
             bottom: 0;
             right: 0;
         }
+
         .pasif-buton-beyandetay {
             padding: 3px 6px;
             border: solid 2px;
@@ -1009,6 +1011,7 @@
             font-size: 12px;
             width: 75px;
         }
+
         .aktif-buton-beyandetay {
             padding: 3px 6px;
             border: solid 2px;
@@ -1021,10 +1024,60 @@
             font-size: 12px;
             width: 55px;
         }
-
-
     </style>
 
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            const wizard = $('#wizard');
+
+            wizard.bootstrapWizard({
+                'tabClass': 'nav nav-pills',
+                onTabClick: function (tab, navigation, index) {
+                    return true;
+                },
+                onNext: function (tab, navigation, index) {
+
+                    var gayrimenkulId = $('#GayrimenkulId').val();
+
+                    var sicilNo = $('#SicilNo').val();
+
+                    if (index == 1) {
+                        return true;
+                    }
+                    else if (index == 2) {
+                        return true;
+                    }
+                    else if (index == 3) {
+                        return true;
+                    }
+                    else if (index == 4) {
+                        return true;
+                    }
+                    else if (index == 5) {
+                        return false;
+                    }
+                },
+                onTabShow: function (tab, navigation, index) {
+                    const $total = navigation.find('li').length;
+                    const $current = index + 1;
+
+                    const pager = wizard.find('.pager');
+
+                    if ($current >= $total) {
+                        pager.find('.next').hide();
+                        pager.find('.finish').show();
+                        pager.find('.finish').removeClass('disabled');
+
+                    } else {
+                        pager.find('.next').show();
+                        pager.find('.finish').hide();
+                    }
+                }
+            });
+
+        });
+    </script>
 
     <!--Money Format -->
     <script type="text/javascript">
@@ -1032,7 +1085,7 @@
             //$('.moneyFormat').formatCurrency();
             val.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
         });
-      
+
     </script>
 
     <!--Datetime Picker Format -->

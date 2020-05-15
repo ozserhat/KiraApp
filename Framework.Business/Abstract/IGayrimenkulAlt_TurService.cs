@@ -7,6 +7,7 @@ namespace Framework.Business.Abstract
     public interface IGayrimenkulAlt_TurService
     {
         IEnumerable<GayrimenkulAlt_Tur> GetirListe();
+        IEnumerable<GayrimenkulAlt_Tur> GetirListeAktif();
         GayrimenkulAlt_Tur Getir(int id);
 
         GayrimenkulAlt_Tur GetirGuid(Guid guid);

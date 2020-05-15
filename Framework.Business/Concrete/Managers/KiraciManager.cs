@@ -3,6 +3,7 @@ using Framework.Business.Abstract;
 using Framework.DataAccess.Abstract;
 using Framework.Entities.Concrete;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Framework.Business.Concrete.Managers
 {
@@ -33,6 +34,10 @@ namespace Framework.Business.Concrete.Managers
         public IEnumerable<Kiraci> GetirListe()
         {
             return _kiraciDal.GetList();
+        }
+        public IEnumerable<Kiraci> GetirListeAktif()
+        {
+            return _kiraciDal.GetList().Where(a => a.AktifMi == true);
         }
 
         public Kiraci GetirSicilNo(int SicilNo)

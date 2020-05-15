@@ -9,7 +9,8 @@ namespace Framework.Business.Abstract
 {
     public interface IUserService
     {
-        IEnumerable<User> GetAll(); 
+        IEnumerable<User> GetAll();
+        IEnumerable<User> GetirListeAktif();
         User GetByPasswordExists(string userName,string Password);
         User GetByUserNameAndPassword(string userName, string password);
         List<UserRoleItem> GetUserRoles(User user);

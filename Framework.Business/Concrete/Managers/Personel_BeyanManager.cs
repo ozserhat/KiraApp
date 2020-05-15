@@ -34,7 +34,10 @@ namespace Framework.Business.Concrete.Managers
         {
             return _personelBeyanDal.GetirListe();
         }
-
+        public IEnumerable<PersonelBeyan> GetirListeAktif()
+        {
+            return _personelBeyanDal.GetList().Where(a => a.AktifMi == true);
+        }
         public PersonelBeyan Guncelle(PersonelBeyan tur)
         {
             return _personelBeyanDal.Update(tur);

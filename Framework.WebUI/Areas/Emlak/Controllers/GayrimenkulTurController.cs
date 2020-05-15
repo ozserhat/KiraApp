@@ -30,7 +30,7 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
         #region Listeleme
         public ActionResult Index(int? page, int pageSize = 15)
         {
-            var turler = _service.GetirListe();
+            var turler = _service.GetirListeAktif();
 
             var model = new GayrimenkulTurVM();
 

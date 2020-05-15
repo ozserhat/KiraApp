@@ -3,6 +3,7 @@ using Framework.Business.Abstract;
 using Framework.DataAccess.Abstract;
 using Framework.Entities.Concrete;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Framework.Business.Concrete.Managers
 {
@@ -33,6 +34,10 @@ namespace Framework.Business.Concrete.Managers
         public IEnumerable<Duyuru_Tur> GetirListe()
         {
             return _duyuru_TurDal.GetList();
+        }
+        public IEnumerable<Duyuru_Tur> GetirListeAktif()
+        {
+            return _duyuru_TurDal.GetList().Where(a => a.AktifMi == true);
         }
 
         public Duyuru_Tur Guncelle(Duyuru_Tur tur)

@@ -3,6 +3,7 @@ using Framework.Business.Abstract;
 using Framework.DataAccess.Abstract;
 using Framework.Entities.Concrete;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Framework.Business.Concrete.Managers
 {
@@ -34,7 +35,10 @@ namespace Framework.Business.Concrete.Managers
         {
             return _kiraciTurDal.GetList();
         }
-
+        public IEnumerable<KiraciTur> GetirListeAktif()
+        {
+            return _kiraciTurDal.GetList().Where(a => a.AktifMi == true);
+        }
         public KiraciTur Guncelle(KiraciTur tur)
         {
             return _kiraciTurDal.Update(tur);
