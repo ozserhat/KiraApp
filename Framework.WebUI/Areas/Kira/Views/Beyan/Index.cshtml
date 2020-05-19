@@ -748,7 +748,13 @@
 
     <script>
         function createPDF() {
-            html2canvas(document.getElementById('dvTable'), {
+            $('#tblBeyan').find('th:last-child, td:last-child').remove()
+            $('#tblBeyan').find('th:last-child, td:first-child').remove()
+            var allRows = document.getElementById('tblBeyan');
+            for (var i = 0; i < allRows.length; i++) {
+                allRows[i].deleteCell(1);
+            }
+            html2canvas($('#tblBeyan'), {
                 onrendered: function (canvas) {
                     var data = canvas.toDataURL();
                     var docDefinition = {
