@@ -14,33 +14,33 @@
                 <article class="col-sm-12 col-md-12 col-lg-12">
                     <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
                         <header>
-                            <span class="widget-icon"> <i class="fa fa-list"></i> </span>
                             <h2>Beyan Detay Bilgileri</h2>
-                            <div class="btn-group" style="float: right; margin-top: 4px; margin-right: 11px;" role="menu">
-                                    <button class="btn btn-primary">
-                                        Beyan İşlemleri
-                                    </button>
-                                    <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="@Url.Action("DosyaEkle")" id="gayrimenkulDosya">
-                                                <span class="glyphicon glyphicon-file"></span> Ek Tahakkuk Oluştur
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="@Url.Action("DosyaEkle")" id="gayrimenkulDosya">
-                                                <span class="glyphicon glyphicon-folder-close"></span> Beyan Kapama
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="@Url.Action("DosyaEkle")" id="gayrimenkulDosya">
-                                                <span class="glyphicon glyphicon-upload"></span> Beyan Çıktısı Al
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
+                            <div class="btn-group" style="float: right; margin-top: 4px; margin-right: -12px;" role="menu">
+                                <button class="btn btn-primary">
+                                    Beyan İşlemleri
+                                </button>
+                                <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li class="buttonListStyle">
+                                        <a href="@Url.Action("DosyaEkle")" id="gayrimenkulDosya">
+                                            <span class="glyphicon glyphicon-file"></span> Ek Tahakkuk Oluştur
+                                        </a>
+                                    </li>
+                                    <li class="buttonListStyle">
+                                        <a href="@Url.Action("DosyaEkle")" id="gayrimenkulDosya">
+                                            <span class="glyphicon glyphicon-folder-close"></span> Beyan Kapama
+                                        </a>
+                                    </li>
+                                    <li class="buttonListStyle">
+                                        <a href="#" id="btnBeyanCiktiAl" data-original-title="Beyan Çıktısı Al">
+                                            <span class="glyphicon glyphicon-upload"></span> Beyan Çıktısı Al
+                                        </a>
+                                        @*<button id="btnBeyanCiktiAl" class="button btn-block">PDF Export</button>*@
+                                    </li>
+                                </ul>
+                            </div>
                         </header>
                         <div id="errorContent" style="display:none; padding-left:30px; padding-right:20px;">
                             <section id="widget-grid">
@@ -108,10 +108,9 @@
                                                                 </a>
                                                             </li>
                                                         </ul>
-
                                                         <div class="clearfix"></div>
                                                     </div>
-                                                    <div class="tab-content">
+                                                    <div class="tab-content" id="dvTabPanel">
                                                         <div class="tab-pane active" id="tab1">
                                                             <legend>
                                                                 <h3><strong>1. Adım </strong> - Gayrimenkul Bilgileri</h3>
@@ -917,23 +916,22 @@
                                                                 </fieldset>
                                                             </form>
                                                         </div>
-
-                                                        <div class="form-actions sonStep" style="margin-right: -18px;">
-                                                            <div class="row">
-                                                                <div class="col-sm-12">
-                                                                    <ul class="pager wizard no-margin no-steps-container">
-                                                                        <li class="previous disabled">
-                                                                            <a href="javascript:void(0);" class="btn btn-lg btn-default" id="btnGeri"> Geri </a>
-                                                                        </li>
-                                                                        <li class="next">
-                                                                            <a href="javascript:void(0);" id="btnIleri" class="btn btn-lg txt-color-darken"> İlerle</a>
-                                                                            <div id="loadingbtnIleri" class="hide" style="float:right;"><i class="fa fa-spinner fa-spin fa-2x"></i> İşleminiz yapılıyor ...</div>
-                                                                        </li>
-                                                                        <li class="finish" style="float: right; margin-right: 15px; display: block;">
-                                                                            <div id="dvSonKaydet" class="hide" style="float:right;"><i class="fa fa-spinner fa-spin fa-2x"></i> İşleminiz yapılıyor ...</div>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
+                                                    </div>
+                                                    <div class="form-actions sonStep" style="margin-right: -18px;">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <ul class="pager wizard no-margin no-steps-container">
+                                                                    <li class="previous disabled">
+                                                                        <a href="javascript:void(0);" class="btn btn-lg btn-default" id="btnGeri"> Geri </a>
+                                                                    </li>
+                                                                    <li class="next">
+                                                                        <a href="javascript:void(0);" id="btnIleri" class="btn btn-lg txt-color-darken"> İlerle</a>
+                                                                        <div id="loadingbtnIleri" class="hide" style="float:right;"><i class="fa fa-spinner fa-spin fa-2x"></i> İşleminiz yapılıyor ...</div>
+                                                                    </li>
+                                                                    <li class="finish" style="float: right; margin-right: 15px; display: block;">
+                                                                        <div id="dvSonKaydet" class="hide" style="float:right;"><i class="fa fa-spinner fa-spin fa-2x"></i> İşleminiz yapılıyor ...</div>
+                                                                    </li>
+                                                                </ul>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -950,8 +948,11 @@
             </div>
         </section>
     </div>
+    <input type="hidden" name="beyanDetayCikti" />
+
 
     <div class="modal fade" id="DosyaGosterModal" tabindex="-1" role="dialog" aria-labelledby="DosyaGosterModalLabel" aria-hidden="true" style="display: none;">
+
         <div class="modal-dialog modal-md">
             <div class="modal-content">
                 <div class="modal-header">
@@ -963,7 +964,8 @@
                             <div class="form-group">
                                 <div class="block-head">
                                     <div class="item-content">
-                                        <iframe id="iframe1" style="border: 1px solid black; height: 500px; width: 100%"></iframe>
+                                        <iframe id="iframe1" style="border: 1px solid black; height: 500px; width: 100%">
+                                        </iframe>
                                     </div>
                                 </div>
                             </div>
@@ -978,7 +980,39 @@
             </div>
         </div>
     </div>
-}
+
+    <div class="modal fade" id="beyanCiktiModal" tabindex="-1" role="dialog" aria-labelledby="DosyaGosterModalLabel" aria-hidden="true" style="display: none;">
+
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Dosya Görüntüleme</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="block-head">
+                                    <div class="item-content">
+                                        <iframe id="onizleme" type="application/pdf" style="width:100%;height:900px;" frameborder="0"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" id="btnDosyaGosterVazgec" type="button" data-dismiss="modal" class="btn btn-warning">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Kapat
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+} 
+<div id="dvIcerik" style="display:none;"></div>
+
+<div id="dvSonuc" style="display:none;"><span id="logo"><a href="/kira/anasayfa"> <img src="/content/img/logo.png" alt=""></a> </span></div>
 
 @section pagespecific {
 
@@ -990,10 +1024,17 @@
     <script src="~/Scripts/loadingoverlay.min.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script src="~/Scripts/jquery.formatCurrency-1.4.0.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
 
     <style type="text/css">
         .outputview {
             margin-top: 10px;
+        }
+
+        .buttonListStyle {
+            float: left;
+            margin-left: -15px;
         }
 
         .loadingoverlay_element {
@@ -1089,6 +1130,46 @@
         });
     </script>
 
+    <script type="text/javascript">
+
+        $("#btnBeyanCiktiAl").on("click", function () {
+            createPDF();
+        });
+
+        function createPDF() {
+            var icerik =$("#tab1").html();
+            icerik += $("#tab2").html();
+            icerik += $("#tab3").html();
+            icerik += $("#tab5").html();
+            $("#dvIcerik").html(icerik);
+            var element = $("#dvIcerik");
+            var getCanvas; // global variable
+            $("#dvSonuc").show();
+            $("#dvIcerik").show();
+            var image = html2canvas(element, {
+                onrendered: function (canvas) {
+                    $("#dvSonuc").append(canvas);
+                    getCanvas = canvas;
+                }
+            });
+
+            html2canvas(document.getElementById('dvSonuc'), {
+                onrendered: function (canvas) {
+                    var data = canvas.toDataURL();
+                    var docDefinition = {
+                        content: [{
+                            image: data,
+                            width: 500
+                        }]
+                    };
+                    pdfMake.createPdf(docDefinition).download("Beyan.pdf");
+                    $("#dvSonuc").hide();
+                    $("#dvIcerik").hide();
+                }
+            });
+        }
+
+    </script>
     <!--Money Format -->
     <script type="text/javascript">
         $('.moneyFormat').change(function (val) {

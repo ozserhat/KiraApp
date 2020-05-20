@@ -18,6 +18,10 @@ using System.Globalization;
 using System.Configuration;
 using Framework.Entities.ComplexTypes;
 using Newtonsoft.Json;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
+using iTextSharp.tool.xml;
+using HtmlAgilityPack;
 
 namespace Framework.WebUI.Areas.Kira.Controllers
 {
@@ -613,6 +617,31 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             Response.AppendHeader("Content-Disposition", "inline; filename=" + resultFileName);
 
             return new FileContentResult(bytes, MimeMapping.GetMimeMapping(path));
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public FileContentResult BeyanCiktiAl(string html)
+        {
+            HtmlNode.ElementsFlags["img"] = HtmlElementFlag.Closed;
+            HtmlNode.ElementsFlags["input"] = HtmlElementFlag.Closed;
+            HtmlDocument doc = new HtmlDocument();
+            doc.OptionFixNestedTags = true;
+            doc.LoadHtml(html);
+            html = doc.DocumentNode.OuterHtml;
+
+            using (MemoryStream stream = new System.IO.MemoryStream())
+            {
+                StringReader sr = new StringReader(html);
+                Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 100f, 0f);
+                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
+                pdfDoc.Open();
+                XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
+                pdfDoc.Close();
+
+                return File(stream.ToArray(), "application/pdf", "BeyanDetay.pdf");
+                //return new FileContentResult(stream.ToArray(), MimeMapping.GetMimeMapping("BeyanDetay.pdf"));
+            }
         }
 
         [HttpPost]

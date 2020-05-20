@@ -52,13 +52,13 @@
                     }
                 </td>
                 <td class="text-center">
-                    @*@Html.AuthAction(" ", "Duzenle", "Beyan", new { item.Beyanlar.Guid },
+                    @Html.AuthAction(" ", "Duzenle", "Beyan", new { item.Beyanlar.Guid },
                     new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
                     Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
             @Html.AuthAction(" ", "Sil", "Beyan", new { item.Id },
                             new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = item.Beyanlar.BeyanNo, @data_id = item.Beyanlar.Id },
-                            Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))*@
+                            Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
                     @Html.AuthAction(" ", "BeyanDetay", "Beyan", new { item.Beyanlar.Guid },
                                     new { @class = "no-underline margin-right-5 fa fa-search-plus font-md txt-color-blue", @data_name = item.Beyanlar.BeyanNo, @data_id = item.Beyanlar.Id },

@@ -10,6 +10,42 @@ namespace Framework.WebServis.Clients
 {
     public class TahakkukServiceClient
     {
+        public TahakkukSilVm TahakkukSil(int BorcId)
+        {
+            TahakkukSilVm tahakkukSonuc = new TahakkukSilVm();
+
+            try
+            {
+                TahakkukWsClient _client = new TahakkukWsClient();
+
+                var kullaniciAdi = ConfigurationManager.AppSettings["Sicil_KullaniciAdi"];
+                var sifre = ConfigurationManager.AppSettings["Sicil_Sifre"];
+
+                kullanici kullanici = new kullanici()
+                {
+                    kulNo = int.Parse(kullaniciAdi),
+                    sifre = sifre
+                };
+
+                var sonuc = _client.BorcIptal(kullanici,BorcId.ToString());
+
+                if (sonuc != null)
+                {
+                    tahakkukSonuc.BorcId = int.Parse(sonuc.borcID);
+                    tahakkukSonuc.Durum = sonuc.basarili;
+                    tahakkukSonuc.HataKodu = sonuc.hataKodu.ToString();
+                    tahakkukSonuc.Aciklama = sonuc.aciklama;
+                }
+
+                return tahakkukSonuc;
+            }
+            catch (Exception ex)
+            {
+                tahakkukSonuc.HataKodu.ToString();
+                return null;
+            }
+        }
+
         public TahakkukSorguSonucVm TahakkukSorgulama(string BorcId)
         {
             TahakkukSorguSonucVm tahakkukSonuc = new TahakkukSorguSonucVm();
