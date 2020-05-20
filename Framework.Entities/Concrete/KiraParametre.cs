@@ -61,6 +61,8 @@ namespace Framework.Entities.Concrete
 
         public decimal? KararHarciOran { get; set; }
 
+        public decimal? OtoparkBirimFiyat { get; set; }
+
         public int? OlusturanKullanici_Id { get; set; }
 
         public int? GuncelleyenKullanici_Id { get; set; }

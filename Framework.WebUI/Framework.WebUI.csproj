@@ -52,6 +52,15 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.11.23.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.23\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.1, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.1\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp.xmlworker, Version=5.5.13.1, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itextsharp.xmlworker.5.5.13.1\lib\itextsharp.xmlworker.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
       <Private>True</Private>
@@ -1115,10 +1124,8 @@
     <Content Include="Areas\Emlak\Views\GayrimenkulTur\Index.cshtml" />
     <Content Include="Areas\Emlak\Views\GayrimenkulTur\Ekle.cshtml" />
     <Content Include="Areas\Emlak\Views\GayrimenkulTur\Duzenle.cshtml" />
-
     <Content Include="Areas\Kira\Views\Beyan\GayrimenkulSorgula.cshtml" />
     <Content Include="Areas\Kira\Views\Beyan\SicilSorgula.cshtml" />
-
     <Content Include="Areas\Admin\Views\Beyan\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Beyan\_tablePartial.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
@@ -1190,6 +1197,8 @@
     <Content Include="Scripts\jsdashboard\scripts.js" />
     <Content Include="Scripts\jsdashboard\switchery.min.js" />
     <Content Include="Scripts\jsdashboard\wizard.js" />
+    <Content Include="Scripts\jspdf.js" />
+    <Content Include="Scripts\jspdf.plugin.addimage.js" />
     <Content Include="Scripts\jsTree3\jstree.js" />
     <Content Include="Scripts\jsTree3\jstree.min.js" />
     <Content Include="Scripts\libs\jquery-2.1.1.min.js" />

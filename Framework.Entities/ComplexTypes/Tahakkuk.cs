@@ -74,4 +74,17 @@ namespace Framework.Entities.ComplexTypes
 
         public DateTime? SonOdemeTarihi { get; set; }
     }
+
+    public class TahakkukSilVm
+    {
+        public int BorcId { get; set; }
+
+        public bool Durum { get; set; }
+
+        public string HataKodu { get; set; }
+
+        public string Aciklama { get; set; }
+
+        public DateTime? SonOdemeTarihi { get; set; }
+    }
 }

@@ -276,17 +276,17 @@
     </style>
 
     <!--Para Formatı -->
-    <script type="text/javascript">
-            $('.moneyFormat').change(function (e) {
-                //$('.moneyFormat').formatCurrency();
+    @*<script type="text/javascript">
+        $('.moneyFormat').change(function (e) {
+            //$('.moneyFormat').formatCurrency();
 
-                var money = $(this).val();
+            var money = $(this).val();
 
-                money = money.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+            money = money.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
 
-                $(this).val(money)
-            });
-        </script>
+            $(this).val(money)
+        });
+    </script>*@
 
     <!--Datetime Picker Format -->
     <script type="text/javascript">
@@ -635,7 +635,9 @@
                     BaslangicTaksitNo: $('#BaslangicTaksitNo').val(),
                     KalanAy: $('#KalanAy').val(),
                     DamgaAlinsinMi: $('#DamgaAlinsinMi').val(),
-                    BeyanAciklama: $('#BeyanAciklama').val()
+                    BeyanAciklama: $('#BeyanAciklama').val(),
+                    OtoparkTatilGun: $("#OtoparkTatilGun").val().toString(),
+                    ResmiTatilVarmi: $('#ResmiTatilVarmi').val(),
                 }
 
 
@@ -651,12 +653,14 @@
                    $.ajax({
                     type: 'Post',
                     url: '@Url.Action("KiraBeyanEkle", "Beyan")',
-                    data: { kiraBeyanModel: kiraBeyanModel },
+                       data: { kiraBeyanModel: kiraBeyanModel },
+                       beforeSend: function () {
+                           $.LoadingOverlay("show", { text: "Beyan Bilgileri Kaydediliyor...", textResizeFactor: 0.2, background: "rgba(0, 0, 0, 0.5)" });
+                       },
                     success: function (result) {
                         if (result != null && result.success) {
-
                             swal('Bilgi!', result.Message, 'success');
-
+                            $.LoadingOverlay("hide");
                             setTimeout(function () {
                                 window.location.href = "../Beyan/Index";
                             }, 2000);
@@ -674,9 +678,27 @@
         });
     </script>
 
+    <!--Otopark Tatil Günü Bilgileri-->
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#BeyanTur_Id").change(function (e) {
+
+                var pnlOtopark = $('#otoparkDiv');
+
+                var turId = $(this).val();
+
+                if (turId != null && turId == '2') {
+                    pnlOtopark.show();
+                } else {
+                    pnlOtopark.hide();
+                }
+            });
+        });
+    </script>
 
     <!--KiraTutariHesaplama-->
-    <script type="text/javascript">
+    @*<script type="text/javascript">
         $(document).on("change keyup blur", "#KiraTutari", function () {
 
             var it = $('#IhaleTutari').val();
@@ -713,7 +735,7 @@
 
             }
         });
-    </script>*
+    </script>*@*
 
 }
 

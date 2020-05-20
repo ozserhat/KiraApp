@@ -82,6 +82,7 @@
     <Compile Include="Concrete\Logs.cs" />
     <Compile Include="Concrete\Mahalle.cs" />
     <Compile Include="Concrete\OdemePeriyotTur.cs" />
+    <Compile Include="Concrete\OtoparkTatilGun.cs" />
     <Compile Include="Concrete\PersonelBeyan.cs" />
     <Compile Include="Concrete\ResmiTatiller.cs" />
     <Compile Include="Concrete\Role.cs" />
