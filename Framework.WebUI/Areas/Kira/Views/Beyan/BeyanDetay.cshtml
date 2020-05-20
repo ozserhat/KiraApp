@@ -1228,7 +1228,7 @@
         });
     </script>
 
-    <!--Beyan Detay Çıktısı -->
+    <!--Ek Tahakkuk Hesaplama -->
     <script type="text/javascript">
         $('.ektahakkukRow').click(function (val) {
             var tahakkukId = $(this).attr("data-id");
@@ -1240,7 +1240,7 @@
         $('#btnEkTahakkukHesapla').click(function (val) {
             $('#ekTahakkukSonuc').html('');
             var tahakkukId = $('#tahakkukId').val();
-            var tahakkukTutar = $('#tahakkukTutar').val();
+            var tahakkukTutar = parseFloat($('#tahakkukTutar').val());
             var ektahakkukTutar = $('#EkTahakkukTutar').val();
             var ektahakkukOran = parseInt($('#EkTahakkukOran option:selected').text());
             var ektahakkukAciklama = $('#EkTahakkukAciklama').val();
