@@ -117,6 +117,17 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.GayrimenkulDurumSelectList, new { @class = "col-md-4 font-bold" })
+                                                                                    <div class="col-md-6">
+                                                                                        @Html.DropDownList("GayrimenkulDurum_Id", Model.GayrimenkulDurumSelectList, "Seçiniz", new { @class = "select2" })
+                                                                                        @Html.ValidationMessage("GayrimenkulDurum_Id", new { @class = "text-danger" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                     <div class="row">
                                                                         <div class="col-md-6">
@@ -295,6 +306,80 @@
                                                             <form class="form-horizontal" id="tapuForm" novalidate="novalidate">
                                                                 @Html.AntiForgeryToken()
                                                                 <fieldset>
+                                                                   <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.BinaKimlikNo, new { @class = "col-md-4 font-bold" })
+                                                                                    <div class="col-md-6">
+                                                                                        @Html.TextBoxFor(model => model.BinaKimlikNo, "", new { @class = "form-control" })
+                                                                                        @Html.ValidationMessage("BinaKimlikNo", new { @class = "text-danger" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.NumaratajKimlikNo, new { @class = "col-md-4 font-bold" })
+                                                                                    <div class="col-md-6">
+                                                                                        @Html.TextBoxFor(model => model.NumaratajKimlikNo, "", new { @class = "form-control" })
+                                                                                        @Html.ValidationMessage("NumaratajKimlikNo", new { @class = "text-danger" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                   <div class="row">
+                                                                       <div class="col-md-6">
+                                                                           <div class="form-group">
+                                                                               <div class="input-group" style="width: 100%;">
+                                                                                   @Html.LabelFor(model => model.Ada, new { @class = "col-md-4 font-bold" })
+                                                                                   <div class="col-md-6">
+                                                                                       @Html.TextBoxFor(model => model.Ada, "", new { @class = "form-control"})
+                                                                                       @Html.ValidationMessage("Ada", new { @class = "text-danger" })
+                                                                                   </div>
+                                                                               </div>
+                                                                           </div>
+                                                                       </div>
+                                                                       <div class="col-md-6">
+                                                                           <div class="form-group">
+                                                                               <div class="input-group" style="width: 100%;">
+                                                                                   @Html.LabelFor(model => model.Pafta, new { @class = "col-md-4 font-bold" })
+                                                                                   <div class="col-md-6">
+                                                                                       @Html.TextBoxFor(model => model.Pafta, "", new { @class = "form-control"})
+                                                                                       @Html.ValidationMessage("Pafta", new { @class = "text-danger" })
+                                                                                   </div>
+                                                                               </div>
+                                                                           </div>
+                                                                       </div>
+                                                                   </div>
+                                                                   <div class="row">
+                                                                       <div class="col-md-6">
+                                                                           <div class="form-group">
+                                                                               <div class="input-group" style="width: 100%;">
+                                                                                   @Html.LabelFor(model => model.Parsel, new { @class = "col-md-4 font-bold" })
+                                                                                   <div class="col-md-6">
+                                                                                       @Html.TextBoxFor(model => model.Parsel, "", new { @class = "form-control"})
+                                                                                       @Html.ValidationMessage("Parsel", new { @class = "text-danger" })
+                                                                                   </div>
+                                                                               </div>
+                                                                           </div>
+                                                                       </div>
+                                                                       <div class="col-md-6">
+                                                                           <div class="form-group">
+                                                                               <div class="input-group" style="width: 100%;">
+                                                                                   @Html.LabelFor(model => model.AdresNo, new { @class = "col-md-4 font-bold" })
+                                                                                   <div class="col-md-6">
+                                                                                       @Html.TextBoxFor(model => model.AdresNo, "", new { @class = "form-control"})
+                                                                                       @Html.ValidationMessage("AdresNo", new { @class = "text-danger" })
+                                                                                   </div>
+                                                                               </div>
+                                                                           </div>
+                                                                       </div>
+                                                                   </div>
+                                                               
+                                                                    
                                                                 </fieldset>
                                                             </form>
                                                         </div>
@@ -465,7 +550,7 @@
             wizard.bootstrapWizard({
                 'tabClass': 'nav nav-pills',
                 onTabClick: function (tab, navigation, index) {
-                    return false;
+                    return true;
                 },
                 onNext: function (tab, navigation, index) {
                 },
@@ -584,6 +669,7 @@
                     });
                 }
             });
+
         });
     </script>
 

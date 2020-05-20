@@ -25,9 +25,10 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
         private IGayrimenkulTurService _turService;
         private IGayrimenkulService _gayrimenkulservice;
         private IGayrimenkulDosya_TurService _dosyaTurService;
+        private IKira_DurumService _gayrimenkuldurumservice;
 
         public GayrimenkulController(IGayrimenkulService gayrimenkulservice, IGayrimenkulTurService turService,
-            IIlService ilService, IIlceService ilceService, IMahalleService mahalleService, IGayrimenkulDosya_TurService dosyaTurService)
+            IIlService ilService, IIlceService ilceService, IMahalleService mahalleService, IGayrimenkulDosya_TurService dosyaTurService, IKira_DurumService gayrimenkuldurumservice)
         {
             _ilService = ilService;
             _ilceService = ilceService;
@@ -35,6 +36,7 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
             _turService = turService;
             _gayrimenkulservice = gayrimenkulservice;
             _dosyaTurService = dosyaTurService;
+            _gayrimenkuldurumservice = gayrimenkuldurumservice;
         }
         #endregion
         // GET: Emlak/Gayrimenkul
@@ -88,6 +90,14 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
             return Json(new { Data = mahalleler, success = true }, JsonRequestBehavior.AllowGet);
         }
 
+
+        public SelectList GayrimenkulDurumSelectList()
+        {
+            var turler = _gayrimenkuldurumservice.GetirListe().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+
+            return new SelectList(turler, "Id", "Ad");
+        }
+
         #endregion
 
         #region Ekle
@@ -105,6 +115,7 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
             model.TurSelectList = TurSelectList();
             model.IlSelectList = IlSelectList();
             model.DosyaTurleri = _dosyaTurService.GetirListe();
+            model.GayrimenkulDurumSelectList = GayrimenkulDurumSelectList();
             return View(model);
         }
 
@@ -123,6 +134,7 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
                         Il_Id = model.Il_Id,
                         Ilce_Id = model.Ilce_Id,
                         Mahalle_Id = model.Mahalle_Id,
+                        GayrimenkulDurum_Id = model.GayrimenkulDurum_Id,
                         BinaKimlikNo = model.BinaKimlikNo,
                         NumaratajKimlikNo = model.NumaratajKimlikNo,
                         AdresNo = model.AdresNo,

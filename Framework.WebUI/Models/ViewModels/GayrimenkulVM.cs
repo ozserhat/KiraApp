@@ -128,6 +128,10 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Gayrimenkul No")]
         public string GayrimenkulNo { get; set; }
 
+        [Display(Name = "Gayrimenkul Durum")]
+        public int GayrimenkulDurum_Id { get; set; }
+
+
         [Display(Name = "Dosya No")]
         public string DosyaNo { get; set; }
 
@@ -205,6 +209,9 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = " Açıklama")]
         public string Aciklama { get; set; }
+
+        [Display(Name = "Gayrimenkul Durumu")]
+        public SelectList GayrimenkulDurumSelectList { get; set; }
 
         public IPagedList<Gayrimenkul_Dosya> Gayrimenkul_Dosyalar { get; set; }
 
