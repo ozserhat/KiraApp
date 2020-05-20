@@ -264,6 +264,13 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             return new SelectList(iller, "Id", "Ad");
         }
 
+        public SelectList EkTahakkukOranlariSelectList()
+        {
+            var iller = _parametreService.GetirListe(11).Select(x => new { Id = x.Id, Ad = x.Ad }).OrderByDescending(a => a.Id).ToList();
+
+            return new SelectList(iller, "Id", "Ad");
+        }
+
         public SelectList OdemePeriyotSelectList()
         {
             var iller = _odemePeriyotService.GetirListe().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
@@ -1259,9 +1266,49 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 model.Beyan = GetirBeyan(kiraBeyan.Beyanlar.Id);
                 model.BeyanDosyalar = GetirBeyanDosyalar(kiraBeyan.Beyanlar.Id);
                 model.Tahakkuklar = _tahakkukService.GetirListe(kiraBeyan.Id);
+                model.EkTahakkukOranlari = EkTahakkukOranlariSelectList();
             }
 
             return View(model);
+        }
+        #endregion
+
+        #region EkTahakkuk
+        [HttpPost]
+        public JsonResult EkTahakkukOlustur(TahakkukEkleVm tahakkuk)
+        {
+            List<Tahakkuk> tahakkukListe = new List<Tahakkuk>();
+
+            Tahakkuk ekTahakkuk = new Tahakkuk()
+            {
+                Guid = Guid.NewGuid(),
+                //KiraBeyan_Id = kiraBeyanId,
+                //KiraParametre_Id = kiraParametre.Id,
+                //ServisSonucTahakkukId = null,
+                //KiraParametreKodu = kiraParametre.KararHarciTarifeKodu.Value,
+                //TahakkukTarihi = DateTime.Now,
+                //VadeTarihi = vadeTarih,
+                //TaksitSayisi = 1,
+                //Tutar = karakHarciTutar,
+                //KalanBorcTutari = null,
+                //OdemeDurumu = false,
+                //Aciklama = kiraParametre.KararHarciTarifeAciklama,
+                //OlusturulmaTarihi = DateTime.Now,
+                OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
+                AktifMi = true
+            };
+
+            tahakkukListe.Add(ekTahakkuk);
+
+
+            if (tahakkukListe != null && tahakkukListe.Count > 0)
+                _tahakkukService.Ekle(tahakkukListe);
+
+            ModelState.AddModelError("LogMessage", "Kira Beyan Ekleme İşlemi Gerçekleşti.");
+
+            return Json(new { Data = _beyanVM, Message = "Kira Beyan Ekleme İşlemi Başarıyla Getirildi.", success = true }, JsonRequestBehavior.AllowGet);
+
+            //return Json(new /*{*/ Message = "Kira Beyan Ekleme İşlemi Gerçekleştirilemedi.", success = false }, JsonRequestBehavior.AllowGet);
         }
         #endregion
     }
