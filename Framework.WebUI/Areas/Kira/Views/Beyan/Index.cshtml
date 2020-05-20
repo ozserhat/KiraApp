@@ -747,7 +747,11 @@
     <!--Export PDf-->
     <script>
         function createPDF() {
-            html2canvas(document.getElementById('dvTable'), {
+            var tbl = $('#tblBeyan');
+            tbl.find('th:last-child, td:last-child').remove()
+            tbl.find('th:first-child, td:first-child').remove()
+
+            html2canvas(tbl, {
                 onrendered: function (canvas) {
                     var data = canvas.toDataURL();
                     var docDefinition = {
