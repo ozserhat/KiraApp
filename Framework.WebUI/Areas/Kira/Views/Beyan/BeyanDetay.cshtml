@@ -25,11 +25,6 @@
                                 <ul class="dropdown-menu">
                                     <li class="buttonListStyle">
                                         <a href="@Url.Action("DosyaEkle")" id="gayrimenkulDosya">
-                                            <span class="glyphicon glyphicon-file"></span> Ek Tahakkuk Oluştur
-                                        </a>
-                                    </li>
-                                    <li class="buttonListStyle">
-                                        <a href="@Url.Action("DosyaEkle")" id="gayrimenkulDosya">
                                             <span class="glyphicon glyphicon-folder-close"></span> Beyan Kapama
                                         </a>
                                     </li>
@@ -877,6 +872,7 @@
                                                                                 <th class="sorting_disabled" rowspan="1" colspan="1">Tutar</th>
                                                                                 <th class="sorting_disabled" rowspan="1" colspan="1">Açıklama</th>
                                                                                 <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 250px;">Durum</th>
+                                                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 250px;">Ek Tahakkuk</th>
                                                                             </tr>
                                                                         </thead>
                                                                         @if (Model.Tahakkuklar != null && Model.Tahakkuklar.Count > 0)
@@ -901,6 +897,20 @@
                                                                                             else
                                                                                             {
                                                                                                 <b class="label pasif-buton-beyandetay">Vade</b>
+                                                                                            }
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            @if (item.KiraParametreKodu == 626)
+                                                                                            {
+                                                                                                <a id="btnEkTahakkuk" href="#" style="text-decoration: none;" class="no-underline margin-right-5 txt-color-teal ektahakkukRow"
+                                                                                                   data-original-title="Ek Tahakkuk Oluştur" data-toggle="modal" data-target="#ekTahakkukModal" data-id="@item.Id" data-tahakkuktutar="@item.Tutar">
+                                                                                                    <i id="blueCaret" class="fa fa-credit-card-alt rotate"></i>
+                                                                                                    Ek Tahakkuk Oluştur
+                                                                                                </a>
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <b>-</b>
                                                                                             }
                                                                                         </td>
                                                                                     </tr>
@@ -981,12 +991,11 @@
         </div>
     </div>
 
-    <div class="modal fade" id="beyanCiktiModal" tabindex="-1" role="dialog" aria-labelledby="DosyaGosterModalLabel" aria-hidden="true" style="display: none;">
-
+    <div class="modal fade" id="ekTahakkukModal" tabindex="-1" role="dialog" aria-labelledby="ekTahakkukModalLabel" aria-hidden="true" style="display: none;">
         <div class="modal-dialog modal-md">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Dosya Görüntüleme</h4>
+                    <h4 class="modal-title" id="myModalLabel">Ek Tahakkuk Tanımlama Ekranı</h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -994,7 +1003,74 @@
                             <div class="form-group">
                                 <div class="block-head">
                                     <div class="item-content">
-                                        <iframe id="onizleme" type="application/pdf" style="width:100%;height:900px;" frameborder="0"></iframe>
+                                        <form id="frmBildirim">
+                                            <fieldset>
+                                                <input type="hidden" id="tahakkukId" />
+                                                <input type="hidden" id="tahakkukTutar" />
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.LabelFor(model => model.EkTahakkukOranlari, new { @class = "control-label col-md-4" })
+                                                                <div class="col-md-8">
+                                                                    @Html.DropDownList("EkTahakkukOran", Model.EkTahakkukOranlari, new { @class = "select2 required" })
+                                                                    @Html.ValidationMessage("EkTahakkukOran", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.Label("Ek Beyan Tutarı", new { @class = "control-label col-md-4" })
+                                                                <div class="col-md-8">
+                                                                    @Html.TextBox("EkTahakkukTutar", "", new { @class = "form-control col-md-4 required", @type = "number" })
+                                                                    @Html.ValidationMessage("Id", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.Label("Açıklama", new { @class = "control-label col-md-4" })
+                                                                <div class="col-md-8">
+                                                                    @Html.TextArea("EkTahakkukAciklama", "", new { @class = "form-control col-md-4 required", rows = "3", placeholder = "Açıklama Giriniz" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-5">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.Label("", new { @class = "control-label col-md-4" })
+                                                                <div class="col-md-8">
+                                                                   
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <div id="ekTahakkukSonuc" style="color:green;">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        
+                                                    </div>
+                                                    <div class="col-md-4" style="margin-left:25px"><br />
+                                                        <input type="button" value="Hesapla" id="btnEkTahakkukHesapla" class="btn btn-info" />
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -1002,14 +1078,17 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+
                     <a href="#" id="btnDosyaGosterVazgec" type="button" data-dismiss="modal" class="btn btn-warning">
                         <span class="glyphicon glyphicon-chevron-left"></span> Kapat
                     </a>
+                    <input type="button" value="Kaydet" id="btnEkTahakkukOlustur" class="btn btn-primary" />
+
                 </div>
             </div>
         </div>
     </div>
-} 
+}
 <div id="dvIcerik" style="display:none;"></div>
 
 <div id="dvSonuc" style="display:none;"><span id="logo"><a href="/kira/anasayfa"> <img src="/content/img/logo.png" alt=""></a> </span></div>
@@ -1035,6 +1114,24 @@
         .buttonListStyle {
             float: left;
             margin-left: -15px;
+        }
+
+        .rotate {
+            -moz-transition: all 2s linear;
+            -webkit-transition: all 2s linear;
+            transition: all 2s linear;
+        }
+
+            .rotate.down {
+                -moz-transform: rotate(180deg);
+                -webkit-transform: rotate(180deg);
+                transform: rotate(180deg);
+            }
+
+        .centered {
+            position: fixed;
+            top: 50%;
+            left: 50%;
         }
 
         .loadingoverlay_element {
@@ -1077,6 +1174,7 @@
         }
     </style>
 
+    <!--TabControl -->
     <script type="text/javascript">
         $(document).ready(function () {
 
@@ -1130,14 +1228,50 @@
         });
     </script>
 
+    <!--Beyan Detay Çıktısı -->
     <script type="text/javascript">
+        $('.ektahakkukRow').click(function (val) {
+            var tahakkukId = $(this).attr("data-id");
+            var tahakkukTutar = $(this).attr("data-tahakkuktutar");
+            $('#tahakkukId').val(tahakkukId);
+            $('#tahakkukTutar').val(tahakkukTutar);
+        });
+
+        $('#btnEkTahakkukHesapla').click(function (val) {
+            $('#ekTahakkukSonuc').html('');
+            var tahakkukId = $('#tahakkukId').val();
+            var tahakkukTutar = $('#tahakkukTutar').val();
+            var ektahakkukTutar = $('#EkTahakkukTutar').val();
+            var ektahakkukOran = parseInt($('#EkTahakkukOran option:selected').text());
+            var ektahakkukAciklama = $('#EkTahakkukAciklama').val();
+
+            var ektahakkukSonuc = (ektahakkukTutar * ektahakkukOran / 100);
+
+            if (ektahakkukSonuc > tahakkukTutar) {
+                ektahakkukSonuc = ektahakkukSonuc - tahakkukTutar;
+                $('#ekTahakkukSonuc').css({ 'color': 'green' });
+                $('#ekTahakkukSonuc').html("Ek Tahakkuk Tutarı:" + ektahakkukSonuc);
+            }
+            else {
+                $('#ekTahakkukSonuc').css({ 'color': 'red' });
+                $('#ekTahakkukSonuc').html("Ek Tahakkuk Tutarı , Tahakkuk </br>Tutarından Az Olduğundan </br>Hesaplanamaz!!!");
+            }
+        });
+
+    </script>
+
+    <!--Beyan Detay Çıktısı -->
+    <script type="text/javascript">
+        $(".rotate").click(function () {
+            $(this).toggleClass("down");
+        })
 
         $("#btnBeyanCiktiAl").on("click", function () {
             createPDF();
         });
 
         function createPDF() {
-            var icerik =$("#tab1").html();
+            var icerik = $("#tab1").html();
             icerik += $("#tab2").html();
             icerik += $("#tab3").html();
             icerik += $("#tab5").html();
@@ -1170,6 +1304,7 @@
         }
 
     </script>
+
     <!--Money Format -->
     <script type="text/javascript">
         $('.moneyFormat').change(function (val) {
