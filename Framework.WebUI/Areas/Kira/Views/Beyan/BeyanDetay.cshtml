@@ -8,7 +8,6 @@
 @if (!Model.HideContent)
 {
     <div id="content">
-
         <section id="widget-grid" class="sayfaust_bosluk">
             <div class="row">
                 <article class="col-sm-12 col-md-12 col-lg-12">
@@ -902,11 +901,23 @@
                                                                                         <td>
                                                                                             @if (item.KiraParametreKodu == 626)
                                                                                             {
-                                                                                                <a id="btnEkTahakkuk" href="#" style="text-decoration: none;" class="no-underline margin-right-5 txt-color-teal ektahakkukRow"
-                                                                                                   data-original-title="Ek Tahakkuk Oluştur" data-toggle="modal" data-target="#ekTahakkukModal" data-id="@item.Id" data-tahakkuktutar="@item.Tutar">
-                                                                                                    <i id="blueCaret" class="fa fa-credit-card-alt rotate"></i>
-                                                                                                    Ek Tahakkuk Oluştur
-                                                                                                </a>
+                                                                                                var taksit = Model.Tahakkuklar.Where(a => a.TaksitSayisi == item.TaksitSayisi && a.EkTahakkukMu.Value == true).GroupBy(a => a.TaksitSayisi);
+
+                                                                                                if (taksit != null && taksit.Count() > 0)
+                                                                                                {
+                                                                                                    <b>-</b>
+                                                                                                }
+                                                                                                else
+                                                                                                {
+                                                                                                    <a id="btnEkTahakkuk" href="#" style="text-decoration: none;" class="no-underline margin-right-5 txt-color-teal ektahakkukRow"
+                                                                                                       data-original-title="Ek Tahakkuk Oluştur" data-toggle="modal" data-target="#ekTahakkukModal"
+                                                                                                       data-id="@item.Id" data-tahakkuktutar="@item.Tutar" data-taksitNo="@item.TaksitSayisi"
+                                                                                                       data-kirabeyanid="@item.KiraBeyan_Id" data-beyanYil="@item.BeyanYil"
+                                                                                                       data-kdvOrani="@item.Kira_Beyani.Beyanlar.Kdv" data-vadeTarihi="@item.VadeTarihi">
+                                                                                                        <i id="blueCaret" class="fa fa-credit-card-alt rotate"></i>
+                                                                                                        Ek Tahakkuk Oluştur
+                                                                                                    </a>
+                                                                                                }
                                                                                             }
                                                                                             else
                                                                                             {
@@ -960,7 +971,6 @@
     </div>
     <input type="hidden" name="beyanDetayCikti" />
 
-
     <div class="modal fade" id="DosyaGosterModal" tabindex="-1" role="dialog" aria-labelledby="DosyaGosterModalLabel" aria-hidden="true" style="display: none;">
 
         <div class="modal-dialog modal-md">
@@ -1003,17 +1013,22 @@
                             <div class="form-group">
                                 <div class="block-head">
                                     <div class="item-content">
-                                        <form id="frmBildirim">
+                                        <form id="frmEkTahakkuk">
                                             <fieldset>
                                                 <input type="hidden" id="tahakkukId" />
+                                                <input type="hidden" id="taksitNo" />
+                                                <input type="hidden" id="kiraBeyanId" />
+                                                <input type="hidden" id="vadeTarihi" />
                                                 <input type="hidden" id="tahakkukTutar" />
+                                                <input type="hidden" id="beyanYil" />
+                                                <input type="hidden" id="kdvOrani" />
                                                 <div class="row">
                                                     <div class="col-md-8">
                                                         <div class="form-group">
                                                             <div class="input-group" style="width: 100%;">
                                                                 @Html.LabelFor(model => model.EkTahakkukOranlari, new { @class = "control-label col-md-4" })
                                                                 <div class="col-md-8">
-                                                                    @Html.DropDownList("EkTahakkukOran", Model.EkTahakkukOranlari, new { @class = "select2 required" })
+                                                                    @Html.DropDownList("EkTahakkukOran", Model.EkTahakkukOranlari, "Seçiniz", new { @class = "select2" })
                                                                     @Html.ValidationMessage("EkTahakkukOran", new { @class = "text-danger" })
                                                                 </div>
                                                             </div>
@@ -1051,7 +1066,7 @@
                                                             <div class="input-group" style="width: 100%;">
                                                                 @Html.Label("", new { @class = "control-label col-md-4" })
                                                                 <div class="col-md-8">
-                                                                   
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1062,10 +1077,19 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md-6">
-                                                        
+                                                    <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
+                                                        @Html.Label("Kdv Alınsın Mı?", new { @class = "control-label col-md-4" })
+                                                        <div class="col-md-8 form-control-static">
+                                                            @Html.CheckBox("KdvAlinacakMi", new { @style = "width: 16px; height: 16px;" })
+                                                        </div>
                                                     </div>
-                                                    <div class="col-md-4" style="margin-left:25px"><br />
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+
+                                                    </div>
+                                                    <div class="col-md-4" style="margin-left:25px">
+                                                        <br />
                                                         <input type="button" value="Hesapla" id="btnEkTahakkukHesapla" class="btn btn-info" />
                                                     </div>
                                                 </div>
@@ -1230,16 +1254,33 @@
 
     <!--Ek Tahakkuk Hesaplama -->
     <script type="text/javascript">
+
+        function clearForm() {
+            $('#frmEkTahakkuk').each(function () {
+                this.reset();
+            });
+        }
+
         $('.ektahakkukRow').click(function (val) {
+            clearForm();
             var tahakkukId = $(this).attr("data-id");
             var tahakkukTutar = $(this).attr("data-tahakkuktutar");
+            var taksitNo = $(this).attr("data-taksitNo");
+            var kiraBeyanId = $(this).attr("data-kirabeyanid");
+            var beyanYil = $(this).attr("data-beyanYil");
+            var kdvOrani = $(this).attr("data-kdvOrani");
+            var vadeTarihi = $(this).attr("data-vadeTarihi");
+
+            $('#kdvOrani').val(kdvOrani);
+            $('#vadeTarihi').val(vadeTarihi);
+            $('#beyanYil').val(beyanYil);
             $('#tahakkukId').val(tahakkukId);
+            $('#taksitNo').val(taksitNo);
+            $('#kiraBeyanId').val(kiraBeyanId);
             $('#tahakkukTutar').val(tahakkukTutar);
         });
 
         $('#btnEkTahakkukHesapla').click(function (val) {
-            $('#ekTahakkukSonuc').html('');
-            var tahakkukId = $('#tahakkukId').val();
             var tahakkukTutar = parseFloat($('#tahakkukTutar').val());
             var ektahakkukTutar = $('#EkTahakkukTutar').val();
             var ektahakkukOran = parseInt($('#EkTahakkukOran option:selected').text());
@@ -1251,6 +1292,67 @@
                 ektahakkukSonuc = ektahakkukSonuc - tahakkukTutar;
                 $('#ekTahakkukSonuc').css({ 'color': 'green' });
                 $('#ekTahakkukSonuc').html("Ek Tahakkuk Tutarı:" + ektahakkukSonuc);
+            }
+            else {
+                $('#ekTahakkukSonuc').css({ 'color': 'red' });
+                $('#ekTahakkukSonuc').html("Ek Tahakkuk Tutarı , Tahakkuk </br>Tutarından Az Olduğundan </br>Hesaplanamaz!!!");
+            }
+        });
+
+        $('#btnEkTahakkukOlustur').click(function (val) {
+            $('#ekTahakkukSonuc').html('');
+            var tahakkukId = $('#tahakkukId').val();
+            var taksitNo = $('#taksitNo').val();
+            var kiraBeyanId = $('#kiraBeyanId').val();
+            var beyanYil = $('#beyanYil').val();
+            var kdvOrani = $('#kdvOrani').val();
+            var vadeTarihi = $('#vadeTarihi').val();
+
+            var tahakkukTutar = parseFloat($('#tahakkukTutar').val());
+            var ektahakkukTutar = $('#EkTahakkukTutar').val();
+            var ektahakkukOran = parseInt($('#EkTahakkukOran option:selected').text());
+            var ektahakkukAciklama = $('#EkTahakkukAciklama').val();
+
+            var ektahakkukSonuc = (ektahakkukTutar * ektahakkukOran / 100);
+            var kdvAlinacakMi = false;
+
+            if ($('#KdvAlinacakMi').is(":checked"))
+                kdvAlinacakMi = true;
+
+            if (ektahakkukSonuc > tahakkukTutar) {
+                ektahakkukSonuc = ektahakkukSonuc - tahakkukTutar;
+                $('#ekTahakkukSonuc').css({ 'color': 'green' });
+                $('#ekTahakkukSonuc').html("Ek Tahakkuk Tutarı:" + ektahakkukSonuc);
+
+
+
+                parametre = new Object();
+                parametre.KiraBeyan_Id = kiraBeyanId;
+                parametre.BeyanYil = beyanYil;
+                parametre.TaksitNo = taksitNo;
+                parametre.VadeTarihi = vadeTarihi;
+                parametre.KdvOrani = kdvOrani;
+                parametre.Tutar = ektahakkukSonuc;
+                parametre.Aciklama = ektahakkukAciklama;
+                parametre.KdvAlinacakMi = kdvAlinacakMi;
+                parametre.EkTahakkukKdvOran = ektahakkukOran;
+                 $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("EkTahakkukOlustur", "Beyan")',
+                    data: { tahakkuk: parametre },
+                    success: function (result) {
+                        if (result != null && result.success) {
+
+                            swal('Bilgi!', result.Message, 'success');
+                        }
+                        else {
+                            swal('Uyarı!', result.Message, 'warning');
+                        }
+                    },
+                    error: function (xhr) {
+                        swal('Uyarı!', result.Message, 'warning');
+                    }
+                 });
             }
             else {
                 $('#ekTahakkukSonuc').css({ 'color': 'red' });
@@ -1405,6 +1507,5 @@
             $("#iframe1").attr("src", url);
         });
     </script>
-
 
 }
