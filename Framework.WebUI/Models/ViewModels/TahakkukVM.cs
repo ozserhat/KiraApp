@@ -80,7 +80,7 @@ namespace Framework.WebUI.Models.ViewModels
         public DateTime? TahakkukTarihi { get; set; }
 
         [Display(Name = "Tutar")]
-        public decimal? Tutar { get; set; }
+        public string Tutar { get; set; }
 
         [Display(Name = "Kalan Borç Tutarı")]
         public decimal? KalanBorcTutari { get; set; }

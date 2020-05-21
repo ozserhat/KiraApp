@@ -819,6 +819,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                     KiraBeyan_Id = kiraBeyanId,
                     KiraParametre_Id = kiraParametre.Id,
                     ServisSonucTahakkukId = null,
+                    BeyanYil= kiraBeyanModel.Beyan.BeyanYil.Value,
                     KiraParametreKodu = kiraParametre.KararHarciTarifeKodu.Value,
                     TahakkukTarihi = DateTime.Now,
                     VadeTarihi = vadeTarih,
@@ -826,6 +827,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                     Tutar = karakHarciTutar,
                     KalanBorcTutari = null,
                     OdemeDurumu = false,
+                    EkTahakkukMu=false,
                     Aciklama = kiraParametre.KararHarciTarifeAciklama,
                     OlusturulmaTarihi = DateTime.Now,
                     OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
@@ -855,6 +857,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                     KiraBeyan_Id = kiraBeyanId,
                     KiraParametre_Id = kiraParametre.Id,
                     ServisSonucTahakkukId = null,
+                    BeyanYil = kiraBeyanModel.Beyan.BeyanYil.Value,
                     KiraParametreKodu = kiraParametre.TeminatTarifeKodu.Value,
                     TahakkukTarihi = DateTime.Now,
                     VadeTarihi = vadeTarih,
@@ -862,6 +865,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                     Tutar = teminatTutar,
                     KalanBorcTutari = null,
                     OdemeDurumu = false,
+                    EkTahakkukMu = false,
                     Aciklama = kiraParametre.TeminatTarifeAciklama,
                     OlusturulmaTarihi = DateTime.Now,
                     OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
@@ -893,6 +897,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                         KiraBeyan_Id = kiraBeyanId,
                         KiraParametre_Id = kiraParametre.Id,
                         ServisSonucTahakkukId = null,
+                        BeyanYil = kiraBeyanModel.Beyan.BeyanYil.Value,
                         KiraParametreKodu = kiraParametre.DamgaTarifeKodu.Value,
                         TahakkukTarihi = DateTime.Now,
                         VadeTarihi = vadeTarih,
@@ -900,6 +905,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                         Tutar = damgaVergisiTutar,
                         KalanBorcTutari = null,
                         OdemeDurumu = false,
+                        EkTahakkukMu = false,
                         Aciklama = kiraParametre.DamgaTarifeAciklama,
                         OlusturulmaTarihi = DateTime.Now,
                         OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
@@ -952,6 +958,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                                 KiraBeyan_Id = kiraBeyanId,
                                 KiraParametre_Id = kiraParametre.Id,
                                 ServisSonucTahakkukId = null,
+                                BeyanYil = kiraBeyanModel.Beyan.BeyanYil.Value,
                                 KiraParametreKodu = parametreKod,
                                 TahakkukTarihi = DateTime.Now,
                                 VadeTarihi = dateSon,
@@ -959,6 +966,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                                 Tutar = otoparkTutar,
                                 KalanBorcTutari = null,
                                 OdemeDurumu = false,
+                                EkTahakkukMu = false,
                                 Aciklama = parametreAciklama,
                                 OlusturulmaTarihi = DateTime.Now,
                                 OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
@@ -976,6 +984,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                             KiraBeyan_Id = kiraBeyanId,
                             KiraParametre_Id = kiraParametre.Id,
                             ServisSonucTahakkukId = null,
+                            BeyanYil = kiraBeyanModel.Beyan.BeyanYil.Value,
                             KiraParametreKodu = parametreKod,
                             TahakkukTarihi = DateTime.Now,
                             VadeTarihi = dateSon,
@@ -983,6 +992,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                             Tutar = kiraTutar,
                             KalanBorcTutari = null,
                             OdemeDurumu = false,
+                            EkTahakkukMu = false,
                             Aciklama = parametreAciklama,
                             OlusturulmaTarihi = DateTime.Now,
                             OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
@@ -1014,6 +1024,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                             KiraBeyan_Id = kiraBeyanId,
                             KiraParametre_Id = kiraParametre.Id,
                             ServisSonucTahakkukId = null,
+                            BeyanYil = kiraBeyanModel.Beyan.BeyanYil.Value,
                             KiraParametreKodu = kiraParametre.KdvTarifeKodu.Value,
                             TahakkukTarihi = DateTime.Now,
                             VadeTarihi = dateSon,
@@ -1021,6 +1032,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                             Tutar = kdvTutar,
                             KalanBorcTutari = null,
                             OdemeDurumu = false,
+                            EkTahakkukMu = false,
                             Aciklama = kiraParametre.KdvTarifeAciklama,
                             OlusturulmaTarihi = DateTime.Now,
                             OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
@@ -1285,10 +1297,10 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             vadeTarih = _resmiTatilService.TatilGunuKontrol(vadeTarih);
             decimal kdvTutar = 0;
 
-            decimal tahakkukTutar = tahakkuk.Tutar.Value;
+            decimal tahakkukTutar = Convert.ToDecimal(tahakkuk.Tutar);
 
             if (tahakkuk.KdvAlinacakMi)
-                kdvTutar = (tahakkuk.Tutar.Value * tahakkuk.KdvOrani / 100);
+                kdvTutar = (tahakkukTutar * tahakkuk.KdvOrani / 100);
 
             List<Tahakkuk> tahakkukListe = new List<Tahakkuk>();
 
