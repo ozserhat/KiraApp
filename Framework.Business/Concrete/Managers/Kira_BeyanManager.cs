@@ -61,6 +61,10 @@ namespace Framework.Business.Concrete.Managers
             return _Kira_BeyanDal.Update(beyan);
         }
 
+        public Kira_Beyan Getir(int beyanId, int gayrimenkulId, int kiraciId)
+        {
+            return _Kira_BeyanDal.Getir(beyanId, gayrimenkulId,kiraciId);
+        }
         public bool Sil(int id)
         {
             return _Kira_BeyanDal.Delete(id);

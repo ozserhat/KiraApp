@@ -40,14 +40,19 @@ namespace Framework.Business.Concrete.Managers
             return _kiraciDal.GetList().Where(a => a.AktifMi == true);
         }
 
-        public Kiraci GetirSicilNo(int SicilNo)
+        public Kiraci GetirSicilNo(long SicilNo)
         {
             return _kiraciDal.Get(a => a.SicilNo == SicilNo);
         }
 
-        public Kiraci GetirTcNo(int TcKimlikNo)
+        public Kiraci GetirSicilNo(int SicilNo)
         {
-            return _kiraciDal.Get(a => a.TcKimlikNo == TcKimlikNo);
+            throw new NotImplementedException();
+        }
+
+        public Kiraci GetirTcNo(long TcKimlikNo)
+        {
+            return _kiraciDal.GetirTcKimlikNo(TcKimlikNo);
         }
 
         public IEnumerable<Kiraci> GetirTurId(int TurId)
@@ -55,10 +60,12 @@ namespace Framework.Business.Concrete.Managers
             return _kiraciDal.GetList(a => a.KiraciTur_Id == TurId);
         }
 
-        public Kiraci GetirVergiNo(int VergiNo)
+        public Kiraci GetirVergiNo(long VergiNo)
         {
-            return _kiraciDal.Get(a => a.VergiNo == VergiNo);
+            return _kiraciDal.GetirVergiNo(VergiNo);
         }
+
+
 
         public Kiraci Guncelle(Kiraci kiraci)
         {

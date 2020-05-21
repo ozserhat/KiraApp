@@ -22,6 +22,8 @@ namespace Framework.Business.Abstract
 
         Kira_Beyan Guncelle(Kira_Beyan tur);
 
+        Kira_Beyan Getir(int beyanId, int gayrimenkulId, int kiraciId);
+
         bool Sil(int id);
     }
 }

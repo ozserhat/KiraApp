@@ -177,6 +177,7 @@ namespace Framework.WebUI.Models.ViewModels
 
         public KiraciEkleVM Kiraci { get; set; }
 
+
         public Beyan_GayrimenkulEkleVM Gayrimenkul { get; set; }
 
         public BeyanEkleVM Beyan { get; set; }

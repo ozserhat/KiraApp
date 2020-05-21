@@ -65,7 +65,7 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Müsade Süresi (Gün)")]
         public int? MusadeliGunSayisi { get; set; }
-       
+
         [Display(Name = "Kdv Oranı")]
         public int? Kdv { get; set; }
 
@@ -123,6 +123,8 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Aktif Mi")]
         public bool AktifMi { get; set; }
+
+        public int Id { get; set; }
     }
 
     public class BeyanDuzenleVM : PagingVMBase
@@ -323,6 +325,7 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Aktif Mi")]
         public bool AktifMi { get; set; }
+
     }
 
 }
