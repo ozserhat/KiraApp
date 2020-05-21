@@ -1127,8 +1127,8 @@
     <script src="~/Scripts/loadingoverlay.min.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script src="~/Scripts/jquery.formatCurrency-1.4.0.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/pdfmake.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/html2canvas.min.js"></script>
 
     <style type="text/css">
         .outputview {
@@ -1291,7 +1291,7 @@
             if (ektahakkukSonuc > tahakkukTutar) {
                 ektahakkukSonuc = ektahakkukSonuc - tahakkukTutar;
                 $('#ekTahakkukSonuc').css({ 'color': 'green' });
-                $('#ekTahakkukSonuc').html("Ek Tahakkuk Tutarı:" + ektahakkukSonuc);
+                $('#ekTahakkukSonuc').html("Ek Tahakkuk Tutarı:" + ektahakkukSonuc.toFixed(2));
             }
             else {
                 $('#ekTahakkukSonuc').css({ 'color': 'red' });
@@ -1322,7 +1322,7 @@
             if (ektahakkukSonuc > tahakkukTutar) {
                 ektahakkukSonuc = ektahakkukSonuc - tahakkukTutar;
                 $('#ekTahakkukSonuc').css({ 'color': 'green' });
-                $('#ekTahakkukSonuc').html("Ek Tahakkuk Tutarı:" + ektahakkukSonuc);
+                $('#ekTahakkukSonuc').html("Ek Tahakkuk Tutarı:" + ektahakkukSonuc.toFixed(2));
 
 
 
@@ -1332,7 +1332,7 @@
                 parametre.TaksitNo = taksitNo;
                 parametre.VadeTarihi = vadeTarihi;
                 parametre.KdvOrani = kdvOrani;
-                parametre.Tutar = ektahakkukSonuc;
+                parametre.Tutar = ektahakkukSonuc.toFixed(2);
                 parametre.Aciklama = ektahakkukAciklama;
                 parametre.KdvAlinacakMi = kdvAlinacakMi;
                 parametre.EkTahakkukKdvOran = ektahakkukOran;
@@ -1344,6 +1344,10 @@
                         if (result != null && result.success) {
 
                             swal('Bilgi!', result.Message, 'success');
+
+                            setTimeout(function () {
+                                window.location.reload();
+                            }, 2000);
                         }
                         else {
                             swal('Uyarı!', result.Message, 'warning');
