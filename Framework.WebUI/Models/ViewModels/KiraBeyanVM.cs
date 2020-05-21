@@ -237,6 +237,10 @@ namespace Framework.WebUI.Models.ViewModels
 
         public KiraBeyanEkleVM Kira_Beyan { get; set; }
 
+
+        [Display(Name = "Ek Tahakkuk Oranları (%)")]
+        public SelectList EkTahakkukOranlari { get; set; }
+
     }
 
 }

@@ -3,7 +3,7 @@
 @using PagedList.Mvc;
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Kira Yönetim Sistemi";
     Layout = "~/Areas/Kira/Views/Shared/_LayoutKira.cshtml";
 }
 
@@ -556,8 +556,6 @@
     <script type="text/javascript">
 
         function clearForm() {
-            debugger;
-
             $('#BeyanTur_Id').select2("val", "");
             $('#BeyanYil').select2("val", "");
             $('#KiraDurum_Id').select2("val", "");
@@ -565,7 +563,6 @@
             $('#OdemePeriyotTur_Id').select2("val", "");
             $('#DamgaAlinsinMi').select2("val", "");
             $('#btnSubmit').click();
-
         }
 
         $(function () {
@@ -745,7 +742,6 @@
     </script>
 
     <!--Export PDf-->
-
     <script>
         function createPDF() {
             var tbl = $('#tblBeyan');

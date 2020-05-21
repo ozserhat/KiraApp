@@ -43,23 +43,23 @@
 
                     </td>
 
-                    <td>@Html.DisplayFor(model => item.Gayrimenkuller.Mahalleler.Ilceler.Iller.Ad)</td>
-                    <td>@Html.DisplayFor(model => item.Gayrimenkuller.Mahalleler.Ilceler.Ad)</td>
-                    <td>@Html.DisplayFor(model => item.Gayrimenkuller.Mahalleler.Ad)</td>
-                    <td>
-                        @if (item.Beyanlar.AktifMi.HasValue && item.Beyanlar.AktifMi.Value)
-                        {
-                            <b class="label aktif-buton">Aktif</b>
-                        }
-                        else
-                        {
-                            <b class="label pasif-buton">Pasif</b>
-                        }
-                    </td>
-                    <td class="text-center">
-                        @*@Html.AuthAction(" ", "Duzenle", "Beyan", new { item.Beyanlar.Guid },
-                                    new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
-                                    Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                <td>@Html.DisplayFor(model => item.Gayrimenkuller.Mahalleler.Ilceler.Iller.Ad)</td>
+                <td>@Html.DisplayFor(model => item.Gayrimenkuller.Mahalleler.Ilceler.Ad)</td>
+                <td>@Html.DisplayFor(model => item.Gayrimenkuller.Mahalleler.Ad)</td>
+                <td>
+                    @if (item.Beyanlar.AktifMi.HasValue && item.Beyanlar.AktifMi.Value)
+                    {
+                        <b class="label aktif-buton">Aktif</b>
+                    }
+                    else
+                    {
+                        <b class="label pasif-buton">Pasif</b>
+                    }
+                </td>
+                <td class="text-center">
+                    @Html.AuthAction(" ", "Duzenle", "Beyan", new { item.Beyanlar.Guid },
+                    new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
+                    Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
                             @Html.AuthAction(" ", "Sil", "Beyan", new { item.Id },
                                             new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = item.Beyanlar.BeyanNo, @data_id = item.Beyanlar.Id },

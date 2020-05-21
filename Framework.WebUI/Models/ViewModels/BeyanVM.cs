@@ -112,8 +112,17 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Damga Vergisi Alınsın Mı?")]
         public SelectList DamgaVergisiDurumSelectList { get; set; }
 
+        [Display(Name = "Otopark Tatil Günü")]
+        public SelectList OtoparkTatilGunuSelectList { get; set; }
+
         [Display(Name = "Dosyalar")]
         public IEnumerable<BeyanDosya_Tur> DosyaTurleri { get; set; }
+
+        [Display(Name = "Otopark Tatil Günleri")]
+        public string OtoparkTatilGun { get; set; }
+
+        [Display(Name = "Resmi Tatil Var Mı?")]
+        public bool ResmiTatilVarmi { get; set; }
 
         [Display(Name = "Oluşturan Kullanıcı")]
         public int? OlusturanKullanici_Id { get; set; }

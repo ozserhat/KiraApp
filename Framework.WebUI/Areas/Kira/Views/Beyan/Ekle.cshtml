@@ -654,7 +654,9 @@
                     BaslangicTaksitNo: $('#BaslangicTaksitNo').val(),
                     KalanAy: $('#KalanAy').val(),
                     DamgaAlinsinMi: $('#DamgaAlinsinMi').val(),
-                    BeyanAciklama: $('#BeyanAciklama').val()
+                    BeyanAciklama: $('#BeyanAciklama').val(),
+                    OtoparkTatilGun: $("#OtoparkTatilGun").val(),
+                    ResmiTatilVarmi: $('#ResmiTatilVarmi').val(),
                 }
 
                var kiraBeyanModel ={
@@ -669,12 +671,14 @@
                    $.ajax({
                     type: 'Post',
                     url: '@Url.Action("KiraBeyanEkle", "Beyan")',
-                    data: { kiraBeyanModel: kiraBeyanModel },
+                       data: { kiraBeyanModel: kiraBeyanModel },
+                       beforeSend: function () {
+                           $.LoadingOverlay("show", { text: "Beyan Bilgileri Kaydediliyor...", textResizeFactor: 0.2, background: "rgba(0, 0, 0, 0.5)" });
+                       },
                     success: function (result) {
                         if (result != null && result.success) {
-
                             swal('Bilgi!', result.Message, 'success');
-
+                            $.LoadingOverlay("hide");
                             setTimeout(function () {
                                 window.location.href = "../Beyan/Index";
                             }, 2000);
@@ -692,9 +696,27 @@
         });
     </script>
 
+    <!--Otopark Tatil Günü Bilgileri-->
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#BeyanTur_Id").change(function (e) {
+
+                var pnlOtopark = $('#otoparkDiv');
+
+                var turId = $(this).val();
+
+                if (turId != null && turId == '2') {
+                    pnlOtopark.show();
+                } else {
+                    pnlOtopark.hide();
+                }
+            });
+        });
+    </script>
 
     <!--KiraTutariHesaplama-->
-    <script type="text/javascript">
+    @*<script type="text/javascript">
         $(document).on("change keyup blur", "#KiraTutari", function () {
 
             var it = $('#IhaleTutari').val();
@@ -731,7 +753,7 @@
 
             }
         });
-    </script>*
+    </script>*@*
 
 }
 
