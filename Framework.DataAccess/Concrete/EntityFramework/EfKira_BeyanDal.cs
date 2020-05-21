@@ -131,7 +131,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             using (DtContext context = new DtContext())
             {
                 var query = context.Kira_Beyanlari
-                                      .Include(b => b.Beyanlar)
+                                .Include(b => b.Beyanlar)
                                 .Include(bt => bt.Beyanlar.BeyanTur)
                                 .Include(k => k.Kiracilar)
                                 .Include(g => g.Gayrimenkuller)
