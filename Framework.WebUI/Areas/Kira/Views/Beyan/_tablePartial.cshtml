@@ -61,7 +61,7 @@
                     new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
                     Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
-                            @Html.AuthAction(" ", "Sil", "Beyan", new { item.Id },
+                            @*@Html.AuthAction(" ", "Sil", "Beyan", new { item.Id },
                                             new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = item.Beyanlar.BeyanNo, @data_id = item.Beyanlar.Id },
                                             Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))*@
 
@@ -69,7 +69,7 @@
                                         new { @class = "no-underline margin-right-5 fa fa-search-plus font-md txt-color-blue", @data_name = item.Beyanlar.BeyanNo, @data_id = item.Beyanlar.Id },
                                         Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                         @Html.AuthAction(" ", "Ekle", "Beyan", new { id = item.Beyanlar.Guid },
-                                      new { @class = "no-underline margin-right-5 fa fa-search-plus font-md txt-color-blue", @data_name = item.Beyanlar.BeyanNo, @data_id = item.Beyanlar.Id },
+                                      new { @class = "no-underline margin-right-5 fa fa-pencil font-md txt-color-blue", @data_name = item.Beyanlar.BeyanNo, @data_id = item.Beyanlar.Id },
                                       Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                     </td>
                 </tr>

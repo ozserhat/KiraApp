@@ -784,6 +784,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 model.Beyan.KdvOraniSelectList = KdvOraniSelectList();
                 model.Beyan.DamgaVergisiDurumSelectList = DamgaVergisiDurumSelectList();
                 model.Beyan.DosyaTurleri = _dosyaService.GetirListe();
+                model.Beyan.OtoparkTatilGunuSelectList = OtoparkTatilGunuSelectList();
+
                 model.BeyanDosyalar = GetirBeyanDosyalar(kiraBeyan.Beyanlar.Id);
             }
             return model;
@@ -1463,7 +1465,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             };
 
             tahakkukListe.Add(ekTahakkuk);
-            
+
             if (tahakkuk.KdvAlinacakMi)
             {
                 Tahakkuk ekTahakkukKdv = new Tahakkuk()
@@ -1492,7 +1494,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
                 tahakkukListe.Add(ekTahakkukKdv);
             }
-          
+
 
             if (ekTahakkuk != null)
             {
