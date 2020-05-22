@@ -19,5 +19,6 @@ namespace Framework.DataAccess.Abstract
         Kira_Beyan GetById(int id);
 
         bool Delete(int id);
+        Kira_Beyan Getir(int beyanId, int gayrimenkulId, int kiraciId);
     }
 }

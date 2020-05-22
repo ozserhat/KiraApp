@@ -15,9 +15,9 @@ namespace Framework.Business.Abstract
 
         Kiraci GetirSicilNo(int SicilNo);
 
-        Kiraci GetirVergiNo(int VergiNo);
+        Kiraci GetirVergiNo(long VergiNo);
 
-        Kiraci GetirTcNo(int TcKimlikNo);
+        Kiraci GetirTcNo(long TcKimlikNo);
 
         IEnumerable<Kiraci> GetirTurId(int TurId);
 
