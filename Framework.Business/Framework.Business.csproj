@@ -134,6 +134,7 @@
     <Compile Include="Abstract\IBeyanService.cs" />
     <Compile Include="Abstract\IBeyan_DosyaService.cs" />
     <Compile Include="Abstract\IBeyan_TurService.cs" />
+    <Compile Include="Abstract\IBeyan_UfeOranService.cs" />
     <Compile Include="Abstract\IDuyuruService.cs" />
     <Compile Include="Abstract\IDuyuru_BildirimService.cs" />
     <Compile Include="Abstract\IDuyuru_TurService.cs" />
@@ -168,6 +169,7 @@
     <Compile Include="Concrete\Managers\BeyanManager.cs" />
     <Compile Include="Concrete\Managers\Beyan_DosyaManager.cs" />
     <Compile Include="Concrete\Managers\Beyan_TurManager.cs" />
+    <Compile Include="Concrete\Managers\Beyan_UfeOranManager.cs" />
     <Compile Include="Concrete\Managers\ControllerActionManager.cs" />
     <Compile Include="Concrete\Managers\DenemeManager.cs" />
     <Compile Include="Concrete\Managers\DuyuruManager.cs" />

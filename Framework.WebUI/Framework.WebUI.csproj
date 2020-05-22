@@ -185,6 +185,7 @@
     <Compile Include="Areas\Admin\Controllers\BeyanController.cs" />
     <Compile Include="Areas\Admin\Controllers\BeyanDosyaTurController.cs" />
     <Compile Include="Areas\Admin\Controllers\BeyanTurController.cs" />
+    <Compile Include="Areas\Admin\Controllers\BeyanUfeOranController.cs" />
     <Compile Include="Areas\Admin\Controllers\Beyan_DosyaController.cs" />
     <Compile Include="Areas\Admin\Controllers\Beyan_TurController.cs" />
     <Compile Include="Areas\Admin\Controllers\DenemeController.cs" />
@@ -234,6 +235,7 @@
     <Compile Include="Models\ViewModels\BeyanVM.cs" />
     <Compile Include="Models\ViewModels\Beyan_DosyaVM.cs" />
     <Compile Include="Models\ViewModels\Beyan_TurVM.cs" />
+    <Compile Include="Models\ViewModels\Beyan_UfeOranVM.cs" />
     <Compile Include="Models\ViewModels\ControllerActionsVm.cs" />
     <Compile Include="Models\ViewModels\DenemeVm.cs" />
     <Compile Include="Models\ViewModels\DuyuruBildirimVM.cs" />
@@ -1129,6 +1131,9 @@
     <Content Include="Areas\Kira\Views\Beyan\SicilSorgula.cshtml" />
     <Content Include="Areas\Admin\Views\Beyan\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Beyan\_tablePartial.cshtml" />
+    <Content Include="Areas\Admin\Views\BeyanUfeOran\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\BeyanUfeOran\Ekle.cshtml" />
+    <Content Include="Areas\Admin\Views\BeyanUfeOran\Duzenle.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
