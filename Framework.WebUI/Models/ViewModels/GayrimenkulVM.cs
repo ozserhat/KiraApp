@@ -103,6 +103,9 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Aktif Mi")]
         public bool AktifMi { get; set; }
+
+        [Display(Name = "Aktif Mi")]
+        public int Id { get; set; }
     }
 
     public class GayrimenkulEkleVM : VMBase

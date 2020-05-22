@@ -30,14 +30,25 @@ namespace Framework.Entities.Concrete
 
         public int? TaksitSayisi { get; set; }
 
+        public int BeyanYil { get; set; }
+
         public decimal? Tutar { get; set; }
 
         public decimal? KalanBorcTutari { get; set; }
 
+        public int? EkTahakkukKdvOran { get; set; }
+
         public bool? OdemeDurumu { get; set; }
+
+        public bool? KdvAlinacakMi { get; set; }
+
+        public bool? EkTahakkukMu { get; set; }
 
         [StringLength(2500)]
         public string Aciklama { get; set; }
+
+        [StringLength(2500)]
+        public string ServisAciklama { get; set; }
 
         public DateTime? TahakkukTarihi { get; set; }
 

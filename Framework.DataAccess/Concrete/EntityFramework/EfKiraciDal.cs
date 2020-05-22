@@ -47,5 +47,21 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                 return context.Kiracilar.Where(a => a.Id == id).FirstOrDefault();
             }
         }
+
+        public Kiraci GetirTcKimlikNo(long TcKimlikNo)
+        {
+            using (DtContext context = new DtContext())
+            {
+                return context.Kiracilar.Where(a => a.TcKimlikNo == TcKimlikNo).FirstOrDefault();
+            }
+        }
+
+        public Kiraci GetirVergiNo(long vergiNo)
+        {
+            using (DtContext context = new DtContext())
+            {
+                return context.Kiracilar.Where(a => a.VergiNo == vergiNo).FirstOrDefault();
+            }
+        }
     }
 }

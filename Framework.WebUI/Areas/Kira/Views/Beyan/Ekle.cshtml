@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Ekle";
     Layout = "~/Areas/Kira/Views/Shared/_LayoutKira.cshtml";
+    var guidId = ViewBag.GuidId;
 }
 
 @if (!Model.HideContent)
@@ -121,22 +122,28 @@
                                                             <fieldset>
                                                                 <div class="row">
                                                                     <div class="col-md-6">
-                                                                        @using (Ajax.BeginForm("GetirGayrimenkulBilgi", "Beyan", new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "dvGayrimenkulForm", OnSuccess = "onSuccess" }, new { enctype = "multipart/form-data", id = "gayrimenkulForm" }))
+                                                                        @Html.HiddenFor(x => x.Gayrimenkul.Id)
+                                                                        @Html.HiddenFor(model => model.Kiraci.Id)
+                                                                        @Html.HiddenFor(model => model.Beyan.Id)
+                                                                        @if (guidId == null)
                                                                         {
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.Label("Gayrimenkul No", new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.TextBox("GayrimenkulNo", "", new { @class = "form-control required", @type = "text" })
-                                                                                        @Html.ValidationMessage("GayrimenkulNo", new { @class = "text-danger" })
-                                                                                    </div>
-                                                                                    <div class="col-md-2">
-                                                                                        <button class="btn btn-primary" id="btnGayrimenkulSorgula" type="submit">
-                                                                                            <span class="glyphicon glyphicon-search"></span> Sorgula
-                                                                                        </button>
+                                                                            using (Ajax.BeginForm("GetirGayrimenkulBilgi", "Beyan", new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "dvGayrimenkulForm", OnSuccess = "onSuccess" }, new { enctype = "multipart/form-data", id = "gayrimenkulForm" }))
+                                                                            {
+                                                                                <div class="form-group">
+                                                                                    <div class="input-group" style="width: 100%;">
+                                                                                        @Html.Label("Gayrimenkul No", new { @class = "col-md-4 font-bold" })
+                                                                                        <div class="col-md-6">
+                                                                                            @Html.TextBox("GayrimenkulNo", "", new { @class = "form-control required", @type = "text" })
+                                                                                            @Html.ValidationMessage("GayrimenkulNo", new { @class = "text-danger" })
+                                                                                        </div>
+                                                                                        <div class="col-md-2">
+                                                                                            <button class="btn btn-primary" id="btnGayrimenkulSorgula" type="submit">
+                                                                                                <span class="glyphicon glyphicon-search"></span> Sorgula
+                                                                                            </button>
+                                                                                        </div>
                                                                                     </div>
                                                                                 </div>
-                                                                            </div>
+                                                                            }
                                                                         }
                                                                     </div>
                                                                 </div><div id="dvGayrimenkulForm">
@@ -154,29 +161,38 @@
                                                             <fieldset>
                                                                 <div class="row">
                                                                     <div class="col-md-6">
+                                                                        @Html.HiddenFor(model => model.Kiraci.Id)
+
                                                                         @using (Ajax.BeginForm("GetirSicilBilgi", "Beyan", new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "dvSicilForm", OnSuccess = "onSuccess" }, new { enctype = "multipart/form-data", id = "kiraciForm" }))
                                                                         {
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.Label("Vergi/TC No", new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.TextBox("TcVergiNo", "", new { @class = "form-control required", @type = "number" })
-                                                                                        @Html.ValidationMessage("TcVergiNo", new { @class = "text-danger" })
-                                                                                        @*@Html.HiddenFor(model => model, new { @class = "form-control" })*@
-                                                                                    </div>
-                                                                                    <div class="col-md-2">
-                                                                                        <button class="btn btn-primary" id="btnSicilSorgulas" type="submit">
-                                                                                            <span class="glyphicon glyphicon-search"></span> Sorgula
-                                                                                        </button>
+                                                                            if (guidId == null)
+                                                                            {
+
+                                                                                <div class="form-group">
+                                                                                    <div class="input-group" style="width: 100%;">
+                                                                                        @Html.Label("Vergi/TC No", new { @class = "col-md-4 font-bold" })
+                                                                                        <div class="col-md-6">
+                                                                                            @Html.TextBox("TcVergiNo", "", new { @class = "form-control required", @type = "number" })
+                                                                                            @Html.ValidationMessage("TcVergiNo", new { @class = "text-danger" })
+                                                                                            @*@Html.HiddenFor(model => model, new { @class = "form-control" })*@
+                                                                                        </div>
+                                                                                        <div class="col-md-2">
+                                                                                            <button class="btn btn-primary" id="btnSicilSorgulas" type="submit">
+                                                                                                <span class="glyphicon glyphicon-search"></span> Sorgula
+                                                                                            </button>
+                                                                                        </div>
                                                                                     </div>
                                                                                 </div>
-                                                                            </div>
+                                                                            }
                                                                         }
 
                                                                     </div>
                                                                 </div>
                                                                 <div id="dvSicilForm">
-                                                                    @{ Html.RenderPartial("_SicilPartial", Model.Kiraci); }
+                                                                    @{
+
+
+                                                                        Html.RenderPartial("_SicilPartial", Model.Kiraci); }
                                                                 </div>
                                                             </fieldset>
                                                         </div>
@@ -277,16 +293,16 @@
 
     <!--Para Formatı -->
     <script type="text/javascript">
-            $('.moneyFormat').change(function (e) {
-                //$('.moneyFormat').formatCurrency();
+        $('.moneyFormat').change(function (e) {
+            //$('.moneyFormat').formatCurrency();
 
-                var money = $(this).val();
+            var money = $(this).val();
 
-                money = money.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+            money = money.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
 
-                $(this).val(money)
-            });
-        </script>
+            $(this).val(money)
+        });
+    </script>
 
     <!--Datetime Picker Format -->
     <script type="text/javascript">
@@ -591,12 +607,14 @@
     <script type="text/javascript">
         $(function () {
             $('#btnSonKaydet').on('click', function () {
-
+                debugger;
                 var gayrimenkulBilgi = {
+                    Id: $('#Gayrimenkul_Id').val(),
                     GayrimenkulId: $('#GayrimenkulId').val()
                 }
 
                 var sicilBilgi = {
+                    Id: $('#Kiraci_Id').val(),
                     SicilNo: $('#SicilNo').val(),
                     TcKimlikNo: $('#TcKimlikNo').val(),
                     VergiNo: $('#VergiNo').val(),
@@ -611,10 +629,11 @@
                 }
 
                 var beyanBilgi = {
+                    Id: $('#Beyan_Id').val(),
                     BeyanTur_Id: $('#BeyanTur_Id').val(),
                     KiraDurum_Id: $('#KiraDurum_Id').val(),
                     OdemePeriyotTur_Id: $('#OdemePeriyotTur_Id').val(),
-                    BeyanYil: $("#BeyanYil option:selected").text(),
+                    BeyanYil: $("#BeyanYil option:selected").val(),
                     BeyanNo: $('#BeyanNo').val(),
                     TeminatNo: $('#TeminatNo').val(),
                     NoterSozlesmeNo: $('#NoterSozlesmeNo').val(),
@@ -631,13 +650,14 @@
                     MusadeliGunSayisi: $('#MusadeliGunSayisi').val(),
                     IhaleTutari: $('#IhaleTutari').val(),
                     KiraTutari: $('#KiraTutari').val(),
-                    Kdv: $("#Kdv option:selected").text(),
+                    Kdv: $("#Kdv option:selected").val(),
                     BaslangicTaksitNo: $('#BaslangicTaksitNo').val(),
                     KalanAy: $('#KalanAy').val(),
                     DamgaAlinsinMi: $('#DamgaAlinsinMi').val(),
-                    BeyanAciklama: $('#BeyanAciklama').val()
+                    BeyanAciklama: $('#BeyanAciklama').val(),
+                    OtoparkTatilGun: $("#OtoparkTatilGun").val(),
+                    ResmiTatilVarmi: $('#ResmiTatilVarmi').val(),
                 }
-
 
                var kiraBeyanModel ={
                    Kiraci: sicilBilgi,
@@ -651,12 +671,14 @@
                    $.ajax({
                     type: 'Post',
                     url: '@Url.Action("KiraBeyanEkle", "Beyan")',
-                    data: { kiraBeyanModel: kiraBeyanModel },
+                       data: { kiraBeyanModel: kiraBeyanModel },
+                       beforeSend: function () {
+                           $.LoadingOverlay("show", { text: "Beyan Bilgileri Kaydediliyor...", textResizeFactor: 0.2, background: "rgba(0, 0, 0, 0.5)" });
+                       },
                     success: function (result) {
                         if (result != null && result.success) {
-
                             swal('Bilgi!', result.Message, 'success');
-
+                            $.LoadingOverlay("hide");
                             setTimeout(function () {
                                 window.location.href = "../Beyan/Index";
                             }, 2000);
@@ -674,9 +696,27 @@
         });
     </script>
 
+    <!--Otopark Tatil Günü Bilgileri-->
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#BeyanTur_Id").change(function (e) {
+
+                var pnlOtopark = $('#otoparkDiv');
+
+                var turId = $(this).val();
+
+                if (turId != null && turId == '2') {
+                    pnlOtopark.show();
+                } else {
+                    pnlOtopark.hide();
+                }
+            });
+        });
+    </script>
 
     <!--KiraTutariHesaplama-->
-    <script type="text/javascript">
+    @*<script type="text/javascript">
         $(document).on("change keyup blur", "#KiraTutari", function () {
 
             var it = $('#IhaleTutari').val();
@@ -713,7 +753,7 @@
 
             }
         });
-    </script>*
+    </script>*@*
 
 }
 

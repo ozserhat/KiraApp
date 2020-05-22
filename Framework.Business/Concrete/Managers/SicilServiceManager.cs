@@ -13,24 +13,29 @@ namespace Framework.Business.Concrete.Managers
     {
         public SicilServisVm GetirSicilBilgisi(string VergiNo, string TcKimlikNo)
         {
+            SicilServisVm sicilBilgi = null;
             SicilServiceClient serviceClient = new SicilServiceClient();
 
             var result = serviceClient.GetirSicilBilgisi(VergiNo, TcKimlikNo);
-
-            SicilServisVm sicilBilgi = new SicilServisVm()
+    
+            if(result!=null)
             {
-                SicilNo = result.sicilNo,
-                VergiNo = result.vergiNo,
-                VergiDairesi = result.vergiDairesi,
-                Ad = result.adi,
-                Soyad = result.soyadi,
-                Tanim=result.adiSoyadi,
-                Il=result.isIlAdi,
-                Ilce=result.isIlceAdi,
-                Mahalle=result.isMahalleAdi,
-                Sokak=result.isSokakAdi,
-                AcikAdres=result.isAdres
-            };
+                sicilBilgi = new SicilServisVm()
+                {
+                    SicilNo = result.sicilNo,
+                    VergiNo = result.vergiNo,
+                    VergiDairesi = result.vergiDairesi,
+                    Ad = result.adi,
+                    Soyad = result.soyadi,
+                    Tanim = result.adiSoyadi,
+                    Il = result.isIlAdi,
+                    Ilce = result.isIlceAdi,
+                    Mahalle = result.isMahalleAdi,
+                    Sokak = result.isSokakAdi,
+                    AcikAdres = result.isAdres
+                };
+
+            }
 
             return sicilBilgi;
         }

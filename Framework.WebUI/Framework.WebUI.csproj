@@ -52,6 +52,15 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.11.23.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.23\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.1, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.1\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp.xmlworker, Version=5.5.13.1, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itextsharp.xmlworker.5.5.13.1\lib\itextsharp.xmlworker.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
       <Private>True</Private>
@@ -176,6 +185,7 @@
     <Compile Include="Areas\Admin\Controllers\BeyanController.cs" />
     <Compile Include="Areas\Admin\Controllers\BeyanDosyaTurController.cs" />
     <Compile Include="Areas\Admin\Controllers\BeyanTurController.cs" />
+    <Compile Include="Areas\Admin\Controllers\BeyanUfeOranController.cs" />
     <Compile Include="Areas\Admin\Controllers\Beyan_DosyaController.cs" />
     <Compile Include="Areas\Admin\Controllers\Beyan_TurController.cs" />
     <Compile Include="Areas\Admin\Controllers\DenemeController.cs" />
@@ -203,7 +213,6 @@
     <Compile Include="Areas\Emlak\Controllers\AnasayfaController.cs" />
     <Compile Include="Areas\Emlak\Controllers\GayrimenkulAltTurController.cs" />
     <Compile Include="Areas\Emlak\Controllers\GayrimenkulController.cs" />
-    <Compile Include="Areas\Emlak\Controllers\GayrimenkulDosyaController.cs" />
     <Compile Include="Areas\Emlak\Controllers\GayrimenkulDosyaTurController.cs" />
     <Compile Include="Areas\Emlak\Controllers\GayrimenkulTurController.cs" />
     <Compile Include="Areas\Emlak\EmlakAreaRegistration.cs" />
@@ -226,6 +235,7 @@
     <Compile Include="Models\ViewModels\BeyanVM.cs" />
     <Compile Include="Models\ViewModels\Beyan_DosyaVM.cs" />
     <Compile Include="Models\ViewModels\Beyan_TurVM.cs" />
+    <Compile Include="Models\ViewModels\Beyan_UfeOranVM.cs" />
     <Compile Include="Models\ViewModels\ControllerActionsVm.cs" />
     <Compile Include="Models\ViewModels\DenemeVm.cs" />
     <Compile Include="Models\ViewModels\DuyuruBildirimVM.cs" />
@@ -236,7 +246,6 @@
     <Compile Include="Models\ViewModels\GayrimenkulDosya_TurVM.cs" />
     <Compile Include="Models\ViewModels\GayrimenkulTurVM.cs" />
     <Compile Include="Models\ViewModels\GayrimenkulVM.cs" />
-    <Compile Include="Models\ViewModels\Gayrimenkul_DosyaVM.cs" />
     <Compile Include="Models\ViewModels\KiraBeyanVM.cs" />
     <Compile Include="Models\ViewModels\KiraciTurVM.cs" />
     <Compile Include="Models\ViewModels\KiraciVM.cs" />
@@ -942,6 +951,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\canvasjs.min.js" />
+    <Content Include="Scripts\html2canvas.min.js" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
@@ -1121,8 +1131,9 @@
     <Content Include="Areas\Kira\Views\Beyan\SicilSorgula.cshtml" />
     <Content Include="Areas\Admin\Views\Beyan\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Beyan\_tablePartial.cshtml" />
-    <Content Include="Dosyalar\Beyan\036f1833-0036-4b94-b65e-3de4cc70b609.docx" />
-    <Content Include="Areas\Emlak\Views\Gayrimenkul\Duzenle.cshtml" />
+    <Content Include="Areas\Admin\Views\BeyanUfeOran\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\BeyanUfeOran\Ekle.cshtml" />
+    <Content Include="Areas\Admin\Views\BeyanUfeOran\Duzenle.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
@@ -1192,6 +1203,8 @@
     <Content Include="Scripts\jsdashboard\scripts.js" />
     <Content Include="Scripts\jsdashboard\switchery.min.js" />
     <Content Include="Scripts\jsdashboard\wizard.js" />
+    <Content Include="Scripts\jspdf.js" />
+    <Content Include="Scripts\jspdf.plugin.addimage.js" />
     <Content Include="Scripts\jsTree3\jstree.js" />
     <Content Include="Scripts\jsTree3\jstree.min.js" />
     <Content Include="Scripts\libs\jquery-2.1.1.min.js" />
@@ -1268,6 +1281,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\notification\SmartNotification.min.js" />
+    <Content Include="Scripts\pdfmake.min.js" />
     <Content Include="Scripts\plugin\bootstrap-duallistbox\jquery.bootstrap-duallistbox.min.js" />
     <Content Include="Scripts\plugin\bootstrap-progressbar\bootstrap-progressbar.min.js" />
     <Content Include="Scripts\plugin\bootstrap-slider\bootstrap-slider.min.js" />
@@ -1778,16 +1792,14 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Views\DuyuruBildirim\" />
     <Folder Include="Areas\Emlak\Data\" />
-    <Folder Include="Areas\Emlak\Views\GayrimenkulDosya\" />
     <Folder Include="Areas\Kira\Data\" />
     <Folder Include="Areas\SosyalYardim\Data\" />
     <Folder Include="Content\img\realestate\thumbs\" />
     <Folder Include="Content\login\css\" />
     <Folder Include="Content\login\js\" />
     <Folder Include="Content\login\webfonts\" />
-    <Folder Include="Dosyalar\Gayrimenkul\" />
+    <Folder Include="Dosyalar\Beyan\" />
     <Folder Include="Views\BeyanDosya_TurVM\" />
-    <Folder Include="Views\Gayrimenkul_DosyaVM\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

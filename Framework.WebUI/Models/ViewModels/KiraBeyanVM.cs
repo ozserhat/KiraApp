@@ -177,6 +177,7 @@ namespace Framework.WebUI.Models.ViewModels
 
         public KiraciEkleVM Kiraci { get; set; }
 
+
         public Beyan_GayrimenkulEkleVM Gayrimenkul { get; set; }
 
         public BeyanEkleVM Beyan { get; set; }
@@ -235,6 +236,16 @@ namespace Framework.WebUI.Models.ViewModels
         public List<Tahakkuk> Tahakkuklar { get; set; }
 
         public KiraBeyanEkleVM Kira_Beyan { get; set; }
+
+
+        [Display(Name = "Ek Tahakkuk Oranları (%)")]
+        public SelectList EkTahakkukOranlari { get; set; }
+
+        [Display(Name = "Taşınmaz Durum")]
+        public SelectList KiraDurumSelectList { get; set; }
+
+        [Display(Name = "Üfe Oranları")]
+        public SelectList UfeOranlari { get; set; }
 
     }
 

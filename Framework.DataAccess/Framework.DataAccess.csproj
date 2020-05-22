@@ -76,6 +76,7 @@
     <Compile Include="Abstract\IBeyanDosya_TurDal.cs" />
     <Compile Include="Abstract\IBeyan_DosyaDal.cs" />
     <Compile Include="Abstract\IBeyan_TurDal.cs" />
+    <Compile Include="Abstract\IBeyan_UfeOranDal.cs" />
     <Compile Include="Abstract\IControllerActionsDal.cs" />
     <Compile Include="Abstract\IDenemeDal.cs" />
     <Compile Include="Abstract\IDuyuruDal.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="Concrete\EntityFramework\EfBeyanDosya_TurDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfBeyan_DosyaDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfBeyan_TurDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfBeyan_UfeOranDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfDuyuruDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfDuyuru_BildirimDal.cs" />
     <Compile Include="Concrete\EntityFramework\DtContext.cs" />

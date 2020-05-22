@@ -62,6 +62,7 @@
     <Compile Include="Concrete\BeyanDosya_Tur.cs" />
     <Compile Include="Concrete\Beyan_Dosya.cs" />
     <Compile Include="Concrete\Beyan_Tur.cs" />
+    <Compile Include="Concrete\Beyan_UfeOran.cs" />
     <Compile Include="Concrete\ControllerAction.cs" />
     <Compile Include="Concrete\Deneme.cs" />
     <Compile Include="Concrete\Duyuru.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Concrete\Logs.cs" />
     <Compile Include="Concrete\Mahalle.cs" />
     <Compile Include="Concrete\OdemePeriyotTur.cs" />
+    <Compile Include="Concrete\OtoparkTatilGun.cs" />
     <Compile Include="Concrete\PersonelBeyan.cs" />
     <Compile Include="Concrete\ResmiTatiller.cs" />
     <Compile Include="Concrete\Role.cs" />

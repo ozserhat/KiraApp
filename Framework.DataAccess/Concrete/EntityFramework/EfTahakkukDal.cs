@@ -108,7 +108,9 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             {
                 return context.Tahakkuklar
                      .Include(kb => kb.Kira_Beyani)
+                     .Include(by=>by.Kira_Beyani.Beyanlar)
                      .Where(a=>a.KiraBeyan_Id==KiraBeyanId)
+                     .OrderBy(a=>a.TaksitSayisi)
                      .ToList();
             }
         }

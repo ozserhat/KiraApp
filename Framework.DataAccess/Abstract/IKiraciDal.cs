@@ -9,5 +9,7 @@ namespace Framework.DataAccess.Abstract
         Kiraci GetById(int id);
         Kiraci GetByGuid(Guid guid);
         bool Delete(int id);
+        Kiraci GetirTcKimlikNo(long TcKimlikNo);
+        Kiraci GetirVergiNo(long vergiNo);
     }
 }

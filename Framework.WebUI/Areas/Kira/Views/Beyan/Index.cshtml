@@ -3,7 +3,7 @@
 @using PagedList.Mvc;
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Kira Yönetim Sistemi";
     Layout = "~/Areas/Kira/Views/Shared/_LayoutKira.cshtml";
 }
 
@@ -556,8 +556,6 @@
     <script type="text/javascript">
 
         function clearForm() {
-            debugger;
-
             $('#BeyanTur_Id').select2("val", "");
             $('#BeyanYil').select2("val", "");
             $('#KiraDurum_Id').select2("val", "");
@@ -565,7 +563,6 @@
             $('#OdemePeriyotTur_Id').select2("val", "");
             $('#DamgaAlinsinMi').select2("val", "");
             $('#btnSubmit').click();
-
         }
 
         $(function () {
@@ -745,16 +742,13 @@
     </script>
 
     <!--Export PDf-->
-
     <script>
         function createPDF() {
-            $('#tblBeyan').find('th:last-child, td:last-child').remove()
-            $('#tblBeyan').find('th:last-child, td:first-child').remove()
-            var allRows = document.getElementById('tblBeyan');
-            for (var i = 0; i < allRows.length; i++) {
-                allRows[i].deleteCell(1);
-            }
-            html2canvas($('#tblBeyan'), {
+            var tbl = $('#tblBeyan');
+            tbl.find('th:last-child, td:last-child').remove()
+            tbl.find('th:first-child, td:first-child').remove()
+
+            html2canvas(tbl, {
                 onrendered: function (canvas) {
                     var data = canvas.toDataURL();
                     var docDefinition = {

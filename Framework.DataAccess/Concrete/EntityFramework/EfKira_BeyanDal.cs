@@ -20,6 +20,13 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             }
         }
 
+        public Kira_Beyan Getir(int beyanId, int gayrimenkulId, int kiraciId)
+        {
+            using (DtContext context = new DtContext())
+            {
+                return context.Kira_Beyanlari.Where(gt => gt.Beyan_Id == beyanId && gt.Gayrimenkul_Id==gayrimenkulId && gt.Kiraci_Id==kiraciId).FirstOrDefault();
+            }
+        }
         public bool Delete(int id)
         {
             bool sonuc = false;
@@ -131,14 +138,14 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             using (DtContext context = new DtContext())
             {
                 var query = context.Kira_Beyanlari
-                                      .Include(b => b.Beyanlar)
+                                .Include(b => b.Beyanlar)
                                 .Include(bt => bt.Beyanlar.BeyanTur)
                                 .Include(k => k.Kiracilar)
                                 .Include(g => g.Gayrimenkuller)
                                 .Include(m => m.Gayrimenkuller.Mahalleler)
                                 .Include(ilc => ilc.Gayrimenkuller.Mahalleler.Ilceler)
                                 .Include(ilc => ilc.Gayrimenkuller.Mahalleler.Ilceler.Iller)
-                                .Include(pb=>pb.SorumluPersoneller)
+                                .Include(pb => pb.SorumluPersoneller)
                                 .AsQueryable();
 
 

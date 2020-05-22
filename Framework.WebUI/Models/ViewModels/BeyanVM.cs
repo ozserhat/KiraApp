@@ -65,7 +65,7 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Müsade Süresi (Gün)")]
         public int? MusadeliGunSayisi { get; set; }
-       
+
         [Display(Name = "Kdv Oranı")]
         public int? Kdv { get; set; }
 
@@ -112,8 +112,17 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Damga Vergisi Alınsın Mı?")]
         public SelectList DamgaVergisiDurumSelectList { get; set; }
 
+        [Display(Name = "Otopark Tatil Günü")]
+        public SelectList OtoparkTatilGunuSelectList { get; set; }
+
         [Display(Name = "Dosyalar")]
         public IEnumerable<BeyanDosya_Tur> DosyaTurleri { get; set; }
+
+        [Display(Name = "Otopark Tatil Günleri")]
+        public string OtoparkTatilGun { get; set; }
+
+        [Display(Name = "Resmi Tatil Var Mı?")]
+        public bool ResmiTatilVarmi { get; set; }
 
         [Display(Name = "Oluşturan Kullanıcı")]
         public int? OlusturanKullanici_Id { get; set; }
@@ -123,6 +132,8 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Aktif Mi")]
         public bool AktifMi { get; set; }
+
+        public int Id { get; set; }
     }
 
     public class BeyanDuzenleVM : PagingVMBase
@@ -323,6 +334,7 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Aktif Mi")]
         public bool AktifMi { get; set; }
+
     }
 
 }
