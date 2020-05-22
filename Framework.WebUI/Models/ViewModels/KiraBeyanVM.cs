@@ -244,6 +244,9 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Taşınmaz Durum")]
         public SelectList KiraDurumSelectList { get; set; }
 
+        [Display(Name = "Üfe Oranları")]
+        public SelectList UfeOranlari { get; set; }
+
     }
 
 }
