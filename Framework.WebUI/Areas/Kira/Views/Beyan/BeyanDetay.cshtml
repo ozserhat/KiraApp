@@ -14,7 +14,7 @@
                     <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
                         <header>
                             <h2>Beyan Detay Bilgileri</h2>
-                            <div class="btn-group" style="float: right; margin-top: 4px; margin-right: -12px;" role="menu">
+                            <div class="btn-group" style="float: right; margin-top: 4px; margin-right:-13px;" role="menu">
                                 <button class="btn btn-primary">
                                     Beyan İşlemleri
                                 </button>
@@ -23,7 +23,12 @@
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li class="buttonListStyle">
-                                        <a href="@Url.Action("DosyaEkle")" id="gayrimenkulDosya">
+                                        <a href="#" id="btnArtıs" data-original-title="Beyan Artışı" data-toggle="modal" data-target="#beyanArtisModal">
+                                            <span class="glyphicon glyphicon-plus-sign"></span> Beyan Artışı
+                                        </a>
+                                    </li>
+                                    <li class="buttonListStyle">
+                                        <a href="#" id="beyanKapama" data-original-title="Beyan Kapama" data-toggle="modal" data-target="#beyanKapamaModal">
                                             <span class="glyphicon glyphicon-folder-close"></span> Beyan Kapama
                                         </a>
                                     </li>
@@ -33,6 +38,7 @@
                                         </a>
                                         @*<button id="btnBeyanCiktiAl" class="button btn-block">PDF Export</button>*@
                                     </li>
+
                                 </ul>
                             </div>
                         </header>
@@ -1107,6 +1113,140 @@
                         <span class="glyphicon glyphicon-chevron-left"></span> Kapat
                     </a>
                     <input type="button" value="Kaydet" id="btnEkTahakkukOlustur" class="btn btn-primary" />
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="beyanKapamaModal" tabindex="-1" role="dialog" aria-labelledby="beyanKapamaModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Beyan Kapama Ekranı</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="block-head">
+                                    <div class="item-content">
+                                        <form id="frmBeyanKapama">
+                                            <fieldset>
+                                                <input type="hidden" id="BeyanId" />
+                                                <input type="hidden" id="KiraBeyanId" />
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.LabelFor(model => model.KiraDurumSelectList, new { @class = "control-label col-md-4" })
+                                                                <div class="col-md-8">
+                                                                    @Html.DropDownList("KiraDurum_Id", Model.KiraDurumSelectList, "Seçiniz", new { @class = "select2" })
+                                                                    @Html.ValidationMessage("KiraDurum_Id", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.Label("Açıklama", new { @class = "control-label col-md-4" })
+                                                                <div class="col-md-8">
+                                                                    @Html.TextArea("EkTahakkukAciklama", "", new { @class = "form-control col-md-4 required", rows = "3", placeholder = "Açıklama Giriniz" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                    <a href="#" id="btnDosyaGosterVazgec" type="button" data-dismiss="modal" class="btn btn-warning">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Kapat
+                    </a>
+                    <input type="button" value="Kaydet" id="btnBeyanKapama" class="btn btn-primary" />
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="beyanArtisModal" tabindex="-1" role="dialog" aria-labelledby="beyanArtisModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Beyan Artış Ekranı</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="block-head">
+                                    <div class="item-content">
+                                        <form id="frmBeyanKapama">
+                                            <fieldset>
+                                                <input type="hidden" id="BeyanId" />
+                                                <input type="hidden" id="KiraBeyanId" />
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.LabelFor(model => model.KiraDurumSelectList, new { @class = "control-label col-md-4" })
+                                                                <div class="col-md-8">
+                                                                    @Html.DropDownList("KiraDurum_Id", Model.KiraDurumSelectList, "Seçiniz", new { @class = "select2" })
+                                                                    @Html.ValidationMessage("KiraDurum_Id", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.Label("Encümen No", new { @class = "control-label col-md-4" })
+                                                                <div class="col-md-8">
+                                                                    @Html.TextBox("ArtisEncumenNo", "", new { @class = "form-control col-md-4 required" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.Label("Encümen Tarihi", new { @class = "control-label col-md-4" })
+                                                                <div class="col-md-8">
+                                                                    @Html.TextBox("ArtisEncumenNo", "", new { @class = "form-control col-md-4 required" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                    <a href="#" id="btnDosyaGosterVazgec" type="button" data-dismiss="modal" class="btn btn-warning">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Kapat
+                    </a>
+                    <input type="button" value="Kaydet" id="btnBeyanKapama" class="btn btn-primary" />
 
                 </div>
             </div>

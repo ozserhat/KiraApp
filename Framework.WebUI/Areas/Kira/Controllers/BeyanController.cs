@@ -228,9 +228,9 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
         public SelectList BeyanYilSelectList()
         {
-            var iller = _parametreService.GetirListe(1).Where(a=>a.AktifMi.Value).Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+            var yillar = _parametreService.GetirListe(1).Where(a=>a.AktifMi.Value).Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
 
-            return new SelectList(iller, "Id", "Ad");
+            return new SelectList(yillar, "Id", "Ad");
         }
 
         public SelectList KdvOraniSelectList()
@@ -255,6 +255,13 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             };
 
             return new SelectList(newList, "Value", "Text");
+        }
+
+        public SelectList KiraDurumFullSelectList()
+        {
+            var iller = _kiraDurumService.GetirListe().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+
+            return new SelectList(iller, "Id", "Ad");
         }
 
         public SelectList KiraDurumSelectList()
@@ -761,7 +768,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
                 model.Kiraci = _beyanVM.Kiraci = new KiraciEkleVM()
                 {
-                    SicilNo = Convert.ToInt64(kiraci.TcKimlikNo),
+                    SicilNo = Convert.ToInt64(kiraci.SicilNo),
                     VergiNo = Convert.ToInt64(kiraci.VergiNo),
                     Ad = kiraci.Ad,
                     Soyad = kiraci.Soyad,
@@ -1415,6 +1422,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 model.BeyanDosyalar = GetirBeyanDosyalar(kiraBeyan.Beyanlar.Id);
                 model.Tahakkuklar = _tahakkukService.GetirListe(kiraBeyan.Id);
                 model.EkTahakkukOranlari = EkTahakkukOranlariSelectList();
+                model.KiraDurumSelectList = KiraDurumFullSelectList();
             }
 
             return View(model);
