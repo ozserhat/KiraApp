@@ -19,24 +19,25 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
     {
         #region Constructor
 
-        private IIlService _ilService;
         private IIlceService _ilceService;
         private IMahalleService _mahalleService;
         private IGayrimenkulTurService _turService;
         private IGayrimenkulService _gayrimenkulservice;
         private IGayrimenkulDosya_TurService _dosyaTurService;
         private IKira_DurumService _gayrimenkuldurumservice;
+        public static GayrimenkulEkleVM _gayrimenkulVM;
 
         public GayrimenkulController(IGayrimenkulService gayrimenkulservice, IGayrimenkulTurService turService,
-            IIlService ilService, IIlceService ilceService, IMahalleService mahalleService, IGayrimenkulDosya_TurService dosyaTurService, IKira_DurumService gayrimenkuldurumservice)
+             IIlceService ilceService, IMahalleService mahalleService, IGayrimenkulDosya_TurService dosyaTurService, IKira_DurumService gayrimenkuldurumservice, GayrimenkulEkleVM gayrimenkulVM)
         {
-            _ilService = ilService;
+        
             _ilceService = ilceService;
             _mahalleService = mahalleService;
             _turService = turService;
             _gayrimenkulservice = gayrimenkulservice;
             _dosyaTurService = dosyaTurService;
             _gayrimenkuldurumservice = gayrimenkuldurumservice;
+            _gayrimenkulVM = gayrimenkulVM;
         }
         #endregion
         // GET: Emlak/Gayrimenkul
@@ -66,21 +67,14 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
             return new SelectList(turler, "Id", "Ad");
         }
 
-        public SelectList IlSelectList()
+        public SelectList IlceSelectList()
         {
-            var iller = _ilService.GetirListe().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+            var ilceler = _ilceService.GetirListe().Where(a=>a.Il_Id==6).Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
 
-            return new SelectList(iller, "Id", "Ad");
+            return new SelectList(ilceler, "Id", "Ad");
         }
 
-        [HttpPost]
-        public JsonResult IlceSelectList(int ilId)
-        {
-            var ilceler = _ilceService.GetirListe().Where(a => a.Il_Id == ilId).Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
-
-            return Json(new { Data = ilceler, success = true }, JsonRequestBehavior.AllowGet);
-        }
-
+     
         [HttpPost]
 
         public JsonResult MahalleSelectList(int ilceId)
@@ -113,7 +107,7 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
             gayrimenkulNo += DateTime.Now.Month+"-";
             model.GayrimenkulNo = gayrimenkulNo + "-"+_gayrimenkulservice.GayrimenkulNoUret(yil);
             model.TurSelectList = TurSelectList();
-            model.IlSelectList = IlSelectList();
+            model.IlceSelectList = IlceSelectList();
             model.DosyaTurleri = _dosyaTurService.GetirListe();
             model.GayrimenkulDurumSelectList = GayrimenkulDurumSelectList();
             return View(model);
@@ -131,7 +125,6 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
                         Guid = Guid.NewGuid(),
                         Ad = model.GayrimenkulAdi,
                         GayrimenkulTur_Id = model.GayrimenkulTur_Id,
-                        Il_Id = model.Il_Id,
                         Ilce_Id = model.Ilce_Id,
                         Mahalle_Id = model.Mahalle_Id,
                         GayrimenkulDurum_Id = model.GayrimenkulDurum_Id,
@@ -172,5 +165,119 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
         }
 
         #endregion
+
+        #region Duzenle
+
+        [HttpGet]
+        public ActionResult Duzenle(Guid guid)
+        {
+            var model = new GayrimenkulDuzenleVM();
+            model.TurSelectList = TurSelectList();
+            model.IlceSelectList = IlceSelectList();
+            model.DosyaTurleri = _dosyaTurService.GetirListe();
+            model.GayrimenkulDurumSelectList = GayrimenkulDurumSelectList();
+            var gayrimenkul = _gayrimenkulservice.GetirGuid(guid);
+
+            if (gayrimenkul != null)
+            {
+                model.Guid = Guid.NewGuid();
+                model.GayrimenkulAdi = gayrimenkul.Ad;
+                model.GayrimenkulTur_Id = gayrimenkul.GayrimenkulTur_Id;
+                model.Ilce_Id = gayrimenkul.Ilce_Id;
+                model.Mahalle_Id = gayrimenkul.Mahalle_Id;
+                model.GayrimenkulDurum_Id = gayrimenkul.GayrimenkulDurum_Id;
+                model.BinaKimlikNo = gayrimenkul.BinaKimlikNo;
+                model.NumaratajKimlikNo = gayrimenkul.NumaratajKimlikNo;
+                model.AdresNo = gayrimenkul.AdresNo;
+                model.Cadde = gayrimenkul.Cadde;
+                model.Sokak = gayrimenkul.Sokak;
+                model.DisKapiNo = gayrimenkul.DisKapiNo;
+                model.IcKapiNo = gayrimenkul.IcKapiNo;
+                model.AcikAdres = gayrimenkul.AcikAdres;
+                model.Koordinat = gayrimenkul.Koordinat;
+                model.Ada = gayrimenkul.Ada;
+                model.Pafta = gayrimenkul.Pafta;
+                model.Parsel = gayrimenkul.Parsel;
+                model.GayrimenkulNo = gayrimenkul.GayrimenkulNo;
+                model.DosyaNo = gayrimenkul.DosyaNo;
+                model.AracKapasitesi = gayrimenkul.AracKapasitesi;
+                model.Metrekare = gayrimenkul.Metrekare;
+                gayrimenkul.OlusturulmaTarihi = DateTime.Now;
+                model.GuncelleyenKullanici_Id = gayrimenkul.OlusturanKullanici_Id;
+
+            }
+            else
+            {
+                model.Errors.Add(VMErrors.NotFound);
+                model.HideContent = true;
+            }
+
+            ModelState.AddModelError("LogMessage", "Gayrimenkul Düzenleme Sayfası Görüntülendi.");
+            return View(model);
+        }
+
+       
+        [HttpPost]
+        public ActionResult Duzenle(GayrimenkulDuzenleVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var gayrimenkul = _gayrimenkulservice.GetirGuid(model.Guid);
+
+                    if (gayrimenkul != null)
+                    {
+                        gayrimenkul.Guid = Guid.NewGuid();
+                        gayrimenkul.Ad = model.GayrimenkulAdi;
+                        gayrimenkul.GayrimenkulTur_Id = model.GayrimenkulTur_Id;
+                        gayrimenkul.Ilce_Id = model.Ilce_Id;
+                        gayrimenkul.Mahalle_Id = model.Mahalle_Id;
+                        gayrimenkul.GayrimenkulDurum_Id = model.GayrimenkulDurum_Id;
+                        gayrimenkul.BinaKimlikNo = model.BinaKimlikNo;
+                        gayrimenkul.NumaratajKimlikNo = model.NumaratajKimlikNo;
+                        gayrimenkul.AdresNo = model.AdresNo;
+                        gayrimenkul.Cadde = model.Cadde;
+                        gayrimenkul.Sokak = model.Sokak;
+                        gayrimenkul.DisKapiNo = model.DisKapiNo;
+                        gayrimenkul.IcKapiNo = model.IcKapiNo;
+                        gayrimenkul.AcikAdres = model.AcikAdres;
+                        gayrimenkul.Koordinat = model.Koordinat;
+                        gayrimenkul.Ada = model.Ada;
+                        gayrimenkul.Pafta = model.Pafta;
+                        gayrimenkul.Parsel = model.Parsel;
+                        gayrimenkul.GayrimenkulNo = model.GayrimenkulNo;
+                        gayrimenkul.DosyaNo = model.DosyaNo;
+                        gayrimenkul.AracKapasitesi = model.AracKapasitesi;
+                        gayrimenkul.Metrekare = model.Metrekare;
+                        gayrimenkul.OlusturulmaTarihi = DateTime.Now;
+                        gayrimenkul.OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null);
+                        gayrimenkul = _gayrimenkulservice.Guncelle(gayrimenkul);
+                        
+
+                    }
+
+                    ModelState.AddModelError("LogMessage", "Gayrimenkul Bilgisi Düzenlendi.");
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("LogMessage", "Gayrimenkul Bilgisi Düzenlenirken Hata Oluştu.");
+                    model.Errors.Add(ex.Message);
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("LogMessage", "Gayrimenkul Bilgisi Düzenlenemedi.");
+                model.Errors = new List<string>();
+                model.Errors.Add(VMErrors.ValidationError);
+            }
+
+            return View(model);
+        }
+
+        #endregion
+
+
     }
 }

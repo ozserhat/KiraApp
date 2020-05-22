@@ -203,6 +203,7 @@
     <Compile Include="Areas\Emlak\Controllers\AnasayfaController.cs" />
     <Compile Include="Areas\Emlak\Controllers\GayrimenkulAltTurController.cs" />
     <Compile Include="Areas\Emlak\Controllers\GayrimenkulController.cs" />
+    <Compile Include="Areas\Emlak\Controllers\GayrimenkulDosyaController.cs" />
     <Compile Include="Areas\Emlak\Controllers\GayrimenkulDosyaTurController.cs" />
     <Compile Include="Areas\Emlak\Controllers\GayrimenkulTurController.cs" />
     <Compile Include="Areas\Emlak\EmlakAreaRegistration.cs" />
@@ -235,6 +236,7 @@
     <Compile Include="Models\ViewModels\GayrimenkulDosya_TurVM.cs" />
     <Compile Include="Models\ViewModels\GayrimenkulTurVM.cs" />
     <Compile Include="Models\ViewModels\GayrimenkulVM.cs" />
+    <Compile Include="Models\ViewModels\Gayrimenkul_DosyaVM.cs" />
     <Compile Include="Models\ViewModels\KiraBeyanVM.cs" />
     <Compile Include="Models\ViewModels\KiraciTurVM.cs" />
     <Compile Include="Models\ViewModels\KiraciVM.cs" />
@@ -1115,12 +1117,12 @@
     <Content Include="Areas\Emlak\Views\GayrimenkulTur\Index.cshtml" />
     <Content Include="Areas\Emlak\Views\GayrimenkulTur\Ekle.cshtml" />
     <Content Include="Areas\Emlak\Views\GayrimenkulTur\Duzenle.cshtml" />
-
     <Content Include="Areas\Kira\Views\Beyan\GayrimenkulSorgula.cshtml" />
     <Content Include="Areas\Kira\Views\Beyan\SicilSorgula.cshtml" />
-
     <Content Include="Areas\Admin\Views\Beyan\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Beyan\_tablePartial.cshtml" />
+    <Content Include="Dosyalar\Beyan\036f1833-0036-4b94-b65e-3de4cc70b609.docx" />
+    <Content Include="Areas\Emlak\Views\Gayrimenkul\Duzenle.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
@@ -1776,14 +1778,16 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Views\DuyuruBildirim\" />
     <Folder Include="Areas\Emlak\Data\" />
+    <Folder Include="Areas\Emlak\Views\GayrimenkulDosya\" />
     <Folder Include="Areas\Kira\Data\" />
     <Folder Include="Areas\SosyalYardim\Data\" />
     <Folder Include="Content\img\realestate\thumbs\" />
     <Folder Include="Content\login\css\" />
     <Folder Include="Content\login\js\" />
     <Folder Include="Content\login\webfonts\" />
-    <Folder Include="Dosyalar\Beyan\" />
+    <Folder Include="Dosyalar\Gayrimenkul\" />
     <Folder Include="Views\BeyanDosya_TurVM\" />
+    <Folder Include="Views\Gayrimenkul_DosyaVM\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

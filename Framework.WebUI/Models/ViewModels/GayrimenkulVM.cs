@@ -230,7 +230,7 @@ namespace Framework.WebUI.Models.ViewModels
         public int Il_Id { get; set; }
 
         [Display(Name = "Ilce_Id")]
-        public int Ilce_Id { get; set; }
+        public int? Ilce_Id { get; set; }
 
         [Display(Name = "Mahalle_Id")]
         public int Mahalle_Id { get; set; }
@@ -309,5 +309,25 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Mahalleler")]
         public SelectList MahalleSelectList { get; set; }
+
+        public IEnumerable<GayrimenkulDosya_Tur> DosyaTurleri { get; set; }
+
+        [Display(Name = "Dosya Türleri")]
+        public SelectList DosyaTurSelectList { get; set; }
+
+        [Display(Name = "Dosya")]
+        public string Dosya { get; set; }
+
+        [Display(Name = " Açıklama")]
+        public string Aciklama { get; set; }
+
+        [Display(Name = "Gayrimenkul Durumu")]
+        public SelectList GayrimenkulDurumSelectList { get; set; }
+
+        public IPagedList<Gayrimenkul_Dosya> Gayrimenkul_Dosyalar { get; set; }
+
+        [Display(Name = "Gayrimenkul Durum")]
+        public int? GayrimenkulDurum_Id { get; set; }
+
     }
 }

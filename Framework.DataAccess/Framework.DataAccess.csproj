@@ -93,6 +93,7 @@
     <Compile Include="Abstract\IKira_DurumDal.cs" />
     <Compile Include="Abstract\ILogsDal.cs" />
     <Compile Include="Abstract\IMahalleDal.cs" />
+    <Compile Include="Abstract\IGayrimenkul_DosyaDal.cs" />
     <Compile Include="Abstract\IPersonelBeyanDal.cs" />
     <Compile Include="Abstract\IResmiTatillerDal.cs" />
     <Compile Include="Abstract\IRolesDal.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="Concrete\EntityFramework\EfGayrimenkulDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfGayrimenkulDosya_TurDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfGayrimenkulTurDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfGayrimenkul_DosyaDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfIlceDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfIlDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfKiraciDal.cs" />

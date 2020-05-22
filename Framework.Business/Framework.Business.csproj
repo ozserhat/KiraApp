@@ -143,6 +143,7 @@
     <Compile Include="Abstract\IGayrimenkulDosya_TurService.cs" />
     <Compile Include="Abstract\IGayrimenkulService.cs" />
     <Compile Include="Abstract\IGayrimenkulTurService.cs" />
+    <Compile Include="Abstract\IGayrimenkul_DosyaService.cs" />
     <Compile Include="Abstract\IIlceService.cs" />
     <Compile Include="Abstract\IIlService.cs" />
     <Compile Include="Abstract\IKiraciService.cs" />
@@ -177,6 +178,7 @@
     <Compile Include="Concrete\Managers\GayrimenkulDosya_TurManager.cs" />
     <Compile Include="Concrete\Managers\GayrimenkulManager.cs" />
     <Compile Include="Concrete\Managers\GayrimenkulTurManager.cs" />
+    <Compile Include="Concrete\Managers\Gayrimenkul_DosyaManager.cs" />
     <Compile Include="Concrete\Managers\IlceManager.cs" />
     <Compile Include="Concrete\Managers\IlManager.cs" />
     <Compile Include="Concrete\Managers\KiraciManager.cs" />

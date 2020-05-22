@@ -1,51 +1,37 @@
-﻿@model Framework.WebUI.Models.ViewModels.GayrimenkulEkleVM
+﻿@model Framework.WebUI.Models.ViewModels.GayrimenkulDuzenleVM
 @{
-    ViewBag.Title = "Ekle";
+    ViewBag.Title = "Duzenle";
     Layout = "~/Areas/Emlak/Views/Shared/_LayoutEmlak.cshtml";
 }
+
+
+
 
 @if (!Model.HideContent)
 {
     <div id="content">
-        @*<section id="widget-grid">
-
-                <div class="row">
-                    <article class="col-sm-12 col-md-12 col-lg-12">
-                        <div class="jarviswidget sorgulama-kriteri" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
-                            <header>
-                                <div style="margin-top: -5px;">
-                                    <p>
-                                        <a href="@Url.Action("Index")" class="btn btn-warning" title="" rel="tooltip" data-placement="bottom" data-original-title="Gayrimenkul Dön"><span class="glyphicon glyphicon-chevron-left"></span> Gayrimenkul Listesine Dön</a>
-                                    </p>
-                                </div>
-                            </header>
-                        </div>
-                    </article>
-                </div>
-            </section>*@
-
         <section id="widget-grid" class="sayfaust_bosluk">
+            <div class="row">
+                <article class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="jarviswidget sorgulama-kriteri" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
+                        <header>
+                            <div style="margin-top: -5px;">
+                                <p>
+                                    <a href="@Url.Action("Index")" class="btn btn-warning" title="" rel="tooltip" data-placement="bottom" data-original-title="Gayrimenkul Listesine Dön"><span class="glyphicon glyphicon-chevron-left"></span>Gayrimenkul Listesine Dön</a>
+                                </p>
+                            </div>
+                        </header>
+                    </div>
+                </article>
+            </div>
+        </section>
+        <section id="widget-grid" class="">
             <div class="row">
                 <article class="col-sm-12 col-md-12 col-lg-12">
                     <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
                         <header>
                             <span class="widget-icon"> <i class="fa fa-list"></i> </span>
-                            <h2>Gayrimenkul Tanım</h2>
-                            @*<div class="btn-group" style="float: right; margin-top: 4px; margin-right: 11px;" role="menu">
-                                    <button class="btn btn-primary">
-                                        Gayrimenkul İşlemleri
-                                    </button>
-                                    <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="@Url.Action("DosyaEkle", new { Guid = Model.Guid})" id="gayrimenkulDosya">
-                                                <span class="glyphicon glyphicon-upload"></span> Dosya Yükleme
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>*@
+                            <h2>Gayrimenkul Düzenle</h2>
                         </header>
                         <div role="content" style="display: block;">
                             <div class="jarviswidget-editbox">
@@ -56,9 +42,11 @@
 
                                     <div id="wizard-1" novalidate="novalidate">
                                         <div id="bootstrap-wizard-1" class="col-sm-12">
-                                            @using (Html.BeginForm("Ekle", "Gayrimenkul", FormMethod.Post, new { enctype = "multipart/form-data", id = "submitForm" }))
+                                            @using (Html.BeginForm("Duzenle", "Gayrimenkul", FormMethod.Post, new {area="Emlak", enctype = "multipart/form-data", id = "submitForm" }))
                                             {
                                                 @Html.AntiForgeryToken()
+                                                @Html.HiddenFor(model => model.Id)
+                                                @Html.HiddenFor(model => model.Guid)
                                                 <div id="wizard">
                                                     <div class="form-bootstrapWizard">
                                                         <ul class="form-wizard nav nav-tabs">
@@ -167,7 +155,7 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="col-md-6">
+                                                                           <div class="col-md-6">
                                                                             <div class="form-group">
                                                                                 <div class="input-group" style="width: 100%;">
                                                                                     @Html.LabelFor(model => model.IlceSelectList, new { @class = "col-md-4 font-bold" })
@@ -264,7 +252,7 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-6">
-                                                                            <div class="form-group">
+                                                                            <div class="form-group" id="colMetrekare">
                                                                                 <div class="input-group" style="width: 100%;">
                                                                                     @Html.LabelFor(model => model.AracKapasitesi, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
@@ -469,167 +457,12 @@
     </div>
 }
 
+
 @section pagespecific {
-    <!-- Sweet Alert -->
-    <link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
-    <script src="~/Content/SweetAlert/sweetalert2.min.js"></script>
-    <script src="~/Scripts/plugin/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
-    <script src="~/Scripts/loadingoverlay.min.js"></script>
-
-    <style type="text/css">
-        .loadingoverlay_element {
-            position: fixed;
-            z-index: 999;
-            height: 10em;
-            width: 20em;
-            overflow: visible;
-            margin: auto;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-        }
-    </style>
-
     @Scripts.Render("~/bundles/jqueryval")
     <script src="~/Scripts/plugin/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
 
-    <!--Gayrimenkul Ekle-->
-    <script type="text/javascript">
-        $(function () {
-            $('#btnSonKaydet').on('click', function () {
-                gayrimenkul = new Object();
-                gayrimenkul.Guid = $("#Guid").val();
-                gayrimenkul.Ad = $("#Ad").val();
-                gayrimenkul.GayrimenkulTur_Id = $("#GayrimenkulTur_Id").val();
-                gayrimenkul.Ilce_Id = $("#Ilce_Id").val();
-                gayrimenkul.Mahalle_Id = $("#Mahalle_Id").val();
-                gayrimenkul.GayrimenkulDurum_Id = $("#GayrimenkulDurum_Id").val();
-                gayrimenkul.BinaKimlikNo = $("#BinaKimlikNo").val();
-                gayrimenkul.NumaratajKimlikNo = $("#NumaratajKimlikNo").val();
-                gayrimenkul.AdresNo = $("#AdresNo").val();
-                gayrimenkul.Cadde = $("#Cadde").val();
-                gayrimenkul.Sokak = $("#Sokak").val();
-                gayrimenkul.DisKapiNo = $("#DisKapiNo").val();
-                gayrimenkul.IcKapiNo = $("#IcKapiNo").val();
-                gayrimenkul.AcikAdres = $("#AcikAdres").val();
-                gayrimenkul.Koordinat = $("#Koordinat").val();
-                gayrimenkul.Ada = $("#Ada").val();
-                gayrimenkul.Pafta = $("#Pafta").val();
-                gayrimenkul.Parsel = $("#Parsel").val();
-                gayrimenkul.GayrimenkulNo = $("#GayrimenkulNo").val();
-                gayrimenkul.DosyaNo = $("#DosyaNo").val();
-                gayrimenkul.AracKapasitesi = $("#AracKapasitesi").val();
-                gayrimenkul.Metrekare = $("#Metrekare").val();
-                gayrimenkul.OlusturulmaTarihi = $("#OlusturulmaTarihi").val();
-                gayrimenkul.OlusturanKullanici_Id = $("#OlusturanKullanici_Id").val();
-       
-                if($("#submitForm").valid())
-                {
-                   $.ajax({
-                    type: 'Post',
-                    url: '@Url.Action("Ekle", "Gayrimenkul")',
-                       data: { gayrimenkulModel: gayrimenkul },
-                    success: function (result) {
-                        if (result != null && result.success) {
-
-                            swal('Bilgi!', result.Message, 'success');
-
-                            setTimeout(function () {
-                                window.location.href = "../Emlak/Gayrimenkul/Ekle";
-                            }, 2000);
-                        }
-                        else {
-                            swal('Uyarı!', result.Message, 'warning');
-                        }
-                    },
-                    error: function (xhr) {
-                        swal('Uyarı!', result.Message, 'warning');
-                    }
-                 });
-                }
-            });
-        });
-    </script>
-
-    <!--Belge Ekleme -->
-    <script type="text/javascript">
-        var gayrimenkulDosyalar = [];
-
-        $(document).on("change", ".taranmisDosya", function () {
-
-            var BasvuruGrupTipi_DosyaTipi_Id = $(this).attr("data-id");
-            var dosyaAdi = $("#placeholder_" + BasvuruGrupTipi_DosyaTipi_Id).val($(this).val().replace(/C:\\fakepath\\/, ''));
-
-            $("#GayrimenkulDosyaTur_" + BasvuruGrupTipi_DosyaTipi_Id).val(dosyaAdi);
-            //var regex = new RegExp("(.*?)\.(pdf)$");
-            //if (!(regex.test(dosyaAdi))) {
-            //    UyariVer("Hata", "Sadece PDF Dosyası Yükleyebilirsiniz.", false, 4000);
-            //    $("#yanlis_" + BasvuruGrupTipi_DosyaTipi_Id ).show();
-            //    Dosya = "";
-            //}
-            var fileUpload = $("#DosyaTur_" + BasvuruGrupTipi_DosyaTipi_Id).get(0);
-
-            var files = evt.target.files[0];
-
-            if (files.length > 0) {
-                if (window.FormData !== undefined) {
-                    var formData = new FormData();
-                    formData.append(BasvuruGrupTipi_DosyaTipi_Id, files);
-                }
-            }
-            var fileBinary;
-
-            var reader = new FileReader();
-            // Closure to capture the file information.
-            reader.onload = (function (theFile) {
-                return function (e) {
-                    var binaryData = e.target.result;
-
-                    var base64String = window.btoa(binaryData);
-
-                    fileBinary = base64String;
-                    gayrimenkulDosyalar.push({ GayrimenkulDosyaTur_Id: BasvuruGrupTipi_DosyaTipi_Id, DosyaAdi: dosyaAdi, GayrimenkulDosya: fileBinary });
-                };
-            })(files);
-            // Read in the image file as a data URL.
-            reader.readAsBinaryString(files);
-        });
-
-        function BelgeEkle(gayrimenkulId) {
-
-            var $valid = $("#BelgeEkleForm").valid();
-            if (!$valid) {
-                $validatorBelgeEkle.focusInvalid();
-                return false;
-            } else {
-
-                $("#path").val("");
-
-                $('#loadingbtnBelgeEkleme').removeClass();
-                $("#btnBelgeKaydet").removeClass();
-                $("#btnBelgeKaydet").addClass('btn btn-warning hide');
-                var x = document.getElementById("myFile").value;
-
-
-                var sonuc = true;
-                var sayac = 0;
-                var elems = $("form .taranmisDosya");
-                var count = elems.length;
-                var tumDosyalarYuklendiMi = true;
-                setTimeout(function () {
-                    if (tumDosyalarYuklendiMi) {
-                        $("#btnBelgeKaydet").removeClass();
-                        $("#btnBelgeKaydet").addClass('btn btn-primary');
-                        $('#loadingbtnBelgeEkleme').addClass('hide');
-                    }
-                }, 1500);
-
-
-            }
-        }
-    </script>
-
+ 
 
     <!--Tab Control-->
     <script type="text/javascript">
@@ -643,9 +476,28 @@
                     return true;
                 },
                 onNext: function (tab, navigation, index) {
+
+                    var gayrimenkulId = $('#GayrimenkulId').val();
+
+                    var sicilNo = $('#SicilNo').val();
+
+                    if (index == 1) {
+                        return true;
+                    }
+
+                    else if (index == 2) {
+                        return true;
+                    }
+
+                    else if (index == 3) {
+                        return true;
+                    }
+
+                    else if (index == 4) {
+                        return false;
+                    }
                 },
                 onTabShow: function (tab, navigation, index) {
-
                     const $total = navigation.find('li').length;
                     const $current = index + 1;
 
@@ -698,37 +550,6 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
-            $("#Il_Id").change(function (e) {
-
-                var ilId = $(this).val();
-
-                if (ilId != null) {
-                    $.ajax({
-                        type: 'Post',
-                        url: '/Emlak/Gayrimenkul/IlceSelectList/ilId=' + ilId,
-                        data: { ilId: ilId },
-                        success: function (result) {
-                            if (result != null && result.success) {
-                                $("#Ilce_Id").empty();
-                                $("#Ilce_Id").append(
-                                    $('<option></option>').val(null).html('Lütfen Seçiniz'));
-                                $.each(result.Data, function (i, data) {
-                                    $('<option></option>').val(null).html('');
-                                    $("#Ilce_Id").append(
-                                        $('<option></option>').val(data.Id).html(data.Ad));
-                                });
-                            }
-                            else {
-                                swal('Uyarı!', result.Message, 'warning');
-                            }
-                        },
-                        error: function (xhr) {
-                            swal('Uyarı!', result.Message, 'warning');
-                        }
-                    });
-                }
-            });
-
             $("#Ilce_Id").change(function (e) {
 
                 var ilceId = $(this).val();
@@ -760,6 +581,8 @@
                 }
             });
 
+           
+
         });
     </script>
 
@@ -779,6 +602,8 @@
             }
         });
     </script>
-
 }
+
+
+
 
