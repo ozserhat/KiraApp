@@ -1227,6 +1227,27 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
         }
 
+        private void BeyanSil(KiraBeyanEkleVM kiraBeyanModel)
+        {
+            var tahakkukListesi = _tahakkukService.GetirListe(kiraBeyanModel.Beyan.Id);
+            var beyan = kiraBeyanModel.Beyan;
+            beyan.AktifMi = false;
+            BeyanEkle(kiraBeyanModel.Beyan);
+
+            //Tahakkuklar Pasife alınır.
+            foreach (var item in tahakkukListesi)
+            {
+                item.AktifMi = false;
+                _tahakkukService.Guncelle(item);
+            }
+
+            //Kira Beyan Sayfası Pasife Alınır.
+            var kiraBeyan = _kiraBeyanService.Getir(kiraBeyanModel.Beyan.Id, kiraBeyanModel.Gayrimenkul.Id, kiraBeyanModel.Kiraci.Id);
+            kiraBeyan.AktifMi = false;
+            _kiraBeyanService.Guncelle(kiraBeyan);
+
+        }
+
         public KiraciEkleVM GetirSicil(string TcVergiNo)
         {
             string tcNo = "";

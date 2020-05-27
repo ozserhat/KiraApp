@@ -91,6 +91,10 @@ namespace Framework.Entities.Concrete
 
         public bool? AktifMi { get; set; }
 
+        public int? GayrimenkulDurum_Id { get; set; }
+        [ForeignKey("GayrimenkulDurum_Id")]
+        public virtual Kira_Durum Kira_Durumlari { get; set; }
+
         [JsonIgnore]
         public virtual ICollection<Kira_Beyan> KiraBeyanlari { get; set; }
     }
