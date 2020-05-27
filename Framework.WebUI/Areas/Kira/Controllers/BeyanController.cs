@@ -22,6 +22,7 @@ using iTextSharp.text.pdf;
 using iTextSharp.text;
 using iTextSharp.tool.xml;
 using HtmlAgilityPack;
+using Framework.Entities.Enums;
 
 namespace Framework.WebUI.Areas.Kira.Controllers
 {
@@ -234,7 +235,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
             kiraBeyanModel.Kiraci_Id = BeyanSicilEkle(kiraBeyanModel.Kiraci);
 
-            kiraBeyanModel.Beyan.AktifMi = true;
+            kiraBeyanModel.Beyan.AktifMi = (int)EnmIslemDurumu.Aktif;
 
             kiraBeyanModel.Beyan_Id = BeyanEkle(kiraBeyanModel.Beyan);
 
@@ -357,7 +358,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 ServisAciklama = kiraParametre.KiraTarifeAciklama,
                 OlusturulmaTarihi = DateTime.Now,
                 OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
-                AktifMi = true
+                AktifMi = (int)EnmIslemDurumu.Aktif
             };
 
             tahakkukListe.Add(ekTahakkuk);
@@ -385,7 +386,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                     ServisAciklama = kiraParametre.KdvTarifeAciklama,
                     OlusturulmaTarihi = DateTime.Now,
                     OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
-                    AktifMi = true
+                    AktifMi = (int)EnmIslemDurumu.Aktif
                 };
 
                 tahakkukListe.Add(ekTahakkukKdv);
@@ -736,7 +737,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 Aciklama = parametreDetay.KiraParametre.KararHarciTarifeAciklama,
                 OlusturulmaTarihi = DateTime.Now,
                 OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
-                AktifMi = true
+                AktifMi = (int)EnmIslemDurumu.Aktif
             };
 
             //tutari = kararHarci.FirstOrDefault().Tutar.ToString();
@@ -775,7 +776,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 Aciklama = parametreDetay.KiraParametre.TeminatTarifeAciklama,
                 OlusturulmaTarihi = DateTime.Now,
                 OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
-                AktifMi = true
+                AktifMi = (int)EnmIslemDurumu.Aktif
             };
             //tutari = teminatTarife.FirstOrDefault().Tutar.ToString();
 
@@ -815,7 +816,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                     Aciklama = parametreDetay.KiraParametre.DamgaTarifeAciklama,
                     OlusturulmaTarihi = DateTime.Now,
                     OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
-                    AktifMi = true
+                    AktifMi = (int)EnmIslemDurumu.Aktif
                 };
 
                 //tutari = damgaTarife.FirstOrDefault().Tutar.ToString();
@@ -888,7 +889,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                         Aciklama = parametreDetay.ParametreAciklama,
                         OlusturulmaTarihi = DateTime.Now,
                         OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
-                        AktifMi = true
+                        AktifMi = (int)EnmIslemDurumu.Aktif
                     };
 
                     tahakkukListe.Add(otoparkTahakkuk);
@@ -913,7 +914,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                         Aciklama = parametreDetay.ParametreAciklama,
                         OlusturulmaTarihi = DateTime.Now,
                         OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
-                        AktifMi = true
+                        AktifMi = (int)EnmIslemDurumu.Aktif
                     };
 
 
@@ -954,7 +955,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                         Aciklama = parametreDetay.KiraParametre.KdvTarifeAciklama,
                         OlusturulmaTarihi = DateTime.Now,
                         OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
-                        AktifMi = true
+                        AktifMi = (int)EnmIslemDurumu.Aktif
                     };
 
                     //TahakkukEkleVm kdvTahakkukEkleVm = new TahakkukEkleVm()
@@ -996,19 +997,19 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             }
             //Beyan Pasife Alınır
             var beyan = kiraBeyanModel.Beyan;
-            beyan.AktifMi = false;
+            beyan.AktifMi = (int)EnmIslemDurumu.Pasif;
             BeyanEkle(kiraBeyanModel.Beyan);
 
             //Tahakkuklar Pasife alınır.
             foreach (var item in tahakkukListesi)
             {
-                item.AktifMi = false;
+                item.AktifMi = (int)EnmIslemDurumu.Pasif;
                 _tahakkukService.Guncelle(item);
             }
 
             //Kira Beyan Sayfası Pasife Alınır.
             var kiraBeyan = _kiraBeyanService.Getir(kiraBeyanModel.Beyan.Id, kiraBeyanModel.Gayrimenkul.Id, kiraBeyanModel.Kiraci.Id);
-            kiraBeyan.AktifMi = false;
+            kiraBeyan.AktifMi = (int)EnmIslemDurumu.Pasif;
             _kiraBeyanService.Guncelle(kiraBeyan);
 
         }
@@ -1026,22 +1027,22 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 return false;
             }
             //Beyan Pasife Alınır
-            artisModel.Beyan.AktifMi = false;
+            artisModel.Beyan.AktifMi = (int)EnmIslemDurumu.Pasif;
             BeyanEkle(artisModel.Beyan);
 
             //Tahakkuklar Pasife alınır.
             foreach (var item in tahakkukListesi)
             {
-                item.AktifMi = false;
+                item.AktifMi = (int)EnmIslemDurumu.Pasif;
                 _tahakkukService.Guncelle(item);
             }
 
             //Kira Beyan Sayfası Pasife Alınır.
             var kiraBeyan = _kiraBeyanService.Getir(artisModel.Beyan_Id, artisModel.Gayrimenkul_Id, artisModel.Kiraci_Id);
-            kiraBeyan.AktifMi = false;
+            kiraBeyan.AktifMi = (int)EnmIslemDurumu.Pasif;
             var kirabeyanSonuc = _kiraBeyanService.Guncelle(kiraBeyan);
 
-            if (!kirabeyanSonuc.AktifMi)
+            if (kirabeyanSonuc.AktifMi == (int)EnmIslemDurumu.Aktif)
                 sonuc = true;
 
             return sonuc;
@@ -1051,19 +1052,19 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         {
             var tahakkukListesi = _tahakkukService.GetirListe(kiraBeyanModel.Beyan.Id);
             var beyan = kiraBeyanModel.Beyan;
-            beyan.AktifMi = false;
+            beyan.AktifMi = (int)EnmIslemDurumu.Pasif;
             BeyanEkle(kiraBeyanModel.Beyan);
 
             //Tahakkuklar Pasife alınır.
             foreach (var item in tahakkukListesi)
             {
-                item.AktifMi = false;
+                item.AktifMi = (int)EnmIslemDurumu.Pasif;
                 _tahakkukService.Guncelle(item);
             }
 
             //Kira Beyan Sayfası Pasife Alınır.
             var kiraBeyan = _kiraBeyanService.Getir(kiraBeyanModel.Beyan.Id, kiraBeyanModel.Gayrimenkul.Id, kiraBeyanModel.Kiraci.Id);
-            kiraBeyan.AktifMi = false;
+            kiraBeyan.AktifMi = (int)EnmIslemDurumu.Pasif;
             _kiraBeyanService.Guncelle(kiraBeyan);
 
         }
@@ -1422,7 +1423,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 Gayrimenkul_Id = Gayrimenkul_Id,
                 Kiraci_Id = Kiraci_Id,
                 OlusturulmaTarihi = DateTime.Now,
-                AktifMi = true,
+                AktifMi = (int)EnmIslemDurumu.Aktif,
                 OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null)
             };
 
