@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using PagedList;
 using System.Web;
 using System.Linq;

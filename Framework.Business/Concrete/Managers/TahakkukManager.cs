@@ -1,6 +1,7 @@
 ﻿using Framework.Business.Abstract;
 using Framework.DataAccess.Abstract;
 using Framework.Entities.Concrete;
+using Framework.Entities.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,7 +61,7 @@ namespace Framework.Business.Concrete.Managers
         }
         public IEnumerable<Tahakkuk> GetirListeAktif()
         {
-            return _tahakkukDal.GetirListe().Where(a => a.AktifMi == true);
+            return _tahakkukDal.GetirListe().Where(a => a.AktifMi == (int)EnmIslemDurumu.Aktif);
         }
         public List<Tahakkuk> GetirListe(int KiraBeyanId)
         {
