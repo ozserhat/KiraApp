@@ -1,21 +1,22 @@
-﻿@model Framework.WebUI.Models.ViewModels.DuyuruDuzenleVM
+﻿
+@model Framework.WebUI.Models.ViewModels.Beyan_UfeOranEkleVM
 @{
-    ViewBag.Title = "Düzenle";
+    ViewBag.Title = "Ekle";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
-
 
 @if (!Model.HideContent)
 {
     <div id="content">
         <section id="widget-grid" class="sayfaust_bosluk">
+
             <div class="row">
                 <article class="col-sm-12 col-md-12 col-lg-12">
                     <div class="jarviswidget sorgulama-kriteri" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
                         <header>
                             <div style="margin-top: -5px;">
                                 <p>
-                                    <a href="@Url.Action("Index")" class="btn btn-warning" title="" rel="tooltip" data-placement="bottom" data-original-title="Duyuru Listesine Dön"><span class="glyphicon glyphicon-chevron-left"></span> Duyuru Listesine Dön</a>
+                                    <a href="@Url.Action("Index")" class="btn btn-warning" title="" rel="tooltip" data-placement="bottom" data-original-title="Beyan Üfe Oran Listesine Dön"><span class="glyphicon glyphicon-chevron-left"></span> Beyan Üfe Oran Listesine Dön</a>
                                 </p>
                             </div>
                         </header>
@@ -23,58 +24,56 @@
                 </article>
             </div>
         </section>
+
         <section id="widget-grid" class="">
             <div class="row">
                 <article class="col-sm-12 col-md-12 col-lg-12">
                     <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
                         <header>
                             <span class="widget-icon"> <i class="fa fa-list"></i> </span>
-                            <h2>Duyuru Düzenle</h2>
+                            <h2>Beyan Üfe Oranı Tanımlama Ekranı</h2>
                         </header>
                         <div role="contentinfo">
                             <div class="widget-body">
                                 <div class="tab-pane fade active in">
-                                    @using (Html.BeginForm("Duzenle", "Duyuru", FormMethod.Post, new { enctype = "multipart/form-data", id = "submitForm" }))
+                                    @using (Html.BeginForm("Ekle", "BeyanUfeOran", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmUfeOran" }))
                                     {
                                         @Html.AntiForgeryToken()
-                                        @Html.HiddenFor(model => model.Id)
-                                        @Html.HiddenFor(model => model.Guid)
                                         <div class="widget-body">
                                             <fieldset>
-
-                                                @Html.ValidationSummary(true)
                                                 <div class="row">
                                                     <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
-                                                        @Html.LabelFor(model => model.DuyuruTurSelectList, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                        @Html.LabelFor(model => model.Adi, new { @class = "control-label col-md-4 zorunluYildiz" })
                                                         <div class="col-md-8">
-                                                            @Html.DropDownList("TurId", Model.DuyuruTurSelectList, "Seçiniz", new { @class = "select2" })
-                                                            @Html.ValidationMessageFor(model => model.DuyuruTurSelectList, "", new { @class = "text-danger" })
+                                                            @Html.TextBoxFor(model => model.Adi, new { @class = "form-control col-md-4 required" })
+                                                            @Html.ValidationMessageFor(model => model.Adi, "", new { @class = "text-danger" })
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
-                                                        @Html.LabelFor(model => model.DuyuruAd, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                        @Html.LabelFor(model => Model.YilSelectList, new { @class = "col-md-4 font-bold zorunluYildiz" })
                                                         <div class="col-md-8">
-                                                            @Html.TextBoxFor(model => model.DuyuruAd, new { @class = "form-control col-md-4 required" })
-                                                            @Html.ValidationMessageFor(model => model.DuyuruAd, "", new { @class = "text-danger" })
+                                                            @Html.DropDownListFor(x => x.Yil, Model.YilSelectList, "Seçiniz", new { @class = "select2 required" })
+                                                            @Html.ValidationMessageFor(model => model.YilSelectList, "", new { @class = "text-danger" })
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
-                                                        @Html.LabelFor(model => model.Aciklama, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                        @Html.LabelFor(model => Model.AySelectList, new { @class = "col-md-4 font-bold zorunluYildiz" })
                                                         <div class="col-md-8">
-                                                            @Html.TextAreaFor(model => model.Aciklama, new { @class = "form-control col-md-4 required", rows = "3", placeholder = "Açıklama Giriniz" })
-                                                            @Html.ValidationMessageFor(model => model.Aciklama, "", new { @class = "text-danger" })
+                                                            @Html.DropDownListFor(x => x.Ay, Model.AySelectList, "Seçiniz", new { @class = "select2 required" })
+                                                            @Html.ValidationMessageFor(model => model.AySelectList, "", new { @class = "text-danger" })
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
-                                                        @Html.LabelFor(model => model.AktifMi, new { @class = "control-label col-md-4" })
-                                                        <div class="col-md-8 form-control-static">
-                                                            @Html.CheckBoxFor(model => model.AktifMi, new { @style = "width: 16px; height: 16px;" })
+                                                        @Html.LabelFor(model => model.Oran, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                        <div class="col-md-8">
+                                                            @Html.TextBoxFor(model => model.Oran, new { @class = "form-control col-md-4 required",@type="number" })
+                                                            @Html.ValidationMessageFor(model => model.Oran, "", new { @class = "text-danger" })
                                                         </div>
                                                     </div>
                                                 </div>
@@ -83,8 +82,8 @@
                                         <div class="form-actions">
                                             <div class="row">
                                                 <div class="col-md-6 col-xs-offset-2" style="padding-right: 30px;">
-                                                    <input id="btnReset" type="button" onclick="clearForm()" value="Temizle" class="btn btn-warning">
-                                                    <input id="btnSubmit" type="submit" value="Kaydet" class="btn btn-primary">
+                                                    <input id="btnReset" type="reset" value="Temizle" class="btn btn-warning">
+                                                    <input id="btnSubmit" type="button" value="Kaydet" class="btn btn-primary">
                                                 </div>
                                             </div>
                                         </div>
@@ -99,17 +98,47 @@
     </div>
 }
 
-
 @section pagespecific {
+    <!-- Sweet Alert -->
+    <link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
+    <script src="~/Content/SweetAlert/sweetalert2.min.js"></script>
     @Scripts.Render("~/bundles/jqueryval")
-    <!--Form Temizleme İşlemi -->
-    <script type="text/javascript">
-        function clearForm() {
-            document.getElementById("AktifMi").checked = false;
-            document.getElementById("DuyuruAd").value = "";
-            document.getElementById("Aciklama").value = "";
-        }
-    </script>
 
-   
+
+    <!--BeyanUfeOran Ekle-->
+<script type="text/javascript">
+        $(function () {
+            $('#btnSubmit').on('click', function () {
+                oran = new Object();
+                oran.Adi = $("#Adi").val();
+                oran.Yil = parseInt($("#Yil option:selected").text());
+                oran.Ay = parseInt($("#Ay option:selected").val());
+                oran.Oran = parseFloat($("#Oran").val());
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Ekle", "BeyanUfeOran")',
+                    data: { ufeOran: oran },
+                    success: function (result) {
+                        if (result != null && result.success) {
+
+                            swal('Bilgi!', result.Message, 'success');
+
+                            setTimeout(function () {
+                                window.location.href = "../BeyanUfeOran/Index";
+                            }, 2000);
+                        }
+                        else {
+                            swal('Uyarı!', result.Message, 'warning');
+                        }
+                    },
+                    error: function (xhr) {
+                        swal('Uyarı!', result.Message, 'warning');
+                    }
+                 });
+            });
+        });
+</script>
 }
+
+
+

@@ -55,6 +55,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                                              .Include(a=>a.Mahalleler)
                                              .Include(a=>a.Mahalleler.Ilceler)
                                              .Include(a=>a.Mahalleler.Ilceler.Iller)
+                                             .Include(a=>a.Kira_Durumlari)
                                              .ToList();
             }
         }

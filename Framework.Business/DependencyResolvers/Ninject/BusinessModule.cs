@@ -38,6 +38,7 @@ namespace Framework.Business.DependencyResolvers.Ninject
             Bind<IGayrimenkulService>().To<GayrimenkulManager>().InSingletonScope();
             Bind<IGayrimenkulDal>().To<EfGayrimenkulDal>().InSingletonScope();
 
+
             Bind<IGayrimenkulTurService>().To<GayrimenkulTurManager>().InSingletonScope();
             Bind<IGayrimenkulTurDal>().To<EfGayrimenkulTurDal>().InSingletonScope();
 
@@ -52,6 +53,9 @@ namespace Framework.Business.DependencyResolvers.Ninject
 
             Bind<IGayrimenkulDosya_TurService>().To<GayrimenkulDosya_TurManager>().InSingletonScope();
             Bind<IGayrimenkulDosya_TurDal>().To<EfGayrimenkulDosya_TurDal>().InSingletonScope();
+
+            Bind<IGayrimenkul_DosyaService>().To<Gayrimenkul_DosyaManager>().InSingletonScope();
+            Bind<IGayrimenkul_DosyaDal>().To<EfGayrimenkul_DosyaDal>().InSingletonScope();
 
             Bind<IControllerActionService>().To<ControllerActionManager>().InTransientScope();
             Bind<IControllerActionsDal>().To<EfControllerActionsDal>().InTransientScope();
@@ -112,6 +116,9 @@ namespace Framework.Business.DependencyResolvers.Ninject
 
             Bind<IKira_BeyanDal>().To<EfKira_BeyanDal>().InTransientScope();
             Bind<IKira_BeyanService>().To<Kira_BeyanManager>().InTransientScope();
+
+            Bind<IBeyan_UfeOranDal>().To<EfBeyan_UfeOranDal>().InTransientScope();
+            Bind<IBeyan_UfeOranService>().To<Beyan_UfeOranManager>().InTransientScope();
 
             Bind<IPersonelBeyanDal>().To<EfPersonelBeyanDal>().InTransientScope();
             Bind<IPersonel_BeyanService>().To<Personel_BeyanManager>().InTransientScope();

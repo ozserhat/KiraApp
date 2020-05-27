@@ -51,6 +51,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         private IIlceService _ilceService;
         private IMahalleService _mahalleService;
         private IUserService _userService;
+        private IBeyan_UfeOranService _ufeOranService;
 
         public string DosyaYolu = ConfigurationManager.AppSettings["DosyaYolu"].ToString();
 
@@ -75,7 +76,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         IResmiTatillerService resmiTatilService,
         ITahakkukDisServis tahakkukDisServis,
         IGayrimenkulTurService gayrimenkulTurService,
-        IUserService userService
+        IUserService userService,
+        IBeyan_UfeOranService ufeOranService
         )
         {
             _gayrimenkulservice = gayrimenkulservice;
@@ -100,6 +102,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             _gayrimenkulTurService = gayrimenkulTurService;
             //_tahakkukDisServis = tahakkukDisServis;
             _userService = userService;
+            _ufeOranService = ufeOranService;
         }
         #endregion
 
@@ -228,9 +231,9 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
         public SelectList BeyanYilSelectList()
         {
-            var iller = _parametreService.GetirListe(1).Where(a=>a.AktifMi.Value).Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+            var yillar = _parametreService.GetirListe(1).Where(a=>a.AktifMi.Value).Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
 
-            return new SelectList(iller, "Id", "Ad");
+            return new SelectList(yillar, "Id", "Ad");
         }
 
         public SelectList KdvOraniSelectList()
@@ -257,6 +260,13 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             return new SelectList(newList, "Value", "Text");
         }
 
+        public SelectList KiraDurumFullSelectList()
+        {
+            var iller = _kiraDurumService.GetirListe().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+
+            return new SelectList(iller, "Id", "Ad");
+        }
+
         public SelectList KiraDurumSelectList()
         {
             var iller = _kiraDurumService.GetirListe().Where(a => a.Id == 1).Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
@@ -281,6 +291,13 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         public SelectList OtoparkTatilGunuSelectList()
         {
             var iller = _parametreService.GetirListe(10).Select(x => new { Id = x.Deger, Ad = x.Ad }).ToList();
+
+            return new SelectList(iller, "Id", "Ad");
+        }
+
+        public SelectList UfeOranSelectList()
+        {
+            var iller = _ufeOranService.GetirListeAktif().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
 
             return new SelectList(iller, "Id", "Ad");
         }
@@ -761,7 +778,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
                 model.Kiraci = _beyanVM.Kiraci = new KiraciEkleVM()
                 {
-                    SicilNo = Convert.ToInt64(kiraci.TcKimlikNo),
+                    SicilNo = Convert.ToInt64(kiraci.SicilNo),
                     VergiNo = Convert.ToInt64(kiraci.VergiNo),
                     Ad = kiraci.Ad,
                     Soyad = kiraci.Soyad,
@@ -1436,6 +1453,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 model.BeyanDosyalar = GetirBeyanDosyalar(kiraBeyan.Beyanlar.Id);
                 model.Tahakkuklar = _tahakkukService.GetirListe(kiraBeyan.Id);
                 model.EkTahakkukOranlari = EkTahakkukOranlariSelectList();
+                model.KiraDurumSelectList = KiraDurumFullSelectList();
+                model.UfeOranlari = UfeOranSelectList();
             }
 
             return View(model);

@@ -23,6 +23,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
         private IMahalleService _mahalleService;
         private IGayrimenkulTurService _turService;
         private IGayrimenkulService _gayrimenkulservice;
+       
         public GayrimenkulController(IGayrimenkulService gayrimenkulservice, IGayrimenkulTurService turService,
             IIlService ilService, IIlceService ilceService, IMahalleService mahalleService)
         {
@@ -31,6 +32,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
             _mahalleService = mahalleService;
             _turService = turService;
             _gayrimenkulservice = gayrimenkulservice;
+
         }
         #endregion
         // GET: Emlak/Gayrimenkul
@@ -79,6 +81,8 @@ namespace Framework.WebUI.Areas.Admin.Controllers
 
             return new SelectList(turler, "Id", "Ad");
         }
+
+
 
         #endregion
 
