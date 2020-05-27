@@ -93,6 +93,7 @@
     <Compile Include="Concrete\User.cs" />
     <Compile Include="Concrete\User_Permission.cs" />
     <Compile Include="Concrete\User_Role.cs" />
+    <Compile Include="Enums\EnmIslemDurumu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -93,10 +93,10 @@ namespace Framework.Entities.Concrete
 
         public DateTime? GuncellenmeTarihi { get; set; }
 
-        public bool? AktifMi { get; set; }
+        public int? AktifMi { get; set; }
 
         [JsonIgnore]
         public virtual ICollection<Kira_Beyan> Kira_Beyanlari { get; set; }
-  
+
     }
 }
