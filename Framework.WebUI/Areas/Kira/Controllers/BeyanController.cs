@@ -745,7 +745,12 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             GetirSelectList();
             if (id != null)
             {
+
                 _beyanVM = BeyanGuncelleVeriGetir((Guid)id);
+                if ((DateTime)_beyanVM.Beyan.OlusturulmaTarihi < DateTime.Now.AddDays(-1))
+                    ModelState.AddModelError("LogMessage", "Kira Beyan Ekleme Sayfası Görüntülendi.");
+
+                return View(_beyanVM);
                 ViewBag.GuidId = id;
                 return View(_beyanVM);
             }
@@ -842,8 +847,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             ekleVm.DamgaAlinsinMi = (beyanBilgi.DamgaAlinsinMi == true ? "1" : "0");
             ekleVm.BeyanAciklama = beyanBilgi.Aciklama;
             ekleVm.Id = beyanBilgi.Id;
-
-
+            ekleVm.OlusturulmaTarihi = beyanBilgi.OlusturulmaTarihi;
             return ekleVm;
 
         }
@@ -853,6 +857,11 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         {
             if (kiraBeyanModel.Beyan.Id > 0)
             {
+                if ((DateTime)kiraBeyanModel.Beyan.OlusturulmaTarihi > DateTime.Now.AddDays(-1))
+                {
+                    return Json(new { Message = "Kira Beyan Ekleme İşlemi Aynı gün içerisinde yapılabilir.", success = false }, JsonRequestBehavior.AllowGet);
+                }
+
                 //Tahakkuk kaydı varsa ödenen güncellenmesine izin verilmeyecek.
                 BeyanPasifeAl(kiraBeyanModel);
                 //Beyan Pasif,Tahakkuklar,KiraBeyanEkle pasife alınacak.
