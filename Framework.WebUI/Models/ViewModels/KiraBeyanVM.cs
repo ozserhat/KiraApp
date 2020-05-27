@@ -160,23 +160,22 @@ namespace Framework.WebUI.Models.ViewModels
         public KiraBeyanVM KiraBeyanVm { get; set; }
     }
 
-
-
-
     public class KiraBeyanEkleVM : VMBase
     {
 
-        //    [Display(Name = "Kiraci_Id")]
-        //    public int Kiraci_Id { get; set; }
+        [Display(Name = "Kiraci_Id")]
+        public int Kiraci_Id { get; set; }
 
-        //    [Display(Name = "Gayrimenkul_Id")]
-        //    public int Gayrimenkul_Id { get; set; }
+        [Display(Name = "Gayrimenkul_Id")]
+        public int Gayrimenkul_Id { get; set; }
 
-        //    [Display(Name = "Beyan_Id")]
-        //    public int Beyan_Id { get; set; }
+        [Display(Name = "KiraBeyan_Id")]
+        public int KiraBeyan_Id { get; set; }
+
+        [Display(Name = "Beyan_Id")]
+        public int Beyan_Id { get; set; }
 
         public KiraciEkleVM Kiraci { get; set; }
-
 
         public Beyan_GayrimenkulEkleVM Gayrimenkul { get; set; }
 
@@ -184,10 +183,11 @@ namespace Framework.WebUI.Models.ViewModels
 
         public BeyanDetayVM BeyanDetay { get; set; }
 
-        //public KiraBeyanVM KiraBeyan { get; set; }
+        public KiraBeyanVM KiraBeyan { get; set; }
 
         public List<Beyan_DosyaVM> BeyanDosyalar { get; set; }
         public List<Beyan_DosyaVM> BeyanDetayDosyalar { get; set; }
+      
 
         //[Display(Name = "Oluşturan Kullanıcı")]
         //public int? OlusturanKullanici_Id { get; set; }
@@ -249,4 +249,57 @@ namespace Framework.WebUI.Models.ViewModels
 
     }
 
+    public class KiraParametreDetay
+    {
+        public int BeyanTurKod { get; set; }
+        public int ParametreKod { get; set; }
+        public string ParametreAciklama { get; set; }
+        public bool DamgaAlinsinMi { get; set; }
+        public KiraParametre KiraParametre { get; set; }
+        public KiraParametreHesapDetay Hesap { get; set; }
+
+    }
+    public class KiraParametreHesapDetay
+    {
+        public int? GunAraligi { get; set; }
+        public int? OtoparkGunSayisi { get; set; }
+
+        public decimal KiraTutar { get; set; }
+        public decimal OtoparkTutar { get; set; }
+        public decimal KararHarciTutar { get; set; }
+
+        public decimal TeminatTutar { get; set; }
+
+        public decimal DamgaVergisiTutar { get; set; }
+
+        public decimal KdvTutar { get; set; }
+
+    }
+
+    public class KiraArtisEkleVM : VMBase
+    {
+        [Display(Name = "Beyan_Id")]
+        public int Beyan_Id { get; set; }
+
+        [Display(Name = "Kiraci_Id")]
+        public int Kiraci_Id { get; set; }
+
+        [Display(Name = "Gayrimenkul_Id")]
+        public int Gayrimenkul_Id { get; set; }
+
+        [Display(Name = "KiraBeyan_Id")]
+        public int KiraBeyan_Id { get; set; }
+
+        [Display(Name = "UfeOran_Id")]
+        public decimal UfeOran_Id { get; set; }
+
+        [Display(Name = "EncumenNo")]
+        public string EncumenNo { get; set; }
+
+        [Display(Name = "EncumenTarihi")]
+        public string EncumenTarihi { get; set; }
+
+        [Display(Name = "Beyan")]
+        public BeyanEkleVM Beyan { get; set; }
+    }
 }
