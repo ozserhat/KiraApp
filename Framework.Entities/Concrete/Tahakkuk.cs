@@ -62,7 +62,7 @@ namespace Framework.Entities.Concrete
 
         public DateTime? GuncellenmeTarihi { get; set; }
 
-        public bool? AktifMi { get; set; }
+        public int? AktifMi { get; set; } //0 Pasif 1 Aktif 2 Silindi.
 
     }
 

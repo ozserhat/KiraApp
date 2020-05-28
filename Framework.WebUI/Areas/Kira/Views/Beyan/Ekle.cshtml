@@ -8,257 +8,283 @@
 
 @if (!Model.HideContent)
 {
-    <div id="content">
-        @*<section id="widget-grid">
+    if ((DateTime)Model.Beyan.OlusturulmaTarihi < DateTime.Now.AddDays(-1))
+    {
+        <div id="content">
+            <section id="widget-grid" class="sayfaust_bosluk">
+                <div id="errorContent" style=" padding-left:30px; padding-right:20px;">
+                    <section id="widget-grid">
+                        <div class="row">
+                            <div class="row alert alert-primary">
+                                <i class="glyphicon glyphicon-warning-sign col-md-1"></i>
+                                <strong>Uyarı!</strong><h4>Beyan güncelleme işlemi bir gün içerisinde yapılabilmektedir. Beyan bilgilerini beyan detay sayfasından inceleyebilirsiniz.</h4>
+                                <hr />
 
+                            </div>
+                            <div class="pull-right">
+                                <a href='@Url.Action("Index", "Beyan",new {})'><i class=' no-underline margin-right-5 fa fa-list font-md txt-color-blue'></i> Beyan Sayfasına Geri Dön</a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+            </section>
+        </div>
+    }
+    else
+    {
+        <div id="content">
+            @*<section id="widget-grid">
+
+                    <div class="row">
+                        <article class="col-sm-12 col-md-12 col-lg-12">
+                            <div class="jarviswidget sorgulama-kriteri" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
+                                <header>
+                                    <div style="margin-top: -5px;">
+                                        <p>
+                                            <a href="@Url.Action("Index")" class="btn btn-warning" title="" rel="tooltip" data-placement="bottom" data-original-title="Gayrimenkul Dön"><span class="glyphicon glyphicon-chevron-left"></span> Gayrimenkul Listesine Dön</a>
+                                        </p>
+                                    </div>
+                                </header>
+                            </div>
+                        </article>
+                    </div>
+                </section>*@
+
+            <section id="widget-grid" class="sayfaust_bosluk">
                 <div class="row">
                     <article class="col-sm-12 col-md-12 col-lg-12">
-                        <div class="jarviswidget sorgulama-kriteri" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
+                        <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
                             <header>
-                                <div style="margin-top: -5px;">
-                                    <p>
-                                        <a href="@Url.Action("Index")" class="btn btn-warning" title="" rel="tooltip" data-placement="bottom" data-original-title="Gayrimenkul Dön"><span class="glyphicon glyphicon-chevron-left"></span> Gayrimenkul Listesine Dön</a>
-                                    </p>
-                                </div>
-                            </header>
-                        </div>
-                    </article>
-                </div>
-            </section>*@
-
-        <section id="widget-grid" class="sayfaust_bosluk">
-            <div class="row">
-                <article class="col-sm-12 col-md-12 col-lg-12">
-                    <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
-                        <header>
-                            <span class="widget-icon"> <i class="fa fa-list"></i> </span>
-                            <h2>Beyan Tanım</h2>
-                            @*<div class="btn-group" style="float: right; margin-top: 4px; margin-right: 11px;" role="menu">
-                                    <button class="btn btn-primary">
-                                        Gayrimenkul İşlemleri
-                                    </button>
-                                    <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="@Url.Action("DosyaEkle", new { Guid = Model.Guid})" id="gayrimenkulDosya">
-                                                <span class="glyphicon glyphicon-upload"></span> Dosya Yükleme
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>*@
-                        </header>
-                        <div id="errorContent" style="display:none; padding-left:30px; padding-right:20px;">
-                            <section id="widget-grid">
-                                <div class="row">
-                                    <div class="row alert alert-danger">
-                                        <i class="glyphicon glyphicon-warning-sign col-md-1"></i>
-                                        <ul style="list-style-type:none" class="col-md-11">
-                                            <span id="spnMessage"></span>
+                                <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+                                <h2>Beyan Tanım</h2>
+                                @*<div class="btn-group" style="float: right; margin-top: 4px; margin-right: 11px;" role="menu">
+                                        <button class="btn btn-primary">
+                                            Gayrimenkul İşlemleri
+                                        </button>
+                                        <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="@Url.Action("DosyaEkle", new { Guid = Model.Guid})" id="gayrimenkulDosya">
+                                                    <span class="glyphicon glyphicon-upload"></span> Dosya Yükleme
+                                                </a>
+                                            </li>
                                         </ul>
+                                    </div>*@
+                            </header>
+                            <div id="errorContent" style="display:none; padding-left:30px; padding-right:20px;">
+                                <section id="widget-grid">
+                                    <div class="row">
+                                        <div class="row alert alert-danger">
+                                            <i class="glyphicon glyphicon-warning-sign col-md-1"></i>
+                                            <ul style="list-style-type:none" class="col-md-11">
+                                                <span id="spnMessage"></span>
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>
-                            </section>
-                        </div>
-                        <div role="content" style="display: block;">
-                            <div class="jarviswidget-editbox">
+                                </section>
                             </div>
-                            <div class="widget-body">
+                            <div role="content" style="display: block;">
+                                <div class="jarviswidget-editbox">
+                                </div>
+                                <div class="widget-body">
 
-                                <div class="row">
+                                    <div class="row">
 
-                                    <div id="wizard-1" novalidate="novalidate">
-                                        <div id="bootstrap-wizard-1" class="col-sm-12">
-                                            @{
-                                                <div id="wizard">
-                                                    <div class="form-bootstrapWizard">
-                                                        <ul class="form-wizard nav nav-tabs">
+                                        <div id="wizard-1" novalidate="novalidate">
+                                            <div id="bootstrap-wizard-1" class="col-sm-12">
+                                                @{
+                                                    <div id="wizard">
+                                                        <div class="form-bootstrapWizard">
+                                                            <ul class="form-wizard nav nav-tabs">
 
-                                                            <li data-target="#step1" class="active" id="step1" style="width:25%;">
-                                                                <a href="#tab1" data-toggle="tab" aria-expanded="true">
-                                                                    <span class="step">
-                                                                        1 -
-                                                                    </span>
-                                                                    <span class="title" style="z-index:2;">GayrimenkulBilgileri</span>
-                                                                </a>
-                                                            </li>
+                                                                <li data-target="#step1" class="active" id="step1" style="width:25%;">
+                                                                    <a href="#tab1" data-toggle="tab" aria-expanded="true">
+                                                                        <span class="step">
+                                                                            1 -
+                                                                        </span>
+                                                                        <span class="title" style="z-index:2;">GayrimenkulBilgileri</span>
+                                                                    </a>
+                                                                </li>
 
-                                                            <li data-target="#step2" id="step2" style="width:25%;">
-                                                                <a href="#tab2" data-toggle="tab" aria-expanded="false">
-                                                                    <span class="step">
-                                                                        2 -
-                                                                    </span>
-                                                                    <span class="title" style="z-index:2;">Sicil Bilgileri</span>
-                                                                </a>
-                                                            </li>
-                                                            <li data-target="#step3" id="step3" style="width: 25%;">
-                                                                <a href="#tab3" data-toggle="tab" aria-expanded="false">
-                                                                    <span class="step">
-                                                                        3 -
-                                                                    </span>
-                                                                    <span class="title" style="z-index:2;">Beyan Bilgileri</span>
-                                                                </a>
-                                                            </li>
-                                                            <li data-target="#step4" id="step4" style="width: 20%;">
-                                                                <a href="#tab4" data-toggle="tab" aria-expanded="false">
-                                                                    <span class="step">
-                                                                        4 -
-                                                                    </span>
-                                                                    <span class="title" style="z-index:2;">Dosya Bilgileri</span>
-                                                                </a>
-                                                            </li>
+                                                                <li data-target="#step2" id="step2" style="width:25%;">
+                                                                    <a href="#tab2" data-toggle="tab" aria-expanded="false">
+                                                                        <span class="step">
+                                                                            2 -
+                                                                        </span>
+                                                                        <span class="title" style="z-index:2;">Sicil Bilgileri</span>
+                                                                    </a>
+                                                                </li>
+                                                                <li data-target="#step3" id="step3" style="width: 25%;">
+                                                                    <a href="#tab3" data-toggle="tab" aria-expanded="false">
+                                                                        <span class="step">
+                                                                            3 -
+                                                                        </span>
+                                                                        <span class="title" style="z-index:2;">Beyan Bilgileri</span>
+                                                                    </a>
+                                                                </li>
+                                                                <li data-target="#step4" id="step4" style="width: 20%;">
+                                                                    <a href="#tab4" data-toggle="tab" aria-expanded="false">
+                                                                        <span class="step">
+                                                                            4 -
+                                                                        </span>
+                                                                        <span class="title" style="z-index:2;">Dosya Bilgileri</span>
+                                                                    </a>
+                                                                </li>
 
-                                                        </ul>
+                                                            </ul>
 
-                                                        <div class="clearfix"></div>
-                                                    </div>
-                                                    <div class="tab-content">
-                                                        <div class="tab-pane active" id="tab1">
-                                                            <legend>
-                                                                <h3><strong>1. Adım </strong> - Gayrimenkul Bilgileri</h3>
-                                                            </legend>
-                                                            @Html.AntiForgeryToken()
-                                                            <fieldset>
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        @Html.HiddenFor(x => x.Gayrimenkul.Id)
-                                                                        @Html.HiddenFor(model => model.Kiraci.Id)
-                                                                        @Html.HiddenFor(model => model.Beyan.Id)
-                                                                        @if (guidId == null)
-                                                                        {
-                                                                            using (Ajax.BeginForm("GetirGayrimenkulBilgi", "Beyan", new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "dvGayrimenkulForm", OnSuccess = "onSuccess" }, new { enctype = "multipart/form-data", id = "gayrimenkulForm" }))
-                                                                            {
-                                                                                <div class="form-group">
-                                                                                    <div class="input-group" style="width: 100%;">
-                                                                                        @Html.Label("Gayrimenkul No", new { @class = "col-md-4 font-bold" })
-                                                                                        <div class="col-md-6">
-                                                                                            @Html.TextBox("GayrimenkulNo", "", new { @class = "form-control required", @type = "text" })
-                                                                                            @Html.ValidationMessage("GayrimenkulNo", new { @class = "text-danger" })
-                                                                                        </div>
-                                                                                        <div class="col-md-2">
-                                                                                            <button class="btn btn-primary" id="btnGayrimenkulSorgula" type="submit">
-                                                                                                <span class="glyphicon glyphicon-search"></span> Sorgula
-                                                                                            </button>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            }
-                                                                        }
-                                                                    </div>
-                                                                </div><div id="dvGayrimenkulForm">
-                                                                    @{ Html.RenderPartial("_GayrimenkulPartial", Model.Gayrimenkul); }
-                                                                </div>
-
-                                                            </fieldset>
+                                                            <div class="clearfix"></div>
                                                         </div>
-
-                                                        <div class="tab-pane" id="tab2">
-                                                            <legend>
-                                                                <h3><strong>2. Adım </strong> - Sicil Bilgileri</h3>
-                                                            </legend>
-                                                            @Html.AntiForgeryToken()
-                                                            <fieldset>
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        @Html.HiddenFor(model => model.Kiraci.Id)
-
-                                                                        @using (Ajax.BeginForm("GetirSicilBilgi", "Beyan", new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "dvSicilForm", OnSuccess = "onSuccess" }, new { enctype = "multipart/form-data", id = "kiraciForm" }))
-                                                                        {
-                                                                            if (guidId == null)
-                                                                            {
-
-                                                                                <div class="form-group">
-                                                                                    <div class="input-group" style="width: 100%;">
-                                                                                        @Html.Label("Vergi/TC No", new { @class = "col-md-4 font-bold" })
-                                                                                        <div class="col-md-6">
-                                                                                            @Html.TextBox("TcVergiNo", "", new { @class = "form-control required", @type = "number" })
-                                                                                            @Html.ValidationMessage("TcVergiNo", new { @class = "text-danger" })
-                                                                                            @*@Html.HiddenFor(model => model, new { @class = "form-control" })*@
-                                                                                        </div>
-                                                                                        <div class="col-md-2">
-                                                                                            <button class="btn btn-primary" id="btnSicilSorgulas" type="submit">
-                                                                                                <span class="glyphicon glyphicon-search"></span> Sorgula
-                                                                                            </button>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            }
-                                                                        }
-
-                                                                    </div>
-                                                                </div>
-                                                                <div id="dvSicilForm">
-                                                                    @{
-
-
-                                                                        Html.RenderPartial("_SicilPartial", Model.Kiraci); }
-                                                                </div>
-                                                            </fieldset>
-                                                        </div>
-
-                                                        <div class="tab-pane" id="tab3">
-                                                            <legend>
-                                                                <h3><strong>3. Adım </strong> - Beyan Bilgileri</h3>
-                                                            </legend>
-                                                            <form class="form-horizontal" id="beyanForm" novalidate="novalidate">
+                                                        <div class="tab-content">
+                                                            <div class="tab-pane active" id="tab1">
+                                                                <legend>
+                                                                    <h3><strong>1. Adım </strong> - Gayrimenkul Bilgileri</h3>
+                                                                </legend>
                                                                 @Html.AntiForgeryToken()
                                                                 <fieldset>
-                                                                    @{ Html.RenderPartial("_BeyanPartial", Model.Beyan); }
-                                                                </fieldset>
-                                                            </form>
-                                                        </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            @Html.HiddenFor(x => x.Gayrimenkul.Id)
+                                                                            @Html.HiddenFor(model => model.Kiraci.Id)
+                                                                            @Html.HiddenFor(model => model.Beyan.Id)
+                                                                            @if (guidId == null)
+                                                                            {
+                                                                                using (Ajax.BeginForm("GetirGayrimenkulBilgi", "Beyan", new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "dvGayrimenkulForm", OnSuccess = "onSuccess" }, new { enctype = "multipart/form-data", id = "gayrimenkulForm" }))
+                                                                                {
+                                                                                    <div class="form-group">
+                                                                                        <div class="input-group" style="width: 100%;">
+                                                                                            @Html.Label("Gayrimenkul No", new { @class = "col-md-4 font-bold" })
+                                                                                            <div class="col-md-6">
+                                                                                                @Html.TextBox("GayrimenkulNo", "", new { @class = "form-control required", @type = "text" })
+                                                                                                @Html.ValidationMessage("GayrimenkulNo", new { @class = "text-danger" })
+                                                                                            </div>
+                                                                                            <div class="col-md-2">
+                                                                                                <button class="btn btn-primary" id="btnGayrimenkulSorgula" type="submit">
+                                                                                                    <span class="glyphicon glyphicon-search"></span> Sorgula
+                                                                                                </button>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                }
+                                                                            }
+                                                                        </div>
+                                                                    </div><div id="dvGayrimenkulForm">
+                                                                        @{ Html.RenderPartial("_GayrimenkulPartial", Model.Gayrimenkul); }
+                                                                    </div>
 
-                                                        <div class="tab-pane" id="tab4">
-                                                            <legend>
-                                                                <h3><strong>4. Adım </strong> - Dosya Bilgileri</h3>
-                                                            </legend>
-                                                            <form class="form-horizontal" id="belgeEkleForm" novalidate="novalidate">
+                                                                </fieldset>
+                                                            </div>
+
+                                                            <div class="tab-pane" id="tab2">
+                                                                <legend>
+                                                                    <h3><strong>2. Adım </strong> - Sicil Bilgileri</h3>
+                                                                </legend>
                                                                 @Html.AntiForgeryToken()
-                                                                <fieldset class="dosyaSatirlari" id="dosyaSatiri_1">
-                                                                    @{ Html.RenderPartial("_DosyaPartial", Model.Beyan); }
-                                                                </fieldset>
-                                                            </form>
-                                                        </div>
+                                                                <fieldset>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            @Html.HiddenFor(model => model.Kiraci.Id)
 
-                                                        <div class="form-actions sonStep" style="margin-right: -18px;">
-                                                            <div class="row">
-                                                                <div class="col-sm-12">
-                                                                    <ul class="pager wizard no-margin no-steps-container">
-                                                                        <li class="previous disabled">
-                                                                            <a href="javascript:void(0);" class="btn btn-lg btn-default" id="btnGeri"> Geri </a>
-                                                                        </li>
-                                                                        <li class="next">
-                                                                            <a href="javascript:void(0);" id="btnIleri" class="btn btn-lg txt-color-darken"> Kaydet ve İlerle</a>
-                                                                            <div id="loadingbtnIleri" class="hide" style="float:right;"><i class="fa fa-spinner fa-spin fa-2x"></i> İşleminiz yapılıyor ...</div>
-                                                                        </li>
-                                                                        <li class="finish" style="float: right; margin-right: 15px; display: block;">
-                                                                            @*@using (Ajax.BeginForm("KiraBeyanEkle", "Beyan", new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "dvGayrimenkulForm" }, new { enctype = "multipart/form-data", id = "gayrimenkulForm" }))
-                                                                                {*@
-                                                                            <button class="btn btn-success" id="btnSonKaydet" type="button">
-                                                                                Kaydet <span class="glyphicon glyphicon-ok"></span>
-                                                                            </button>
-                                                                            <div id="dvSonKaydet" class="hide" style="float:right;"><i class="fa fa-spinner fa-spin fa-2x"></i> İşleminiz yapılıyor ...</div>
-                                                                            @*  *@
-                                                                        </li>
-                                                                    </ul>
+                                                                            @using (Ajax.BeginForm("GetirSicilBilgi", "Beyan", new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "dvSicilForm", OnSuccess = "onSuccess" }, new { enctype = "multipart/form-data", id = "kiraciForm" }))
+                                                                            {
+                                                                                if (guidId == null)
+                                                                                {
+
+                                                                                    <div class="form-group">
+                                                                                        <div class="input-group" style="width: 100%;">
+                                                                                            @Html.Label("Vergi/TC No", new { @class = "col-md-4 font-bold" })
+                                                                                            <div class="col-md-6">
+                                                                                                @Html.TextBox("TcVergiNo", "", new { @class = "form-control required", @type = "number" })
+                                                                                                @Html.ValidationMessage("TcVergiNo", new { @class = "text-danger" })
+                                                                                                @*@Html.HiddenFor(model => model, new { @class = "form-control" })*@
+                                                                                            </div>
+                                                                                            <div class="col-md-2">
+                                                                                                <button class="btn btn-primary" id="btnSicilSorgulas" type="submit">
+                                                                                                    <span class="glyphicon glyphicon-search"></span> Sorgula
+                                                                                                </button>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                }
+                                                                            }
+
+                                                                        </div>
+                                                                    </div>
+                                                                    <div id="dvSicilForm">
+                                                                        @{
+
+
+                                                                            Html.RenderPartial("_SicilPartial", Model.Kiraci); }
+                                                                    </div>
+                                                                </fieldset>
+                                                            </div>
+
+                                                            <div class="tab-pane" id="tab3">
+                                                                <legend>
+                                                                    <h3><strong>3. Adım </strong> - Beyan Bilgileri</h3>
+                                                                </legend>
+                                                                <form class="form-horizontal" id="beyanForm" novalidate="novalidate">
+                                                                    @Html.AntiForgeryToken()
+                                                                    <fieldset>
+                                                                        @{ Html.RenderPartial("_BeyanPartial", Model.Beyan); }
+                                                                    </fieldset>
+                                                                </form>
+                                                            </div>
+
+                                                            <div class="tab-pane" id="tab4">
+                                                                <legend>
+                                                                    <h3><strong>4. Adım </strong> - Dosya Bilgileri</h3>
+                                                                </legend>
+                                                                <form class="form-horizontal" id="belgeEkleForm" novalidate="novalidate">
+                                                                    @Html.AntiForgeryToken()
+                                                                    <fieldset class="dosyaSatirlari" id="dosyaSatiri_1">
+                                                                        @{ Html.RenderPartial("_DosyaPartial", Model.Beyan); }
+                                                                    </fieldset>
+                                                                </form>
+                                                            </div>
+
+                                                            <div class="form-actions sonStep" style="margin-right: -18px;">
+                                                                <div class="row">
+                                                                    <div class="col-sm-12">
+                                                                        <ul class="pager wizard no-margin no-steps-container">
+                                                                            <li class="previous disabled">
+                                                                                <a href="javascript:void(0);" class="btn btn-lg btn-default" id="btnGeri"> Geri </a>
+                                                                            </li>
+                                                                            <li class="next">
+                                                                                <a href="javascript:void(0);" id="btnIleri" class="btn btn-lg txt-color-darken"> Kaydet ve İlerle</a>
+                                                                                <div id="loadingbtnIleri" class="hide" style="float:right;"><i class="fa fa-spinner fa-spin fa-2x"></i> İşleminiz yapılıyor ...</div>
+                                                                            </li>
+                                                                            <li class="finish" style="float: right; margin-right: 15px; display: block;">
+                                                                                @*@using (Ajax.BeginForm("KiraBeyanEkle", "Beyan", new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "dvGayrimenkulForm" }, new { enctype = "multipart/form-data", id = "gayrimenkulForm" }))
+                                                                                    {*@
+                                                                                <button class="btn btn-success" id="btnSonKaydet" type="button">
+                                                                                    Kaydet <span class="glyphicon glyphicon-ok"></span>
+                                                                                </button>
+                                                                                <div id="dvSonKaydet" class="hide" style="float:right;"><i class="fa fa-spinner fa-spin fa-2x"></i> İşleminiz yapılıyor ...</div>
+                                                                                @*  *@
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            }
+                                                }
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
+                            </div>
                         </div>
-                    </div>
-                </article>
-            </div>
-        </section>
-    </div>
+                    </article>
+                </div>
+            </section>
+        </div>
+    }
 }
 
 @section pagespecific {
@@ -717,43 +743,43 @@
 
     <!--KiraTutariHesaplama-->
     @*<script type="text/javascript">
-        $(document).on("change keyup blur", "#KiraTutari", function () {
+            $(document).on("change keyup blur", "#KiraTutari", function () {
 
-            var it = $('#IhaleTutari').val();
-            var ss = $('#SozlesmeSuresi').val();
-            var kt = $('#KiraTutari').val();
+                var it = $('#IhaleTutari').val();
+                var ss = $('#SozlesmeSuresi').val();
+                var kt = $('#KiraTutari').val();
 
-            //function round(value, decimals) {
-            //   return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
-            //}
+                //function round(value, decimals) {
+                //   return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
+                //}
 
-            //kt = round(kt, 2);
-
-
-            kt = kt.replace(/\./g, '');
-            it = it.replace(/\./g, '');
+                //kt = round(kt, 2);
 
 
-            if (kt != null && ss != null && it != null) {
-
-                var dec = (ss * 12);
-                var result = (it / dec);
+                kt = kt.replace(/\./g, '');
+                it = it.replace(/\./g, '');
 
 
-                $('#result').val(result);
-                var uyari = $('#dvTutarUyari');
+                if (kt != null && ss != null && it != null) {
 
-                if (result == kt) {
-                    kt = result;
-                    uyari.hide();
+                    var dec = (ss * 12);
+                    var result = (it / dec);
+
+
+                    $('#result').val(result);
+                    var uyari = $('#dvTutarUyari');
+
+                    if (result == kt) {
+                        kt = result;
+                        uyari.hide();
+                    }
+                    else {
+                        uyari.show();
+                    }
+
                 }
-                else {
-                    uyari.show();
-                }
-
-            }
-        });
-    </script>*@*
+            });
+        </script>*@*
 
 }
 
