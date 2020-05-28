@@ -16,6 +16,8 @@ namespace Framework.Entities.Concrete
         [StringLength(500)]
         public string Ad { get; set; }
 
+        public bool? KapatmaMi { get; set; }
+
         public int? OlusturanKullanici_Id { get; set; }
 
         public int? GuncelleyenKullanici_Id { get; set; }

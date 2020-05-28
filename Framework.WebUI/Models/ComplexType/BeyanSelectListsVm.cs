@@ -157,12 +157,12 @@ namespace Framework.WebUI.Models.ComplexType
             var iller = _parametreService.GetirListe(9).Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
             List<SelectListItem> newList = new List<SelectListItem>() {
                                   new SelectListItem(){
-                                    Text="Tam Artış",
-                                    Value="2"
+                                    Text="Tam Al",
+                                    Value="1"
                                   },
                                     new SelectListItem(){
-                                    Text="Normal Artış",
-                                    Value="1"
+                                    Text="Fark Al",
+                                    Value="2"
                                   }
             };
 
