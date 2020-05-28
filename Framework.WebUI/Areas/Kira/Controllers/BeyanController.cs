@@ -926,7 +926,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         public ActionResult BeyanSil(Guid guidId, int kiraciId, int gayrimenkulId)
         {
             var beyan = _beyanService.GetirGuid(guidId);
-            var tahakkukListesi = _tahakkukService.GetirListe(beyan.Id);
+            int kiraBeyanId = _kiraBeyanService.GetirBeyan(beyan.Id).Id;
+            var tahakkukListesi = _tahakkukService.GetirListe(kiraBeyanId);
             beyan.AktifMi = (int)EnmIslemDurumu.Silindi;
             _beyanService.Guncelle(beyan);
 
@@ -1531,7 +1532,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                         Tutar = item.Tutar.Value,
                         VadeTarihi = item.VadeTarihi.Value,
                         Aciklama = item.Aciklama,
-                        OdemeDurumu = item.OdemeDurumu.Value
+                        OdemeDurumu = item.OdemeDurumu.Value,
+                        AktifMi = (int)item.AktifMi
                     });
                 }
                 #endregion
