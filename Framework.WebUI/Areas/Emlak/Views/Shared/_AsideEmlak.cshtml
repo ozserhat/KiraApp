@@ -15,19 +15,19 @@
                 <ul>
                     <li class="@Html.RouteIf("Gayrimenkul", "active")">
                         @Html.AuthMainAction("Gayrimenkuller", "Index", "Gayrimenkul",
-                      "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                      "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]), Convert.ToBoolean(TempData["ActionVisibility"]))
                     </li>
                     <li class="@Html.RouteIf("GayrimenkulTur", "active")">
                             @Html.AuthMainAction("Gayrimenkul Türleri", "Index", "GayrimenkulTur",
-                           "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                           "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]), Convert.ToBoolean(TempData["ActionVisibility"]))
                         </li>
                     <li class="@Html.RouteIf("GayrimenkulDosyaTur", "active")">
                         @Html.AuthMainAction("Gayrimenkul Dosya Türleri", "Index", "GayrimenkulDosyaTur",
-                      "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                      "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]), Convert.ToBoolean(TempData["ActionVisibility"]))
                     </li>
                     <li class="@Html.RouteIf("GayrimenkulAltTur", "active")">
                         @Html.AuthMainAction("Gayrimenkul Alt Türleri", "Index", "GayrimenkulAltTur",
-                      "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                      "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]), Convert.ToBoolean(TempData["ActionVisibility"]))
                     </li>
                 </ul>
             </li>

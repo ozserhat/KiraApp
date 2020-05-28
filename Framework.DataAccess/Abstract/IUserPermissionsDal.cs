@@ -15,6 +15,9 @@ namespace Framework.DataAccess.Abstract
 
         User_Permission GetByPermissionControllerId(int id,int userid);
 
+        User_Permission GetByVisibilityControllerId(int id, int userid);
+
+
         List<User_Permission> GetUserByPermissions(int UserId);
 
         User_Permission GetUserPermissionExists(User_Permission userPermission);
