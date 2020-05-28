@@ -247,6 +247,8 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Üfe Oranları")]
         public SelectList UfeOranlari { get; set; }
 
+        [Display(Name = "Artış Türü")]
+        public SelectList ArtisTuruSelectList { get; set; }
     }
 
     public class KiraParametreDetay

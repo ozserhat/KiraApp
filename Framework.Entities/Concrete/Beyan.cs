@@ -84,6 +84,8 @@ namespace Framework.Entities.Concrete
         [StringLength(2500)]
         public string Aciklama { get; set; }
 
+        public int? ArtisTuru { get; set; }
+
 
         public int? OlusturanKullanici_Id { get; set; }
 
