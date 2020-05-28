@@ -415,6 +415,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         {
             bool artisSonuc = false;
 
+
             var kiraBeyan = _kiraBeyanService.Getir(beyanArtis.KiraBeyan_Id);
 
             BeyanEkleVM ekleVM = GetirBeyanEkleVM(beyanArtis.Beyan_Id);
