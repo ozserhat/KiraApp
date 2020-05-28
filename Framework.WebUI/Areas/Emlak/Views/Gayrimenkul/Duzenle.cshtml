@@ -4,9 +4,6 @@
     Layout = "~/Areas/Emlak/Views/Shared/_LayoutEmlak.cshtml";
 }
 
-
-
-
 @if (!Model.HideContent)
 {
     <div id="content">
@@ -473,7 +470,7 @@
             wizard.bootstrapWizard({
                 'tabClass': 'nav nav-pills',
                 onTabClick: function (tab, navigation, index) {
-                    return true;
+                    return false;
                 },
                 onNext: function (tab, navigation, index) {
 
