@@ -311,6 +311,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 model.EkTahakkukOranlari = EkTahakkukOranlariSelectList();
                 model.KiraDurumSelectList = KiraDurumFullSelectList();
                 model.UfeOranlari = UfeOranSelectList();
+                model.ArtisTuruSelectList = ArtisTuruSelectList();
             }
 
             return View(model);
@@ -414,7 +415,6 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         public JsonResult KiraBeyanArtis(KiraArtisEkleVM beyanArtis)
         {
             bool artisSonuc = false;
-
 
             var kiraBeyan = _kiraBeyanService.Getir(beyanArtis.KiraBeyan_Id);
 
@@ -553,6 +553,23 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             var iller = _ufeOranService.GetirListeAktif().Select(x => new { Id = x.Id, Ad = x.Ad + " (%" + x.Oran + ")" }).ToList();
 
             return new SelectList(iller, "Id", "Ad");
+        }
+
+        public SelectList ArtisTuruSelectList()
+        {
+            var iller = _parametreService.GetirListe(9).Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+            List<SelectListItem> newList = new List<SelectListItem>() {
+                                  new SelectListItem(){
+                                    Text="Tam Artış",
+                                    Value="2"
+                                  },
+                                    new SelectListItem(){
+                                    Text="Normal Artış",
+                                    Value="1"
+                                  }
+            };
+
+            return new SelectList(newList, "Value", "Text");
         }
 
         #endregion       
