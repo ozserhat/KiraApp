@@ -8,7 +8,7 @@
 
 @if (!Model.HideContent)
 {
-    if ((DateTime)Model.Beyan.OlusturulmaTarihi < DateTime.Now.AddDays(-1))
+    if (Model.Beyan.OlusturulmaTarihi.HasValue && (DateTime)Model.Beyan.OlusturulmaTarihi < DateTime.Now.AddDays(-1))
     {
         <div id="content">
             <section id="widget-grid" class="sayfaust_bosluk">

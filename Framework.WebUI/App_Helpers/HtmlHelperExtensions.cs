@@ -426,12 +426,17 @@ namespace Framework.WebUI
         }
 
         public static MvcHtmlString AuthMainAction(this HtmlHelper htmlHelper, string linkText, string actionName, string controllerName,
-             string htmlAttributes, bool showActionLinkAsDisabled)
+             string htmlAttributes, bool isAuth, bool showActionLink)
         {
             var requestUrl = string.Format("{0}", "~/" +
               HttpContext.Current.Request.RequestContext.RouteData.DataTokens["area"] + "/" + controllerName + "/" + actionName);
 
             string returnUrl = VirtualPathUtility.ToAbsolute(requestUrl, htmlHelper.ViewContext.RequestContext.HttpContext.Request.ApplicationPath);
+         
+            if (!showActionLink)
+            {
+                return MvcHtmlString.Empty;
+            }
 
             if (htmlHelper.ActionAuthorized(actionName, controllerName))
             {

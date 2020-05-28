@@ -86,6 +86,7 @@ namespace Framework.Entities.Concrete
 
         public int? ArtisTuru { get; set; }
 
+        public int? KiraYenilemePeriyot { get; set; }
 
         public int? OlusturanKullanici_Id { get; set; }
 

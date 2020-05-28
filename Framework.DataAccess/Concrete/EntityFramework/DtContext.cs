@@ -59,6 +59,8 @@ namespace Framework.DataAccess.Concrete.EntityFramework
 
         public DbSet<PersonelBeyan> PersonelBeyanlari { get; set; }
 
+        public DbSet<MenuYetki> MenuYetkileri { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 

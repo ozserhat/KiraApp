@@ -22,6 +22,8 @@ namespace Framework.Entities.Concrete
         public bool? YetkiliMi { get; set; }
         public bool? AktifMi { get; set; }
 
+        public bool? GorulebilirMi { get; set; }
+
         public int User_Id { get; set; }
         [ForeignKey("User_Id")]
         public User Users { get; set; }

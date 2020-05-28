@@ -1,0 +1,350 @@
+﻿@model Framework.WebUI.Models.ViewModels.KullaniciSayfaYetkiVM
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    int sonSayfa = 0;
+    ViewBag.Title = "KullaniciSayfaYetkileri";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+
+@if (Model.Errors != null && Model.Errors.Count > 0)
+{
+    <div id="content">
+        <section id="widget-grid">
+            <div class="row">
+                <div class="row alert alert-danger">
+                    <i class="glyphicon glyphicon-warning-sign col-md-1"></i>
+                    <ul style="list-style-type:none" class="col-md-11">
+                        @foreach (var item in Model.Errors)
+                        {
+                            <li>@item</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+}
+@if (!Model.HideContent)
+{
+    @Html.Hidden("User_Id", Request.QueryString["KullaniciId"].ToString())
+    <div id="content">
+        <section id="widget-grid" class="sayfaust_bosluk">
+            <div class="row">
+                <article class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
+                        <header>
+                            <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+                            <h2>Yetki Listesi - <b>Toplam Yetki Adedi : @Model.TotalRecordCount</b></h2>
+                            <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
+                                <p>
+                                    <a href="@Url.Action("Index")" class="btn btn-warning" title="" rel="tooltip" data-placement="bottom" data-original-title="Kullanıcı Listesine Dön"><span class="glyphicon glyphicon-chevron-left"></span> Kullanıcı Listesine Dön</a>
+                                </p>
+                            </div>
+                        </header>
+                        <div role="contentinfo">
+                            <div class="widget-body">
+                                <div class="tab-pane fade active in">
+                                    <div class="form-group">
+                                        <div class="col-md-6">
+
+                                            <div style="float:left; margin-top: -5px; padding-bottom: 8px;">
+                                                Kullanıcıya Ait Yetkiler - <b>
+                                                    Toplam Yetki Adedi : @Model.TotalRecordCount
+                                                    <a id="btnKaldir" class="btn btn-warning">
+                                                        <i class="glyphicon glyphicon-minus"></i> &nbsp;  Kaldır
+                                                    </a>
+                                                </b>
+                                            </div>
+
+                                            <table id="dt_basic" class="table table-striped table-bordered table-hover dataTable no-footer" role="grid" aria-describedby="dt_basic_info">
+                                                <thead>
+                                                    <tr role="row">
+                                                        <th style="width: 20px;"></th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Area Adı</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Sayfa Adı</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Metod Adı</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Tür</th>
+                                                    </tr>
+                                                </thead>
+                                                @if (Model.KullaniciYetki != null && Model.KullaniciYetki.Count > 0)
+                                                {
+                                                    <tbody>
+
+                                                        @{int i = ((Model.PageNumber - 1) * Model.PageSize) + 1;}
+
+                                                        @foreach (var item in Model.KullaniciYetki)
+                                                        {
+                                                            string controllerName = item.ControllerActions.Controller.Replace("Controller", "");
+                                                            string typeName = (string.IsNullOrEmpty(item.ControllerActions.Attributes) ? "HttpGet" : item.ControllerActions.Attributes);
+                                                            <tr role="row" class="odd">
+                                                                <td>@Html.DisplayFor(model => item.Id)</td>
+                                                                <td>@Html.DisplayFor(model => item.ControllerActions.AreaName)</td>
+                                                                <td>@Html.DisplayFor(model => controllerName)</td>
+                                                                <td>@Html.DisplayFor(model => item.ControllerActions.Action)</td>
+                                                                <td>@Html.DisplayFor(model => typeName)</td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                }
+                                                else
+                                                {
+                                                    <tbody>
+                                                        <tr class="odd">
+                                                            <td valign="top" colspan="4" class="dataTables_empty">Tablo için gösterilecek bir kayıt bulunmamaktadır</td>
+                                                        </tr>
+                                                    </tbody>
+                                                }
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
+                                                Yetki Verilecek Sayfalar <b>
+                                                    Toplam Yetki Adedi : @Model.Sayfalar.TotalItemCount
+                                                    <a id="btnEkle" class="btn btn-primary">
+                                                        <i class="glyphicon glyphicon-plus"></i> &nbsp;  Ekle
+                                                    </a>
+                                                </b>
+                                            </div>
+                                            <table id="dt_basic2" class="table table-striped table-bordered table-hover dataTable no-footer" role="grid" aria-describedby="dt_basic_info">
+                                                <thead>
+                                                    <tr role="row">
+                                                        <th style="width: 20px;"></th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Area Adı</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Sayfa Adı</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Metod Adı</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Tür</th>
+                                                    </tr>
+                                                </thead>
+                                                @if (Model.Sayfalar != null && Model.Sayfalar.Count > 0)
+                                                {
+                                                    <tbody>
+
+                                                        @{int i = ((Model.PageNumber - 1) * Model.PageSize) + 1;}
+
+                                                        @foreach (var item in Model.Sayfalar)
+                                                        {
+                                                            string controllerName = item.Controller.Replace("Controller", "");
+                                                            string typeName = (string.IsNullOrEmpty(item.Attributes) ? "HttpGet" : item.Attributes);
+
+                                                            <tr role="row" class="odd">
+                                                                <td>@Html.DisplayFor(model => item.Id)</td>
+                                                                <td>@Html.DisplayFor(model => item.AreaName)</td>
+                                                                <td>@Html.DisplayFor(model => controllerName)</td>
+                                                                <td>@Html.DisplayFor(model => item.Action)</td>
+                                                                <td>@Html.DisplayFor(model => typeName)</td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                }
+                                                else
+                                                {
+                                                    <tbody>
+                                                        <tr class="odd">
+                                                            <td valign="top" colspan="4" class="dataTables_empty">Tablo için gösterilecek bir kayıt bulunmamaktadır</td>
+                                                        </tr>
+                                                    </tbody>
+                                                }
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+    </div>
+
+    using (Html.BeginForm("Index", "KullaniciSayfaYetki", new { page = 1 }, FormMethod.Post, new { @id = "sorgulamaKriterleri" }))
+    {
+        <input id="page" name="page" type="hidden" value="">
+    }
+}
+
+
+@section pagespecific {
+    @Scripts.Render("~/bundles/jqueryval")
+    <link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
+    <script src="~/Content/SweetAlert/sweetalert2.min.js"></script>
+
+    <script type="text/javascript">
+        var dt;
+        var dt2;
+        var closestRow = [];
+        var closestRow2 = [];
+        var removeList = [];
+        var removeList2 = [];
+        var dt_settings = {
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Turkish.json"
+            }
+        };
+
+        $(document).ready(function () {
+
+            dt = $('#dt_basic').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Turkish.json"
+                },
+                'columnDefs': [
+                    {
+                        'targets': 0,
+                        'searchable': false,
+                        'orderable': false,
+                        'className': 'dt-body-center', "select": {
+                            "style": "multi",
+                            selector: 'tr>td:nth-child(0), tr>td:nth-child(0)'
+                        },
+                        'render': function (data, type, row) {
+                            if (type === 'display') {
+                                return '<input type="checkbox" class="chcBox" value="' + $('<div/>').text(data).html() + '">';
+                            }
+                            return data;
+                        }
+                    }],
+                order: [1, 'asc'],
+            });
+
+            dt2 = $('#dt_basic2').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Turkish.json"
+                },
+                'columnDefs': [
+                    {
+                        'targets': 0,
+                        'searchable': false,
+                        'orderable': false,
+                        'className': 'dt-body-center',"select": {
+                        "style": "multi",
+                        selector: 'tr>td:nth-child(0), tr>td:nth-child(1)'
+
+                    },
+                        'render': function (data, type, full, meta) {
+                            return '<input type="checkbox" class="checkBox2" value="' + $('<div/>').text(data).html() + '">';
+                        }
+                    }],
+                order: [1, 'asc'],
+            });
+
+            if (@sonSayfa < 8) {
+                $("#sayfalama").css("display", "none");
+            }
+
+            $('.chcBox').on("click", function () {
+
+                var dt = $("#dt_basic").dataTable();
+                var row = $(this).closest('tr');
+                var chkbox_checked = $('tbody input[type="checkbox"]:checked', dt);
+                var tuisre = $(this).is(":checked");
+                if (tuisre) {
+                    closestRow.push(row);
+                    var ID = this.value;
+                    removeList.push(ID);
+                }
+            });
+
+            $('.checkBox2').on("change", function () {
+                var row2 = $(this).closest('tr');
+                var oTable2 = $("#dt_basic2").dataTable();
+                var tuisre = $(this).is(":checked");
+                if (tuisre) {
+                    closestRow2.push(row2);
+                    var ID = this.value;
+                    removeList2.push(ID);
+                }
+            });
+
+            $('#btnEkle').on('click', function (e) {
+                e.preventDefault();
+                var kullaniciId = $('#User_Id').val();
+                var closestTR = $(this).closest("tr");
+
+                  $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("YetkiEkle", "KullaniciSayfaYetki")',
+                    data: { kullaniciYetki: removeList2, KullaniciId: kullaniciId },
+                    success: function (result) {
+                        if (result != null && result.success) {
+
+                            var i;
+                            for (i = 0; i < closestRow2.length; i++) {
+                                closestRow2[i].fadeOut(2000, function () {
+                                    dt = $('#dt_basic').DataTable();
+                                    dt2 = $('#dt_basic2').DataTable();
+                                    location.reload();
+                                });
+                            }
+
+                            swal('Uyarı!', name + ' ' + result.Message, 'success');
+                        }
+                        else {
+                            swal('Uyarı!', result.Message, 'warning');
+                        }
+                    },
+                    error: function (xhr) {
+                        swal('Uyarı!', result.Message, 'warning');
+                    }
+                 });
+            });
+
+            $('#btnKaldir').on('click', function (e) {
+                e.preventDefault();
+                var kullaniciId = $('#User_Id').val();
+                var closestTR = $(this).closest("tr");
+                var vl = deletePermissions(kullaniciId, closestRow);
+            });
+
+        });
+
+
+    </script>
+
+    <script type="text/javascript">
+        function deletePermissions(kullaniciId, closestTR) {
+            swal({
+                title: "Uyarı",
+                text: " Kullanıcının Yetkileri Silmek İstediğinizden Emin misiniz?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Evet",
+                cancelButtonText: "İptal"
+            }).then(function (isConfirm) {
+                if (isConfirm) {
+                $.ajax({
+                    type: 'POST',
+                    url: "@Url.Content("~/KullaniciSayfaYetki/YetkiKaldir")",
+                    data: { kullaniciYetki: removeList, KullaniciId: kullaniciId },
+                    success: function (result) {
+                        if (result.success) {
+                            var i;
+                            for (i = 0; i < closestTR.length; i++) {
+                                closestTR[i].fadeOut(2000, function () {
+                                    dt = $('#dt_basic').DataTable();
+                                    dt2 = $('#dt_basic2').DataTable();
+                                    location.reload();
+                                });
+                            }
+
+                            swal('Uyarı!', name + ' ' + result.Message, 'success');
+                        }
+                        else swal('Uyarı!', name + ' ' + result.Message, 'error');
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+                }
+            })
+        }
+    </script>
+
+}
+
+
