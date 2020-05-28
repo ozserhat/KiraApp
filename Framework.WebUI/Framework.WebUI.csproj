@@ -1134,6 +1134,7 @@
     <Content Include="Areas\Admin\Views\BeyanUfeOran\Index.cshtml" />
     <Content Include="Areas\Admin\Views\BeyanUfeOran\Ekle.cshtml" />
     <Content Include="Areas\Admin\Views\BeyanUfeOran\Duzenle.cshtml" />
+    <Content Include="Areas\Emlak\Views\Gayrimenkul\Duzenle.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
@@ -1799,7 +1800,6 @@
     <Folder Include="Content\login\js\" />
     <Folder Include="Content\login\webfonts\" />
     <Folder Include="Dosyalar\Beyan\" />
-    <Folder Include="Views\BeyanDosya_TurVM\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

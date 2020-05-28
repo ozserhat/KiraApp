@@ -22,16 +22,25 @@
 <div id="content" class="container centered">
     <div class="row">
         <div class="col-md-4 col-md-offset-2 text-center">
-            <h2 class="page-header">Rol SeÃ§iniz</h2>
+            <h2 class="page-header">Rol Seciniz</h2>
             <ul class="list-group nav">
-                @foreach (var item in Model.Roller)
-                {
-                    <li class="list-group-item">
-                        <a href="@Url.Action(item.ActionName, item.ControllerName, new { area = item.AreaName})">
-                            @item.Description
-                        </a>
-                    </li>
-                }
+                @*@foreach (var item in Model.Roller)
+        {
+            <li class="list-group-item">
+                <a href="@Url.Action(item.ActionName, item.ControllerName, new { area = item.AreaName})">
+                    @item.Description
+                </a>
+            </li>
+        }*@
+                <li class="list-group-item">
+                    <a href="/admin/anasayfa">Admin</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="/emlak/anasayfa">Emlak Ýstimlak Daire Baþkanlýðý</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="/kira/anasayfa">Kira Ýþleri Þube Müdürlüðü</a>
+                </li>
             </ul>
         </div>
     </div>

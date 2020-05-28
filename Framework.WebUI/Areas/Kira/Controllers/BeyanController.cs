@@ -111,9 +111,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         public ActionResult GayrimenkulSorgula(GayrimenkulBeyanRequest request, int? page, int pageSize = 15)
         {
             var model = new GayrimenkulBeyanVM();
-
+       
             var beyanlar = _kiraBeyanService.GetirSorguListeGayrimenkul(request);
-
 
             model.PageNumber = page ?? 1;
             model.PageSize = pageSize;
@@ -135,9 +134,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         public ActionResult SicilSorgula(SicilBeyanRequest request, int? page, int pageSize = 15)
         {
             var model = new SicilBeyanVM();
-
+    
             var beyanlar = _kiraBeyanService.GetirSorguListeSicil(request);
-
 
             model.PageNumber = page ?? 1;
             model.PageSize = pageSize;
@@ -158,8 +156,21 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         {
             var model = new KiraBeyanVM();
 
-            var beyanlar = _kiraBeyanService.GetirSorguListe(request);
+            if (request.BeyanYil.HasValue)
+            {
+                var yillist = _parametreService.Getir(request.BeyanYil.Value);
 
+                request.BeyanYil = int.Parse(yillist.Deger);
+            }
+
+            if (request.Kdv.HasValue)
+            {
+                var kdvlist = _parametreService.Getir(request.Kdv.Value);
+
+                request.Kdv = int.Parse(kdvlist.Ad);
+            }
+       
+            var beyanlar = _kiraBeyanService.GetirSorguListe(request);
 
             model.PageNumber = page ?? 1;
             model.PageSize = pageSize;
@@ -231,7 +242,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
         public SelectList BeyanYilSelectList()
         {
-            var yillar = _parametreService.GetirListe(1).Where(a=>a.AktifMi.Value).Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+            var yillar = _parametreService.GetirListe(1).Where(a => a.AktifMi.Value).Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
 
             return new SelectList(yillar, "Id", "Ad");
         }
@@ -943,7 +954,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                     KiraBeyan_Id = kiraBeyanId,
                     KiraParametre_Id = kiraParametre.Id,
                     ServisSonucTahakkukId = null,
-                    BeyanYil= kiraBeyanModel.Beyan.BeyanYil.Value,
+                    BeyanYil = kiraBeyanModel.Beyan.BeyanYil.Value,
                     KiraParametreKodu = kiraParametre.KararHarciTarifeKodu.Value,
                     TahakkukTarihi = DateTime.Now,
                     VadeTarihi = vadeTarih,
@@ -951,7 +962,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                     Tutar = karakHarciTutar,
                     KalanBorcTutari = null,
                     OdemeDurumu = false,
-                    EkTahakkukMu=false,
+                    EkTahakkukMu = false,
                     Aciklama = kiraParametre.KararHarciTarifeAciklama,
                     OlusturulmaTarihi = DateTime.Now,
                     OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
@@ -1465,7 +1476,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 KiraBeyan_Id = tahakkuk.KiraBeyan_Id.Value,
                 KiraParametre_Id = kiraParametre.Id,
                 ServisSonucTahakkukId = null,
-                BeyanYil=tahakkuk.BeyanYil.Value,
+                BeyanYil = tahakkuk.BeyanYil.Value,
                 KiraParametreKodu = kiraParametre.KiraTarifeKodu.Value,
                 TahakkukTarihi = DateTime.Now,
                 VadeTarihi = vadeTarih,
@@ -1473,7 +1484,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 Tutar = tahakkukTutar,
                 KalanBorcTutari = null,
                 OdemeDurumu = false,
-                KdvAlinacakMi=tahakkuk.KdvAlinacakMi,
+                KdvAlinacakMi = tahakkuk.KdvAlinacakMi,
                 EkTahakkukKdvOran = tahakkuk.EkTahakkukKdvOran,
                 EkTahakkukMu = true,
                 Aciklama = tahakkuk.Aciklama,

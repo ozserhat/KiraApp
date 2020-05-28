@@ -102,9 +102,9 @@ namespace Framework.Entities.Concrete
         public int? VergiNo { get; set; }
         public string Ad { get; set; }
         public string SoyAd { get; set; }
-        public int? IlId { get; set; }
-        public int? IlceId { get; set; }
-        public int? MahalleId { get; set; }
+        public int? Il_Id { get; set; }
+        public int? Ilce_Id { get; set; }
+        public int? Mahalle_Id { get; set; }
 
 
     }

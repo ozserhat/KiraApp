@@ -33,7 +33,6 @@ namespace Framework.WebUI.Models.ViewModels
 
         public IPagedList<Kira_Beyan> Beyanlar { get; set; }
 
-
         public List<TahakkukVM> TahakkukDetay { get; set; }
 
         [Display(Name = "Beyan Yıl")]
