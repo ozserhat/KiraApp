@@ -38,7 +38,7 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Ödeme Durumu")]
         public bool OdemeDurumu { get; set; }
-         
+
         public IPagedList<Tahakkuk> Tahakkuklar { get; set; }
         [Display(Name = "Tahakkuk Türü")]
         public SelectList TahakkukTurSelectList { get; set; }
@@ -48,6 +48,9 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Ödeme Durumu")]
         public SelectList OdemeDurumuSelectList { get; set; }
+
+        [Display(Name = "Durumu")]
+        public int AktifMi { get; set; }
     }
 
     public class TahakkukEkleVM : PagingVMBase

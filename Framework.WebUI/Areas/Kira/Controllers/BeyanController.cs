@@ -695,7 +695,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                         Tutar = item.Tutar.Value,
                         VadeTarihi = item.VadeTarihi.Value,
                         Aciklama = item.Aciklama,
-                        OdemeDurumu = item.OdemeDurumu.Value
+                        OdemeDurumu = item.OdemeDurumu.Value,
+                        AktifMi= (int)item.AktifMi,
                     });
                 }
                 #endregion
