@@ -7,18 +7,16 @@ using PagedList;
 using System;
 using System.Linq;
 using System.Web.Mvc;
-
 namespace Framework.WebUI.Areas.Admin.Controllers
 {
     [CustomAuthorize(Roles = "Admin")]
-    public class KullaniciYetkiController : Controller
+    public class KullaniciSayfaYetkiController : Controller
     {
-
         #region Constructor
         private IUserService _userService;
         private IUserPermissionsService _service;
         private IControllerActionService _controlleService;
-        public KullaniciYetkiController(IUserPermissionsService service, IUserService userService, IControllerActionService controlleService)
+        public KullaniciSayfaYetkiController(IUserPermissionsService service, IUserService userService, IControllerActionService controlleService)
         {
             _service = service;
             _userService = userService;
@@ -31,7 +29,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
         {
             var kullanicilar = _userService.GetAll();
 
-            var model = new KullaniciYetkiVM();
+            var model = new KullaniciSayfaYetkiVM();
 
             model.PageNumber = page ?? 1;
             model.PageSize = pageSize;
@@ -45,7 +43,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
             return View(model);
         }
 
-        public ActionResult KullaniciYetkileri(int KullaniciId, int? page, int pageSize = 15)
+        public ActionResult KullaniciSayfaYetkileri(int KullaniciId, int? page, int pageSize = 15)
         {
             var yetki = _service.GetUserByPermissions(KullaniciId);
 
@@ -68,18 +66,18 @@ namespace Framework.WebUI.Areas.Admin.Controllers
             return View(model);
         }
 
-       
+
 
         #endregion
 
-        #region KullaniciYetkiEklemeKaldirma
+        #region KullaniciSayfaYetkiEklemeKaldirma
 
         [HttpPost]
-        public JsonResult YetkiKaldir(string[] kullaniciYetki, string KullaniciId)
+        public JsonResult YetkiKaldir(string[] kullaniciSayfaYetki, string KullaniciId)
         {
             User_Permission permission = new User_Permission();
 
-            foreach (string item in kullaniciYetki)
+            foreach (string item in kullaniciSayfaYetki)
             {
                 var yetki = _service.GetById(int.Parse(item));
 
@@ -90,18 +88,18 @@ namespace Framework.WebUI.Areas.Admin.Controllers
             }
 
             if (permission.AktifMi.HasValue && !permission.AktifMi.Value)
-                return Json(new { success = true, Message = "Kullanıcı Yetkileri Başarıyla Kaldırıldı." }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, Message = "Kullanıcı Sayfa Yetkileri Başarıyla Kaldırıldı." }, JsonRequestBehavior.AllowGet);
             else
-                return Json(new { success = false, Message = "Kullanıcı Yetkileri Kaldırılamadı!!!" }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = false, Message = "Kullanıcı Sayfa Yetkileri Kaldırılamadı!!!" }, JsonRequestBehavior.AllowGet);
         }
 
 
         [HttpPost]
-        public JsonResult YetkiEkle(string[] kullaniciYetki, string KullaniciId)
+        public JsonResult YetkiEkle(string[] kullaniciSayfaYetki, string KullaniciId)
         {
             User_Permission permission = new User_Permission();
 
-            foreach (string item in kullaniciYetki)
+            foreach (string item in kullaniciSayfaYetki)
             {
                 permission = new User_Permission()
                 {
@@ -110,19 +108,18 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                     GuncellenmeTarihi = DateTime.Now,
                     GuncelleyenKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
                     AktifMi = true,
-                    YetkiliMi = true,
-                    GorulebilirMi = true
+                    YetkiliMi = true
                 };
 
                 permission = _service.Ekle(permission);
             }
 
             if (permission.AktifMi.HasValue && permission.AktifMi.Value)
-                return Json(new { success = true, Message = "Kullanıcı Yetkileri Eklendi." }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, Message = "Kullanıcı Sayfa Yetkileri Eklendi." }, JsonRequestBehavior.AllowGet);
             else
-                return Json(new { success = false, Message = "Kullanıcı Yetkileri Eklenemedi!!!" }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = false, Message = "Kullanıcı Sayfa Yetkileri Eklenemedi!!!" }, JsonRequestBehavior.AllowGet);
         }
-    
+
         #endregion
     }
 }

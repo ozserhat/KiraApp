@@ -572,7 +572,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             return new SelectList(newList, "Value", "Text");
         }
 
-        #endregion       
+        #endregion
 
         #region Metodlar
 
@@ -1066,24 +1066,25 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             return sonuc;
         }
 
-        private void BeyanSil(KiraBeyanEkleVM kiraBeyanModel)
+        public ActionResult BeyanSil(Guid guidId, int kiraciId, int gayrimenkulId)
         {
-            var tahakkukListesi = _tahakkukService.GetirListe(kiraBeyanModel.Beyan.Id);
-            var beyan = kiraBeyanModel.Beyan;
-            beyan.AktifMi = (int)EnmIslemDurumu.Pasif;
-            BeyanEkle(kiraBeyanModel.Beyan);
+            var beyan = _beyanService.GetirGuid(guidId);
+            var tahakkukListesi = _tahakkukService.GetirListe(beyan.Id);
+            beyan.AktifMi = (int)EnmIslemDurumu.Silindi;
+            _beyanService.Guncelle(beyan);
 
-            //Tahakkuklar Pasife alınır.
+            //Tahakkuklar Silinir
             foreach (var item in tahakkukListesi)
             {
-                item.AktifMi = (int)EnmIslemDurumu.Pasif;
+                item.AktifMi = (int)EnmIslemDurumu.Silindi;
                 _tahakkukService.Guncelle(item);
             }
 
-            //Kira Beyan Sayfası Pasife Alınır.
-            var kiraBeyan = _kiraBeyanService.Getir(kiraBeyanModel.Beyan.Id, kiraBeyanModel.Gayrimenkul.Id, kiraBeyanModel.Kiraci.Id);
-            kiraBeyan.AktifMi = (int)EnmIslemDurumu.Pasif;
+            // Kira Beyan Sayfası Silinir Alınır.
+            var kiraBeyan = _kiraBeyanService.Getir(beyan.Id, gayrimenkulId, kiraciId);
+            kiraBeyan.AktifMi = (int)EnmIslemDurumu.Silindi;
             _kiraBeyanService.Guncelle(kiraBeyan);
+            return RedirectToAction("Index");
 
         }
 
