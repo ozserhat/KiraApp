@@ -1,6 +1,7 @@
 ﻿using Framework.Business.Abstract;
 using Framework.DataAccess.Abstract;
 using Framework.Entities.Concrete;
+using Framework.Entities.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +46,7 @@ namespace Framework.Business.Concrete.Managers
 
         public IEnumerable<Beyan> GetirListeAktif()
         {
-            return _beyanDal.GetirListe().Where(a => a.AktifMi == true).ToList();
+            return _beyanDal.GetirListe().Where(a => a.AktifMi == (int)EnmIslemDurumu.Aktif).ToList();
         }
 
         public Beyan Guncelle(Beyan tur)

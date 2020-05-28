@@ -63,16 +63,62 @@ namespace Framework.WebUI.App_Helpers
             if (this.AuthorizeCore(filterContext.HttpContext) && GetPermissions(controllerName, actionName, userId))
             {
                 filterContext.Controller.TempData["OpenAuthorizationPopup"] = true;
+                filterContext.Controller.TempData["ActionVisibility"] = true;
+
                 base.OnAuthorization(filterContext);
+            }
+            else if (this.AuthorizeCore(filterContext.HttpContext) && GetPermissions(controllerName, actionName, userId))
+            {
+                filterContext.Controller.TempData["OpenAuthorizationPopup"] = false;
+                filterContext.Controller.TempData["ActionVisibility"] = false;
+
+                filterContext.Controller.TempData["returnUrl"] = filterContext.HttpContext.Request.UrlReferrer;
+                filterContext.Controller.ViewData.ModelState.AddModelError("LogMessage", "Yetkiniz Bulunmamaktadır!!!");
+                //var viewResult = new PartialViewResult();
+                //viewResult.ViewName = "_Unauthorized";
+                filterContext.Result = new HttpUnauthorizedResult();
             }
             else
             {
 
                 filterContext.Controller.TempData["OpenAuthorizationPopup"] = false;
+                filterContext.Controller.TempData["ActionVisibility"] = false;
+
                 filterContext.Controller.TempData["returnUrl"] = filterContext.HttpContext.Request.UrlReferrer;
                 filterContext.Controller.ViewData.ModelState.AddModelError("LogMessage", "Yetkiniz Bulunmamaktadır!!!");
                 //var viewResult = new PartialViewResult();
                 //viewResult.ViewName = "_Unauthorized";
+                filterContext.Result = new HttpUnauthorizedResult();
+            }
+        }
+
+        public void OnVisibility(AuthorizationContext filterContext)
+        {
+            int userId = 0;
+
+            string controllerName, actionName;
+
+            controllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName + "Controller";
+
+            actionName = filterContext.ActionDescriptor.ActionName;
+            ClaimsIdentity claimsIdentity;
+            var httpContext = HttpContext.Current;
+            claimsIdentity = httpContext.User.Identity as ClaimsIdentity;
+
+            if (claimsIdentity.FindFirst("UserId") != null)
+                userId = Int32.Parse(claimsIdentity.FindFirst("UserId").Value);
+
+            if (this.AuthorizeCore(filterContext.HttpContext) && GetPermissions(controllerName, actionName, userId))
+            {
+                filterContext.Controller.TempData["OpenVisibilityPopup"] = true;
+                base.OnAuthorization(filterContext);
+            }
+            else
+            {
+
+                filterContext.Controller.TempData["OpenVisibilityPopup"] = false;
+                filterContext.Controller.TempData["returnUrl"] = filterContext.HttpContext.Request.UrlReferrer;
+                filterContext.Controller.ViewData.ModelState.AddModelError("LogMessage", "Yetkiniz Bulunmamaktadır!!!");
                 filterContext.Result = new HttpUnauthorizedResult();
             }
         }
@@ -85,8 +131,12 @@ namespace Framework.WebUI.App_Helpers
                 controllerAction = ControllerGetByName(controllerName, actionName);
 
             var user_Permission = (controllerAction != null ? PermissionsGetById(controllerAction.Id, userId) : null);
+            var user_visibility = (controllerAction != null ? UserVisibilityGetById(controllerAction.Id, userId) : null);
 
             if (user_Permission != null)
+                return true;
+
+            if (user_visibility != null)
                 return true;
 
             return false;
@@ -108,6 +158,16 @@ namespace Framework.WebUI.App_Helpers
 
             EfUserPermissionsDal _permissionService = new EfUserPermissionsDal();
             result = _permissionService.GetByPermissionControllerId(id, userid);
+
+            return result;
+        }
+
+        public User_Permission UserVisibilityGetById(int id, int userid)
+        {
+            User_Permission result = null;
+
+            EfUserPermissionsDal _permissionService = new EfUserPermissionsDal();
+            result = _permissionService.GetByVisibilityControllerId(id, userid);
 
             return result;
         }

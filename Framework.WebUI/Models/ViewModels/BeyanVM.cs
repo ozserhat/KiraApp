@@ -131,7 +131,7 @@ namespace Framework.WebUI.Models.ViewModels
         public DateTime? OlusturulmaTarihi { get; set; }
 
         [Display(Name = "Aktif Mi")]
-        public bool AktifMi { get; set; }
+        public int AktifMi { get; set; }
 
         public int Id { get; set; }
     }
@@ -333,7 +333,7 @@ namespace Framework.WebUI.Models.ViewModels
         public DateTime? OlusturulmaTarihi { get; set; }
 
         [Display(Name = "Aktif Mi")]
-        public bool AktifMi { get; set; }
+        public int AktifMi { get; set; }
 
     }
 

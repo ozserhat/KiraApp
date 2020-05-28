@@ -115,5 +115,17 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             return sonuc;
         }
 
+        public User_Permission GetByVisibilityControllerId(int id, int userid)
+        {
+            using (DtContext context = new DtContext())
+            {
+                var result = context.User_Permissions
+                                   .Include(u => u.Users)
+                                   .Include(r => r.ControllerActions)
+                                   .Where(r => r.ControllerAction_Id == id && r.User_Id == userid && r.GorulebilirMi == true).FirstOrDefault();
+
+                return result;
+            }
+        }
     }
 }

@@ -82,6 +82,7 @@
     <Compile Include="Concrete\Kira_Durum.cs" />
     <Compile Include="Concrete\Logs.cs" />
     <Compile Include="Concrete\Mahalle.cs" />
+    <Compile Include="Concrete\MenuYetki.cs" />
     <Compile Include="Concrete\OdemePeriyotTur.cs" />
     <Compile Include="Concrete\OtoparkTatilGun.cs" />
     <Compile Include="Concrete\PersonelBeyan.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Concrete\User.cs" />
     <Compile Include="Concrete\User_Permission.cs" />
     <Compile Include="Concrete\User_Role.cs" />
+    <Compile Include="Enums\EnmIslemDurumu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

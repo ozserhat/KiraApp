@@ -1054,6 +1054,19 @@ div.dataTables_info {
     padding: 3px 6px;
     border: solid 2px;
     background: none;
+    border-color: #94a0b4;
+    color: #94a0b4;
+    font-weight: 700;
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    width: 45px;
+}
+
+.silindi-buton {
+    padding: 3px 3px;
+    border: solid 2px;
+    background: none;
     border-color: #e74c3c;
     color: #e74c3c;
     font-weight: 700;
@@ -1062,6 +1075,7 @@ div.dataTables_info {
     font-size: 12px;
     width: 45px;
 }
+
 
 .aktif-buton-large {
     padding: 3px 6px;
@@ -1078,6 +1092,18 @@ div.dataTables_info {
 
 .pasif-buton-large {
     padding: 3px 6px;
+    border: solid 2px;
+    background: none;
+    border-color: #94a0b4;
+    color: #94a0b4;
+    font-weight: 700;
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    width: 100px;
+}
+.silindi-buton-large {
+    padding: 3px 3px;
     border: solid 2px;
     background: none;
     border-color: #e74c3c;

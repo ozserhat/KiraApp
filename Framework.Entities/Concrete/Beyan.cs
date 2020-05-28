@@ -84,6 +84,9 @@ namespace Framework.Entities.Concrete
         [StringLength(2500)]
         public string Aciklama { get; set; }
 
+        public int? ArtisTuru { get; set; }
+
+        public int? KiraYenilemePeriyot { get; set; }
 
         public int? OlusturanKullanici_Id { get; set; }
 
@@ -93,10 +96,10 @@ namespace Framework.Entities.Concrete
 
         public DateTime? GuncellenmeTarihi { get; set; }
 
-        public bool? AktifMi { get; set; }
+        public int? AktifMi { get; set; }
 
         [JsonIgnore]
         public virtual ICollection<Kira_Beyan> Kira_Beyanlari { get; set; }
-  
+
     }
 }

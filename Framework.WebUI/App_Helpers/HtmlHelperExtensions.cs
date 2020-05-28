@@ -301,7 +301,7 @@ namespace Framework.WebUI
                 {
                     if (routeValues != null)
                     {
-                        foreach (var item in routeValues)                        
+                        foreach (var item in routeValues)
                          tagBuilder.MergeAttribute("href", returnUrl + "?" + item.Key + "=" + item.Value);
                     }
                     else if (routeValues != null && routeValues["Id"] != null)
@@ -426,12 +426,17 @@ namespace Framework.WebUI
         }
 
         public static MvcHtmlString AuthMainAction(this HtmlHelper htmlHelper, string linkText, string actionName, string controllerName,
-             string htmlAttributes, bool showActionLinkAsDisabled)
+             string htmlAttributes, bool isAuth, bool showActionLink)
         {
             var requestUrl = string.Format("{0}", "~/" +
               HttpContext.Current.Request.RequestContext.RouteData.DataTokens["area"] + "/" + controllerName + "/" + actionName);
 
             string returnUrl = VirtualPathUtility.ToAbsolute(requestUrl, htmlHelper.ViewContext.RequestContext.HttpContext.Request.ApplicationPath);
+         
+            if (!showActionLink)
+            {
+                return MvcHtmlString.Empty;
+            }
 
             if (htmlHelper.ActionAuthorized(actionName, controllerName))
             {

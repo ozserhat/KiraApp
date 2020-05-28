@@ -53,7 +53,7 @@
                                 <div class="btn-group" role="menu">
                                     <button class="btn btn-info">
                                         <i class="glyphicon glyphicon-export"></i>
-                                            Dosya İşlemleri
+                                        Dosya İşlemleri
                                     </button>
                                     <button class="btn btn-info dropdown-toggle" data-toggle="dropdown">
                                         <span class="caret"></span>
@@ -477,6 +477,19 @@
             width: 55px;
         }
 
+        .silindi-buton-beyandetay {
+            padding: 3px 3px;
+            border: solid 2px;
+            background: none;
+            border-color: #f00;
+            color: #f00;
+            font-weight: 700;
+            display: block;
+            text-align: center;
+            font-size: 12px;
+            width: 55px;
+        }
+
         .loadingoverlay_element {
             position: fixed;
             z-index: 999;
@@ -826,8 +839,11 @@
                 '<th>Vade Tarihi</th>' +
                 '<th>Tutar</th>' +
                 '<th>Açıklama</th>' +
-                '<th>Durum</th></tr></thead>';
+                '<th>Durum</th>' +
+                '<th>Aktif Mi</th></tr >' +
+                '</thead > ';
             var durum = '';
+            var aktifMiStr = '';
             if (dataSource != null) {
                 for (var i = 0; i < dataSource.length; i++) {
 
@@ -837,6 +853,17 @@
                     else {
                         durum = '<b class="label pasif-buton-beyandetay">Vade</b>';
                     }
+                    debugger
+                    if (dataSource[i].AktifMi == 1) {
+                        aktifMiStr = '<b class="label aktif-buton-beyandetay">Aktif</b>';
+                    }
+                    else if (dataSource[i].AktifMi == 0) {
+                        aktifMiStr = '<b class="label pasif-buton-beyandetay">Pasif</b>';
+                    }
+                    else if (dataSource[i].AktifMi == 2) {
+                        aktifMiStr = '<b class="label silindi-buton-beyandetay">Silindi</b>';
+                    }
+
                     if (KiraBeyan_Id == dataSource[i].KiraBeyan_Id) {
                         html += '<tr role="row">' +
                             '<td role="row" class="odd">' + (i + 1) + '</td>' +
@@ -846,6 +873,7 @@
                             '<td>' + dataSource[i].Tutar + '</td>' +
                             '<td>' + dataSource[i].Aciklama + '</td>' +
                             '<td>' + durum + '</td>' +
+                            '<td>' + aktifMiStr + '</td>' +
                             '</tr>';
                     }
                 }
