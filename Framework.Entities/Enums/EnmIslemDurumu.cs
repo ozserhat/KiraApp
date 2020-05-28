@@ -14,6 +14,8 @@ namespace Framework.Entities.Enums
         [Description("Aktif")]
         Aktif = 1,
         [Description("Silindi")]
-        Silindi = 2
+        Silindi = 2,
+        [Description("Kapandı")]
+        Kapandı = 3
     }
 }

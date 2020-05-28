@@ -21,29 +21,29 @@ namespace Framework.Business.Concrete.Managers
             return _beyandosyaDal.Add(tur);
         }
 
-        public Beyan_Dosya Getir(int id)
+        public Beyan_Dosya Getir(int id, bool? kapatmaMi)
         {
-            return _beyandosyaDal.GetById(id);
+            return _beyandosyaDal.GetById(id,kapatmaMi);
         }
 
-        public IEnumerable<Beyan_Dosya> GetirBeyanId(int BeyanId)
+        public IEnumerable<Beyan_Dosya> GetirBeyanId(int BeyanId, bool? kapatmaMi)
         {
-            return _beyandosyaDal.GetirBeyanId(BeyanId);
+            return _beyandosyaDal.GetirBeyanId(BeyanId, kapatmaMi);
         }
 
-        public Beyan_Dosya GetirGuid(Guid guid)
+        public Beyan_Dosya GetirGuid(Guid guid, bool? kapatmaMi)
         {
-            return _beyandosyaDal.GetByGuid(guid);
+            return _beyandosyaDal.GetByGuid(guid, kapatmaMi);
         }
 
-        public IEnumerable<Beyan_Dosya> GetirListe()
+        public IEnumerable<Beyan_Dosya> GetirListe(bool? kapatmaMi)
         {
-            return _beyandosyaDal.GetirListe();
+            return _beyandosyaDal.GetirListe(kapatmaMi);
         }
 
-        public IEnumerable<Beyan_Dosya> GetirListeAktif()
+        public IEnumerable<Beyan_Dosya> GetirListeAktif(bool? kapatmaMi)
         {
-            return _beyandosyaDal.GetirListe().Where(a => a.AktifMi == true);
+            return _beyandosyaDal.GetirListe(kapatmaMi).Where(a => a.AktifMi == true);
         }
 
         public Beyan_Dosya Guncelle(Beyan_Dosya tur)

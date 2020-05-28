@@ -10,12 +10,12 @@ namespace Framework.DataAccess.Abstract
 {
     public interface IBeyan_DosyaDal : IEntityRepository<Beyan_Dosya>
     {
-        IEnumerable<Beyan_Dosya> GetirListe();
-        Beyan_Dosya GetById(int id);
+        IEnumerable<Beyan_Dosya> GetirListe(bool? kapatmaMi);
+        Beyan_Dosya GetById(int id, bool? kapatmaMi);
 
-        IEnumerable<Beyan_Dosya> GetirBeyanId(int BeyanId);
+        IEnumerable<Beyan_Dosya> GetirBeyanId(int BeyanId, bool? kapatmaMi);
 
-        Beyan_Dosya GetByGuid(Guid guid);
+        Beyan_Dosya GetByGuid(Guid guid, bool? kapatmaMi);
         bool Delete(int id);
     }
 }

@@ -9,14 +9,14 @@ namespace Framework.Business.Abstract
 {
     public interface IBeyan_DosyaService
     {
-        IEnumerable<Beyan_Dosya> GetirListe();
+        IEnumerable<Beyan_Dosya> GetirListe(bool? kapatmaMi);
 
-        IEnumerable<Beyan_Dosya> GetirListeAktif();
-        Beyan_Dosya Getir(int id);
+        IEnumerable<Beyan_Dosya> GetirListeAktif(bool? kapatmaMi);
+        Beyan_Dosya Getir(int id, bool? kapatmaMi);
 
-        Beyan_Dosya GetirGuid(Guid guid);
+        Beyan_Dosya GetirGuid(Guid guid, bool? kapatmaMi);
 
-        IEnumerable<Beyan_Dosya> GetirBeyanId(int BeyanId);
+        IEnumerable<Beyan_Dosya> GetirBeyanId(int BeyanId, bool? kapatmaMi);
 
         Beyan_Dosya Ekle(Beyan_Dosya tur);
 
