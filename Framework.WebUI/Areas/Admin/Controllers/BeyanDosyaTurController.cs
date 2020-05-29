@@ -69,6 +69,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                     {
                         Guid = Guid.NewGuid(),
                         Ad = tur.DosyaTurAdi,
+                        KapatmaMi=tur.KapatmaMi,
                         OlusturulmaTarihi = DateTime.Now,
                         OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
                         AktifMi = true
@@ -104,6 +105,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                 model.Id = tur.Id;
                 model.Guid = tur.Guid;
                 model.DosyaTurAdi = tur.Ad;
+                model.KapatmaMi = tur.KapatmaMi.Value;
                 model.GuncelleyenKullanici_Id = tur.OlusturanKullanici_Id;
                 model.GuncellenmeTarihi = tur.OlusturulmaTarihi;
                 model.AktifMi = tur.AktifMi.Value;
@@ -132,6 +134,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                         tur.Id = model.Id;
                         tur.Guid = model.Guid;
                         tur.Ad = model.DosyaTurAdi;
+                        tur.KapatmaMi = model.KapatmaMi;
                         tur.GuncelleyenKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ?
                         User.GetUserPropertyValue("UserId") : null);
                         tur.GuncellenmeTarihi = DateTime.Now;

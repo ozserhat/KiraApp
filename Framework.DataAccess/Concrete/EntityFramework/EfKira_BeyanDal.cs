@@ -24,9 +24,11 @@ namespace Framework.DataAccess.Concrete.EntityFramework
         {
             using (DtContext context = new DtContext())
             {
-                return context.Kira_Beyanlari.Where(gt => gt.Beyan_Id == beyanId && gt.Gayrimenkul_Id==gayrimenkulId && gt.Kiraci_Id==kiraciId).FirstOrDefault();
+                return context.Kira_Beyanlari.Where(gt => gt.Beyan_Id == beyanId && gt.Gayrimenkul_Id == gayrimenkulId && gt.Kiraci_Id == kiraciId).FirstOrDefault();
             }
         }
+
+       
         public bool Delete(int id)
         {
             bool sonuc = false;
@@ -62,6 +64,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                               .ToList();
             }
         }
+
         public IEnumerable<Kira_Beyan> GetListByCriteriasGayrimenkul(GayrimenkulBeyanRequest request)
         {
             List<Kira_Beyan> result = new List<Kira_Beyan>();
@@ -106,7 +109,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             using (DtContext context = new DtContext())
             {
                 var query = context.Kira_Beyanlari
-                                    .Include(b => b.Beyanlar)
+                               .Include(b => b.Beyanlar)
                               .Include(bt => bt.Beyanlar.BeyanTur)
                               .Include(k => k.Kiracilar)
                               .Include(g => g.Gayrimenkuller)
@@ -117,9 +120,9 @@ namespace Framework.DataAccess.Concrete.EntityFramework
 
                 query = request.Ad != null ? query.Where(x => x.Kiracilar.Ad == request.Ad) : query;
                 query = request.SoyAd != null ? query.Where(x => x.Kiracilar.Soyad == request.SoyAd) : query;
-                query = request.IlId.HasValue ? query.Where(x => x.Kiracilar.Il_Id == request.IlId) : query;
-                query = request.IlceId.HasValue ? query.Where(x => x.Kiracilar.Ilce_Id == request.IlceId) : query;
-                query = request.MahalleId.HasValue ? query.Where(x => x.Kiracilar.Mahalle_Id == request.MahalleId) : query;
+                query = request.Il_Id.HasValue ? query.Where(x => x.Kiracilar.Il_Id == request.Il_Id) : query;
+                query = request.Ilce_Id.HasValue ? query.Where(x => x.Kiracilar.Ilce_Id == request.Ilce_Id) : query;
+                query = request.Mahalle_Id.HasValue ? query.Where(x => x.Kiracilar.Mahalle_Id == request.Mahalle_Id) : query;
                 query = request.SicilNo.HasValue ? query.Where(x => x.Kiracilar.SicilNo == request.SicilNo) : query;
                 query = request.VergiNo.HasValue ? query.Where(x => x.Kiracilar.VergiNo == request.VergiNo) : query;
                 query = request.TcKimlikNo.HasValue ? query.Where(x => x.Kiracilar.TcKimlikNo == request.TcKimlikNo) : query;

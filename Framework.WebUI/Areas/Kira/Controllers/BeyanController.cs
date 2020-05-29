@@ -69,7 +69,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         IMahalleService mahalleService,
         ITahakkukDisServis tahakkukDisServis,
         IUserService userService,
-        IResmiTatillerService resmiTatilService, 
+        IResmiTatillerService resmiTatilService,
         IIlService ilService,
         IIlceService ilceService,
         ISistemParametre_DetayService parametreService,
@@ -217,10 +217,16 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             #endregion
 
             #region Gayrimenkul,Sicil,Beyan Ekleme İşlemleri
-
+           
+           
             kiraBeyanModel.Gayrimenkul_Id = kiraBeyanModel.Gayrimenkul.GayrimenkulId;
 
-            kiraBeyanModel.Kiraci_Id = BeyanSicilEkle(kiraBeyanModel.Kiraci);
+            var kiraci = _kiraciService.GetirVergiNo(kiraBeyanModel.Kiraci.VergiNo.Value);
+
+            if (kiraci != null)
+                kiraBeyanModel.Kiraci_Id = kiraci.Id;
+            else
+                kiraBeyanModel.Kiraci_Id = BeyanSicilEkle(kiraBeyanModel.Kiraci);
 
             kiraBeyanModel.Beyan.AktifMi = (int)EnmIslemDurumu.Aktif;
 
@@ -288,7 +294,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
             if (kiraBeyan != null)
             {
-                var beyanDosya = _beyanDosyaService.GetirListe().Where(a => a.Beyan_Id == kiraBeyan.Beyan_Id).ToList();
+                var beyanDosya = _beyanDosyaService.GetirListe(false).Where(a => a.Beyan_Id == kiraBeyan.Beyan_Id).ToList();
 
                 model.Kiraci = GetirSicil(kiraBeyan.Kiracilar.VergiNo.ToString());
                 model.Gayrimenkul = GetirGayrimenkul(kiraBeyan.Gayrimenkuller.GayrimenkulNo);
@@ -425,6 +431,18 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         }
         #endregion
 
+        #region BeyanKapatma
+        [HttpPost]
+        public JsonResult KiraBeyanKapama(int BeyanId, int Kira_BeyanId)
+        {
+            bool sonuc = false;
+
+            ModelState.AddModelError("LogMessage", "Beyan Kapama İşlemi Gerçekleştirilemedi!!!");
+
+            return Json(new { Message = "Beyan Kapama İşlemi Gerçekleştirilemedi.", success = sonuc }, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
         #region Metodlar
         [HttpPost]
         public JsonResult MahalleSelectList(int ilceId)
@@ -441,7 +459,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             var model = new KiraBeyanEkleVM();
             if (kiraBeyan != null)
             {
-                var beyanDosya = _beyanDosyaService.GetirListe().Where(a => a.Beyan_Id == kiraBeyan.Beyan_Id).ToList();
+                var beyanDosya = _beyanDosyaService.GetirListe(false).Where(a => a.Beyan_Id == kiraBeyan.Beyan_Id).ToList();
                 if (kiraBeyan.Kiracilar.VergiNo != null)
                     kiraci = _kiraciService.GetirVergiNo(Convert.ToInt64(kiraBeyan.Kiracilar.VergiNo));
                 else
@@ -1099,7 +1117,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         {
             if (BeyanId > 0)
             {
-                var dosyalar = _beyanDosyaService.GetirBeyanId(BeyanId);
+                var dosyalar = _beyanDosyaService.GetirBeyanId(BeyanId,false);
 
 
                 _beyanVM.BeyanDetayDosyalar = new List<Beyan_DosyaVM>();
@@ -1154,7 +1172,6 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                     dosya.OlusturulmaTarihi = DateTime.Now;
                     dosya.OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null);
                     dosya.AktifMi = true;
-
                     var result = _beyanDosyaService.Ekle(dosya);
 
                     if (result.Id > 0)

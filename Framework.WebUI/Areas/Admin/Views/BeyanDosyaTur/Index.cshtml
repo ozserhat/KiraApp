@@ -52,7 +52,8 @@
                                                 <thead>
                                                     <tr role="row">
                                                         <th style="width: 20px;">No</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Alt Tür Adı</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Dosya Tür Adı</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 250px;">Dosya Türü</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 250px;">Durum</th>
                                                         <th class="sorting_disabled text-center" rowspan="1" colspan="1" style="text-align: right;  padding-right: 30px; width: 100px;">İşlem</th>
                                                     </tr>
@@ -65,29 +66,39 @@
 
                                                         @foreach (var item in Model.BeyanDosyaTur)
                                                         {
-                                                            <tr role="row" class="odd">
-                                                                <td>@(i++)</td>
-                                                                <td>@Html.DisplayFor(model => item.Ad)</td>
-                                                                <td>
-                                                                    @if (item.AktifMi.HasValue && item.AktifMi.Value)
-                                                                    {
-                                                                        <b class="label aktif-buton">Aktif</b>
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        <b class="label pasif-buton">Pasif</b>
-                                                                    }
-                                                                </td>
-                                                                <td class="text-center">
-                                                                    @Html.AuthAction(" ", "Duzenle", "BeyanDosyaTur", new { item.Guid },
-                                                                          new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
-                                                                          Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                                                        <tr role="row" class="odd">
+                                                            <td>@(i++)</td>
+                                                            <td>@Html.DisplayFor(model => item.Ad)</td>
+                                                            <td>
+                                                                @if (item.KapatmaMi.HasValue && item.KapatmaMi.Value)
+                                                                {
+                                                                    <div>Beyan Kapama Dosyası</div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <div>Normal Dosya</div>
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                @if (item.AktifMi.HasValue && item.AktifMi.Value)
+                                                                {
+                                                                    <b class="label aktif-buton">Aktif</b>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <b class="label pasif-buton">Pasif</b>
+                                                                }
+                                                            </td>
+                                                            <td class="text-center">
+                                                                @Html.AuthAction(" ", "Duzenle", "BeyanDosyaTur", new { item.Guid },
+                                                                      new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
+                                                                      Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
-                                                                    @Html.AuthAction(" ", "Sil", "BeyanDosyaTur", new { item.Id },
-                                                                                    new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = item.Ad, @data_id = item.Id },
-                                                                                    Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
-                                                                </td>
-                                                            </tr>
+                                                                @Html.AuthAction(" ", "Sil", "BeyanDosyaTur", new { item.Id },
+                                                                                new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = item.Ad, @data_id = item.Id },
+                                                                                Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                                                            </td>
+                                                        </tr>
                                                         }
                                                     </tbody>
                                                 }
