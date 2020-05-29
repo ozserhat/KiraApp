@@ -18,6 +18,7 @@ using System.Globalization;
 
 namespace Framework.WebUI.Areas.Admin.Controllers
 {
+    [CustomAuthorize(Roles = "Admin")]
     public class BeyanController : Controller
     {
         #region Constructor
@@ -86,7 +87,9 @@ namespace Framework.WebUI.Areas.Admin.Controllers
 
             if (beyanlar != null)
             {
+
                 model.IlceSelectList = IlceSelectList();
+                
                 model.GayrimenkulSelectList = GayrimenkulSelectList();
                 model.BeyanTurSelectList = BeyanTurSelectList();
                 model.KiraDurumSelectList = KiraDurumSelectList();
@@ -171,6 +174,16 @@ namespace Framework.WebUI.Areas.Admin.Controllers
             var ilceler = _ilceService.GetirListe().Where(a => a.Il_Id == 6).Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
 
             return new SelectList(ilceler, "Id", "Ad");
+        }
+
+
+        [HttpPost]
+
+        public JsonResult MahalleSelectList(int ilceId)
+        {
+            var mahalleler = _mahalleService.GetirListe().Where(a => a.Ilce_Id == ilceId).Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+
+            return Json(new { Data = mahalleler, success = true }, JsonRequestBehavior.AllowGet);
         }
 
         public SelectList GayrimenkulSelectList()

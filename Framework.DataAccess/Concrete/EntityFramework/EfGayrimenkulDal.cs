@@ -52,10 +52,10 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             using (DtContext context = new DtContext())
             {
                 return context.Gayrimenkuller.Include(gt => gt.GayrimenkulTur)
-                                             .Include(a=>a.Mahalleler)
-                                             .Include(a=>a.Mahalleler.Ilceler)
-                                             .Include(a=>a.Mahalleler.Ilceler.Iller)
-                                             .Include(a=>a.Kira_Durumlari)
+                                             .Include(a => a.Mahalleler)
+                                             .Include(a => a.Mahalleler.Ilceler)
+                                             .Include(a => a.Mahalleler.Ilceler.Iller)
+                                             .Include(a => a.Kira_Durumlari)
                                              .ToList();
             }
         }
@@ -66,10 +66,14 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             {
                 using (DtContext context = new DtContext())
                 {
-                    var result = context.Gayrimenkuller.Where(x => x.OlusturulmaTarihi.Value.Year == Yil).OrderByDescending(x => x.Id).First().GayrimenkulNo.Split('-').Last();
-                    
-                    int Numara = int.Parse(result);
-                    
+                    var resulNum = "";
+                    var result = context.Gayrimenkuller.Where(x => x.OlusturulmaTarihi.Value != null && x.OlusturulmaTarihi.Value.Year == Yil).OrderByDescending(x => x.Id).FirstOrDefault();
+                    if (result != null)
+                        resulNum = result.GayrimenkulNo.Split('-').Last();
+                    else
+                        resulNum = "1";
+                    int Numara = int.Parse(resulNum);
+
                     Numara++;
 
                     string Num = Numara.ToString().PadLeft(7, '0');
@@ -91,7 +95,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                                              .Include(a => a.Mahalleler)
                                              .Include(a => a.Mahalleler.Ilceler)
                                              .Include(a => a.Mahalleler.Ilceler.Iller)
-                                             .Where(g=>g.GayrimenkulNo==GayrimenkulNo)
+                                             .Where(g => g.GayrimenkulNo == GayrimenkulNo)
                                              .FirstOrDefault();
             }
         }

@@ -33,14 +33,19 @@ namespace Framework.Business.Concrete.Managers
             return _beyanDosyaTurDal.GetByGuid(guid);
         }
 
+        public IEnumerable<BeyanDosya_Tur> GetirKapamaListe()
+        {
+            return _beyanDosyaTurDal.GetList().Where(a => a.KapatmaMi.Value);
+        }
+
         public IEnumerable<BeyanDosya_Tur> GetirListe()
         {
-            return _beyanDosyaTurDal.GetList();
+            return _beyanDosyaTurDal.GetList().Where(a=>!a.KapatmaMi.Value);
         }
 
         public IEnumerable<BeyanDosya_Tur> GetirListeAktif()
         {
-            return _beyanDosyaTurDal.GetList().Where(a => a.AktifMi == true);
+            return _beyanDosyaTurDal.GetList().Where(a => a.AktifMi == true&& !a.KapatmaMi.Value);
         }
         public BeyanDosya_Tur Guncelle(BeyanDosya_Tur tur)
         {
