@@ -217,7 +217,7 @@ namespace Framework.WebUI.Models.ViewModels
         public SelectList GayrimenkulDurumSelectList { get; set; }
 
         public IPagedList<Gayrimenkul_Dosya> Gayrimenkul_Dosyalar { get; set; }
-
+        public List<Gayrimenkul_DosyaVM> GayrimenkulDosyalar { get; set; }
 
     }
 
@@ -331,6 +331,8 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Gayrimenkul Durum")]
         public int? GayrimenkulDurum_Id { get; set; }
+
+        public List<Gayrimenkul_DosyaVM> GayrimenkulDosyalar { get; set; }
 
     }
 }
