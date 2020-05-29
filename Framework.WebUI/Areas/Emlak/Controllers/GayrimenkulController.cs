@@ -24,13 +24,14 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
         private IGayrimenkulTurService _turService;
         private IGayrimenkulService _gayrimenkulservice;
         private IGayrimenkulDosya_TurService _dosyaTurService;
+        private IGayrimenkul_DosyaService _gayrimenkulDosyaService;
         private IKira_DurumService _gayrimenkuldurumservice;
         public static GayrimenkulEkleVM _gayrimenkulVM;
 
         public GayrimenkulController(IGayrimenkulService gayrimenkulservice, IGayrimenkulTurService turService,
-             IIlceService ilceService, IMahalleService mahalleService, IGayrimenkulDosya_TurService dosyaTurService, IKira_DurumService gayrimenkuldurumservice, GayrimenkulEkleVM gayrimenkulVM)
+             IIlceService ilceService, IMahalleService mahalleService, IGayrimenkulDosya_TurService dosyaTurService, IKira_DurumService gayrimenkuldurumservice, GayrimenkulEkleVM gayrimenkulVM, IGayrimenkul_DosyaService gayrimenkulDosyaService)
         {
-        
+
             _ilceService = ilceService;
             _mahalleService = mahalleService;
             _turService = turService;
@@ -38,6 +39,7 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
             _dosyaTurService = dosyaTurService;
             _gayrimenkuldurumservice = gayrimenkuldurumservice;
             _gayrimenkulVM = gayrimenkulVM;
+            _gayrimenkulDosyaService = gayrimenkulDosyaService;
         }
         #endregion
         // GET: Emlak/Gayrimenkul
@@ -69,12 +71,12 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
 
         public SelectList IlceSelectList()
         {
-            var ilceler = _ilceService.GetirListe().Where(a=>a.Il_Id==6).Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+            var ilceler = _ilceService.GetirListe().Where(a => a.Il_Id == 6).Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
 
             return new SelectList(ilceler, "Id", "Ad");
         }
 
-     
+
         [HttpPost]
 
         public JsonResult MahalleSelectList(int ilceId)
@@ -103,9 +105,9 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
             string gayrimenkulNo = "GY-";
             int yil = DateTime.Now.Year;
 
-            gayrimenkulNo += yil ;
-            gayrimenkulNo += DateTime.Now.Month+"-";
-            model.GayrimenkulNo = gayrimenkulNo + "-"+_gayrimenkulservice.GayrimenkulNoUret(yil);
+            gayrimenkulNo += yil;
+            gayrimenkulNo += DateTime.Now.Month + "-";
+            model.GayrimenkulNo = gayrimenkulNo + "-" + _gayrimenkulservice.GayrimenkulNoUret(yil);
             model.TurSelectList = TurSelectList();
             model.IlceSelectList = IlceSelectList();
             model.DosyaTurleri = _dosyaTurService.GetirListe();
@@ -113,6 +115,43 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
             return View(model);
         }
 
+
+        [HttpGet]
+        private int GayrimenkulDosyaEkle(int gayrimenkulId, List<Gayrimenkul_DosyaVM> dosyalar)
+        {
+            Gayrimenkul_Dosya dosya = new Gayrimenkul_Dosya();
+            string dosyaAdi2 = "";
+            string filePath = Server.MapPath("~/Dosyalar/Gayrimenkul/");
+
+            if (dosyalar != null)
+            {
+                foreach (var item in dosyalar)
+                {
+                    Guid guidDosya = Guid.NewGuid();
+                    dosyaAdi2 = item.DosyaAdi.Split('.').Last();
+                    dosya.Guid = guidDosya;
+                    dosya.GayrimenkulDosyaTur_Id = item.GayrimenkulDosyaTur_Id;
+                    dosya.Gayrimenkul_Id = gayrimenkulId;
+                    dosya.Ad = guidDosya.ToString() + "." + dosyaAdi2;
+                    dosya.OlusturulmaTarihi = DateTime.Now;
+                    dosya.OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null);
+                    dosya.AktifMi = true;
+
+                    var result = _gayrimenkulDosyaService.Ekle(dosya);
+
+                    if (result.Id > 0)
+                    {
+                        byte[] fileBytes = Convert.FromBase64String(item.GayrimenkulDosya);
+                        System.IO.File.WriteAllBytes(filePath + dosya.Ad, fileBytes);
+                    }
+                }
+
+                if (dosya.Id > 0)
+                    return dosya.Id;
+            }
+
+            return 0;
+        }
         [HttpPost]
         public JsonResult Ekle(GayrimenkulEkleVM model)
         {
@@ -150,6 +189,8 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
                     };
 
                     var result = _gayrimenkulservice.Ekle(gayrimenkul);
+                    GayrimenkulDosyaEkle(result.Id, model.GayrimenkulDosyalar);
+
 
                     if (result.Id > 0)
                         return Json(new { Message = "Gayrimenkul Bilgisi Başarıyla Kaydedildi.", success = true }, JsonRequestBehavior.AllowGet);
@@ -216,7 +257,7 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
             return View(model);
         }
 
-       
+
         [HttpPost]
         public ActionResult Duzenle(GayrimenkulDuzenleVM model)
         {
@@ -253,7 +294,7 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
                         gayrimenkul.OlusturulmaTarihi = DateTime.Now;
                         gayrimenkul.OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null);
                         gayrimenkul = _gayrimenkulservice.Guncelle(gayrimenkul);
-                        
+
 
                     }
 
