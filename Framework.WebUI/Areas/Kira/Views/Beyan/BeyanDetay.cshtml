@@ -1148,6 +1148,29 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="row smart-form">
+                                                    <div class="col-md-8">
+                                                        <div id="pnlkiraDurumDosya" style="display:none;">
+                                                            <fieldset class="dosyaSatirlari" id="dosyaSatiri">
+                                                                <form class="form-horizontal" id="kapamaBelgeEkleForm" novalidate="novalidate">
+                                                                    <section>
+                                                                        <div class="form-group">
+                                                                            <div class="input-group" style="width: 100%;">
+                                                                                @Html.Label("", "Beyan Dosyaları", new { @class = "control-label col-md-4" })
+                                                                                <div class="col-md-8">
+                                                                                    <div id="dvDos">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </section>
+                                                                </form>
+                                                            </fieldset>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
                                                 <div class="row">
                                                     <div class="col-md-8">
                                                         <div class="form-group">
@@ -1687,6 +1710,121 @@
             var url = $(this).attr("data-url");
             $("#iframe1").attr("src", url);
         });
+    </script>
+
+    <!--Beyan Kapama Dosya Getir -->
+    <script type="text/javascript">
+        $('#KiraDurum_Id').change(function (val) {
+
+            var html = '';
+            var fileDiv = $('#dvDos');
+
+            fileDiv.html('');
+            var pnlKapama = $('#pnlkiraDurumDosya');
+
+            var kiraDurumId = $('#KiraDurum_Id').val();
+
+             $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetirBeyanKapamaDosya", "Beyan")',
+                    data: { kiraDurumId: kiraDurumId },
+                    success: function (result) {
+                        if (result != null && result.success) {
+
+                            $.each(result.data, function (index, value) {
+
+                                pnlKapama.show();
+
+                                html = " <label id='lblDosya' for='file' class='input input-file'>"+
+                                    "<div id ='dosyaDiv' class='button'><input type='file' id='DosyaTuru_" + value.BeyanDosyaTur_Id + "' data-id='" + value.BeyanDosyaTur_Id + "' data-name='" + value.DosyaAdi +"' class='form-control kapamaDosya'>Belge Ekle"+
+                                    "</div >"+
+                                    "<div id='divInput'><input type='text'   placeholder='" + value.DosyaAdi +"' id='BeyanDosyaTuru_" + value.BeyanDosyaTur_Id +"'>"+
+                                    "</div>";
+
+                                fileDiv.append(html);
+
+                            });
+                        }
+                        else {
+                            swal('Uyarı!', result.Message, 'warning');
+                        }
+                    },
+                    error: function (xhr) {
+                        swal('Uyarı!', result.Message, 'warning');
+                    }
+                 });
+        });
+
+    </script>
+
+    <!--Kapama Belge Ekleme -->
+    <script type="text/javascript">
+        var beyankapamaDosyalar = [];
+
+        $(document).on("change", ".kapamaDosya", function (evt) {
+            var DosyaTipi_Id = $(this).attr("data-id");
+            var dosyaAdi = $(this).val().replace(/C:\\fakepath\\/, '');
+            $("#BeyanDosyaTuru_" + DosyaTipi_Id).val(dosyaAdi);
+
+            var fileUpload = $("#DosyaTuru_" + DosyaTipi_Id).get(0);
+
+            var files = evt.target.files[0];
+
+            if (files.length > 0) {
+                if (window.FormData !== undefined) {
+                    var formData = new FormData();
+                    formData.append(DosyaTipi_Id, files);
+                }
+            }
+            var fileBinary;
+
+            var reader = new FileReader();
+            // Closure to capture the file information.
+            reader.onload = (function (theFile) {
+                return function (e) {
+                    var binaryData = e.target.result;
+
+                    var base64String = window.btoa(binaryData);
+
+                    fileBinary = base64String;
+                    beyankapamaDosyalar.push({ BeyanDosyaTur_Id: DosyaTipi_Id, DosyaAdi: dosyaAdi, BeyanDosya: fileBinary });
+                };
+            })(files);
+            // Read in the image file as a data URL.
+            reader.readAsBinaryString(files);
+        });
+
+        function BelgeEkle(gayrimenkulId) {
+
+            var $valid = $("#kapamaBelgeEkleForm").valid();
+            if (!$valid) {
+                $validatorBelgeEkle.focusInvalid();
+                return false;
+            } else {
+
+                $("#path").val("");
+
+                $('#loadingbtnBelgeEkleme').removeClass();
+                $("#btnBelgeKaydet").removeClass();
+                $("#btnBelgeKaydet").addClass('btn btn-warning hide');
+
+
+                var sonuc = true;
+                var sayac = 0;
+                var elems = $("form .taranmisDosya");
+                var count = elems.length;
+                var tumDosyalarYuklendiMi = true;
+                setTimeout(function () {
+                    if (tumDosyalarYuklendiMi) {
+                        $("#btnBelgeKaydet").removeClass();
+                        $("#btnBelgeKaydet").addClass('btn btn-primary');
+                        $('#loadingbtnBelgeEkleme').addClass('hide');
+                    }
+                }, 1500);
+
+
+            }
+        }
     </script>
 
 }

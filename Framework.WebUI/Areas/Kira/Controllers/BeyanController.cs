@@ -52,6 +52,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         private IIlceService _ilceService;
         private BeyanSelectListsVm _selectLists;
         private ISistemParametre_DetayService _parametreService;
+        private IKiraDurum_DosyaTurService _kiraDurumDosyaTurService;
 
         public string DosyaYolu = ConfigurationManager.AppSettings["DosyaYolu"].ToString();
 
@@ -73,6 +74,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         IIlService ilService,
         IIlceService ilceService,
         ISistemParametre_DetayService parametreService,
+        IKiraDurum_DosyaTurService kiraDurumDosyaTurService,
         BeyanSelectListsVm selectLists
         )
         {
@@ -91,6 +93,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             _selectLists = selectLists;
             _resmiTatilService = resmiTatilService;
             _parametreService = parametreService;
+            _kiraDurumDosyaTurService = kiraDurumDosyaTurService;
         }
         #endregion
 
@@ -217,8 +220,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             #endregion
 
             #region Gayrimenkul,Sicil,Beyan Ekleme İşlemleri
-           
-           
+
+
             kiraBeyanModel.Gayrimenkul_Id = kiraBeyanModel.Gayrimenkul.GayrimenkulId;
 
             var kiraci = _kiraciService.GetirVergiNo(kiraBeyanModel.Kiraci.VergiNo.Value);
@@ -1117,7 +1120,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         {
             if (BeyanId > 0)
             {
-                var dosyalar = _beyanDosyaService.GetirBeyanId(BeyanId,false);
+                var dosyalar = _beyanDosyaService.GetirBeyanId(BeyanId, false);
 
 
                 _beyanVM.BeyanDetayDosyalar = new List<Beyan_DosyaVM>();
@@ -1327,6 +1330,32 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 return result.Id;
 
             return 0;
+        }
+
+        [HttpPost]
+        public JsonResult GetirBeyanKapamaDosya(int kiraDurumId)
+        {
+            var model = new List<KiraDurum_DosyaTurKapamaVM>();
+
+            var dosyaBilgi = _kiraDurumDosyaTurService.GetirKiraDurumListe(kiraDurumId);
+
+            if (dosyaBilgi != null)
+            {
+                foreach (var item in dosyaBilgi)
+                {
+                    model.Add(new KiraDurum_DosyaTurKapamaVM()
+                    {
+                        Id = item.Id,
+                        BeyanDosyaTur_Id = item.BeyanDosyaTur_Id,
+                        KiraDurum_Id = item.KiraDurum_Id,
+                        AktifMi = item.AktifMi,
+                        TasinmazDurum = item.Kira_Durumlari.Ad,
+                        DosyaAdi = item.BeyanDosya_Turleri.Ad
+                    });
+                }
+            }
+
+            return Json(new { data = model, success = true }, JsonRequestBehavior.AllowGet);
         }
 
         #endregion
