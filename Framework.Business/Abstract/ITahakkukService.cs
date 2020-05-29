@@ -10,6 +10,7 @@ namespace Framework.Business.Abstract
     {
         IEnumerable<Tahakkuk> GetirListe();
         List<Tahakkuk> GetirListe(int KiraBeyanId);
+        IEnumerable<Tahakkuk> GetirSorguListe(TahakkukRequest request);
         IEnumerable<Tahakkuk> GetirListeAktif();
         Tahakkuk GetById(int id);
         Tahakkuk GetByGuid(Guid guid);

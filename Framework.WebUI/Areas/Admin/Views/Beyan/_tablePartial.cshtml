@@ -39,7 +39,7 @@
                 <td>@Html.DisplayFor(model => item.Gayrimenkuller.Mahalleler.Ilceler.Ad)</td>
                 <td>@Html.DisplayFor(model => item.Gayrimenkuller.Mahalleler.Ad)</td>
                 <td>
-                    @if (item.Beyanlar.AktifMi.HasValue && item.Beyanlar.AktifMi.Value)
+                    @if (item.Beyanlar.AktifMi.HasValue)
                     {
                         <b class="label aktif-buton">Aktif</b>
                     }

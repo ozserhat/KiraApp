@@ -59,6 +59,10 @@ namespace Framework.Business.Concrete.Managers
         {
             return _tahakkukDal.GetirListe();
         }
+        public IEnumerable<Tahakkuk> GetirSorguListe(TahakkukRequest request)
+        {
+            return _tahakkukDal.GetListByCriterias(request);
+        }
         public IEnumerable<Tahakkuk> GetirListeAktif()
         {
             return _tahakkukDal.GetirListe().Where(a => a.AktifMi == (int)EnmIslemDurumu.Aktif);

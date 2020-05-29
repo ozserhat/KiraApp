@@ -69,6 +69,7 @@ namespace Framework.Entities.Concrete
     [NotMapped]
     public class TahakkukRequest
     {
+        public string BeyanNo { get; set; }
         public int? KiraBeyan_Id { get; set; }
         public bool? OdemeDurumu { get; set; }
         public DateTime? VadeTarihi { get; set; }

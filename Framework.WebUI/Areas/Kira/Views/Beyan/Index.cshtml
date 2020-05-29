@@ -188,7 +188,8 @@
                                                                                 <div class="input-group" style="width: 100%;">
                                                                                     @Html.LabelFor(model => model.EncumenKararNo, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
-                                                                                        @Html.TextBoxFor(model => model.EncumenKararNo, "", new { @class = "form-control " })
+                                                                                        @Html.TextBoxFor(model => model.EncumenKararNo, "", new { @class = "form-control" })
+                                                                                        @Html.ValidationMessage("EncumenKararNo", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -334,6 +335,7 @@
                                                                                     @Html.LabelFor(model => model.KullanimAlani, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
                                                                                         @Html.TextBoxFor(model => model.KullanimAlani, "", new { @class = "form-control " })
+                                                                                        @Html.ValidationMessage("KullanimAlani", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -347,6 +349,7 @@
                                                                                     @Html.LabelFor(model => model.SozlesmeSuresi, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
                                                                                         @Html.TextBoxFor(model => model.SozlesmeSuresi, "", new { @class = "form-control " })
+                                                                                        @Html.ValidationMessage("SozlesmeSuresi", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -357,6 +360,7 @@
                                                                                     @Html.LabelFor(model => model.MusadeliGunSayisi, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
                                                                                         @Html.TextBoxFor(model => model.MusadeliGunSayisi, "", new { @class = "form-control " })
+                                                                                        @Html.ValidationMessage("MusadeliGunSayisi", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -367,6 +371,7 @@
                                                                                     @Html.LabelFor(model => model.KalanAy, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
                                                                                         @Html.TextBoxFor(model => model.KalanAy, "", new { @class = "form-control" })
+                                                                                        @Html.ValidationMessage("KalanAy", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -379,6 +384,7 @@
                                                                                     @Html.LabelFor(model => model.IhaleTutari, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
                                                                                         @Html.TextBoxFor(model => model.IhaleTutari, "{0:c}", new { @class = "form-control  moneyFormat" })
+                                                                                        @Html.ValidationMessage("IhaleTutari", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -389,6 +395,7 @@
                                                                                     @Html.LabelFor(model => model.KiraTutari, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
                                                                                         @Html.TextBoxFor(model => model.KiraTutari, "{0:c}", new { @class = "form-control  moneyFormat" })
+                                                                                        @Html.ValidationMessage("KiraTutari", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
 
                                                                                     </div>
                                                                                 </div>
@@ -400,6 +407,7 @@
                                                                                     @Html.LabelFor(model => model.BaslangicTaksitNo, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
                                                                                         @Html.TextBoxFor(model => model.BaslangicTaksitNo, "", new { @class = "form-control" })
+                                                                                        @Html.ValidationMessage("BaslangicTaksitNo", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -741,6 +749,25 @@
         }
     </script>
 
+    <!--Datepicker-->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            jQuery.validator.methods.date = function (value, element) {
+                var d = value.split(".");
+                return this.optional(element) || !/Invalid|NaN/.test(new Date((/chrom(e|ium)/.test(navigator.userAgent.toLowerCase())) ? d[1] + "." + d[0] + "." + d[2] : value));
+            };
+            $('.datepicker').on('click', function (e) {
+                e.preventDefault();
+                $(this).attr("autocomplete", "off");
+            });
+            $('#Tarih').datepicker({
+                dateFormat: 'dd.mm.yy',
+                monthNames: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
+                dayNamesMin: ["Pa", "Pt", "Sl", "Ça", "Pe", "Cu", "Ct"],
+                firstDay: 1
+            });
+        });
+    </script>
 
     <!--Export Excel-->
     <script type="text/javascript">
