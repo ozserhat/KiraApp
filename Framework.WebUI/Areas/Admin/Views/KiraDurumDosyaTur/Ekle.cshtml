@@ -1,4 +1,4 @@
-﻿@model Framework.WebUI.Models.ViewModels.BeyanDosya_TurEkleVM
+﻿@model Framework.WebUI.Models.ViewModels.KiraDurum_DosyaTurEkleVM
 @{
     ViewBag.Title = "Ekle";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
@@ -15,7 +15,7 @@
                         <header>
                             <div style="margin-top: -5px;">
                                 <p>
-                                    <a href="@Url.Action("Index")" class="btn btn-warning" title="" rel="tooltip" data-placement="bottom" data-original-title="Beyan Dosya Tür Listesine Dön"><span class="glyphicon glyphicon-chevron-left"></span> Beyan Dosya Tür Listesine Dön</a>
+                                    <a href="@Url.Action("Index")" class="btn btn-warning" title="" rel="tooltip" data-placement="bottom" data-original-title="Taşınmaz Durum Dosya Listesine Dön"><span class="glyphicon glyphicon-chevron-left"></span> Dosya Listesine Dön</a>
                                 </p>
                             </div>
                         </header>
@@ -35,25 +35,26 @@
                         <div role="contentinfo">
                             <div class="widget-body">
                                 <div class="tab-pane fade active in">
-                                    @using (Html.BeginForm("Ekle", "BeyanDosyaTur", FormMethod.Post, new { enctype = "multipart/form-data", id = "submitForm" }))
+                                    @using (Html.BeginForm("Ekle", "KiraDurumDosyaTur", FormMethod.Post, new { enctype = "multipart/form-data", id = "submitForm" }))
                                     {
                                         @Html.AntiForgeryToken()
                                         <div class="widget-body">
                                             <fieldset>
                                                 <div class="row">
                                                     <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
-                                                        @Html.LabelFor(model => model.DosyaTurAdi, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                        @Html.LabelFor(model => model.KiraDurumSelectList, new { @class = "control-label col-md-4 zorunluYildiz" })
                                                         <div class="col-md-8">
-                                                            @Html.TextBoxFor(model => model.DosyaTurAdi, new { @class = "form-control col-md-4 required" })
-                                                            @Html.ValidationMessageFor(model => model.DosyaTurAdi, "", new { @class = "text-danger" })
+                                                            @Html.DropDownList("KiraDurum_Id", Model.KiraDurumSelectList, "Seçiniz", new { @class = "select2" })
+                                                            @Html.ValidationMessageFor(model => model.KiraDurumSelectList, "", new { @class = "text-danger" })
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
-                                                        @Html.LabelFor(model => model.KapatmaMi, new { @class = "control-label col-md-4" })
-                                                        <div class="col-md-8 form-control-static">
-                                                            @Html.CheckBoxFor(model => model.KapatmaMi, new { @style = "width: 16px; height: 16px;" })
+                                                        @Html.LabelFor(model => model.BeyanDosyaTurSelectList, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                        <div class="col-md-8">
+                                                            @Html.DropDownList("BeyanDosyaTur_Id", Model.BeyanDosyaTurSelectList, "Seçiniz", new { @class = "select2" })
+                                                            @Html.ValidationMessageFor(model => model.BeyanDosyaTurSelectList, "", new { @class = "text-danger" })
                                                         </div>
                                                     </div>
                                                 </div>
@@ -78,6 +79,7 @@
     </div>
 }
 
+
 @section pagespecific {
     <!-- Sweet Alert -->
     <link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
@@ -90,23 +92,23 @@
         $(function () {
             $('#btnSubmit').on('click', function () {
                 tur = new Object();
-                tur.DosyaTurAdi = $("#DosyaTurAdi").val();
-                tur.KapatmaMi = $("#KapatmaMi").val();
+                tur.BeyanDosyaTur_Id = $("#BeyanDosyaTur_Id").val();
+                tur.KiraDurum_Id = $("#KiraDurum_Id").val();
                 tur.AktifMi = $("#AktifMi").val();
 
                 if($("#submitForm").valid())
                 {
                    $.ajax({
                     type: 'POST',
-                    url: '@Url.Action("Ekle", "BeyanDosyaTur")',
-                    data: { tur: tur },
+                    url: '@Url.Action("Ekle", "KiraDurumDosyaTur")',
+                    data: { dosyaModel: tur },
                     success: function (result) {
                         if (result != null && result.success) {
 
                             swal('Bilgi!', result.Message, 'success');
 
                             setTimeout(function () {
-                                window.location.href = "../BeyanDosyaTur/Index";
+                                window.location.href = "../KiraDurumDosyaTur/Index";
                             }, 2000);
                         }
                         else {
@@ -122,4 +124,3 @@
         });
     </script>
 }
-

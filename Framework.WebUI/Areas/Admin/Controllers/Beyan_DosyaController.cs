@@ -29,7 +29,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
         #region Listeleme
         public ActionResult Index(int? page, int pageSize = 15)
         {
-            var turler = _service.GetirListe();
+            var turler = _service.GetirListe(false);
 
             var model = new Beyan_DosyaVM();
 
@@ -106,7 +106,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
         {
             var model = new Beyan_DosyaDuzenleVM();
 
-            var tur = _service.GetirGuid(guid);
+            var tur = _service.GetirGuid(guid,false);
 
             if (tur != null)
             {
@@ -134,7 +134,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
             {
                 try
                 {
-                    var tur = _service.GetirGuid(model.Guid);
+                    var tur = _service.GetirGuid(model.Guid,false);
 
                     if (tur != null)
                     {
@@ -170,7 +170,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult Sil(int Id)
         {
-            var tur = _service.Getir(Id);
+            var tur = _service.Getir(Id,false);
 
             tur.AktifMi = false;
 

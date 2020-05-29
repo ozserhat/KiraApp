@@ -56,6 +56,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
         public DbSet<Kira_Beyan> Kira_Beyanlari { get; set; }
         public DbSet<Beyan_Tur> Beyan_Turleri { get; set; }
         public DbSet<Beyan_UfeOran> Beyan_UfeOranlari { get; set; }
+        public DbSet<KiraDurum_DosyaTur> KiraDurum_DosyaTurleri { get; set; }
 
         public DbSet<PersonelBeyan> PersonelBeyanlari { get; set; }
 

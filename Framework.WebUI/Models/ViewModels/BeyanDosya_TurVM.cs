@@ -24,6 +24,9 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Beyan Adı")]
         public string BeyanAdi { get; set; }
 
+        [Display(Name = "Beyan Kapama Dosyası Mı?")]
+        public bool KapatmaMi { get; set; }
+
         [Display(Name = "Oluşturan Kullanıcı")]
         public int? OlusturanKullanici_Id { get; set; }
 
@@ -52,6 +55,9 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Tür Adı")]
         public string DosyaTurAdi { get; set; }
+      
+        [Display(Name = "Beyan Kapama Dosyası Mı?")]
+        public bool KapatmaMi { get; set; }
 
         [Display(Name = "Oluşturan Kullanıcı")]
         public int? OlusturanKullanici_Id { get; set; }
@@ -77,6 +83,9 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Dosya Tür Adı")]
         public string DosyaTurAdi { get; set; }
+
+        [Display(Name = "Beyan Kapama Dosyası Mı?")]
+        public bool KapatmaMi { get; set; }
 
         [Display(Name = "Güncelleyen Kullanıcı")]
         public int? GuncelleyenKullanici_Id { get; set; }

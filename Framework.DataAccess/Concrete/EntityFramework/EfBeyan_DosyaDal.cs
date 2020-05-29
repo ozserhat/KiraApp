@@ -12,19 +12,25 @@ namespace Framework.DataAccess.Concrete.EntityFramework
 {
     public class EfBeyan_DosyaDal : EfEntityRepositoryBase<Beyan_Dosya, DtContext>, IBeyan_DosyaDal
     {
-        public Beyan_Dosya GetById(int id)
+        public Beyan_Dosya GetById(int id, bool? kapatmaMi)
         {
             using (DtContext context = new DtContext())
             {
-                return context.Beyan_Dosyalari.Include(gt => gt.BeyanDosyaTurleri).Where(gta => gta.Id == id).FirstOrDefault();
+                if (kapatmaMi.HasValue && kapatmaMi.Value)
+                    return context.Beyan_Dosyalari.Include(gt => gt.BeyanDosyaTurleri).Where(gta => gta.Id == id && gta.BeyanDosyaTurleri.KapatmaMi.Value).FirstOrDefault();
+                else
+                    return context.Beyan_Dosyalari.Include(gt => gt.BeyanDosyaTurleri).Where(gta => gta.Id == id && !gta.BeyanDosyaTurleri.KapatmaMi.Value).FirstOrDefault();
             }
         }
 
-        public Beyan_Dosya GetByGuid(Guid guid)
+        public Beyan_Dosya GetByGuid(Guid guid, bool? kapatmaMi)
         {
             using (DtContext context = new DtContext())
             {
-                return context.Beyan_Dosyalari.Include(gt => gt.BeyanDosyaTurleri).Where(gta => gta.Guid == guid).FirstOrDefault();
+                if (kapatmaMi.HasValue && kapatmaMi.Value)
+                    return context.Beyan_Dosyalari.Include(gt => gt.BeyanDosyaTurleri).Where(gta => gta.Guid == guid && gta.BeyanDosyaTurleri.KapatmaMi.Value).FirstOrDefault();
+                else
+                    return context.Beyan_Dosyalari.Include(gt => gt.BeyanDosyaTurleri).Where(gta => gta.Guid == guid && !gta.BeyanDosyaTurleri.KapatmaMi.Value).FirstOrDefault();
             }
         }
 
@@ -34,7 +40,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
 
             using (var context = new DtContext())
             {
-                var tur = context.Beyan_Dosyalari.FirstOrDefault(i => i.Id == id);
+                var tur = context.Beyan_Dosyalari.FirstOrDefault(i => i.Id == id && !i.BeyanDosyaTurleri.KapatmaMi.Value);
 
                 if (tur != null)
                 {
@@ -47,19 +53,25 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             return sonuc;
         }
 
-        public IEnumerable<Beyan_Dosya> GetirListe()
+        public IEnumerable<Beyan_Dosya> GetirListe(bool? kapatmaMi)
         {
             using (DtContext context = new DtContext())
             {
-                return context.Beyan_Dosyalari.Include(gt => gt.BeyanDosyaTurleri).ToList();
+                if (kapatmaMi.HasValue && kapatmaMi.Value)
+                    return context.Beyan_Dosyalari.Include(gt => gt.BeyanDosyaTurleri).Where(gta => gta.BeyanDosyaTurleri.KapatmaMi.Value).ToList();
+                else
+                    return context.Beyan_Dosyalari.Include(gt => gt.BeyanDosyaTurleri).Where(gta => !gta.BeyanDosyaTurleri.KapatmaMi.Value).ToList();
             }
         }
 
-        public IEnumerable<Beyan_Dosya> GetirBeyanId(int BeyanId)
+        public IEnumerable<Beyan_Dosya> GetirBeyanId(int BeyanId, bool? kapatmaMi)
         {
             using (DtContext context = new DtContext())
             {
-                return context.Beyan_Dosyalari.Include(gt => gt.BeyanDosyaTurleri).Where(gta => gta.Beyan_Id == BeyanId).ToList();
+                if (kapatmaMi.HasValue && kapatmaMi.Value)
+                    return context.Beyan_Dosyalari.Include(gt => gt.BeyanDosyaTurleri).Where(gta => gta.Beyan_Id == BeyanId && gta.BeyanDosyaTurleri.KapatmaMi.Value).ToList();
+                else
+                    return context.Beyan_Dosyalari.Include(gt => gt.BeyanDosyaTurleri).Where(gta => gta.Beyan_Id == BeyanId && !gta.BeyanDosyaTurleri.KapatmaMi.Value).ToList();
             }
         }
     }
