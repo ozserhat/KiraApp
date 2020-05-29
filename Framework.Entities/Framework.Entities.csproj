@@ -77,6 +77,7 @@
     <Compile Include="Concrete\Ilce.cs" />
     <Compile Include="Concrete\Kiraci.cs" />
     <Compile Include="Concrete\KiraciTur.cs" />
+    <Compile Include="Concrete\KiraDurum_DosyaTur.cs" />
     <Compile Include="Concrete\KiraParametre.cs" />
     <Compile Include="Concrete\Kira_Beyan.cs" />
     <Compile Include="Concrete\Kira_Durum.cs" />

@@ -198,6 +198,7 @@
     <Compile Include="Areas\Admin\Controllers\GayrimenkulTurController.cs" />
     <Compile Include="Areas\Admin\Controllers\KiraciTurController.cs" />
     <Compile Include="Areas\Admin\Controllers\KiraDurumController.cs" />
+    <Compile Include="Areas\Admin\Controllers\KiraDurumDosyaTurController.cs" />
     <Compile Include="Areas\Admin\Controllers\KiraParametreController.cs" />
     <Compile Include="Areas\Admin\Controllers\KullaniciSayfaYetkiController.cs" />
     <Compile Include="Areas\Admin\Controllers\KullaniciYetkiController.cs" />
@@ -252,6 +253,7 @@
     <Compile Include="Models\ViewModels\KiraciTurVM.cs" />
     <Compile Include="Models\ViewModels\KiraciVM.cs" />
     <Compile Include="Models\ViewModels\KiraDurumVM.cs" />
+    <Compile Include="Models\ViewModels\KiraDurum_DosyaTurVM.cs" />
     <Compile Include="Models\ViewModels\KiralikTasinmazlarChart.cs" />
     <Compile Include="Models\ViewModels\KiraParametreVM.cs" />
     <Compile Include="Models\ViewModels\KullaniciSayfaYetkiVM.cs" />
@@ -1139,6 +1141,9 @@
     <Content Include="Areas\Admin\Views\BeyanUfeOran\Duzenle.cshtml" />
     <Content Include="Areas\Admin\Views\KullaniciSayfaYetki\Index.cshtml" />
     <Content Include="Areas\Admin\Views\KullaniciSayfaYetki\KullaniciSayfaYetkileri.cshtml" />
+    <Content Include="Areas\Admin\Views\KiraDurumDosyaTur\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\KiraDurumDosyaTur\Ekle.cshtml" />
+    <Content Include="Areas\Admin\Views\KiraDurumDosyaTur\Duzenle.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
