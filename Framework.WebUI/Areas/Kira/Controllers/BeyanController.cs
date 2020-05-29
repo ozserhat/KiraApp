@@ -436,14 +436,63 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
         #region BeyanKapatma
         [HttpPost]
-        public JsonResult KiraBeyanKapama(int BeyanId, int Kira_BeyanId)
+        public JsonResult KiraBeyanKapama(BeyanKapamaEkleVM beyanKapamaModel)
         {
-            bool sonuc = false;
+            int dosyaEkleSonuc = 0;
+
+            var beyan = _beyanService.Getir(beyanKapamaModel.Beyan_Id);
+
+            var tahakkuk = _tahakkukService.GetirListe(beyanKapamaModel.KiraBeyan_Id);
+
+            var kiraBeyan = _kiraBeyanService.Getir(beyanKapamaModel.KiraBeyan_Id);
+
+            if (beyan != null)
+            {
+                beyan.AktifMi = (int)EnmIslemDurumu.Kapandı;
+                beyan.GuncelleyenKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ?
+                                                 User.GetUserPropertyValue("UserId") : null);
+                beyan.GuncellenmeTarihi = DateTime.Now;
+
+                beyan = _beyanService.Guncelle(beyan);
+            }
+
+            if (tahakkuk != null)
+            {
+                foreach (var item in tahakkuk)
+                {
+                    item.AktifMi = (int)EnmIslemDurumu.Kapandı;
+                    item.GuncelleyenKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ?
+                                                     User.GetUserPropertyValue("UserId") : null);
+                    item.GuncellenmeTarihi = DateTime.Now;
+
+                    _tahakkukService.Guncelle(item);
+                }
+            }
+
+            if (kiraBeyan != null)
+            {
+                kiraBeyan.AktifMi = (int)EnmIslemDurumu.Kapandı;
+                kiraBeyan.GuncelleyenKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ?
+                                                 User.GetUserPropertyValue("UserId") : null);
+                kiraBeyan.GuncellenmeTarihi = DateTime.Now;
+
+                kiraBeyan = _kiraBeyanService.Guncelle(kiraBeyan);
+            }
+
+            dosyaEkleSonuc = BeyanDosyaEkle(beyanKapamaModel.Beyan_Id, beyanKapamaModel.BeyanDosyalar);
+
+            if (dosyaEkleSonuc > 0)
+            {
+                ModelState.AddModelError("LogMessage", "Beyan Kapama İşlemi Başarıyla Gerçekleştirildi!!!");
+
+                return Json(new { Message = "Beyan Kapama İşlemi Başarıyla Gerçekleştirildi.", success = true }, JsonRequestBehavior.AllowGet);
+            }
 
             ModelState.AddModelError("LogMessage", "Beyan Kapama İşlemi Gerçekleştirilemedi!!!");
 
-            return Json(new { Message = "Beyan Kapama İşlemi Gerçekleştirilemedi.", success = sonuc }, JsonRequestBehavior.AllowGet);
+            return Json(new { Message = "Beyan Kapama İşlemi Gerçekleştirilemedi.", success = false }, JsonRequestBehavior.AllowGet);
         }
+
         #endregion
 
         #region Metodlar
@@ -454,6 +503,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
             return Json(new { Data = mahalleler, success = true }, JsonRequestBehavior.AllowGet);
         }
+
         private KiraBeyanEkleVM BeyanGuncelleVeriGetir(Guid id)
         {
             Kiraci kiraci = new Kiraci();
@@ -909,6 +959,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             _kiraBeyanService.Guncelle(kiraBeyan);
 
         }
+
 
         private bool BeyanPasifeAl(KiraArtisEkleVM artisModel)
         {

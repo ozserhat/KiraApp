@@ -1133,8 +1133,11 @@
                                     <div class="item-content">
                                         <form id="frmBeyanKapama">
                                             <fieldset>
-                                                <input type="hidden" id="BeyanId" />
-                                                <input type="hidden" id="KiraBeyanId" />
+                                                <input type="hidden" id="KapamaBeyanId" value="@Model.Beyan.Id" />
+                                                <input type="hidden" id="KapamaKiraBeyan_Id" value="@Model.KiraBeyan_Id" />
+                                                <input type="hidden" id="Gayrimenkul_Id" value="@Model.Gayrimenkul.Id" />
+                                                <input type="hidden" id="KapamaKiraci_Id" value="@Model.Kiraci.Id" />
+                                                <input type="hidden" id="KapamaKiraDurum_Id" />
                                                 <div class="row">
                                                     <div class="col-md-8">
                                                         <div class="form-group">
@@ -1698,8 +1701,6 @@
                         $('#loadingbtnBelgeEkleme').addClass('hide');
                     }
                 }, 1500);
-
-
             }
         }
     </script>
@@ -1793,38 +1794,50 @@
             // Read in the image file as a data URL.
             reader.readAsBinaryString(files);
         });
+    </script>
 
-        function BelgeEkle(gayrimenkulId) {
+    <!--Beyan Kapama İşlemi -->
+    <script type="text/javascript">
+         $(function () {
+             $('#btnBeyanKapama').on('click', function () {
+                  
+                var beyanKapamaModel ={
+                   BeyanId: $('#KapamaBeyanId').val(),
+                   Kira_BeyanId: $('#KapamaKiraBeyan_Id').val(),
+                   Gayrimenkul_Id: $('#KapamaGayrimenkul_Id').val(),
+                   Kiraci_Id: $('#KapamaKiraci_Id').val(),
+                   KiraDurum_Id: $('#KiraDurum_Id').val(),
+                   BeyanDosyalar: beyankapamaDosyalar
+                };
 
-            var $valid = $("#kapamaBelgeEkleForm").valid();
-            if (!$valid) {
-                $validatorBelgeEkle.focusInvalid();
-                return false;
-            } else {
-
-                $("#path").val("");
-
-                $('#loadingbtnBelgeEkleme').removeClass();
-                $("#btnBelgeKaydet").removeClass();
-                $("#btnBelgeKaydet").addClass('btn btn-warning hide');
-
-
-                var sonuc = true;
-                var sayac = 0;
-                var elems = $("form .taranmisDosya");
-                var count = elems.length;
-                var tumDosyalarYuklendiMi = true;
-                setTimeout(function () {
-                    if (tumDosyalarYuklendiMi) {
-                        $("#btnBelgeKaydet").removeClass();
-                        $("#btnBelgeKaydet").addClass('btn btn-primary');
-                        $('#loadingbtnBelgeEkleme').addClass('hide');
+                if ($("#frmBeyanKapama").valid())
+                {
+                   $.ajax({
+                    type: 'Post',
+                    url: '@Url.Action("KiraBeyanKapama", "Beyan")',
+                       data: { beyanKapamaModel: beyanKapamaModel },
+                       beforeSend: function () {
+                           $.LoadingOverlay("show", { text: "Beyan Kapama İşlemi Gerçekleştiriliyor...", textResizeFactor: 0.2, background: "rgba(0, 0, 0, 0.5)" });
+                       },
+                    success: function (result) {
+                        if (result != null && result.success) {
+                            swal('Bilgi!', result.Message, 'success');
+                            $.LoadingOverlay("hide");
+                            setTimeout(function () {
+                                window.location.href = "../Beyan/Index";
+                            }, 2000);
+                        }
+                        else {
+                            swal('Uyarı!', result.Message, 'warning');
+                        }
+                    },
+                    error: function (xhr) {
+                        swal('Uyarı!', result.Message, 'warning');
                     }
-                }, 1500);
-
-
-            }
-        }
+                 });
+                }
+            });
+        });
     </script>
 
 }
