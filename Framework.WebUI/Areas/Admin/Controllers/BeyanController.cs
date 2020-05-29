@@ -18,6 +18,7 @@ using System.Globalization;
 
 namespace Framework.WebUI.Areas.Admin.Controllers
 {
+    [CustomAuthorize(Roles = "Admin")]
     public class BeyanController : Controller
     {
         #region Constructor

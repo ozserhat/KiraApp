@@ -14,6 +14,7 @@ using iTextSharp.text.pdf.qrcode;
 
 namespace Framework.WebUI.Areas.Admin.Controllers
 {
+    [CustomAuthorize(Roles = "Admin")]
     public class BeyanUfeOranController : Controller
     {
         #region Constructor

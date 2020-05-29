@@ -92,7 +92,10 @@ namespace Framework.Business.DependencyResolvers.Ninject
 
             Bind<IKira_DurumDal>().To<EfKira_DurumDal>().InTransientScope();
             Bind<IKira_DurumService>().To<Kira_DurumManager>().InTransientScope();
-          
+
+            Bind<IKiraDurum_DosyaTurDal>().To<EfKiraDurum_DosyaTurDal>().InTransientScope();
+            Bind<IKiraDurum_DosyaTurService>().To<KiraDurum_DosyaTurManager>().InTransientScope();
+
             Bind<IIlDal>().To<EfIlDal>().InTransientScope();
             Bind<IIlService>().To<IlManager>().InTransientScope();
 
