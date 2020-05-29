@@ -392,7 +392,7 @@
                                                                                         <div class="form-group">
                                                                                             <label for="file" class="input input-file">
                                                                                                 <div class="button">
-                                                                                                    @Html.TextBox("dosya" + item.Id, "", new { @class = "form-control taranmisDosya", type = "file", data_id = item.Id })Belge Ekle
+                                                                                                    @Html.TextBox("dosya" + item.Id, "", new { @class = "form-control taranmisDosya", type = "file", data_id = item.Id,data_name=item.Ad })Belge Ekle
                                                                                                 </div>
                                                                                                 <input type="text" id="placeholder_@item.Id" placeholder="@item.Ad" readonly="">
                                                                                             </label>
@@ -570,7 +570,7 @@
             //    $("#yanlis_" + BasvuruGrupTipi_DosyaTipi_Id ).show();
             //    Dosya = "";
             //}
-            var fileUpload = $("#DosyaTur_" + BasvuruGrupTipi_DosyaTipi_Id).get(0);
+            var fileUpload = $("#dosya" + BasvuruGrupTipi_DosyaTipi_Id).get(0);
 
             var files = evt.target.files[0];
 

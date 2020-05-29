@@ -179,7 +179,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             try
             {
                 TahsilatService.ServiceClient wcf = new TahsilatService.ServiceClient();
-                var result = wcf.TahsilatSorgula("2020-05-12-16-32-24-82336775", 37857);
+                var result = wcf.TahsilatSorgula("2020-01-06-17-22-21-81785805", 8031);
             }
             catch (Exception ex)
             {
@@ -194,7 +194,6 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         [HttpGet]
         public ActionResult Ekle(Guid? id)
         {
-            TestWCF();
             GetirSelectList();
             if (id != null)
             {
