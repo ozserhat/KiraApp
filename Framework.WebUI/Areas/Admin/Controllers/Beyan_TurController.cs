@@ -13,6 +13,7 @@ using System.Web.Mvc;
 
 namespace Framework.WebUI.Areas.Admin.Controllers
 {
+    [CustomAuthorize(Roles = "Admin")]
     public class Beyan_TurController : Controller
     {
         #region Constructor

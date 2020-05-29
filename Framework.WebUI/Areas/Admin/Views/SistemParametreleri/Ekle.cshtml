@@ -150,13 +150,13 @@
         var baslangicTarihi, bitisTarihi;
         $.validator.addMethod("baslangicTarihi", function (value, element) {
 
-            var durum = false;
+            var durum = true;
 
             baslangicTarihi = $('#BaslangicTarihi').val();
             bitisTarihi = $('#BitisTarihi').val();
 
             if ((bitisTarihi != "") && (baslangicTarihi > bitisTarihi))
-                durum = true;
+                durum = false;
 
             return durum;
 
@@ -169,7 +169,7 @@
             bitisTarihi = $('#BitisTarihi').val();
 
             if ((bitisTarihi != "") && (baslangicTarihi > bitisTarihi))
-                durum = true;
+                durum = false;
 
             return durum;
 
