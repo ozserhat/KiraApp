@@ -248,6 +248,7 @@
     <Compile Include="Models\ViewModels\GayrimenkulDosya_TurVM.cs" />
     <Compile Include="Models\ViewModels\GayrimenkulTurVM.cs" />
     <Compile Include="Models\ViewModels\GayrimenkulVM.cs" />
+    <Compile Include="Models\ViewModels\Gayrimenkul_DosyaVM.cs" />
     <Compile Include="Models\ViewModels\KiraBeyanVM.cs" />
     <Compile Include="Models\ViewModels\KiraciTurVM.cs" />
     <Compile Include="Models\ViewModels\KiraciVM.cs" />
