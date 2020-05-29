@@ -46,7 +46,7 @@
                                         </a>
                                     </span>
                                 </div>
-                                <h2>Beyan Listesi - <b>Toplam Beyan Adedi : @Model.TotalRecordCount</b></h2>
+                                <h2>Beyan-Sicil Listesi - <b>Toplam Beyan Adedi : @Model.TotalRecordCount</b></h2>
 
                                 <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
 
@@ -344,12 +344,8 @@
         function clearForm() {
             debugger;
 
-            $('#BeyanTur_Id').select2("val", "");
-            $('#BeyanYil').select2("val", "");
-            $('#KiraDurum_Id').select2("val", "");
-            $('#Kdv').select2("val", "");
-            $('#OdemePeriyotTur_Id').select2("val", "");
-            $('#DamgaAlinsinMi').select2("val", "");
+            $('#Ilce_Id').select2("val", "");
+            $('#Mahalle_Id').select2("val", "");
             $('#btnSubmit').click();
 
         }
