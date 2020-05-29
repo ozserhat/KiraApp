@@ -76,6 +76,13 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
             return new SelectList(ilceler, "Id", "Ad");
         }
 
+        public SelectList MahalleSelectListGetir(int ilceId)
+        {
+            var mahalleler = _mahalleService.GetirListe().Where(a => a.Ilce_Id == ilceId).Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+
+            return new SelectList(mahalleler, "Id", "Ad");
+        }
+
 
         [HttpPost]
 
@@ -188,7 +195,7 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
                         AktifMi = true
                     };
 
-                    var result = _gayrimenkulservice.Ekle(gayrimenkul);
+                    var result = _gayrimenkulservice.Guncelle(gayrimenkul);
                     GayrimenkulDosyaEkle(result.Id, model.GayrimenkulDosyalar);
 
 
@@ -215,12 +222,17 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
             var model = new GayrimenkulDuzenleVM();
             model.TurSelectList = TurSelectList();
             model.IlceSelectList = IlceSelectList();
+
             model.DosyaTurleri = _dosyaTurService.GetirListe();
             model.GayrimenkulDurumSelectList = GayrimenkulDurumSelectList();
             var gayrimenkul = _gayrimenkulservice.GetirGuid(guid);
 
             if (gayrimenkul != null)
             {
+                if (gayrimenkul.Ilce_Id != null)
+                    model.MahalleSelectList = MahalleSelectListGetir(Convert.ToInt32(gayrimenkul.Ilce_Id));
+
+                model.Id = gayrimenkul.Id;
                 model.Guid = Guid.NewGuid();
                 model.GayrimenkulAdi = gayrimenkul.Ad;
                 model.GayrimenkulTur_Id = gayrimenkul.GayrimenkulTur_Id;
@@ -269,6 +281,7 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
 
                     if (gayrimenkul != null)
                     {
+                        gayrimenkul.Id = gayrimenkul.Id;
                         gayrimenkul.Guid = Guid.NewGuid();
                         gayrimenkul.Ad = model.GayrimenkulAdi;
                         gayrimenkul.GayrimenkulTur_Id = model.GayrimenkulTur_Id;
@@ -297,6 +310,8 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
 
 
                     }
+                    if (gayrimenkul != null)
+                        GayrimenkulDosyaEkle(gayrimenkul.Id, model.GayrimenkulDosyalar);
 
                     ModelState.AddModelError("LogMessage", "Gayrimenkul Bilgisi Düzenlendi.");
                     return RedirectToAction("Index");

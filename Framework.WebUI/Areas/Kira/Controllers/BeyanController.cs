@@ -174,11 +174,27 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
         #endregion
 
+        public void TestWCF()
+        {
+            try
+            {
+                TahsilatService.ServiceClient wcf = new TahsilatService.ServiceClient();
+                var result = wcf.TahsilatSorgula("2020-05-12-16-32-24-82336775", 37857);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+        }
+
         #region Ekle
 
         [HttpGet]
         public ActionResult Ekle(Guid? id)
         {
+            TestWCF();
             GetirSelectList();
             if (id != null)
             {
@@ -217,8 +233,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             #endregion
 
             #region Gayrimenkul,Sicil,Beyan Ekleme İşlemleri
-           
-           
+
+
             kiraBeyanModel.Gayrimenkul_Id = kiraBeyanModel.Gayrimenkul.GayrimenkulId;
 
             var kiraci = _kiraciService.GetirVergiNo(kiraBeyanModel.Kiraci.VergiNo.Value);
@@ -1117,7 +1133,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         {
             if (BeyanId > 0)
             {
-                var dosyalar = _beyanDosyaService.GetirBeyanId(BeyanId,false);
+                var dosyalar = _beyanDosyaService.GetirBeyanId(BeyanId, false);
 
 
                 _beyanVM.BeyanDetayDosyalar = new List<Beyan_DosyaVM>();
