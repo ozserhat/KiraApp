@@ -140,4 +140,14 @@
             });
         });
     </script>
+
+    <!--Form Temizleme İşlemi -->
+    <script type="text/javascript">
+        function clearForm() {
+            document.getElementById("AktifMi").checked = false;
+            document.getElementById("DuyuruAd").value = "";
+            document.getElementById("Aciklama").value = "";
+            $('#TurId').select2("val", "");
+        }
+    </script>
 }

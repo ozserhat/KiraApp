@@ -104,15 +104,19 @@
     @Scripts.Render("~/bundles/jqueryval")
 
 
+
+
+
     <!--ClearForm-->
     <script type="text/javascript">
 
         function clearForm() {
+            debugger;
+
             document.getElementById("AktifMi").checked = false;
+            $('#TurId').select2("val", "")
             document.getElementById("DuyuruAd").value = "";
             document.getElementById("Aciklama").value = "";
-            $('#TurId').select2("val", "");
-
             $('#btnSubmit').click();
 
         }
@@ -124,6 +128,7 @@
         });
 
     </script>
+
 
 
 

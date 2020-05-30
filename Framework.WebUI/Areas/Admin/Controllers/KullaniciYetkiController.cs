@@ -117,7 +117,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                 permission = _service.Ekle(permission);
             }
 
-            if (permission.AktifMi.HasValue && permission.AktifMi.Value)
+            if (permission.AktifMi.HasValue && !permission.AktifMi.Value)
                 return Json(new { success = true, Message = "Kullanıcı Yetkileri Eklendi." }, JsonRequestBehavior.AllowGet);
             else
                 return Json(new { success = false, Message = "Kullanıcı Yetkileri Eklenemedi!!!" }, JsonRequestBehavior.AllowGet);

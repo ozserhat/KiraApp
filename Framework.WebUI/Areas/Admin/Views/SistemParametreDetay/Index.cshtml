@@ -36,11 +36,16 @@
                     <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
                         <header>
                             <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+
+                            <div style="float:left; margin-top: -5px; padding-bottom: 8px;">
+                                <p>
+                                    <a href="@Url.Action("Index","SistemParametreleri")" class="btn btn-warning" title="" rel="tooltip" data-placement="bottom" data-original-title="Sistem Parametreleri Listesine Dön"><span class="glyphicon glyphicon-chevron-left"></span>Sistem Parametre Listesine Dön</a>
+                                </p>
+                            </div>
                             <h2>Parametre Detay Listesi - <b>Toplam Parametre Adedi : @Model.TotalRecordCount</b></h2>
                             <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
                                 <p>
-                                    <a href="@Url.Action("Index","SistemParametreleri")" class="btn btn-warning" title="" rel="tooltip" data-placement="bottom" data-original-title="Sistem Parametreleri Listesine Dön"><span class="glyphicon glyphicon-chevron-left"></span>Listeye Dön</a>
-                                    <a href="@Url.Action("Ekle","SistemParametreDetay",new { ParametreId=Request.QueryString["ParametreId"]})" class="btn btn-info" title="" rel="tooltip" data-placement="bottom" data-original-title="Parametre Detay Ekle"><span class="glyphicon glyphicon-chevron-left"></span>Parametre Detay Ekle</a>
+                                    <a href="@Url.Action("Ekle","SistemParametreDetay",new { ParametreId=Request.QueryString["ParametreId"]})" class="btn btn-info" title="" rel="tooltip" data-placement="bottom" data-original-title="Parametre Detay Ekle"><span class="glyphicon glyphicon-chevron-right"></span>Parametre Detay Ekle</a>
                                 </p>
                             </div>
                         </header>
