@@ -282,10 +282,10 @@
                                 });
                             }
 
-                            swal('Uyarı!', name + ' ' + result.Message, 'success');
+                            swal('Uyarı!', name + '' + result.Message, 'success');
                         }
                         else {
-                            swal('Uyarı!', result.Message, 'warning');
+                            swal('Uyarı!','Lütfen Listeden Eklemek İstediğiniz Yetkileri Seçiniz!!!', 'warning');
                         }
                     },
                     error: function (xhr) {
