@@ -251,8 +251,21 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Kira Yenileme Periyotu")]
         public SelectList KiraYenilemePeriyotSelectList { get; set; }
 
+
+        [Display(Name = "Beyan_Id")]
+        public int Beyan_Id { get; set; }
+
+        [Display(Name = "Kiraci_Id")]
+        public int Kiraci_Id { get; set; }
+
+        [Display(Name = "Gayrimenkul_Id")]
+        public int Gayrimenkul_Id { get; set; }
+
         [Display(Name = "KiraBeyan_Id")]
         public int KiraBeyan_Id { get; set; }
+
+        [Display(Name = "KiraDurum_Id")]
+        public int KiraDurum_Id { get; set; }
     }
 
     public class KiraParametreDetay

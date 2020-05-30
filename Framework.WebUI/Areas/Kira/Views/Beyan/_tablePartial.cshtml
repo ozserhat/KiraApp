@@ -56,7 +56,11 @@
                         {
                             <b class="label pasif-buton">Pasif</b>
                         }
-                        else if (item.Beyanlar.AktifMi == (int)Framework.Entities.Enums.EnmIslemDurumu.Silindi)
+                        else if (item.Beyanlar.AktifMi == (int)Framework.Entities.Enums.EnmIslemDurumu.Kapandı)
+                        {
+                            <b class="label kapandi-buton">Kapandı</b>
+                        }
+                        else
                         {
                             <b class="label silindi-buton">Silindi</b>
                         }

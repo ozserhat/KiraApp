@@ -1133,10 +1133,10 @@
                                     <div class="item-content">
                                         <form id="frmBeyanKapama">
                                             <fieldset>
-                                                <input type="hidden" id="KapamaBeyanId" value="@Model.Beyan.Id" />
+                                                <input type="hidden" id="KapamaBeyanId" value="@Model.Beyan_Id" />
                                                 <input type="hidden" id="KapamaKiraBeyan_Id" value="@Model.KiraBeyan_Id" />
-                                                <input type="hidden" id="Gayrimenkul_Id" value="@Model.Gayrimenkul.Id" />
-                                                <input type="hidden" id="KapamaKiraci_Id" value="@Model.Kiraci.Id" />
+                                                <input type="hidden" id="KapamaGayrimenkul_Id" value="@Model.Gayrimenkul_Id" />
+                                                <input type="hidden" id="KapamaKiraci_Id" value="@Model.Kiraci_Id" />
                                                 <input type="hidden" id="KapamaKiraDurum_Id" />
                                                 <div class="row">
                                                     <div class="col-md-8">
@@ -1802,8 +1802,8 @@
              $('#btnBeyanKapama').on('click', function () {
                   
                 var beyanKapamaModel ={
-                   BeyanId: $('#KapamaBeyanId').val(),
-                   Kira_BeyanId: $('#KapamaKiraBeyan_Id').val(),
+                   Beyan_Id: $('#KapamaBeyanId').val(),
+                   KiraBeyan_Id: $('#KapamaKiraBeyan_Id').val(),
                    Gayrimenkul_Id: $('#KapamaGayrimenkul_Id').val(),
                    Kiraci_Id: $('#KapamaKiraci_Id').val(),
                    KiraDurum_Id: $('#KiraDurum_Id').val(),
@@ -1829,11 +1829,13 @@
                         }
                         else {
                             swal('Uyarı!', result.Message, 'warning');
+                            $.LoadingOverlay("hide");
                         }
                     },
                     error: function (xhr) {
                         swal('Uyarı!', result.Message, 'warning');
-                    }
+                        $.LoadingOverlay("hide");
+                       }
                  });
                 }
             });
