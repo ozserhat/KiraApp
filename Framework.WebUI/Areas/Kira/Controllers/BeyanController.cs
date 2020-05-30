@@ -1194,7 +1194,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         {
             if (BeyanId > 0)
             {
-                var dosyalar = _beyanDosyaService.GetirBeyanId(BeyanId, false);
+                var dosyalar = _beyanDosyaService.GetirBeyanIdFull(BeyanId);
 
 
                 _beyanVM.BeyanDetayDosyalar = new List<Beyan_DosyaVM>();

@@ -14,6 +14,7 @@ namespace Framework.DataAccess.Abstract
         Beyan_Dosya GetById(int id, bool? kapatmaMi);
 
         IEnumerable<Beyan_Dosya> GetirBeyanId(int BeyanId, bool? kapatmaMi);
+        IEnumerable<Beyan_Dosya> GetirBeyanIdFull(int BeyanId);
 
         Beyan_Dosya GetByGuid(Guid guid, bool? kapatmaMi);
         bool Delete(int id);
