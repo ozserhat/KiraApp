@@ -15,6 +15,9 @@ namespace Framework.WebUI.Models.ViewModels
 
     public class BeyanEkleVM : PagingVMBase
     {
+        [Display(Name = "Id")]
+        public int Id { get; set; }
+
         [Display(Name = "Guid")]
         public Guid Guid { get; set; }
 
@@ -132,8 +135,6 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Aktif Mi")]
         public int AktifMi { get; set; }
-
-        public int Id { get; set; }
     }
 
     public class BeyanDuzenleVM : PagingVMBase
@@ -225,6 +226,9 @@ namespace Framework.WebUI.Models.ViewModels
 
     public class BeyanDetayVM : PagingVMBase
     {
+        [Display(Name = "Id")]
+        public int Id { get; set; }
+
         [Display(Name = "Guid")]
         public Guid Guid { get; set; }
 

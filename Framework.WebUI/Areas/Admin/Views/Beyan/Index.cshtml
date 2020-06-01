@@ -284,7 +284,7 @@
     <script type="text/javascript">
         $(function () {
             $("#btnExport").click(function () {
-                $("#dt_basicBeyan").table2excel({
+                $("#dtBeyanTable").table2excel({
                     filename: "Table.xls"
                 });
             });
@@ -406,7 +406,7 @@
             debugger;
             $.LoadingOverlay("show", { text: "Beyan Bilgileri Sorgulanıyor...", textResizeFactor: 0.2, background: "rgba(0, 0, 0, 0.5)" });
             setTimeout(function () {
-                $('#dt_basicBeyan').DataTable().destroy();
+                $('#dtBeyanTable').DataTable().destroy();
                 $.LoadingOverlay("hide");
             }, 2000);
 
@@ -414,6 +414,7 @@
         }
 
     </script>
+
     <script type="text/javascript">
         function deletealert(Id, name, closestTR) {
             swal({
@@ -432,7 +433,7 @@
                         success: function (result) {
                             if (result.success) {
                                 closestTR.fadeOut(2000, function () {
-                                    dt = $('#dt_basicBeyan').DataTable();
+                                    dt = $('#dtBeyanTable').DataTable();
                                     swal('Uyarı!', name + ' ' + result.Message, 'success');
                                     location.reload();
                                 });
@@ -449,10 +450,14 @@
     <script type="text/javascript">
         var dt;
         var closestRow = [];
-        var removeList = [];
-        TableDesign();
+        var removeList = [];   
+        
+        $(document).ready(function () {
+            TableDesign();
+        });
+
         function TableDesign() {
-            dt = $('#dt_basicBeyan').DataTable({
+            dt = $('#dtBeyanTable').DataTable({
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Turkish.json"
             },
@@ -461,6 +466,8 @@
                     'targets': 0,
                     'searchable': false,
                     'orderable': false,
+                    scrollY: '20vh',
+                    scrollCollapse: true,
                     'className': 'dt-body-center', "select": {
                         "style": "multi",
                         selector: 'tr>td:nth-child(0), tr>td:nth-child(0)'
@@ -474,35 +481,28 @@
                 }],
             order: [1, 'asc'],
         });
-
-       if (@sonSayfa < 8) {
-                $("#sayfalama").css("display", "none");
         }
 
-       if (@sonSayfa < 8) {
-           $("#sayfalama").css("display", "none");
-         }
+        $('.chcBox').on("click", function () {
+            var dt = $("#dt_basic").dataTable();
+            var row = $(this).closest('tr');
+            var chkbox_checked = $('tbody input[type="checkbox"]:checked', dt);
+            var tuisre = $(this).is(":checked");
+            if (tuisre) {
+                closestRow.push(row);
+                var ID = this.value;
+                removeList.push(ID);
+            }
+            else {
+                removeList.splice($.inArray(this.value, removeList), 1);
 
-         $('.chcBox').on("click", function () {
-                var dt = $("#dt_basic").dataTable();
-                var row = $(this).closest('tr');
-                var chkbox_checked = $('tbody input[type="checkbox"]:checked', dt);
-                var tuisre = $(this).is(":checked");
-                if (tuisre) {
-                    closestRow.push(row);
-                    var ID = this.value;
-                    removeList.push(ID);
-                }
-                else {
-                    removeList.splice($.inArray(this.value, removeList), 1);
-
-                }
-            });
-        }
+            }
+        });
 
         $("#checkAll").change(function () {
-            debugger;
-                     $("input:checkbox").prop('checked', $(this).prop("checked"));
+         
+            $("input:checkbox").prop('checked', $(this).prop("checked"));
+
             $("input:checkbox").prop('checked', $(this).prop("checked")).each(function () {
                  var dt = $("#dt_basic").dataTable();
                 var row = $(this).closest('tr');
@@ -511,7 +511,6 @@
                     if ($(this).val() != "on") {
                         closestRow.push(row);
                         removeList.push($(this).val());
-
                     }
                 }
                 else {
@@ -520,9 +519,7 @@
                 }
             })
 
-                 });
-
-
+        });
 
         $('#btnGonder').on('click', function (e) {
 

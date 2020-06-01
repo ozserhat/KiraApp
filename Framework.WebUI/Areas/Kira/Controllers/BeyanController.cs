@@ -53,8 +53,11 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         private IIlceService _ilceService;
         private BeyanSelectListsVm _selectLists;
         private ISistemParametre_DetayService _parametreService;
+
         private IBeyan_UfeOranService _ufeOranService;
         private IGayrimenkulTurService _gayrimenkulTurService;
+
+        private IKiraDurum_DosyaTurService _kiraDurumDosyaTurService;
 
 
         public string DosyaYolu = ConfigurationManager.AppSettings["DosyaYolu"].ToString();
@@ -81,8 +84,14 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         IIlService ilService,
         IIlceService ilceService,
         ISistemParametre_DetayService parametreService,
+
         BeyanSelectListsVm selectLists,
-        IBeyan_UfeOranService ufeOranService
+
+        IKiraDurum_DosyaTurService kiraDurumDosyaTurService,
+        IOdemePeriyotTurService odemePeriyotService,
+        IBeyan_TurService beyanTurService,
+        IKiraParametreService kiraParametreService,
+       
         )
         {
             _gayrimenkulservice = gayrimenkulservice;
@@ -106,8 +115,15 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             _selectLists = selectLists;
             _resmiTatilService = resmiTatilService;
             _parametreService = parametreService;
+
             _gayrimenkulTurService = gayrimenkulTurService;
             _ufeOranService = ufeOranService;
+
+            _odemePeriyotService = odemePeriyotService;
+            _beyanTurService = beyanTurService;
+            _kiraParametreService = kiraParametreService;
+            _kiraDurumDosyaTurService = kiraDurumDosyaTurService;
+
         }
         #endregion
 
@@ -362,8 +378,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             #endregion
 
             #region Gayrimenkul,Sicil,Beyan Ekleme İşlemleri
-           
-           
+
+
             kiraBeyanModel.Gayrimenkul_Id = kiraBeyanModel.Gayrimenkul.GayrimenkulId;
 
             var kiraci = _kiraciService.GetirVergiNo(kiraBeyanModel.Kiraci.VergiNo.Value);
@@ -395,6 +411,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
                 if (AySayisi > 0)
                 {
+                    kiraBeyanModel.Gayrimenkul = GetirGayrimenkul(kiraBeyanModel.Gayrimenkul.GayrimenkulId);
+
                     List<Tahakkuk> tahakkukListe = new List<Tahakkuk>();
 
                     var standart = StandartTahakkukEkle(kiraBeyanModel.KiraBeyan_Id, kiraBeyanModel.Beyan, kiraParametre);
@@ -451,6 +469,11 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 model.UfeOranlari = _selectLists.UfeOranSelectList();
                 model.ArtisTuruSelectList = _selectLists.ArtisTuruSelectList();
                 model.KiraYenilemePeriyotSelectList = _selectLists.KiraYenilemePeriyotSelectList();
+
+                model.Beyan_Id = kiraBeyan.Beyan_Id;
+                model.Gayrimenkul_Id = model.Gayrimenkul.Id;
+                model.Kiraci_Id = kiraBeyan.Kiracilar.Id;
+                model.KiraBeyan_Id = kiraBeyan.Id;
             }
 
             return View(model);
@@ -578,14 +601,79 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
         #region BeyanKapatma
         [HttpPost]
-        public JsonResult KiraBeyanKapama(int BeyanId, int Kira_BeyanId)
+        public JsonResult KiraBeyanKapama(BeyanKapamaEkleVM beyanKapamaModel)
         {
-            bool sonuc = false;
+            int dosyaEkleSonuc = 0;
+
+            var beyan = _beyanService.Getir(beyanKapamaModel.Beyan_Id);
+
+            var tahakkuk = _tahakkukService.GetirListe(beyanKapamaModel.KiraBeyan_Id);
+
+            var kiraBeyan = _kiraBeyanService.Getir(beyanKapamaModel.KiraBeyan_Id);
+
+            var gayrimenkul = _gayrimenkulservice.Getir(beyanKapamaModel.Gayrimenkul_Id);
+
+
+            if (beyan != null)
+            {
+                beyan.KiraDurum_Id = beyanKapamaModel.KiraDurum_Id;
+                beyan.AktifMi = (int)EnmIslemDurumu.Kapandı;
+                beyan.GuncelleyenKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ?
+                                                 User.GetUserPropertyValue("UserId") : null);
+                beyan.GuncellenmeTarihi = DateTime.Now;
+
+                beyan = _beyanService.Guncelle(beyan);
+            }
+
+            if (tahakkuk != null)
+            {
+                foreach (var item in tahakkuk)
+                {
+                    item.AktifMi = (int)EnmIslemDurumu.Kapandı;
+                    item.GuncelleyenKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ?
+                                                     User.GetUserPropertyValue("UserId") : null);
+                    item.GuncellenmeTarihi = DateTime.Now;
+
+                    _tahakkukService.Guncelle(item);
+                }
+            }
+
+            if (kiraBeyan != null)
+            {
+                kiraBeyan.AktifMi = (int)EnmIslemDurumu.Kapandı;
+                kiraBeyan.GuncelleyenKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ?
+                                                 User.GetUserPropertyValue("UserId") : null);
+                kiraBeyan.GuncellenmeTarihi = DateTime.Now;
+
+                kiraBeyan = _kiraBeyanService.Guncelle(kiraBeyan);
+            }
+
+            if (beyanKapamaModel.BeyanDosyalar != null)
+                dosyaEkleSonuc = BeyanDosyaEkle(beyanKapamaModel.Beyan_Id, beyanKapamaModel.BeyanDosyalar);
+
+            if (kiraBeyan.Id > 0)
+            {
+                if (gayrimenkul != null)
+                {
+                    gayrimenkul.GayrimenkulDurum_Id = beyanKapamaModel.KiraDurum_Id;
+                    gayrimenkul.AktifMi = true;
+                    gayrimenkul.GuncelleyenKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ?
+                                                     User.GetUserPropertyValue("UserId") : null);
+                    gayrimenkul.GuncellenmeTarihi = DateTime.Now;
+
+                    gayrimenkul = _gayrimenkulservice.Guncelle(gayrimenkul);
+                }
+
+                ModelState.AddModelError("LogMessage", "Beyan Kapama İşlemi Başarıyla Gerçekleştirildi!!!");
+
+                return Json(new { Message = "Beyan Kapama İşlemi Başarıyla Gerçekleştirildi.", success = true }, JsonRequestBehavior.AllowGet);
+            }
 
             ModelState.AddModelError("LogMessage", "Beyan Kapama İşlemi Gerçekleştirilemedi!!!");
 
-            return Json(new { Message = "Beyan Kapama İşlemi Gerçekleştirilemedi.", success = sonuc }, JsonRequestBehavior.AllowGet);
+            return Json(new { Message = "Beyan Kapama İşlemi Gerçekleştirilemedi.", success = false }, JsonRequestBehavior.AllowGet);
         }
+
         #endregion
 
         #region Metodlar
@@ -731,17 +819,32 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
         private KiraParametreHesapDetay HesapDetay(BeyanEkleVM beyan, KiraParametreDetay parametreDetay)
         {
-            KiraParametreHesapDetay detay = new KiraParametreHesapDetay();
-            parametreDetay.Hesap.KararHarciTutar = (decimal.Parse(beyan.IhaleTutari.Replace('.', ',')) * parametreDetay.KiraParametre.KararHarciOran.Value);
-            parametreDetay.Hesap.TeminatTutar = (decimal.Parse(beyan.IhaleTutari.Replace('.', ',')) * parametreDetay.KiraParametre.TeminatOran.Value);
-            parametreDetay.DamgaAlinsinMi = (beyan.DamgaAlinsinMi == "1" ? true : false);
-            if (beyan.DamgaAlinsinMi == "1")
-                parametreDetay.Hesap.DamgaVergisiTutar = (decimal.Parse(beyan.IhaleTutari.Replace('.', ',')) * parametreDetay.KiraParametre.DamgaOran.Value);
-            else
-                parametreDetay.Hesap.DamgaVergisiTutar = 0;
+            decimal ihaleTutar, kiraTutar;
 
-            parametreDetay.Hesap.KdvTutar = ((beyan.Kdv.HasValue && beyan.Kdv.Value > 0) ? (decimal.Parse(beyan.KiraTutari.Replace('.', ',')) * beyan.Kdv.Value / 100) : 0);
-            parametreDetay.Hesap.KiraTutar = decimal.Parse(beyan.KiraTutari);
+            KiraParametreHesapDetay detay = new KiraParametreHesapDetay();
+
+            if (beyan.KiraTutari.Contains('.'))
+                decimal.TryParse(beyan.KiraTutari, out kiraTutar);
+            else
+                decimal.TryParse(beyan.KiraTutari.Replace('.', ','), out kiraTutar);
+
+            if (beyan.IhaleTutari.Contains('.'))
+                decimal.TryParse(beyan.IhaleTutari, out ihaleTutar);
+            else
+                decimal.TryParse(beyan.IhaleTutari.Replace('.', ','), out ihaleTutar);
+
+            detay.KararHarciTutar = ihaleTutar * parametreDetay.KiraParametre.KararHarciOran.Value;
+            detay.TeminatTutar = ihaleTutar * parametreDetay.KiraParametre.TeminatOran.Value;
+            detay.DamgaAlinsinMi = (beyan.DamgaAlinsinMi == "1" ? true : false);
+
+            if (detay.DamgaAlinsinMi)
+                detay.DamgaVergisiTutar = ihaleTutar * parametreDetay.KiraParametre.DamgaOran.Value;
+            else
+                detay.DamgaVergisiTutar = 0;
+
+            detay.KdvTutar = ((beyan.Kdv.HasValue && beyan.Kdv.Value > 0) ? (kiraTutar * beyan.Kdv.Value / 100) : 0);
+            detay.KiraTutar = kiraTutar;
+
             return detay;
         }
 
@@ -1047,6 +1150,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
         }
 
+
         private bool BeyanPasifeAl(KiraArtisEkleVM artisModel)
         {
             bool sonuc = false;
@@ -1124,6 +1228,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 {
                     _beyanVM.Kiraci = new KiraciEkleVM()
                     {
+                        Id = _kiraciService.GetirVergiNo(long.Parse(sicilBilgisi.VergiNo)).Id,
                         SicilNo = long.Parse(sicilBilgisi.SicilNo),
                         VergiNo = long.Parse(sicilBilgisi.VergiNo),
                         Ad = sicilBilgisi.Ad,
@@ -1199,6 +1304,57 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             return _beyanVM.Gayrimenkul;
         }
 
+        public Beyan_GayrimenkulEkleVM GetirGayrimenkul(int GayrimenkulId)
+        {
+            if (GayrimenkulId > 0)
+            {
+                GetirSelectList();
+
+                var gayrimenkul = _gayrimenkulservice.Getir(GayrimenkulId);
+
+                if (gayrimenkul != null)
+                {
+                    _beyanVM.Gayrimenkul = new Beyan_GayrimenkulEkleVM()
+                    {
+                        GayrimenkulId = gayrimenkul.Id,
+                        GayrimenkulNo = gayrimenkul.GayrimenkulNo,
+                        BinaKimlikNo = gayrimenkul.BinaKimlikNo,
+                        NumaratajKimlikNo = gayrimenkul.NumaratajKimlikNo,
+                        AdresNo = gayrimenkul.AdresNo,
+                        DosyaNo = gayrimenkul.DosyaNo,
+                        GayrimenkulAdi = gayrimenkul.Ad,
+                        GayrimenkulTur_Id = gayrimenkul.GayrimenkulTur_Id,
+                        GayrimenkulTur = gayrimenkul.GayrimenkulTur.Ad,
+                        Il = gayrimenkul.Mahalleler.Ilceler.Iller.Ad,
+                        Ilce = gayrimenkul.Mahalleler.Ilceler.Ad,
+                        Mahalle = gayrimenkul.Mahalleler.Ad,
+                        Il_Id = gayrimenkul.Il_Id,
+                        Ilce_Id = gayrimenkul.Ilce_Id,
+                        Mahalle_Id = gayrimenkul.Mahalle_Id,
+                        Sokak = gayrimenkul.Sokak,
+                        IcKapiNo = gayrimenkul.IcKapiNo,
+                        DisKapiNo = gayrimenkul.DisKapiNo,
+                        Koordinat = gayrimenkul.Koordinat,
+                        Ada = gayrimenkul.Ada,
+                        Pafta = gayrimenkul.Pafta,
+                        Parsel = gayrimenkul.Parsel,
+                        AcikAdres = gayrimenkul.AcikAdres,
+                        Metrekare = gayrimenkul.Metrekare,
+                        AracKapasitesi = gayrimenkul.AracKapasitesi,
+                        Id = gayrimenkul.Id
+                    };
+                }
+                else
+                {
+                    ViewData["GayrimenkulHata"] = "Gayrimenkul Bilgisi Bulunamadı!!!";
+                    _beyanVM.Gayrimenkul.Errors.Add("Gayrimenkul Bilgisi Bulunamadı!!!");
+                    ModelState.AddModelError("GayrimenkulHata", @"Gayrimenkul Bilgisi Bulunamadı!!!");
+                }
+            }
+
+            return _beyanVM.Gayrimenkul;
+        }
+
         public BeyanDetayVM GetirBeyan(int BeyanId)
         {
             if (BeyanId > 0)
@@ -1209,6 +1365,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 {
                     _beyanVM.BeyanDetay = new BeyanDetayVM()
                     {
+                        Id = beyan.Beyanlar.Id,
                         BeyanTur_Id = beyan.Beyanlar.BeyanTur_Id,
                         KiraDurum_Id = beyan.Beyanlar.KiraDurum_Id,
                         OdemePeriyotTur_Id = beyan.Beyanlar.OdemePeriyotTur_Id,
@@ -1257,7 +1414,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         {
             if (BeyanId > 0)
             {
-                var dosyalar = _beyanDosyaService.GetirBeyanId(BeyanId,false);
+                var dosyalar = _beyanDosyaService.GetirBeyanIdFull(BeyanId);
 
 
                 _beyanVM.BeyanDetayDosyalar = new List<Beyan_DosyaVM>();
@@ -1467,6 +1624,32 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 return result.Id;
 
             return 0;
+        }
+
+        [HttpPost]
+        public JsonResult GetirBeyanKapamaDosya(int kiraDurumId)
+        {
+            var model = new List<KiraDurum_DosyaTurKapamaVM>();
+
+            var dosyaBilgi = _kiraDurumDosyaTurService.GetirKiraDurumListe(kiraDurumId);
+
+            if (dosyaBilgi != null)
+            {
+                foreach (var item in dosyaBilgi)
+                {
+                    model.Add(new KiraDurum_DosyaTurKapamaVM()
+                    {
+                        Id = item.Id,
+                        BeyanDosyaTur_Id = item.BeyanDosyaTur_Id,
+                        KiraDurum_Id = item.KiraDurum_Id,
+                        AktifMi = item.AktifMi,
+                        TasinmazDurum = item.Kira_Durumlari.Ad,
+                        DosyaAdi = item.BeyanDosya_Turleri.Ad
+                    });
+                }
+            }
+
+            return Json(new { data = model, success = true }, JsonRequestBehavior.AllowGet);
         }
 
         #endregion
