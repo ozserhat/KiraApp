@@ -84,14 +84,9 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         IIlService ilService,
         IIlceService ilceService,
         ISistemParametre_DetayService parametreService,
-
         BeyanSelectListsVm selectLists,
-
         IKiraDurum_DosyaTurService kiraDurumDosyaTurService,
-        IOdemePeriyotTurService odemePeriyotService,
-        IBeyan_TurService beyanTurService,
-        IKiraParametreService kiraParametreService,
-       
+        IBeyan_UfeOranService ufeOranService
         )
         {
             _gayrimenkulservice = gayrimenkulservice;
@@ -115,10 +110,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             _selectLists = selectLists;
             _resmiTatilService = resmiTatilService;
             _parametreService = parametreService;
-
             _gayrimenkulTurService = gayrimenkulTurService;
             _ufeOranService = ufeOranService;
-
             _odemePeriyotService = odemePeriyotService;
             _beyanTurService = beyanTurService;
             _kiraParametreService = kiraParametreService;
