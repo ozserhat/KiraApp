@@ -1145,6 +1145,7 @@
     <Content Include="Areas\Admin\Views\KiraDurumDosyaTur\Index.cshtml" />
     <Content Include="Areas\Admin\Views\KiraDurumDosyaTur\Ekle.cshtml" />
     <Content Include="Areas\Admin\Views\KiraDurumDosyaTur\Duzenle.cshtml" />
+    <Content Include="Areas\Emlak\Views\Gayrimenkul\Duzenle.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
