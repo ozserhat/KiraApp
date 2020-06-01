@@ -13,7 +13,7 @@ namespace Framework.Business.Abstract
 
         Kiraci GetirGuid(Guid guid);
 
-        Kiraci GetirSicilNo(int SicilNo);
+        Kiraci GetirSicilNo(long SicilNo);
 
         Kiraci GetirVergiNo(long VergiNo);
 
