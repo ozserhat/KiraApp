@@ -104,18 +104,16 @@
                                                         }
                                                     </td>
                                                     <td class="text-center">
-                                                        @if (Convert.ToBoolean(TempData["OpenAuthorizationPopup"]) == false)
-                                                        {
-                                                            @*<a data-id="@item.Id" data-name="@item.Roles.Name" title="" rel="tooltip" data-placement="left"
-                                                                   class="no-underline margin-right-5 delete-row" data-original-title="Sil">
-                                                                    <i class="fa fa-remove font-md txt-color-blue"></i>
-                                                                </a>*@
 
-                                                            @Html.AuthAction(" ", "Sil", "UserRoles", new { item.Id },
-                                                                                  new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = @item.Roles.Name, @data_id = item.Id },
-                                                                                  Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
-                                                        }
+
+                                                        @Html.AuthAction(" ", "Sil", new { controllerName = "UserRoles", Id = item.Id },
+                                                                                        new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = item.Roles, @data_id = item.Id },
+                                                                                        Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+
+
                                                     </td>
+
+
                                                 </tr>
                                             }
                                         </tbody>
@@ -179,6 +177,37 @@
         });
     </script>
 
+    <script type="text/javascript">
+
+        function deletealert(Id, name, closestTR) {
+            swal({
+                title: "Uyarı",
+                text: name + " Adlı Rolü Silmek İstediğinizden Emin misiniz?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Evet",
+                cancelButtonText: "İptal"
+            }).then(function (isConfirm) {
+                if (isConfirm) {
+                    $.ajax({
+                        url: "/UserRoles/Sil/" + Id,
+                        type: 'POST',
+                        success: function (result) {
+                            if (result.success) {
+                                closestTR.fadeOut(2000, function () {
+                                    dt = $('#dt_basic').DataTable();
+                                    swal('Bilgi!', name + ' ' + result.Message, 'success');
+                                    location.reload();
+                                });
+                            }
+                            else swal('Uyarı!', name + ' ' + result.Message, 'error');
+                        }
+                    });
+                }
+            })
+        }
+    </script>
     <!--Kullanıcı Rol Silme İşlemi -->
     <script type="text/javascript">
         var dt;

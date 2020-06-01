@@ -45,7 +45,7 @@
                                                         @Html.LabelFor(model => model.Ad, new { @class = "control-label col-md-4 zorunluYildiz" })
                                                         <div class="col-md-8">
                                                             @Html.TextBoxFor(model => model.Ad, new { @class = "form-control col-md-4 required" })
-                                                            @Html.ValidationMessageFor(model => model.Ad, "", new { @class = "text-danger" })
+                                                            @Html.ValidationMessageFor(model => model.Ad, "Bu alan boş bırakılamaz!", new { @class = "text-danger" })
                                                         </div>
                                                     </div>
                                                 </div>
@@ -54,7 +54,7 @@
                                                         @Html.LabelFor(model => model.Deger, new { @class = "control-label col-md-4 zorunluYildiz" })
                                                         <div class="col-md-8">
                                                             @Html.TextAreaFor(model => model.Deger, new { @class = "form-control col-md-4 required", placeholder = "Açıklama Giriniz" })
-                                                            @Html.ValidationMessageFor(model => model.Deger, "", new { @class = "text-danger" })
+                                                            @Html.ValidationMessageFor(model => model.Deger, "Bu alan boş bırakılamaz!", new { @class = "text-danger" })
                                                         </div>
                                                     </div>
                                                 </div>
@@ -70,7 +70,7 @@
                                                                     </span>
                                                                 }
                                                             </div>
-                                                            @Html.ValidationMessageFor(model => model.BaslangicTarihi, "", new { @class = "text-danger" })
+                                                            @Html.ValidationMessageFor(model => model.BaslangicTarihi, "Bu alan boş bırakılamaz!", new { @class = "text-danger" })
                                                         </div>
                                                     </div>
                                                 </div>
@@ -86,7 +86,7 @@
                                                                     </span>
                                                                 }
                                                             </div>
-                                                            @Html.ValidationMessageFor(model => model.BitisTarihi, "", new { @class = "text-danger" })
+                                                            @Html.ValidationMessageFor(model => model.BitisTarihi, "Bu alan boş bırakılamaz!", new { @class = "text-danger" })
                                                         </div>
                                                     </div>
                                                 </div>

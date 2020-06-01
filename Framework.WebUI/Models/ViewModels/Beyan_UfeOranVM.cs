@@ -27,6 +27,8 @@ namespace Framework.WebUI.Models.ViewModels
         public int? Ay { get; set; }
 
         [Display(Name = "Üfe Oranı")]
+        [Required(ErrorMessage ="Lütfen Geçerli Bir Değer Giriniz")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:N2}")]
         public decimal? Oran { get; set; }
 
         [Display(Name = "Yıl")]
