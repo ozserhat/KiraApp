@@ -68,7 +68,9 @@ namespace Framework.DataAccess.Concrete.EntityFramework
         {
             using (DtContext context = new DtContext())
             {
-                return context.KiraDurum_DosyaTurleri.Where(gta => gta.KiraDurum_Id == kiraDurumId).ToList();
+                return context.KiraDurum_DosyaTurleri
+                              .Include(kd => kd.Kira_Durumlari)
+                              .Include(dt => dt.BeyanDosya_Turleri).Where(gta => gta.KiraDurum_Id == kiraDurumId).ToList();
             }
         }
 

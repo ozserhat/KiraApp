@@ -15,6 +15,9 @@ namespace Framework.WebUI.Models.ViewModels
 
     public class KiraciEkleVM : VMBase
     {
+        [Display(Name = "Id")]
+        public int Id { get; set; }
+
         [Display(Name = "Guid")]
         public Guid Guid { get; set; }
 
@@ -68,8 +71,6 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Aktif Mi")]
         public bool AktifMi { get; set; }
-
-        public int Id { get; set; }
     }
 
     public class KiraciDuzenleVM : VMBase

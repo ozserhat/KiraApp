@@ -14,11 +14,11 @@ namespace Framework.WebUI.Models.ViewModels
 
     public class Beyan_GayrimenkulEkleVM : VMBase
     {
-        [Display(Name = "GayrimenkulId")]
-        public int GayrimenkulId { get; set; }
-
         [Display(Name = "Guid")]
         public Guid Guid { get; set; }
+
+        [Display(Name = "GayrimenkulId")]
+        public int GayrimenkulId { get; set; }
 
         [Display(Name = "GayrimenkulTur_Id")]
         public int GayrimenkulTur_Id { get; set; }
@@ -110,6 +110,9 @@ namespace Framework.WebUI.Models.ViewModels
 
     public class GayrimenkulEkleVM : VMBase
     {
+        [Display(Name = "Id")]
+        public int Id { get; set; }
+
         [Display(Name = "Guid")]
         public Guid Guid { get; set; }
 

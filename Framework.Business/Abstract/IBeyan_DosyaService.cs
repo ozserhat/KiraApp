@@ -18,6 +18,9 @@ namespace Framework.Business.Abstract
 
         IEnumerable<Beyan_Dosya> GetirBeyanId(int BeyanId, bool? kapatmaMi);
 
+        IEnumerable<Beyan_Dosya> GetirBeyanIdFull(int BeyanId);
+
+
         Beyan_Dosya Ekle(Beyan_Dosya tur);
 
         Beyan_Dosya Guncelle(Beyan_Dosya tur);

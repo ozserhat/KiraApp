@@ -16,7 +16,9 @@ namespace Framework.DataAccess.Concrete.EntityFramework
         {
             using (DtContext context = new DtContext())
             {
-                return context.Gayrimenkuller.Include(gt => gt.GayrimenkulTur).Where(gta => gta.Id == id).FirstOrDefault();
+                return context.Gayrimenkuller.Include(gt => gt.GayrimenkulTur).Include(a => a.Mahalleler)
+                                             .Include(a => a.Mahalleler.Ilceler)
+                                             .Include(a => a.Mahalleler.Ilceler.Iller).Where(gta => gta.Id == id).FirstOrDefault();
             }
         }
 
