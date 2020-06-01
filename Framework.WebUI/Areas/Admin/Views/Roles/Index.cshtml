@@ -312,11 +312,16 @@
                             if (result.success) {
                                 closestTR.fadeOut(2000, function () {
                                     dt = $('#dt_basic').DataTable();
-                                    swal('Uyarı!', name + ' ' + result.Message, 'success');
+                                    swal('Bilgi!', name + ' ' + result.Message, 'success');
                                     location.reload();
                                 });
                             }
-                            else swal('Uyarı!', name + ' ' + result.Message, 'error');
+                            else {
+                                swal('Uyarı!', result.Message, 'warning');
+                            }
+                        },
+                        error: function (xhr) {
+                            swal('Uyarı!', result.Message, 'warning');
                         }
                     });
                 }

@@ -72,7 +72,7 @@
                                                     <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
                                                         @Html.LabelFor(model => model.Oran, new { @class = "control-label col-md-4 zorunluYildiz" })
                                                         <div class="col-md-8">
-                                                            @Html.TextBoxFor(model => model.Oran, new { @class = "form-control col-md-4 required" })
+                                                            @Html.TextBoxFor(model => model.Oran, new { @class = "form-control col-md-4 required",  })
                                                             @Html.ValidationMessageFor(model => model.Oran, "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
 
                                                         </div>

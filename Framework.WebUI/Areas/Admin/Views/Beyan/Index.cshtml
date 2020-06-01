@@ -595,7 +595,7 @@
                             });
                         }
 
-                        swal('Uyarı!', name + ' ' + result.Message, 'success');
+                        swal('Bilgi!', name + ' ' + result.Message, 'success');
                     }
                     else {
                         swal('Uyarı!', result.Message, 'warning');
@@ -683,7 +683,7 @@
         <script type="text/javascript">
 
             function clearForm() {
-                debugger;
+                //debugger;
 
                 $('#BeyanTur_Id').select2("val", "");
                 $('#KiraDurum_Id').select2("val", "");
@@ -691,7 +691,7 @@
                 $('#Gayrimenkul_Id').select2("val", "");
                 $('#Ilce_Id').select2("val", "");
                 $('#Mahalle_Id').select2("val", "");
-                document.getElementById("Beyan_No").value = "";
+                //document.getElementById("Beyan_No").value = "";
                 $('#btnSubmit').click();
 
             }

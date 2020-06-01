@@ -156,15 +156,23 @@
         });
     </script>
 
-
-    <!--Form Temizleme İşlemi -->
+    <!--ClearForm-->
     <script type="text/javascript">
+
         function clearForm() {
             document.getElementById("AktifMi").checked = false;
             document.getElementById("Ad").value = "";
             document.getElementById("Deger").value = "";
             document.getElementById("BaslangicTarihi").value = "";
             document.getElementById("BitisTarihi").value = "";
+
         }
+
+        $(function () {
+            $("#btnReset").bind("click", function () {
+                $("#ddlFruits")[0].selectedIndex = 0;
+            });
+        });
+
     </script>
 }

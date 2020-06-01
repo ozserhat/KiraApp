@@ -26,6 +26,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
         } 
         #endregion
 
+
         // GET: Admin/UserRoles
         #region Listeleme
         public ActionResult Index(int? page, int pageSize = 15)
