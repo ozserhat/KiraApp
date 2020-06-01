@@ -36,7 +36,7 @@ namespace Framework.WebUI
             CultureInfo info = new CultureInfo(Thread.CurrentThread.CurrentCulture.ToString());
             info.DateTimeFormat.ShortDatePattern = "dd/MM/yyyy";
             System.Threading.Thread.CurrentThread.CurrentCulture = info;
-            SchedulerHelper.RunJob();
+            //SchedulerHelper.RunJob();
             ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory(new BusinessModule(), new AutoMapperModule()));
         }
         protected void Application_Error(object sender, EventArgs e)
