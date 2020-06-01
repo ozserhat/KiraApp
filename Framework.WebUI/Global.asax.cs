@@ -1,10 +1,15 @@
-﻿using Framework.Business.DependencyResolvers.Ninject;
+﻿using Framework.Business.Concrete.Managers;
+using Framework.Business.DependencyResolvers.Ninject;
 using Framework.Core.CrossCuttingConcerns.Security.Web;
 using Framework.Core.Utilities.Mvc.Infrastructure;
+using Framework.WebUI.App_Helpers;
 using Framework.WebUI.Controllers;
 using Microsoft.AspNet.Identity;
+using Quartz;
+using Quartz.Impl;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -31,9 +36,9 @@ namespace Framework.WebUI
             CultureInfo info = new CultureInfo(Thread.CurrentThread.CurrentCulture.ToString());
             info.DateTimeFormat.ShortDatePattern = "dd/MM/yyyy";
             System.Threading.Thread.CurrentThread.CurrentCulture = info;
+            //SchedulerHelper.RunJob();
             ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory(new BusinessModule(), new AutoMapperModule()));
         }
-
         protected void Application_Error(object sender, EventArgs e)
         {
             Exception exception = Server.GetLastError();
