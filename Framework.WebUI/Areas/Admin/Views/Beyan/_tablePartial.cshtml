@@ -39,14 +39,22 @@
                 <td>@Html.DisplayFor(model => item.Gayrimenkuller.Mahalleler.Ilceler.Ad)</td>
                 <td>@Html.DisplayFor(model => item.Gayrimenkuller.Mahalleler.Ad)</td>
                 <td>
-                    @if (item.Beyanlar.AktifMi.HasValue&&item.AktifMi==1)
-                    {
-                        <b class="label aktif-buton">Aktif</b>
-                    }
-                    else
-                    {
-                        <b class="label pasif-buton">Pasif</b>
-                    }
+                    @if (item.Beyanlar.AktifMi == (int)Framework.Entities.Enums.EnmIslemDurumu.Aktif)
+                        {
+                            <b class="label aktif-buton">Aktif</b>
+                        }
+                        else if (item.Beyanlar.AktifMi == (int)Framework.Entities.Enums.EnmIslemDurumu.Pasif)
+                        {
+                            <b class="label pasif-buton">Pasif</b>
+                        }
+                        else if (item.Beyanlar.AktifMi == (int)Framework.Entities.Enums.EnmIslemDurumu.Kapandı)
+                        {
+                            <b class="label kapandi-buton">Kapandı</b>
+                        }
+                        else
+                        {
+                            <b class="label silindi-buton">Silindi</b>
+                        }
                 </td>
             </tr>
             }

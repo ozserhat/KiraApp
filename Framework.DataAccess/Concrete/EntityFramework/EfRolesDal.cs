@@ -74,7 +74,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
 
             using (var context = new DtContext())
             {
-                var role = context.Roles.FirstOrDefault(i => i.Id == id);
+                var role = context.Roles.FirstOrDefault(i => i.Id == id && i.IsDeleted == false);
 
                 if (role != null)
                 {

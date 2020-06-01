@@ -95,7 +95,7 @@
                                         <div class="form-actions">
                                             <div class="row">
                                                 <div class="col-md-6 col-xs-offset-2" style="padding-right: 30px;">
-                                                    <input id="btnReset" type="reset" value="Temizle" class="btn btn-warning">
+                                                    <input id="btnReset" type="reset" onclick="clearForm()" value="Temizle" class="btn btn-warning">
                                                     <input id="btnSubmit" type="button" value="Kaydet" class="btn btn-primary">
                                                 </div>
                                             </div>
@@ -144,7 +144,7 @@
             });
         });
     </script>
-  
+
     <!--Custom Validation-->
     <script type="text/javascript">
         var baslangicTarihi, bitisTarihi;
@@ -209,7 +209,7 @@
                 }
             }
         });
-     
+
 
     </script>
 
@@ -251,5 +251,29 @@
             });
         });
     </script>
+
+
+
+    <!--ClearForm-->
+    <script type="text/javascript">
+
+        function clearForm() {
+          
+            document.getElementById("Ad").value = "";
+            document.getElementById("Deger").value = "";
+            document.getElementById("BaslangicTarihi").value = "";
+            document.getElementById("BitisTarihi").value = "";
+            $('#btnSubmit').click();
+
+        }
+
+        $(function () {
+            $("#btnReset").bind("click", function () {
+                $("#ddlFruits")[0].selectedIndex = 0;
+            });
+        });
+
+    </script>
+
 }
 

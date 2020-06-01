@@ -69,6 +69,32 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                        .Where(gta => gta.Kira_Beyani.Beyan_Id == BeyanId).FirstOrDefault();
             }
         }
+        public IEnumerable<Tahakkuk> GetListByCriterias(TahakkukRequest request)
+        {
+            List<Tahakkuk> result = new List<Tahakkuk>();
+
+            using (DtContext context = new DtContext())
+            {
+                var query = context.Tahakkuklar
+                    .Include(kb=>kb.Kira_Beyani)
+                    .Include(b => b.Kira_Beyani.Beyanlar)
+                    .AsQueryable();
+
+
+                query = request.BeyanNo != null ? query.Where(x => x.Kira_Beyani.Beyanlar.BeyanNo == request.BeyanNo) : query;
+                query = request.BeyanYil.HasValue ? query.Where(x => x.BeyanYil == request.BeyanYil) : query;
+                query = request.TaksitNo.HasValue ? query.Where(x => x.TaksitSayisi == request.TaksitNo) : query;
+                query = request.TahakkukTarihi.HasValue ? query.Where(x => x.TahakkukTarihi == request.TahakkukTarihi) : query;
+                query = request.VadeTarihi.HasValue ? query.Where(x => x.VadeTarihi == request.VadeTarihi) : query;
+                query = request.Tutar.HasValue ? query.Where(x => x.Tutar == request.Tutar) : query;
+                query = request.Aciklama != null ? query.Where(x => x.Aciklama == request.Aciklama) : query;
+                query = request.OdemeDurumu.HasValue ? query.Where(x => x.OdemeDurumu == request.OdemeDurumu) : query;
+
+                result = query.ToList();
+            }
+
+            return result;
+        }
 
         public Tahakkuk GetirGayrimenkul(int GayrimenkulId)
         {

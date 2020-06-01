@@ -61,7 +61,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div class="row">
                                                     <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
                                                         @Html.LabelFor(model => model.AktifMi, new { @class = "control-label col-md-4" })
@@ -94,12 +94,26 @@
 
 @section pagespecific {
     @Scripts.Render("~/bundles/jqueryval")
-    <!--Form Temizleme İşlemi -->
+    
+
+    <!--ClearForm-->
     <script type="text/javascript">
+
         function clearForm() {
+            debugger;
+
             document.getElementById("AktifMi").checked = false;
             document.getElementById("RolAdi").value = "";
             document.getElementById("Aciklama").value = "";
+            $('#btnSubmit').click();
+
         }
+
+        //$(function () {
+        //    $("#btnReset").bind("click", function () {
+        //        $("#ddlFruits")[0].selectedIndex = 0;
+        //    });
+        //});
+
     </script>
 }

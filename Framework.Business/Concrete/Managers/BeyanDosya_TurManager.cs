@@ -40,12 +40,12 @@ namespace Framework.Business.Concrete.Managers
 
         public IEnumerable<BeyanDosya_Tur> GetirListe()
         {
-            return _beyanDosyaTurDal.GetList().Where(a=>!a.KapatmaMi.Value);
+            return _beyanDosyaTurDal.GetList().Where(a => !a.KapatmaMi.Value);
         }
 
         public IEnumerable<BeyanDosya_Tur> GetirListeAktif()
         {
-            return _beyanDosyaTurDal.GetList().Where(a => a.AktifMi == true&& !a.KapatmaMi.Value);
+            return _beyanDosyaTurDal.GetList().Where(a => a.AktifMi == true && !a.KapatmaMi.Value);
         }
         public BeyanDosya_Tur Guncelle(BeyanDosya_Tur tur)
         {

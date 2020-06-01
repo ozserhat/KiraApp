@@ -142,7 +142,7 @@
                                                                             <input id="btnSubmit" type="submit" value="Sorgula" class="btn btn-primary btn-header-btn">
                                                                         </div>
                                                                         <div class="col-md-12">
-                                                                            <input id="btnReset" type="reset" value="Temizle" class="btn btn-warning btn-header-btn">
+                                                                            <input id="btnReset" onclick="clearForm()" type="reset" value="Temizle" class="btn btn-warning btn-header-btn">
                                                                         </div>
                                                                     </div>
                                                                 </fieldset>
@@ -676,6 +676,33 @@
 
             return html += '</table>';
         }
+
     </script>
+       
+   <!--ClearForm-->
+        <script type="text/javascript">
+
+            function clearForm() {
+                debugger;
+
+                $('#BeyanTur_Id').select2("val", "");
+                $('#KiraDurum_Id').select2("val", "");
+                $('#OdemePeriyotTur_Id').select2("val", "");
+                $('#Gayrimenkul_Id').select2("val", "");
+                $('#Ilce_Id').select2("val", "");
+                $('#Mahalle_Id').select2("val", "");
+                document.getElementById("Beyan_No").value = "";
+                $('#btnSubmit').click();
+
+            }
+
+            $(function () {
+                $("#btnReset").bind("click", function () {
+                    $("#ddlFruits")[0].selectedIndex = 0;
+                });
+            });
+
+    </script>
+    
 
 }

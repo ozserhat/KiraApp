@@ -29,23 +29,41 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
         #endregion
         #region Listeleme
-
-        public ActionResult Index(int? page, int pageSize = 15)
+        public ActionResult Index(TahakkukRequest request, int? page, int pageSize = 15)
         {
             var model = new TahakkukVM();
 
-            var tahakkuklar = _tahakkukService.GetirListeAktif();
+            var tahakkuklar = _tahakkukService.GetirSorguListe(request);
+
             model.PageNumber = page ?? 1;
             model.PageSize = pageSize;
 
             if (tahakkuklar != null)
             {
+                model.OdemeDurumuSelectList = OdemeDurumuSelectList();
                 model.Tahakkuklar = new StaticPagedList<Tahakkuk>(tahakkuklar, model.PageNumber, model.PageSize, tahakkuklar.Count());
                 model.TotalRecordCount = tahakkuklar.Count();
             }
 
-            ModelState.AddModelError("LogMessage", "Tahakkuk Bilgisi Görüntülendi.");
             return View(model);
+        }
+
+        public SelectList OdemeDurumuSelectList()
+        {
+            var odemeDurumu = _tahakkukService.GetirListe().Select(x => new { Id = x.Id, OdemeDurumu= x.OdemeDurumu }).ToList();
+            List<SelectListItem> newList = new List<SelectListItem>() {
+                                  new SelectListItem(){
+                                    Text="Tahsil",
+                                    Value="1"
+                                  },
+                                    new SelectListItem(){
+                                    Text="Vade",
+                                    Value="0"
+
+                                    }
+            };
+
+            return new SelectList(newList, "Value", "Text"); 
         }
 
         #endregion

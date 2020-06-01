@@ -149,9 +149,10 @@
                                                                             Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
 
-                                                                        @Html.AuthAction(" ", "Sil", new { controllerName = "Roles", Id = item.Id },
+                                                                        @Html.AuthAction(" ", "Sil", "Roles", new {Id = item.Id },
                                                                                                      new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = item.Name, @data_id = item.Id },
                                                                                                      Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+
                                                                     }
                                                                 </td>
                                                             </tr>
@@ -305,7 +306,7 @@
             }).then(function (isConfirm) {
                 if (isConfirm) {
                     $.ajax({
-                        url: "/Roles/Sil/" + Id,
+                        url: "/Admin/Roles/Sil/" + Id,
                         type: 'POST',
                         success: function (result) {
                             if (result.success) {

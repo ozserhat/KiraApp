@@ -62,7 +62,7 @@
                                                 <div class="form-actions">
                                                     <div class="row">
                                                         <div class="col-md-6 col-xs-offset-2" style="padding-right: 30px;">
-                                                            <input id="btnReset" type="reset" value="Temizle" class="btn btn-warning">
+                                                            <input id="btnReset" type="reset" onclick="clearForm()" value="Temizle" class="btn btn-warning">
                                                             <input id="btnSubmit" type="button" value="Kaydet" class="btn btn-primary">
                                                         </div>
                                                     </div>
@@ -107,9 +107,9 @@
                                                         @if (Convert.ToBoolean(TempData["OpenAuthorizationPopup"]) == false)
                                                         {
                                                             @*<a data-id="@item.Id" data-name="@item.Roles.Name" title="" rel="tooltip" data-placement="left"
-                                                               class="no-underline margin-right-5 delete-row" data-original-title="Sil">
-                                                                <i class="fa fa-remove font-md txt-color-blue"></i>
-                                                            </a>*@
+                                                                   class="no-underline margin-right-5 delete-row" data-original-title="Sil">
+                                                                    <i class="fa fa-remove font-md txt-color-blue"></i>
+                                                                </a>*@
 
                                                             @Html.AuthAction(" ", "Sil", "UserRoles", new { item.Id },
                                                                                   new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = @item.Roles.Name, @data_id = item.Id },
@@ -161,7 +161,7 @@
                     data: { model: userRole },
                     success: function (result) {
                         if (result != null && result.success) {
-                            swal('Bilgi!', result.Message, 'warning');
+                            swal('Bilgi!', result.Message, 'success');
                             setTimeout(function () {
                              window.location.reload()
                             }, 2000);
@@ -232,5 +232,14 @@
             })
         }
     </script>
+
+    <!--Form Temizleme İşlemi -->
+    <script type="text/javascript">
+        function clearForm() {
+            $('#RolId').select2("val", "");
+            $('#UserId').select2("val", "");
+        }
+    </script>
+}
 }
 

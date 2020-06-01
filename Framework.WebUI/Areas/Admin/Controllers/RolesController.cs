@@ -162,7 +162,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
 
             rol = _roleService.Guncelle(rol);
 
-            if (rol.IsDeleted.HasValue && rol.IsDeleted.Value)
+            if (rol.IsDeleted.HasValue && !rol.IsDeleted.Value)
                 return Json(new { success = true, Message = "Rol Bilgisi Başarıyla Silindi" }, JsonRequestBehavior.AllowGet);
             else
                 return Json(new { success = false, Message = "Rol Bilgisi Silinemedi!!!" }, JsonRequestBehavior.AllowGet);

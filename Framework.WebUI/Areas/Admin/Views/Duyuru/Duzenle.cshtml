@@ -102,14 +102,24 @@
 
 @section pagespecific {
     @Scripts.Render("~/bundles/jqueryval")
-    <!--Form Temizleme İşlemi -->
+
+    <!--ClearForm-->
     <script type="text/javascript">
+
         function clearForm() {
+            debugger;
             document.getElementById("AktifMi").checked = false;
+            $('#TurId').select2("val", "")
             document.getElementById("DuyuruAd").value = "";
             document.getElementById("Aciklama").value = "";
+            $('#btnSubmit').click();
         }
-    </script>
 
-   
+        $(function () {
+            $("#btnReset").bind("click", function () {
+                $("#ddlFruits")[0].selectedIndex = 0;
+            });
+        });
+
+    </script>
 }

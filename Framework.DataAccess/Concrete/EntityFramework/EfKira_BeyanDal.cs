@@ -94,8 +94,6 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                 query = request.Metrekare.HasValue ? query.Where(x => x.Gayrimenkuller.Metrekare == request.Metrekare) : query;
                 query = request.NumaratajKimlikNo.HasValue ? query.Where(x => x.Gayrimenkuller.NumaratajKimlikNo == request.NumaratajKimlikNo) : query;
 
-
-
                 result = query.ToList();
             }
 
