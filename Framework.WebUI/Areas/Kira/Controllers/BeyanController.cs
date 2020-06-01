@@ -75,6 +75,9 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         IIlceService ilceService,
         ISistemParametre_DetayService parametreService,
         IKiraDurum_DosyaTurService kiraDurumDosyaTurService,
+        IOdemePeriyotTurService odemePeriyotService,
+        IBeyan_TurService beyanTurService,
+        IKiraParametreService kiraParametreService,
         BeyanSelectListsVm selectLists
         )
         {
@@ -93,6 +96,9 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             _selectLists = selectLists;
             _resmiTatilService = resmiTatilService;
             _parametreService = parametreService;
+            _odemePeriyotService = odemePeriyotService;
+            _beyanTurService = beyanTurService;
+            _kiraParametreService = kiraParametreService;
             _kiraDurumDosyaTurService = kiraDurumDosyaTurService;
         }
         #endregion
@@ -253,6 +259,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
                 if (AySayisi > 0)
                 {
+                    kiraBeyanModel.Gayrimenkul = GetirGayrimenkul(kiraBeyanModel.Gayrimenkul.GayrimenkulId);
+
                     List<Tahakkuk> tahakkukListe = new List<Tahakkuk>();
 
                     var standart = StandartTahakkukEkle(kiraBeyanModel.KiraBeyan_Id, kiraBeyanModel.Beyan, kiraParametre);
@@ -665,17 +673,32 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
         private KiraParametreHesapDetay HesapDetay(BeyanEkleVM beyan, KiraParametreDetay parametreDetay)
         {
-            KiraParametreHesapDetay detay = new KiraParametreHesapDetay();
-            parametreDetay.Hesap.KararHarciTutar = (decimal.Parse(beyan.IhaleTutari.Replace('.', ',')) * parametreDetay.KiraParametre.KararHarciOran.Value);
-            parametreDetay.Hesap.TeminatTutar = (decimal.Parse(beyan.IhaleTutari.Replace('.', ',')) * parametreDetay.KiraParametre.TeminatOran.Value);
-            parametreDetay.DamgaAlinsinMi = (beyan.DamgaAlinsinMi == "1" ? true : false);
-            if (beyan.DamgaAlinsinMi == "1")
-                parametreDetay.Hesap.DamgaVergisiTutar = (decimal.Parse(beyan.IhaleTutari.Replace('.', ',')) * parametreDetay.KiraParametre.DamgaOran.Value);
-            else
-                parametreDetay.Hesap.DamgaVergisiTutar = 0;
+            decimal ihaleTutar, kiraTutar;
 
-            parametreDetay.Hesap.KdvTutar = ((beyan.Kdv.HasValue && beyan.Kdv.Value > 0) ? (decimal.Parse(beyan.KiraTutari.Replace('.', ',')) * beyan.Kdv.Value / 100) : 0);
-            parametreDetay.Hesap.KiraTutar = decimal.Parse(beyan.KiraTutari);
+            KiraParametreHesapDetay detay = new KiraParametreHesapDetay();
+
+            if (beyan.KiraTutari.Contains('.'))
+                decimal.TryParse(beyan.KiraTutari, out kiraTutar);
+            else
+                decimal.TryParse(beyan.KiraTutari.Replace('.', ','), out kiraTutar);
+
+            if (beyan.IhaleTutari.Contains('.'))
+                decimal.TryParse(beyan.IhaleTutari, out ihaleTutar);
+            else
+                decimal.TryParse(beyan.IhaleTutari.Replace('.', ','), out ihaleTutar);
+
+            detay.KararHarciTutar = ihaleTutar * parametreDetay.KiraParametre.KararHarciOran.Value;
+            detay.TeminatTutar = ihaleTutar * parametreDetay.KiraParametre.TeminatOran.Value;
+            detay.DamgaAlinsinMi = (beyan.DamgaAlinsinMi == "1" ? true : false);
+
+            if (detay.DamgaAlinsinMi)
+                detay.DamgaVergisiTutar = ihaleTutar * parametreDetay.KiraParametre.DamgaOran.Value;
+            else
+                detay.DamgaVergisiTutar = 0;
+
+            detay.KdvTutar = ((beyan.Kdv.HasValue && beyan.Kdv.Value > 0) ? (kiraTutar * beyan.Kdv.Value / 100) : 0);
+            detay.KiraTutar = kiraTutar;
+
             return detay;
         }
 
@@ -1091,6 +1114,57 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 GetirSelectList();
 
                 var gayrimenkul = _gayrimenkulservice.GetirGayrimenkul(GayrimenkulNo);
+
+                if (gayrimenkul != null)
+                {
+                    _beyanVM.Gayrimenkul = new Beyan_GayrimenkulEkleVM()
+                    {
+                        GayrimenkulId = gayrimenkul.Id,
+                        GayrimenkulNo = gayrimenkul.GayrimenkulNo,
+                        BinaKimlikNo = gayrimenkul.BinaKimlikNo,
+                        NumaratajKimlikNo = gayrimenkul.NumaratajKimlikNo,
+                        AdresNo = gayrimenkul.AdresNo,
+                        DosyaNo = gayrimenkul.DosyaNo,
+                        GayrimenkulAdi = gayrimenkul.Ad,
+                        GayrimenkulTur_Id = gayrimenkul.GayrimenkulTur_Id,
+                        GayrimenkulTur = gayrimenkul.GayrimenkulTur.Ad,
+                        Il = gayrimenkul.Mahalleler.Ilceler.Iller.Ad,
+                        Ilce = gayrimenkul.Mahalleler.Ilceler.Ad,
+                        Mahalle = gayrimenkul.Mahalleler.Ad,
+                        Il_Id = gayrimenkul.Il_Id,
+                        Ilce_Id = gayrimenkul.Ilce_Id,
+                        Mahalle_Id = gayrimenkul.Mahalle_Id,
+                        Sokak = gayrimenkul.Sokak,
+                        IcKapiNo = gayrimenkul.IcKapiNo,
+                        DisKapiNo = gayrimenkul.DisKapiNo,
+                        Koordinat = gayrimenkul.Koordinat,
+                        Ada = gayrimenkul.Ada,
+                        Pafta = gayrimenkul.Pafta,
+                        Parsel = gayrimenkul.Parsel,
+                        AcikAdres = gayrimenkul.AcikAdres,
+                        Metrekare = gayrimenkul.Metrekare,
+                        AracKapasitesi = gayrimenkul.AracKapasitesi,
+                        Id = gayrimenkul.Id
+                    };
+                }
+                else
+                {
+                    ViewData["GayrimenkulHata"] = "Gayrimenkul Bilgisi Bulunamadı!!!";
+                    _beyanVM.Gayrimenkul.Errors.Add("Gayrimenkul Bilgisi Bulunamadı!!!");
+                    ModelState.AddModelError("GayrimenkulHata", @"Gayrimenkul Bilgisi Bulunamadı!!!");
+                }
+            }
+
+            return _beyanVM.Gayrimenkul;
+        }
+
+        public Beyan_GayrimenkulEkleVM GetirGayrimenkul(int GayrimenkulId)
+        {
+            if (GayrimenkulId > 0)
+            {
+                GetirSelectList();
+
+                var gayrimenkul = _gayrimenkulservice.Getir(GayrimenkulId);
 
                 if (gayrimenkul != null)
                 {

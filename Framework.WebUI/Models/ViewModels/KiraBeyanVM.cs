@@ -294,6 +294,8 @@ namespace Framework.WebUI.Models.ViewModels
 
         public decimal KdvTutar { get; set; }
 
+        public bool DamgaAlinsinMi { get; set; }
+
     }
 
     public class KiraArtisEkleVM : VMBase
