@@ -76,7 +76,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             using (DtContext context = new DtContext())
             {
                 var query = context.Tahakkuklar
-                    .Include(kb=>kb.Kira_Beyani)
+                    .Include(kb => kb.Kira_Beyani)
                     .Include(b => b.Kira_Beyani.Beyanlar)
                     .AsQueryable();
 
@@ -124,7 +124,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
         {
             using (DtContext context = new DtContext())
             {
-                return context.Tahakkuklar.Include(kb => kb.Kira_Beyani).Include(b=>b.Kira_Beyani.Beyanlar).ToList();
+                return context.Tahakkuklar.Include(kb => kb.Kira_Beyani).Include(b => b.Kira_Beyani.Beyanlar).ToList();
             }
         }
 
@@ -134,12 +134,23 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             {
                 return context.Tahakkuklar
                      .Include(kb => kb.Kira_Beyani)
-                     .Include(by=>by.Kira_Beyani.Beyanlar)
-                     .Where(a=>a.KiraBeyan_Id==KiraBeyanId)
-                     .OrderBy(a=>a.TaksitSayisi)
+                     .Include(by => by.Kira_Beyani.Beyanlar)
+                     .Where(a => a.KiraBeyan_Id == KiraBeyanId)
+                     .OrderBy(a => a.TaksitSayisi)
                      .ToList();
             }
         }
 
+        public IEnumerable<Tahakkuk> GetirOdenmeyenTahakkuklar()
+        {
+            using (DtContext context = new DtContext())
+            {
+                return context.Tahakkuklar
+                     .Include(kb => kb.Kira_Beyani)
+                     .Include(by => by.Kira_Beyani.Beyanlar)
+                     .Where(a => a.AktifMi.Value == 1 && a.OdemeDurumu.Value == false)
+                     .ToList();
+            }
+        }
     }
 }
