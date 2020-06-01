@@ -33,6 +33,14 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         {
             var model = new TahakkukVM();
 
+            if (request.Tutar.HasValue)
+            {
+                var tutarval = Convert.ToInt32(request.Tutar.Value);
+                var tutarlist = _tahakkukService.Getir(tutarval);
+
+                request.Tutar = tutarlist.Tutar.Value;
+            }
+
             var tahakkuklar = _tahakkukService.GetirSorguListe(request);
 
             model.PageNumber = page ?? 1;
@@ -50,7 +58,6 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
         public SelectList OdemeDurumuSelectList()
         {
-            var odemeDurumu = _tahakkukService.GetirListe().Select(x => new { Id = x.Id, OdemeDurumu= x.OdemeDurumu }).ToList();
             List<SelectListItem> newList = new List<SelectListItem>() {
                                   new SelectListItem(){
                                     Text="Tahsil",
@@ -63,9 +70,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                                     }
             };
 
-            return new SelectList(newList, "Value", "Text"); 
+            return new SelectList(newList, "Value", "Text");
         }
-
         #endregion
     }
 }
