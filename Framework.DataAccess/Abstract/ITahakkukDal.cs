@@ -6,6 +6,7 @@ namespace Framework.DataAccess.Abstract
 {
     public interface ITahakkukDal : IEntityRepository<Tahakkuk>
     {
+        IEnumerable<Tahakkuk> GetirOdenmeyenTahakkuklar();
         IEnumerable<Tahakkuk> GetirListe();
         List<Tahakkuk> GetirListeBeyanId(int KiraBeyanId);
         IEnumerable<Tahakkuk> GetListByCriterias(TahakkukRequest request);
