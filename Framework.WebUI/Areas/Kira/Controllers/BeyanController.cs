@@ -185,7 +185,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 request.Kdv = int.Parse(kdvlist.Ad);
             }
 
-            var beyanlar = _kiraBeyanService.GetirSorguListe(request);
+            var beyanlar = _kiraBeyanService.GetirSorguListeAktif(request);
 
             model.PageNumber = page ?? 1;
             model.PageSize = pageSize;
@@ -209,6 +209,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
             return View(model);
         }
+    
         public SelectList IlSelectList()
         {
             var iller = _ilService.GetirListe().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
@@ -382,6 +383,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             {
                 //Tahakkuk kaydı varsa ödenen güncellenmesine izin verilmeyecek.
                 BeyanPasifeAl(kiraBeyanModel);
+                kiraBeyanModel.Beyan.Id = 0;
                 //Beyan Pasif,Tahakkuklar,KiraBeyanEkle pasife alınacak.
             }
             #endregion
@@ -606,6 +608,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
             return Json(new { Message = "Kira Beyan Ekleme İşlemi Gerçekleştirilemedi.", success = false }, JsonRequestBehavior.AllowGet);
         }
+
         #endregion
 
         #region BeyanKapatma
@@ -1143,6 +1146,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             //Beyan Pasife Alınır
             var beyan = kiraBeyanModel.Beyan;
             beyan.AktifMi = (int)EnmIslemDurumu.Pasif;
+            kiraBeyanModel.Beyan.AktifMi = (int)EnmIslemDurumu.Pasif;
             BeyanEkle(kiraBeyanModel.Beyan);
 
             //Tahakkuklar Pasife alınır.
@@ -1158,7 +1162,6 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             _kiraBeyanService.Guncelle(kiraBeyan);
 
         }
-
 
         private bool BeyanPasifeAl(KiraArtisEkleVM artisModel)
         {
@@ -1563,7 +1566,6 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             {
                 CultureInfo cultures = new CultureInfo("en-US");
 
-
                 Beyan beyan = new Beyan()
                 {
                     Id = beyanBilgi.Id,
@@ -1599,6 +1601,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                     OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
                     AktifMi = beyanBilgi.AktifMi
                 };
+
                 if (beyanBilgi.Id == 0)
                     result = _beyanService.Ekle(beyan);
                 else
