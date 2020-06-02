@@ -120,28 +120,28 @@
         </li>*@
                     <li class="@Html.RouteIf("BeyanUfeOran", "active")">
                         @Html.AuthMainAction("Beyan Üfe Oranları", "Index", "BeyanUfeOran",
-                      "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]), Convert.ToBoolean(TempData["ActionVisibility"]))
+                      "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]), true)
                     </li>
                     <li class="@Html.RouteIf("Beyan_Tur", "active")">
                         @Html.AuthMainAction("Beyan Türleri", "Index", "Beyan_Tur",
-                      "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]), Convert.ToBoolean(TempData["ActionVisibility"]))
+                      "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]), true)
                     </li>
                     <li class="@Html.RouteIf("BeyanDosyaTur", "active")">
                         @Html.AuthMainAction("Beyan Dosya Türleri", "Index", "BeyanDosyaTur",
-                      "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]), Convert.ToBoolean(TempData["ActionVisibility"]))
+                      "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]), true)
                     </li>
                     <li class="@Html.RouteIf("Beyan", "active")">
                         @Html.AuthMainAction("Beyanlar", "Index", "Beyan",
-                        "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]), Convert.ToBoolean(TempData["ActionVisibility"]))
+                        "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]), true)
                     </li>
                     <li class="@Html.RouteIf("ResmiTatiller", "active")">
                         @Html.AuthMainAction("Resmi Tatil Tanımı", "Index", "ResmiTatiller",
-                       "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]), Convert.ToBoolean(TempData["ActionVisibility"]))
+                       "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]), true)
                     </li>
 
                     <li class="@Html.RouteIf("KiraParametre", "active")">
                         @Html.AuthMainAction("Parametre Tanımı", "Index", "KiraParametre",
-                       "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]), Convert.ToBoolean(TempData["ActionVisibility"]))
+                       "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]), true)
                     </li>
 
                     @*<li class="@Html.RouteIf("GayrimenkulAltTur", "active")">
@@ -152,17 +152,17 @@
 
                     <li class="@Html.RouteIf("OdemePeriyotTur", "active")">
                         @Html.AuthMainAction("Ödeme Periyot Türleri", "Index", "OdemePeriyotTur",
-                      "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]), Convert.ToBoolean(TempData["ActionVisibility"]))
+                      "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]), true)
                     </li>
 
                     <li class="@Html.RouteIf("KiraciTur", "active")">
                         @Html.AuthMainAction("Kiracı Türleri", "Index", "KiraciTur",
-                      "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]), Convert.ToBoolean(TempData["ActionVisibility"]))
+                      "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]), true)
                     </li>
 
                     <li class="@Html.RouteIf("KiraDurum", "active")">
                         @Html.AuthMainAction("Kira Durumları", "Index", "KiraDurum",
-                      "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]), Convert.ToBoolean(TempData["ActionVisibility"]))
+                      "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]), true)
                     </li>
 
                 </ul>
@@ -204,10 +204,10 @@
 
                         @Html.AuthMainAction("Kullanıcı Yetki", "Index", "KullaniciYetki", "fa fa-lg fa-fw fa-list-alt", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]), true)
                     </li>
-                    <li class="@Html.RouteIf("KullaniciSayfaYetki", "active")">
+                    @*<li class="@Html.RouteIf("KullaniciSayfaYetki", "active")">
 
                         @Html.AuthMainAction("Kullanıcı Sayfa Yetki", "Index", "KullaniciSayfaYetki", "fa fa-lg fa-fw fa-list-alt", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]), true)
-                    </li>
+                    </li>*@
                     @*<li class="@Html.RouteIf("Pages", "active")">
             @Html.AuthMainAction("Sayfalar", "Index", "Pages", "fa fa-lg fa-fw fa-list-alt", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
         </li>*@

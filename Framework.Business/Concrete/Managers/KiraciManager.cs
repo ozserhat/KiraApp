@@ -45,11 +45,6 @@ namespace Framework.Business.Concrete.Managers
             return _kiraciDal.Get(a => a.SicilNo == SicilNo);
         }
 
-        public Kiraci GetirSicilNo(int SicilNo)
-        {
-            throw new NotImplementedException();
-        }
-
         public Kiraci GetirTcNo(long TcKimlikNo)
         {
             return _kiraciDal.GetirTcKimlikNo(TcKimlikNo);

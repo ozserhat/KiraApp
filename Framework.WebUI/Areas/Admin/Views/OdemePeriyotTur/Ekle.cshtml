@@ -53,8 +53,8 @@
                                                     <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
                                                         @Html.LabelFor(model => model.OdemeAySayisi, new { @class = "control-label col-md-4 zorunluYildiz" })
                                                         <div class="col-md-8">
-                                                            @Html.TextBoxFor(model => model.OdemeAySayisi, new { @class = "form-control col-md-4 required", @type = "number" })
-                                                            @Html.ValidationMessageFor(model => model.OdemeAySayisi, "", new { @class = "text-danger" })
+                                                            @Html.TextBoxFor(model => model.OdemeAySayisi, new { Value="", @class = "form-control col-md-4 required"})
+                                                            @Html.ValidationMessageFor(model => model.OdemeAySayisi, "Lütfen bir sayı giriniz!" , new { @class = "text-danger"})
                                                         </div>
                                                     </div>
                                                 </div>
@@ -62,7 +62,7 @@
                                                     <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
                                                         @Html.LabelFor(model => model.PeriyotAciklama, new { @class = "control-label col-md-4 zorunluYildiz" })
                                                         <div class="col-md-8">
-                                                            @Html.TextArea("PeriyotAciklama", new { @class = "form-control", rows = "3" })
+                                                            @Html.TextArea("PeriyotAciklama", new { @class = "form-control col-md-4 required", rows = "3" })
                                                             @Html.ValidationMessageFor(model => model.PeriyotAciklama, "", new { @class = "text-danger" })
                                                         </div>
                                                     </div>

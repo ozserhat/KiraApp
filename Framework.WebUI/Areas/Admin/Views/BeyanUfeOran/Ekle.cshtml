@@ -72,8 +72,9 @@
                                                     <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
                                                         @Html.LabelFor(model => model.Oran, new { @class = "control-label col-md-4 zorunluYildiz" })
                                                         <div class="col-md-8">
-                                                            @Html.TextBoxFor(model => model.Oran, new { @class = "form-control col-md-4 required", @type = "number" })
-                                                            @Html.ValidationMessageFor(model => model.Oran, "", new { @class = "text-danger" })
+                                                            @Html.TextBoxFor(model => model.Oran, new { @class = "form-control col-md-4 required",  })
+                                                            @Html.ValidationMessageFor(model => model.Oran, "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -83,7 +84,7 @@
                                             <div class="row">
                                                 <div class="col-md-6 col-xs-offset-2" style="padding-right: 30px;">
                                                     <input id="btnReset" type="reset" onclick="clearForm()" value="Temizle" class="btn btn-warning">
-                                                    <input id="btnSubmit"  type="button" value="Kaydet" class="btn btn-primary">
+                                                    <input id="btnSubmit" type="button" value="Kaydet" class="btn btn-primary">
                                                 </div>
                                             </div>
                                         </div>
@@ -114,13 +115,14 @@
                 oran.Yil = parseInt($("#Yil option:selected").text());
                 oran.Ay = parseInt($("#Ay option:selected").val());
                 oran.Oran = parseFloat($("#Oran").val());
-                $.ajax({
+                if ($('#frmUfeOran').valid())
+                   {
+                    $.ajax({
                     type: 'POST',
                     url: '@Url.Action("Ekle", "BeyanUfeOran")',
                     data: { ufeOran: oran },
                     success: function (result) {
                         if (result != null && result.success) {
-
                             swal('Bilgi!', result.Message, 'success');
 
                             setTimeout(function () {
@@ -135,6 +137,7 @@
                         swal('Uyarı!', result.Message, 'warning');
                     }
                  });
+                   }
             });
         });
     </script>

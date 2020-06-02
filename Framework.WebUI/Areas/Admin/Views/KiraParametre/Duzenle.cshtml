@@ -48,7 +48,7 @@
                                                         @Html.LabelFor(model => model.BeyanYili, new { @class = "control-label col-md-4 zorunluYildiz" })
                                                         <div class="col-md-8">
                                                             @Html.TextBoxFor(model => model.BeyanYili, new { @class = "form-control col-md-4 required" })
-                                                            @Html.ValidationMessageFor(model => model.BeyanYili, "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
+                                                            @Html.ValidationMessageFor(model => model.BeyanYili, "Lütfen bir yıl giriniz!", new { @class = "text-danger" })
                                                         </div>
                                                     </div>
                                                 </div>
@@ -56,7 +56,7 @@
                                                     <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
                                                         @Html.LabelFor(model => model.KiraTarifeKodu, new { @class = "control-label col-md-4 zorunluYildiz" })
                                                         <div class="col-md-8">
-                                                            @Html.TextBoxFor(model => model.KiraTarifeKodu, new { @class = "form-control col-md-4 required" })
+                                                            @Html.TextBoxFor(model => model.KiraTarifeKodu, new { @class = "form-control col-md-4 required", @type = "number" })
                                                             @Html.ValidationMessageFor(model => model.KiraTarifeKodu, "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
                                                         </div>
                                                     </div>
@@ -65,7 +65,7 @@
                                                     <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
                                                         @Html.LabelFor(model => model.OtoparkTarifeKodu, new { @class = "control-label col-md-4 zorunluYildiz" })
                                                         <div class="col-md-8">
-                                                            @Html.TextBoxFor(model => model.OtoparkTarifeKodu, new { @class = "form-control col-md-4 required" })
+                                                            @Html.TextBoxFor(model => model.OtoparkTarifeKodu, new { @class = "form-control col-md-4 required", @type = "number" })
                                                             @Html.ValidationMessageFor(model => model.OtoparkTarifeKodu, "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
                                                         </div>
                                                     </div>
@@ -74,7 +74,7 @@
                                                     <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
                                                         @Html.LabelFor(model => model.EcrimisilTarifeKodu, new { @class = "control-label col-md-4 zorunluYildiz" })
                                                         <div class="col-md-8">
-                                                            @Html.TextBoxFor(model => model.EcrimisilTarifeKodu, new { @class = "form-control col-md-4 required" })
+                                                            @Html.TextBoxFor(model => model.EcrimisilTarifeKodu, new { @class = "form-control col-md-4 required", @type = "number" })
                                                             @Html.ValidationMessageFor(model => model.EcrimisilTarifeKodu, "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
                                                         </div>
                                                     </div>
@@ -83,7 +83,7 @@
                                                     <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
                                                         @Html.LabelFor(model => model.DamgaTarifeKodu, new { @class = "control-label col-md-4 zorunluYildiz" })
                                                         <div class="col-md-8">
-                                                            @Html.TextBoxFor(model => model.DamgaTarifeKodu, new { @class = "form-control col-md-4 required" })
+                                                            @Html.TextBoxFor(model => model.DamgaTarifeKodu, new { @class = "form-control col-md-4 required", @type = "number" })
                                                             @Html.ValidationMessageFor(model => model.DamgaTarifeKodu, "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
                                                         </div>
                                                     </div>
@@ -92,7 +92,7 @@
                                                     <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
                                                         @Html.LabelFor(model => model.TeminatTarifeKodu, new { @class = "control-label col-md-4 zorunluYildiz" })
                                                         <div class="col-md-8">
-                                                            @Html.TextBoxFor(model => model.TeminatTarifeKodu, new { @class = "form-control col-md-4 required" })
+                                                            @Html.TextBoxFor(model => model.TeminatTarifeKodu, new { @class = "form-control col-md-4 required", @type = "number" })
                                                             @Html.ValidationMessageFor(model => model.TeminatTarifeKodu, "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
                                                         </div>
                                                     </div>
@@ -101,7 +101,7 @@
                                                     <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
                                                         @Html.LabelFor(model => model.KararHarciTarifeKodu, new { @class = "control-label col-md-4 zorunluYildiz" })
                                                         <div class="col-md-8">
-                                                            @Html.TextBoxFor(model => model.KararHarciTarifeKodu, new { @class = "form-control col-md-4 required" })
+                                                            @Html.TextBoxFor(model => model.KararHarciTarifeKodu, new { @class = "form-control col-md-4 required", @type = "number" })
                                                             @Html.ValidationMessageFor(model => model.KararHarciTarifeKodu, "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
                                                         </div>
                                                     </div>
@@ -110,7 +110,7 @@
                                                     <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
                                                         @Html.LabelFor(model => model.KapatmaTarifeKodu, new { @class = "control-label col-md-4 zorunluYildiz" })
                                                         <div class="col-md-8">
-                                                            @Html.TextBoxFor(model => model.KapatmaTarifeKodu, new { @class = "form-control col-md-4 required" })
+                                                            @Html.TextBoxFor(model => model.KapatmaTarifeKodu, new { @class = "form-control col-md-4 required", @type = "number" })
                                                             @Html.ValidationMessageFor(model => model.KapatmaTarifeKodu, "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
                                                         </div>
                                                     </div>
@@ -119,7 +119,7 @@
                                                     <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
                                                         @Html.LabelFor(model => model.KdvTarifeKodu, new { @class = "control-label col-md-4 zorunluYildiz" })
                                                         <div class="col-md-8">
-                                                            @Html.TextBoxFor(model => model.KdvTarifeKodu, new { @class = "form-control col-md-4 required" })
+                                                            @Html.TextBoxFor(model => model.KdvTarifeKodu, new { @class = "form-control col-md-4 required", @type = "number" })
                                                             @Html.ValidationMessageFor(model => model.KdvTarifeKodu, "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
                                                         </div>
                                                     </div>
@@ -128,7 +128,7 @@
                                                     <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
                                                         @Html.LabelFor(model => model.DamgaOran, new { @class = "control-label col-md-4 zorunluYildiz" })
                                                         <div class="col-md-8">
-                                                            @Html.TextBoxFor(model => model.DamgaOran, new { @class = "form-control col-md-4 required" })
+                                                            @Html.TextBoxFor(model => model.DamgaOran, new { @class = "form-control col-md-4 required", @type = "number" })
                                                             @Html.ValidationMessageFor(model => model.DamgaOran, "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
                                                         </div>
                                                     </div>
@@ -137,7 +137,7 @@
                                                     <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
                                                         @Html.LabelFor(model => model.TeminatOran, new { @class = "control-label col-md-4 zorunluYildiz" })
                                                         <div class="col-md-8">
-                                                            @Html.TextBoxFor(model => model.TeminatOran, new { @class = "form-control col-md-4 required" })
+                                                            @Html.TextBoxFor(model => model.TeminatOran, new { @class = "form-control col-md-4 required", @type = "number" })
                                                             @Html.ValidationMessageFor(model => model.TeminatOran, "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
                                                         </div>
                                                     </div>
@@ -146,7 +146,7 @@
                                                     <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
                                                         @Html.LabelFor(model => model.KararHarciOran, new { @class = "control-label col-md-4 zorunluYildiz" })
                                                         <div class="col-md-8">
-                                                            @Html.TextBoxFor(model => model.KararHarciOran, new { @class = "form-control col-md-4 required" })
+                                                            @Html.TextBoxFor(model => model.KararHarciOran, new { @class = "form-control col-md-4 required", @type = "number" })
                                                             @Html.ValidationMessageFor(model => model.KararHarciOran, "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
                                                         </div>
                                                     </div>

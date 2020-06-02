@@ -15,6 +15,8 @@ using Framework.Core.CrossCuttingConcerns.Logging.Log4Net;
 using log4net;
 using Framework.Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Framework.DataAccess.Concrete;
+using Quartz;
+using Quartz.Spi;
 
 namespace Framework.Business.DependencyResolvers.Ninject
 {
@@ -131,6 +133,9 @@ namespace Framework.Business.DependencyResolvers.Ninject
             Bind<ITahakkukDisServis>().To<TahakkukServiceManager>().InTransientScope();
 
             Bind<ISicilService>().To<SicilServiceManager>().InTransientScope();
+
+            Bind<IHatirlaticiService>().To<HatirlaticiManager>().InTransientScope();
+            Bind<IJobFactory>().To<JobFactory>().InSingletonScope();
 
             Bind(typeof(IQueryableRepository<>)).To(typeof(EfQueryableRepository<>));
             Bind<DbContext>().To<DtContext>();

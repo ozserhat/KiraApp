@@ -74,8 +74,8 @@
                                                         <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
                                                             @Html.LabelFor(model => model.Oran, new { @class = "control-label col-md-4 zorunluYildiz" })
                                                             <div class="col-md-8">
-                                                                @Html.TextBoxFor(model => model.Oran, new { @class = "form-control col-md-4 required" })
-                                                                @Html.ValidationMessageFor(model => model.Oran, "", new { @class = "text-danger" })
+                                                                @Html.TextBoxFor(model => model.Oran, new { @class = "form-control col-md-4 required",  })
+                                                                @Html.ValidationMessageFor(model => model.Oran, "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
                                                             </div>
                                                         </div>
                                                     </div>
@@ -122,5 +122,42 @@
             $('#Ay').select2("val", "");
         }
     </script>
+
+    <!--BeyanUfeOran Kaydet-->
+    <script type="text/javascript">
+        $(function () {
+            $('#btnSubmit').on('click', function () {
+                oran = new Object();
+                oran.Adi = $("#Adi").val();
+                oran.Yil = parseInt($("#Yil option:selected").text());
+                oran.Ay = parseInt($("#Ay option:selected").val());
+                oran.Oran = parseFloat($("#Oran").val());
+                if ($('#frmUfeOran').valid())
+                   {
+                    $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Duzenle", "BeyanUfeOran")',
+                    data: { ufeOran: oran },
+                    success: function (result) {
+                        if (result != null && result.success) {
+                            swal('Bilgi!', result.Message, 'success');
+
+                            setTimeout(function () {
+                                window.location.href = "/Admin/BeyanUfeOran/Index";
+                            }, 2000);
+                        }
+                        else {
+                            swal('Uyarı!', result.Message, 'warning');
+                        }
+                    },
+                    error: function (xhr) {
+                        swal('Uyarı!', result.Message, 'warning');
+                    }
+                 });
+                   }
+            });
+        });
+    </script>
+
 
 }

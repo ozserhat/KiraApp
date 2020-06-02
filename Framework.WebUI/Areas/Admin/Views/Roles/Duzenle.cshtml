@@ -94,26 +94,16 @@
 
 @section pagespecific {
     @Scripts.Render("~/bundles/jqueryval")
-    
 
-    <!--ClearForm-->
+
+    <!--Form Temizleme İşlemi -->
     <script type="text/javascript">
-
         function clearForm() {
-            debugger;
-
             document.getElementById("AktifMi").checked = false;
             document.getElementById("RolAdi").value = "";
             document.getElementById("Aciklama").value = "";
-            $('#btnSubmit').click();
-
+          
         }
-
-        //$(function () {
-        //    $("#btnReset").bind("click", function () {
-        //        $("#ddlFruits")[0].selectedIndex = 0;
-        //    });
-        //});
-
     </script>
+}
 }

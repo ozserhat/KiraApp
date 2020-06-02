@@ -1133,20 +1133,46 @@
                                     <div class="item-content">
                                         <form id="frmBeyanKapama">
                                             <fieldset>
-                                                <input type="hidden" id="BeyanId" />
-                                                <input type="hidden" id="KiraBeyanId" />
+                                                <input type="hidden" id="KapamaBeyanId" value="@Model.Beyan_Id" />
+                                                <input type="hidden" id="KapamaKiraBeyan_Id" value="@Model.KiraBeyan_Id" />
+                                                <input type="hidden" id="KapamaGayrimenkul_Id" value="@Model.Gayrimenkul_Id" />
+                                                <input type="hidden" id="KapamaKiraci_Id" value="@Model.Kiraci_Id" />
+                                                <input type="hidden" id="KapamaKiraDurum_Id" />
                                                 <div class="row">
                                                     <div class="col-md-8">
                                                         <div class="form-group">
                                                             <div class="input-group" style="width: 100%;">
-                                                                @Html.LabelFor(model => model.KiraDurumSelectList, new { @class = "control-label col-md-4" })
+                                                                @Html.LabelFor(model => model.KiraDurumSelectList, new { @class = "control-label col-md-4 zorunluYildiz" })
                                                                 <div class="col-md-8">
-                                                                    @Html.DropDownList("KiraDurum_Id", Model.KiraDurumSelectList, "Seçiniz", new { @class = "select2" })
+                                                                    @Html.DropDownList("KiraDurum_Id", Model.KiraDurumSelectList, "Seçiniz", new { @class = "select2 required" })
                                                                     @Html.ValidationMessage("KiraDurum_Id", new { @class = "text-danger" })
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </div>
+                                                <div class="row smart-form">
+                                                    <div class="col-md-8">
+                                                        <div id="pnlkiraDurumDosya" style="display:none;">
+                                                            <fieldset class="dosyaSatirlari" id="dosyaSatiri">
+                                                                <form class="form-horizontal" id="kapamaBelgeEkleForm" novalidate="novalidate">
+                                                                    <section>
+                                                                        <div class="form-group">
+                                                                            <div class="input-group" style="width: 100%;">
+                                                                                @Html.Label("", "Beyan Dosyaları", new { @class = "control-label col-md-4" })
+                                                                                <div class="col-md-8">
+                                                                                    <div id="dvDos">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </section>
+                                                                </form>
+                                                            </fieldset>
+                                                        </div>
+                                                    </div>
+
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-8">
@@ -1200,9 +1226,9 @@
                                                     <div class="col-md-8">
                                                         <div class="form-group">
                                                             <div class="input-group" style="width: 100%;">
-                                                                @Html.LabelFor(model => model.UfeOranlari, new { @class = "control-label col-md-4" })
+                                                                @Html.LabelFor(model => model.UfeOranlari, new { @class = "control-label col-md-4 zorunluYildiz" })
                                                                 <div class="col-md-8">
-                                                                    @Html.DropDownList("UfeOran_Id", Model.UfeOranlari, "Seçiniz", new { @class = "select2" })
+                                                                    @Html.DropDownList("UfeOran_Id", Model.UfeOranlari, "Seçiniz", new { @class = "select2 required" })
                                                                     @Html.ValidationMessage("UfeOran_Id", new { @class = "text-danger" })
                                                                 </div>
                                                             </div>
@@ -1213,7 +1239,7 @@
                                                     <div class="col-md-8">
                                                         <div class="form-group">
                                                             <div class="input-group" style="width: 100%;">
-                                                                @Html.Label("Encümen No", new { @class = "control-label col-md-4" })
+                                                                @Html.Label("Encümen No", new { @class = "control-label col-md-4 zorunluYildiz" })
                                                                 <div class="col-md-8">
                                                                     @Html.TextBox("ArtisEncumenNo", "", new { @class = "form-control col-md-4 required" })
                                                                 </div>
@@ -1225,7 +1251,7 @@
                                                     <div class="col-md-8">
                                                         <div class="form-group">
                                                             <div class="input-group" style="width: 100%;">
-                                                                @Html.Label("Encümen Tarihi", new { @class = "control-label col-md-4" })
+                                                                @Html.Label("Encümen Tarihi", new { @class = "control-label col-md-4 zorunluYildiz" })
                                                                 <div class="col-md-8">
                                                                     @Html.TextBox("ArtisEncumenTarihi", "", new { @class = "form-control col-md-4 required" })
                                                                 </div>
@@ -1237,9 +1263,9 @@
                                                     <div class="col-md-8">
                                                         <div class="form-group">
                                                             <div class="input-group" style="width: 100%;">
-                                                                @Html.Label("Kira Yenileme Periyotu", new { @class = "control-label col-md-4" })
+                                                                @Html.Label("Kira Yenileme Periyotu", new { @class = "control-label col-md-4 zorunluYildiz" })
                                                                 <div class="col-md-8">
-                                                                    @Html.DropDownList("KiraYenilemePeriyotu", Model.KiraYenilemePeriyotSelectList, "Seçiniz", new { @class = "select2" })
+                                                                    @Html.DropDownList("KiraYenilemePeriyotu", Model.KiraYenilemePeriyotSelectList, "Seçiniz", new { @class = "select2 required" })
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1249,9 +1275,9 @@
                                                     <div class="col-md-8">
                                                         <div class="form-group">
                                                             <div class="input-group" style="width: 100%;">
-                                                                @Html.Label("Artış Türü", new { @class = "control-label col-md-4" })
+                                                                @Html.Label("Artış Türü", new { @class = "control-label col-md-4 zorunluYildiz" })
                                                                 <div class="col-md-8">
-                                                                    @Html.DropDownList("ArtisTuru", Model.ArtisTuruSelectList, "Seçiniz", new { @class = "select2" })
+                                                                    @Html.DropDownList("ArtisTuru", Model.ArtisTuruSelectList, "Seçiniz", new { @class = "select2 required" })
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1675,8 +1701,6 @@
                         $('#loadingbtnBelgeEkleme').addClass('hide');
                     }
                 }, 1500);
-
-
             }
         }
     </script>
@@ -1686,6 +1710,135 @@
         $(".dosyaIndir").on("click", function () {
             var url = $(this).attr("data-url");
             $("#iframe1").attr("src", url);
+        });
+    </script>
+
+    <!--Beyan Kapama Dosya Getir -->
+    <script type="text/javascript">
+        $('#KiraDurum_Id').change(function (val) {
+
+            var html = '';
+            var fileDiv = $('#dvDos');
+
+            fileDiv.html('');
+            var pnlKapama = $('#pnlkiraDurumDosya');
+
+            var kiraDurumId = $('#KiraDurum_Id').val();
+
+             $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetirBeyanKapamaDosya", "Beyan")',
+                    data: { kiraDurumId: kiraDurumId },
+                    success: function (result) {
+                        if (result != null && result.success) {
+
+                            $.each(result.data, function (index, value) {
+
+                                pnlKapama.show();
+
+                                html = " <label id='lblDosya' for='file' class='input input-file'>"+
+                                    "<div id ='dosyaDiv' class='button'><input type='file' id='DosyaTuru_" + value.BeyanDosyaTur_Id + "' data-id='" + value.BeyanDosyaTur_Id + "' data-name='" + value.DosyaAdi +"' class='form-control kapamaDosya'>Belge Ekle"+
+                                    "</div >"+
+                                    "<div id='divInput'><input type='text'   placeholder='" + value.DosyaAdi +"' id='BeyanDosyaTuru_" + value.BeyanDosyaTur_Id +"'>"+
+                                    "</div>";
+
+                                fileDiv.append(html);
+
+                            });
+                        }
+                        else {
+                            swal('Uyarı!', result.Message, 'warning');
+                        }
+                    },
+                    error: function (xhr) {
+                        swal('Uyarı!', result.Message, 'warning');
+                    }
+                 });
+        });
+
+    </script>
+
+    <!--Kapama Belge Ekleme -->
+    <script type="text/javascript">
+        var beyankapamaDosyalar = [];
+
+        $(document).on("change", ".kapamaDosya", function (evt) {
+            var DosyaTipi_Id = $(this).attr("data-id");
+            var dosyaAdi = $(this).val().replace(/C:\\fakepath\\/, '');
+            $("#BeyanDosyaTuru_" + DosyaTipi_Id).val(dosyaAdi);
+
+            var fileUpload = $("#DosyaTuru_" + DosyaTipi_Id).get(0);
+
+            var files = evt.target.files[0];
+
+            if (files.length > 0) {
+                if (window.FormData !== undefined) {
+                    var formData = new FormData();
+                    formData.append(DosyaTipi_Id, files);
+                }
+            }
+            var fileBinary;
+
+            var reader = new FileReader();
+            // Closure to capture the file information.
+            reader.onload = (function (theFile) {
+                return function (e) {
+                    var binaryData = e.target.result;
+
+                    var base64String = window.btoa(binaryData);
+
+                    fileBinary = base64String;
+                    beyankapamaDosyalar.push({ BeyanDosyaTur_Id: DosyaTipi_Id, DosyaAdi: dosyaAdi, BeyanDosya: fileBinary });
+                };
+            })(files);
+            // Read in the image file as a data URL.
+            reader.readAsBinaryString(files);
+        });
+    </script>
+
+    <!--Beyan Kapama İşlemi -->
+    <script type="text/javascript">
+         $(function () {
+             $('#btnBeyanKapama').on('click', function () {
+                  
+                var beyanKapamaModel ={
+                   Beyan_Id: $('#KapamaBeyanId').val(),
+                   KiraBeyan_Id: $('#KapamaKiraBeyan_Id').val(),
+                   Gayrimenkul_Id: $('#KapamaGayrimenkul_Id').val(),
+                   Kiraci_Id: $('#KapamaKiraci_Id').val(),
+                   KiraDurum_Id: $('#KiraDurum_Id').val(),
+                   BeyanDosyalar: beyankapamaDosyalar
+                };
+
+                if ($("#frmBeyanKapama").valid())
+                {
+                   $.ajax({
+                    type: 'Post',
+                    url: '@Url.Action("KiraBeyanKapama", "Beyan")',
+                       data: { beyanKapamaModel: beyanKapamaModel },
+                       beforeSend: function () {
+                           $.LoadingOverlay("show", { text: "Beyan Kapama İşlemi Gerçekleştiriliyor...", textResizeFactor: 0.2, background: "rgba(0, 0, 0, 0.5)" });
+                       },
+                    success: function (result) {
+                        if (result != null && result.success) {
+                            swal('Bilgi!', result.Message, 'success');
+                            $.LoadingOverlay("hide");
+                            setTimeout(function () {
+                                window.location.href = "../Beyan/Index";
+                            }, 2000);
+                        }
+                        else {
+                            swal('Uyarı!', result.Message, 'warning');
+                            $.LoadingOverlay("hide");
+                        }
+                    },
+                    error: function (xhr) {
+                        swal('Uyarı!', result.Message, 'warning');
+                        $.LoadingOverlay("hide");
+                       }
+                 });
+                }
+            });
         });
     </script>
 

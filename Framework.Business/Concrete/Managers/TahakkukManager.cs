@@ -59,6 +59,10 @@ namespace Framework.Business.Concrete.Managers
         {
             return _tahakkukDal.GetirListe();
         }
+        public Tahakkuk Getir(int id)
+        {
+            return _tahakkukDal.GetById(id);
+        }
         public IEnumerable<Tahakkuk> GetirSorguListe(TahakkukRequest request)
         {
             return _tahakkukDal.GetListByCriterias(request);
@@ -71,7 +75,7 @@ namespace Framework.Business.Concrete.Managers
         {
             return _tahakkukDal.GetirListeBeyanId(KiraBeyanId);
         }
-
+      
         public Tahakkuk Guncelle(Tahakkuk tahakkuk)
         {
             return _tahakkukDal.Update(tahakkuk);

@@ -149,9 +149,10 @@
                                                                             Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
 
-                                                                        @Html.AuthAction(" ", "Sil", new { controllerName = "Roles", Id = item.Id },
+                                                                        @Html.AuthAction(" ", "Sil", "Roles", new {Id = item.Id },
                                                                                                      new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = item.Name, @data_id = item.Id },
                                                                                                      Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+
                                                                     }
                                                                 </td>
                                                             </tr>
@@ -305,17 +306,22 @@
             }).then(function (isConfirm) {
                 if (isConfirm) {
                     $.ajax({
-                        url: "/Roles/Sil/" + Id,
+                        url: "/Admin/Roles/Sil/" + Id,
                         type: 'POST',
                         success: function (result) {
                             if (result.success) {
                                 closestTR.fadeOut(2000, function () {
                                     dt = $('#dt_basic').DataTable();
-                                    swal('Uyarı!', name + ' ' + result.Message, 'success');
+                                    swal('Bilgi!', name + ' ' + result.Message, 'success');
                                     location.reload();
                                 });
                             }
-                            else swal('Uyarı!', name + ' ' + result.Message, 'error');
+                            else {
+                                swal('Uyarı!', result.Message, 'warning');
+                            }
+                        },
+                        error: function (xhr) {
+                            swal('Uyarı!', result.Message, 'warning');
                         }
                     });
                 }
