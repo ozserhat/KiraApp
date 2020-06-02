@@ -159,6 +159,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
         public ActionResult Index(KiraBeyanRequest request, int? page, int pageSize = 15)
         {
+            TestWCF();
             var model = new KiraBeyanVM();
 
             if (request.BeyanYil.HasValue)
@@ -324,7 +325,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             try
             {
                 TahsilatService.ServiceClient wcf = new TahsilatService.ServiceClient();
-                var result = wcf.TahsilatSorgula("2020-01-06-17-22-21-81785805", 8031);
+                var result = wcf.TahsilatSorgula("2020-01-06-17-22-21-81785805", 8031).FirstOrDefault();
             }
             catch (Exception ex)
             {

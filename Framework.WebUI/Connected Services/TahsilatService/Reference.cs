@@ -35,7 +35,7 @@ namespace Framework.WebUI.TahsilatService {
         private int MakbuzNoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime OdemeTarField;
+        private string OdemeTarField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal OdenenTutarField;
@@ -47,7 +47,7 @@ namespace Framework.WebUI.TahsilatService {
         private int TahakkukNoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime TahakkukTarihiField;
+        private string TahakkukTarihiField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal TahakukTutarField;
@@ -118,12 +118,12 @@ namespace Framework.WebUI.TahsilatService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime OdemeTar {
+        public string OdemeTar {
             get {
                 return this.OdemeTarField;
             }
             set {
-                if ((this.OdemeTarField.Equals(value) != true)) {
+                if ((object.ReferenceEquals(this.OdemeTarField, value) != true)) {
                     this.OdemeTarField = value;
                     this.RaisePropertyChanged("OdemeTar");
                 }
@@ -170,12 +170,12 @@ namespace Framework.WebUI.TahsilatService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime TahakkukTarihi {
+        public string TahakkukTarihi {
             get {
                 return this.TahakkukTarihiField;
             }
             set {
-                if ((this.TahakkukTarihiField.Equals(value) != true)) {
+                if ((object.ReferenceEquals(this.TahakkukTarihiField, value) != true)) {
                     this.TahakkukTarihiField = value;
                     this.RaisePropertyChanged("TahakkukTarihi");
                 }

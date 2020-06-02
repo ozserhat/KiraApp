@@ -12,11 +12,11 @@
       <xs:element minOccurs="0" name="Azaltan" type="xs:int" />
       <xs:element minOccurs="0" name="GenelToplam" type="xs:decimal" />
       <xs:element minOccurs="0" name="MakbuzNo" type="xs:int" />
-      <xs:element minOccurs="0" name="OdemeTar" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="OdemeTar" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="OdenenTutar" type="xs:decimal" />
       <xs:element minOccurs="0" name="Sonuc" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TahakkukNo" type="xs:int" />
-      <xs:element minOccurs="0" name="TahakkukTarihi" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="TahakkukTarihi" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TahakukTutar" type="xs:decimal" />
       <xs:element minOccurs="0" name="VezneNo" type="xs:int" />
     </xs:sequence>
