@@ -46,7 +46,7 @@
                                         </a>
                                     </span>
                                 </div>
-                                <h2>Beyan Listesi - <b>Toplam Beyan Adedi : @Model.TotalRecordCount</b></h2>
+                                <h2>Beyan-Sicil Listesi - <b>Toplam Beyan Adedi : @Model.TotalRecordCount</b></h2>
 
                                 <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
 
@@ -104,6 +104,7 @@
                                                                                         @Html.LabelFor(model => Model.SicilNo, new { @class = "col-md-4 font-bold" })
                                                                                         <div class="col-md-6">
                                                                                             @Html.TextBoxFor(model => model.SicilNo, "", new { @class = "form-control " })
+                                                                                            @Html.ValidationMessage("SicilNo", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -114,6 +115,7 @@
                                                                                         @Html.LabelFor(model => Model.TcKimlikNo, new { @class = "col-md-4 font-bold" })
                                                                                         <div class="col-md-6">
                                                                                             @Html.TextBoxFor(model => model.TcKimlikNo, "", new { @class = "form-control " })
+                                                                                            @Html.ValidationMessage("TcKimlikNo", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -124,6 +126,7 @@
                                                                                         @Html.LabelFor(model => Model.VergiNo, new { @class = "col-md-4 font-bold" })
                                                                                         <div class="col-md-6">
                                                                                             @Html.TextBoxFor(model => model.VergiNo, "", new { @class = "form-control " })
+                                                                                            @Html.ValidationMessage("VergiNo", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -344,12 +347,8 @@
         function clearForm() {
             debugger;
 
-            $('#BeyanTur_Id').select2("val", "");
-            $('#BeyanYil').select2("val", "");
-            $('#KiraDurum_Id').select2("val", "");
-            $('#Kdv').select2("val", "");
-            $('#OdemePeriyotTur_Id').select2("val", "");
-            $('#DamgaAlinsinMi').select2("val", "");
+            $('#Ilce_Id').select2("val", "");
+            $('#Mahalle_Id').select2("val", "");
             $('#btnSubmit').click();
 
         }

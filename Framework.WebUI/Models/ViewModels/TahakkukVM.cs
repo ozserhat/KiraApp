@@ -16,13 +16,16 @@ namespace Framework.WebUI.Models.ViewModels
         public int? KiraBeyan_Id { get; set; }
 
         [Display(Name = "Beyan Yıl")]
-        public int BeyanYil { get; set; }
+        public int? BeyanYil { get; set; }
+
+        [Display(Name = "Beyan No")]
+        public string BeyanNo { get; set; }
 
         [Display(Name = " Tahakkuk Tur")]
         public string TahakkukTur { get; set; }
 
         [Display(Name = "Taksit No")]
-        public int TaksitNo { get; set; }
+        public int? TaksitNo { get; set; }
 
         [Display(Name = "Vade Tarihi")]
         public DateTime? VadeTarihi { get; set; }
@@ -37,7 +40,7 @@ namespace Framework.WebUI.Models.ViewModels
         public string Aciklama { get; set; }
 
         [Display(Name = "Ödeme Durumu")]
-        public bool OdemeDurumu { get; set; }
+        public bool? OdemeDurumu { get; set; }
 
         public IPagedList<Tahakkuk> Tahakkuklar { get; set; }
         [Display(Name = "Tahakkuk Türü")]
@@ -71,7 +74,7 @@ namespace Framework.WebUI.Models.ViewModels
         public int? BeyanYil { get; set; }
 
         [Display(Name = "Taksit No")]
-        public int TaksitNo { get; set; }
+        public int? TaksitNo { get; set; }
 
         [Display(Name = "Kdv Oranı")]
         public int KdvOrani { get; set; }
@@ -83,7 +86,7 @@ namespace Framework.WebUI.Models.ViewModels
         public DateTime? TahakkukTarihi { get; set; }
 
         [Display(Name = "Tutar")]
-        public string Tutar { get; set; }
+        public decimal? Tutar { get; set; }
 
         [Display(Name = "Kalan Borç Tutarı")]
         public decimal? KalanBorcTutari { get; set; }
@@ -98,7 +101,7 @@ namespace Framework.WebUI.Models.ViewModels
         public string ServisAciklama { get; set; }
 
         [Display(Name = "Ödeme Durumu")]
-        public bool OdemeDurumu { get; set; }
+        public bool? OdemeDurumu { get; set; }
 
         [Display(Name = "Kdv Alınacak Mı?")]
         public bool KdvAlinacakMi { get; set; }

@@ -125,6 +125,7 @@ namespace Framework.WebUI.Models.ViewModels
 
     public class KiraParametreDuzenleVM : VMBase
     {
+ 
         [Display(Name = "Id")]
         public int Id { get; set; }
 
@@ -175,7 +176,7 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Güncellenme Tarihi")]
         public DateTime? GuncellenmeTarihi { get; set; }
-
+        
         [Display(Name = "Aktif Mi")]
         public bool AktifMi { get; set; }
     }

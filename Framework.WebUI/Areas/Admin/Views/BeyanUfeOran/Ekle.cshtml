@@ -72,7 +72,7 @@
                                                     <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
                                                         @Html.LabelFor(model => model.Oran, new { @class = "control-label col-md-4 zorunluYildiz" })
                                                         <div class="col-md-8">
-                                                            @Html.TextBoxFor(model => model.Oran, new { @class = "form-control col-md-4 required",@type="number" })
+                                                            @Html.TextBoxFor(model => model.Oran, new { @class = "form-control col-md-4 required", @type = "number" })
                                                             @Html.ValidationMessageFor(model => model.Oran, "", new { @class = "text-danger" })
                                                         </div>
                                                     </div>
@@ -82,8 +82,8 @@
                                         <div class="form-actions">
                                             <div class="row">
                                                 <div class="col-md-6 col-xs-offset-2" style="padding-right: 30px;">
-                                                    <input id="btnReset" type="reset" value="Temizle" class="btn btn-warning">
-                                                    <input id="btnSubmit" type="button" value="Kaydet" class="btn btn-primary">
+                                                    <input id="btnReset" type="reset" onclick="clearForm()" value="Temizle" class="btn btn-warning">
+                                                    <input id="btnSubmit"  type="button" value="Kaydet" class="btn btn-primary">
                                                 </div>
                                             </div>
                                         </div>
@@ -106,7 +106,7 @@
 
 
     <!--BeyanUfeOran Ekle-->
-<script type="text/javascript">
+    <script type="text/javascript">
         $(function () {
             $('#btnSubmit').on('click', function () {
                 oran = new Object();
@@ -124,7 +124,7 @@
                             swal('Bilgi!', result.Message, 'success');
 
                             setTimeout(function () {
-                                window.location.href = "../BeyanUfeOran/Index";
+                                window.location.href = "/Admin/BeyanUfeOran/Index";
                             }, 2000);
                         }
                         else {
@@ -137,7 +137,17 @@
                  });
             });
         });
-</script>
+    </script>
+
+    <!--ClearForm-->
+    <script type="text/javascript">
+        function clearForm() {
+            document.getElementById("Adi").value = "";
+            document.getElementById("Oran").value = "";
+            $('#Yil').select2("val", "");
+            $('#Ay').select2("val", "");
+        }
+    </script>
 }
 
 

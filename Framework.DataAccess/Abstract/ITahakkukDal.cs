@@ -8,6 +8,7 @@ namespace Framework.DataAccess.Abstract
     {
         IEnumerable<Tahakkuk> GetirListe();
         List<Tahakkuk> GetirListeBeyanId(int KiraBeyanId);
+        IEnumerable<Tahakkuk> GetListByCriterias(TahakkukRequest request);
         Tahakkuk GetById(int id);
         Tahakkuk GetByGuid(Guid guid);
         Tahakkuk GetirBeyan(int BeyanId);

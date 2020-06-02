@@ -124,6 +124,7 @@
                                                                                     @Html.LabelFor(model => Model.AdresNo, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
                                                                                         @Html.TextBoxFor(model => model.AdresNo, "", new { @class = "form-control " })
+                                                                                        @Html.ValidationMessage("AdresNo", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -189,6 +190,7 @@
                                                                                     @Html.LabelFor(model => model.MetreKare, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
                                                                                         @Html.TextBoxFor(model => model.MetreKare, "", new { @class = "form-control " })
+                                                                                        @Html.ValidationMessage("MetreKare", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -202,6 +204,7 @@
                                                                                     @Html.LabelFor(model => model.AracKapasitesi, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
                                                                                         @Html.TextBoxFor(model => Model.AracKapasitesi, "", new { @class = "form-control " })
+                                                                                        @Html.ValidationMessage("AracKapasitesi", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -212,6 +215,7 @@
                                                                                     @Html.LabelFor(model => model.NumaratajKimlikNo, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
                                                                                         @Html.TextBoxFor(model => model.NumaratajKimlikNo, "", new { @class = "form-control " })
+                                                                                        @Html.ValidationMessage("NumaratajKimlikNo", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -376,8 +380,7 @@
     <script type="text/javascript">
 
         function clearForm() {
-            debugger;
-
+            
             $('#BeyanTur_Id').select2("val", "");
             $('#BeyanYil').select2("val", "");
             $('#KiraDurum_Id').select2("val", "");
