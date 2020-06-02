@@ -30,21 +30,24 @@ namespace Framework.WebUI.App_Helpers
 
                 IJobDetail job = JobBuilder.Create<HatirlaticiManager>().WithIdentity("myJob", "group1")
                     .Build();
-                ITrigger trigger = TriggerBuilder.Create()
-                    .WithDailyTimeIntervalSchedule
-                      (s =>
-                         s
-                        .OnEveryDay() //hergün çalışacağı bilgisi
-                        .StartingDailyAt(TimeOfDay.HourAndMinuteOfDay(17, 40)) //hergün hangi saatte çalışacağı bilgisi
-                      )
-                     .Build();
-                //ITrigger trigger = (ISimpleTrigger)TriggerBuilder.Create()
-                //  .StartNow()
-                //  .WithIdentity("HatirlaticiManager", "group1")
-                //  .WithSimpleSchedule(x => x
-                //  .WithIntervalInSeconds(1).RepeatForever())
-                //  .Build();
-                //scheduler.ScheduleJob(job, trigger);
+
+                //ITrigger trigger = TriggerBuilder.Create()
+                //    .WithDailyTimeIntervalSchedule
+                //      (s =>
+                //         s
+                //        .OnEveryDay() //hergün çalışacağı bilgisi
+                //        .StartingDailyAt(TimeOfDay.HourAndMinuteOfDay(17, 40)) //hergün hangi saatte çalışacağı bilgisi
+                //      )
+                //     .Build();
+
+
+                ITrigger trigger = (ISimpleTrigger)TriggerBuilder.Create()
+                  .StartNow()
+                  .WithIdentity("HatirlaticiManager", "group1")
+                  .WithSimpleSchedule(x => x
+                  .WithIntervalInSeconds(1).RepeatForever())
+                  .Build();
+                scheduler.ScheduleJob(job, trigger);
             }
             catch (Exception ex) { }
         }

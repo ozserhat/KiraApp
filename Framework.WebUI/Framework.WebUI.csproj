@@ -223,6 +223,7 @@
     <Compile Include="Areas\Emlak\Controllers\AnasayfaController.cs" />
     <Compile Include="Areas\Emlak\Controllers\GayrimenkulAltTurController.cs" />
     <Compile Include="Areas\Emlak\Controllers\GayrimenkulController.cs" />
+    <Compile Include="Areas\Emlak\Controllers\GayrimenkulDosyaController.cs" />
     <Compile Include="Areas\Emlak\Controllers\GayrimenkulDosyaTurController.cs" />
     <Compile Include="Areas\Emlak\Controllers\GayrimenkulTurController.cs" />
     <Compile Include="Areas\Emlak\EmlakAreaRegistration.cs" />
