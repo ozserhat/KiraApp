@@ -110,6 +110,8 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -233,6 +235,11 @@
     <Compile Include="Areas\Kira\KiraAreaRegistration.cs" />
     <Compile Include="Areas\SosyalYardim\Controllers\AnasayfaController.cs" />
     <Compile Include="Areas\SosyalYardim\SosyalYardimAreaRegistration.cs" />
+    <Compile Include="Connected Services\TahsilatService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UnauthorizedController.cs" />
@@ -283,6 +290,19 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Emlak\Views\Gayrimenkul\Duzenle.cshtml" />
+    <Content Include="Areas\Emlak\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Emlak\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Emlak\Views\Gayrimenkul\Detay.cshtml" />
+    <None Include="Connected Services\TahsilatService\configuration91.svcinfo" />
+    <None Include="Connected Services\TahsilatService\configuration.svcinfo" />
+    <Content Include="Connected Services\TahsilatService\Framework.WebUI.TahsilatService.Tahsilat.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Connected Services\TahsilatService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Content\ajax\email-compose.html" />
     <Content Include="Content\ajax\email-opened.html" />
     <Content Include="Content\ajax\email-reply.html" />
@@ -1151,6 +1171,16 @@
     <Content Include="Areas\Admin\Views\BeyanUfeOran\Duzenle.cshtml" />
     <Content Include="Areas\Admin\Views\KullaniciSayfaYetki\Index.cshtml" />
     <Content Include="Areas\Admin\Views\KullaniciSayfaYetki\KullaniciSayfaYetkileri.cshtml" />
+    <None Include="Connected Services\TahsilatService\Service.wsdl" />
+    <None Include="Connected Services\TahsilatService\Service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\TahsilatService\Service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\TahsilatService\Service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="Areas\Admin\Views\KiraDurumDosyaTur\Index.cshtml" />
     <Content Include="Areas\Admin\Views\KiraDurumDosyaTur\Ekle.cshtml" />
     <Content Include="Areas\Admin\Views\KiraDurumDosyaTur\Duzenle.cshtml" />
@@ -1859,6 +1889,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\TahsilatService\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
