@@ -9,6 +9,7 @@ namespace Framework.Business.Abstract
     public interface ITahakkukService
     {
         IEnumerable<Tahakkuk> GetirListe();
+        Tahakkuk Getir(int id);
         List<Tahakkuk> GetirListe(int KiraBeyanId);
         IEnumerable<Tahakkuk> GetirSorguListe(TahakkukRequest request);
         IEnumerable<Tahakkuk> GetirListeAktif();
@@ -20,7 +21,8 @@ namespace Framework.Business.Abstract
         Tahakkuk Ekle(Tahakkuk tahakkuk);
         bool Ekle(IEnumerable<Tahakkuk> entities);
         Tahakkuk Guncelle(Tahakkuk tahakkuk);
-        bool Sil(int id);       
+        bool Sil(int id);
+       
     }
 
     public interface ITahakkukDisServis

@@ -127,7 +127,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                 return context.Tahakkuklar.Include(kb => kb.Kira_Beyani).Include(b => b.Kira_Beyani.Beyanlar).ToList();
             }
         }
-
+  
         public List<Tahakkuk> GetirListeBeyanId(int KiraBeyanId)
         {
             using (DtContext context = new DtContext())
