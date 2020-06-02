@@ -218,6 +218,7 @@
     <Compile Include="DependencyResolvers\Ninject\AutoMapperModule.cs" />
     <Compile Include="DependencyResolvers\Ninject\BusinessModule.cs" />
     <Compile Include="DependencyResolvers\Ninject\InstanceFactory.cs" />
+    <Compile Include="DependencyResolvers\Ninject\JobFactory.cs" />
     <Compile Include="DependencyResolvers\Ninject\NinjectJobFactory.cs" />
     <Compile Include="DependencyResolvers\Ninject\ServiceModule.cs" />
     <Compile Include="DependencyResolvers\Ninject\ValidationModule.cs" />
