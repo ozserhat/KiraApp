@@ -291,6 +291,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Emlak\Views\Gayrimenkul\Duzenle.cshtml" />
+    <Content Include="Areas\Emlak\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Emlak\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Emlak\Views\Gayrimenkul\Detay.cshtml" />
     <None Include="Connected Services\TahsilatService\configuration91.svcinfo" />
     <None Include="Connected Services\TahsilatService\configuration.svcinfo" />
     <Content Include="Connected Services\TahsilatService\Framework.WebUI.TahsilatService.Tahsilat.datasource">

@@ -94,6 +94,10 @@
                                                                         new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
                                                                         Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
+                                                                @Html.AuthAction(" ", "Detay", "Gayrimenkul", new { item.Guid },
+                                                                    new { @class = "no-underline margin-right-5 fa fa-info font-md txt-color-blue" },
+                                                                    Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+
                                                                 @Html.AuthAction(" ", "Sil", "Gayrimenkul", new { item.Id },
                                                                                 new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = item.Ad, @data_id = item.Id },
                                                                                 Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
