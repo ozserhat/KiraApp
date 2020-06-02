@@ -34,217 +34,217 @@
             <div class="row">
                 <article class="col-sm-12 col-md-12 col-lg-12">
                     <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
-                    <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
-                        <header>
-                            <div style="float:left; margin-top: -5px; padding-bottom: 8px;">
+                        <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
+                            <header>
+                                <div style="float:left; margin-top: -5px; padding-bottom: 8px;">
 
-                                <span id="spnFiltre">
-                                    <a href="#" id="btnAcKriter" class="btn btn-info" data-toggle="canvas" data-target="#bs-canvas-right" title="Filtreleme" aria-expanded="false" aria-controls="bs-canvas-right">
-                                        <span>Filtrele</span>
-                                        <i class="fa fa-filter">
-                                        </i>
-                                    </a>
-                                </span>
-                            </div>
-                            <h2>Beyan Listesi - <b>Toplam Beyan Adedi : @Model.TotalRecordCount</b></h2>
-
-                            <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
-
-                                <div class="btn-group" role="menu">
-                                    <button class="btn btn-info">
-                                        <i class="glyphicon glyphicon-export"></i>
-                                        Dosya İşlemleri
-                                    </button>
-                                    <button class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="#" id="btnExport" rel="tooltip"
-                                               data-original-title="Excel Raporu">
-                                                <span>Excel</span>
-                                                <i class="fa fa-file-excel-o">
-                                                </i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" id="btnPdfConverter" title="Pdf" onclick="createPDF()">
-                                                <span>Pdf</span>
-                                                <i class="fa fa-file-pdf-o">
-                                                </i>
-                                            </a>
-                                        </li>
-                                    </ul>
+                                    <span id="spnFiltre">
+                                        <a href="#" id="btnAcKriter" class="btn btn-info" data-toggle="canvas" data-target="#bs-canvas-right" title="Filtreleme" aria-expanded="false" aria-controls="bs-canvas-right">
+                                            <span>Filtrele</span>
+                                            <i class="fa fa-filter">
+                                            </i>
+                                        </a>
+                                    </span>
                                 </div>
-                            </div>
-                        </header>
-                        <div role="contentinfo">
-                            <div class="widget-body">
-                                <div class="tab-pane fade active in">
-                                    <div class="form-group">
-                                        <div class="col-md-12">
-                                            <div id="pnlKriter" class="bs-offset-main bs-canvas-anim" style="display:none;">
-                                                <div id="bs-canvas-right" class="bs-canvas bs-canvas-anim bs-canvas-left position-fixed bg-light h-100" data-width="100%">
-                                                    <header class="bs-canvas-header p-3 bg-success overflow-auto">
-                                                        <button type="button" class="bs-canvas-close float-left close" aria-label="Close">
-                                                            <span aria-hidden="true" class="text-light">&times;</span>
-                                                        </button>
-                                                        <h4 class="d-inline-block text-light mb-0 float-right">Sorgulama Kriterleri</h4><br />
-                                                    </header>
-                                                    <div class="bs-canvas-content px-3 py-5" style="height:250px">
-                                                        @using (Html.BeginForm("GayrimenkulSorgula", "Beyan", FormMethod.Post, new { enctype = "multipart/form-data", id = "submitForm" }))
-                                                        {
-                                                            <div class="widget-body">
-                                                                @Html.HiddenFor(model => model.PageSize)
-                                                                <fieldset>
-                                                                    <div class="row">
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => Model.GayrimenkulTuruSelectList, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.DropDownList("GayrimenkulTur", Model.GayrimenkulTuruSelectList, "Seçiniz", new { @class = "select2" })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => Model.GayrimenkulAdi, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.TextBoxFor(model => model.GayrimenkulAdi, "", new { @class = "form-control " })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => Model.AdresNo, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.TextBoxFor(model => model.AdresNo, "", new { @class = "form-control " })
-                                                                                        @Html.ValidationMessage("AdresNo", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row">
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.IlceSelectList, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.DropDownList("Ilce_Id", Model.IlceSelectList, "Seçiniz", new { @class = "select2 " })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.MahalleSelectList, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.DropDownList("Mahalle_Id", new SelectList(string.Empty, "Value", "Text"), "Seçiniz", new { @class = "select2" })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.Sokak, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.TextBoxFor(model => model.Sokak, "", new { @class = "form-control " })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row">
+                                <h2>Beyan Listesi - <b>Toplam Beyan Adedi : @Model.TotalRecordCount</b></h2>
 
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.DisKapiNo, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.TextBoxFor(model => Model.DisKapiNo, "", new { @class = "form-control " })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.IcKapiNo, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.TextBoxFor(model => model.IcKapiNo, "", new { @class = "form-control " })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.MetreKare, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.TextBoxFor(model => model.MetreKare, "", new { @class = "form-control " })
-                                                                                        @Html.ValidationMessage("MetreKare", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row">
-                                                                       
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.AracKapasitesi, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.TextBoxFor(model => Model.AracKapasitesi, "", new { @class = "form-control " })
-                                                                                        @Html.ValidationMessage("AracKapasitesi", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.NumaratajKimlikNo, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.TextBoxFor(model => model.NumaratajKimlikNo, "", new { @class = "form-control " })
-                                                                                        @Html.ValidationMessage("NumaratajKimlikNo", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
+                                <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
 
-                                                                    <div class="row">
-                                                                        <div class="col-md-12">
-                                                                            <input id="btnSubmit" type="submit" value="Sorgula" class="btn btn-primary btn-header-btn">
+                                    <div class="btn-group" role="menu">
+                                        <button class="btn btn-info">
+                                            <i class="glyphicon glyphicon-export"></i>
+                                            Dosya İşlemleri
+                                        </button>
+                                        <button class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="#" id="btnExport" rel="tooltip"
+                                                   data-original-title="Excel Raporu">
+                                                    <span>Excel</span>
+                                                    <i class="fa fa-file-excel-o">
+                                                    </i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" id="btnPdfConverter" title="Pdf" onclick="createPDF()">
+                                                    <span>Pdf</span>
+                                                    <i class="fa fa-file-pdf-o">
+                                                    </i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </header>
+                            <div role="contentinfo">
+                                <div class="widget-body">
+                                    <div class="tab-pane fade active in">
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <div id="pnlKriter" class="bs-offset-main bs-canvas-anim" style="display:none;">
+                                                    <div id="bs-canvas-right" class="bs-canvas bs-canvas-anim bs-canvas-left position-fixed bg-light h-100" data-width="100%">
+                                                        <header class="bs-canvas-header p-3 bg-success overflow-auto">
+                                                            <button type="button" class="bs-canvas-close float-left close" aria-label="Close">
+                                                                <span aria-hidden="true" class="text-light">&times;</span>
+                                                            </button>
+                                                            <h4 class="d-inline-block text-light mb-0 float-right">Sorgulama Kriterleri</h4><br />
+                                                        </header>
+                                                        <div class="bs-canvas-content px-3 py-5" style="height:250px">
+                                                            @using (Html.BeginForm("GayrimenkulSorgula", "Beyan", FormMethod.Post, new { enctype = "multipart/form-data", id = "submitForm" }))
+                                                            {
+                                                                <div class="widget-body">
+                                                                    @Html.HiddenFor(model => model.PageSize)
+                                                                    <fieldset>
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <div class="form-group">
+                                                                                    <div class="input-group" style="width: 100%;">
+                                                                                        @Html.LabelFor(model => Model.GayrimenkulTuruSelectList, new { @class = "col-md-4 font-bold" })
+                                                                                        <div class="col-md-6">
+                                                                                            @Html.DropDownList("GayrimenkulTur", Model.GayrimenkulTuruSelectList, "Seçiniz", new { @class = "select2" })
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-4">
+                                                                                <div class="form-group">
+                                                                                    <div class="input-group" style="width: 100%;">
+                                                                                        @Html.LabelFor(model => Model.GayrimenkulAdi, new { @class = "col-md-4 font-bold" })
+                                                                                        <div class="col-md-6">
+                                                                                            @Html.TextBoxFor(model => model.GayrimenkulAdi, "", new { @class = "form-control " })
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-4">
+                                                                                <div class="form-group">
+                                                                                    <div class="input-group" style="width: 100%;">
+                                                                                        @Html.LabelFor(model => Model.AdresNo, new { @class = "col-md-4 font-bold" })
+                                                                                        <div class="col-md-6">
+                                                                                            @Html.TextBoxFor(model => model.AdresNo, "", new { @class = "form-control " })
+                                                                                            @Html.ValidationMessage("AdresNo", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
-                                                                        <div class="col-md-12">
-                                                                            <input id="btnReset" onclick="clearForm()" type="reset" value="Temizle" class="btn btn-warning btn-header-btn">
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <div class="form-group">
+                                                                                    <div class="input-group" style="width: 100%;">
+                                                                                        @Html.LabelFor(model => model.IlceSelectList, new { @class = "col-md-4 font-bold" })
+                                                                                        <div class="col-md-6">
+                                                                                            @Html.DropDownList("Ilce_Id", Model.IlceSelectList, "Seçiniz", new { @class = "select2 " })
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-4">
+                                                                                <div class="form-group">
+                                                                                    <div class="input-group" style="width: 100%;">
+                                                                                        @Html.LabelFor(model => model.MahalleSelectList, new { @class = "col-md-4 font-bold" })
+                                                                                        <div class="col-md-6">
+                                                                                            @Html.DropDownList("Mahalle_Id", new SelectList(string.Empty, "Value", "Text"), "Seçiniz", new { @class = "select2" })
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-4">
+                                                                                <div class="form-group">
+                                                                                    <div class="input-group" style="width: 100%;">
+                                                                                        @Html.LabelFor(model => model.Sokak, new { @class = "col-md-4 font-bold" })
+                                                                                        <div class="col-md-6">
+                                                                                            @Html.TextBoxFor(model => model.Sokak, "", new { @class = "form-control " })
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                </fieldset>
-                                                            </div>
-                                                        }
+                                                                        <div class="row">
+
+                                                                            <div class="col-md-4">
+                                                                                <div class="form-group">
+                                                                                    <div class="input-group" style="width: 100%;">
+                                                                                        @Html.LabelFor(model => model.DisKapiNo, new { @class = "col-md-4 font-bold" })
+                                                                                        <div class="col-md-6">
+                                                                                            @Html.TextBoxFor(model => Model.DisKapiNo, "", new { @class = "form-control " })
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-4">
+                                                                                <div class="form-group">
+                                                                                    <div class="input-group" style="width: 100%;">
+                                                                                        @Html.LabelFor(model => model.IcKapiNo, new { @class = "col-md-4 font-bold" })
+                                                                                        <div class="col-md-6">
+                                                                                            @Html.TextBoxFor(model => model.IcKapiNo, "", new { @class = "form-control " })
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-4">
+                                                                                <div class="form-group">
+                                                                                    <div class="input-group" style="width: 100%;">
+                                                                                        @Html.LabelFor(model => model.MetreKare, new { @class = "col-md-4 font-bold" })
+                                                                                        <div class="col-md-6">
+                                                                                            @Html.TextBoxFor(model => model.MetreKare, "", new { @class = "form-control", @type = "number" })
+                                                                                            @Html.ValidationMessage("MetreKare", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+
+                                                                            <div class="col-md-4">
+                                                                                <div class="form-group">
+                                                                                    <div class="input-group" style="width: 100%;">
+                                                                                        @Html.LabelFor(model => model.AracKapasitesi, new { @class = "col-md-4 font-bold" })
+                                                                                        <div class="col-md-6">
+                                                                                            @Html.TextBoxFor(model => Model.AracKapasitesi, "", new { @class = "form-control " })
+                                                                                            @Html.ValidationMessage("AracKapasitesi", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-4">
+                                                                                <div class="form-group">
+                                                                                    <div class="input-group" style="width: 100%;">
+                                                                                        @Html.LabelFor(model => model.NumaratajKimlikNo, new { @class = "col-md-4 font-bold" })
+                                                                                        <div class="col-md-6">
+                                                                                            @Html.TextBoxFor(model => model.NumaratajKimlikNo, "", new { @class = "form-control " })
+                                                                                            @Html.ValidationMessage("NumaratajKimlikNo", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <input id="btnSubmit" type="submit" value="Sorgula" class="btn btn-primary btn-header-btn">
+                                                                            </div>
+                                                                            <div class="col-md-12">
+                                                                                <input id="btnReset" onclick="clearForm()" type="reset" value="Temizle" class="btn btn-warning btn-header-btn">
+                                                                            </div>
+                                                                        </div>
+                                                                    </fieldset>
+                                                                </div>
+                                                            }
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div id="dvTable" class="col-md-12">
-                                            @{ Html.RenderPartial("_tablePartial", Model.KiraBeyanVm); }
+                                            <div id="dvTable" class="col-md-12">
+                                                @{ Html.RenderPartial("_tablePartial", Model.KiraBeyanVm); }
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </article>
             </div>
         </section>
@@ -377,18 +377,23 @@
         });
     </script>
 
+    <!--Form Temizleme İşlemi-->
     <script type="text/javascript">
 
         function clearForm() {
-            
-            $('#BeyanTur_Id').select2("val", "");
-            $('#BeyanYil').select2("val", "");
-            $('#KiraDurum_Id').select2("val", "");
-            $('#Kdv').select2("val", "");
-            $('#OdemePeriyotTur_Id').select2("val", "");
-            $('#DamgaAlinsinMi').select2("val", "");
-            $('#btnSubmit').click();
 
+            document.getElementById("GayrimenkulAdi").value = "";
+            document.getElementById("AdresNo").value = "";
+            document.getElementById("DisKapiNo").value = "";
+            document.getElementById("IcKapiNo").value = "";
+            document.getElementById("Sokak").value = "";
+            document.getElementById("Metrekare").value = "";
+            document.getElementById("AracKapasitesi").value = "";
+            document.getElementById("NumaratajKimlikNo").value = "";
+            $('#GayrimenkulTur').select2("val", "");
+            $('#Ilce_Id').select2("val", "");
+            $('#Mahalle_Id').select2("val", "");
+            $('#btnSubmit').click();
         }
 
         $(function () {
@@ -571,12 +576,13 @@
         }
     </script>
 
-
     <!--Export Excel-->
     <script type="text/javascript">
         $(function () {
             $("#btnExport").click(function () {
-
+                var tbl = $('#tblBeyan');
+                tbl.find('th:last-child, td:last-child').remove();
+                tbl.find('th:first-child, td:first-child').remove();
                 $("#tblBeyan").table2excel({
                     filename: "Beyanlar.xls"
                 });
@@ -585,10 +591,13 @@
     </script>
 
     <!--Export PDf-->
-
     <script>
         function createPDF() {
-            html2canvas(document.getElementById('dvTable'), {
+            var tbl = $('#tblBeyan');
+            tbl.find('th:last-child, td:last-child').remove()
+            tbl.find('th:first-child, td:first-child').remove()
+
+            html2canvas(tbl, {
                 onrendered: function (canvas) {
                     var data = canvas.toDataURL();
                     var docDefinition = {

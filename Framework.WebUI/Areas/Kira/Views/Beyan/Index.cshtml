@@ -786,7 +786,9 @@
     <script type="text/javascript">
         $(function () {
             $("#btnExport").click(function () {
-
+                var tbl = $('#tblBeyan');
+                tbl.find('th:last-child, td:last-child').remove();
+                tbl.find('th:first-child, td:first-child').remove();
                 $("#tblBeyan").table2excel({
                     filename: "Beyanlar.xls"
                 });

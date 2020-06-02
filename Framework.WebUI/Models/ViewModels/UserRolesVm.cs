@@ -29,6 +29,7 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Aktif Mi")]
         public bool? AktifMi { get; set; }
     }
+
     public class UserRolesPageVm : PagingVMBase
     {
         [Display(Name = "Roller")]
