@@ -29,7 +29,7 @@
             <div class="input-group" style="width: 100%;">
                 @Html.LabelFor(model => Model.KiraDurumSelectList, new { @class = "col-md-4 font-bold zorunluYildiz" })
                 <div class="col-md-6">
-                    @Html.DropDownList("KiraDurum_Id", Model.KiraDurumSelectList, new { @class = "select2 required"})
+                    @Html.DropDownList("KiraDurum_Id", Model.KiraDurumSelectList, "Seçiniz", new { @class = "select2 required"})
                     @Html.ValidationMessage("KiraDurum_Id", new { @class = "text-danger" })
                 </div>
             </div>

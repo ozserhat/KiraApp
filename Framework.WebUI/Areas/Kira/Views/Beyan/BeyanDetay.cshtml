@@ -1287,7 +1287,15 @@
                                                             <div class="input-group" style="width: 100%;">
                                                                 @Html.Label("Encümen Tarihi", new { @class = "control-label col-md-4 zorunluYildiz" })
                                                                 <div class="col-md-8">
-                                                                    @Html.TextBox("ArtisEncumenTarihi", "", new { @class = "form-control col-md-4 required" })
+                                                                    <div class="input-group date datetimepicker">
+                                                                        @{
+                                                                            @Html.TextBoxFor(model => model.EncumenTarihi, new { @class = "form-control col-md-4 datepicker required", @autocomplete = "off" })
+                                                                            <span class="input-group-addon" id="openDate">
+                                                                                <span class="glyphicon glyphicon-calendar"></span>
+                                                                            </span>
+                                                                        }
+                                                                    </div>
+                                                                    @Html.ValidationMessageFor(model => model.EncumenTarihi, "", new { @class = "text-danger" })
                                                                 </div>
                                                             </div>
                                                         </div>

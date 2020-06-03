@@ -102,8 +102,8 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Soyadı")]
         public string Soyad { get; set; }
 
+        [Display(Name = "Vergi Dairesi")]
         public string VergiDairesi { get; set; }
-
 
         [Display(Name = "İl")]
         public SelectList IlSelectList { get; set; }
@@ -235,6 +235,8 @@ namespace Framework.WebUI.Models.ViewModels
 
         public KiraBeyanEkleVM Kira_Beyan { get; set; }
 
+        [Display(Name = "EncumenTarihi")]
+        public string EncumenTarihi { get; set; }
 
         [Display(Name = "Ek Tahakkuk Oranları (%)")]
         public SelectList EkTahakkukOranlari { get; set; }
@@ -250,7 +252,6 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Kira Yenileme Periyotu")]
         public SelectList KiraYenilemePeriyotSelectList { get; set; }
-
 
         [Display(Name = "Beyan_Id")]
         public int Beyan_Id { get; set; }

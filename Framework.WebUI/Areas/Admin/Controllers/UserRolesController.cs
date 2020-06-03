@@ -1,4 +1,5 @@
 ﻿using Framework.Business.Abstract;
+using Framework.Entities.ComplexTypes;
 using Framework.Entities.Concrete;
 using Framework.WebUI.App_Helpers;
 using Framework.WebUI.Models.ViewModels;
