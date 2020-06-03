@@ -406,7 +406,7 @@
                                                         </legend>
                                                         <form class="form-horizontal" id="BelgeEkleForm" novalidate="novalidate">
                                                             <div class="col-md-10 col-md-offset-1">
-                                                                <div class="col-md-12 smart-form" >
+                                                                <div class="col-md-12 smart-form">
                                                                     <div id="dvMaps" style="width:800px;height:400px"></div>
                                                                 </div>
                                                             </div>
@@ -503,10 +503,8 @@
     <script type="text/javascript">
         //map..
         function initMap() {
-            console.log('@Model.Koordinat.Split(',')[0]');
-            console.log('@Model.Koordinat.Split(',')[1]');
             // The location of Uluru
-            var uluru = { lat: @Model.Koordinat.Split(',')[0], lng: @Model.Koordinat.Split(',')[1]};
+            var uluru = { lat: @Model.Koordinat.Replace("(","").Replace(")","").Split(',')[0], lng: @Model.Koordinat.Replace("(","").Replace(")","").Split(',')[1]};
             // The map, centered at Uluru
             var map = new google.maps.Map(
                 document.getElementById('dvMaps'), { zoom: 16, center: uluru });

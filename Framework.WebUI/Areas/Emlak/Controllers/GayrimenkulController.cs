@@ -380,7 +380,7 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
                 model.DisKapiNo = gayrimenkul.DisKapiNo;
                 model.IcKapiNo = gayrimenkul.IcKapiNo;
                 model.AcikAdres = gayrimenkul.AcikAdres;
-                model.Koordinat = "39.926950, 32.853100";
+                model.Koordinat = gayrimenkul.Koordinat;
                 model.Ada = gayrimenkul.Ada;
                 model.Pafta = gayrimenkul.Pafta;
                 model.Parsel = gayrimenkul.Parsel;

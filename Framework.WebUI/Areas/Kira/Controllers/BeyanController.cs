@@ -168,7 +168,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
         public ActionResult Index(KiraBeyanRequest request, int? page, int pageSize = 15)
         {
-            TestWCF();
+            //TestWCF();
             var model = new KiraBeyanVM();
 
             if (request.BeyanYil.HasValue)
@@ -209,7 +209,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
             return View(model);
         }
-    
+
         public SelectList IlSelectList()
         {
             var iller = _ilService.GetirListe().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
