@@ -272,9 +272,15 @@ namespace Framework.WebUI.Models.ViewModels
     public class KiraParametreDetay
     {
         public int BeyanTurKod { get; set; }
+
         public int ParametreKod { get; set; }
+
         public string ParametreAciklama { get; set; }
+
         public bool DamgaAlinsinMi { get; set; }
+
+        public bool ArtisMi { get; set; }
+
         public KiraParametre KiraParametre { get; set; }
         public KiraParametreHesapDetay Hesap { get; set; }
 
@@ -314,7 +320,10 @@ namespace Framework.WebUI.Models.ViewModels
         public int KiraBeyan_Id { get; set; }
 
         [Display(Name = "UfeOran_Id")]
-        public decimal UfeOran_Id { get; set; }
+        public int UfeOran_Id { get; set; }
+
+        [Display(Name = "UfeOrani")]
+        public decimal UfeOrani { get; set; }
 
         [Display(Name = "EncumenNo")]
         public string EncumenNo { get; set; }
@@ -322,8 +331,28 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "EncumenTarihi")]
         public string EncumenTarihi { get; set; }
 
+        [Display(Name = "Kira Tutarı")]
+        public string KiraTutari { get; set; }
+
+        //1:Tam Al 2:Fark Al
+        [Display(Name = "DamgaKararArtisTuru")]
+        public int DamgaKararArtisTuru { get; set; }
+     
+        //1:Tam Al 2:Fark Al
+        [Display(Name = "TeminatArtisTuru")]
+        public int TeminatArtisTuru { get; set; }
+
+        [Display(Name = "TeminatAlinacakMi")]
+        public bool TeminatAlinacakMi { get; set; }
+
+        [Display(Name = "DamgaKararAlinacakMi")]
+        public bool DamgaKararAlinacakMi { get; set; }
+
         [Display(Name = "Beyan")]
         public BeyanEkleVM Beyan { get; set; }
+
+        [Display(Name = "KiraParametre")]
+        public KiraParametreDetay KiraParametre { get; set; }
     }
 
     public class BeyanKapamaEkleVM : VMBase

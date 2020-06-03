@@ -14,8 +14,11 @@ namespace Framework.Entities.Concrete
         {
             this.Kira_Beyanlari = new HashSet<Kira_Beyan>();
         }
+      
         [Key]
         public int Id { get; set; }
+
+        public int? OncekiBeyanId { get; set; }
 
         public Guid Guid { get; set; }
 
@@ -84,7 +87,11 @@ namespace Framework.Entities.Concrete
         [StringLength(2500)]
         public string Aciklama { get; set; }
 
-        public int? ArtisTuru { get; set; }
+        //1:Tam Al 2:Fark Al
+        public int? DamgaKararArtisTuru { get; set; }
+
+        //1:Tam Al 2:Fark Al
+        public int? TeminatArtisTuru { get; set; }
 
         public int? KiraYenilemePeriyot { get; set; }
 

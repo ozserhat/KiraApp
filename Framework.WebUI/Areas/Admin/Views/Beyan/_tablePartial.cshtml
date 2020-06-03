@@ -41,19 +41,19 @@
                 <td>
                     @if (item.Beyanlar.AktifMi == (int)Framework.Entities.Enums.EnmIslemDurumu.Aktif)
                         {
-                            <b class="label aktif-buton">Aktif</b>
+                            <b class="label aktif-buton-beyandetay">Aktif</b>
                         }
                         else if (item.Beyanlar.AktifMi == (int)Framework.Entities.Enums.EnmIslemDurumu.Pasif)
                         {
-                            <b class="label pasif-buton">Pasif</b>
+                            <b class="label pasif-buton-beyandetay">Pasif</b>
                         }
                         else if (item.Beyanlar.AktifMi == (int)Framework.Entities.Enums.EnmIslemDurumu.Kapandı)
                         {
-                            <b class="label kapandi-buton">Kapandı</b>
+                            <b class="label kapandi-buton-beyandetay">Kapandı</b>
                         }
                         else
                         {
-                            <b class="label silindi-buton">Silindi</b>
+                            <b class="label silindi-buton-beyandetay">Silindi</b>
                         }
                 </td>
             </tr>
