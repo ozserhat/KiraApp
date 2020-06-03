@@ -338,4 +338,101 @@ namespace Framework.WebUI.Models.ViewModels
         public List<Gayrimenkul_DosyaVM> GayrimenkulDosyalar { get; set; }
 
     }
+
+    public class GayrimenkulDetayVM : VMBase
+    {
+        [Display(Name = "Id")]
+        public int Id { get; set; }
+
+        [Display(Name = "Guid")]
+        public Guid Guid { get; set; }
+
+        [Display(Name = "Gayrimenkul Türü")]
+        public string GayrimenkulTuru { get; set; }
+
+        [Display(Name = "İl")]
+        public string IlAdi { get; set; }
+
+        [Display(Name = "İlçe")]
+        public string IlceAdi { get; set; }
+
+        [Display(Name = "Mahalle")]
+        public string MahalleAdi { get; set; }
+
+        [Display(Name = "Gayrimenkul Adı")]
+        public string GayrimenkulAdi { get; set; }
+
+        [Display(Name = "Gayrimenkul No")]
+        public string GayrimenkulNo { get; set; }
+
+        [Display(Name = "Gayrimenkul Durum")]
+        public string GayrimenkulDurum { get; set; }
+
+
+        [Display(Name = "Dosya No")]
+        public string DosyaNo { get; set; }
+
+        [Display(Name = "Bina Kimlik No")]
+        public int? BinaKimlikNo { get; set; }
+
+        [Display(Name = "Numarataj Kimlik  No")]
+        public int? NumaratajKimlikNo { get; set; }
+
+        [Display(Name = "Adres No")]
+        public int? AdresNo { get; set; }
+
+        [Display(Name = "Cadde")]
+        public string Cadde { get; set; }
+
+        [Display(Name = "Sokak")]
+        public string Sokak { get; set; }
+
+        [Display(Name = "Dış Kapı No")]
+        public string DisKapiNo { get; set; }
+
+        [Display(Name = "İç Kapı No")]
+        public string IcKapiNo { get; set; }
+
+        [Display(Name = "Açık Adres")]
+        public string AcikAdres { get; set; }
+
+        [Display(Name = "Koordinat")]
+        public string Koordinat { get; set; }
+
+        [Display(Name = "Ada")]
+        public string Ada { get; set; }
+
+        [Display(Name = "Pafta")]
+        public string Pafta { get; set; }
+
+        [Display(Name = "Parsel")]
+        public string Parsel { get; set; }
+
+        [Display(Name = "Metrekare")]
+        public int? Metrekare { get; set; }
+
+        [Display(Name = "Araç Kapasitesi")]
+        public int? AracKapasitesi { get; set; }
+
+        [Display(Name = "Oluşturan Kullanıcı")]
+        public int? OlusturanKullanici_Id { get; set; }
+
+        [Display(Name = "Oluşturulma Tarihi")]
+        public DateTime? OlusturulmaTarihi { get; set; }
+
+        [Display(Name = "Aktif Mi")]
+        public string AktifMi { get; set; }
+
+        [Display(Name = "Dosya Türü")]
+        public string DosyaTürü { get; set; }
+
+        [Display(Name = "Dosya")]
+        public string Dosya { get; set; }
+
+        [Display(Name = " Açıklama")]
+        public string Aciklama { get; set; }
+
+        public List<Gayrimenkul_DosyaVM> GayrimenkulDosyalar { get; set; }
+
+    }
 }

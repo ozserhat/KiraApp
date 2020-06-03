@@ -332,20 +332,31 @@
 
     <!--Datetime Picker Format -->
     <script type="text/javascript">
+
+        function MaxDateKontrol() {
+            $("#BeyanTarihi").datepicker("option", "maxDate", new Date());
+            $("#BeyanKapatmaTarihi").datepicker("option", "maxDate", new Date());
+            $("#İhaleEncumenTarihi").datepicker("option", "maxDate", new Date());
+            $("#TeminatTarihi").datepicker("option", "maxDate", new Date());
+            $("#KiraBaslangicTarihi").datepicker("option", "maxDate", new Date());
+        }
+
         $(document).ready(function () {
 
-            $(".datepicker").datepicker("option", "maxDate", new Date())
+            MaxDateKontrol();
 
             jQuery.validator.methods.date = function (value, element) {
 
                 var d = value.split(".");
                 return this.optional(element) || !/Invalid|NaN/.test(new Date((/chrom(e|ium)/.test(navigator.userAgent.toLowerCase())) ? d[1] + "." + d[0] + "." + d[2] : value));
             };
+
             $('.datepicker').on('click', function (e) {
                 e.preventDefault();
                 $(this).attr("autocomplete", "off");
             });
         });
+
     </script>
 
     <!--Ajax Form Kontrol -->
@@ -516,7 +527,7 @@
         });
     </script>
 
-    <!--Custom Validation-->
+    <!--TC Vergi Kontrol-->
     <script type="text/javascript">
 
         var kaydetButtonBasildi = false;
@@ -633,7 +644,7 @@
     <script type="text/javascript">
         $(function () {
             $('#btnSonKaydet').on('click', function () {
-             
+
                 var gayrimenkulBilgi = {
                     Id: $('#Gayrimenkul_Id').val(),
                     GayrimenkulId: $('#GayrimenkulId').val()
@@ -742,44 +753,112 @@
     </script>
 
     <!--KiraTutariHesaplama-->
-    @*<script type="text/javascript">
-            $(document).on("change keyup blur", "#KiraTutari", function () {
+    <script type="text/javascript">
+        $(document).on("change keyup blur", "#KiraTutari", function () {
 
-                var it = $('#IhaleTutari').val();
-                var ss = $('#SozlesmeSuresi').val();
-                var kt = $('#KiraTutari').val();
+            var it = $('#IhaleTutari').val();
+            var ss = $('#SozlesmeSuresi').val();
+            var kt = $('#KiraTutari').val();
 
-                //function round(value, decimals) {
-                //   return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
-                //}
+            //function round(value, decimals) {
+            //   return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
+            //}
 
-                //kt = round(kt, 2);
-
-
-                kt = kt.replace(/\./g, '');
-                it = it.replace(/\./g, '');
+            //kt = round(kt, 2);
 
 
-                if (kt != null && ss != null && it != null) {
-
-                    var dec = (ss * 12);
-                    var result = (it / dec);
+            kt = kt.replace(/\./g, '');
+            it = it.replace(/\./g, '');
 
 
-                    $('#result').val(result);
-                    var uyari = $('#dvTutarUyari');
+            if (kt != null && ss != null && it != null) {
 
-                    if (result == kt) {
-                        kt = result;
-                        uyari.hide();
-                    }
-                    else {
-                        uyari.show();
-                    }
+                var dec = (ss * 12);
+                var result = (it / dec);
 
+
+                $('#result').val(result);
+                var uyari = $('#dvTutarUyari');
+
+                if (result == kt) {
+                    kt = result;
+                    uyari.hide();
                 }
-            });
-        </script>*@*
+                else {
+                    uyari.show();
+                }
+
+            }
+        });
+    </script>
+
+   
+    <!--Custom Validation-->
+    <script type="text/javascript">
+        var sozlesmeTarihi, sozlesmeBitisTarihi;
+        $.validator.addMethod("baslangicTarihi", function (value, element) {
+
+            var durum = true;
+
+            sozlesmeTarihi = $('#SozlesmeTarihi').val();
+            sozlesmeBitisTarihi = $('#SozlesmeBitisTarihi').val();
+
+            if ((sozlesmeBitisTarihi != "") && (sozlesmeTarihi > sozlesmeBitisTarihi))
+                durum = false;
+
+            return durum;
+
+        }, "Başlangıç Tarihi Bitiş Tarihinden Büyük Olamaz!!!");
+
+        $.validator.addMethod("sozlesmeBitisTarihi", function (value, element) {
+            var durum = true;
+
+            sozlesmeTarihi = $('#SozlesmeTarihi').val();
+            sozlesmeBitisTarihi = $('#SozlesmeBitisTarihi').val();
+
+            if ((sozlesmeBitisTarihi != "") && (sozlesmeTarihi > sozlesmeBitisTarihi))
+                durum = false;
+
+            return durum;
+
+        }, "Başlangıç Tarihi Bitiş Tarihinden Büyük Olamaz!!!");
+
+        var $validatorTarih = $("#submitForm").validate({
+            rules: {
+                SozlesmeTarihi: {
+                    sozlesmeTarihi: true
+                },
+                SozlesmeBitisTarihi: {
+                    sozlesmeBitisTarihi: true
+                }
+            },
+            messages: {
+                SozlesmeTarihi: {
+                    sozlesmeTarihi: 'Başlangıç Tarihi Bitiş Tarihinden Büyük Olamaz!!!'
+                },
+                SozlesmeBitisTarihi: {
+                    sozlesmeBitisTarihi: 'Başlangıç Tarihi Bitiş Tarihinden Büyük Olamaz!!!'
+                }
+            },
+
+            highlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+            },
+            unhighlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-error');
+            },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) {
+                if (element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
+
+    </script>
 
 }
 

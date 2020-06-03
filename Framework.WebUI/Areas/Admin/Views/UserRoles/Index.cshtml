@@ -105,15 +105,10 @@
                                                     </td>
                                                     <td class="text-center">
 
-
                                                         @Html.AuthAction(" ", "Sil", new { controllerName = "UserRoles", Id = item.Id },
-                                                                                        new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = item.Roles, @data_id = item.Id },
+                                                                                        new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = item.Roles.Name, @data_id = item.Id },
                                                                                         Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
-
-
                                                     </td>
-
-
                                                 </tr>
                                             }
                                         </tbody>
@@ -212,7 +207,9 @@
             })
         }
     </script>
+
     <!--Kullanıcı Rol Silme İşlemi -->
+
     <script type="text/javascript">
         var dt;
 
@@ -226,16 +223,32 @@
 
         $(".delete-row").click(function (e) {
             e.preventDefault();
-            var id = $(this).attr("data-id");
-            var name = $(this).attr("data-name");
+            var id = $(this).attr("data_id");
+            var name = $(this).attr("data_name");
             var closestTR = $(this).closest("tr");
             var vl = deletealert(id, name, closestTR);
         });
 
         $(document).ready(function () {
+
+            $(".btnDuzenle").mouseover(function () {
+                $(this)
+                    .attr('data-original-title', 'Kullanıcı Rol Düzenle')
+                    .tooltip('show');
+            });
+
+            $(".delete-row").mouseover(function () {
+                $(this)
+                    .attr('data-original-title', 'Sil')
+                    .tooltip('show');
+            });
+
             dt = $('#dt_basic').DataTable(dt_settings);
         });
 
+    </script>
+
+    <script type="text/javascript">
         function deletealert(Id, name, closestTR) {
             swal({
                 title: "Uyarı",
@@ -265,6 +278,7 @@
             })
         }
     </script>
+
 
     <!--Form Temizleme İşlemi -->
     <script type="text/javascript">

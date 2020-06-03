@@ -976,6 +976,40 @@
         </section>
     </div>
     <input type="hidden" name="beyanDetayCikti" />
+    <div class="modal fade" id="HaritaGosterModel" tabindex="-1" role="dialog" aria-labelledby="HaritaGosterModalLabel" aria-hidden="true" style="display: none;">
+
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Harita Görüntüleme</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="block-head">
+                                    <div class="item-content">
+                                        <iframe id="iframe1" style="border: 1px solid black; height: 500px; width: 100%">
+                                            <div class="col-md-10 col-md-offset-1">
+                                                <div class="col-md-12 smart-form">
+                                                    <div id="dvMaps" style="width:800px;height:400px"></div>
+                                                </div>
+                                            </div>
+                                        </iframe>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" id="btnDosyaGosterVazgec" type="button" data-dismiss="modal" class="btn btn-warning">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Kapat
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="modal fade" id="DosyaGosterModal" tabindex="-1" role="dialog" aria-labelledby="DosyaGosterModalLabel" aria-hidden="true" style="display: none;">
 
@@ -1258,16 +1292,20 @@
                                                         <div class="form-group">
                                                             <div class="input-group" style="width: 100%;">
                                                                 @Html.Label("Encümen Tarihi", new { @class = "control-label col-md-4 zorunluYildiz" })
+
                                                                 <div class="col-md-6">
                                                                     <div class="input-group date datetimepicker">
                                                                         @{
                                                                             @Html.TextBox("ArtisEncumenTarihi", "", new { @class = "form-control col-md-4 datepicker required" })
+
                                                                             <span class="input-group-addon" id="openDate">
                                                                                 <span class="glyphicon glyphicon-calendar"></span>
                                                                             </span>
                                                                         }
                                                                     </div>
+
                                                                     @Html.ValidationMessage("ArtisEncumenTarihi", new { @class = "text-danger" })
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1360,6 +1398,7 @@
     <script src="~/Scripts/jquery.formatCurrency-1.4.0.js"></script>
     <script type="text/javascript" src="~/Scripts/pdfmake.min.js"></script>
     <script type="text/javascript" src="~/Scripts/html2canvas.min.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJI7A3lEGDUL_QC2LDaSnU7D5McPWFrsA&callback=initMap"></script>
 
     <style type="text/css">
         .outputview {
@@ -1444,6 +1483,18 @@
 
     <!--TabControl -->
     <script type="text/javascript">
+
+           function initMap() {
+            console.log('@Model.Gayrimenkul.Koordinat.Split(',')[0]');
+            console.log('@Model.Gayrimenkul.Koordinat.Split(',')[1]');
+            // The location of Uluru
+            var geo = { lat: @Model.Gayrimenkul.Koordinat.Split(',')[0], lng: @Model.Gayrimenkul.Koordinat.Split(',')[1]};
+            // The map, centered at Uluru
+            var map = new google.maps.Map(
+                document.getElementById('dvMaps'), { zoom: 16, center: geo });
+            // The marker, positioned at Uluru
+               var marker = new google.maps.Marker({ position: geo, map: map });
+        }
         $(document).ready(function () {
 
             const wizard = $('#wizard');

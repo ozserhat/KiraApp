@@ -121,10 +121,9 @@
                                                                         <div class="col-md-4">
                                                                             <div class="form-group">
                                                                                 <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => Model.TaksitNo, new { @class = "col-md-4 font-bold" })
+                                                                                    @Html.LabelFor(model => model.OdemeDurumuSelectList, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
-                                                                                        @Html.TextBoxFor(model => model.TaksitNo, "", new { Value = "", @class = "form-control" })
-                                                                                        @Html.ValidationMessage("TaksitNo", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
+                                                                                        @Html.DropDownList("OdemeDurumu", Model.OdemeDurumuSelectList, "Seçiniz", new { @class = "select2" })
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -170,31 +169,8 @@
                                                                                 <div class="input-group" style="width: 100%;">
                                                                                     @Html.LabelFor(model => Model.Tutar, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
-                                                                                        @Html.TextBoxFor(model => model.Tutar, "", new { @class = "form-control" })
+                                                                                        @Html.TextBoxFor(model => model.Tutar, "", new { @class = "form-control", @type = "number" })
                                                                                         @Html.ValidationMessage("Tutar", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row">
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => Model.Aciklama, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.TextAreaFor(model => model.Aciklama, new { @class = "form-control", rows = "3" })
-                                                                                        @Html.ValidationMessageFor(model => model.Aciklama, "", new { @class = "text-danger" })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.OdemeDurumuSelectList, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.DropDownList("OdemeDurumu", Model.OdemeDurumuSelectList, "Seçiniz", new { @class = "select2" })
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -356,7 +332,7 @@
         };
 
         $(document).ready(function () {
-            dt = $('#dtTahakkuk').DataTable(dt_settings);
+            dt = $('#dtBeyan').DataTable(dt_settings);
         });
     </script>
 
@@ -420,9 +396,11 @@
     <script type="text/javascript">
         $(function () {
             $("#btnExport").click(function () {
-
-                $("#tblTahakkuk").table2excel({
-                    filename: "Tahakkuklar.xls"
+                var tbl = $('#tblBeyan');
+                tbl.find('th:last-child, td:last-child').remove();
+                tbl.find('th:first-child, td:first-child').remove();
+                $("#tblBeyan").table2excel({
+                    filename: "Beyanlar.xls"
                 });
             });
         });
@@ -431,7 +409,7 @@
     <!--Export PDf-->
     <script>
         function createPDF() {
-            var tbl = $('#tblTahakkuk');
+            var tbl = $('#tblBeyan');
             tbl.find('th:last-child, td:last-child').remove()
             tbl.find('th:first-child, td:first-child').remove()
 
@@ -444,7 +422,7 @@
                             width: 500
                         }]
                     };
-                    pdfMake.createPdf(docDefinition).download("Tahakkuk.pdf");
+                    pdfMake.createPdf(docDefinition).download("Beyan.pdf");
                 }
             });
         }
@@ -463,12 +441,12 @@
         }
 
 
-        $('#tblTahakkuk td:first-child').click(function (e) {
+        $('#tblBeyan td:first-child').click(function (e) {
 
             var id = $(this).attr("data-id");
             var beyanYil = $(this).attr("data-yil");
 
-            var table = $('#tblTahakkuk').DataTable();
+            var table = $('#tblBeyan').DataTable();
 
             var tr = $(this).closest('tr');
 
@@ -476,21 +454,21 @@
 
 
             $.ajax({
-                url: "/Kira/Tahakkuk/GetirDetayTable/",
+                url: "/Kira/Beyan/GetirDetayTable/",
                 type: "Post",
                 dataType: 'Json',
                 data: { BeyanId: id },
                 success: function (success) {
                     if (success.data != null && success.data.length > 0) {
-                        var Tahakkuk_Id = success.data[0].Tahakkuk_Id;
-                        $("#hdDetayValue").val(Tahakkuk_Id);
+                        var KiraBeyan_Id = success.data[0].KiraBeyan_Id;
+                        $("#hdDetayValue").val(KiraBeyan_Id);
 
                         if (row.child.isShown()) {
                             row.child.hide();
                             tr.removeClass('shown');
                         } else {
                             row.child.isShown();
-                            var result = row.child(subTable(Tahakkuk_Id, beyanYil, success.data)).show();
+                            var result = row.child(subTable(KiraBeyan_Id, beyanYil, success.data)).show();
 
                             if (result != null) {
                                 result.show();
@@ -502,7 +480,7 @@
             });
         });
 
-        function subTable(Tahakkuk_Id, BeyanYil, dataSource) {
+        function subTable(KiraBeyan_Id, BeyanYil, dataSource) {
 
             var html = '<table id="tblDetay" class="table table-striped table-bordered table-hover dataTable no-footer display nowrap">'
 
@@ -510,7 +488,6 @@
                 '<th>No</th>' +
                 '<th>Beyan Yıl</th>' +
                 '<th>Taksit No</th>' +
-                '<th>Tahakkuk Tarihi</th>' +
                 '<th>Vade Tarihi</th>' +
                 '<th>Tutar</th>' +
                 '<th>Açıklama</th>' +
@@ -539,12 +516,11 @@
                         aktifMiStr = '<b class="label silindi-buton-beyandetay">Silindi</b>';
                     }
 
-                    if (Tahakkuk_Id == dataSource[i].Tahakkuk_Id) {
+                    if (KiraBeyan_Id == dataSource[i].KiraBeyan_Id) {
                         html += '<tr role="row">' +
                             '<td role="row" class="odd">' + (i + 1) + '</td>' +
                             '<td>' + BeyanYil + '</td>' +
                             '<td>' + dataSource[i].TaksitNo + '</td>' +
-                            '<td>' + ParseDate(dataSource[i].TahakkukTarihi) + '</td>' +
                             '<td>' + ParseDate(dataSource[i].VadeTarihi) + '</td>' +
                             '<td>' + dataSource[i].Tutar + '</td>' +
                             '<td>' + dataSource[i].Aciklama + '</td>' +
@@ -590,9 +566,9 @@
             document.getElementById("Aciklama").value = "";
             $('#VadeTarihi').select2("val", "");
             $('#TahakkukTarihi').select2("val", "");
-            $('#OdemeDurumu').select2("val", ""); 
+            $('#OdemeDurumu').select2("val", "");
 
         }
     </script>
-
 }
+
