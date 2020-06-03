@@ -956,11 +956,14 @@
                                                                 <h3><strong>6. Adım </strong> -Harita</h3>
                                                             </legend>
                                                             <form class="form-horizontal" id="HaritaForm" novalidate="novalidate">
-                                                                <div class="col-md-10 col-md-offset-1">
-                                                                    <div class="col-md-12 smart-form">
-                                                                        <div id="dvMaps" style="width:1000px;height:400px"></div>
+                                                                <fieldset>
+                                                                    <div class="col-md-10 col-md-offset-1">
+                                                                        <div class="col-md-12 smart-form">
+                                                                            <div id="dvMaps" style="width:1000px;height:400px"></div>
+                                                                            <input type="hidden" id="hdKoordinat" value="@Model.Gayrimenkul.Koordinat" />
+                                                                        </div>
                                                                     </div>
-                                                                </div>
+                                                                </fieldset>
                                                             </form>
                                                         </div>
                                                     </div>
@@ -1012,7 +1015,6 @@
                                         <iframe id="iframe1" style="border: 1px solid black; height: 500px; width: 100%">
                                             <div class="col-md-10 col-md-offset-1">
                                                 <div class="col-md-12 smart-form">
-                                                    <input type="hidden" id="hdKoordinat" value="@Model.Gayrimenkul.Koordinat" />
 
                                                     <div id="dvMaps" style="width:800px;height:400px"></div>
                                                 </div>
@@ -1743,13 +1745,18 @@
     <script type="text/javascript">
 
         function initMap() {
-            // The location of Uluru
-            var uluru = { lat: @Model.Gayrimenkul.Koordinat.Replace("(","").Replace(")","").Split(',')[0], lng: @Model.Gayrimenkul.Koordinat.Replace("(","").Replace(")","").Split(',')[1]};
-            // The map, centered at Uluru
-            var map = new google.maps.Map(
-                document.getElementById('dvMaps'), { zoom: 16, center: uluru });
-            // The marker, positioned at Uluru
-            var marker = new google.maps.Marker({ position: uluru, map: map });
+
+            var koordinat = $('#hdKoordinat').val();
+
+            if (koordinat != null) {
+                koordinat = koordinat.replace('(', '').replace(')', '');
+
+                var uluru = { lat: koordinat.split(',')[0], lng: koordinat.split(',')[1] };
+
+                var map = new google.maps.Map(document.getElementById('dvMaps'), { zoom: 16, center: uluru });
+
+                var marker = new google.maps.Marker({ position: uluru, map: map });
+            }
         }
 
         $(document).ready(function () {
