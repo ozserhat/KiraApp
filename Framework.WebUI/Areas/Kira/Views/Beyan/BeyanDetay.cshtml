@@ -1012,6 +1012,8 @@
                                         <iframe id="iframe1" style="border: 1px solid black; height: 500px; width: 100%">
                                             <div class="col-md-10 col-md-offset-1">
                                                 <div class="col-md-12 smart-form">
+                                                    <input type="hidden" id="hdKoordinat" value="@Model.Gayrimenkul.Koordinat" />
+
                                                     <div id="dvMaps" style="width:800px;height:400px"></div>
                                                 </div>
                                             </div>
@@ -1504,17 +1506,18 @@
     <!--TabControl -->
     <script type="text/javascript">
 
-           function initMap() {
-            console.log('@Model.Gayrimenkul.Koordinat.Split(',')[0]');
-            console.log('@Model.Gayrimenkul.Koordinat.Split(',')[1]');
-            // The location of Uluru
-            var geo = { lat: @Model.Gayrimenkul.Koordinat.Split(',')[0], lng: @Model.Gayrimenkul.Koordinat.Split(',')[1]};
-            // The map, centered at Uluru
-            var map = new google.maps.Map(
-                document.getElementById('dvMaps'), { zoom: 16, center: geo });
-            // The marker, positioned at Uluru
-               var marker = new google.maps.Marker({ position: geo, map: map });
+        function initMap() {
+            var koordinat = $('#hdKoordinat').val();
+
+            if (koordinat != null) {
+                var geo = { lat: koordinat.Split(',')[0], lng: koordinat.Split(',')[1] };
+
+                var map = new google.maps.Map(
+                    document.getElementById('dvMaps'), { zoom: 16, center: geo });
+                var marker = new google.maps.Marker({ position: geo, map: map });
+            }
         }
+
         $(document).ready(function () {
 
             const wizard = $('#wizard');
@@ -1729,10 +1732,10 @@
 
     <!--Money Format -->
     <script type="text/javascript">
-        $('.moneyFormat').change(function (val) {
-            //$('.moneyFormat').formatCurrency();
-            val.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
-        });
+        //$('.moneyFormat').change(function (val) {
+        //    //$('.moneyFormat').formatCurrency();
+        //    val.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+        //});
 
     </script>
 
@@ -1968,29 +1971,29 @@
 
     <!--Beyan Artış Damga_Teminat Panel-->
     <script type="text/javascript">
-         $(function () {
-             $('#DamgaKararAlinacakMi').change(function () {
-                 
-                 var durum = $(this).is(':checked');
+        $(function () {
+            $('#DamgaKararAlinacakMi').change(function () {
 
-                 var pnlDamgaKarar = $('#damgaKararDiv');
+                var durum = $(this).is(':checked');
 
-                 if (durum)
-                     pnlDamgaKarar.show();
-                 else
-                     pnlDamgaKarar.hide();
-             });
+                var pnlDamgaKarar = $('#damgaKararDiv');
 
-             $('#TeminatAlinacakMi').change(function () {
-                 var durum = $(this).is(':checked');
+                if (durum)
+                    pnlDamgaKarar.show();
+                else
+                    pnlDamgaKarar.hide();
+            });
 
-                 var pnlTeminat = $('#teminatDiv');
+            $('#TeminatAlinacakMi').change(function () {
+                var durum = $(this).is(':checked');
 
-                 if (durum)
-                     pnlTeminat.show();
-                 else
-                     pnlTeminat.hide();
-             });
+                var pnlTeminat = $('#teminatDiv');
+
+                if (durum)
+                    pnlTeminat.show();
+                else
+                    pnlTeminat.hide();
+            });
         });
     </script>
 
