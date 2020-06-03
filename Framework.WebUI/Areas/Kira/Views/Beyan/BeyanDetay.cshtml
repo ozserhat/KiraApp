@@ -1505,20 +1505,24 @@
         }
     </style>
 
-    <!--TabControl -->
+    <!--Harita Görüntüleme -->
     <script type="text/javascript">
-
         function initMap() {
             var koordinat = $('#hdKoordinat').val();
 
             if (koordinat != null) {
-                var geo = { lat: koordinat.Split(',')[0], lng: koordinat.Split(',')[1] };
+                koordinat = koordinat.replace("(", "").replace(")", "");
+                var geo = { lat: koordinat.split(',')[0], lng: koordinat.split(',')[1] };
 
                 var map = new google.maps.Map(
                     document.getElementById('dvMaps'), { zoom: 16, center: geo });
                 var marker = new google.maps.Marker({ position: geo, map: map });
             }
         }
+    </script>
+
+    <!--TabControl -->
+    <script type="text/javascript">
 
         $(document).ready(function () {
 
