@@ -86,7 +86,8 @@ namespace Framework.Business.Concrete.Managers
 
             for (DateTime x = baslangic; x <= bitisTarihi; x = x.AddDays(1))
             {
-                sonuc = tarihler.Contains(x.DayOfWeek.ToString());
+                if (tarihler != null)
+                    sonuc = tarihler.Contains(x.DayOfWeek.ToString());
 
                 if (sonuc)
                     hesapSayisi++;

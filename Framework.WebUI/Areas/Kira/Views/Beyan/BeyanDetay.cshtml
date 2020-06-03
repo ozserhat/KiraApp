@@ -1180,7 +1180,7 @@
                                                             <div class="input-group" style="width: 100%;">
                                                                 @Html.Label("Açıklama", new { @class = "control-label col-md-4" })
                                                                 <div class="col-md-8">
-                                                                    @Html.TextArea("EkTahakkukAciklama", "", new { @class = "form-control col-md-4 required", rows = "3", placeholder = "Açıklama Giriniz" })
+                                                                    @Html.TextArea("TahakkukKapamaAciklama", "", new { @class = "form-control col-md-4 required", rows = "3", placeholder = "Açıklama Giriniz" })
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1220,8 +1220,13 @@
                                     <div class="item-content">
                                         <form id="frmBeyanArtis">
                                             <fieldset>
-                                                <input type="hidden" id="BeyanId" />
-                                                <input type="hidden" id="KiraBeyanId" />
+
+                                                <input type="hidden" id="ArtisBeyanId" value="@Model.Beyan_Id" />
+                                                <input type="hidden" id="ArtisKiraciId" value="@Model.Kiraci_Id" />
+                                                <input type="hidden" id="ArtisKiraBeyanId" value="@Model.KiraBeyan_Id" />
+                                                <input type="hidden" id="ArtisKiraTutari" value="@Model.Beyan.KiraTutari" />
+                                                <input type="hidden" id="ArtisGayrimenkulId" value="@Model.Gayrimenkul_Id" />
+
                                                 <div class="row">
                                                     <div class="col-md-8">
                                                         <div class="form-group">
@@ -1242,6 +1247,7 @@
                                                                 @Html.Label("Encümen No", new { @class = "control-label col-md-4 zorunluYildiz" })
                                                                 <div class="col-md-8">
                                                                     @Html.TextBox("ArtisEncumenNo", "", new { @class = "form-control col-md-4 required" })
+                                                                    @Html.ValidationMessage("ArtisEncumenNo", new { @class = "text-danger" })
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1252,8 +1258,16 @@
                                                         <div class="form-group">
                                                             <div class="input-group" style="width: 100%;">
                                                                 @Html.Label("Encümen Tarihi", new { @class = "control-label col-md-4 zorunluYildiz" })
-                                                                <div class="col-md-8">
-                                                                    @Html.TextBox("ArtisEncumenTarihi", "", new { @class = "form-control col-md-4 required" })
+                                                                <div class="col-md-6">
+                                                                    <div class="input-group date datetimepicker">
+                                                                        @{
+                                                                            @Html.TextBox("ArtisEncumenTarihi", "", new { @class = "form-control col-md-4 datepicker required" })
+                                                                            <span class="input-group-addon" id="openDate">
+                                                                                <span class="glyphicon glyphicon-calendar"></span>
+                                                                            </span>
+                                                                        }
+                                                                    </div>
+                                                                    @Html.ValidationMessage("ArtisEncumenTarihi", new { @class = "text-danger" })
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1263,9 +1277,22 @@
                                                     <div class="col-md-8">
                                                         <div class="form-group">
                                                             <div class="input-group" style="width: 100%;">
-                                                                @Html.Label("Kira Yenileme Periyotu", new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                                @Html.Label("Damga/Karar Alınacak Mı?", new { @class = "control-label col-md-4 zorunluYildiz" })
                                                                 <div class="col-md-8">
-                                                                    @Html.DropDownList("KiraYenilemePeriyotu", Model.KiraYenilemePeriyotSelectList, "Seçiniz", new { @class = "select2 required" })
+                                                                    @Html.CheckBox("DamgaKararAlinacakMi", new { @style = "width: 16px; height: 16px;" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="damgaKararDiv" class="row" style="display:none;">
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.Label("Damga/Karar Artış Türü", new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                                <div class="col-md-8">
+                                                                    @Html.DropDownList("DamgaKararArtisTuru", Model.ArtisTuruSelectList, "Seçiniz", new { @class = "select2 required" })
+                                                                    @Html.ValidationMessage("DamgaKararArtisTuru", new { @class = "text-danger" })
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1275,9 +1302,22 @@
                                                     <div class="col-md-8">
                                                         <div class="form-group">
                                                             <div class="input-group" style="width: 100%;">
-                                                                @Html.Label("Artış Türü", new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                                @Html.Label("Teminat Alınacak Mı?", new { @class = "control-label col-md-4 zorunluYildiz" })
                                                                 <div class="col-md-8">
-                                                                    @Html.DropDownList("ArtisTuru", Model.ArtisTuruSelectList, "Seçiniz", new { @class = "select2 required" })
+                                                                    @Html.CheckBox("TeminatAlinacakMi", new { @style = "width: 16px; height: 16px;" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="teminatDiv" class="row" style="display:none;">
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.Label("Teminat Artış Türü", new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                                <div class="col-md-8">
+                                                                    @Html.DropDownList("TeminatArtisTuru", Model.ArtisTuruSelectList, "Seçiniz", new { @class = "select2 required" })
+                                                                    @Html.ValidationMessage("TeminatArtisTuru", new { @class = "text-danger" })
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1292,17 +1332,18 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-
-                    <a href="#" id="btnDosyaGosterVazgec" type="button" data-dismiss="modal" class="btn btn-warning">
+                    <a href="#" id="btnBeyanArtisVazgec" type="button" data-dismiss="modal" class="btn btn-warning">
                         <span class="glyphicon glyphicon-chevron-left"></span> Kapat
                     </a>
-                    <input type="button" value="Kaydet" id="btnBeyanKapama" class="btn btn-primary" />
+
+                    <input type="button" value="Kaydet" id="btnBeyanArtis" class="btn btn-primary" />
 
                 </div>
             </div>
         </div>
     </div>
 }
+
 <div id="dvIcerik" style="display:none;"></div>
 
 <div id="dvSonuc" style="display:none;"><span id="logo"><a href="/kira/anasayfa"> <img src="/content/img/logo.png" alt=""></a> </span></div>
@@ -1800,7 +1841,7 @@
     <script type="text/javascript">
          $(function () {
              $('#btnBeyanKapama').on('click', function () {
-                  
+
                 var beyanKapamaModel ={
                    Beyan_Id: $('#KapamaBeyanId').val(),
                    KiraBeyan_Id: $('#KapamaKiraBeyan_Id').val(),
@@ -1818,6 +1859,86 @@
                        data: { beyanKapamaModel: beyanKapamaModel },
                        beforeSend: function () {
                            $.LoadingOverlay("show", { text: "Beyan Kapama İşlemi Gerçekleştiriliyor...", textResizeFactor: 0.2, background: "rgba(0, 0, 0, 0.5)" });
+                       },
+                    success: function (result) {
+                        if (result != null && result.success) {
+                            swal('Bilgi!', result.Message, 'success');
+                            $.LoadingOverlay("hide");
+                            setTimeout(function () {
+                                window.location.href = "../Beyan/Index";
+                            }, 2000);
+                        }
+                        else {
+                            swal('Uyarı!', result.Message, 'warning');
+                            $.LoadingOverlay("hide");
+                        }
+                    },
+                    error: function (xhr) {
+                        swal('Uyarı!', result.Message, 'warning');
+                        $.LoadingOverlay("hide");
+                       }
+                 });
+                }
+            });
+        });
+    </script>
+
+    <!--Beyan Artış Damga_Teminat Panel-->
+    <script type="text/javascript">
+         $(function () {
+             $('#DamgaKararAlinacakMi').change(function () {
+                 
+                 var durum = $(this).is(':checked');
+
+                 var pnlDamgaKarar = $('#damgaKararDiv');
+
+                 if (durum)
+                     pnlDamgaKarar.show();
+                 else
+                     pnlDamgaKarar.hide();
+             });
+
+             $('#TeminatAlinacakMi').change(function () {
+                 var durum = $(this).is(':checked');
+
+                 var pnlTeminat = $('#teminatDiv');
+
+                 if (durum)
+                     pnlTeminat.show();
+                 else
+                     pnlTeminat.hide();
+             });
+        });
+    </script>
+
+    <!--Beyan Artış İşlemi -->
+    <script type="text/javascript">
+         $(function () {
+             $('#btnBeyanArtis').on('click', function () {
+
+                 var beyanArtis = {
+                     Beyan_Id: $('#ArtisBeyanId').val(),
+                     Kiraci_Id: $('#ArtisKiraciId').val(),
+                     Gayrimenkul_Id: $('#ArtisGayrimenkulId').val(),
+                     UfeOran_Id: $('#UfeOran_Id').val(),
+                     KiraTutari: $('#ArtisKiraTutari').val(),
+                     KiraBeyan_Id: $('#ArtisKiraBeyanId').val(),
+                     TeminatAlinacakMi: $('#TeminatAlinacakMi').val(),
+                     DamgaKararAlinacakMi: $('#DamgaKararAlinacakMi').val(),
+                     TeminatArtisTuru: $('#TeminatArtisTuru').val(),
+                     DamgaKararArtisTuru: $('#DamgaKararArtisTuru').val(),
+                     EncumenNo: $('#ArtisEncumenNo').val(),
+                     EncumenTarihi: $('#ArtisEncumenTarihi').val(),
+                 };
+
+                if ($("#frmBeyanArtis").valid())
+                {
+                   $.ajax({
+                    type: 'Post',
+                    url: '@Url.Action("KiraBeyanArtis", "Beyan")',
+                       data: { beyanArtis: beyanArtis },
+                       beforeSend: function () {
+                           $.LoadingOverlay("show", { text: "Beyan Artışı İşlemi Gerçekleştiriliyor...", textResizeFactor: 0.2, background: "rgba(0, 0, 0, 0.5)" });
                        },
                     success: function (result) {
                         if (result != null && result.success) {

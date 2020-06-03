@@ -18,6 +18,9 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Id")]
         public int Id { get; set; }
 
+        [Display(Name = "OncekiId")]
+        public int? OncekiBeyanId { get; set; }
+
         [Display(Name = "Guid")]
         public Guid Guid { get; set; }
 
@@ -63,11 +66,20 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Kira Tutarı")]
         public string KiraTutari { get; set; }
 
+        [Display(Name = "Önceki Kira Tutarı")]
+        public string OncekiKiraTutari { get; set; }
+
         [Display(Name = "Damga Alınsın Mı?")]
         public string DamgaAlinsinMi { get; set; }
 
         [Display(Name = "Müsade Süresi (Gün)")]
         public int? MusadeliGunSayisi { get; set; }
+
+        [Display(Name = "Damga/Karar Artış Türü")]
+        public int? DamgaKararArtisTuru { get; set; }
+
+        [Display(Name = "Teminat Artış Türü")]
+        public int? TeminatArtisTuru { get; set; }
 
         [Display(Name = "Kdv Oranı")]
         public int? Kdv { get; set; }
@@ -96,6 +108,24 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Açıklama")]
         public string BeyanAciklama { get; set; }
 
+        [Display(Name = "Kira Artışı Mı?")]
+        public bool? KiraArtisiMi { get; set; }
+
+        [Display(Name = "Otopark Tatil Günleri")]
+        public string OtoparkTatilGun { get; set; }
+
+        [Display(Name = "Resmi Tatil Var Mı?")]
+        public bool ResmiTatilVarmi { get; set; }
+
+        [Display(Name = "Oluşturan Kullanıcı")]
+        public int? OlusturanKullanici_Id { get; set; }
+
+        [Display(Name = "Oluşturulma Tarihi")]
+        public DateTime? OlusturulmaTarihi { get; set; }
+
+        [Display(Name = "Aktif Mi")]
+        public int AktifMi { get; set; }
+
 
         [Display(Name = "Beyan Türü")]
         public SelectList BeyanTurSelectList { get; set; }
@@ -120,21 +150,6 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Dosyalar")]
         public IEnumerable<BeyanDosya_Tur> DosyaTurleri { get; set; }
-
-        [Display(Name = "Otopark Tatil Günleri")]
-        public string OtoparkTatilGun { get; set; }
-
-        [Display(Name = "Resmi Tatil Var Mı?")]
-        public bool ResmiTatilVarmi { get; set; }
-
-        [Display(Name = "Oluşturan Kullanıcı")]
-        public int? OlusturanKullanici_Id { get; set; }
-
-        [Display(Name = "Oluşturulma Tarihi")]
-        public DateTime? OlusturulmaTarihi { get; set; }
-
-        [Display(Name = "Aktif Mi")]
-        public int AktifMi { get; set; }
     }
 
     public class BeyanDuzenleVM : PagingVMBase
