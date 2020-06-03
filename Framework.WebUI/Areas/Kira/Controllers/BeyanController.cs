@@ -328,22 +328,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             return new SelectList(iller, "Id", "Ad");
         }
 
-        #endregion
-
-        public void TestWCF()
-        {
-            try
-            {
-                TahsilatService.ServiceClient wcf = new TahsilatService.ServiceClient();
-                var result = wcf.TahsilatSorgula("2020-01-06-17-22-21-81785805", 8031).FirstOrDefault();
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
-
-        }
+        #endregion     
 
         #region Ekle
 
@@ -738,6 +723,22 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         #endregion
 
         #region Metodlar
+
+        public void TestWCF()
+        {
+            try
+            {
+                TahsilatService.ServiceClient wcf = new TahsilatService.ServiceClient();
+                var result = wcf.TahsilatSorgula("2020-01-06-17-22-21-81785805", 8031).FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+        }
+
         [HttpPost]
         private KiraBeyanEkleVM BeyanGuncelleVeriGetir(Guid id)
         {
@@ -933,10 +934,10 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
             var beyanYil = _parametreService.Getir(beyan.BeyanYil.Value);
 
-            if (beyanYil != null&& !ArtisMi)
+            if (beyanYil != null && !ArtisMi)
                 beyanYili = Convert.ToInt32(beyanYil.Ad);
             if (beyanYil is null && ArtisMi)
-                beyanYili = (beyan.BeyanYil.Value-1);
+                beyanYili = (beyan.BeyanYil.Value - 1);
             else
                 beyanYili = (beyan.BeyanYil.Value);
 
@@ -1454,9 +1455,31 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
                 GetirSelectList();
 
-                var sicilBilgisi = _sicilService.GetirSicilBilgisi(vergiNo, tcNo);
+                var kiraciBilgi = _kiraciService.GetirVergiNo(long.Parse(TcVergiNo));
 
-                if (sicilBilgisi != null && sicilBilgisi.SicilNo != null)
+                SicilServisVm sicilBilgisi = new SicilServisVm();
+
+                if (kiraciBilgi is null)
+                   sicilBilgisi = _sicilService.GetirSicilBilgisi(vergiNo, tcNo);
+
+                if (kiraciBilgi != null && kiraciBilgi.SicilNo > 0)
+                {
+                    _beyanVM.Kiraci = new KiraciEkleVM()
+                    {
+                        Id = kiraciBilgi.Id,
+                        SicilNo = kiraciBilgi.SicilNo,
+                        VergiNo = kiraciBilgi.VergiNo,
+                        Ad = kiraciBilgi.Ad,
+                        Soyad = kiraciBilgi.Soyad,
+                        Tanim = kiraciBilgi.Tanim,
+                        IlAdi = kiraciBilgi.IlAdi,
+                        IlceAdi = kiraciBilgi.IlceAdi,
+                        MahalleAdi = kiraciBilgi.MahalleAdi,
+                        AcikAdres = kiraciBilgi.AcikAdres,
+                        VergiDairesi = kiraciBilgi.VergiDairesi,
+                    };
+                }
+                else if (kiraciBilgi is null && sicilBilgisi != null && !string.IsNullOrEmpty(sicilBilgisi.SicilNo))
                 {
                     _beyanVM.Kiraci = new KiraciEkleVM()
                     {
