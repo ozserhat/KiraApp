@@ -587,6 +587,9 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             if (beyanArtis.KiraParametre.KiraParametre is null)
                 return Json(new { Message = "Parametrelere Uygun Hesaplama Yöntemi Bulunmamaktadır!!!", success = false }, JsonRequestBehavior.AllowGet);
 
+
+            var dosyalar = GetirBeyanDosyalar(beyanArtis.Beyan_Id);
+
             pasifDurum = BeyanPasifeAl(beyanArtis);
 
             if (!pasifDurum)
@@ -628,6 +631,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                         beyanArtis.UfeOrani = (ufeOrani.Oran.HasValue ? ufeOrani.Oran.Value : 0);
 
                     tahakkukDurum = TahakkukOlustur(beyanArtis);
+
+                    var dosyaEkle = BeyanDosyaEkle(beyanArtis.Beyan_Id, dosyalar.ToList());
                 }
 
                 if (tahakkukDurum)
