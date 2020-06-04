@@ -95,7 +95,7 @@
                                                                         Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
                                                                 @Html.AuthAction(" ", "Detay", "Gayrimenkul", new { item.Guid },
-                                                                    new { @class = "no-underline margin-right-5 fa fa-info font-md txt-color-blue" },
+                                                                    new { @class = "no-underline margin-right-5 fa fa-search-plus font-md txt-color-blue" },
                                                                     Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
                                                                 @Html.AuthAction(" ", "Sil", "Gayrimenkul", new { item.Id },
@@ -182,7 +182,7 @@
         $(document).ready(function () {
             dt = $('#dtGayrimenkul').DataTable(dt_settings);
         });
-    </script>x
+    </script>
 
     <script type="text/javascript">
         function deletealert(Id, name, closestTR) {
