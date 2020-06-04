@@ -393,7 +393,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
             if (kiraBeyanModel.Beyan_Id > 0 && kiraBeyanModel.Kiraci_Id > 0 && kiraBeyanModel.Gayrimenkul_Id > 0)
             {
-                BeyanDosyaEkle(kiraBeyanModel.Beyan_Id, kiraBeyanModel.BeyanDosyalar);
+                BeyanDosyaEkle(kiraBeyanModel.Beyan_Id, false, kiraBeyanModel.BeyanDosyalar);
 
                 kiraBeyanModel.KiraBeyan_Id = KiraBeyanEkle(kiraBeyanModel.Beyan_Id, kiraBeyanModel.Kiraci_Id, kiraBeyanModel.Gayrimenkul_Id);
 
@@ -618,7 +618,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 }
 
                 beyanArtis.Beyan.KiraArtisiMi = true;
-                beyanArtis.Beyan.BeyanYil = (beyanArtis.Beyan.BeyanYil.Value - 1);
+                //beyanArtis.Beyan.BeyanYil = (beyanArtis.Beyan.BeyanYil.Value - 1);
                 beyanArtis.Beyan_Id = BeyanEkle(beyanArtis.Beyan);
 
                 beyanArtis.KiraBeyan_Id = KiraBeyanEkle(beyanArtis.Beyan_Id, beyanArtis.Kiraci_Id, beyanArtis.Gayrimenkul_Id);
@@ -632,7 +632,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
                     tahakkukDurum = TahakkukOlustur(beyanArtis);
 
-                    var dosyaEkle = BeyanDosyaEkle(beyanArtis.Beyan_Id, dosyalar.ToList());
+                    var dosyaEkle = BeyanDosyaEkle(beyanArtis.Beyan_Id, true, dosyalar.ToList());
                 }
 
                 if (tahakkukDurum)
@@ -700,7 +700,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             }
 
             if (beyanKapamaModel.BeyanDosyalar != null)
-                dosyaEkleSonuc = BeyanDosyaEkle(beyanKapamaModel.Beyan_Id, beyanKapamaModel.BeyanDosyalar);
+                dosyaEkleSonuc = BeyanDosyaEkle(beyanKapamaModel.Beyan_Id, false, beyanKapamaModel.BeyanDosyalar);
 
             if (kiraBeyan.Id > 0)
             {
@@ -1450,7 +1450,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 SicilServisVm sicilBilgisi = new SicilServisVm();
 
                 if (kiraciBilgi is null)
-                   sicilBilgisi = _sicilService.GetirSicilBilgisi(vergiNo, tcNo);
+                    sicilBilgisi = _sicilService.GetirSicilBilgisi(vergiNo, tcNo);
 
                 if (kiraciBilgi != null && kiraciBilgi.SicilNo > 0)
                 {
@@ -1695,7 +1695,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         ///Beyan Dosya Ekleme İşlemleri Bu Metodun İçerisinde Gerçekleşmektedir.
         /// </summary>
         [HttpGet]
-        private int BeyanDosyaEkle(int beyanId, List<Beyan_DosyaVM> dosyalar)
+        private int BeyanDosyaEkle(int beyanId, bool artisMi, List<Beyan_DosyaVM> dosyalar)
         {
             Beyan_Dosya dosya = new Beyan_Dosya();
             string dosyaAdi2 = "";
@@ -1710,13 +1710,13 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                     dosya.Guid = guidDosya;
                     dosya.BeyanDosya_Tur_Id = item.BeyanDosyaTur_Id;
                     dosya.Beyan_Id = beyanId;
-                    dosya.Ad = guidDosya.ToString() + "." + dosyaAdi2;
+                    dosya.Ad = (!artisMi ? guidDosya.ToString() + "." + dosyaAdi2 : item.DosyaAdi);
                     dosya.OlusturulmaTarihi = DateTime.Now;
                     dosya.OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null);
                     dosya.AktifMi = true;
                     var result = _beyanDosyaService.Ekle(dosya);
 
-                    if (result.Id > 0)
+                    if (result.Id > 0&&!artisMi)
                     {
                         byte[] fileBytes = Convert.FromBase64String(item.BeyanDosya);
                         System.IO.File.WriteAllBytes(filePath + dosya.Ad, fileBytes);
