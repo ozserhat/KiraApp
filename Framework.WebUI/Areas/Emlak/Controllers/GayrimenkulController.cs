@@ -123,7 +123,6 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
             return View(model);
         }
 
-
         [HttpGet]
         private int GayrimenkulDosyaEkle(int gayrimenkulId, List<Gayrimenkul_DosyaVM> dosyalar)
         {
@@ -179,7 +178,7 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
         }
 
         [HttpPost]
-        public JsonResult Ekle(GayrimenkulEkleVM model)
+        public JsonResult Ekle(GayrimenkulEkleVM ekleModel)
         {
             try
             {
@@ -188,34 +187,34 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
                     Gayrimenkul gayrimenkul = new Gayrimenkul()
                     {
                         Guid = Guid.NewGuid(),
-                        Ad = model.GayrimenkulAdi,
-                        GayrimenkulTur_Id = model.GayrimenkulTur_Id,
-                        Ilce_Id = model.Ilce_Id,
-                        Mahalle_Id = model.Mahalle_Id,
-                        GayrimenkulDurum_Id = model.GayrimenkulDurum_Id,
-                        BinaKimlikNo = model.BinaKimlikNo,
-                        NumaratajKimlikNo = model.NumaratajKimlikNo,
-                        AdresNo = model.AdresNo,
-                        Cadde = model.Cadde,
-                        Sokak = model.Sokak,
-                        DisKapiNo = model.DisKapiNo,
-                        IcKapiNo = model.IcKapiNo,
-                        AcikAdres = model.AcikAdres,
-                        Koordinat = model.Koordinat,
-                        Ada = model.Ada,
-                        Pafta = model.Pafta,
-                        Parsel = model.Parsel,
-                        GayrimenkulNo = model.GayrimenkulNo,
-                        DosyaNo = model.DosyaNo,
-                        AracKapasitesi = model.AracKapasitesi,
-                        Metrekare = model.Metrekare,
+                        Ad = ekleModel.GayrimenkulAdi,
+                        GayrimenkulTur_Id = ekleModel.GayrimenkulTur_Id,
+                        Ilce_Id = ekleModel.Ilce_Id,
+                        Mahalle_Id = ekleModel.Mahalle_Id,
+                        GayrimenkulDurum_Id = ekleModel.GayrimenkulDurum_Id,
+                        BinaKimlikNo = ekleModel.BinaKimlikNo,
+                        NumaratajKimlikNo = ekleModel.NumaratajKimlikNo,
+                        AdresNo = ekleModel.AdresNo,
+                        Cadde = ekleModel.Cadde,
+                        Sokak = ekleModel.Sokak,
+                        DisKapiNo = ekleModel.DisKapiNo,
+                        IcKapiNo = ekleModel.IcKapiNo,
+                        AcikAdres = ekleModel.AcikAdres,
+                        Koordinat = ekleModel.Koordinat,
+                        Ada = ekleModel.Ada,
+                        Pafta = ekleModel.Pafta,
+                        Parsel = ekleModel.Parsel,
+                        GayrimenkulNo = ekleModel.GayrimenkulNo,
+                        DosyaNo = ekleModel.DosyaNo,
+                        AracKapasitesi = ekleModel.AracKapasitesi,
+                        Metrekare = ekleModel.Metrekare,
                         OlusturulmaTarihi = DateTime.Now,
                         OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
                         AktifMi = true
                     };
 
-                    var result = _gayrimenkulservice.Guncelle(gayrimenkul);
-                    GayrimenkulDosyaEkle(result.Id, model.GayrimenkulDosyalar);
+                    var result = _gayrimenkulservice.Ekle(gayrimenkul);
+                    GayrimenkulDosyaEkle(result.Id, ekleModel.GayrimenkulDosyalar);
 
 
                     if (result.Id > 0)
