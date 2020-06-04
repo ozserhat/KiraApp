@@ -65,7 +65,6 @@
                                                 <div id="wizard">
                                                     <div class="form-bootstrapWizard">
                                                         <ul class="form-wizard nav nav-tabs">
-
                                                             <li data-target="#step1" class="active" id="step1" style="width:20%;">
                                                                 <a href="#tab1" data-toggle="tab" aria-expanded="true">
                                                                     <span class="step">
@@ -956,11 +955,13 @@
                                                                 <h3><strong>6. Adım </strong> -Harita</h3>
                                                             </legend>
                                                             <form class="form-horizontal" id="HaritaForm" novalidate="novalidate">
-                                                                <div class="col-md-10 col-md-offset-1">
-                                                                    <div class="col-md-12 smart-form">
-                                                                        <div id="dvMaps" style="width:1000px;height:400px"></div>
+                                                                <fieldset>
+                                                                    <div class="col-md-10 col-md-offset-1">
+                                                                        <div class="col-md-12 smart-form">
+                                                                            <div id="dvMaps" style="width:1000px;height:400px"></div>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
+                                                                </fieldset>
                                                             </form>
                                                         </div>
                                                     </div>
@@ -1968,29 +1969,29 @@
 
     <!--Beyan Artış Damga_Teminat Panel-->
     <script type="text/javascript">
-         $(function () {
-             $('#DamgaKararAlinacakMi').change(function () {
-                 
-                 var durum = $(this).is(':checked');
+        $(function () {
+            $('#DamgaKararAlinacakMi').change(function () {
 
-                 var pnlDamgaKarar = $('#damgaKararDiv');
+                var durum = $(this).is(':checked');
 
-                 if (durum)
-                     pnlDamgaKarar.show();
-                 else
-                     pnlDamgaKarar.hide();
-             });
+                var pnlDamgaKarar = $('#damgaKararDiv');
 
-             $('#TeminatAlinacakMi').change(function () {
-                 var durum = $(this).is(':checked');
+                if (durum)
+                    pnlDamgaKarar.show();
+                else
+                    pnlDamgaKarar.hide();
+            });
 
-                 var pnlTeminat = $('#teminatDiv');
+            $('#TeminatAlinacakMi').change(function () {
+                var durum = $(this).is(':checked');
 
-                 if (durum)
-                     pnlTeminat.show();
-                 else
-                     pnlTeminat.hide();
-             });
+                var pnlTeminat = $('#teminatDiv');
+
+                if (durum)
+                    pnlTeminat.show();
+                else
+                    pnlTeminat.hide();
+            });
         });
     </script>
 
