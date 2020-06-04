@@ -1168,7 +1168,7 @@
                                                                 @Html.LabelFor(model => model.KiraDurumSelectList, new { @class = "control-label col-md-4 zorunluYildiz" })
                                                                 <div class="col-md-8">
                                                                     @Html.DropDownList("KiraDurum_Id", Model.KiraDurumSelectList, "Seçiniz", new { @class = "select2 required" })
-                                                                    @Html.ValidationMessage("KiraDurum_Id", new { @class = "text-danger" })
+                                                                    @Html.ValidationMessage("KiraDurum_Id", "Lütfen seçiniz!", new { @class = "text-danger" })
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1201,9 +1201,9 @@
                                                     <div class="col-md-8">
                                                         <div class="form-group">
                                                             <div class="input-group" style="width: 100%;">
-                                                                @Html.Label("Açıklama", new { @class = "control-label col-md-4" })
+                                                                @Html.Label("Açıklama", new { @class = "control-label col-md-4 zorunluYildiz" })
                                                                 <div class="col-md-8">
-                                                                    @Html.TextArea("TahakkukKapamaAciklama", "", new { @class = "form-control col-md-4 required", rows = "3", placeholder = "Açıklama Giriniz" })
+                                                                    @Html.TextArea("TahakkukKapamaAciklama", new { @class = "form-control col-md-4 required", rows = "3", placeholder = "Açıklama Giriniz" })
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1257,7 +1257,7 @@
                                                                 @Html.LabelFor(model => model.UfeOranlari, new { @class = "control-label col-md-4 zorunluYildiz" })
                                                                 <div class="col-md-8">
                                                                     @Html.DropDownList("UfeOran_Id", Model.UfeOranlari, "Seçiniz", new { @class = "select2 required" })
-                                                                    @Html.ValidationMessage("UfeOran_Id", new { @class = "text-danger" })
+                                                                    @Html.ValidationMessage("UfeOran_Id", "Lütfen seçiniz!", new { @class = "text-danger" })
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1270,7 +1270,7 @@
                                                                 @Html.Label("Encümen No", new { @class = "control-label col-md-4 zorunluYildiz" })
                                                                 <div class="col-md-8">
                                                                     @Html.TextBox("ArtisEncumenNo", "", new { @class = "form-control col-md-4 required" })
-                                                                    @Html.ValidationMessage("ArtisEncumenNo", new { @class = "text-danger" })
+                                                                    @Html.ValidationMessage("ArtisEncumenNo", "Bu alanın doldurulması zorunludur!", new { @class = "text-danger" })
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1290,6 +1290,7 @@
                                                                         </span>
                                                                         @Html.ValidationMessage("ArtisEncumenTarihi", new { @class = "text-danger" })
                                                                     </div>
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1313,8 +1314,9 @@
                                                             <div class="input-group" style="width: 100%;">
                                                                 @Html.Label("Damga/Karar Artış Türü", new { @class = "control-label col-md-4" })
                                                                 <div class="col-md-8">
+
                                                                     @Html.DropDownList("DamgaKararArtisTuru", Model.ArtisTuruSelectList, "Seçiniz", new { @class = "select2" })
-                                                                </div>
+                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1337,7 +1339,9 @@
                                                             <div class="input-group" style="width: 100%;">
                                                                 @Html.Label("Teminat Artış Türü", new { @class = "control-label col-md-4 zorunluYildiz" })
                                                                 <div class="col-md-8">
+
                                                                     @Html.DropDownList("TeminatArtisTuru", Model.ArtisTuruSelectList, "Seçiniz", new { @class = "select2" })
+
                                                                 </div>
                                                             </div>
                                                         </div>
