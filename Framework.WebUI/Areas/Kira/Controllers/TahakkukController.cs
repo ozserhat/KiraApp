@@ -33,14 +33,6 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         {
             var model = new TahakkukVM();
 
-            //if (request.Tutar.HasValue)
-            //{
-            //    var tutarval = Convert.ToInt32(request.Tutar.Value);
-            //    var tutarlist = _tahakkukService.Getir(tutarval);
-
-            //    request.Tutar = tutarlist.Tutar.Value;
-            //}
-
             var tahakkuklar = _tahakkukService.GetirSorguListe(request);
 
             model.PageNumber = page ?? 1;
@@ -66,7 +58,6 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                                     new SelectListItem(){
                                     Text="Vade",
                                     Value="0"
-
                                     }
             };
 

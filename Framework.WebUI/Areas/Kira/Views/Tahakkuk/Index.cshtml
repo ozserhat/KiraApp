@@ -123,7 +123,7 @@
                                                                                 <div class="input-group" style="width: 100%;">
                                                                                     @Html.LabelFor(model => model.OdemeDurumuSelectList, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
-                                                                                        @Html.DropDownList("OdemeDurumu", Model.OdemeDurumuSelectList, "Seçiniz", new { @class = "select2" })
+                                                                                        @Html.DropDownList("OdemeDurum_Id", Model.OdemeDurumuSelectList, "Seçiniz", new { @class = "select2" })
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -198,11 +198,9 @@
                                                         <th style="width: 20px;">No</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Beyan No</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Beyan Yıl</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Taksit No</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Tahakkuk Tarihi</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Vade Tarihi</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Tutar</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Açıklama</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Durum</th>
                                                     </tr>
                                                 </thead>
@@ -214,26 +212,36 @@
 
                                                         @foreach (var item in Model.Tahakkuklar)
                                                         {
-                                                            <tr role="row" class="odd">
-                                                                <td>@(i++)</td>
-                                                                <td>@Html.DisplayFor(model => item.Kira_Beyani.Beyanlar.BeyanNo)</td>
-                                                                <td>@Html.DisplayFor(model => item.Kira_Beyani.Beyanlar.BeyanYil)</td>
-                                                                <td>@Html.DisplayFor(model => item.TaksitSayisi)</td>
-                                                                <td>@Html.DisplayFor(model => item.TahakkukTarihi)</td>
-                                                                <td>@Html.DisplayFor(model => item.VadeTarihi)</td>
-                                                                <td>@Html.DisplayFor(model => item.Tutar)</td>
-                                                                <td>@Html.DisplayFor(model => item.Aciklama)</td>
-                                                                <td>
-                                                                    @if (item.OdemeDurumu.HasValue && item.OdemeDurumu.Value)
-                                                                    {
-                                                                        <b class="label aktif-buton-beyandetay">Tahsil</b>
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        <b class="label pasif-buton-beyandetay">Vade</b>
-                                                                    }
-                                                                </td>
-                                                            </tr>
+                                                        <tr role="row" class="odd">
+                                                            <td>@(i++)</td>
+                                                            <td>@Html.DisplayFor(model => item.Kira_Beyani.Beyanlar.BeyanNo)</td>
+                                                            <td>@Html.DisplayFor(model => item.Kira_Beyani.Beyanlar.BeyanYil)</td>
+                                                            <td>
+                                                                @if (item.TahakkukTarihi.HasValue)
+                                                                {
+                                                                    string basTarihi = item.TahakkukTarihi.Value.ToString("dd.MM.yyyy");
+                                                                    @Html.DisplayFor(model => basTarihi)
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                @if (item.VadeTarihi.HasValue)
+                                                                {
+                                                                    string basTarihi = item.VadeTarihi.Value.ToString("dd.MM.yyyy");
+                                                                    @Html.DisplayFor(model => basTarihi)
+                                                                }
+                                                            </td>
+                                                            <td>@Html.DisplayFor(model => item.Tutar)</td>
+                                                            <td>
+                                                                @if (item.OdemeDurumu.HasValue && item.OdemeDurumu.Value)
+                                                                {
+                                                                    <b class="label aktif-buton-beyandetay">Tahsil</b>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <b class="label pasif-buton-beyandetay">Vade</b>
+                                                                }
+                                                            </td>
+                                                        </tr>
                                                         }
                                                     </tbody>
                                                 }
@@ -444,6 +452,7 @@
         $('#tblBeyan td:first-child').click(function (e) {
 
             var id = $(this).attr("data-id");
+
             var beyanYil = $(this).attr("data-yil");
 
             var table = $('#tblBeyan').DataTable();
@@ -487,20 +496,21 @@
                 + '<thead><tr>' +
                 '<th>No</th>' +
                 '<th>Beyan Yıl</th>' +
-                '<th>Taksit No</th>' +
                 '<th>Vade Tarihi</th>' +
+                '<th>Tahakkuk Tarihi</th>' +
                 '<th>Tutar</th>' +
-                '<th>Açıklama</th>' +
                 '<th>Durum</th>' +
                 '<th>Aktif Mi</th></tr >' +
                 '</thead > ';
+
             var durum = '';
             var aktifMiStr = '';
+
             if (dataSource != null) {
                 for (var i = 0; i < dataSource.length; i++) {
 
                     if (dataSource[i].OdemeDurumu) {
-                        durum = '<b class="label aktif-buton-beyandetay">Tahsil </b>';
+                        durum = '<b class="label aktif-buton-beyandetay">Tahsil</b>';
                     }
                     else {
                         durum = '<b class="label pasif-buton-beyandetay">Vade</b>';
@@ -520,10 +530,9 @@
                         html += '<tr role="row">' +
                             '<td role="row" class="odd">' + (i + 1) + '</td>' +
                             '<td>' + BeyanYil + '</td>' +
-                            '<td>' + dataSource[i].TaksitNo + '</td>' +
+                            '<td>' + ParseDate(dataSource[i].TahakkukTarihi) + '</td>' +
                             '<td>' + ParseDate(dataSource[i].VadeTarihi) + '</td>' +
                             '<td>' + dataSource[i].Tutar + '</td>' +
-                            '<td>' + dataSource[i].Aciklama + '</td>' +
                             '<td>' + durum + '</td>' +
                             '<td>' + aktifMiStr + '</td>' +
                             '</tr>';
@@ -566,8 +575,7 @@
             document.getElementById("Aciklama").value = "";
             $('#VadeTarihi').select2("val", "");
             $('#TahakkukTarihi').select2("val", "");
-            $('#OdemeDurumu').select2("val", "");
-
+            $('#OdemeDurum_Id').select2("val", "");
         }
     </script>
 }
