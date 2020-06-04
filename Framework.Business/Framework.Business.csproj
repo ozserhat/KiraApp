@@ -178,6 +178,7 @@
     <Compile Include="Abstract\IOdemePeriyotTurService.cs" />
     <Compile Include="Abstract\ISistemParametre_DetayService.cs" />
     <Compile Include="Abstract\ITahakkukService.cs" />
+    <Compile Include="Abstract\ITahsilatDisServis.cs" />
     <Compile Include="Abstract\IUserPermissionsService.cs" />
     <Compile Include="Abstract\IUserRoleService.cs" />
     <Compile Include="Abstract\IUserService.cs" />
@@ -217,6 +218,7 @@
     <Compile Include="Concrete\Managers\SistemParametre_DetayManager.cs" />
     <Compile Include="Concrete\Managers\TahakkukManager.cs" />
     <Compile Include="Concrete\Managers\TahakkukServiceManager.cs" />
+    <Compile Include="Concrete\Managers\TahsilatDisServiceManager.cs" />
     <Compile Include="Concrete\Managers\UserManager.cs" />
     <Compile Include="Concrete\Managers\UserPermissionManager.cs" />
     <Compile Include="Concrete\Managers\UserRoleManager.cs" />

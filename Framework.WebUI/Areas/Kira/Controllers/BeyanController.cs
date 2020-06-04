@@ -587,6 +587,9 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             if (beyanArtis.KiraParametre.KiraParametre is null)
                 return Json(new { Message = "Parametrelere Uygun Hesaplama Yöntemi Bulunmamaktadır!!!", success = false }, JsonRequestBehavior.AllowGet);
 
+
+            var dosyalar = GetirBeyanDosyalar(beyanArtis.Beyan_Id);
+
             pasifDurum = BeyanPasifeAl(beyanArtis);
 
             if (!pasifDurum)
@@ -628,6 +631,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                         beyanArtis.UfeOrani = (ufeOrani.Oran.HasValue ? ufeOrani.Oran.Value : 0);
 
                     tahakkukDurum = TahakkukOlustur(beyanArtis);
+
+                    var dosyaEkle = BeyanDosyaEkle(beyanArtis.Beyan_Id, dosyalar.ToList());
                 }
 
                 if (tahakkukDurum)
@@ -723,21 +728,6 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         #endregion
 
         #region Metodlar
-
-        public void TestWCF()
-        {
-            try
-            {
-                TahsilatService.ServiceClient wcf = new TahsilatService.ServiceClient();
-                var result = wcf.TahsilatSorgula("2020-01-06-17-22-21-81785805", 8031).FirstOrDefault();
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
-
-        }
 
         [HttpPost]
         private KiraBeyanEkleVM BeyanGuncelleVeriGetir(Guid id)
