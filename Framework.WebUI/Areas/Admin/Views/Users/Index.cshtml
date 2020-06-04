@@ -81,13 +81,13 @@
                                                                 <td>@Html.DisplayFor(model => roleName)</td>
                                                                 <td>@Html.DisplayFor(model => item.UserName)</td>
                                                                 <td>
-                                                                    @if (item.IsActive.HasValue && item.IsActive.Value)
+                                                                    @if (item.IsDeleted.HasValue && item.IsDeleted.Value)
                                                                     {
-                                                                        <b class="label aktif-buton">Aktif</b>
+                                                                        <b class="label pasif-buton">Pasif</b>
                                                                     }
                                                                     else
                                                                     {
-                                                                        <b class="label pasif-buton">Pasif</b>
+                                                                        <b class="label aktif-buton">Aktif</b>
                                                                     }
                                                                 </td>
                                                                 <td class="text-center">
