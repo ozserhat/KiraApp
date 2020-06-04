@@ -15,7 +15,7 @@ namespace Framework.Business.Concrete.Managers
         {
             SicilServisVm sicilBilgi = null;
             SicilServiceClient serviceClient = new SicilServiceClient();
-
+            
             var result = serviceClient.GetirSicilBilgisi(VergiNo, TcKimlikNo);
     
             if(result!=null)

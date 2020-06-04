@@ -724,21 +724,6 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
         #region Metodlar
 
-        public void TestWCF()
-        {
-            try
-            {
-                TahsilatService.ServiceClient wcf = new TahsilatService.ServiceClient();
-                var result = wcf.TahsilatSorgula("2020-01-06-17-22-21-81785805", 8031).FirstOrDefault();
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
-
-        }
-
         [HttpPost]
         private KiraBeyanEkleVM BeyanGuncelleVeriGetir(Guid id)
         {
