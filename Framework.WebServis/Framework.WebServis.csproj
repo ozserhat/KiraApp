@@ -204,17 +204,32 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Connected Services\TahsilatServis\configuration91.svcinfo" />
+    <None Include="Connected Services\TahsilatServis\configuration.svcinfo" />
+    <Content Include="Connected Services\TahsilatServis\Framework.WebServis.TahsilatServis.Tahsilat.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Connected Services\TahsilatServis\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clients\SicilServiceClient.cs" />
     <Compile Include="Clients\TahakkukServiceClient.cs" />
+    <Compile Include="Clients\TahsilatServiceClient.cs" />
     <Compile Include="Connected Services\SicilServis\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Connected Services\TahakkukServis\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\TahsilatServis\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -228,6 +243,16 @@
     </None>
     <None Include="Connected Services\TahakkukServis\TahakkukWs.wsdl" />
     <None Include="Connected Services\TahakkukServis\TahakkukWs.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\TahsilatServis\Service.wsdl" />
+    <None Include="Connected Services\TahsilatServis\Service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\TahsilatServis\Service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\TahsilatServis\Service2.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
@@ -244,6 +269,7 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\SicilServis\" />
     <WCFMetadataStorage Include="Connected Services\TahakkukServis\" />
+    <WCFMetadataStorage Include="Connected Services\TahsilatServis\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ServicesIntegration\" />

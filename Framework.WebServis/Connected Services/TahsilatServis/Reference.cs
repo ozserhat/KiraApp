@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Framework.WebUI.TahsilatService {
+namespace Framework.WebServis.TahsilatServis {
     using System.Runtime.Serialization;
     using System;
     
@@ -219,23 +219,23 @@ namespace Framework.WebUI.TahsilatService {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="TahsilatService.IService")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="TahsilatServis.IService")]
     public interface IService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/TahsilatSorgula", ReplyAction="http://tempuri.org/IService/TahsilatSorgulaResponse")]
-        Framework.WebUI.TahsilatService.Tahsilat[] TahsilatSorgula(string sequenceNo, int sicilNo);
+        Framework.WebServis.TahsilatServis.Tahsilat[] TahsilatSorgula(string sequenceNo, int sicilNo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/TahsilatSorgula", ReplyAction="http://tempuri.org/IService/TahsilatSorgulaResponse")]
-        System.Threading.Tasks.Task<Framework.WebUI.TahsilatService.Tahsilat[]> TahsilatSorgulaAsync(string sequenceNo, int sicilNo);
+        System.Threading.Tasks.Task<Framework.WebServis.TahsilatServis.Tahsilat[]> TahsilatSorgulaAsync(string sequenceNo, int sicilNo);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IServiceChannel : Framework.WebUI.TahsilatService.IService, System.ServiceModel.IClientChannel {
+    public interface IServiceChannel : Framework.WebServis.TahsilatServis.IService, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class ServiceClient : System.ServiceModel.ClientBase<Framework.WebUI.TahsilatService.IService>, Framework.WebUI.TahsilatService.IService {
+    public partial class ServiceClient : System.ServiceModel.ClientBase<Framework.WebServis.TahsilatServis.IService>, Framework.WebServis.TahsilatServis.IService {
         
         public ServiceClient() {
         }
@@ -256,11 +256,11 @@ namespace Framework.WebUI.TahsilatService {
                 base(binding, remoteAddress) {
         }
         
-        public Framework.WebUI.TahsilatService.Tahsilat[] TahsilatSorgula(string sequenceNo, int sicilNo) {
+        public Framework.WebServis.TahsilatServis.Tahsilat[] TahsilatSorgula(string sequenceNo, int sicilNo) {
             return base.Channel.TahsilatSorgula(sequenceNo, sicilNo);
         }
         
-        public System.Threading.Tasks.Task<Framework.WebUI.TahsilatService.Tahsilat[]> TahsilatSorgulaAsync(string sequenceNo, int sicilNo) {
+        public System.Threading.Tasks.Task<Framework.WebServis.TahsilatServis.Tahsilat[]> TahsilatSorgulaAsync(string sequenceNo, int sicilNo) {
             return base.Channel.TahsilatSorgulaAsync(sequenceNo, sicilNo);
         }
     }
