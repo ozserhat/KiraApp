@@ -1,5 +1,4 @@
 ﻿using Framework.Business.Abstract;
-using Framework.Core.Aspects.Postsharp.TransactionAspects;
 using Framework.DataAccess.Abstract;
 using Framework.Entities.Concrete;
 using Framework.Entities.Enums;
