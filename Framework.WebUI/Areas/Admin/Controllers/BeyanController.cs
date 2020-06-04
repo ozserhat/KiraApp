@@ -89,7 +89,6 @@ namespace Framework.WebUI.Areas.Admin.Controllers
             {
 
                 model.IlceSelectList = IlceSelectList();
-                
                 model.GayrimenkulSelectList = GayrimenkulSelectList();
                 model.BeyanTurSelectList = BeyanTurSelectList();
                 model.KiraDurumSelectList = KiraDurumSelectList();
@@ -113,6 +112,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
             {
                 model.PageNumber = page ?? 1;
                 model.PageSize = pageSize;
+
                 model.IlceSelectList = IlceSelectList();
                 model.GayrimenkulSelectList = GayrimenkulSelectList();
                 model.BeyanTurSelectList = BeyanTurSelectList();
@@ -176,7 +176,6 @@ namespace Framework.WebUI.Areas.Admin.Controllers
             return new SelectList(ilceler, "Id", "Ad");
         }
 
-
         [HttpPost]
 
         public JsonResult MahalleSelectList(int ilceId)
@@ -199,7 +198,6 @@ namespace Framework.WebUI.Areas.Admin.Controllers
 
             return new SelectList(turler, "Id", "Ad");
         }
-
 
         public SelectList KiraDurumSelectList()
         {
