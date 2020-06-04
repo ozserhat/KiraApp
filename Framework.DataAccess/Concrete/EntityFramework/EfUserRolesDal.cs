@@ -27,8 +27,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             using (DtContext context = new DtContext())
             {
                 var result = context.User_Roles
-                             .Include(u=>u.Users).Include(r=>r.Roles)
-                             .Where(r => r.IsDeleted == false).ToList();
+                             .Include(u=>u.Users).Include(r=>r.Roles).ToList();
 
                 return result;
             }

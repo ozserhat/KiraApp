@@ -858,7 +858,6 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             return ekleVm;
 
         }
-
         private bool TahakkukOlustur(KiraArtisEkleVM artisModel)
         {
             int AySayisi = 0;

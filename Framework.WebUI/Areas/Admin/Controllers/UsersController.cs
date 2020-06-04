@@ -57,25 +57,35 @@ namespace Framework.WebUI.Areas.Admin.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var encryptpass = _userService.CreatePasswordHash(model.Sifre);
+                    bool kullaniciVarMi = false;
 
-                    User kullanici = new User()
+                    kullaniciVarMi = _userService.UserExists(model.KullaniciAdi);
+
+                    if(!kullaniciVarMi)
                     {
-                        Guid = Guid.NewGuid(),
-                        UserName = model.KullaniciAdi,
-                        Password = encryptpass,
-                        PasswordSalt = "b14ca5898a4e4133bbce2ea2315a1916",
-                        FirstName = model.Ad,
-                        LastName = model.Soyad,
-                        Email = model.EMail,
-                        IsActive = true,
-                        IsDeleted = false
-                    };
+                        var encryptpass = _userService.CreatePasswordHash(model.Sifre);
 
-                    var result = _userService.Ekle(kullanici);
+                        User kullanici = new User()
+                        {
+                            Guid = Guid.NewGuid(),
+                            UserName = model.KullaniciAdi,
+                            Password = encryptpass,
+                            PasswordSalt = "b14ca5898a4e4133bbce2ea2315a1916",
+                            FirstName = model.Ad,
+                            LastName = model.Soyad,
+                            Email = model.EMail,
+                            IsActive = true,
+                            IsDeleted = false
+                        };
 
-                    if (result.Id > 0)
-                        return Json(new { Message = "Kullanıcı Bilgisi Başarıyla Kaydedildi.", success = true }, JsonRequestBehavior.AllowGet);
+                        var result = _userService.Ekle(kullanici);
+
+
+                        if (result.Id > 0)
+                            return Json(new { Message = "Kullanıcı Bilgisi Başarıyla Kaydedildi.", success = true }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    return Json(new { Message = "Aynı Kullanıcı Adıyla Bir Kullanıcı Mevcut!!!", success = false }, JsonRequestBehavior.AllowGet);
 
                 }
 

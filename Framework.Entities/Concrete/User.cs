@@ -45,6 +45,7 @@ namespace Framework.Entities.Concrete
 
         public bool? IsDeleted { get; set; }
 
+
         [JsonIgnore]
         public virtual ICollection<Duyuru_Bildirim> Duyuru_Bildirimleri { get; set; }
 

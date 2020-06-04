@@ -73,8 +73,20 @@
                                                                 <td>@(i++)</td>
                                                                 <td>@Html.DisplayFor(model => item.Ad)</td>
                                                                 <td>@Html.DisplayFor(model => item.Deger)</td>
-                                                                <td>@Html.DisplayFor(model => item.BaslangicTarihi)</td>
-                                                                <td>@Html.DisplayFor(model => item.BitisTarihi)</td>
+                                                                <td>
+                                                                    @if (item.BaslangicTarihi.HasValue)
+                                                                    {
+                                                                        string basTarihi = item.BaslangicTarihi.Value.ToString("dd.MM.yyyy");
+                                                                        @Html.DisplayFor(model => basTarihi)
+                                                                    }
+                                                                </td>
+                                                                <td>
+                                                                    @if (item.BitisTarihi.HasValue)
+                                                                    {
+                                                                        string bitTarihi = item.BitisTarihi.Value.ToString("dd.MM.yyyy");
+                                                                        @Html.DisplayFor(model => bitTarihi)
+                                                                    }
+                                                                </td>
                                                                 <td>
                                                                     @if (item.AktifMi.HasValue && item.AktifMi.Value)
                                                                     {
@@ -129,7 +141,7 @@
 
 @section pagespecific {
     @Scripts.Render("~/bundles/jqueryval")
-     <link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
+    <link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
     <script src="~/Content/SweetAlert/sweetalert2.min.js"></script>
 
     <script type="text/javascript">
