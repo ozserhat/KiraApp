@@ -407,7 +407,8 @@
                                                         <form class="form-horizontal" id="BelgeEkleForm" novalidate="novalidate">
                                                             <div class="col-md-10 col-md-offset-1">
                                                                 <div class="col-md-12 smart-form">
-                                                                    <div id="dvMaps" style="width:800px;height:400px"></div>
+                                                                    <div id="dvMaps" style="width:auto;height:400px"></div>
+                                                                    <input type="hidden" id="hdKoordinat" value="@Model.Koordinat" />
                                                                 </div>
                                                             </div>
                                                         </form>
@@ -436,7 +437,6 @@
             </div>
         </section>
     </div>
-
 }
 
 @section pagespecific {
@@ -471,23 +471,27 @@
             $("#iframe1").attr("src", url);
         });
     </script>
+
+    <!--Harita Görüntüleme -->
+    <script type="text/javascript">
+        function initMap() {
+            var koordinat = $('#hdKoordinat').val();
+
+            if (koordinat != null) {
+                koordinat = koordinat.replace("(", "").replace(")", "");
+                var geo = { lat: koordinat.split(',')[0], lng: koordinat.split(',')[1] };
+
+                var map = new google.maps.Map(
+                    document.getElementById('dvMaps'), { zoom: 16, center: geo });
+                var marker = new google.maps.Marker({ position: geo, map: map });
+            }
+        }
+    </script>
+
     <!--Tab Control-->
     <script type="text/javascript">
-        //map..
-        function initMap() {
-            // The location of Uluru
-            var uluru = { lat: @Model.Koordinat.Replace("(","").Replace(")","").Split(',')[0], lng: @Model.Koordinat.Replace("(","").Replace(")","").Split(',')[1]};
-            // The map, centered at Uluru
-            var map = new google.maps.Map(
-                document.getElementById('dvMaps'), { zoom: 16, center: uluru });
-            // The marker, positioned at Uluru
-            var marker = new google.maps.Marker({ position: uluru, map: map });
-        }
 
         $(document).ready(function () {
-
-
-
             const wizard = $('#wizard');
 
             wizard.bootstrapWizard({

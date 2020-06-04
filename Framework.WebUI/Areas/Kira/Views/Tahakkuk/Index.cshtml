@@ -112,7 +112,7 @@
                                                                                 <div class="input-group" style="width: 100%;">
                                                                                     @Html.LabelFor(model => Model.BeyanYil, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
-                                                                                        @Html.TextBoxFor(model => model.BeyanYil, "", new { Value = "", @class = "form-control", @type = "text" })
+                                                                                        @Html.TextBoxFor(model => model.BeyanYil, "", new { Value = "", @class = "form-control", @type = "number" })
                                                                                         @Html.ValidationMessage("BeyanYil", "Lütfen bir yıl giriniz!", new { @class = "text-danger" })
                                                                                     </div>
                                                                                 </div>

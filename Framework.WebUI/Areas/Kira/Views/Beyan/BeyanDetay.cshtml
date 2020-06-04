@@ -959,6 +959,7 @@
                                                                     <div class="col-md-10 col-md-offset-1">
                                                                         <div class="col-md-12 smart-form">
                                                                             <div id="dvMaps" style="width:1000px;height:400px"></div>
+                                                                            <input type="hidden" id="hdKoordinat" value="@Model.Gayrimenkul.Koordinat" />
                                                                         </div>
                                                                     </div>
                                                                 </fieldset>
@@ -1013,6 +1014,7 @@
                                         <iframe id="iframe1" style="border: 1px solid black; height: 500px; width: 100%">
                                             <div class="col-md-10 col-md-offset-1">
                                                 <div class="col-md-12 smart-form">
+
                                                     <div id="dvMaps" style="width:800px;height:400px"></div>
                                                 </div>
                                             </div>
@@ -1502,20 +1504,25 @@
         }
     </style>
 
+    <!--Harita Görüntüleme -->
+    <script type="text/javascript">
+        function initMap() {
+            var koordinat = $('#hdKoordinat').val();
+
+            if (koordinat != null) {
+                koordinat = koordinat.replace("(", "").replace(")", "");
+                var geo = { lat: koordinat.split(',')[0], lng: koordinat.split(',')[1] };
+
+                var map = new google.maps.Map(
+                    document.getElementById('dvMaps'), { zoom: 16, center: geo });
+                var marker = new google.maps.Marker({ position: geo, map: map });
+            }
+        }
+    </script>
+
     <!--TabControl -->
     <script type="text/javascript">
 
-           function initMap() {
-            console.log('@Model.Gayrimenkul.Koordinat.Split(',')[0]');
-            console.log('@Model.Gayrimenkul.Koordinat.Split(',')[1]');
-            // The location of Uluru
-            var geo = { lat: @Model.Gayrimenkul.Koordinat.Split(',')[0], lng: @Model.Gayrimenkul.Koordinat.Split(',')[1]};
-            // The map, centered at Uluru
-            var map = new google.maps.Map(
-                document.getElementById('dvMaps'), { zoom: 16, center: geo });
-            // The marker, positioned at Uluru
-               var marker = new google.maps.Marker({ position: geo, map: map });
-        }
         $(document).ready(function () {
 
             const wizard = $('#wizard');
@@ -1730,10 +1737,10 @@
 
     <!--Money Format -->
     <script type="text/javascript">
-        $('.moneyFormat').change(function (val) {
-            //$('.moneyFormat').formatCurrency();
-            val.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
-        });
+        //$('.moneyFormat').change(function (val) {
+        //    //$('.moneyFormat').formatCurrency();
+        //    val.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+        //});
 
     </script>
 
@@ -1741,13 +1748,18 @@
     <script type="text/javascript">
 
         function initMap() {
-            // The location of Uluru
-            var uluru = { lat: @Model.Gayrimenkul.Koordinat.Replace("(","").Replace(")","").Split(',')[0], lng: @Model.Gayrimenkul.Koordinat.Replace("(","").Replace(")","").Split(',')[1]};
-            // The map, centered at Uluru
-            var map = new google.maps.Map(
-                document.getElementById('dvMaps'), { zoom: 16, center: uluru });
-            // The marker, positioned at Uluru
-            var marker = new google.maps.Marker({ position: uluru, map: map });
+
+            var koordinat = $('#hdKoordinat').val();
+
+            if (koordinat != null) {
+                koordinat = koordinat.replace('(', '').replace(')', '');
+
+                var uluru = { lat: koordinat.split(',')[0], lng: koordinat.split(',')[1] };
+
+                var map = new google.maps.Map(document.getElementById('dvMaps'), { zoom: 16, center: uluru });
+
+                var marker = new google.maps.Marker({ position: uluru, map: map });
+            }
         }
 
         $(document).ready(function () {
