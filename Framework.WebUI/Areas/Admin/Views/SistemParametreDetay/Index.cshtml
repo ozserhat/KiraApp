@@ -87,7 +87,7 @@
                                                                     }
                                                                 </td>
                                                                 <td class="text-center">
-                                                                    @Html.AuthAction(" ", "Duzenle", "SistemParametreDetay", new {ParametreId = item.Id},
+                                                                    @Html.AuthAction(" ", "Duzenle", "SistemParametreDetay", new { ParametreId = item.Id },
                                                                           new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
                                                                           Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
@@ -126,7 +126,7 @@
 
 @section pagespecific {
     @Scripts.Render("~/bundles/jqueryval")
-     <link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
+    <link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
     <script src="~/Content/SweetAlert/sweetalert2.min.js"></script>
 
     <script type="text/javascript">
