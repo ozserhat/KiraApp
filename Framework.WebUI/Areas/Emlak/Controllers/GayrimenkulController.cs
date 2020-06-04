@@ -214,12 +214,15 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
                     };
 
                     var result = _gayrimenkulservice.Ekle(gayrimenkul);
-                    GayrimenkulDosyaEkle(result.Id, ekleModel.GayrimenkulDosyalar);
+                   
 
 
                     if (result.Id > 0)
-                        return Json(new { Message = "Gayrimenkul Bilgisi Başarıyla Kaydedildi.", success = true }, JsonRequestBehavior.AllowGet);
+                    {
+                        GayrimenkulDosyaEkle(result.Id, ekleModel.GayrimenkulDosyalar);
 
+                        return Json(new { Message = "Gayrimenkul Bilgisi Başarıyla Kaydedildi.", success = true }, JsonRequestBehavior.AllowGet);
+                    }
                 }
 
                 return Json(new { Message = "Gayrimenkul Bilgisi Kaydedilemedi!!!", success = false }, JsonRequestBehavior.AllowGet);
@@ -325,7 +328,6 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
                         gayrimenkul.OlusturulmaTarihi = DateTime.Now;
                         gayrimenkul.OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null);
                         gayrimenkul = _gayrimenkulservice.Guncelle(gayrimenkul);
-
 
                     }
                     if (gayrimenkul != null)
