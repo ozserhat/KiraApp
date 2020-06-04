@@ -18,8 +18,10 @@ namespace Framework.Business.Abstract
 
         Beyan Guncelle(Beyan tur);
 
-        bool Sil(int id); 
+        bool Sil(int id);
         string BeyanNoUret(int Yil);
+
+        bool TransactionTest(Beyan beyan, List<Beyan_Dosya> dosya);
 
     }
 }

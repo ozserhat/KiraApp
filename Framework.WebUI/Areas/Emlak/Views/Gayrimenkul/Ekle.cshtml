@@ -56,7 +56,7 @@
 
                                     <div id="wizard-1" novalidate="novalidate">
                                         <div id="bootstrap-wizard-1" class="col-sm-12">
-                                            @using (Html.BeginForm("Ekle", "Gayrimenkul", FormMethod.Post, new { enctype = "multipart/form-data", id = "submitForm" }))
+                                            @using (Html.BeginForm("Ekle", "Gayrimenkul", FormMethod.Post, new { enctype = "multipart/form-data", id = "ekleForm" }))
                                             {
                                                 @Html.AntiForgeryToken()
                                                 <div id="wizard">
@@ -394,7 +394,7 @@
                                                                                                 <div class="button">
                                                                                                     @Html.TextBox("dosya" + item.Id, "", new { @class = "form-control taranmisDosya", type = "file", data_id = item.Id })Belge Ekle
                                                                                                 </div>
-                                                                                                <input type="text" id="placeholder_@item.Id" placeholder="@item.Ad" readonly="">
+                                                                                                <input type="text" id="gayrimenkulDosya_@item.Id" placeholder="@item.Ad" readonly="">
                                                                                             </label>
                                                                                         </div>
 
@@ -431,7 +431,7 @@
                                                                             <div id="loadingbtnIleri" class="hide" style="float:right;"><i class="fa fa-spinner fa-spin fa-2x"></i> İşleminiz yapılıyor ...</div>
                                                                         </li>
                                                                         <li class="finish" style="float: right; margin-right: 15px; display: block;">
-                                                                            <button class="btn btn-success" id="btnSonKaydet" type="submit">
+                                                                            <button class="btn btn-success" id="btnSonKaydet" type="button">
                                                                                 Kaydet <span class="glyphicon glyphicon-ok"></span>
                                                                             </button>
                                                                             <div id="btnSonKaydet" class="hide" style="float:right;"><i class="fa fa-spinner fa-spin fa-2x"></i> İşleminiz yapılıyor ...</div>
@@ -468,6 +468,8 @@
 }
 
 @section pagespecific {
+    @Scripts.Render("~/bundles/jqueryval")
+
     <!-- Sweet Alert -->
     <link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
     <script src="~/Content/SweetAlert/sweetalert2.min.js"></script>
@@ -489,7 +491,6 @@
         }
     </style>
 
-    @Scripts.Render("~/bundles/jqueryval")
     <script src="~/Scripts/plugin/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
 
     <!--Gayrimenkul Ekle-->
@@ -498,7 +499,7 @@
             $('#btnSonKaydet').on('click', function () {
                 gayrimenkul = new Object();
                 gayrimenkul.Guid = $("#Guid").val();
-                gayrimenkul.Ad = $("#Ad").val();
+                gayrimenkul.Ad = $("#GayrimenkulAdi").val();
                 gayrimenkul.GayrimenkulTur_Id = $("#GayrimenkulTur_Id").val();
                 gayrimenkul.Ilce_Id = $("#Ilce_Id").val();
                 gayrimenkul.Mahalle_Id = $("#Mahalle_Id").val();
@@ -524,22 +525,19 @@
                 gayrimenkul.GayrimenkulDosyalar = gayrimenkulDosyalar;
                 gayrimenkul.GayrimenkulAdi = $("#GayrimenkulAdi").val();
 
-                debugger;
-
-                if ($("#submitForm").valid())
+                if ($("#ekleForm").valid())
                 {
-                    debugger;
                    $.ajax({
                     type: 'Post',
                     url: '@Url.Action("Ekle", "Gayrimenkul")',
-                       data: { model: gayrimenkul },
+                    data: { ekleModel: gayrimenkul },
                     success: function (result) {
                         if (result != null && result.success) {
 
                             swal('Bilgi!', result.Message, 'success');
 
                             setTimeout(function () {
-                                window.location.href = "../Emlak/Gayrimenkul/Ekle";
+                                window.location.href = "../Emlak/Gayrimenkul/Index";
                             }, 2000);
                         }
                         else {
@@ -560,9 +558,10 @@
         var gayrimenkulDosyalar = [];
 
         $(document).on("change", ".taranmisDosya", function (evt) {
-            debugger;
+
             var BasvuruGrupTipi_DosyaTipi_Id = $(this).attr("data-id");
             var dosyaAdi = $(this).val().replace(/C:\\fakepath\\/, '');
+            $("#gayrimenkulDosya_" + BasvuruGrupTipi_DosyaTipi_Id).val(dosyaAdi);
 
             $("#GayrimenkulDosyaTur_" + BasvuruGrupTipi_DosyaTipi_Id).val(dosyaAdi);
             //var regex = new RegExp("(.*?)\.(pdf)$");
@@ -586,7 +585,7 @@
             var reader = new FileReader();
             // Closure to capture the file information.
             reader.onload = (function (theFile) {
-                debugger;
+
                 return function (e) {
                     var binaryData = e.target.result;
 

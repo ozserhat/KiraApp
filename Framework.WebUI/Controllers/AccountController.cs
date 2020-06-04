@@ -46,9 +46,9 @@ namespace Framework.WebUI.Controllers
             //if (User.Identity.IsAuthenticated)
             //    return RedirectToAction("Navigate");
             //throw new ExecutionEngineException("Hata:");
-
+            LoginVm loginVm = new LoginVm();
             ModelState.AddModelError("LogMessage", "Login Sayfasına Giriş Yapıldı.");
-            return View();
+            return View(loginVm);
         }
 
         public ActionResult Navigate()

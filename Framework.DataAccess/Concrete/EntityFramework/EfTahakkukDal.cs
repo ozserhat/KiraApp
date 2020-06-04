@@ -79,8 +79,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                     .Include(kb => kb.Kira_Beyani)
                     .Include(b => b.Kira_Beyani.Beyanlar)
                     .AsQueryable();
-
-
+               
                 query = request.BeyanNo != null ? query.Where(x => x.Kira_Beyani.Beyanlar.BeyanNo == request.BeyanNo) : query;
                 query = request.BeyanYil.HasValue ? query.Where(x => x.BeyanYil == request.BeyanYil) : query;
                 query = request.TaksitNo.HasValue ? query.Where(x => x.TaksitSayisi == request.TaksitNo) : query;
@@ -88,7 +87,8 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                 query = request.VadeTarihi.HasValue ? query.Where(x => x.VadeTarihi == request.VadeTarihi) : query;
                 query = request.Tutar.HasValue ? query.Where(x => x.Tutar == request.Tutar) : query;
                 query = request.Aciklama != null ? query.Where(x => x.Aciklama == request.Aciklama) : query;
-                query = request.OdemeDurumu.HasValue ? query.Where(x => x.OdemeDurumu == request.OdemeDurumu) : query;
+                query = request.OdemeDurum_Id.HasValue ? query.Where(x => x.OdemeDurumu == request.OdemeDurumu) : query;
+                request.OdemeDurumu = (request.OdemeDurum_Id <= 0 ? false : true);
 
                 result = query.ToList();
             }

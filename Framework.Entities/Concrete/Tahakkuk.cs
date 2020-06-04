@@ -71,7 +71,9 @@ namespace Framework.Entities.Concrete
     {
         public string BeyanNo { get; set; }
         public int? KiraBeyan_Id { get; set; }
+        public int? OdemeDurum_Id { get; set; }
         public bool? OdemeDurumu { get; set; }
+
         public DateTime? VadeTarihi { get; set; }
         public DateTime? TahakkukTarihi { get; set; }
         public int? BeyanYil { get; set; }
