@@ -22,17 +22,17 @@
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li class="buttonListStyle">
+                                    <li>
                                         <a href="#" id="btnArtıs" data-original-title="Beyan Artışı" data-toggle="modal" data-target="#beyanArtisModal">
                                             <span class="glyphicon glyphicon-plus-sign"></span> Beyan Artışı
                                         </a>
                                     </li>
-                                    <li class="buttonListStyle">
+                                    <li>
                                         <a href="#" id="beyanKapama" data-original-title="Beyan Kapama" data-toggle="modal" data-target="#beyanKapamaModal">
                                             <span class="glyphicon glyphicon-folder-close"></span> Beyan Kapama
                                         </a>
                                     </li>
-                                    <li class="buttonListStyle">
+                                    <li>
                                         <a href="#" id="btnBeyanCiktiAl" data-original-title="Beyan Çıktısı Al">
                                             <span class="glyphicon glyphicon-upload"></span> Beyan Çıktısı Al
                                         </a>
@@ -950,6 +950,7 @@
                                                                 </fieldset>
                                                             </form>
                                                         </div>
+
                                                         <div class="tab-pane" id="tab6">
                                                             <legend>
                                                                 <h3><strong>6. Adım </strong> -Harita</h3>
@@ -998,41 +999,6 @@
         </section>
     </div>
     <input type="hidden" name="beyanDetayCikti" />
-    <div class="modal fade" id="HaritaGosterModel" tabindex="-1" role="dialog" aria-labelledby="HaritaGosterModalLabel" aria-hidden="true" style="display: none;">
-
-        <div class="modal-dialog modal-md">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Harita Görüntüleme</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <div class="block-head">
-                                    <div class="item-content">
-                                        <iframe id="iframe1" style="border: 1px solid black; height: 500px; width: 100%">
-                                            <div class="col-md-10 col-md-offset-1">
-                                                <div class="col-md-12 smart-form">
-
-                                                    <div id="dvMaps" style="width:800px;height:400px"></div>
-                                                </div>
-                                            </div>
-                                        </iframe>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <a href="#" id="btnDosyaGosterVazgec" type="button" data-dismiss="modal" class="btn btn-warning">
-                        <span class="glyphicon glyphicon-chevron-left"></span> Kapat
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="modal fade" id="DosyaGosterModal" tabindex="-1" role="dialog" aria-labelledby="DosyaGosterModalLabel" aria-hidden="true" style="display: none;">
 
@@ -1316,18 +1282,14 @@
                                                             <div class="input-group" style="width: 100%;">
                                                                 @Html.Label("Encümen Tarihi", new { @class = "control-label col-md-4 zorunluYildiz" })
 
-                                                                <div class="col-md-6">
+                                                                <div class="col-md-8">
                                                                     <div class="input-group date datetimepicker">
-                                                                        @{
-                                                                            @Html.TextBox("ArtisEncumenTarihi", "", new { @class = "form-control col-md-4 datepicker required" })
-
-                                                                            <span class="input-group-addon" id="openDate">
-                                                                                <span class="glyphicon glyphicon-calendar"></span>
-                                                                            </span>
-                                                                        }
+                                                                        @Html.TextBox("ArtisEncumenTarihi", "", new { @class = "form-control col-md-4 datepicker required" })
+                                                                        <span class="input-group-addon" id="openDate">
+                                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                                        </span>
+                                                                        @Html.ValidationMessage("ArtisEncumenTarihi", new { @class = "text-danger" })
                                                                     </div>
-
-                                                                    @Html.ValidationMessage("ArtisEncumenTarihi", "Bu alanın doldurulması zorunludur!", new { @class = "text-danger" })
 
                                                                 </div>
                                                             </div>
@@ -1338,7 +1300,7 @@
                                                     <div class="col-md-8">
                                                         <div class="form-group">
                                                             <div class="input-group" style="width: 100%;">
-                                                                @Html.Label("Damga/Karar Alınacak Mı?", new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                                @Html.Label("Damga/Karar Alınacak Mı?", new { @class = "control-label col-md-4" })
                                                                 <div class="col-md-8">
                                                                     @Html.CheckBox("DamgaKararAlinacakMi", new { @style = "width: 16px; height: 16px;" })
                                                                 </div>
@@ -1350,11 +1312,10 @@
                                                     <div class="col-md-8">
                                                         <div class="form-group">
                                                             <div class="input-group" style="width: 100%;">
-                                                                @Html.Label("Damga/Karar Artış Türü", new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                                @Html.Label("Damga/Karar Artış Türü", new { @class = "control-label col-md-4" })
                                                                 <div class="col-md-8">
-                                                                    @Html.DropDownList("DamgaKararArtisTuru", Model.ArtisTuruSelectList, "Seçiniz", new { @class = "select2 required" })
-                                                                    @Html.ValidationMessage("DamgaKararArtisTuru", "Lütfen seçiniz!", new { @class = "text-danger" })
-                                                                </div>
+                                                                    @Html.DropDownList("DamgaKararArtisTuru", Model.ArtisTuruSelectList, "Seçiniz", new { @class = "select2" })
+                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1377,8 +1338,7 @@
                                                             <div class="input-group" style="width: 100%;">
                                                                 @Html.Label("Teminat Artış Türü", new { @class = "control-label col-md-4 zorunluYildiz" })
                                                                 <div class="col-md-8">
-                                                                    @Html.DropDownList("TeminatArtisTuru", Model.ArtisTuruSelectList, "Seçiniz", new { @class = "select2 required" })
-                                                                    @Html.ValidationMessage("TeminatArtisTuru", "Lütfen seçiniz!", new { @class = "text-danger" })
+                                                                    @Html.DropDownList("TeminatArtisTuru", Model.ArtisTuruSelectList, "Seçiniz", new { @class = "select2" })
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1421,16 +1381,12 @@
     <script src="~/Scripts/jquery.formatCurrency-1.4.0.js"></script>
     <script type="text/javascript" src="~/Scripts/pdfmake.min.js"></script>
     <script type="text/javascript" src="~/Scripts/html2canvas.min.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJI7A3lEGDUL_QC2LDaSnU7D5McPWFrsA&callback=initMap"></script>
+    @*<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJI7A3lEGDUL_QC2LDaSnU7D5McPWFrsA&callback=initMap"></script>*@
 
     <style type="text/css">
+
         .outputview {
             margin-top: 10px;
-        }
-
-        .buttonListStyle {
-            float: left;
-            margin-left: -15px;
         }
 
         .rotate {
@@ -1506,18 +1462,18 @@
 
     <!--Harita Görüntüleme -->
     <script type="text/javascript">
-        function initMap() {
-            var koordinat = $('#hdKoordinat').val();
+        //function initMap() {
+        //    var koordinat = $('#hdKoordinat').val();
 
-            if (koordinat != null) {
-                koordinat = koordinat.replace("(", "").replace(")", "");
-                var geo = { lat: koordinat.split(',')[0], lng: koordinat.split(',')[1] };
+        //    if (koordinat != null) {
+        //        koordinat = koordinat.replace("(", "").replace(")", "");
+        //        var geo = { lat: koordinat.split(',')[0], lng: koordinat.split(',')[1] };
 
-                var map = new google.maps.Map(
-                    document.getElementById('dvMaps'), { zoom: 16, center: geo });
-                var marker = new google.maps.Marker({ position: geo, map: map });
-            }
-        }
+        //        var map = new google.maps.Map(
+        //            document.getElementById('dvMaps'), { zoom: 16, center: geo });
+        //        var marker = new google.maps.Marker({ position: geo, map: map });
+        //    }
+        //}
     </script>
 
     <!--TabControl -->
@@ -1931,6 +1887,7 @@
             // Read in the image file as a data URL.
             reader.readAsBinaryString(files);
         });
+
     </script>
 
     <!--Beyan Kapama İşlemi -->
@@ -1977,6 +1934,82 @@
                 }
             });
         });
+    </script>
+
+    <!--Beyan Artış Form Kontrol-->
+    <script type="text/javascript">
+
+        var kaydetButtonBasildi = false;
+
+        $.validator.addMethod("damgakararKontrol", function (value, element) {
+
+            var durum = $('#DamgaKararAlinacakMi').is(':checked');
+
+            if (!durum)
+                durum = true;
+            else
+                durum = false;
+
+            return durum;
+
+        }, "Damga/Karar Artış Türü Seçiniz!!!");
+
+        $.validator.addMethod("teminatKontrol", function (value, element) {
+
+            var durum = $('#TeminatAlinacakMi').is(':checked');
+
+            if (!durum)
+                durum = true;
+            else
+                durum = false;
+
+            return durum;
+
+        }, "Teminat Artış Türü Seçiniz!!!");
+
+        var $validatorArtis = $("#frmBeyanArtis").validate({
+            rules: {
+                DamgaKararArtisTuru: {
+                    damgakararKontrol: true
+                },
+                TeminatArtisTuru: {
+                    teminatKontrol: true
+                },
+            },
+            messages: {
+                DamgaKararArtisTuru: {
+                    damgakararKontrol: 'Damga/Karar Artış Türü Seçiniz!!!'
+                },
+                TeminatArtisTuru: {
+                    teminatKontrol: 'Teminat Artış Türü Seçiniz!!!'
+                }
+            },
+
+            highlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+            },
+            unhighlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-error');
+            },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) {
+                if (element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
+
+        $("#frmBeyanArtis").on("change", function () {
+            var $valid = $("#frmBeyanArtis").valid();
+            if (!$valid) {
+                $validatorArtis.focusInvalid();
+                return false;
+            }
+        });
+
     </script>
 
     <!--Beyan Artış Damga_Teminat Panel-->

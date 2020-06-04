@@ -290,39 +290,39 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
 
 
         [HttpPost]
-        public ActionResult Duzenle(GayrimenkulDuzenleVM model)
+        public ActionResult Duzenle(GayrimenkulDuzenleVM gayrimenkulModel)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var gayrimenkul = _gayrimenkulservice.GetirGuid(model.Guid);
+                    var gayrimenkul = _gayrimenkulservice.GetirGuid(gayrimenkulModel.Guid);
 
                     if (gayrimenkul != null)
                     {
                         gayrimenkul.Id = gayrimenkul.Id;
                         gayrimenkul.Guid = Guid.NewGuid();
-                        gayrimenkul.Ad = model.GayrimenkulAdi;
-                        gayrimenkul.GayrimenkulTur_Id = model.GayrimenkulTur_Id;
-                        gayrimenkul.Ilce_Id = model.Ilce_Id;
-                        gayrimenkul.Mahalle_Id = model.Mahalle_Id;
-                        gayrimenkul.GayrimenkulDurum_Id = model.GayrimenkulDurum_Id;
-                        gayrimenkul.BinaKimlikNo = model.BinaKimlikNo;
-                        gayrimenkul.NumaratajKimlikNo = model.NumaratajKimlikNo;
-                        gayrimenkul.AdresNo = model.AdresNo;
-                        gayrimenkul.Cadde = model.Cadde;
-                        gayrimenkul.Sokak = model.Sokak;
-                        gayrimenkul.DisKapiNo = model.DisKapiNo;
-                        gayrimenkul.IcKapiNo = model.IcKapiNo;
-                        gayrimenkul.AcikAdres = model.AcikAdres;
-                        gayrimenkul.Koordinat = model.Koordinat;
-                        gayrimenkul.Ada = model.Ada;
-                        gayrimenkul.Pafta = model.Pafta;
-                        gayrimenkul.Parsel = model.Parsel;
-                        gayrimenkul.GayrimenkulNo = model.GayrimenkulNo;
-                        gayrimenkul.DosyaNo = model.DosyaNo;
-                        gayrimenkul.AracKapasitesi = model.AracKapasitesi;
-                        gayrimenkul.Metrekare = model.Metrekare;
+                        gayrimenkul.Ad = gayrimenkulModel.GayrimenkulAdi;
+                        gayrimenkul.GayrimenkulTur_Id = gayrimenkulModel.GayrimenkulTur_Id;
+                        gayrimenkul.Ilce_Id = gayrimenkulModel.Ilce_Id;
+                        gayrimenkul.Mahalle_Id = gayrimenkulModel.Mahalle_Id;
+                        gayrimenkul.GayrimenkulDurum_Id = gayrimenkulModel.GayrimenkulDurum_Id;
+                        gayrimenkul.BinaKimlikNo = gayrimenkulModel.BinaKimlikNo;
+                        gayrimenkul.NumaratajKimlikNo = gayrimenkulModel.NumaratajKimlikNo;
+                        gayrimenkul.AdresNo = gayrimenkulModel.AdresNo;
+                        gayrimenkul.Cadde = gayrimenkulModel.Cadde;
+                        gayrimenkul.Sokak = gayrimenkulModel.Sokak;
+                        gayrimenkul.DisKapiNo = gayrimenkulModel.DisKapiNo;
+                        gayrimenkul.IcKapiNo = gayrimenkulModel.IcKapiNo;
+                        gayrimenkul.AcikAdres = gayrimenkulModel.AcikAdres;
+                        gayrimenkul.Koordinat = gayrimenkulModel.Koordinat;
+                        gayrimenkul.Ada = gayrimenkulModel.Ada;
+                        gayrimenkul.Pafta = gayrimenkulModel.Pafta;
+                        gayrimenkul.Parsel = gayrimenkulModel.Parsel;
+                        gayrimenkul.GayrimenkulNo = gayrimenkulModel.GayrimenkulNo;
+                        gayrimenkul.DosyaNo = gayrimenkulModel.DosyaNo;
+                        gayrimenkul.AracKapasitesi = gayrimenkulModel.AracKapasitesi;
+                        gayrimenkul.Metrekare = gayrimenkulModel.Metrekare;
                         gayrimenkul.OlusturulmaTarihi = DateTime.Now;
                         gayrimenkul.OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null);
                         gayrimenkul = _gayrimenkulservice.Guncelle(gayrimenkul);
@@ -330,7 +330,7 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
 
                     }
                     if (gayrimenkul != null)
-                        GayrimenkulDosyaEkle(gayrimenkul.Id, model.GayrimenkulDosyalar);
+                        GayrimenkulDosyaEkle(gayrimenkul.Id, gayrimenkulModel.GayrimenkulDosyalar);
 
                     ModelState.AddModelError("LogMessage", "Gayrimenkul Bilgisi Düzenlendi.");
                     return RedirectToAction("Index");
@@ -338,17 +338,17 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
                 catch (Exception ex)
                 {
                     ModelState.AddModelError("LogMessage", "Gayrimenkul Bilgisi Düzenlenirken Hata Oluştu.");
-                    model.Errors.Add(ex.Message);
+                    gayrimenkulModel.Errors.Add(ex.Message);
                 }
             }
             else
             {
                 ModelState.AddModelError("LogMessage", "Gayrimenkul Bilgisi Düzenlenemedi.");
-                model.Errors = new List<string>();
-                model.Errors.Add(VMErrors.ValidationError);
+                gayrimenkulModel.Errors = new List<string>();
+                gayrimenkulModel.Errors.Add(VMErrors.ValidationError);
             }
 
-            return View(model);
+            return View(gayrimenkulModel);
         }
 
         #endregion
