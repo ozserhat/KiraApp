@@ -41,6 +41,7 @@ namespace Framework.WebServis.Clients
             }
             catch (Exception ex)
             {
+                ex.Message.ToString();
                 tahakkukSonuc.HataKodu.ToString();
                 return null;
             }
@@ -92,6 +93,7 @@ namespace Framework.WebServis.Clients
             }
             catch (Exception ex)
             {
+                ex.Message.ToString();
                 tahakkukSonuc.HataKodu.ToString();
                 return null;
             }
@@ -131,6 +133,7 @@ namespace Framework.WebServis.Clients
             }
             catch (Exception ex)
             {
+                ex.Message.ToString();
                 tahakkukSonuc.HataKodu.ToString();
                 return null;
             }

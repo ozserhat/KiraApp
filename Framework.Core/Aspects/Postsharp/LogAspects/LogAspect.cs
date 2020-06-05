@@ -19,10 +19,12 @@ namespace Framework.Core.Aspects.Postsharp.LogAspects
     [AttributeUsage(AttributeTargets.Class)]
     public class LogAspect : Attribute, IActionFilter, IExceptionFilter
     {
-        private Type _loggerType;
+        private readonly Type _loggerType;
         private LoggerService _loggerService;
         private static readonly ILog _log = LogManager.GetLogger("DatabaseLogger");
         public string LogMessage { get; set; }
+
+        public Type LoggerType => _loggerType;
 
         public LogAspect(Type loggerType)
         {
@@ -42,7 +44,7 @@ namespace Framework.Core.Aspects.Postsharp.LogAspects
             var httpContext = HttpContext.Current;
             claimsIdentity = httpContext.User.Identity as ClaimsIdentity;
             string actionType = "";
-            var controllerActionDescriptor = filterContext.ActionDescriptor as ActionDescriptor;
+            ActionDescriptor controllerActionDescriptor = filterContext.ActionDescriptor;
 
             var request = filterContext.HttpContext.Request;
 

@@ -1,15 +1,11 @@
-﻿using Framework.WebUI.App_Helpers;
-using System.Web.Mvc;
-using PagedList;
-using System.Web.Mvc;
-using Framework.Business.Abstract;
+﻿using Framework.Business.Abstract;
 using Framework.Entities.Concrete;
 using Framework.WebUI.App_Helpers;
 using Framework.WebUI.Helpers;
-using Framework.WebUI.Models;
 using Framework.WebUI.Models.ViewModels;
+using PagedList;
 using System.Linq;
-using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace Framework.WebUI.Areas.Admin.Controllers
 {
@@ -18,10 +14,15 @@ namespace Framework.WebUI.Areas.Admin.Controllers
     {
         #region Constructor
 
-        private IDuyuruService _service;
-        private IKira_BeyanService _kiraBeyanService;
-        private IDuyuru_BildirimService _bildirimService;
-        private ISicilService _sicilService;
+        private readonly IDuyuruService _service;
+        private readonly IKira_BeyanService _kiraBeyanService;
+        private readonly IDuyuru_BildirimService _bildirimService;
+        private readonly ISicilService _sicilService;
+
+        public IDuyuruService Service => _service;
+
+        public IKira_BeyanService KiraBeyanService => _kiraBeyanService;
+
         public AnasayfaController(IDuyuruService service,
             IDuyuru_BildirimService bildirimService,
             ISicilService sicilService, IKira_BeyanService kiraBeyanService)
@@ -42,7 +43,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult _bildirimListesi()
+        public ActionResult BildirimListesi()
         {
             int kullaniciId = 0;
 
@@ -51,10 +52,11 @@ namespace Framework.WebUI.Areas.Admin.Controllers
 
             var bildirimListe = _bildirimService.GetirKullaniciMesajlari(kullaniciId);
 
-            var model = new DuyuruBildirimVM();
-
-            model.PageNumber = 1;
-            model.PageSize = 15;
+            DuyuruBildirimVM model = new DuyuruBildirimVM
+            {
+                PageNumber = 1,
+                PageSize = 15
+            };
 
             if (bildirimListe != null)
             {

@@ -18,7 +18,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
     {
         #region Constructor
 
-        private ILogService _service;
+        private readonly ILogService _service;
 
         public LogsController(ILogService service)
         {
@@ -28,15 +28,16 @@ namespace Framework.WebUI.Areas.Admin.Controllers
 
         #region Listeleme
 
-        public ActionResult Index(int? page, int pageSize = 15)
+        public ActionResult Index()
         {
             var loglar = _service.GetAll();
 
-            var model = new LogsVM();
-
-            model.JsonDeserializeLog = new List<LogsVM>();
+            var model = new LogsVM
+            {
+                JsonDeserializeLog = new List<LogsVM>()
+            };
             //var lgs = loglar.Select(x => x.Detail.ToString()).ToList();
-            
+
 
             foreach (var item in loglar)
             {
@@ -64,6 +65,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
+                ex.Message.ToString();
                 ModelState.AddModelError("LogMessage", "Log Detay Bilgisi Görüntüleme Esnasında Hata Oluştu!!!");
                 return Json(new { success = false, Message = "Log Detay Bilgisi Görüntüleme Esnasında Hata Oluştu!!!" }, JsonRequestBehavior.AllowGet);
             }

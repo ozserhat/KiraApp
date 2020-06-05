@@ -18,9 +18,9 @@ namespace Framework.WebUI.Areas.Admin.Controllers
     {
         #region Constructor
 
-        private IDuyuruService _service;
+        private readonly IDuyuruService _service;
 
-        private IDuyuru_BildirimService _bildirimService;
+        private readonly IDuyuru_BildirimService _bildirimService;
 
         public DuyuruBildirimController(IDuyuruService service,
             IDuyuru_BildirimService bildirimService)
@@ -33,10 +33,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
 
         // GET: Admin/DuyuruBildirim
         #region Listeleme
-        public ActionResult Index(int? page, int pageSize = 15)
-        {
-            return View();
-        }
+        public ActionResult Index() => View();
 
         public ActionResult BildirimListesi(int? page, int pageSize = 15)
         {
@@ -47,10 +44,11 @@ namespace Framework.WebUI.Areas.Admin.Controllers
 
             var bildirimListe = _bildirimService.GetirKullaniciMesajlari(kullaniciId);
 
-            var model = new DuyuruBildirimVM();
-
-            model.PageNumber = page ?? 1;
-            model.PageSize = pageSize;
+            var model = new DuyuruBildirimVM
+            {
+                PageNumber = page ?? 1,
+                PageSize = pageSize
+            };
 
             if (bildirimListe != null)
             {
@@ -62,7 +60,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
             ModelState.AddModelError("LogMessage", "Duyuru Bildirim Mesajları Getirildi.");
 
             return View(model);
-        } 
+        }
         #endregion
 
         #region Detay 
@@ -72,12 +70,13 @@ namespace Framework.WebUI.Areas.Admin.Controllers
         {
             try
             {
-                var detay = _service.Getir(Id); 
+                var detay = _service.Getir(Id);
                 ModelState.AddModelError("LogMessage", "Duyuru Detay Bilgisi Görüntülendi.");
                 return Json(new { Data = detay, success = true, Message = "Duyuru Detay Bilgisi Görüntülendi." }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
+                ex.Message.ToString();
                 ModelState.AddModelError("LogMessage", "Duyuru Detay Bilgisi Görüntüleme Esnasında Hata Oluştu!!!");
                 return Json(new { success = false, Message = "Duyuru Detay Bilgisi Görüntüleme Esnasında Hata Oluştu!!!" }, JsonRequestBehavior.AllowGet);
             }
