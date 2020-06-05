@@ -49,7 +49,7 @@ namespace Framework.WebUI.App_Helpers
                   .Build();
                 scheduler.ScheduleJob(job, trigger);
             }
-            catch (Exception ex) { }
+            catch (Exception ex) { ex.Message.ToString(); }
         }
     }
 }

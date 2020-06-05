@@ -1,20 +1,10 @@
-﻿using Framework.WebUI.App_Helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Web;
-using System.Web.Mvc;
-using System.Linq;
-using System.Web;
-using PagedList;
-using System.Web.Mvc;
-using Framework.Business.Abstract;
+﻿using Framework.Business.Abstract;
 using Framework.Entities.Concrete;
-using Framework.WebUI.App_Helpers;
 using Framework.WebUI.Helpers;
-using Framework.WebUI.Models;
 using Framework.WebUI.Models.ViewModels;
+using PagedList;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace Framework.WebUI.Controllers
 {
@@ -22,9 +12,11 @@ namespace Framework.WebUI.Controllers
     {
         #region Constructor
 
-        private IDuyuruService _service;
+        private readonly IDuyuruService _service;
 
-        private IDuyuru_BildirimService _bildirimService;
+        private readonly IDuyuru_BildirimService _bildirimService;
+
+        public IDuyuruService Service => _service;
 
         public HomeController(IDuyuruService service,
             IDuyuru_BildirimService bildirimService)
@@ -40,7 +32,7 @@ namespace Framework.WebUI.Controllers
         }
 
         [HttpGet]
-        public ActionResult _bildirimListesi()
+        public ActionResult BildirimListesi()
         {
             int kullaniciId = 0;
 
@@ -49,10 +41,11 @@ namespace Framework.WebUI.Controllers
 
             var bildirimListe = _bildirimService.GetirKullaniciMesajlari(kullaniciId);
 
-            var model = new DuyuruBildirimVM();
-
-            model.PageNumber = 1;
-            model.PageSize = 15;
+            DuyuruBildirimVM model = new DuyuruBildirimVM
+            {
+                PageNumber = 1,
+                PageSize = 15
+            };
 
             if (bildirimListe != null)
             {

@@ -34,6 +34,7 @@ namespace Framework.WebServis.Clients
             }
             catch (Exception ex)
             {
+                ex.Message.ToString();
                 return null;
             }
         }

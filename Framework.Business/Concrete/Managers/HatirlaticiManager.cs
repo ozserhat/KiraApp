@@ -18,7 +18,7 @@ namespace Framework.Business.Concrete.Managers
     [DisallowConcurrentExecution]
     public class HatirlaticiManager : IHatirlaticiService, IJob
     {
-        private ITahakkukDal _tahakkukDal;
+        private readonly ITahakkukDal _tahakkukDal;
 
         public HatirlaticiManager(ITahakkukDal tahakkukDal)
         {

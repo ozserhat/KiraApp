@@ -21,9 +21,9 @@ namespace Framework.WebUI.Controllers
 {
     public class AccountController : Controller
     {
-        private IUserService _userService;
-        private IDuyuru_BildirimService _bildirimService;
-        private IUserPermissionsService _userPermissions;
+        private readonly IUserService _userService;
+        private readonly IDuyuru_BildirimService _bildirimService;
+        private readonly IUserPermissionsService _userPermissions;
 
         private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
 
@@ -77,8 +77,9 @@ namespace Framework.WebUI.Controllers
 
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
+                ex.Message.ToString();
                 throw new ArgumentOutOfRangeException();
             }
             return RedirectToAction("Login");

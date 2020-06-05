@@ -16,9 +16,13 @@ namespace Framework.WebUI.Areas.Kira.Controllers
     {
         #region Constructor
 
-        private IDuyuruService _service;
+        private readonly IDuyuruService _service;
 
-        private IDuyuru_BildirimService _bildirimService;
+        private readonly IDuyuru_BildirimService _bildirimService;
+
+        public IDuyuruService Service => _service;
+
+        public IDuyuru_BildirimService BildirimService => _bildirimService;
 
         public AnasayfaController(IDuyuruService service,
             IDuyuru_BildirimService bildirimService)
@@ -39,24 +43,25 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult _bildirimListesi()
+        public ActionResult BildirimListesi()
         {
             int kullaniciId = 0;
 
             if (User.GetUserPropertyValue("UserId") != null)
                 kullaniciId = int.Parse(User.GetUserPropertyValue("UserId"));
 
-            var bildirimListe = _bildirimService.GetirKullaniciMesajlari(kullaniciId);
+            var bildirimListe = BildirimService.GetirKullaniciMesajlari(kullaniciId);
 
-            var model = new DuyuruBildirimVM();
-
-            model.PageNumber = 1;
-            model.PageSize = 15;
+            DuyuruBildirimVM model = new DuyuruBildirimVM
+            {
+                PageNumber = 1,
+                PageSize = 15
+            };
 
             if (bildirimListe != null)
             {
-                TempData["MesajSayisi"] = _bildirimService.OkunmamisMesajSayisi(kullaniciId);
-                model.MesajSayisi = _bildirimService.OkunmamisMesajSayisi(kullaniciId);
+                TempData["MesajSayisi"] = BildirimService.OkunmamisMesajSayisi(kullaniciId);
+                model.MesajSayisi = BildirimService.OkunmamisMesajSayisi(kullaniciId);
                 model.DuyuruBildirimleri = new StaticPagedList<Duyuru_Bildirim>(bildirimListe, model.PageNumber, model.PageSize, bildirimListe.Count());
                 model.TotalRecordCount = bildirimListe.Count();
             }
