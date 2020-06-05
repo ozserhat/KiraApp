@@ -85,6 +85,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             }
             catch (Exception ex)
             {
+                ex.Message.ToString();
                 return "000001";
             }
         }
