@@ -14,23 +14,13 @@ namespace Framework.WebUI.Areas.Admin.Controllers
     {
         #region Constructor
 
-        private readonly IDuyuruService _service;
-        private readonly IKira_BeyanService _kiraBeyanService;
         private readonly IDuyuru_BildirimService _bildirimService;
-        private readonly ISicilService _sicilService;
 
-        public IDuyuruService Service => _service;
 
-        public IKira_BeyanService KiraBeyanService => _kiraBeyanService;
-
-        public AnasayfaController(IDuyuruService service,
-            IDuyuru_BildirimService bildirimService,
-            ISicilService sicilService, IKira_BeyanService kiraBeyanService)
+        public AnasayfaController(
+            IDuyuru_BildirimService bildirimService)
         {
-            _service = service;
-            _sicilService = sicilService;
             _bildirimService = bildirimService;
-            _kiraBeyanService = kiraBeyanService;
         }
 
         #endregion
@@ -69,15 +59,6 @@ namespace Framework.WebUI.Areas.Admin.Controllers
             ModelState.AddModelError("LogMessage", "Duyuru Bildirim Mesajları Getirildi.");
             return PartialView("~/Views/Shared/_bildirimListesi.cshtml", model);
         }
-
-        [HttpPost]
-        public ActionResult SicilSorgulama(string VergiNo, string TcKimlikNo)
-        {
-            var sicilBilgisi = _sicilService.GetirSicilBilgisi(VergiNo, TcKimlikNo);
-            return View("Index", sicilBilgisi);
-        }
-
-
 
         #endregion
     }
