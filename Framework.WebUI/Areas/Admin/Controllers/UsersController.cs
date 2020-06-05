@@ -84,7 +84,8 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                         if (result.Id > 0)
                             return Json(new { Message = "Kullanıcı Bilgisi Başarıyla Kaydedildi.", success = true }, JsonRequestBehavior.AllowGet);
                     }
-                    else
+                    else 
+
                     return Json(new { Message = "Aynı Kullanıcı Adıyla Bir Kullanıcı Mevcut!!!", success = false }, JsonRequestBehavior.AllowGet);
 
                 }
