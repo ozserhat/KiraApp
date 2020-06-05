@@ -319,16 +319,16 @@
 
     <!--Para Formatı -->
     @*<script type="text/javascript">
-        $('.moneyFormat').change(function (e) {
-            //$('.moneyFormat').formatCurrency();
+            $('.moneyFormat').change(function (e) {
+                //$('.moneyFormat').formatCurrency();
 
-            var money = $(this).val();
+                var money = $(this).val();
 
-            money = money.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+                money = money.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
 
-            $(this).val(money)
-        });
-    </script>*@
+                $(this).val(money)
+            });
+        </script>*@
 
     <!--Datetime Picker Format -->
     <script type="text/javascript">
@@ -755,7 +755,7 @@
     <!--KiraTutariHesaplama-->
     <script type="text/javascript">
         $(document).on("change keyup blur", "#KiraTutari", function () {
-
+            var id = $(this).val();
             var it = $('#IhaleTutari').val();
             var ss = $('#SozlesmeSuresi').val();
             var kt = $('#KiraTutari').val();
@@ -770,32 +770,70 @@
             kt = kt.replace(/\./g, '');
             it = it.replace(/\./g, '');
 
+            if (id = 1) {  //yıllık
+                if (kt != null && ss != null && it != null) {
 
-            if (kt != null && ss != null && it != null) {
+                    var result = (it / ss);
 
-                var dec = (ss * 12);
-                var result = (it / dec);
+                    $('#result').val(result);
+                    var uyari = $('#dvTutarUyari');
 
+                    if (result == kt) {
+                        kt = result;
+                        uyari.hide();
+                    }
+                    else {
+                        uyari.show();
+                    }
 
-                $('#result').val(result);
-                var uyari = $('#dvTutarUyari');
-
-                if (result == kt) {
-                    kt = result;
-                    uyari.hide();
                 }
-                else {
-                    uyari.show();
-                }
-
             }
+            else if (id = 2) {  //aylık
+                if (kt != null && ss != null && it != null) {
+
+                    var dec = (ss * 12);
+                    var result = (it / dec);
+
+
+                    $('#result').val(result);
+                    var uyari = $('#dvTutarUyari');
+
+                    if (result == kt) {
+                        kt = result;
+                        uyari.hide();
+                    }
+                    else {
+                        uyari.show();
+                    }
+
+                }
+            }
+            else {  // 3 aylık
+                if (kt != null && ss != null && it != null) {
+
+                    var dec = (ss * 4);
+                    var result = (it / dec);
+
+                    $('#result').val(result);
+                    var uyari = $('#dvTutarUyari');
+
+                    if (result == kt) {
+                        kt = result;
+                        uyari.hide();
+                    }
+                    else {
+                        uyari.show();
+                    }
+                }
+            }
+
         });
     </script>
-  
+
     <!--Custom Validation-->
     <script type="text/javascript">
         var sozlesmeTarihi, sozlesmeBitisTarihi;
-        $.validator.addMethod("baslangicTarihi", function (value, element) {
+        $.validator.addMethod("sozlesmeTarihi", function (value, element) {
 
             var durum = true;
 
