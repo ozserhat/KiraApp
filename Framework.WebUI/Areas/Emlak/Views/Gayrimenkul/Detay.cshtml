@@ -400,23 +400,39 @@
                                                         </form>
                                                     </div>
                                                 </div>
+                                                <div class="form-actions sonStep" style="margin-right: -18px;">
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <ul class="pager wizard no-margin no-steps-container">
+                                                                <li class="previous disabled">
+                                                                    <a href="javascript:void(0);" class="btn btn-lg btn-default" id="btnGeri"> Geri </a>
+                                                                </li>
+                                                                <li class="next">
+                                                                    <a href="javascript:void(0);" id="btnIleri" class="btn btn-lg txt-color-darken"> İlerle</a>
+                                                                    <div id="loadingbtnIleri" class="hide" style="float:right;"><i class="fa fa-spinner fa-spin fa-2x"></i> İşleminiz yapılıyor ...</div>
+                                                                </li>
+                                                                <li class="finish" style="float: right; margin-right: 15px; display: block;">
+                                                                    <div id="dvSonKaydet" class="hide" style="float:right;"><i class="fa fa-spinner fa-spin fa-2x"></i> İşleminiz yapılıyor ...</div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <div role="contentinfo">
-                                <div class="widget-body">
-                                    <div class="tab-pane fade active in">
-                                        <div class="form-group">
-                                            <div class="col-md-12">
+                            @*<div role="contentinfo">
+                                    <div class="widget-body">
+                                        <div class="tab-pane fade active in">
+                                            <div class="form-group">
+                                                <div class="col-md-12">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-
+                                </div>*@
                         </div>
                     </div>
                 </article>
@@ -520,36 +536,50 @@
     <!--Tab Control-->
     <script type="text/javascript">
 
-        $(document).ready(function () {
-            const wizard = $('#wizard');
+            $(document).ready(function () {
+                const wizard = $('#wizard');
 
-            wizard.bootstrapWizard({
-                'tabClass': 'nav nav-pills',
-                onTabClick: function (tab, navigation, index) {
-                    return true;
-                },
-                onNext: function (tab, navigation, index) {
-                },
-                onTabShow: function (tab, navigation, index) {
+                wizard.bootstrapWizard({
+                    'tabClass': 'nav nav-pills',
 
-                    const $total = navigation.find('li').length;
-                    const $current = index + 1;
+                    onTabClick: function (tab, navigation, index) {
+                        return true;
+                    },
+                    onNext: function (tab, navigation, index) {
 
-                    const pager = wizard.find('.pager');
-
-                    if ($current >= $total) {
-                        pager.find('.next').hide();
-                        pager.find('.finish').show();
-                        pager.find('.finish').removeClass('disabled');
-
-                    } else {
-                        pager.find('.next').show();
-                        pager.find('.finish').hide();
+                    if (index == 1) {
+                        return true;
                     }
-                }
-            });
+                    else if (index == 2) {
+                        return true;
+                    }
+                    else if (index == 3) {
+                        return true;
+                    }
+                    else if (index == 4) {
+                        return false;
+                    }
+                 
+                },
+                    onTabShow: function (tab, navigation, index) {
 
-        });
-    </script>
+                        const $total = navigation.find('li').length;
+                        const $current = index + 1;
+
+                        const pager = wizard.find('.pager');
+
+                        if ($current >= $total) {
+                            pager.find('.next').hide();
+                            pager.find('.finish').show();
+                            pager.find('.finish').removeClass('disabled');
+
+                        } else {
+                            pager.find('.next').show();
+                            pager.find('.finish').hide();
+                        }
+                    }
+                });
+            });
+        </script>
 
 }

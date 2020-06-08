@@ -393,11 +393,11 @@
             var dosyaAdi = $(this).val().replace(/C:\\fakepath\\/, '');
             $("#BeyanDosyaTur_" + DosyaTipi_Id).val(dosyaAdi);
             var regex = new RegExp("(.*?)\.(pdf)$");
-            if (!(regex.test(dosyaAdi))) {
-                UyariVer("Hata", "Sadece PDF Dosyası Yükleyebilirsiniz.", false, 4000);
-                $("#yanlis_" + DosyaTipi_Id).show();
-                Dosya = "";
-            }
+            //if (!(regex.test(dosyaAdi))) {
+            //    UyariVer("Hata", "Sadece PDF Dosyası Yükleyebilirsiniz.", false, 4000);
+            //    $("#yanlis_" + DosyaTipi_Id).show();
+            //    Dosya = "";
+            //}
             var fileUpload = $("#DosyaTur_" + DosyaTipi_Id).get(0);
 
             var files = evt.target.files[0];
@@ -469,7 +469,7 @@
             wizard.bootstrapWizard({
                 'tabClass': 'nav nav-pills',
                 onTabClick: function (tab, navigation, index) {
-                    return false;
+                    return true;
                 },
                 onNext: function (tab, navigation, index) {
 
