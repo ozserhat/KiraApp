@@ -54,7 +54,7 @@
 
                                     <div id="wizard-1" novalidate="novalidate">
                                         <div id="bootstrap-wizard-1" class="col-sm-12">
-                                            @using (Html.BeginForm("Duzenle", "Gayrimenkul", FormMethod.Post, new { enctype = "multipart/form-data", id = "submitForm" }))
+                                            @using (Html.BeginForm("Index", "Gayrimenkul", FormMethod.Post, new { enctype = "multipart/form-data", id = "submitForm" }))
                                             {
                                                 @Html.AntiForgeryToken()
                                                 @Html.HiddenFor(x => x.Guid)
@@ -535,7 +535,7 @@
 
                             setTimeout(function () {
 
-                                window.location.href = "../Emlak/Gayrimenkul/Index";
+                                window.location.href = "../Gayrimenkul/Index";
                             }, 2000);
                         }
                         else {
