@@ -373,6 +373,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             #region Beyan Pasife Alma İşlemi
             if (kiraBeyanModel.Beyan.Id > 0)
             {
+                islemler.PasifeAlinanlar = new KiraBeyanModel();
                 //Tahakkuk kaydı varsa ödenen güncellenmesine izin verilmeyecek.
                 BeyanPasifeAl(kiraBeyanModel, ref islemler);
                 kiraBeyanModel.Beyan.Id = 0;
@@ -665,7 +666,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
             KiraBeyanIslemleri islemler = new KiraBeyanIslemleri();
             islemler.Kapananlar = new KiraBeyanModel();
-            
+
             var beyan = _beyanService.Getir(beyanKapamaModel.Beyan_Id);
 
             var tahakkuk = _tahakkukService.GetirListe(beyanKapamaModel.KiraBeyan_Id);
@@ -1359,6 +1360,10 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             var kiraBeyan = _kiraBeyanService.Getir(kiraBeyanModel.Beyan.Id, kiraBeyanModel.Gayrimenkul.Id, kiraBeyanModel.Kiraci.Id);
             var beyan = _beyanService.Getir(kiraBeyanModel.Beyan.Id);
 
+            islemler.PasifeAlinanlar.Tahakkuklar = new List<Tahakkuk>();
+            islemler.PasifeAlinanlar.KiraBeyan = new Kira_Beyan();
+            islemler.PasifeAlinanlar.Beyan = new Beyan();
+
             islemler.PasifeAlinanlar.Tahakkuklar.AddRange(tahakkukListesi);
             islemler.PasifeAlinanlar.KiraBeyan = kiraBeyan;
             islemler.PasifeAlinanlar.Beyan = beyan;
@@ -1392,6 +1397,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         private bool BeyanPasifeAl(KiraArtisEkleVM artisModel, ref KiraBeyanIslemleri islemler)
         {
             bool sonuc = false;
+            islemler.Kapananlar = new KiraBeyanModel();
+            islemler.Kapananlar.Tahakkuklar = new List<Tahakkuk>();
 
             var tahakkukListesi = _tahakkukService.GetirListe(artisModel.Beyan_Id);
 
