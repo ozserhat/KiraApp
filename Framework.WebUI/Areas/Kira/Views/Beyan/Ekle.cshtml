@@ -149,7 +149,7 @@
                                                                         <div class="col-md-6">
                                                                             @Html.HiddenFor(x => x.Gayrimenkul.Id)
                                                                             @Html.HiddenFor(model => model.Kiraci.Id)
-                                                                            @Html.HiddenFor(model => model.Beyan.Id)
+                                                                           
                                                                             @if (guidId == null)
                                                                             {
                                                                                 using (Ajax.BeginForm("GetirGayrimenkulBilgi", "Beyan", new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "dvGayrimenkulForm", OnSuccess = "onSuccess" }, new { enctype = "multipart/form-data", id = "gayrimenkulForm" }))
@@ -228,6 +228,7 @@
                                                                 </legend>
                                                                 <form class="form-horizontal" id="beyanForm" novalidate="novalidate">
                                                                     @Html.AntiForgeryToken()
+                                                                    @Html.HiddenFor(model => model.Beyan.Id)
                                                                     <fieldset>
                                                                         @{ Html.RenderPartial("_BeyanPartial", Model.Beyan); }
                                                                     </fieldset>
@@ -428,11 +429,12 @@
 
         function BelgeEkle(gayrimenkulId) {
 
-            var $valid = $("#BelgeEkleForm").valid();
-            if (!$valid) {
-                $validatorBelgeEkle.focusInvalid();
-                return false;
-            } else {
+            //var $valid = $("#BelgeEkleForm").valid();
+            //if (!$valid) {
+            //    $validatorBelgeEkle.focusInvalid();
+            //    return false;
+            //} else
+            {
 
                 $("#path").val("");
 
@@ -468,7 +470,7 @@
             wizard.bootstrapWizard({
                 'tabClass': 'nav nav-pills',
                 onTabClick: function (tab, navigation, index) {
-                    return false;
+                    return true;
                 },
                 onNext: function (tab, navigation, index) {
 
@@ -495,7 +497,8 @@
                         }
                     }
                     else if (index == 3) {
-                        if ($('#beyanForm').valid()) {
+                        if ($('#beyanForm').valid())
+                        {
                             return true;
                         }
                         else {
@@ -666,7 +669,7 @@
                 }
 
                 var beyanBilgi = {
-                    Id: $('#Beyan_Id option:selected').text(),
+                    Id: $('#Beyan_Id').val(),
                     BeyanTur_Id: $('#BeyanTur_Id').val(),
                     KiraDurum_Id: $('#KiraDurum_Id').val(),
                     OdemePeriyotTur_Id: $('#OdemePeriyotTur_Id').val(),

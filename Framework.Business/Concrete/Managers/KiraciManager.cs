@@ -60,8 +60,6 @@ namespace Framework.Business.Concrete.Managers
             return _kiraciDal.GetirVergiNo(VergiNo);
         }
 
-
-
         public Kiraci Guncelle(Kiraci kiraci)
         {
             return _kiraciDal.Update(kiraci);
@@ -71,5 +69,6 @@ namespace Framework.Business.Concrete.Managers
         {
             return _kiraciDal.Delete(id);
         }
+
     }
 }
