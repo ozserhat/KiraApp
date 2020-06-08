@@ -250,6 +250,7 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Artış Türü")]
         public SelectList ArtisTuruSelectList { get; set; }
 
+
         [Display(Name = "Kira Yenileme Periyotu")]
         public SelectList KiraYenilemePeriyotSelectList { get; set; }
 
