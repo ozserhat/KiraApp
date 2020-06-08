@@ -91,7 +91,7 @@
             $('#btnSubmit').on('click', function () {
                 tur = new Object();
                 tur.DosyaTurAdi = $("#DosyaTurAdi").val();
-                tur.KapatmaMi = $("#KapatmaMi").val();
+                tur.KapatmaMi = $("#KapatmaMi").is(":checked");
                 tur.AktifMi = $("#AktifMi").val();
 
                 if($("#submitForm").valid())

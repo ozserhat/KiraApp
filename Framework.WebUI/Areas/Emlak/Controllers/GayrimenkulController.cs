@@ -292,7 +292,7 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
 
 
         [HttpPost]
-        public ActionResult Duzenle(GayrimenkulDuzenleVM gayrimenkulModel)
+        public JsonResult Duzenle(GayrimenkulDuzenleVM gayrimenkulModel)
         {
             if (ModelState.IsValid)
             {
@@ -334,7 +334,7 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
                         GayrimenkulDosyaEkle(gayrimenkul.Id, gayrimenkulModel.GayrimenkulDosyalar);
 
                     ModelState.AddModelError("LogMessage", "Gayrimenkul Bilgisi Düzenlendi.");
-                    return RedirectToAction("Index");
+                    return Json(new { Message = "Gayrimenkul Bilgisi Başarıyla Kaydedildi.", success = true }, JsonRequestBehavior.AllowGet);
                 }
                 catch (Exception ex)
                 {
@@ -349,7 +349,7 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
                 gayrimenkulModel.Errors.Add(VMErrors.ValidationError);
             }
 
-            return View(gayrimenkulModel);
+            return Json(new { Message = "Gayrimenkul Bilgisi Başarıyla Kaydedildi.", success = true }, JsonRequestBehavior.AllowGet);
         }
 
         #endregion
