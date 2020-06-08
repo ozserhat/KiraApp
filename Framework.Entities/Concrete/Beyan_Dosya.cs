@@ -35,5 +35,11 @@ namespace Framework.Entities.Concrete
 
         public bool? AktifMi { get; set; }
 
+        [NotMapped]
+        public string BeyanDosya { get; set; }
+
+        [NotMapped]
+        public string FilePath { get; set; }
+
     }
 }

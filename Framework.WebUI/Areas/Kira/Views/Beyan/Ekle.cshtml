@@ -428,11 +428,12 @@
 
         function BelgeEkle(gayrimenkulId) {
 
-            var $valid = $("#BelgeEkleForm").valid();
-            if (!$valid) {
-                $validatorBelgeEkle.focusInvalid();
-                return false;
-            } else {
+            //var $valid = $("#BelgeEkleForm").valid();
+            //if (!$valid) {
+            //    $validatorBelgeEkle.focusInvalid();
+            //    return false;
+            //} else 
+            {
 
                 $("#path").val("");
 
@@ -495,12 +496,13 @@
                         }
                     }
                     else if (index == 3) {
-                        if ($('#beyanForm').valid()) {
+                        //if ($('#beyanForm').valid())
+                        {
                             return true;
                         }
-                        else {
-                            return false;
-                        }
+                        //else {
+                        //    return false;
+                        //}
                     }
                     else if (index == 4) {
                         return false;
@@ -703,14 +705,14 @@
                    BeyanDosyalar: beyanDosyalar
                 };
 
-                if ($("#beyanForm").valid())
-                {
+                //if ($("#beyanForm").valid())
+                //{
                    $.ajax({
                     type: 'Post',
                     url: '@Url.Action("KiraBeyanEkle", "Beyan")',
                        data: { kiraBeyanModel: kiraBeyanModel },
                        beforeSend: function () {
-                           $.LoadingOverlay("show", { text: "Beyan Bilgileri Kaydediliyor...", textResizeFactor: 0.2, background: "rgba(0, 0, 0, 0.5)" });
+                           //$.LoadingOverlay("show", { text: "Beyan Bilgileri Kaydediliyor...", textResizeFactor: 0.2, background: "rgba(0, 0, 0, 0.5)" });
                        },
                     success: function (result) {
                         if (result != null && result.success) {
@@ -728,7 +730,7 @@
                         swal('Uyarı!', result.Message, 'warning');
                     }
                  });
-                }
+                //}
             });
         });
     </script>

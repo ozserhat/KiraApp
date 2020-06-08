@@ -22,6 +22,7 @@ namespace Framework.Business.Abstract
         string BeyanNoUret(int Yil);
 
         bool TransactionTest(Beyan beyan, List<Beyan_Dosya> dosya);
+        bool KiraBeyanIslemleri(KiraBeyanIslemleri islemler);
 
     }
 }
