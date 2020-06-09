@@ -13,11 +13,11 @@ namespace Framework.Business.Concrete.Managers
 {
     public class TahakkukManager : ITahakkukService
     {
-        private ITahakkukDal _tahakkukDal;
+        private readonly ITahakkukDal _tahakkukDal;
 
         public TahakkukManager(ITahakkukDal tahakkukDal)
         {
-            _tahakkukDal= tahakkukDal;
+            _tahakkukDal = tahakkukDal;
         }
 
         public Tahakkuk Ekle(Tahakkuk tahakkuk)
@@ -25,9 +25,11 @@ namespace Framework.Business.Concrete.Managers
             return _tahakkukDal.Add(tahakkuk);
         }
 
-        public bool Ekle(IEnumerable<Tahakkuk> entities)
+        public bool Ekle(List<Tahakkuk> entities)
         {
-            return _tahakkukDal.Add(entities);
+            var result = _tahakkukDal.Add(entities);
+
+            return result.Count() > 0 ? true : false;
         }
 
         public Tahakkuk GetByGuid(Guid guid)
@@ -75,7 +77,7 @@ namespace Framework.Business.Concrete.Managers
         {
             return _tahakkukDal.GetirListeBeyanId(KiraBeyanId);
         }
-      
+
         public Tahakkuk Guncelle(Tahakkuk tahakkuk)
         {
             return _tahakkukDal.Update(tahakkuk);

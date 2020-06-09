@@ -21,8 +21,6 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             }
         }
 
-      
-
         public bool Delete(int id)
         {
             bool sonuc = false;
