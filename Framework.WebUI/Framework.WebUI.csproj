@@ -1772,6 +1772,7 @@
     <Content Include="Scripts\speech\voicecommand.min.js" />
     <None Include="Scripts\_references.js" />
     <Content Include="Scripts\sweetalert.min.js" />
+    <Content Include="Scripts\table2excel.js" />
     <Content Include="Scripts\__jquery.validate.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

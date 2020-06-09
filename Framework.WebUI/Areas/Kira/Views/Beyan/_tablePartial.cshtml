@@ -66,12 +66,12 @@
                         }
                     </td>
                     <td class="text-center">
-                        @if (item.OlusturulmaTarihi >= DateTime.Now.AddDays(-1))
-                        {
+                        @*@if (item.OlusturulmaTarihi >= DateTime.Now.AddDays(-1))
+                        {*@
                             @Html.AuthAction(" ", "Ekle", "Beyan", new { id = item.Beyanlar.Guid },
                                       new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue", @data_name = item.Beyanlar.BeyanNo, @data_id = item.Beyanlar.Id },
                                       Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
-                        }
+                        @*}*@
 
                         @Html.AuthAction(" ", "BeyanDetay", "Beyan", new { item.Beyanlar.Guid },
                                         new { @class = "no-underline margin-right-5 fa fa-search-plus font-md txt-color-blue", @data_name = item.Beyanlar.BeyanNo, @data_id = item.Beyanlar.Id },

@@ -156,7 +156,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                 query = request.OdemePeriyotTur_Id.HasValue ? query.Where(x => x.Beyanlar.OdemePeriyotTur_Id == request.OdemePeriyotTur_Id) : query;
                 query = request.Gayrimenkul_Id.HasValue ? query.Where(x => x.Gayrimenkul_Id == request.Gayrimenkul_Id) : query;
                 query = request.Ilce_Id.HasValue ? query.Where(x => x.Gayrimenkuller.Ilce_Id == request.Ilce_Id) : query;
-                query = request.Mahalle_Id.HasValue ? query.Where(x => x.Gayrimenkuller.Mahalle_Id == request.Ilce_Id) : query;
+                query = request.Mahalle_Id.HasValue ? query.Where(x => x.Gayrimenkuller.Mahalle_Id == request.Mahalle_Id) : query;
                 query = request.BaslangicTaksitNo.HasValue ? query.Where(x => x.Beyanlar.BaslangicTaksitNo == request.BaslangicTaksitNo) : query;
                 query = request.KiraTutari.HasValue ? query.Where(x => x.Beyanlar.KiraTutari == request.KiraTutari) : query;
                 query = request.IhaleTutari.HasValue ? query.Where(x => x.Beyanlar.IhaleTutari == request.IhaleTutari) : query;

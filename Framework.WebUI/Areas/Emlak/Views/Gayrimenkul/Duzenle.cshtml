@@ -560,11 +560,11 @@
             var dosyaAdi = $(this).val().replace(/C:\\fakepath\\/, '');
             $("#gayrimenkulDosya_" + BasvuruGrupTipi_DosyaTipi_Id).val(dosyaAdi);
             var regex = new RegExp("(.*?)\.(pdf)$");
-            if (!(regex.test(dosyaAdi))) {
-                UyariVer("Hata", "Sadece PDF Dosyası Yükleyebilirsiniz.", false, 4000);
-                $("#yanlis_" + BasvuruGrupTipi_DosyaTipi_Id ).show();
-                Dosya = "";
-            }
+            //if (!(regex.test(dosyaAdi))) {
+            //    UyariVer("Hata", "Sadece PDF Dosyası Yükleyebilirsiniz.", false, 4000);
+            //    $("#yanlis_" + BasvuruGrupTipi_DosyaTipi_Id ).show();
+            //    Dosya = "";
+            //}
             var fileUpload = $("#dosya" + BasvuruGrupTipi_DosyaTipi_Id).get(0);
 
             var files = evt.target.files[0];

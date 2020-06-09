@@ -149,7 +149,7 @@
                                                                         <div class="col-md-6">
                                                                             @Html.HiddenFor(x => x.Gayrimenkul.Id)
                                                                             @Html.HiddenFor(model => model.Kiraci.Id)
-                                                                            @Html.HiddenFor(model => model.Beyan.Id)
+                                                                           
                                                                             @if (guidId == null)
                                                                             {
                                                                                 using (Ajax.BeginForm("GetirGayrimenkulBilgi", "Beyan", new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "dvGayrimenkulForm", OnSuccess = "onSuccess" }, new { enctype = "multipart/form-data", id = "gayrimenkulForm" }))
@@ -228,6 +228,7 @@
                                                                 </legend>
                                                                 <form class="form-horizontal" id="beyanForm" novalidate="novalidate">
                                                                     @Html.AntiForgeryToken()
+                                                                    @Html.HiddenFor(model => model.Beyan.Id)
                                                                     <fieldset>
                                                                         @{ Html.RenderPartial("_BeyanPartial", Model.Beyan); }
                                                                     </fieldset>
@@ -318,17 +319,17 @@
     </style>
 
     <!--Para Formatı -->
-    @*<script type="text/javascript">
-        $('.moneyFormat').change(function (e) {
-            //$('.moneyFormat').formatCurrency();
+    <script type="text/javascript">
+            $('.moneyFormat').change(function (e) {
+                //$('.moneyFormat').formatCurrency();
 
-            var money = $(this).val();
+                var money = $(this).val();
 
-            money = money.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+                money = money.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
 
-            $(this).val(money)
-        });
-    </script>*@
+                $(this).val(money)
+            });
+        </script>
 
     <!--Datetime Picker Format -->
     <script type="text/javascript">
@@ -393,11 +394,11 @@
             var dosyaAdi = $(this).val().replace(/C:\\fakepath\\/, '');
             $("#BeyanDosyaTur_" + DosyaTipi_Id).val(dosyaAdi);
             var regex = new RegExp("(.*?)\.(pdf)$");
-            if (!(regex.test(dosyaAdi))) {
-                UyariVer("Hata", "Sadece PDF Dosyası Yükleyebilirsiniz.", false, 4000);
-                $("#yanlis_" + DosyaTipi_Id).show();
-                Dosya = "";
-            }
+            //if (!(regex.test(dosyaAdi))) {
+            //    UyariVer("Hata", "Sadece PDF Dosyası Yükleyebilirsiniz.", false, 4000);
+            //    $("#yanlis_" + DosyaTipi_Id).show();
+            //    Dosya = "";
+            //}
             var fileUpload = $("#DosyaTur_" + DosyaTipi_Id).get(0);
 
             var files = evt.target.files[0];
@@ -428,11 +429,12 @@
 
         function BelgeEkle(gayrimenkulId) {
 
-            var $valid = $("#BelgeEkleForm").valid();
-            if (!$valid) {
-                $validatorBelgeEkle.focusInvalid();
-                return false;
-            } else {
+            //var $valid = $("#BelgeEkleForm").valid();
+            //if (!$valid) {
+            //    $validatorBelgeEkle.focusInvalid();
+            //    return false;
+            //} else
+            {
 
                 $("#path").val("");
 
@@ -468,7 +470,7 @@
             wizard.bootstrapWizard({
                 'tabClass': 'nav nav-pills',
                 onTabClick: function (tab, navigation, index) {
-                    return false;
+                    return true;
                 },
                 onNext: function (tab, navigation, index) {
 
@@ -495,7 +497,8 @@
                         }
                     }
                     else if (index == 3) {
-                        if ($('#beyanForm').valid()) {
+                        if ($('#beyanForm').valid())
+                        {
                             return true;
                         }
                         else {
@@ -666,7 +669,7 @@
                 }
 
                 var beyanBilgi = {
-                    Id: $('#Beyan_Id option:selected').text(),
+                    Id: $('#Beyan_Id').val(),
                     BeyanTur_Id: $('#BeyanTur_Id').val(),
                     KiraDurum_Id: $('#KiraDurum_Id').val(),
                     OdemePeriyotTur_Id: $('#OdemePeriyotTur_Id').val(),
@@ -755,7 +758,7 @@
     <!--KiraTutariHesaplama-->
     <script type="text/javascript">
         $(document).on("change keyup blur", "#KiraTutari", function () {
-
+            var id = $(this).val();
             var it = $('#IhaleTutari').val();
             var ss = $('#SozlesmeSuresi').val();
             var kt = $('#KiraTutari').val();
@@ -770,32 +773,70 @@
             kt = kt.replace(/\./g, '');
             it = it.replace(/\./g, '');
 
+            if (id = 1) {  //yıllık
+                if (kt != null && ss != null && it != null) {
 
-            if (kt != null && ss != null && it != null) {
+                    var result = (it / ss);
 
-                var dec = (ss * 12);
-                var result = (it / dec);
+                    $('#result').val(result);
+                    var uyari = $('#dvTutarUyari');
 
+                    if (result == kt) {
+                        kt = result;
+                        uyari.hide();
+                    }
+                    else {
+                        uyari.show();
+                    }
 
-                $('#result').val(result);
-                var uyari = $('#dvTutarUyari');
-
-                if (result == kt) {
-                    kt = result;
-                    uyari.hide();
                 }
-                else {
-                    uyari.show();
-                }
-
             }
+            else if (id = 2) {  //aylık
+                if (kt != null && ss != null && it != null) {
+
+                    var dec = (ss * 12);
+                    var result = (it / dec);
+
+
+                    $('#result').val(result);
+                    var uyari = $('#dvTutarUyari');
+
+                    if (result == kt) {
+                        kt = result;
+                        uyari.hide();
+                    }
+                    else {
+                        uyari.show();
+                    }
+
+                }
+            }
+            else {  // 3 aylık
+                if (kt != null && ss != null && it != null) {
+
+                    var dec = (ss * 4);
+                    var result = (it / dec);
+
+                    $('#result').val(result);
+                    var uyari = $('#dvTutarUyari');
+
+                    if (result == kt) {
+                        kt = result;
+                        uyari.hide();
+                    }
+                    else {
+                        uyari.show();
+                    }
+                }
+            }
+
         });
     </script>
-  
+
     <!--Custom Validation-->
     <script type="text/javascript">
         var sozlesmeTarihi, sozlesmeBitisTarihi;
-        $.validator.addMethod("baslangicTarihi", function (value, element) {
+        $.validator.addMethod("sozlesmeTarihi", function (value, element) {
 
             var durum = true;
 
