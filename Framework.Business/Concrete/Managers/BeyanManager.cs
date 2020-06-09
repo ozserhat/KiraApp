@@ -91,7 +91,7 @@ namespace Framework.Business.Concrete.Managers
         }
         public bool KiraBeyanIslemleri(KiraBeyanIslemleri islemler)
         {
-            var result = false;
+            bool result = false;
             using (TransactionScope scope = new TransactionScope())
             {
                 try
@@ -101,7 +101,7 @@ namespace Framework.Business.Concrete.Managers
                     if (islemler.Kapananlar != null)
                         KapananBeyanBilgileri(islemler.PasifeAlinanlar);
                     if (islemler.Eklenenler != null)
-                        EklenecekBeyanBilgileri(islemler.Eklenenler);
+                        result= EklenecekBeyanBilgileri(islemler.Eklenenler);
                     scope.Complete();
                     return result;
                 }
@@ -114,8 +114,10 @@ namespace Framework.Business.Concrete.Managers
             return result;
         }
 
-        private void EklenecekBeyanBilgileri(KiraBeyanModel eklenenler)
+        private bool EklenecekBeyanBilgileri(KiraBeyanModel eklenenler)
         {
+            bool sonuc = false;
+
             var sicilId = eklenenler.KiraBeyan.Kiraci_Id;
             var beyanId = 0;
             var kiraBeyanId = 0;
@@ -131,6 +133,7 @@ namespace Framework.Business.Concrete.Managers
             }
             if (eklenenler.KiraBeyan != null)
             {
+                eklenenler.KiraBeyan.Beyan_Id = eklenenler.Beyan.Id;
                 var kiraBeyan = KiraBeyanEkle(eklenenler.KiraBeyan);
                 kiraBeyanId = kiraBeyan.Id;
             }
@@ -144,7 +147,12 @@ namespace Framework.Business.Concrete.Managers
             {
                 kiraBeyanId = kiraBeyanId == 0 ? eklenenler.Tahakkuklar.FirstOrDefault().Id : kiraBeyanId;
                 TahakukListesiKaydet(eklenenler.Tahakkuklar, kiraBeyanId);
+
+                if (eklenenler.Tahakkuklar.Last().Id > 0)
+                    sonuc = true;
             }
+
+            return sonuc;
         }
 
         private Kira_Beyan KiraBeyanEkle(Kira_Beyan kiraBeyan)
