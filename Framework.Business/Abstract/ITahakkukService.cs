@@ -19,7 +19,7 @@ namespace Framework.Business.Abstract
         Tahakkuk GetirKiraci(int KiraciId);
         Tahakkuk GetirGayrimenkul(int GayrimenkulId);
         Tahakkuk Ekle(Tahakkuk tahakkuk);
-        bool Ekle(IEnumerable<Tahakkuk> entities);
+        bool Ekle(List<Tahakkuk> entities);
         Tahakkuk Guncelle(Tahakkuk tahakkuk);
         bool Sil(int id);
        

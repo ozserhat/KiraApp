@@ -9,7 +9,7 @@ namespace Framework.Business.Concrete.Managers
 {
     public class Duyuru_TurManager : IDuyuru_TurService
     {
-        private IDuyuru_TurDal _duyuru_TurDal;
+        private readonly IDuyuru_TurDal _duyuru_TurDal;
 
         public Duyuru_TurManager(IDuyuru_TurDal duyuru_TurDal)
         {

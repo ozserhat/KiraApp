@@ -2,6 +2,7 @@
 ////using Framework.Core.Aspects.Postsharp.LogAspects;
 ////using Framework.Core.Aspects.Postsharp.PerformanceAspects;
 using Framework.Core.Aspects.Postsharp.LogAspects;
+using Framework.Core.Aspects.Postsharp.TransactionAspects;
 using Framework.Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using System;
 using System.Reflection;
