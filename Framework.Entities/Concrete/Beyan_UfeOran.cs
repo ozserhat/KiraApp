@@ -15,6 +15,8 @@ namespace Framework.Entities.Concrete
         [StringLength(500)]
         public string Ad { get; set; }
 
+        public int Tur_Id { get; set; }
+
         public int Yil { get; set; }
 
         public int Ay { get; set; }

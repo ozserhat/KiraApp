@@ -18,6 +18,9 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Ödeme Periyodu")]
         public SelectList OdemePeriyotSelectList { get; set; }
 
+        [Display(Name = "Tur")]
+        public SelectList TurSelectList { get; set; }
+
         [Display(Name = "Gayrimenkuller")]
         public SelectList GayrimenkulSelectList { get; set; }
 
@@ -250,6 +253,8 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Artış Türü")]
         public SelectList ArtisTuruSelectList { get; set; }
 
+        [Display(Name = "Artış Tipi")]
+        public SelectList ArtisTipiSelectList { get; set; }
 
         [Display(Name = "Kira Yenileme Periyotu")]
         public SelectList KiraYenilemePeriyotSelectList { get; set; }

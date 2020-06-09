@@ -6,6 +6,7 @@ namespace Framework.Business.Abstract
     public interface IBeyan_UfeOranService
     {
         IEnumerable<Beyan_UfeOran> GetirListe();
+        IEnumerable<Beyan_UfeOran> GetirList(int? parametreId);
         IEnumerable<Beyan_UfeOran> GetirListeAktif();
         Beyan_UfeOran Getir(int id);
 

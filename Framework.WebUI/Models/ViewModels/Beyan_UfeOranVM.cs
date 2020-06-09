@@ -20,13 +20,16 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Adı")]
         public string Adi { get; set; }
 
+        [Display(Name = "Türü")]
+        public int Tur_Id { get; set; }
+
         [Display(Name = "Beyan Yıl")]
         public int? Yil { get; set; }
 
         [Display(Name = "Beyan Ay")]
         public int? Ay { get; set; }
 
-        [Display(Name = "Üfe Oranı")]
+        [Display(Name = "Üfe/Tüfe Oranı")]
         [Required(ErrorMessage ="Lütfen Geçerli Bir Değer Giriniz")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:N2}")]
         public decimal? Oran { get; set; }
@@ -36,6 +39,9 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Ay")]
         public SelectList AySelectList { get; set; }
+
+        [Display(Name = "Türü")]
+        public SelectList TurSelectList { get; set; }
 
         [Display(Name = "Oluşturan Kullanıcı")]
         public int? OlusturanKullanici_Id { get; set; }
@@ -58,13 +64,16 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Adı")]
         public string Adi { get; set; }
 
+        [Display(Name = "Türü")]
+        public int Tur_Id { get; set; }
+
         [Display(Name = "Beyan Yıl")]
         public string Yil { get; set; }
 
         [Display(Name = "Beyan Ay")]
         public string Ay { get; set; }
 
-        [Display(Name = "Üfe Oranı")]
+        [Display(Name = "Üfe/Tüfe Oranı")]
         public decimal? Oran { get; set; }
 
         [Display(Name = "Yıl")]
@@ -72,6 +81,9 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Ay")]
         public SelectList AySelectList { get; set; }
+
+        [Display(Name = "Türü")]
+        public SelectList TurSelectList { get; set; }
 
         [Display(Name = "Güncelleyen Kullanıcı")]
         public int? GuncelleyenKullanici_Id { get; set; }
