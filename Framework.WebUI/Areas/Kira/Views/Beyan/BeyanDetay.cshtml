@@ -867,7 +867,7 @@
                                                             </form>
                                                         </div>
 
-                                                        <div class="tab-pane" id="tab5" style="width:15%">
+                                                        <div class="tab-pane" id="tab5">
                                                             <legend>
                                                                 <h3><strong>5. Adım </strong> - Tahakkuk Bilgileri</h3>
                                                             </legend>
@@ -1251,113 +1251,113 @@
                                                 <input type="hidden" id="ArtisGayrimenkulId" value="@Model.Gayrimenkul_Id" />
 
                                                 @*<div class="row">
-                                                    <div id="damgaKararDiv" class="row" style="display:none;">
-                                                        <div class="col-md-8">
-                                                            <div class="form-group">
-                                                                <div class="input-group" style="width: 100%;">
-                                                                    @Html.Label("Damga/Karar Artış Türü", new { @class = "control-label col-md-4" })
-                                                                    <div class="col-md-8">
-                                                                        @Html.DropDownList("DamgaKararArtisTuru", Model.ArtisTuruSelectList, "Seçiniz", new { @class = "select2" })
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>*@
-                                                    <div class="row">
-                                                        <div class="col-md-8">
-                                                            <div class="form-group">
-                                                                <div class="input-group" style="width: 100%;">
-                                                                    @Html.LabelFor(model => model.UfeOranlari, new { @class = "control-label col-md-4 zorunluYildiz" })
-                                                                    <div class="col-md-8">
-                                                                        @Html.DropDownList("UfeOran_Id", Model.UfeOranlari, "Seçiniz", new { @class = "select2 required" })
-                                                                        @Html.ValidationMessage("UfeOran_Id", "Lütfen seçiniz!", new { @class = "text-danger" })
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-8">
-                                                            <div class="form-group">
-                                                                <div class="input-group" style="width: 100%;">
-                                                                    @Html.Label("Encümen No", new { @class = "control-label col-md-4 zorunluYildiz" })
-                                                                    <div class="col-md-8">
-                                                                        @Html.TextBox("ArtisEncumenNo", "", new { @class = "form-control col-md-4 required" })
-                                                                        @Html.ValidationMessage("ArtisEncumenNo", "Bu alanın doldurulması zorunludur!", new { @class = "text-danger" })
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-8">
-                                                            <div class="form-group">
-                                                                <div class="input-group" style="width: 100%;">
-                                                                    @Html.Label("Encümen Tarihi", new { @class = "control-label col-md-4 zorunluYildiz" })
-
-                                                                    <div class="col-md-8">
-                                                                        <div class="input-group date datetimepicker">
-                                                                            @Html.TextBox("ArtisEncumenTarihi", "", new { @class = "form-control col-md-4 datepicker required" })
-                                                                            <span class="input-group-addon" id="openDate">
-                                                                                <span class="glyphicon glyphicon-calendar"></span>
-                                                                            </span>
-                                                                            @Html.ValidationMessage("ArtisEncumenTarihi", new { @class = "text-danger" })
+                                                        <div id="damgaKararDiv" class="row" style="display:none;">
+                                                            <div class="col-md-8">
+                                                                <div class="form-group">
+                                                                    <div class="input-group" style="width: 100%;">
+                                                                        @Html.Label("Damga/Karar Artış Türü", new { @class = "control-label col-md-4" })
+                                                                        <div class="col-md-8">
+                                                                            @Html.DropDownList("DamgaKararArtisTuru", Model.ArtisTuruSelectList, "Seçiniz", new { @class = "select2" })
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                    </div>*@
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.LabelFor(model => model.UfeOranlari, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                                <div class="col-md-8">
+                                                                    @Html.DropDownList("UfeOran_Id", Model.UfeOranlari, "Seçiniz", new { @class = "select2 required" })
+                                                                    @Html.ValidationMessage("UfeOran_Id", "Lütfen seçiniz!", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div class="row">
-                                                        <div class="col-md-8">
-                                                            <div class="form-group">
-                                                                <div class="input-group" style="width: 100%;">
-                                                                    @Html.Label("Damga/Karar Alınacak Mı?", new { @class = "control-label col-md-4" })
-                                                                    <div class="col-md-8">
-                                                                        @Html.CheckBox("DamgaKararAlinacakMi", new { @style = "width: 16px; height: 16px;" })
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.Label("Encümen No", new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                                <div class="col-md-8">
+                                                                    @Html.TextBox("ArtisEncumenNo", "", new { @class = "form-control col-md-4 required" })
+                                                                    @Html.ValidationMessage("ArtisEncumenNo", "Bu alanın doldurulması zorunludur!", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.Label("Encümen Tarihi", new { @class = "control-label col-md-4 zorunluYildiz" })
+
+                                                                <div class="col-md-8">
+                                                                    <div class="input-group date datetimepicker">
+                                                                        @Html.TextBox("ArtisEncumenTarihi", "", new { @class = "form-control col-md-4 datepicker required" })
+                                                                        <span class="input-group-addon" id="openDate">
+                                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                                        </span>
+                                                                        @Html.ValidationMessage("ArtisEncumenTarihi", new { @class = "text-danger" })
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div id="damgaKararDiv" class="row" style="display:none;">
-                                                        <div class="col-md-8">
-                                                            <div class="form-group">
-                                                                <div class="input-group" style="width: 100%;">
-                                                                    @Html.Label("Damga/Karar Artış Türü", new { @class = "control-label col-md-4" })
-                                                                    <div class="col-md-8">
-                                                                        @Html.DropDownList("DamgaKararArtisTuru", Model.ArtisTuruSelectList, "Seçiniz", new { @class = "select2" })
-                                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.Label("Damga/Karar Alınacak Mı?", new { @class = "control-label col-md-4" })
+                                                                <div class="col-md-8">
+                                                                    @Html.CheckBox("DamgaKararAlinacakMi", new { @style = "width: 16px; height: 16px;" })
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="row">
-                                                        <div class="col-md-8">
-                                                            <div class="form-group">
-                                                                <div class="input-group" style="width: 100%;">
-                                                                    @Html.Label("Teminat Alınacak Mı?", new { @class = "control-label col-md-4 zorunluYildiz" })
-                                                                    <div class="col-md-8">
-                                                                        @Html.CheckBox("TeminatAlinacakMi", new { @style = "width: 16px; height: 16px;" })
-                                                                    </div>
+                                                </div>
+                                                <div id="damgaKararDiv" class="row" style="display:none;">
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.Label("Damga/Karar Artış Türü", new { @class = "control-label col-md-4" })
+                                                                <div class="col-md-8">
+                                                                    @Html.DropDownList("DamgaKararArtisTuru", Model.ArtisTuruSelectList, "Seçiniz", new { @class = "select2" })
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div id="teminatDiv" class="row" style="display:none;">
-                                                        <div class="col-md-8">
-                                                            <div class="form-group">
-                                                                <div class="input-group" style="width: 100%;">
-                                                                    @Html.Label("Teminat Artış Türü", new { @class = "control-label col-md-4 zorunluYildiz" })
-                                                                    <div class="col-md-8">
-                                                                        @Html.DropDownList("TeminatArtisTuru", Model.ArtisTuruSelectList, "Seçiniz", new { @class = "select2" })
-                                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.Label("Teminat Alınacak Mı?", new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                                <div class="col-md-8">
+                                                                    @Html.CheckBox("TeminatAlinacakMi", new { @style = "width: 16px; height: 16px;" })
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-</fieldset>
+                                                </div>
+                                                <div id="teminatDiv" class="row" style="display:none;">
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.Label("Teminat Artış Türü", new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                                <div class="col-md-8">
+                                                                    @Html.DropDownList("TeminatArtisTuru", Model.ArtisTuruSelectList, "Seçiniz", new { @class = "select2" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
                                         </form>
                                     </div>
                                 </div>
