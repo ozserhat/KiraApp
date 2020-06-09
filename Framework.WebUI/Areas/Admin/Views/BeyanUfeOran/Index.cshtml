@@ -2,7 +2,8 @@
 @model Framework.WebUI.Models.ViewModels.Beyan_UfeOranVM
 @using PagedList;
 @using PagedList.Mvc;
-
+@using Framework.WebUI.Helpers;
+@using Framework.Entities.Enums;
 @{
     int sonSayfa = 0;
     ViewBag.Title = "Index";
@@ -40,7 +41,7 @@
                             <h2>Beyan Üfe Oran Listesi - <b>Toplam Adedi : @Model.TotalRecordCount</b></h2>
                             <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
                                 <p>
-                                    @Html.AuthActionLink(" Üfe Ekle", "Ekle", "BeyanUfeOran", "btn btn-primary",
+                                    @Html.AuthActionLink("Tüfe / Üfe Ekle", "Ekle", "BeyanUfeOran", "btn btn-primary",
                                    "glyphicon glyphicon-plus", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                                 </p>
                             </div>
@@ -57,7 +58,8 @@
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Adı</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Yıl</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Ay</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Üfe Oranı</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Artış Türü</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Tüfe/Üfe Oranı</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 250px;">Durum</th>
                                                         <th class="sorting_disabled text-center" rowspan="1" colspan="1" style="text-align: right;  padding-right: 30px; width: 100px;">İşlem</th>
                                                     </tr>
@@ -70,33 +72,34 @@
 
                                                         @foreach (var item in Model.Beyan_UfeOranListe)
                                                         {
-                                                        <tr role="row" class="odd">
-                                                            <td>@(i++)</td>
-                                                            <td>@Html.DisplayFor(model => item.Ad)</td>
-                                                            <td>@Html.DisplayFor(model => item.Yil)</td>
-                                                            <td>@Html.DisplayFor(model => item.Ay)</td>
-                                                            <td>@Html.DisplayFor(model => item.Oran)</td>
-                                                            <td>
-                                                                @if (item.AktifMi.HasValue && item.AktifMi.Value)
-                                                                {
-                                                                    <b class="label aktif-buton">Aktif</b>
-                                                                }
-                                                                else
-                                                                {
-                                                                    <b class="label pasif-buton">Pasif</b>
-                                                                }
-                                                            </td>
-                                                            <td class="text-center">
-                                                                @Html.AuthAction(" ", "Duzenle", "BeyanUfeOran", new { item.Guid },
-                                                                        new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
-                                                                        Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                                                            <tr role="row" class="odd">
+                                                                <td>@(i++)</td>
+                                                                <td>@Html.DisplayFor(model => item.Ad)</td>
+                                                                <td>@Html.DisplayFor(model => item.Yil)</td>
+                                                                <td>@Html.DisplayFor(model => item.Ay)</td>
+                                                                <td>@Html.Label(EnumHelper<EnmArtisTuru>.GetDisplayValue((EnmArtisTuru)item.ArtisTuru).ToString())</td>
+                                                                <td>@Html.DisplayFor(model => item.Oran)</td>
+                                                                <td>
+                                                                    @if (item.AktifMi.HasValue && item.AktifMi.Value)
+                                                                    {
+                                                                        <b class="label aktif-buton">Aktif</b>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <b class="label pasif-buton">Pasif</b>
+                                                                    }
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    @Html.AuthAction(" ", "Duzenle", "BeyanUfeOran", new { item.Guid },
+                                                                            new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
+                                                                            Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
-                                                                @Html.AuthAction(" ", "Sil", "BeyanUfeOran", new { item.Id },
-                                                                                new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = item.Ad, @data_id = item.Id },
-                                                                                Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                                                                    @Html.AuthAction(" ", "Sil", "BeyanUfeOran", new { item.Id },
+                                                                                    new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = item.Ad, @data_id = item.Id },
+                                                                                    Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
-                                                            </td>
-                                                        </tr>
+                                                                </td>
+                                                            </tr>
                                                         }
                                                     </tbody>
                                                 }

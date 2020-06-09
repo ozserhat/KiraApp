@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using Framework.WebUI.App_Helpers;
 using Framework.WebUI.Models.ViewModels;
 using iTextSharp.text.pdf.qrcode;
+using Framework.Entities.Enums;
 
 namespace Framework.WebUI.Areas.Admin.Controllers
 {
@@ -135,12 +136,14 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                     {
                         Guid = Guid.NewGuid(),
                         Ad = ufeOran.Adi,
-                        Yil= ufeOran.Yil.Value,
-                        Ay= ufeOran.Ay.Value,
-                        Oran= ufeOran.Oran,
+                        Yil = ufeOran.Yil.Value,
+                        Ay = ufeOran.Ay.Value,
+                        Oran = ufeOran.Oran,
                         OlusturulmaTarihi = DateTime.Now,
                         OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
-                        AktifMi = true
+                        AktifMi = true,
+                        ArtisTuru = ufeOran.ArtisTuruId,
+
                     };
 
                     var result = _service.Ekle(beyanOran);
@@ -180,7 +183,8 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                 model.GuncelleyenKullanici_Id = oran.GuncelleyenKullanici_Id;
                 model.GuncellenmeTarihi = oran.GuncellenmeTarihi;
                 model.AktifMi = oran.AktifMi.Value;
-
+                model.ArtisTuruId = oran.ArtisTuru;
+                model.ArtisTuru = ((EnmArtisTuru)oran.ArtisTuru);
                 model.YilSelectList = YilSelectList();
                 model.AySelectList = AySelectList();
             }
@@ -214,6 +218,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                         User.GetUserPropertyValue("UserId") : null);
                         oran.GuncellenmeTarihi = DateTime.Now;
                         oran.AktifMi = model.AktifMi;
+                        oran.ArtisTuru = (int)model.ArtisTuru;
                         oran = _service.Guncelle(oran);
                     }
 

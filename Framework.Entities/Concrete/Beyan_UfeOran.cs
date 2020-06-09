@@ -30,5 +30,6 @@ namespace Framework.Entities.Concrete
         public DateTime? GuncellenmeTarihi { get; set; }
 
         public bool? AktifMi { get; set; }
+        public int ArtisTuru { get; set; }
     }
 }

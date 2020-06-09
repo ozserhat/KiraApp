@@ -3,6 +3,7 @@ using PagedList;
 using System.Web.Mvc;
 using Framework.Entities.Concrete;
 using System.ComponentModel.DataAnnotations;
+using Framework.Entities.Enums;
 
 namespace Framework.WebUI.Models.ViewModels
 {
@@ -27,7 +28,7 @@ namespace Framework.WebUI.Models.ViewModels
         public int? Ay { get; set; }
 
         [Display(Name = "Üfe Oranı")]
-        [Required(ErrorMessage ="Lütfen Geçerli Bir Değer Giriniz")]
+        [Required(ErrorMessage = "Lütfen Geçerli Bir Değer Giriniz")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:N2}")]
         public decimal? Oran { get; set; }
 
@@ -45,6 +46,9 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Aktif Mi")]
         public bool AktifMi { get; set; }
+        [Display(Name = "Artış Türü")]
+        public EnmArtisTuru ArtisTuru { get; set; }
+        public int ArtisTuruId { get; set; }
     }
 
     public class Beyan_UfeOranDuzenleVM : VMBase
@@ -81,5 +85,9 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Aktif Mi")]
         public bool AktifMi { get; set; }
+        [Display(Name = "Artış Türü")]
+        public EnmArtisTuru ArtisTuru { get; set; }
+        public int ArtisTuruId { get; set; }
+
     }
 }
