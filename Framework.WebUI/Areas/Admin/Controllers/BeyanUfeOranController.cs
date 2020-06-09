@@ -21,13 +21,14 @@ namespace Framework.WebUI.Areas.Admin.Controllers
         #region Constructor
 
         private IBeyan_UfeOranService _service;
-
         private ISistemParametre_DetayService _parametreService;
+        private IBeyan_UfeOranService _beyanUfeOranService;
 
-        public BeyanUfeOranController(IBeyan_UfeOranService service, ISistemParametre_DetayService parametreService)
+        public BeyanUfeOranController(IBeyan_UfeOranService service, ISistemParametre_DetayService parametreService, IBeyan_UfeOranService beyanUfeOranService)
         {
             _service = service;
             _parametreService = parametreService;
+            _beyanUfeOranService = beyanUfeOranService;
         }
         #endregion
 
@@ -112,6 +113,22 @@ namespace Framework.WebUI.Areas.Admin.Controllers
             return new SelectList(aylar, "Deger", "Ad");
         }
 
+        public SelectList TurSelectList()
+        {
+            List<SelectListItem> newList = new List<SelectListItem>() {
+                                  new SelectListItem(){
+                                    Text="Üfe",
+                                    Value="1"
+                                  },
+                                    new SelectListItem(){
+                                    Text="Tüfe",
+                                    Value="2"
+                                    }
+            };
+
+            return new SelectList(newList, "Value", "Text");
+        }
+
         #endregion
 
         #region Ekle
@@ -122,6 +139,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
             var model = new Beyan_UfeOranEkleVM();
             model.YilSelectList = YilSelectList();
             model.AySelectList = AySelectList();
+            model.TurSelectList = TurSelectList();
             return View(model);
         }
 
@@ -135,6 +153,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                     Beyan_UfeOran beyanOran = new Beyan_UfeOran()
                     {
                         Guid = Guid.NewGuid(),
+                        Tur_Id = ufeOran.Tur_Id,
                         Ad = ufeOran.Adi,
                         Yil = ufeOran.Yil.Value,
                         Ay = ufeOran.Ay.Value,
@@ -176,6 +195,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
             {
                 model.Id = oran.Id;
                 model.Guid = oran.Guid;
+                model.Tur_Id = oran.Tur_Id;
                 model.Adi = oran.Ad;
                 model.Yil = oran.Yil.ToString();
                 model.Ay = oran.Ay.ToString();
@@ -187,6 +207,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                 model.ArtisTuru = ((EnmArtisTuru)oran.ArtisTuru);
                 model.YilSelectList = YilSelectList();
                 model.AySelectList = AySelectList();
+                model.TurSelectList = TurSelectList();
             }
             else
             {
@@ -210,6 +231,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                     {
                         oran.Id = model.Id;
                         oran.Guid = model.Guid;
+                        oran.Tur_Id = model.Tur_Id;
                         oran.Ad = model.Adi;
                         oran.Yil = int.Parse(model.Yil);
                         oran.Ay = int.Parse(model.Ay);

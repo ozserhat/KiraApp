@@ -53,6 +53,15 @@
 
                                                 <div class="row">
                                                     <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
+                                                        @Html.LabelFor(model => Model.TurSelectList, new { @class = "col-md-4 font-bold zorunluYildiz" })
+                                                        <div class="col-md-8">
+                                                            @Html.DropDownListFor(x => x.Tur_Id, Model.TurSelectList, "Seçiniz", new { @class = "select2 required" })
+                                                            @Html.ValidationMessageFor(model => model.TurSelectList, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6 col-lg-6 form-group col-xs-offset-2">
                                                         @Html.LabelFor(model => model.Adi, new { @class = "control-label col-md-4 zorunluYildiz" })
                                                         <div class="col-md-8">
                                                             @Html.TextBoxFor(model => model.Adi, new { @class = "form-control col-md-4 required" })
@@ -122,6 +131,7 @@
             $('#btnSubmit').on('click', function () {
                 debugger;
                 oran = new Object();
+                oran.Tur_Id = parseInt($("#Tur_Id").val());
                 oran.Adi = $("#Adi").val();
                 oran.Yil = parseInt($("#Yil option:selected").text());
                 oran.Ay = parseInt($("#Ay option:selected").val());
@@ -161,6 +171,8 @@
             document.getElementById("Oran").value = "";
             $('#Yil').select2("val", "");
             $('#Ay').select2("val", "");
+            $('#Tur_Id').select2("val", "");
+
         }
     </script>
 }

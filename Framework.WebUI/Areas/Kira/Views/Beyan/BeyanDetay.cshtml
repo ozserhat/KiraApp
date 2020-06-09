@@ -1250,20 +1250,18 @@
                                                 <input type="hidden" id="ArtisKiraTutari" value="@Model.Beyan.KiraTutari" />
                                                 <input type="hidden" id="ArtisGayrimenkulId" value="@Model.Gayrimenkul_Id" />
 
-                                                @*<div class="row">
-                                                    <div id="damgaKararDiv" class="row" style="display:none;">
-                                                        <div class="col-md-8">
-                                                            <div class="form-group">
-                                                                <div class="input-group" style="width: 100%;">
-                                                                    @Html.Label("Damga/Karar Artış Türü", new { @class = "control-label col-md-4" })
-                                                                    <div class="col-md-8">
-                                                                        @Html.DropDownList("DamgaKararArtisTuru", Model.ArtisTuruSelectList, "Seçiniz", new { @class = "select2" })
-                                                                    </div>
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.Label("Artış Tipi", new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                                <div class="col-md-8">
+                                                                    @Html.DropDownList("ArtisTipi", Model.ArtisTipiSelectList, "Seçiniz", new { @class = "select2 required" })
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>*@
+                                                </div>
                                                     <div class="row">
                                                         <div class="col-md-8">
                                                             <div class="form-group">

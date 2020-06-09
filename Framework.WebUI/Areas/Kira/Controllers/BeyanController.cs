@@ -474,6 +474,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 model.KiraDurumSelectList = _selectLists.KiraDurumFullSelectList();
                 model.UfeOranlari = _selectLists.UfeOranSelectList();
                 model.ArtisTuruSelectList = _selectLists.ArtisTuruSelectList();
+                model.ArtisTipiSelectList = _selectLists.ArtisTipiSelectList();
                 //model.KiraYenilemePeriyotSelectList = _selectLists.KiraYenilemePeriyotSelectList();
 
                 model.Beyan_Id = kiraBeyan.Beyan_Id;
