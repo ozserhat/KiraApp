@@ -105,7 +105,7 @@ namespace Framework.Business.Concrete.Managers
                     scope.Complete();
                     return result;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     scope.Dispose();
                 }
@@ -177,11 +177,9 @@ namespace Framework.Business.Concrete.Managers
 
         private bool PasifeAlinanBeyanBilgileri(KiraBeyanModel pasifealinan)
         {
-            var result = false;
             if (pasifealinan.Tahakkuklar.Where(x => x.OdemeDurumu == true).ToList().Count > 0)
             {
                 throw new Exception("Ödenmiş tahakukk bilgisi bulunmaktadır. Güncelleme işlemi yapılamaz.");
-                return result;
             }
             pasifealinan.Beyan.AktifMi = (int)EnmIslemDurumu.Pasif;
             Guncelle(pasifealinan.Beyan);
@@ -201,11 +199,9 @@ namespace Framework.Business.Concrete.Managers
 
         private bool KapananBeyanBilgileri(KiraBeyanModel pasifealinan)
         {
-            var result = false;
             if (pasifealinan.Tahakkuklar.Where(x => x.OdemeDurumu == true).ToList().Count > 0)
             {
                 throw new Exception("Ödenmiş tahakukk bilgisi bulunmaktadır. Güncelleme işlemi yapılamaz.");
-                return result;
             }
             pasifealinan.Beyan.AktifMi = (int)EnmIslemDurumu.Kapandı;
             Guncelle(pasifealinan.Beyan);

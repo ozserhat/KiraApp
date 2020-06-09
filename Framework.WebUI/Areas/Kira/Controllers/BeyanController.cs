@@ -368,8 +368,6 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             islemler.Eklenenler = new KiraBeyanModel();
 
 
-            bool beyanEkleSonuc = false;
-
             #region Beyan Pasife Alma İşlemi
             if (kiraBeyanModel.Beyan.Id > 0)
             {
@@ -584,7 +582,6 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         {
             bool pasifDurum, tahakkukDurum = false;
             KiraBeyanIslemleri islemler = new KiraBeyanIslemleri();
-            islemler.PasifeAlinanlar = new KiraBeyanModel();
             islemler.Eklenenler = new KiraBeyanModel();
 
             BeyanEkleVM ekleVM = GetirBeyanEkleVM(beyanArtis.Beyan_Id, true, beyanArtis);
@@ -1822,7 +1819,6 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         [HttpGet]
         private int BeyanEkle(BeyanEkleVM beyanBilgi, ref KiraBeyanIslemleri kiraBeyanIslemleri)
         {
-            Beyan result;
 
             if (beyanBilgi != null)
             {
@@ -1932,7 +1928,6 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         [HttpGet]
         private int BeyanEkle(BeyanEkleVM beyanBilgi)
         {
-            Beyan result;
 
             if (beyanBilgi != null)
             {
