@@ -20,13 +20,13 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
     {
         #region Constructor
 
-        private IIlceService _ilceService;
-        private IMahalleService _mahalleService;
-        private IGayrimenkulTurService _turService;
-        private IGayrimenkulService _gayrimenkulservice;
-        private IGayrimenkulDosya_TurService _dosyaTurService;
-        private IGayrimenkul_DosyaService _gayrimenkulDosyaService;
-        private IKira_DurumService _gayrimenkuldurumservice;
+        private readonly IIlceService _ilceService;
+        private readonly IMahalleService _mahalleService;
+        private readonly IGayrimenkulTurService _turService;
+        private readonly IGayrimenkulService _gayrimenkulservice;
+        private readonly IGayrimenkulDosya_TurService _dosyaTurService;
+        private readonly IGayrimenkul_DosyaService _gayrimenkulDosyaService;
+        private readonly IKira_DurumService _gayrimenkuldurumservice;
         public static GayrimenkulEkleVM _gayrimenkulVM;
 
         public GayrimenkulController(IGayrimenkulService gayrimenkulservice, IGayrimenkulTurService turService,
@@ -49,10 +49,11 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
         {
             var gayrimenkul = _gayrimenkulservice.GetirListeAktif();
 
-            var model = new GayrimenkulVM();
-
-            model.PageNumber = page ?? 1;
-            model.PageSize = pageSize;
+            var model = new GayrimenkulVM
+            {
+                PageNumber = page ?? 1,
+                PageSize = pageSize
+            };
 
             if (gayrimenkul != null)
             {
@@ -65,21 +66,21 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
 
         public SelectList TurSelectList()
         {
-            var turler = _turService.GetirListe().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+            var turler = _turService.GetirListe().Select(x => new {x.Id, x.Ad }).ToList();
 
             return new SelectList(turler, "Id", "Ad");
         }
 
         public SelectList IlceSelectList()
         {
-            var ilceler = _ilceService.GetirListe().Where(a => a.Il_Id == 6).Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+            var ilceler = _ilceService.GetirListe().Where(a => a.Il_Id == 6).Select(x => new { x.Id, x.Ad }).ToList();
 
             return new SelectList(ilceler, "Id", "Ad");
         }
 
         public SelectList MahalleSelectListGetir(int ilceId)
         {
-            var mahalleler = _mahalleService.GetirListe().Where(a => a.Ilce_Id == ilceId).Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+            var mahalleler = _mahalleService.GetirListe().Where(a => a.Ilce_Id == ilceId).Select(x => new { x.Id, x.Ad }).ToList();
 
             return new SelectList(mahalleler, "Id", "Ad");
         }
@@ -89,7 +90,7 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
 
         public JsonResult MahalleSelectList(int ilceId)
         {
-            var mahalleler = _mahalleService.GetirListe().Where(a => a.Ilce_Id == ilceId).Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+            var mahalleler = _mahalleService.GetirListe().Where(a => a.Ilce_Id == ilceId).Select(x => new { x.Id, x.Ad }).ToList();
 
             return Json(new { Data = mahalleler, success = true }, JsonRequestBehavior.AllowGet);
         }
@@ -97,7 +98,7 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
 
         public SelectList GayrimenkulDurumSelectList()
         {
-            var turler = _gayrimenkuldurumservice.GetirListe().Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+            var turler = _gayrimenkuldurumservice.GetirListe().Select(x => new { x.Id, x.Ad }).ToList();
 
             return new SelectList(turler, "Id", "Ad");
         }
@@ -127,7 +128,6 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
         private int GayrimenkulDosyaEkle(int gayrimenkulId, List<Gayrimenkul_DosyaVM> dosyalar)
         {
             Gayrimenkul_Dosya dosya = new Gayrimenkul_Dosya();
-            string dosyaAdi2 = "";
             string filePath = Server.MapPath("~/Dosyalar/Gayrimenkul/");
 
             if (dosyalar != null)
@@ -135,7 +135,7 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
                 foreach (var item in dosyalar)
                 {
                     Guid guidDosya = Guid.NewGuid();
-                    dosyaAdi2 = item.DosyaAdi.Split('.').Last();
+                    string dosyaAdi2 = item.DosyaAdi.Split('.').Last();
                     dosya.Guid = guidDosya;
                     dosya.GayrimenkulDosyaTur_Id = item.GayrimenkulDosyaTur_Id;
                     dosya.Gayrimenkul_Id = gayrimenkulId;
@@ -229,7 +229,7 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { Message = ex.Message, success = false }, JsonRequestBehavior.AllowGet);
+                return Json(new { ex.Message, success = false }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -240,12 +240,15 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
         [HttpGet]
         public ActionResult Duzenle(Guid guid)
         {
-            var model = new GayrimenkulDuzenleVM();
-            model.TurSelectList = TurSelectList();
-            model.IlceSelectList = IlceSelectList();
+            var model = new GayrimenkulDuzenleVM
+            {
+                TurSelectList = TurSelectList(),
+                IlceSelectList = IlceSelectList(),
 
-            model.DosyaTurleri = _dosyaTurService.GetirListe();
-            model.GayrimenkulDurumSelectList = GayrimenkulDurumSelectList();
+                DosyaTurleri = _dosyaTurService.GetirListe(),
+                GayrimenkulDurumSelectList = GayrimenkulDurumSelectList()
+            };
+
             var gayrimenkul = _gayrimenkulservice.GetirGuid(guid);
 
             if (gayrimenkul != null)
@@ -345,8 +348,10 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
             else
             {
                 ModelState.AddModelError("LogMessage", "Gayrimenkul Bilgisi Düzenlenemedi.");
-                gayrimenkulModel.Errors = new List<string>();
-                gayrimenkulModel.Errors.Add(VMErrors.ValidationError);
+                gayrimenkulModel.Errors = new List<string>
+                {
+                    VMErrors.ValidationError
+                };
             }
 
             return Json(new { Message = "Gayrimenkul Bilgisi Başarıyla Kaydedildi.", success = true }, JsonRequestBehavior.AllowGet);

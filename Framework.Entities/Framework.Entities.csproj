@@ -76,6 +76,7 @@
     <Compile Include="Concrete\Gayrimenkul_Dosya.cs" />
     <Compile Include="Concrete\Il.cs" />
     <Compile Include="Concrete\Ilce.cs" />
+    <Compile Include="Concrete\KiraBeyanIslemleri.cs" />
     <Compile Include="Concrete\Kiraci.cs" />
     <Compile Include="Concrete\KiraciTur.cs" />
     <Compile Include="Concrete\KiraDurum_DosyaTur.cs" />

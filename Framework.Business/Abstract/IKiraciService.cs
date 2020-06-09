@@ -26,5 +26,6 @@ namespace Framework.Business.Abstract
         Kiraci Guncelle(Kiraci kiraci);
 
         bool Sil(int id);
+
     }
 }

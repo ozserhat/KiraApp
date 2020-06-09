@@ -44,8 +44,8 @@ namespace Framework.Business.DependencyResolvers.Ninject
             Bind<IGayrimenkulTurService>().To<GayrimenkulTurManager>().InSingletonScope();
             Bind<IGayrimenkulTurDal>().To<EfGayrimenkulTurDal>().InSingletonScope();
 
-            Bind<IResmiTatillerService>().To<ResmiTatillerManager>().InSingletonScope();
-            Bind<IResmiTatillerDal>().To<EfResmiTatillerDal>().InSingletonScope();
+            Bind<IResmiTatillerService>().To<ResmiTatillerManager>().InTransientScope();
+            Bind<IResmiTatillerDal>().To<EfResmiTatillerDal>().InTransientScope();
 
             Bind<IKiraParametreService>().To<KiraParametreManager>().InSingletonScope();
             Bind<IKiraParametreDal>().To<EfKiraParametreDal>().InSingletonScope();
@@ -136,6 +136,7 @@ namespace Framework.Business.DependencyResolvers.Ninject
 
             Bind<IHatirlaticiService>().To<HatirlaticiManager>().InTransientScope();
             Bind<IJobFactory>().To<JobFactory>().InSingletonScope();
+            Bind<IUnitOfWork>().To<UnitOfWork>().InSingletonScope();
 
             Bind(typeof(IQueryableRepository<>)).To(typeof(EfQueryableRepository<>));
             Bind<DbContext>().To<DtContext>();
