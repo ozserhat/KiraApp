@@ -24,6 +24,7 @@ using iTextSharp.tool.xml;
 using HtmlAgilityPack;
 using Framework.Entities.Enums;
 using Framework.WebUI.Models.ComplexType;
+using iTextSharp.text.pdf.qrcode;
 
 namespace Framework.WebUI.Areas.Kira.Controllers
 {
@@ -785,7 +786,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 model.Beyan.DamgaVergisiDurumSelectList = _selectLists.DamgaVergisiDurumSelectList();
                 model.Beyan.DosyaTurleri = _dosyaService.GetirListe();
                 model.Beyan.OtoparkTatilGunuSelectList = _selectLists.OtoparkTatilGunuSelectList();
-
+                _beyanVM.Beyan.BeyanYilSelectList.First().Selected = true;
+                _beyanVM.Beyan.KiraDurumSelectList.First().Selected = true;
                 model.BeyanDosyalar = GetirBeyanDosyalar(kiraBeyan.Beyanlar.Id);
             }
             return model;
@@ -2096,6 +2098,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             _beyanVM.Beyan.BeyanTurSelectList = _selectLists.BeyanTurSelectList();
             _beyanVM.Beyan.BeyanYilSelectList = _selectLists.BeyanYilSelectList();
             _beyanVM.Beyan.KiraDurumSelectList = _selectLists.KiraDurumSelectList();
+            _beyanVM.Beyan.BeyanYilSelectList.First().Selected = true;
+            _beyanVM.Beyan.KiraDurumSelectList.First().Selected = true;
             _beyanVM.Beyan.OdemePeriyotSelectList = _selectLists.OdemePeriyotSelectList();
             _beyanVM.Beyan.KdvOraniSelectList = _selectLists.KdvOraniSelectList();
             _beyanVM.Beyan.DamgaVergisiDurumSelectList = _selectLists.DamgaVergisiDurumSelectList();
