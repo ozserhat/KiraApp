@@ -15,7 +15,7 @@ namespace Framework.DataAccess.Abstract
         Tahakkuk GetirBeyan(int BeyanId);
         Tahakkuk GetirKiraci(int KiraciId);
         Tahakkuk GetirGayrimenkul(int GayrimenkulId);
-        //bool Add(IEnumerable<Tahakkuk> entities);
+        bool Add(IEnumerable<Tahakkuk> entities);
         bool Delete(int id);
     }
 }

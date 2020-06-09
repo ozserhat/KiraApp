@@ -836,7 +836,7 @@
                                                                         {
                                                                             <tbody>
 
-                                                                                @{int i = ((Model.BeyanDosyalar.Count - 1) * 1) + 1;}
+                                                                                @{int i = 1;}
 
                                                                                 @foreach (var item in Model.BeyanDosyalar)
                                                                                 {
@@ -959,7 +959,7 @@
                                                                 <fieldset>
                                                                     <div class="col-md-10 col-md-offset-1">
                                                                         <div class="col-md-12 smart-form">
-                                                                            <div id="dvMaps" style="width:auto;height:400px"></div>
+                                                                            <div id="map" class="map" style="width:auto;height:400px"></div>
                                                                             <input type="hidden" id="hdKoordinat" value="@Model.Gayrimenkul.Koordinat" />
                                                                         </div>
                                                                     </div>
@@ -1394,9 +1394,20 @@
     <script src="~/Scripts/jquery.formatCurrency-1.4.0.js"></script>
     <script type="text/javascript" src="~/Scripts/pdfmake.min.js"></script>
     <script type="text/javascript" src="~/Scripts/html2canvas.min.js"></script>
-    @*<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJI7A3lEGDUL_QC2LDaSnU7D5McPWFrsA&callback=initMap"></script>*@
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
+          integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
+          crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
+            integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
+            crossorigin=""></script>
 
     <style type="text/css">
+        .map {
+            height: 400px;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
 
         .outputview {
             margin-top: 10px;
@@ -1475,18 +1486,12 @@
 
     <!--Harita Görüntüleme -->
     <script type="text/javascript">
-        //function initMap() {
-        //    var koordinat = $('#hdKoordinat').val();
+        var map = L.map('map')
+            .setView([$('#hdKoordinat').val().split(',')[0], $('#hdKoordinat').val().split(',')[1]], 12);
 
-        //    if (koordinat != null) {
-        //        koordinat = koordinat.replace("(", "").replace(")", "");
-        //        var geo = { lat: koordinat.split(',')[0], lng: koordinat.split(',')[1] };
-
-        //        var map = new google.maps.Map(
-        //            document.getElementById('dvMaps'), { zoom: 16, center: geo });
-        //        var marker = new google.maps.Marker({ position: geo, map: map });
-        //    }
-        //}
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
     </script>
 
     <!--TabControl -->

@@ -316,10 +316,13 @@
         .outputview {
             margin-top: 10px;
         }
+        textarea {
+            resize: none;
+        }
     </style>
 
     <!--Para Formatı -->
-    <script type="text/javascript">
+    @*<script type="text/javascript">
             $('.moneyFormat').change(function (e) {
                 //$('.moneyFormat').formatCurrency();
 
@@ -329,7 +332,7 @@
 
                 $(this).val(money)
             });
-        </script>
+        </script>*@
 
     <!--Datetime Picker Format -->
     <script type="text/javascript">
@@ -690,7 +693,7 @@
                     MusadeliGunSayisi: $('#MusadeliGunSayisi').val(),
                     IhaleTutari: $('#IhaleTutari').val(),
                     KiraTutari: $('#KiraTutari').val(),
-                    Kdv: $("#Kdv option:selected").val(),
+                    Kdv: $("#Kdv option:selected").text(),
                     BaslangicTaksitNo: $('#BaslangicTaksitNo').val(),
                     KalanAy: $('#KalanAy').val(),
                     DamgaAlinsinMi: $('#DamgaAlinsinMi').val(),

@@ -61,16 +61,6 @@ namespace Framework.Core.DataAccess.EntityFramework
             }
         }
 
-        public List<TEntity> Add(List<TEntity> entity)
-        {
-            using (var context = new TContext())
-            {
-                var addedEntity = context.Entry(entity);
-                addedEntity.State = EntityState.Added;
-                context.SaveChanges();
-                return entity;
-            }
-        }
 
         public List<TEntity> Update(List<TEntity> entity)
         {

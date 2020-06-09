@@ -10,7 +10,6 @@ namespace Framework.Core.DataAccess
         List<T> GetList(Expression<Func<T, bool>> filter = null);
         T Get(Expression<Func<T, bool>> filter);
         T Add(T entity);
-        List<T> Add(List<T> entity);
 
         T Update(T entity);
 
