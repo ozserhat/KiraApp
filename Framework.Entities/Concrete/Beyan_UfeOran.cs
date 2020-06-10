@@ -12,6 +12,8 @@ namespace Framework.Entities.Concrete
 
         public Guid Guid { get; set; }
 
+        public int ArtisTuru_Id { get; set; }
+
         [StringLength(500)]
         public string Ad { get; set; }
 

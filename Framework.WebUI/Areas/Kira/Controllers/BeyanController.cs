@@ -326,13 +326,6 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             return new SelectList(iller, "Id", "Ad");
         }
 
-        public SelectList UfeOranSelectList()
-        {
-            var iller = _ufeOranService.GetirListeAktif().Select(x => new { x.Id, x.Ad }).ToList();
-
-            return new SelectList(iller, "Id", "Ad");
-        }
-
         #endregion     
 
         #region Ekle
@@ -473,6 +466,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 model.EkTahakkukOranlari = _selectLists.EkTahakkukOranlariSelectList();
                 model.KiraDurumSelectList = _selectLists.KiraDurumFullSelectList();
                 model.UfeOranlari = _selectLists.UfeOranSelectList();
+                model.ArtisAlTurSelectList = _selectLists.ArtisAlTurSelectList();
                 model.ArtisTuruSelectList = _selectLists.ArtisTuruSelectList();
                 //model.KiraYenilemePeriyotSelectList = _selectLists.KiraYenilemePeriyotSelectList();
 
@@ -629,6 +623,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
             beyanArtis.Beyan.KiraArtisiMi = true;
             //beyanArtis.Beyan.BeyanYil = (beyanArtis.Beyan.BeyanYil.Value - 1);
+            islemler.Kapananlar.Beyan = islemler.Eklenenler.Beyan;
             beyanArtis.Beyan_Id = BeyanEkle(beyanArtis.Beyan, ref islemler);
 
             KiraBeyanEkle(beyanArtis.Beyan_Id, beyanArtis.Kiraci_Id, beyanArtis.Gayrimenkul_Id, ref islemler);
@@ -1740,17 +1735,26 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                     dosya.FilePath = filePath;
                     dosya.BeyanDosya = item.BeyanDosya;
                     dosyaList.Add(dosya);
-                    var result = _beyanDosyaService.Ekle(dosya);
+                    //var result = _beyanDosyaService.Ekle(dosya);
 
-                    if (result.Id > 0 && !artisMi)
-                    {
-                        byte[] fileBytes = Convert.FromBase64String(item.BeyanDosya);
-                        System.IO.File.WriteAllBytes(filePath + dosya.Ad, fileBytes);
-                    }
+                    //if (result.Id > 0 && !artisMi)
+                    //{
+                    //    byte[] fileBytes = Convert.FromBase64String(item.BeyanDosya);
+                    //    System.IO.File.WriteAllBytes(filePath + dosya.Ad, fileBytes);
+                    //}
                 }
 
-                islemler.Kapananlar.BeyanDosyalar = new List<Beyan_Dosya>();
-                islemler.Kapananlar.BeyanDosyalar.AddRange(dosyaList);
+                if (!artisMi&& islemler.Eklenenler!=null)
+                {
+                    islemler.Eklenenler.BeyanDosyalar = new List<Beyan_Dosya>();
+                    islemler.Eklenenler.BeyanDosyalar.AddRange(dosyaList);
+                }
+                else
+                {
+                    islemler.Kapananlar.BeyanDosyalar = new List<Beyan_Dosya>();
+                    islemler.Kapananlar.BeyanDosyalar.AddRange(dosyaList);
+                }
+                
                 if (dosya.Id > 0)
                     return dosya.Id;
             }
@@ -1904,7 +1908,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                         MusadeliGunSayisi = beyanBilgi.MusadeliGunSayisi,
                         KullanimAlani = beyanBilgi.KullanimAlani.Value,
                         Kdv = beyanBilgi.Kdv.Value,
-                        DamgaAlinsinMi = (beyanBilgi.DamgaAlinsinMi == "1" ? true : false),
+                        DamgaAlinsinMi = beyanBilgi.DamgaAlinsinMi == "1" ? true : false,
                         OtoparkTatilGun = beyanBilgi.OtoparkTatilGun,
                         ResmiTatilVarmi = beyanBilgi.ResmiTatilVarmi,
                         DamgaKararArtisTuru = beyanBilgi.DamgaKararArtisTuru,
@@ -1914,7 +1918,11 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                         AktifMi = beyanBilgi.AktifMi
                     };
 
-                    kiraBeyanIslemleri.Kapananlar.Beyan = beyan;
+                    if (beyanBilgi.KiraArtisiMi.HasValue && beyanBilgi.KiraArtisiMi.Value)
+                        kiraBeyanIslemleri.Kapananlar.Beyan = beyan;
+                    else
+                        kiraBeyanIslemleri.Eklenenler.Beyan = beyan;
+
                 }
 
                 //if (!beyanBilgi.KiraArtisiMi.HasValue && beyanBilgi.Id == 0)
@@ -2086,6 +2094,21 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                         DosyaAdi = item.BeyanDosya_Turleri.Ad
                     });
                 }
+            }
+
+            return Json(new { data = model, success = true }, JsonRequestBehavior.AllowGet);
+
+        }
+
+        [HttpPost]
+        public JsonResult GetirUfeOranListe(int turId)
+        {
+            var model = new KiraBeyanDetayVM();
+            var oranListe=_selectLists.UfeOranSelectList(turId);
+
+            if (oranListe != null)
+            {
+                model.UfeOranlari = oranListe;
             }
 
             return Json(new { data = model, success = true }, JsonRequestBehavior.AllowGet);

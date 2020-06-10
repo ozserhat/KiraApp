@@ -959,7 +959,7 @@
                                                                 <fieldset>
                                                                     <div class="col-md-10 col-md-offset-1">
                                                                         <div class="col-md-12 smart-form">
-                                                                            <div id="map" class="map" style="width:auto;height:400px"></div>
+                                                                            <div id="osm-map" class="map" style="width:auto;height:400px"></div>
                                                                             <input type="hidden" id="hdKoordinat" value="@Model.Gayrimenkul.Koordinat" />
                                                                         </div>
                                                                     </div>
@@ -1249,21 +1249,20 @@
                                                 <input type="hidden" id="ArtisKiraBeyanId" value="@Model.KiraBeyan_Id" />
                                                 <input type="hidden" id="ArtisKiraTutari" value="@Model.Beyan.KiraTutari" />
                                                 <input type="hidden" id="ArtisGayrimenkulId" value="@Model.Gayrimenkul_Id" />
-
-                                                @*<div class="row">
-                                                        <div id="damgaKararDiv" class="row" style="display:none;">
-                                                            <div class="col-md-8">
-                                                                <div class="form-group">
-                                                                    <div class="input-group" style="width: 100%;">
-                                                                        @Html.Label("Damga/Karar Artış Türü", new { @class = "control-label col-md-4" })
-                                                                        <div class="col-md-8">
-                                                                            @Html.DropDownList("DamgaKararArtisTuru", Model.ArtisTuruSelectList, "Seçiniz", new { @class = "select2" })
-                                                                        </div>
-                                                                    </div>
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.LabelFor(model => model.ArtisTuruSelectList, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                                <div class="col-md-8">
+                                                                    @Html.DropDownList("ArtisTuru_Id", Model.ArtisTuruSelectList, "Seçiniz", new { @class = "select2 required" })
+                                                                    @Html.ValidationMessage("ArtisTuru_Id", "Lütfen seçiniz!", new { @class = "text-danger" })
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>*@
+                                                    </div>
+                                                </div>
+
                                                 <div class="row">
                                                     <div class="col-md-8">
                                                         <div class="form-group">
@@ -1327,7 +1326,7 @@
                                                             <div class="input-group" style="width: 100%;">
                                                                 @Html.Label("Damga/Karar Artış Türü", new { @class = "control-label col-md-4" })
                                                                 <div class="col-md-8">
-                                                                    @Html.DropDownList("DamgaKararArtisTuru", Model.ArtisTuruSelectList, "Seçiniz", new { @class = "select2" })
+                                                                    @Html.DropDownList("DamgaKararArtisTuru", Model.ArtisAlTurSelectList, "Seçiniz", new { @class = "select2" })
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1351,7 +1350,7 @@
                                                             <div class="input-group" style="width: 100%;">
                                                                 @Html.Label("Teminat Artış Türü", new { @class = "control-label col-md-4 zorunluYildiz" })
                                                                 <div class="col-md-8">
-                                                                    @Html.DropDownList("TeminatArtisTuru", Model.ArtisTuruSelectList, "Seçiniz", new { @class = "select2" })
+                                                                    @Html.DropDownList("TeminatArtisTuru", Model.ArtisAlTurSelectList, "Seçiniz", new { @class = "select2" })
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1486,17 +1485,18 @@
 
         var map = L.map(element);
 
-        L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        var tile_layer = L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
         var target = L.latLng($('#hdKoordinat').val().split(',')[0], $('#hdKoordinat').val().split(',')[1]);
 
         // Set map's center to target with zoom 14.
-        map.setView(target, 14);
+        map.setView(target, 16);
 
         // Place a marker on the same location.
         L.marker(target).addTo(map);
+        tile_layer.on("load", function () { console.log("all visible tiles have been loaded") });
 
     </script>
 
@@ -1963,6 +1963,39 @@
         });
     </script>
 
+    <!--Üfe Oran Getir -->
+    <script type="text/javascript">
+        $('#ArtisTuru_Id').change(function (val) {
+            var turId = $(this).val();;
+            if (turId != null) {
+                $.ajax({
+                    type: 'Post',
+                    url: '/Kira/Beyan/GetirUfeOranListe/turId=' + turId,
+                    data: { turId: turId },
+                    success: function (result) {
+                        if (result != null && result.success) {
+                            $("#UfeOran_Id").empty();
+                            $("#UfeOran_Id").append(
+                                $('<option></option>').val(null).html('Lütfen Seçiniz'));
+                            $.each(result.data.UfeOranlari, function (i, data) {
+                                $('<option></option>').val(null).html('');
+                                $("#UfeOran_Id").append(
+                                    $('<option></option>').val(data.Value).html(data.Text));
+                            });
+                        }
+                        else {
+                            swal('Uyarı!', result.Message, 'warning');
+                        }
+                    },
+                    error: function (xhr) {
+                        swal('Uyarı!', result.Message, 'warning');
+                    }
+                });
+            }
+        });
+    </script>
+
+
     <!--Beyan Artış Form Kontrol-->
     <script type="text/javascript">
 
@@ -1972,7 +2005,7 @@
 
             var durum = $('#DamgaKararAlinacakMi').is(':checked');
 
-            if (!durum)
+            if (durum && value != "")
                 durum = true;
             else
                 durum = false;
@@ -1985,7 +2018,8 @@
 
             var durum = $('#TeminatAlinacakMi').is(':checked');
 
-            if (!durum)
+
+            if (durum && value != "")
                 durum = true;
             else
                 durum = false;
@@ -2076,6 +2110,7 @@
                      Beyan_Id: $('#ArtisBeyanId').val(),
                      Kiraci_Id: $('#ArtisKiraciId').val(),
                      Gayrimenkul_Id: $('#ArtisGayrimenkulId').val(),
+                     ArtisTuru_Id: $('#ArtisTuru_Id').val(),
                      UfeOran_Id: $('#UfeOran_Id').val(),
                      KiraTutari: $('#ArtisKiraTutari').val(),
                      KiraBeyan_Id: $('#ArtisKiraBeyanId').val(),

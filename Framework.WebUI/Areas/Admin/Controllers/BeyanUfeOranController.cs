@@ -111,6 +111,22 @@ namespace Framework.WebUI.Areas.Admin.Controllers
             return new SelectList(aylar, "Deger", "Ad");
         }
 
+        public SelectList ArtisTuruSelectList()
+        {
+            List<SelectListItem> newList = new List<SelectListItem>() {
+                                  new SelectListItem(){
+                                    Text="Üfe Oranı",
+                                    Value="1"
+                                  },
+                                    new SelectListItem(){
+                                    Text="Tüfe Oranı",
+                                    Value="2"
+                                  }
+            };
+
+            return new SelectList(newList, "Value", "Text");
+        }
+
         #endregion
 
         #region Ekle
@@ -121,6 +137,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
             var model = new Beyan_UfeOranEkleVM();
             model.YilSelectList = YilSelectList();
             model.AySelectList = AySelectList();
+            model.ArtisTuruSelectList = ArtisTuruSelectList();
             return View(model);
         }
 
@@ -135,9 +152,10 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                     {
                         Guid = Guid.NewGuid(),
                         Ad = ufeOran.Adi,
-                        Yil= ufeOran.Yil.Value,
-                        Ay= ufeOran.Ay.Value,
-                        Oran= ufeOran.Oran,
+                        Yil = ufeOran.Yil.Value,
+                        Ay = ufeOran.Ay.Value,
+                        Oran = ufeOran.Oran,
+                        ArtisTuru_Id = ufeOran.ArtisTuru_Id.Value,
                         OlusturulmaTarihi = DateTime.Now,
                         OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
                         AktifMi = true
@@ -177,12 +195,14 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                 model.Yil = oran.Yil.ToString();
                 model.Ay = oran.Ay.ToString();
                 model.Oran = oran.Oran;
+                model.ArtisTuru_Id = oran.ArtisTuru_Id;
                 model.GuncelleyenKullanici_Id = oran.GuncelleyenKullanici_Id;
                 model.GuncellenmeTarihi = oran.GuncellenmeTarihi;
                 model.AktifMi = oran.AktifMi.Value;
 
                 model.YilSelectList = YilSelectList();
                 model.AySelectList = AySelectList();
+                model.ArtisTuruSelectList = ArtisTuruSelectList();
             }
             else
             {
@@ -206,6 +226,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                     {
                         oran.Id = model.Id;
                         oran.Guid = model.Guid;
+                        oran.ArtisTuru_Id = model.ArtisTuru_Id.Value;
                         oran.Ad = model.Adi;
                         oran.Yil = int.Parse(model.Yil);
                         oran.Ay = int.Parse(model.Ay);
@@ -251,6 +272,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                 return Json(new { success = false, Message = "Beyan Üfe Oran Bilgisi Silinemedi!!!" }, JsonRequestBehavior.AllowGet);
 
         }
+
         #endregion
     }
 }
