@@ -10,22 +10,22 @@ namespace Framework.DataAccess.Concrete.EntityFramework
 {
     public class EfTahakkukDal : EfEntityRepositoryBase<Tahakkuk, DtContext>, ITahakkukDal
     {
-        //public bool Add(IEnumerable<Tahakkuk> entities)
-        //{
-        //    int sonuc = 0;
+        public bool Add(IEnumerable<Tahakkuk> entities)
+        {
+            int sonuc = 0;
 
-        //    using (DtContext context = new DtContext())
-        //    {
-        //        context.Tahakkuklar.AddRange(entities);
+            using (DtContext context = new DtContext())
+            {
+                context.Tahakkuklar.AddRange(entities);
 
-        //        sonuc = context.SaveChanges();
-        //    }
+                sonuc = context.SaveChanges();
+            }
 
-        //    if (sonuc > 0)
-        //        return true;
+            if (sonuc > 0)
+                return true;
 
-        //    return false;
-        //}
+            return false;
+        }
         public bool Delete(int id)
         {
             bool sonuc = false;

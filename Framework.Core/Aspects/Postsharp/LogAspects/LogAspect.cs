@@ -89,6 +89,7 @@ namespace Framework.Core.Aspects.Postsharp.LogAspects
                 LogType=logType,
                 HttpType = (!string.IsNullOrEmpty(actionType)?actionType:"HttpGet"),
                 UserId = userId,
+                IpAdress=request.ServerVariables["HTTP_X_FORWARDED_FOR"] ?? request.UserHostAddress,
                 UserName = userName,
                 Message = logMessage,
                 ExceptionMessage=" ",
@@ -163,6 +164,7 @@ namespace Framework.Core.Aspects.Postsharp.LogAspects
                 HttpType = (!string.IsNullOrEmpty(actionType)?actionType:"HttpGet"),
                 UserId = userId,
                 UserName = userName,
+                IpAdress=request.ServerVariables["HTTP_X_FORWARDED_FOR"] ?? request.UserHostAddress,
                 Message = (!string.IsNullOrEmpty(logMessage)?logMessage:"-"),
                 ExceptionMessage=filterContext.Exception.Message,
                 StackTrace = filterContext.Exception.StackTrace

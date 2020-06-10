@@ -33,6 +33,9 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Url")]
         public string HttpType { get; set; }
 
+        [Display(Name = "Ip Adresi")]
+        public string IpAdress { get; set; }
+
         [Display(Name = "Kullanıcı Adı")]
         public string UserName { get; set; }
 

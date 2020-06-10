@@ -97,9 +97,9 @@ namespace Framework.Business.Concrete.Managers
                 try
                 {
                     if (islemler.PasifeAlinanlar != null)
-                        PasifeAlinanBeyanBilgileri(islemler.PasifeAlinanlar);
+                        result = PasifeAlinanBeyanBilgileri(islemler.PasifeAlinanlar);
                     if (islemler.Kapananlar != null)
-                        KapananBeyanBilgileri(islemler.PasifeAlinanlar);
+                        result = KapananBeyanBilgileri(islemler.Kapananlar);
                     if (islemler.Eklenenler != null)
                         result= EklenecekBeyanBilgileri(islemler.Eklenenler);
                     scope.Complete();

@@ -13,6 +13,7 @@ namespace Framework.Core.CrossCuttingConcerns.Logging
         public string HttpType { get; set; }
         public int? UserId { get; set; }
         public string UserName { get; set; }
+        public string IpAdress { get; set; }
         public string Message { get; set; }
         public string ExceptionMessage { get; set; }
         public string StackTrace { get; set; }

@@ -27,9 +27,7 @@ namespace Framework.Business.Concrete.Managers
 
         public bool Ekle(List<Tahakkuk> entities)
         {
-            var result = _tahakkukDal.Add(entities);
-
-            return result.Count() > 0 ? true : false;
+            return _tahakkukDal.Add(entities);
         }
 
         public Tahakkuk GetByGuid(Guid guid)
