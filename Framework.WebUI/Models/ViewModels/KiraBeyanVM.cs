@@ -18,9 +18,6 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Ödeme Periyodu")]
         public SelectList OdemePeriyotSelectList { get; set; }
 
-        [Display(Name = "Tur")]
-        public SelectList TurSelectList { get; set; }
-
         [Display(Name = "Gayrimenkuller")]
         public SelectList GayrimenkulSelectList { get; set; }
 
@@ -250,11 +247,11 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Üfe Oranları")]
         public SelectList UfeOranlari { get; set; }
 
+        [Display(Name = "Artış Tipi")]
+        public SelectList ArtisAlTurSelectList { get; set; }
+
         [Display(Name = "Artış Türü")]
         public SelectList ArtisTuruSelectList { get; set; }
-
-        [Display(Name = "Artış Tipi")]
-        public SelectList ArtisTipiSelectList { get; set; }
 
         [Display(Name = "Kira Yenileme Periyotu")]
         public SelectList KiraYenilemePeriyotSelectList { get; set; }
@@ -327,6 +324,9 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "UfeOran_Id")]
         public int UfeOran_Id { get; set; }
+
+        [Display(Name = "ArtisTuru_Id")]
+        public int ArtisTuru_Id { get; set; }
 
         [Display(Name = "UfeOrani")]
         public decimal UfeOrani { get; set; }

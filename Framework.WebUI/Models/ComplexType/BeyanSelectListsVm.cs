@@ -39,7 +39,7 @@ namespace Framework.WebUI.Models.ComplexType
             _ilceService = ilceService;
             _gayrimenkulTurService = gayrimenkulTurService;
             _ufeOranService = ufeOranService;
-        } 
+        }
         #endregion
 
         #region SelectLists
@@ -95,7 +95,6 @@ namespace Framework.WebUI.Models.ComplexType
 
         public SelectList DamgaVergisiDurumSelectList()
         {
-            var iller = _parametreService.GetirListe(9).Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
             List<SelectListItem> newList = new List<SelectListItem>() {
                                   new SelectListItem(){
                                     Text="Evet",
@@ -147,14 +146,18 @@ namespace Framework.WebUI.Models.ComplexType
 
         public SelectList UfeOranSelectList()
         {
-            var oran = _ufeOranService.GetirListeAktif().Select(x => new { Id = x.Id, Ad = x.Ad + " (%" + x.Oran + ")" }).ToList();
+            return new SelectList("Id", "Ad");
+        }
+
+        public SelectList UfeOranSelectList(int turId)
+        {
+            var oran = _ufeOranService.GetirListeAktif().Where(a => a.ArtisTuru_Id == turId).Select(x => new { x.Id, Ad = x.Ad + " (%" + x.Oran + ")" }).ToList();
 
             return new SelectList(oran, "Id", "Ad");
         }
 
-        public SelectList ArtisTuruSelectList()
+        public SelectList ArtisAlTurSelectList()
         {
-            var iller = _parametreService.GetirListe(9).Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
             List<SelectListItem> newList = new List<SelectListItem>() {
                                   new SelectListItem(){
                                     Text="Tam Al",
@@ -169,23 +172,21 @@ namespace Framework.WebUI.Models.ComplexType
             return new SelectList(newList, "Value", "Text");
         }
 
-        public SelectList ArtisTipiSelectList()
+        public SelectList ArtisTuruSelectList()
         {
-            var iller = _parametreService.GetirListe(9).Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
             List<SelectListItem> newList = new List<SelectListItem>() {
                                   new SelectListItem(){
-                                    Text="Üfe",
+                                    Text="Üfe Oranı",
                                     Value="1"
                                   },
                                     new SelectListItem(){
-                                    Text="Tüfe",
+                                    Text="Tüfe Oranı",
                                     Value="2"
                                   }
             };
-
             return new SelectList(newList, "Value", "Text");
-        }
 
+        }
 
         public SelectList KiraYenilemePeriyotSelectList()
         {

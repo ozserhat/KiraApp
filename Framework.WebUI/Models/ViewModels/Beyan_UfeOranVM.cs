@@ -3,7 +3,6 @@ using PagedList;
 using System.Web.Mvc;
 using Framework.Entities.Concrete;
 using System.ComponentModel.DataAnnotations;
-using Framework.Entities.Enums;
 
 namespace Framework.WebUI.Models.ViewModels
 {
@@ -21,16 +20,16 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Adı")]
         public string Adi { get; set; }
 
-        [Display(Name = "Türü")]
-        public int Tur_Id { get; set; }
-
         [Display(Name = "Beyan Yıl")]
         public int? Yil { get; set; }
 
         [Display(Name = "Beyan Ay")]
         public int? Ay { get; set; }
 
-        [Display(Name = "Üfe/Tüfe Oranı")]
+        [Display(Name = "ArtısTuru_Id")]
+        public int? ArtisTuru_Id { get; set; }
+
+        [Display(Name = "Oranı")]
         [Required(ErrorMessage ="Lütfen Geçerli Bir Değer Giriniz")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:N2}")]
         public decimal? Oran { get; set; }
@@ -41,8 +40,8 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Ay")]
         public SelectList AySelectList { get; set; }
 
-        [Display(Name = "Türü")]
-        public SelectList TurSelectList { get; set; }
+        [Display(Name = "Artış Türü")]
+        public SelectList ArtisTuruSelectList { get; set; }
 
         [Display(Name = "Oluşturan Kullanıcı")]
         public int? OlusturanKullanici_Id { get; set; }
@@ -52,9 +51,6 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Aktif Mi")]
         public bool AktifMi { get; set; }
-        [Display(Name = "Artış Türü")]
-        public EnmArtisTuru ArtisTuru { get; set; }
-        public int ArtisTuruId { get; set; }
     }
 
     public class Beyan_UfeOranDuzenleVM : VMBase
@@ -65,11 +61,11 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Guid")]
         public Guid Guid { get; set; }
 
+        [Display(Name = "ArtısTuru_Id")]
+        public int? ArtisTuru_Id { get; set; }
+
         [Display(Name = "Adı")]
         public string Adi { get; set; }
-
-        [Display(Name = "Türü")]
-        public int Tur_Id { get; set; }
 
         [Display(Name = "Beyan Yıl")]
         public string Yil { get; set; }
@@ -77,7 +73,7 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Beyan Ay")]
         public string Ay { get; set; }
 
-        [Display(Name = "Üfe/Tüfe Oranı")]
+        [Display(Name = "Oranı")]
         public decimal? Oran { get; set; }
 
         [Display(Name = "Yıl")]
@@ -86,8 +82,8 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Ay")]
         public SelectList AySelectList { get; set; }
 
-        [Display(Name = "Türü")]
-        public SelectList TurSelectList { get; set; }
+        [Display(Name = "Artış Türü")]
+        public SelectList ArtisTuruSelectList { get; set; }
 
         [Display(Name = "Güncelleyen Kullanıcı")]
         public int? GuncelleyenKullanici_Id { get; set; }
@@ -97,9 +93,5 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Aktif Mi")]
         public bool AktifMi { get; set; }
-        [Display(Name = "Artış Türü")]
-        public EnmArtisTuru ArtisTuru { get; set; }
-        public int ArtisTuruId { get; set; }
-
     }
 }
