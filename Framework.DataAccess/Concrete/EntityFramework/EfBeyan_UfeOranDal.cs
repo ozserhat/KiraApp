@@ -34,7 +34,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             {
                 return parametreId == null
                       ? context.Beyan_UfeOranlari.ToList()
-                      : context.Beyan_UfeOranlari.Where(a => a.Tur_Id == parametreId).ToList();
+                      : context.Beyan_UfeOranlari.Where(a => a.ArtisTuru_Id == parametreId).ToList();
 
             }
         }
