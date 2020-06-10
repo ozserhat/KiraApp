@@ -39,6 +39,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
         private IMahalleService _mahalleService;
         private IUserService _userService;
         private IPersonel_BeyanService _personelBeyanService;
+        private IBeyan_UfeOranService _beyanUfeOranService;
 
 
         public BeyanController(IGayrimenkulService gayrimenkulservice,
@@ -54,7 +55,8 @@ namespace Framework.WebUI.Areas.Admin.Controllers
         IIlceService ilceService,
         IMahalleService mahalleService,
         IUserService userService,
-        IPersonel_BeyanService personelBeyanService
+        IPersonel_BeyanService personelBeyanService,
+        IBeyan_UfeOranService beyanUfeOranService
         )
         {
             _gayrimenkulservice = gayrimenkulservice;
@@ -71,6 +73,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
             _mahalleService = mahalleService;
             _userService = userService;
             _personelBeyanService = personelBeyanService;
+            _beyanUfeOranService = beyanUfeOranService;
         }
         #endregion
         // GET: Admin/Beyan
@@ -94,6 +97,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                 model.KiraDurumSelectList = KiraDurumSelectList();
                 model.OdemePeriyotSelectList = OdemePeriyotSelectList();
                 model.KullaniciSelectList = KullaniciSelectList();
+                model.TurSelectList = TurSelectList();
                 model.Beyanlar = new StaticPagedList<Kira_Beyan>(beyanlar, model.PageNumber, model.PageSize, beyanlar.Count());
                 model.TotalRecordCount = beyanlar.Count();
             }
@@ -168,6 +172,22 @@ namespace Framework.WebUI.Areas.Admin.Controllers
 
             return new SelectList(roller, "Id", "Ad");
         }
+        public SelectList TurSelectList()
+        {
+            List<SelectListItem> newList = new List<SelectListItem>() {
+                                  new SelectListItem(){
+                                    Text="Üfe",
+                                    Value="1"
+                                  },
+                                    new SelectListItem(){
+                                    Text="Tüfe",
+                                    Value="2"
+                                    }
+            };
+
+            return new SelectList(newList, "Value", "Text");
+        }
+
 
         public SelectList IlceSelectList()
         {

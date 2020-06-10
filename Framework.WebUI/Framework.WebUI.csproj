@@ -243,6 +243,7 @@
     </Compile>
     <Compile Include="Helpers\DtContextWeb.cs" />
     <Compile Include="Helpers\EncDecHelper.cs" />
+    <Compile Include="Helpers\EnumHelper.cs" />
     <Compile Include="Helpers\UserExtended.cs" />
     <Compile Include="Models\ComplexType\BeyanSelectListsVm.cs" />
     <Compile Include="Models\ViewModels\BeyanDosya_TurVM.cs" />

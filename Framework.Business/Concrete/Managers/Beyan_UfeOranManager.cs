@@ -37,6 +37,10 @@ namespace Framework.Business.Concrete.Managers
         {
             return _ufeOranDal.GetList();
         }
+        public IEnumerable<Beyan_UfeOran> GetirList(int? parametreId)
+        {
+            return _ufeOranDal.GetirList(parametreId);
+        }
 
         public IEnumerable<Beyan_UfeOran> GetirListeAktif()
         {
