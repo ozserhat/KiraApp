@@ -169,6 +169,24 @@ namespace Framework.WebUI.Models.ComplexType
             return new SelectList(newList, "Value", "Text");
         }
 
+        public SelectList ArtisTipiSelectList()
+        {
+            var iller = _parametreService.GetirListe(9).Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+            List<SelectListItem> newList = new List<SelectListItem>() {
+                                  new SelectListItem(){
+                                    Text="Üfe",
+                                    Value="1"
+                                  },
+                                    new SelectListItem(){
+                                    Text="Tüfe",
+                                    Value="2"
+                                  }
+            };
+
+            return new SelectList(newList, "Value", "Text");
+        }
+
+
         public SelectList KiraYenilemePeriyotSelectList()
         {
             var periyot = _parametreService.GetirListe(13).Select(x => new { Id = x.Deger, Ad = x.Ad }).ToList();

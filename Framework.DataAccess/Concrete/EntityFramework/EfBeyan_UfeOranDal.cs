@@ -28,7 +28,16 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                 return context.Beyan_UfeOranlari.Where(gt => gt.Guid == guid).FirstOrDefault();
             }
         }
+        public IEnumerable<Beyan_UfeOran> GetirList(int? parametreId)
+        {
+            using (DtContext context = new DtContext())
+            {
+                return parametreId == null
+                      ? context.Beyan_UfeOranlari.ToList()
+                      : context.Beyan_UfeOranlari.Where(a => a.Tur_Id == parametreId).ToList();
 
+            }
+        }
         public bool Delete(int id)
         {
             bool sonuc = false;

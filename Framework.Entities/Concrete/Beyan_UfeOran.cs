@@ -15,6 +15,8 @@ namespace Framework.Entities.Concrete
         [StringLength(500)]
         public string Ad { get; set; }
 
+        public int Tur_Id { get; set; }
+
         public int Yil { get; set; }
 
         public int Ay { get; set; }
@@ -30,5 +32,6 @@ namespace Framework.Entities.Concrete
         public DateTime? GuncellenmeTarihi { get; set; }
 
         public bool? AktifMi { get; set; }
+        public int ArtisTuru { get; set; }
     }
 }
