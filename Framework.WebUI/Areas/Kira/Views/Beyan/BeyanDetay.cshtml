@@ -1394,12 +1394,8 @@
     <script src="~/Scripts/jquery.formatCurrency-1.4.0.js"></script>
     <script type="text/javascript" src="~/Scripts/pdfmake.min.js"></script>
     <script type="text/javascript" src="~/Scripts/html2canvas.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
-          integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
-          crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
-            integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
-            crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+    <link href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" rel="stylesheet" />
 
     <style type="text/css">
         .map {
@@ -1486,12 +1482,22 @@
 
     <!--Harita Görüntüleme -->
     <script type="text/javascript">
-        var map = L.map('map')
-            .setView([$('#hdKoordinat').val().split(',')[0], $('#hdKoordinat').val().split(',')[1]], 12);
+        var element = document.getElementById('osm-map');
 
-        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        var map = L.map(element);
+
+        L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
+
+        var target = L.latLng($('#hdKoordinat').val().split(',')[0], $('#hdKoordinat').val().split(',')[1]);
+
+        // Set map's center to target with zoom 14.
+        map.setView(target, 14);
+
+        // Place a marker on the same location.
+        L.marker(target).addTo(map);
+
     </script>
 
     <!--TabControl -->

@@ -58,6 +58,7 @@
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Sayfa Adı</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Metod</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Kullanıcı Adı</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Ip Adresi</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Tarih</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Detay</th>
                                                     </tr>
@@ -70,31 +71,32 @@
 
                                                         @foreach (var item in Model.JsonDeserializeLog)
                                                         {
-                                                            <tr role="row" class="odd">
-                                                                <td>@(i++)</td>
-                                                                <td>
-                                                                    @if (item.LogType == "Info")
-                                                                    {
-                                                                        <b class="label aktif-buton">@Html.DisplayFor(model => item.LogType)</b>
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        <b class="label pasif-buton">@Html.DisplayFor(model => item.LogType)</b>
-                                                                    }
-                                                                </td>
-                                                                <td>@Html.DisplayFor(model => item.HttpType)</td>
-                                                                @*<td>@Html.DisplayFor(model => item.Url)</td>*@
-                                                                <td>@Html.DisplayFor(model => item.ControllerName)</td>
-                                                                <td>@Html.DisplayFor(model => item.ActionName)</td>
-                                                                <td>@Html.DisplayFor(model => item.UserName)</td>
-                                                                <td>@Html.DisplayFor(model => item.Date)</td>
-                                                                <td>
-                                                                    <a href="#" id="btnLogDetay" class="btnLogDetay" rel="tooltip" data-toggle="modal"
-                                                                       data-target="#logdetayModal" data-original-title="Log Detay" data-id="@item.Id">
-                                                                        <span class="glyphicon glyphicon-eye-close"></span>
-                                                                    </a>
-                                                                </td>
-                                                            </tr>
+                                                        <tr role="row" class="odd">
+                                                            <td>@(i++)</td>
+                                                            <td>
+                                                                @if (item.LogType == "Info")
+                                                                {
+                                                                    <b class="label aktif-buton">@Html.DisplayFor(model => item.LogType)</b>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <b class="label pasif-buton">@Html.DisplayFor(model => item.LogType)</b>
+                                                                }
+                                                            </td>
+                                                            <td>@Html.DisplayFor(model => item.HttpType)</td>
+                                                            @*<td>@Html.DisplayFor(model => item.Url)</td>*@
+                                                            <td>@Html.DisplayFor(model => item.ControllerName)</td>
+                                                            <td>@Html.DisplayFor(model => item.ActionName)</td>
+                                                            <td>@Html.DisplayFor(model => item.UserName)</td>
+                                                            <td>@Html.DisplayFor(model => item.IpAdress)</td>
+                                                            <td>@Html.DisplayFor(model => item.Date)</td>
+                                                            <td>
+                                                                <a href="#" id="btnLogDetay" class="btnLogDetay" rel="tooltip" data-toggle="modal"
+                                                                   data-target="#logdetayModal" data-original-title="Log Detay" data-id="@item.Id">
+                                                                    <span class="glyphicon glyphicon-eye-close"></span>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
                                                         }
                                                     </tbody>
                                                 }

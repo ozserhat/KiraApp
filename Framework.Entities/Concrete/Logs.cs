@@ -13,6 +13,7 @@ namespace Framework.Entities.Concrete
         public string ActionName { get; set; }
         public string ControllerName { get; set; }
         public string Type { get; set; }
+        public string IpAdress { get; set; }
         public string Value { get; set; }
         public string Detail { get; set; }
         public DateTime? Date { get; set; }

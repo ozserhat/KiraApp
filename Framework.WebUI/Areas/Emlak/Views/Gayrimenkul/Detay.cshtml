@@ -394,7 +394,7 @@
                                                             <fieldset>
                                                                 <div class="col-md-10 col-md-offset-1">
                                                                     <div class="col-md-12 smart-form">
-                                                                        <div id="map" class="map" style="width:auto;height:400px"></div>
+                                                                        <div id="osm-map" class="map2" style="width:auto;height:400px"></div>
                                                                         <input type="hidden" id="hdKoordinat" value="@Model.Koordinat" />
                                                                     </div>
                                                                 </div>
@@ -473,23 +473,19 @@
 }
 
 @section pagespecific {
-    @Scripts.Render("~/bundles/jqueryval")
+
     <!-- Sweet Alert -->
     <link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
     <script src="~/Content/SweetAlert/sweetalert2.min.js"></script>
     <script src="~/Scripts/plugin/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
     <script src="~/Scripts/loadingoverlay.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
-          integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
-          crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
-            integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
-            crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+    <link href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" rel="stylesheet" />
     <script src="~/Scripts/plugin/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
 
     <style type="text/css">
-       
-        .map {
+
+        .map2 {
             height: 400px;
             top: 0;
             bottom: 0;
@@ -511,12 +507,24 @@
     </style>
 
     <script type="text/javascript">
-            var map = L.map('map')
-                .setView([$('#hdKoordinat').val().split(',')[0], $('#hdKoordinat').val().split(',')[1]], 12);
+        var element = document.getElementById('osm-map');
 
-            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
-            }).addTo(map);
+        var map = L.map(element);
+
+        var tile_layer = L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        var target = L.latLng($('#hdKoordinat').val().split(',')[0], $('#hdKoordinat').val().split(',')[1]);
+
+        // Set map's center to target with zoom 14.
+        map.setView(target, 16);
+
+        // Place a marker on the same location.
+        L.marker(target).addTo(map);
+        tile_layer.on("load", function () { console.log("all visible tiles have been loaded") });
+
+
     </script>
     <!--Gayrimenkul Tablo Ayarlar-->
     <script type="text/javascript">
