@@ -97,7 +97,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                 model.KiraDurumSelectList = KiraDurumSelectList();
                 model.OdemePeriyotSelectList = OdemePeriyotSelectList();
                 model.KullaniciSelectList = KullaniciSelectList();
-                model.TurSelectList = TurSelectList();
+
                 model.Beyanlar = new StaticPagedList<Kira_Beyan>(beyanlar, model.PageNumber, model.PageSize, beyanlar.Count());
                 model.TotalRecordCount = beyanlar.Count();
             }
