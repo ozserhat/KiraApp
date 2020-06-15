@@ -178,7 +178,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                 query = request.Kdv.HasValue ? query.Where(x => x.Beyanlar.Kdv == request.Kdv) : query;
                 query = request.BeyanYil.HasValue ? query.Where(x => x.Beyanlar.BeyanYil == request.BeyanYil) : query;
 
-                result = query.ToList();
+                result = query.OrderBy(a=>a.Gayrimenkul_Id).ToList();
             }
 
             return result;

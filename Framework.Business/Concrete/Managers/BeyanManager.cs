@@ -207,10 +207,10 @@ namespace Framework.Business.Concrete.Managers
 
         private bool KapananBeyanBilgileri(KiraBeyanModel pasifealinan)
         {
-            if (pasifealinan.Tahakkuklar.Where(x => x.OdemeDurumu == true).ToList().Count > 0)
-            {
-                throw new Exception("Ödenmiş tahakukk bilgisi bulunmaktadır. Güncelleme işlemi yapılamaz.");
-            }
+            //if (pasifealinan.Tahakkuklar.Where(x => x.OdemeDurumu == true).ToList().Count > 0)
+            //{
+            //    throw new Exception("Ödenmiş tahakukk bilgisi bulunmaktadır. Güncelleme işlemi yapılamaz.");
+            //}
             pasifealinan.Beyan.AktifMi = (int)EnmIslemDurumu.Kapandı;
             Guncelle(pasifealinan.Beyan);
 

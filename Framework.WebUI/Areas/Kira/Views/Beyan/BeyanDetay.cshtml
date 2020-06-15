@@ -879,12 +879,16 @@
                                                                             <tr role="row">
                                                                                 <th class="sorting_disabled" rowspan="1" colspan="1">Beyan Yıl</th>
                                                                                 <th class="sorting_disabled" rowspan="1" colspan="1">Taksit No</th>
+                                                                                <th class="sorting_disabled" rowspan="1" colspan="1">Ay</th>
                                                                                 <th class="sorting_disabled" rowspan="1" colspan="1">Tahakkuk Tarihi</th>
                                                                                 <th class="sorting_disabled" rowspan="1" colspan="1">Vade Tarihi</th>
                                                                                 <th class="sorting_disabled" rowspan="1" colspan="1">Tutar</th>
                                                                                 <th class="sorting_disabled" rowspan="1" colspan="1">Açıklama</th>
-                                                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 250px;">Durum</th>
+                                                                                <th class="sorting_disabled" rowspan="1" colspan="1">Tahakkuk Notu</th>
+
+                                                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 250px;">Ödeme Bilgisi</th>
                                                                                 <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 250px;">Ek Tahakkuk</th>
+                                                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 250px;">Not Ekle</th>
                                                                             </tr>
                                                                         </thead>
                                                                         @if (Model.Tahakkuklar != null && Model.Tahakkuklar.Count > 0)
@@ -897,18 +901,25 @@
                                                                                     <tr role="row" class="odd">
                                                                                         <td>@Html.DisplayFor(model => item.Kira_Beyani.Beyanlar.BeyanYil)</td>
                                                                                         <td>@Html.DisplayFor(model => item.TaksitSayisi)</td>
+                                                                                        <td>
+                                                                                            @{
+                                                                                                string monthName = item.VadeTarihi.Value.ToString("MMMM");
+                                                                                                <span>@monthName</span>
+                                                                                            }
+                                                                                        </td>
                                                                                         <td>@Html.DisplayFor(model => item.TahakkukTarihi)</td>
                                                                                         <td>@Html.DisplayFor(model => item.VadeTarihi)</td>
                                                                                         <td>@Html.DisplayFor(model => item.Tutar)</td>
                                                                                         <td>@Html.DisplayFor(model => item.Aciklama)</td>
+                                                                                        <td>@Html.DisplayFor(model => item.TahakkukNotu)</td>
                                                                                         <td>
                                                                                             @if (item.OdemeDurumu.HasValue && item.OdemeDurumu.Value)
                                                                                             {
-                                                                                                <b class="label aktif-buton-beyandetay">Tahsil </b>
+                                                                                                <b class="label aktif-buton-beyandetay">Tahsil Edildi</b>
                                                                                             }
                                                                                             else
                                                                                             {
-                                                                                                <b class="label pasif-buton-beyandetay">Vade</b>
+                                                                                                <b class="label pasif-buton-beyandetay">Vadesi Gelmeyen</b>
                                                                                             }
                                                                                         </td>
                                                                                         <td>
@@ -936,6 +947,14 @@
                                                                                             {
                                                                                                 <b>-</b>
                                                                                             }
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <a id="btnAciklamaModal" href="#" style="text-decoration: none;" class="no-underline margin-right-5 txt-color-teal tahakkukAciklamaRow"
+                                                                                               data-original-title="Açıklama Ekle" data-toggle="modal" data-target="#tahakkukAciklamaModal"
+                                                                                               data-id="@item.Id">
+                                                                                                <i id="blueCaret" class="fa fa-comments-o rotate"></i>
+                                                                                                Tahakkuk Açıklaması
+                                                                                            </a>
                                                                                         </td>
                                                                                     </tr>
                                                                                 }
@@ -1375,6 +1394,54 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="tahakkukAciklamaModal" tabindex="-1" role="dialog" aria-labelledby="tahakkukAciklamaLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Tahakkuk Açıklama Bilgisi</h4>
+                    <input type="hidden" id="TahakkukAciklama_TahakkukId" value="" />
+
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="block-head">
+                                    <div class="item-content">
+                                        <form id="frmTahakkukAciklama">
+                                            <fieldset>
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.Label("Açıklama", new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                                <div class="col-md-8">
+                                                                    @Html.TextArea("TahakkukAciklama", new { @class = "form-control col-md-4 required", rows = "3", placeholder = "Açıklama Giriniz" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                    <a href="#" id="btnDosyaGosterVazgec" type="button" data-dismiss="modal" class="btn btn-warning">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Kapat
+                    </a>
+                    <input type="button" value="Kaydet" id="btnTahakkukAciklamaEkle" class="btn btn-primary" />
+
+                </div>
+            </div>
+        </div>
+    </div>
 }
 
 <div id="dvIcerik" style="display:none;"></div>
@@ -1391,14 +1458,12 @@
     <script src="~/Scripts/loadingoverlay.min.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script src="~/Scripts/jquery.formatCurrency-1.4.0.js"></script>
-    <script type="text/javascript" src="~/Scripts/pdfmake.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/html2canvas.min.js"></script>
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
     <link href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" rel="stylesheet" />
 
     <style type="text/css">
         .map {
-            height: 400px;
+            height: 600px;
             top: 0;
             bottom: 0;
             width: 100%;
@@ -1449,7 +1514,7 @@
             display: block;
             text-align: center;
             font-size: 12px;
-            width: 75px;
+            width: 115px;
         }
 
         .silindi-buton-beyandetay {
@@ -1475,7 +1540,7 @@
             display: block;
             text-align: center;
             font-size: 12px;
-            width: 55px;
+            width: 110px;
         }
     </style>
 
@@ -1485,18 +1550,22 @@
 
         var map = L.map(element);
 
-        var tile_layer = L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
+        $(document).ready(function () {
 
-        var target = L.latLng($('#hdKoordinat').val().split(',')[0], $('#hdKoordinat').val().split(',')[1]);
+            var tile_layer = L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+                maxNativeZoom: 14, // OSM max available zoom is at 19.
+                maxZoom: 14 // Match the map maxZoom, or leave map.options.maxZoom undefined.
+            }).addTo(map);
+            var lat = $('#hdKoordinat').val().split(',')[0];
+            var long = $('#hdKoordinat').val().split(',')[1];
+            var target = L.latLng([lat, long], 14);
 
-        // Set map's center to target with zoom 14.
-        map.setView(target, 16);
+            // Set map's center to target with zoom 14.
+            map.setView(target, 14);
 
-        // Place a marker on the same location.
-        L.marker(target).addTo(map);
-        tile_layer.on("load", function () { console.log("all visible tiles have been loaded") });
+            // Place a marker on the same location.
+            L.marker(target).addTo(map);
+        });
 
     </script>
 
@@ -1541,7 +1610,7 @@
                 onTabShow: function (tab, navigation, index) {
                     const $total = navigation.find('li').length;
                     const $current = index + 1;
-
+                    map.invalidateSize();
                     const pager = wizard.find('.pager');
 
                     if ($current >= $total) {
@@ -2152,6 +2221,55 @@
                 }
             });
         });
+    </script>
+
+    <!--Tahakkuk Açıklama Ekleme İşlemi -->
+    <script type="text/javascript">
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        };
+
+        $('.tahakkukAciklamaRow').click(function (val) {
+            $('#TahakkukAciklama_TahakkukId').val('');
+
+            var tahakkukId = $(this).attr("data-id");
+
+            $('#TahakkukAciklama_TahakkukId').val(tahakkukId);
+        });
+
+        $('#btnTahakkukAciklamaEkle').on('click', function () {
+
+            TahakkukId = $('#TahakkukAciklama_TahakkukId').val();
+            TahakkukNotu = $('#TahakkukAciklama').val();
+
+            if ($("#frmTahakkukAciklama").valid()) {
+                $.ajax({
+                    type: 'Post',
+                    url: '/Kira/Beyan/TahakkukAciklamaEkle',
+                    data: { TahakkukId: TahakkukId, TahakkukNotu: TahakkukNotu },
+                    success: function (result) {
+                        if (result != null && result.success) {
+                            swal('Bilgi!', result.Message, 'success');
+                            setTimeout(function () {
+                                window.location.href = "/Kira/Beyan/BeyanDetay" + window.location.search;
+                            }, 2000);
+                        }
+                        else {
+                            swal('Uyarı!', result.Message, 'warning');
+                            $.LoadingOverlay("hide");
+                        }
+                    },
+                    error: function (xhr) {
+                        swal('Uyarı!', result.Message, 'warning');
+                        $.LoadingOverlay("hide");
+                    }
+                });
+            }
+        });
+
     </script>
 
 }

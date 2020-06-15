@@ -469,11 +469,22 @@
         $(document).ready(function () {
 
             const wizard = $('#wizard');
-
+            function GetParameterValues(param) {
+                var url = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+                for (var i = 0; i < url.length; i++) {
+                    var urlparam = url[i].split('=');
+                    if (urlparam[0] == param) {
+                        return urlparam[1];
+                    }
+                }
+            }  
             wizard.bootstrapWizard({
                 'tabClass': 'nav nav-pills',
                 onTabClick: function (tab, navigation, index) {
-                    return true;
+                    var queryString = GetParameterValues('id');
+                    if (queryString != null && queryString != '')
+                        return true;
+                    return false;
                 },
                 onNext: function (tab, navigation, index) {
 

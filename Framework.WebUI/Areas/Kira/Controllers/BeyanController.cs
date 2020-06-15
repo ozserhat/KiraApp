@@ -516,7 +516,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 KdvAlinacakMi = tahakkuk.KdvAlinacakMi,
                 EkTahakkukKdvOran = tahakkuk.EkTahakkukKdvOran,
                 EkTahakkukMu = true,
-                Aciklama = tahakkuk.Aciklama,
+                Aciklama = "Fatura Farkı",
+                TahakkukNotu = tahakkuk.Aciklama,
                 ServisAciklama = kiraParametre.KiraTarifeAciklama,
                 OlusturulmaTarihi = DateTime.Now,
                 OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
@@ -544,7 +545,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                     KdvAlinacakMi = tahakkuk.KdvAlinacakMi,
                     EkTahakkukKdvOran = tahakkuk.EkTahakkukKdvOran,
                     EkTahakkukMu = true,
-                    Aciklama = tahakkuk.Aciklama,
+                    Aciklama = "Fatura Farkı Kdv",
                     ServisAciklama = kiraParametre.KdvTarifeAciklama,
                     OlusturulmaTarihi = DateTime.Now,
                     OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
@@ -869,6 +870,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             return ekleVm;
 
         }
+     
         private bool TahakkukOlustur(KiraArtisEkleVM artisModel, ref KiraBeyanIslemleri islemler)
         {
             bool beyanEkleSonuc = false;
@@ -1735,13 +1737,18 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                     dosya.FilePath = filePath;
                     dosya.BeyanDosya = item.BeyanDosya;
                     dosyaList.Add(dosya);
-                    //var result = _beyanDosyaService.Ekle(dosya);
+                    var dosyaTur = _dosyaService.Getir(item.BeyanDosyaTur_Id);
+                    if(dosyaTur!=null&&dosyaTur.KapatmaMi.HasValue&&dosyaTur.KapatmaMi.Value)
+                    {
+                        var result = _beyanDosyaService.Ekle(dosya);
 
-                    //if (result.Id > 0 && !artisMi)
-                    //{
-                    //    byte[] fileBytes = Convert.FromBase64String(item.BeyanDosya);
-                    //    System.IO.File.WriteAllBytes(filePath + dosya.Ad, fileBytes);
-                    //}
+                        if (result.Id > 0 && !artisMi)
+                        {
+                            byte[] fileBytes = Convert.FromBase64String(item.BeyanDosya);
+                            System.IO.File.WriteAllBytes(filePath + dosya.Ad, fileBytes);
+                        }
+                    }
+
                 }
 
                 if (!artisMi&& islemler.Eklenenler!=null)
@@ -2112,6 +2119,30 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             }
 
             return Json(new { data = model, success = true }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult TahakkukAciklamaEkle(int TahakkukId,string TahakkukNotu)
+        {
+            var model = new KiraBeyanDetayVM();
+            var tahakkuk = _tahakkukService.Getir(TahakkukId);
+
+            if (tahakkuk != null)
+            {
+                tahakkuk.TahakkukNotu = TahakkukNotu.Trim();
+                var sonuc = _tahakkukService.Guncelle(tahakkuk);
+                if(sonuc!=null&&!string.IsNullOrEmpty(sonuc.Aciklama))
+                {
+                    ModelState.AddModelError("LogMessage", "Tahakkuk Açıklaması Başarıyla Kaydedildi.");
+
+                    return Json(new { Message = "Tahakkuk Açıklaması Başarıyla Kaydedildi.", success = true }, JsonRequestBehavior.AllowGet);
+                }
+
+            }
+
+            ModelState.AddModelError("LogMessage", "Tahakkuk Açıklaması Eklenemedi!!!");
+
+            return Json(new { Message = "Tahakkuk Açıklaması Eklenemedi", success = false }, JsonRequestBehavior.AllowGet);
         }
 
         #endregion

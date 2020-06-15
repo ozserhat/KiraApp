@@ -526,6 +526,7 @@
 
 
     </script>
+
     <!--Gayrimenkul Tablo Ayarlar-->
     <script type="text/javascript">
         var dt_settings = {
@@ -595,7 +596,7 @@
 
                     const $total = navigation.find('li').length;
                     const $current = index + 1;
-
+                    map.invalidateSize();
                     const pager = wizard.find('.pager');
 
                     if ($current >= $total) {

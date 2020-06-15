@@ -198,10 +198,11 @@
                                                         <th style="width: 20px;">No</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Beyan No</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Beyan Yıl</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Ay</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Tahakkuk Tarihi</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Vade Tarihi</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Tutar</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Durum</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">ödeme Bilgisi</th>
                                                     </tr>
                                                 </thead>
 
@@ -212,36 +213,42 @@
 
                                                         @foreach (var item in Model.Tahakkuklar)
                                                         {
-                                                            <tr role="row" class="odd">
-                                                                <td>@(i++)</td>
-                                                                <td>@Html.DisplayFor(model => item.Kira_Beyani.Beyanlar.BeyanNo)</td>
-                                                                <td>@Html.DisplayFor(model => item.Kira_Beyani.Beyanlar.BeyanYil)</td>
-                                                                <td>
-                                                                    @if (item.TahakkukTarihi.HasValue)
-                                                                    {
-                                                                        string basTarihi = item.TahakkukTarihi.Value.ToString("dd.MM.yyyy");
-                                                                        @Html.DisplayFor(model => basTarihi)
-                                                                    }
-                                                                </td>
-                                                                <td>
-                                                                    @if (item.VadeTarihi.HasValue)
-                                                                    {
-                                                                        string basTarihi = item.VadeTarihi.Value.ToString("dd.MM.yyyy");
-                                                                        @Html.DisplayFor(model => basTarihi)
-                                                                    }
-                                                                </td>
-                                                                <td>@Html.DisplayFor(model => item.Tutar)</td>
-                                                                <td>
-                                                                    @if (item.OdemeDurumu.HasValue && item.OdemeDurumu.Value)
-                                                                    {
-                                                                        <b class="label aktif-buton-beyandetay">Tahsil</b>
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        <b class="label pasif-buton-beyandetay">Vade</b>
-                                                                    }
-                                                                </td>
-                                                            </tr>
+                                                        <tr role="row" class="odd">
+                                                            <td>@(i++)</td>
+                                                            <td>@Html.DisplayFor(model => item.Kira_Beyani.Beyanlar.BeyanNo)</td>
+                                                            <td>@Html.DisplayFor(model => item.Kira_Beyani.Beyanlar.BeyanYil)</td>
+                                                            <td>
+                                                                @{
+                                                                    string monthName = item.VadeTarihi.Value.ToString("MMMM");
+                                                                    <span>@monthName</span>
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                @if (item.TahakkukTarihi.HasValue)
+                                                                {
+                                                                    string basTarihi = item.TahakkukTarihi.Value.ToString("dd.MM.yyyy");
+                                                                    @Html.DisplayFor(model => basTarihi)
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                @if (item.VadeTarihi.HasValue)
+                                                                {
+                                                                    string basTarihi = item.VadeTarihi.Value.ToString("dd.MM.yyyy");
+                                                                    @Html.DisplayFor(model => basTarihi)
+                                                                }
+                                                            </td>
+                                                            <td>@Html.DisplayFor(model => item.Tutar)</td>
+                                                            <td>
+                                                                @if (item.OdemeDurumu.HasValue && item.OdemeDurumu.Value)
+                                                                {
+                                                                    <b class="label aktif-buton-beyandetay">Tahsil Edildi</b>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <b class="label pasif-buton-beyandetay">Vadesi Gelmeyen</b>
+                                                                }
+                                                            </td>
+                                                        </tr>
                                                         }
                                                     </tbody>
                                                 }
@@ -283,7 +290,7 @@
             display: block;
             text-align: center;
             font-size: 12px;
-            width: 75px;
+            width: 115px;
         }
 
         .aktif-buton-beyandetay {
@@ -296,7 +303,7 @@
             display: block;
             text-align: center;
             font-size: 12px;
-            width: 55px;
+            width: 110px;
         }
 
         .bs-canvas-overlay {
@@ -409,8 +416,8 @@
         $(function () {
             $("#btnExport").click(function () {
                 var tbl = $('#dtTahakkuk');
-                tbl.find('th:last-child, td:last-child').remove();
-                tbl.find('th:first-child, td:first-child').remove();
+                //tbl.find('th:last-child, td:last-child').remove();
+                //tbl.find('th:first-child, td:first-child').remove();
                 $("#dtTahakkuk").table2excel({
                     filename: "tahakkuklar.xls"
                 });
@@ -422,8 +429,8 @@
     <script>
         function createPDF() {
             var tbl = $('#dtTahakkuk');
-            tbl.find('th:last-child, td:last-child').remove()
-            tbl.find('th:first-child, td:first-child').remove()
+            //tbl.find('th:last-child, td:last-child').remove()
+            //tbl.find('th:first-child, td:first-child').remove()
 
             html2canvas(tbl, {
                 onrendered: function (canvas) {

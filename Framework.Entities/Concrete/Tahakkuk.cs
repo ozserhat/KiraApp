@@ -48,6 +48,9 @@ namespace Framework.Entities.Concrete
         public string Aciklama { get; set; }
 
         [StringLength(2500)]
+        public string TahakkukNotu { get; set; }
+
+        [StringLength(2500)]
         public string ServisAciklama { get; set; }
 
         public DateTime? TahakkukTarihi { get; set; }
