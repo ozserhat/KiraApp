@@ -870,6 +870,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             return ekleVm;
 
         }
+     
         private bool TahakkukOlustur(KiraArtisEkleVM artisModel, ref KiraBeyanIslemleri islemler)
         {
             bool beyanEkleSonuc = false;

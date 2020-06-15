@@ -884,9 +884,11 @@
                                                                                 <th class="sorting_disabled" rowspan="1" colspan="1">Vade Tarihi</th>
                                                                                 <th class="sorting_disabled" rowspan="1" colspan="1">Tutar</th>
                                                                                 <th class="sorting_disabled" rowspan="1" colspan="1">Açıklama</th>
+                                                                                <th class="sorting_disabled" rowspan="1" colspan="1">Tahakkuk Notu</th>
+
                                                                                 <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 250px;">Ödeme Bilgisi</th>
                                                                                 <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 250px;">Ek Tahakkuk</th>
-                                                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 250px;">Not</th>
+                                                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 250px;">Not Ekle</th>
                                                                             </tr>
                                                                         </thead>
                                                                         @if (Model.Tahakkuklar != null && Model.Tahakkuklar.Count > 0)
@@ -909,6 +911,7 @@
                                                                                         <td>@Html.DisplayFor(model => item.VadeTarihi)</td>
                                                                                         <td>@Html.DisplayFor(model => item.Tutar)</td>
                                                                                         <td>@Html.DisplayFor(model => item.Aciklama)</td>
+                                                                                        <td>@Html.DisplayFor(model => item.TahakkukNotu)</td>
                                                                                         <td>
                                                                                             @if (item.OdemeDurumu.HasValue && item.OdemeDurumu.Value)
                                                                                             {
@@ -2222,35 +2225,36 @@
 
     <!--Tahakkuk Açıklama Ekleme İşlemi -->
     <script type="text/javascript">
-        $(function () {
-            $('.tahakkukAciklamaRow').click(function (val) {
-                $('#TahakkukAciklama_TahakkukId').val('');
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        };
 
-                var tahakkukId = $(this).attr("data-id");
+        $('.tahakkukAciklamaRow').click(function (val) {
+            $('#TahakkukAciklama_TahakkukId').val('');
 
-                $('#TahakkukAciklama_TahakkukId').val(tahakkukId);
-            });
+            var tahakkukId = $(this).attr("data-id");
 
-             $('#btnTahakkukAciklamaEkle').on('click', function () {
+            $('#TahakkukAciklama_TahakkukId').val(tahakkukId);
+        });
 
-                 TahakkukId = $('#TahakkukAciklama_TahakkukId').val();
-                 TahakkukNotu = $('#TahakkukAciklama').val();
+        $('#btnTahakkukAciklamaEkle').on('click', function () {
 
-              @*if($("#frmTahakkukAciklama").valid())
-                {
-                   $.ajax({
+            TahakkukId = $('#TahakkukAciklama_TahakkukId').val();
+            TahakkukNotu = $('#TahakkukAciklama').val();
+
+            if ($("#frmTahakkukAciklama").valid()) {
+                $.ajax({
                     type: 'Post',
-                    url: '@Url.Action("TahakkukAciklamaEkle", "Beyan")',
-                       data: { TahakkukId: TahakkukId, TahakkukNotu: Aciklama },
-                       beforeSend: function () {
-                           $.LoadingOverlay("show", { text: "Tahakkuk Açıklaması Ekleniyor...", textResizeFactor: 0.2, background: "rgba(0, 0, 0, 0.5)" });
-                       },
+                    url: '/Kira/Beyan/TahakkukAciklamaEkle',
+                    data: { TahakkukId: TahakkukId, TahakkukNotu: TahakkukNotu },
                     success: function (result) {
                         if (result != null && result.success) {
                             swal('Bilgi!', result.Message, 'success');
-                            $.LoadingOverlay("hide");
                             setTimeout(function () {
-                                window.location.href = "../Beyan/Index";
+                                window.location.href = "/Kira/Beyan/BeyanDetay" + window.location.search;
                             }, 2000);
                         }
                         else {
@@ -2261,11 +2265,11 @@
                     error: function (xhr) {
                         swal('Uyarı!', result.Message, 'warning');
                         $.LoadingOverlay("hide");
-                       }
-                 });
-                }*@
-            });
+                    }
+                });
+            }
         });
+
     </script>
 
 }
