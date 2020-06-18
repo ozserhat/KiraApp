@@ -56,6 +56,42 @@
                     </li>
                 </ul>
             </li>
+
+
+            <li>
+                <a href="#">
+                    <i class="fa fa-lg fa-fw fa-edit"></i>
+                    <span class="menu-item-parent">Raporlar</span>
+                </a>
+                <ul>
+                    <li class="@Html.RouteIf("Beyan", "active")">
+                        @Html.AuthMainAction("Beyan Raporu", "Beyan", "Raporlar",
+                        "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]), true)
+                    </li>
+                    <li class="@Html.RouteIf("Gayrimenkul Raporu", "active")">
+                        @Html.AuthMainAction("Gayrimenkul Raporu", "Index", "GayrimenkulRapor",
+                        "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]), true)
+                    </li>
+                    <li class="@Html.RouteIf("Artış Yapılan Beyan Raporu", "active")">
+                        @Html.AuthMainAction("Artış Yapılan Beyan Raporu", "ArtisYapilanBeyan", "Raporlar",
+                        "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]), true)
+                    </li>
+                    <li class="@Html.RouteIf("Beyan Yapılan Gayrimenkul Raporu", "active")">
+                        @Html.AuthMainAction("Beyan Yapılan Gayrimenkul Raporu", "BeyanYapilanGayrimenkul", "Raporlar",
+                        "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]), true)
+                    </li>
+                    <li class="@Html.RouteIf("Gayrimenkule Özel Beyan", "active")">
+                        @Html.AuthMainAction("Gayrimenkule Özel Beyan", "GayrimenkuleOzelBeyan", "Raporlar",
+                        "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]), true)
+                    </li>
+                    <li class="@Html.RouteIf("Tahsilat Raporu", "active")">
+                        @Html.AuthMainAction("Tahsilat Raporu", "TahsilatRaporu", "Raporlar",
+                        "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]), true)
+                    </li>
+                </ul>
+            </li>
+
+
         </ul>
     </nav>
 </aside>

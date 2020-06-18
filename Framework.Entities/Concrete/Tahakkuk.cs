@@ -84,6 +84,6 @@ namespace Framework.Entities.Concrete
         public decimal? Tutar { get; set; }
         public string Aciklama { get; set; }
 
-
+        public int? Gayrimenkul_Id { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿@model Framework.WebUI.Models.ViewModels.KiraBeyanVM
+﻿
+@model Framework.WebUI.Models.ViewModels.KiraBeyanVM
 @using PagedList;
 @using PagedList.Mvc;
 
@@ -8,7 +9,7 @@
 }
 
 
-@if (Model.Errors != null && Model.Errors.Count > 0)
+@if (Model != null && Model.Errors != null && Model.Errors.Count > 0)
 {
     <div id="content">
         <section id="widget-grid">
@@ -46,37 +47,7 @@
                             </div>
                             <h2>Beyan Listesi - <b>Toplam Beyan Adedi : @Model.TotalRecordCount</b></h2>
 
-                            <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
-                                @Html.AuthActionLink(" Beyan Ekle", "Ekle", "Beyan", "btn btn-primary",
-
-                                 "glyphicon glyphicon-plus", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
-                                <div class="btn-group" role="menu">
-                                    <button class="btn btn-info">
-                                        <i class="glyphicon glyphicon-export"></i>
-                                        Dosya İşlemleri
-                                    </button>
-                                    <button class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="#" id="btnExport" rel="tooltip"
-                                               data-original-title="Excel Raporu">
-                                                <span>Excel</span>
-                                                <i class="fa fa-file-excel-o">
-                                                </i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" id="btnPdfConverter" title="Pdf" onclick="createPDF()">
-                                                <span>Pdf</span>
-                                                <i class="fa fa-file-pdf-o">
-                                                </i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                       
 
                         </header>
                         <div role="contentinfo">
@@ -93,7 +64,7 @@
                                                         <h4 class="d-inline-block text-light mb-0 float-right">Sorgulama Kriterleri</h4><br />
                                                     </header>
                                                     <div class="bs-canvas-content px-3 py-5" style="height:250px">
-                                                        @using (Html.BeginForm("Index", "Beyan", FormMethod.Post, new { enctype = "multipart/form-data", id = "submitForm" }))
+                                                        @using (Html.BeginForm("ArtisYapilanBeyan", "Raporlar", FormMethod.Post, new { enctype = "multipart/form-data", id = "submitForm" }))
                                                         {
                                                             <div class="widget-body">
                                                                 @Html.HiddenFor(model => model.PageSize)
@@ -429,8 +400,15 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="dt-buttons">
+                                                    <button class="dt-button buttons-excel buttons-html5" id="btnExport" tabindex="0" aria-controls="tblBeyan" type="button"><span>Excel</span></button>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div id="dvTable" class="col-md-12">
-                                            @{ Html.RenderPartial("_tablePartial", Model); }
+                                            @{ Html.RenderPartial("_tableBeyanPartial", Model); }
                                         </div>
                                     </div>
                                 </div>
@@ -440,9 +418,11 @@
                 </article>
             </div>
         </section>
+        <div id="dvjson"></div>
+
     </div>
 
-    using (Html.BeginForm("Index", "Beyan", new { page = 1 }, FormMethod.Post, new { @id = "sorgulamaKriterleri" }))
+    using (Html.BeginForm("Beyan", "Raporlar", new { page = 1 }, FormMethod.Post, new { @id = "sorgulamaKriterleri" }))
     {
         <input id="page" name="page" type="hidden" value="">
     }
@@ -458,6 +438,18 @@
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+
+    <link href="~/Content/export/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="~/Content/export/css/buttons.dataTables.min.css" rel="stylesheet" />
+
+    <script type="text/javascript" src="~/Content/export/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/Content/export/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="~/Content/export/js/buttons.flash.min.js"></script>
+    <script type="text/javascript" src="~/Content/export/js/jszip.min.js"></script>
+    <script type="text/javascript" src="~/Content/export/js/pdfmake.min.js"></script>
+    <script type="text/javascript" src="~/Content/export/js/vfs_fonts.js"></script>
+    <script type="text/javascript" src="~/Content/export/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="~/Content/export/js/buttons.print.min.js"></script>
     <style type="text/css">
         .pasif-buton-beyandetay {
             padding: 3px 6px;
@@ -700,68 +692,6 @@
         });
     </script>
 
-    <!--Beyan Silme İşlemi -->
-    <script type="text/javascript">
-
-        var dt_settings = {
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Turkish.json"
-            },
-            "searching": true,
-            "bPaginate": true
-        };
-
-        $(".delete-row").click(function (e) {
-            e.preventDefault();
-            var id = $(this).attr("data-id");
-            var name = $(this).attr("data-name");
-            var closestTR = $(this).closest("tr");
-            var vl = deletealert(id, name, closestTR);
-        });
-
-        function OnSuccess() {
-            $.LoadingOverlay("show", { text: "Beyan Bilgileri Sorgulanıyor...", textResizeFactor: 0.2, background: "rgba(0, 0, 0, 0.5)" });
-            setTimeout(function () {
-                $.LoadingOverlay("hide");
-            }, 2000);
-        }
-
-        $(document).ready(function () {
-            var tblBeyan = $('#tblBeyan').DataTable(dt_settings);
-        });
-    </script>
-
-    <script type="text/javascript">
-        function deletealert(Id, name, closestTR) {
-            swal({
-                title: "Uyarı",
-                text: name + " No'lu Beyanı Silmek İstediğinizden Emin misiniz?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Evet",
-                cancelButtonText: "İptal"
-            }).then(function (isConfirm) {
-                if (isConfirm) {
-                    $.ajax({
-                        url: "/Beyan/Sil/" + Id,
-                        type: 'POST',
-                        success: function (result) {
-                            if (result.success) {
-                                closestTR.fadeOut(2000, function () {
-                                    dt = $('#dt_basic').DataTable();
-                                    swal('Uyarı!', name + ' ' + result.Message, 'success');
-                                    location.reload();
-                                });
-                            }
-                            else swal('Uyarı!', name + ' ' + result.Message, 'error');
-                        }
-                    });
-                }
-            })
-        }
-    </script>
-
     <!--Datepicker-->
     <script type="text/javascript">
         $(document).ready(function () {
@@ -786,39 +716,186 @@
     <script type="text/javascript">
         $(function () {
             $("#btnExport").click(function () {
-                var tbl = $('#tblBeyan');
-                debugger;
-
-                tbl.find('th:last-child, td:last-child').remove();
-                tbl.find('th:first-child, td:first-child').remove();
-                $("#tblBeyan").table2excel({
-                    filename: "Beyanlar.xls"
-                });
+                //var tbl = $('#tblBeyan');
+                //tbl.find('th:last-child, td:last-child').remove();
+                //tbl.find('th:first-child, td:first-child').remove();
+                //$("#tblBeyan").table2excel({
+                //    filename: "Beyanlar.xls"
+                //});
+                ExportToExcel();
             });
         });
-    </script>
+       function ExportToExcel()
+       {
+           var kiraBeyanRequest = {
+               BeyanTur_Id: $('#BeyanTur_Id').val(),
+               BeyanYil: $('#BeyanYil').val(),
+               KiraDurum_Id: $('#KiraDurum_Id').val(),
+               Kdv: $('#Kdv').val(),
+               odemePeriyoTur: $('#OdemePeriyotTur_Id').val(),
+               DamgaAlinsinMi: $('#DamgaAlinsinMi').val(),
+               BeyanNo: $('#BeyanNo').val(),
+               NoterSozlesmeNo: $('#NoterSozlesmeNo').val(),
+               EncumenKararNo: $('#EncumenKararNo').val(),
+               BeyanTarihi: $('#BeyanTarihi').val(),
+               IhaleEncumenTarihi: $('#IhaleEncumenTarihi').val(),
+               KiraBaslangicTarihi: $('#KiraBaslangicTarihi').val(),
+               SozlesmeTarihi: $('#SozlesmeTarihi').val(),
+               SozlesmeBitisTarihi: $('#SozlesmeBitisTarihi').val(),
+               TeminatTarihi: $('#TeminatTarihi').val(),
+               BeyanKapatmaTarihi: $('#BeyanKapatmaTarihi').val(),
+               TeminatNo: $('#TeminatNo').val(),
+               KullanimAlani: $('#KullanimAlani').val(),
+               SozlesmeSuresi: $('#SozlesmeSuresi').val(),
+               MusadeliGunSayisi: $('#MusadeliGunSayisi').val(),
+               KalanAy: $('#KalanAy').val(),
+               IhaleTutari: $('#IhaleTutari').val(),
+               KiraTutari: $('#KiraTutari').val(),
+               BaslangicTaksitNo: $('#BaslangicTaksitNo').val()
+           };
 
-    <!--Export PDf-->
-    <script>
-        function createPDF() {
-            var tbl = $('#tblBeyan');
-            tbl.find('th:last-child, td:last-child').remove()
-            tbl.find('th:first-child, td:first-child').remove()
+            $.ajax({
+            type: 'Post',
+            url: '@Url.Action("GridExportToExcelArtisRapor", "Raporlar")',
+                data: { kiraBeyanRequest: kiraBeyanRequest },
+                success: function (data) {
+                    debugger;
+                    $("#tblExcell").dataTable().fnDestroy();
+                    TableGenarete(data);
 
-            html2canvas(tbl, {
-                onrendered: function (canvas) {
-                    var data = canvas.toDataURL();
-                    var docDefinition = {
-                        content: [{
-                            image: data,
-                            width: 500
-                        }]
-                    };
-                    pdfMake.createPdf(docDefinition).download("Beyan.pdf");
-                }
+                    debugger;
+                    $("#tblExcell").table2excel({
+                        filename: "Beyanlar.xls"
+                    });
+                    document.getElementById("tblExcell_wrapper").style.display = "none";
+
+                    //$("#tblExcell").clearForm();
+                 },
+
+                  });
+        }
+
+        function TableGenarete(data) {
+            var veri = jQuery.parseJSON(data);
+
+
+            var oTblReport = $("#tblExcell")
+
+            oTblReport.DataTable({
+                "data": veri,
+                "columns": [
+                    { "data": "Beyan No" },
+                    { "data": "Beyan Yıl" },
+                    { "data": "Encümen Karar No" },
+                    { "data": "Noter Sözleşme No" },
+                    { "data": "Teminat No" },
+                    { "data": "İhale Tutarı" },
+                    { "data": "Başlangıç Taksit No" },
+                    { "data": "Kalan Ay" },
+                    { "data": "Kullanim Alanı" },
+                    { "data": "Sözleşme Süresi" },
+                    { "data": "Kira Tutarı" },
+                    { "data": "Damga Alınsın Mı" },
+                    { "data": "Damga Karar Artış Türü" },
+                    { "data": "Teminat Artış Türü" },
+                    { "data": "Müsadeli Gün Sayısı" },
+                    { "data": "KDV" },
+                    { "data": "Otopark Tatil Gün" },
+                    { "data": "Resmi Tatil Var Mı" },
+                    { "data": "Beyan Tarihi" },
+                    { "data": "İhale Encümen Tarihi" },
+                    { "data": "Sözleşme Tarihi" },
+                    { "data": "Sözleşme Bitiş Tarihi" },
+                    { "data": "Kira Yenileme Periyot" },
+                    { "data": "Teminat Tarihi" },
+                    { "data": "Kira Başlangıç Tarihi" },
+                    { "data": "Beyan Türü" },
+                    { "data": "Kira Durumu" },
+                    { "data": "Ödeme Periyot Türü" },
+                    { "data": "Beyan Kapatma Tarihi" },
+                ]
             });
         }
+
+        function createPDF() {
+
+            var kiraBeyanRequest = {
+               BeyanTur_Id: $('#BeyanTur_Id').val(),
+               BeyanYil: $('#BeyanYil').val(),
+               KiraDurum_Id: $('#KiraDurum_Id').val(),
+               Kdv: $('#Kdv').val(),
+               odemePeriyoTur: $('#OdemePeriyotTur_Id').val(),
+               DamgaAlinsinMi: $('#DamgaAlinsinMi').val(),
+               BeyanNo: $('#BeyanNo').val(),
+               NoterSozlesmeNo: $('#NoterSozlesmeNo').val(),
+               EncumenKararNo: $('#EncumenKararNo').val(),
+               BeyanTarihi: $('#BeyanTarihi').val(),
+               IhaleEncumenTarihi: $('#IhaleEncumenTarihi').val(),
+               KiraBaslangicTarihi: $('#KiraBaslangicTarihi').val(),
+               SozlesmeTarihi: $('#SozlesmeTarihi').val(),
+               SozlesmeBitisTarihi: $('#SozlesmeBitisTarihi').val(),
+               TeminatTarihi: $('#TeminatTarihi').val(),
+               BeyanKapatmaTarihi: $('#BeyanKapatmaTarihi').val(),
+               TeminatNo: $('#TeminatNo').val(),
+               KullanimAlani: $('#KullanimAlani').val(),
+               SozlesmeSuresi: $('#SozlesmeSuresi').val(),
+               MusadeliGunSayisi: $('#MusadeliGunSayisi').val(),
+               KalanAy: $('#KalanAy').val(),
+               IhaleTutari: $('#IhaleTutari').val(),
+               KiraTutari: $('#KiraTutari').val(),
+               BaslangicTaksitNo: $('#BaslangicTaksitNo').val()
+           };
+
+            $.ajax({
+            type: 'Post',
+            url: '@Url.Action("GridExportToExcelArtisRapor", "Raporlar")',
+                data: { kiraBeyanRequest: kiraBeyanRequest },
+                success: function (data) {
+                    debugger;
+                    TableGenarete(data);
+                    var tbl = $('#tblExcell');
+
+                    html2canvas(tbl, {
+                        onrendered: function (canvas) {
+                            var data1 = canvas.toDataURL();
+                            var docDefinition = {
+                                content: [{
+                                    image: data1,
+                                    width: 500
+                                }]
+                            };
+                            pdfMake.createPdf(docDefinition).download("BeyanRapor.pdf");
+                        }
+                    });
+
+                 },
+
+                  });
+
+        }
+
+
+        // We'll make our own renderer to skip this editor
+
     </script>
+
+    <script>
+        function JsonConvertoExcell(data) {
+            var tableData = [
+                {
+                    "sheetName": "Sheet1",
+                    "data": data
+                }
+            ];
+
+            var options = {
+                fileName: "Beyan Raporu"
+            };
+            Jhxlsx.export(tableData, options);
+        }
+    </script>
+
+
 
     <!--Tahakkuk Bilgileri-->
     <script type="text/javascript">
@@ -846,7 +923,7 @@
 
 
             $.ajax({
-                url: "/Kira/Beyan/GetirDetayTable/",
+                url: "/Kira/Raporlar/GetirArtisBeyanDetayTable/",
                 type: "Post",
                 dataType: 'Json',
                 data: { BeyanId: id },
