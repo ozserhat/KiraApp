@@ -303,6 +303,8 @@
     <Content Include="Content\ajax\notify\notifications.html" />
     <Content Include="Content\ajax\notify\tasks.html" />
     <Content Include="Content\ajax\website-template.html" />
+    <Content Include="Content\app.bundle-rtl.css" />
+    <Content Include="Content\app.bundle.css" />
     <Content Include="Content\backgrounds\bg-1.png" />
     <Content Include="Content\backgrounds\bg-2.png" />
     <Content Include="Content\backgrounds\bg-3.png" />
@@ -996,6 +998,8 @@
     <Content Include="Content\sweetalert.css" />
     <Content Include="Content\SweetAlert\sweetalert2.css" />
     <Content Include="Content\SweetAlert\sweetalert2.min.js" />
+    <Content Include="Content\vendors.bundle-rtl.css" />
+    <Content Include="Content\vendors.bundle.css" />
     <Content Include="Content\xml\gmap\pins.xml" />
     <Content Include="Dosyalar\Gayrimenkul\13f9bef4-51a0-42de-9167-7ed257401b17.png" />
     <Content Include="Dosyalar\Gayrimenkul\1ed87a16-147d-42da-8eea-d555249c4d90.png" />
@@ -1232,6 +1236,8 @@
     <Content Include="Content\media\data\ng-text-colors.json" />
     <Content Include="Content\media\data\plugin-reference.json" />
     <Content Include="Content\media\data\server-demo.json" />
+    <Content Include="Content\app.bundle.css.map" />
+    <Content Include="Content\vendors.bundle.css.map" />
     <None Include="job_scheduling_data_2_0.xsd">
       <SubType>Designer</SubType>
     </None>
