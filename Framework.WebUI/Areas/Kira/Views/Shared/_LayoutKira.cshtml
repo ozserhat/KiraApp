@@ -43,12 +43,18 @@
 
 
     <div id="main" role="main">
+        <button id="click" type="button" class="btn btn-danger btn-block">
+            <span id="htIcon" class="fa fa-angle-double-right"></span>  Hatırlatmalar
+        </button>
         <div id="uyariView">
         </div>
-        <div id="partialResult"></div>
 
+        <div id="hatirlatmaView" class="SmallBox" data-backdrop="static" data-keyboard="false">
+        </div>
+        <div id="partialResult"></div>
         @RenderBody()
     </div>
+
     <div id="copyright" class="page-footer navbar-fixed-bottom ">
         <div class="row">
             <div class="col-xs-12 col-sm-12 text-align-center">
@@ -58,7 +64,9 @@
             </div>
         </div>
     </div>
+
     @{ Html.RenderPartial("_Scripts", RenderSection("pagespecific", false)); }
+
     <script type="text/javascript">
         $(document).ready(function () {
             $.ajax({
@@ -90,21 +98,26 @@
     </script>
 
     <script type="text/javascript">
-        function GetirUyari() {
+
+        function GetirHatirlatma() {
             $.ajax({
-                url: '/Unauthorized/UyariVer',
+                url: '/Kira/Anasayfa/HatirlatmaListesi',
                 datatype: "json",
                 type: "post",
                 contenttype: 'application/json; charset=utf-8',
                 async: true,
                 success: function (data) {
-                    $("#uyariView").html(data);
+                    $("#hatirlatmaView").html(data);
                 },
                 error: function (xhr) {
                     alert('error');
                 }
             });
         }
+
+        $(document).ready(function () {
+            GetirHatirlatma();
+        });
     </script>
 
 </body>

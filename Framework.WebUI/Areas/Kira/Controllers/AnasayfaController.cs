@@ -23,11 +23,14 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         public IDuyuruService Service => _service;
 
         public IDuyuru_BildirimService BildirimService => _bildirimService;
+       
+        private readonly ITahakkukService _tahakkukService;
 
         public AnasayfaController(IDuyuruService service,
-            IDuyuru_BildirimService bildirimService)
+            IDuyuru_BildirimService bildirimService, ITahakkukService tahakkukService)
         {
             _service = service;
+            _tahakkukService = tahakkukService;
             _bildirimService = bildirimService;
         }
 
@@ -40,6 +43,20 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult HatirlatmaListesi()
+        {
+            HatirlatmaVm hatirlatma = new HatirlatmaVm()
+            {
+                ArtisiGelenSayisi = _tahakkukService.GetirArtisiGelenTahakkuklar().Count,
+                GecikenTahakkukSayisi = _tahakkukService.GetirOdemesiGecikenTahakkuklar().Count,
+                SozlemesiBitenSayisi = _tahakkukService.GetirSozlemesiBitenBeyanlar().Count,
+                OdemesiGelenTahakkukSayisi = _tahakkukService.GetirOdemesiGelenTahakkuklar().Count
+            };
+
+            //TempData["HatirlatmaListesi"] = hatirlatma;
+            return PartialView("~/Views/Shared/_Hatirlatmalar.cshtml",hatirlatma);
+        }
 
 
         [AcceptVerbs(HttpVerbs.Get)]

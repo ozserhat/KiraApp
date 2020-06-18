@@ -59,18 +59,22 @@ namespace Framework.Business.Concrete.Managers
         {
             return _tahakkukDal.GetirListe();
         }
+      
         public Tahakkuk Getir(int id)
         {
             return _tahakkukDal.GetById(id);
         }
+     
         public IEnumerable<Tahakkuk> GetirSorguListe(TahakkukRequest request)
         {
             return _tahakkukDal.GetListByCriterias(request);
         }
+      
         public IEnumerable<Tahakkuk> GetirListeAktif()
         {
             return _tahakkukDal.GetirListe().Where(a => a.AktifMi == (int)EnmIslemDurumu.Aktif);
         }
+       
         public List<Tahakkuk> GetirListe(int KiraBeyanId)
         {
             return _tahakkukDal.GetirListeBeyanId(KiraBeyanId);
@@ -84,6 +88,30 @@ namespace Framework.Business.Concrete.Managers
         public bool Sil(int id)
         {
             return _tahakkukDal.Delete(id);
+        }
+
+        public List<Tahakkuk> GetirOdemesiGecikenTahakkuklar()
+        {
+            var result = _tahakkukDal.GetirListe().Where(a => a.AktifMi == (int)EnmIslemDurumu.Aktif && DateTime.Now > a.VadeTarihi.Value).ToList();
+            return result;
+        }
+
+        public List<Tahakkuk> GetirArtisiGelenTahakkuklar()
+        {
+            var result = _tahakkukDal.GetirListe().Where(a => a.AktifMi == (int)EnmIslemDurumu.Aktif && a.Kira_Beyani.Beyanlar.KiraBaslangicTarihi.Value.AddYears(1).ToShortDateString() == DateTime.Now.ToShortDateString()).ToList();
+            return result;
+        }
+
+        public List<Tahakkuk> GetirOdemesiGelenTahakkuklar()
+        {
+            var result = _tahakkukDal.GetirListe().Where(a => a.AktifMi == (int)EnmIslemDurumu.Aktif && a.VadeTarihi.Value.ToShortDateString() == DateTime.Now.AddDays(-7).ToShortDateString()).ToList();
+            return result;
+        }
+
+        public List<Tahakkuk> GetirSozlemesiBitenBeyanlar()
+        {
+            var result = _tahakkukDal.GetirListe().Where(a => a.AktifMi == (int)EnmIslemDurumu.Aktif && a.Kira_Beyani.Beyanlar.SozlesmeBitisTarihi.Value.ToShortDateString() == DateTime.Now.ToShortDateString()).ToList();
+            return result;
         }
     }
 }

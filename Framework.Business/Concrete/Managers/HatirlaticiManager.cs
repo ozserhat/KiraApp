@@ -27,11 +27,7 @@ namespace Framework.Business.Concrete.Managers
 
         public void Execute(IJobExecutionContext context)
         {
-            if (context == null)
-            {
-                throw new ArgumentNullException(nameof(context));
-            }
-
+            var tahakkukListe = _tahakkukDal.GetirListe().Where(a=>a.AktifMi==1);
             Task taskA = new Task(() => Debug.WriteLine("Hello from task at {0}", DateTime.Now.ToString()));
             taskA.Start();
         }

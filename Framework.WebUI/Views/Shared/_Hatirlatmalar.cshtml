@@ -1,0 +1,81 @@
+﻿@model Framework.WebUI.Models.ViewModels.HatirlatmaVm
+@{
+
+    <style type="text/css">
+        #smallbox1 {
+            position: fixed;
+            margin-top: 60px;
+            width: 320px;
+            font-size: 15px;
+        }
+
+        .SmallBox p {
+            font-size: 15px;
+            margin-top: 0px;
+            border-top: 1px dotted white;
+        }
+
+        .btn-danger.outline:active, .btn-danger.outline.active {
+            border-color: #007299;
+            color: #007299;
+            box-shadow: none;
+        }
+
+        #click {
+            height: 30px;
+            width: 110px;
+            float: right;
+            margin-top: 82px;
+            right: 5px;
+            position: relative;
+            z-index: 10000;
+        }
+
+        #hatirlatmaView {
+            height: 500px;
+            width: 200px;
+            float: left;
+            display: none;
+            color: white;
+            font-size: 15px;
+        }
+    </style>
+
+    <script>
+
+        function GetirHatirlatma(Icerik) {
+            $.smallBox({
+                title: "Hatırlatmalar",
+                content: Icerik,
+                color: "#970921"
+            });
+        }
+
+        function GetNotification() {
+
+            var urlContent = '</br><a href="/Kira/Hatirlatma/Index?tab=tab1" style="color:white;">Ödemesi Gelen Beyanlar<span class="not2">' +@Model.OdemesiGelenTahakkukSayisi+'</span></a><hr>';
+            urlContent += '<a href="/Kira/Hatirlatma/Index?tab=tab2" style="color:white;">Ödemesi Geciken Beyanlar<span class="not2">' +@Model.GecikenTahakkukSayisi+'</span></a><hr>';
+            urlContent += '<a href="/Kira/Hatirlatma/Index?tab=tab4" style="color:white;">Artışı Gelen Beyanlar<span class="not2">' +@Model.ArtisiGelenSayisi+'</span></a><hr>';
+            urlContent += '<a href="/Kira/Hatirlatma/Index?tab=tab3" style="color:white;">Sözleşmesi Biten Beyanlar<span class="not2">'+@Model.SozlemesiBitenSayisi+'</span></a>';
+
+            GetirHatirlatma(urlContent);
+        }
+
+        $('#click').click(function () {
+            $("#smallbox1").animate({ width: 'toggle' }, 500);
+            if ($(this).find('span').hasClass('fa fa-angle-double-right')) {
+                $(this).find('span').removeClass('fa fa-angle-double-right');
+                $(this).find('span').addClass('fa fa-angle-double-left');
+             
+            } else {
+                $(this).find('span').removeClass('fa fa-angle-double-left');
+                $(this).find('span').addClass('fa fa-angle-double-right');
+            }
+        });
+
+        $(document).ready(function () {
+            GetNotification();
+        });
+
+    </script>
+}
