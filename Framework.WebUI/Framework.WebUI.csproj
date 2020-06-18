@@ -978,6 +978,7 @@
     <Content Include="Content\media\video\36150715-heavenly-clouds-v2-license.txt" />
     <Content Include="Content\media\video\cc.mp4" />
     <Content Include="Content\media\video\cc.webm" />
+    <Content Include="Content\page-login.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\smartadmin-production-plugins.min.css" />
     <Content Include="Content\smartadmin-production.min.css" />
@@ -1238,6 +1239,7 @@
     <Content Include="Content\media\data\server-demo.json" />
     <Content Include="Content\app.bundle.css.map" />
     <Content Include="Content\vendors.bundle.css.map" />
+    <Content Include="Content\page-login.css.map" />
     <None Include="job_scheduling_data_2_0.xsd">
       <SubType>Designer</SubType>
     </None>
