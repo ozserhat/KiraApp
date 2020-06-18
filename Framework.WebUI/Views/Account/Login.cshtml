@@ -2,30 +2,32 @@
     ViewBag.PageId = "extr-page";
     ViewBag.PageClass = "animated fadeInDown";
 }
-
 @model Framework.WebUI.Models.ViewModels.LoginVm
-
+<style>
+    html, body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden
+    }
+    .btn:hover {
+        color: #ffff;
+        text-decoration: none;
+    }
+</style>
 <div id="content" class="container">
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
-            <h1 class="txt-login-color-blue login-header-big login-aciklama-uygulamaAdi">
-                Kira Yönetim Sistemi
-            </h1>
-            <br>
-            <h4 class="login-aciklama">
-                Kira Yönetim Sistemi
-                uygulamasına hoşgeldiniz.
-            </h4>
-            <br>
-
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-1 col-lg-1 login-border hidden-xs hidden-sm"></div>
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-            <div class="well no-padding">
+        <div class="blankpage-form-field">
+            <div class="page-logo m-0 w-100 align-items-center justify-content-center rounded border-bottom-left-radius-0 border-bottom-right-radius-0 px-4">
+                <a href="javascript:void(0)" class="page-logo-link press-scale-down d-flex align-items-center">
+                    <span class="page-logo-text mr-2">Kira Uygulaması</span>
+                    <i class="fal fa-angle-down d-inline-block ml-1 fs-lg color-primary-300"></i>
+                </a>
+            </div>
+            <div class="card p-4 border-top-left-radius-0 border-top-right-radius-0">
                 @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "smart-form client-form", role = "form", id = "login-form" }))
                 {
 
-                    <header><strong> Kullanıcı Girişi</strong></header>
+                <header> <span id="logo-login"> <img src="~/content/img/logo.png" alt="Ankara Büyükşehir Belediyesi"> </span></header>
 
                     @Html.AntiForgeryToken()
                     if (Model != null && Model.Errors != null && Model.Errors.Count > 0)
@@ -53,7 +55,7 @@
                             <label class="control-label">Kullanıcı Şifreniz:</label>
                             <label class="input">
                                 <i class="icon-append fa fa-lock"></i>
-                                @Html.Password("Password", new { @class = "form-control" })
+                                @Html.Password("Password", new { @class = "form-control" }) 
                                 <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> Kullanıcı Şifrenizi Giriniz</b>
                             </label>
                             <div class="note">
@@ -72,16 +74,12 @@
         </div>
     </div>
 </div>
-<div id="copyright" class="page-footer navbar-fixed-bottom ">
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 text-align-center">
-            <span class="">
-                <a href="http://agarthateknoloji.com.tr" target="_blank" style="color:white;">Agartha Teknoloji Her Hakkı Saklıdır</a> © @DateTime.Now.Year
-            </span>
-        </div>
-    </div>
-</div>
 
+
+<video poster="~/Content/backgrounds/clouds.png" id="bgvid" playsinline autoplay muted loop>
+    <source src="~/Content/media/video/cc.webm" type="video/webm">
+    <source src="~/Content/media/video/cc.mp4" type="video/mp4">
+</video>
 @section pagespecific {
 
     <script type="text/javascript">
