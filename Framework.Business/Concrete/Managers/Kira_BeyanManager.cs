@@ -75,6 +75,9 @@ namespace Framework.Business.Concrete.Managers
             return _Kira_BeyanDal.Delete(id);
         }
 
+      
+        
+
         void GetAll()
         {
             _Kira_BeyanDal.GetList();

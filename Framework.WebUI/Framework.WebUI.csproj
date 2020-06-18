@@ -231,6 +231,8 @@
     <Compile Include="Areas\Emlak\EmlakAreaRegistration.cs" />
     <Compile Include="Areas\Kira\Controllers\AnasayfaController.cs" />
     <Compile Include="Areas\Kira\Controllers\BeyanController.cs" />
+    <Compile Include="Areas\Kira\Controllers\GayrimenkulRaporController.cs" />
+    <Compile Include="Areas\Kira\Controllers\RaporlarController.cs" />
     <Compile Include="Areas\Kira\Controllers\TahakkukController.cs" />
     <Compile Include="Areas\Kira\KiraAreaRegistration.cs" />
     <Compile Include="Areas\SosyalYardim\Controllers\AnasayfaController.cs" />
@@ -681,6 +683,17 @@
     <Content Include="Content\css\your_style.css" />
     <Content Include="Content\css\your_style.min.css" />
     <Content Include="Content\demo.min.css" />
+    <Content Include="Content\Excell\styles.css" />
+    <Content Include="Content\export\css\buttons.dataTables.min.css" />
+    <Content Include="Content\export\css\jquery.dataTables.min.css" />
+    <Content Include="Content\export\js\buttons.flash.min.js" />
+    <Content Include="Content\export\js\buttons.html5.min.js" />
+    <Content Include="Content\export\js\buttons.print.min.js" />
+    <Content Include="Content\export\js\dataTables.buttons.min.js" />
+    <Content Include="Content\export\js\jquery.dataTables.min.js" />
+    <Content Include="Content\export\js\jszip.min.js" />
+    <Content Include="Content\export\js\pdfmake.min.js" />
+    <Content Include="Content\export\js\vfs_fonts.js" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
@@ -986,6 +999,9 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\canvasjs.min.js" />
+    <Content Include="Scripts\Excell\Blob.js" />
+    <Content Include="Scripts\Excell\FileSaver.js" />
+    <Content Include="Scripts\Excell\jhxlsx.js" />
     <Content Include="Scripts\html2canvas.min.js" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
@@ -1175,6 +1191,14 @@
     <Content Include="Areas\Admin\Views\KiraDurumDosyaTur\Ekle.cshtml" />
     <Content Include="Areas\Admin\Views\KiraDurumDosyaTur\Duzenle.cshtml" />
     <Content Include="Areas\Emlak\Views\Gayrimenkul\Duzenle.cshtml" />
+    <Content Include="Areas\Kira\Views\Raporlar\Beyan.cshtml" />
+    <Content Include="Areas\Kira\Views\Raporlar\_tableBeyanPartial.cshtml" />
+    <Content Include="Areas\Kira\Views\GayrimenkulRapor\Index.cshtml" />
+    <Content Include="Areas\Kira\Views\Raporlar\ArtisYapilanBeyan.cshtml" />
+    <Content Include="Areas\Kira\Views\Raporlar\BeyanYapilanGayrimenkul.cshtml" />
+    <Content Include="Areas\Kira\Views\Raporlar\_tableBeyanYapilanGayrimenkul.cshtml" />
+    <Content Include="Areas\Kira\Views\Raporlar\GayrimenkuleOzelBeyan.cshtml" />
+    <Content Include="Areas\Kira\Views\Raporlar\TahsilatRaporu.cshtml" />
     <None Include="job_scheduling_data_2_0.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -1838,6 +1862,7 @@
     <Folder Include="Areas\Admin\Views\DuyuruBildirim\" />
     <Folder Include="Areas\Emlak\Data\" />
     <Folder Include="Areas\Kira\Data\" />
+    <Folder Include="Areas\Kira\Views\GayrimenkulRaporr\" />
     <Folder Include="Areas\SosyalYardim\Data\" />
     <Folder Include="Content\img\realestate\thumbs\" />
     <Folder Include="Content\login\css\" />

@@ -1,0 +1,130 @@
+﻿@model Framework.WebUI.Models.ViewModels.KiraBeyanVM
+<table id="tblExcell" class="display" style="display:none" width="100%">
+    <thead>
+        <tr>
+            <th>Beyan No</th>
+            <th>Beyan Yıl</th>
+            <th>Encümen Karar No</th>
+            <th>Noter Sözleşme No</th>
+            <th>Teminat No</th>
+            <th>İhale Tutarı</th>
+            <th>Başlangıç Taksit No</th>
+            <th>Kalan Ay</th>
+            <th>Kullanim Alanı</th>
+            <th>Sözleşme Süresi</th>
+            <th>Kira Tutarı</th>
+            <th>Damga Alınsın Mı</th>
+            <th>Damga Karar Artış Türü</th>
+            <th>Teminat Artış Türü</th>
+            <th>Müsadeli Gün Sayısı</th>
+            <th>KDV</th>
+            <th>Otopark Tatil Gün</th>
+            <th>Resmi Tatil Var Mı</th>
+            <th>Beyan Tarihi</th>
+            <th>İhale Encümen Tarihi</th>
+            <th>Sözleşme Tarihi</th>
+            <th>Sözleşme Bitiş Tarihi</th>
+            <th>Kira Yenileme Periyot</th>
+            <th>Teminat Tarihi</th>
+            <th>Kira Başlangıç Tarihi</th>
+            <th>Beyan Türü</th>
+            <th>Kira Durumu</th>
+            <th>Ödeme Periyot Türü</th>
+            <th>Beyan Kapatma Tarihi</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<div id="dvTable"></div>
+<table id="tblBeyan" class="table table-striped table-bordered table-hover dataTable no-footer" role="grid" aria-describedby="tblBeyan_info">
+    <thead>
+        <tr role="row">
+            <th style="width: 20px;">No</th>
+            <th class="sorting_disabled" rowspan="1" colspan="1">Tür Adı</th>
+            <th class="sorting_disabled" rowspan="1" colspan="1">Beyan No</th>
+            <th class="sorting_disabled" rowspan="1" colspan="1">Sicil No</th>
+            <th class="sorting_disabled" rowspan="1" colspan="1">Kiracı Bilgi</th>
+            <th class="sorting_disabled" rowspan="1" colspan="1">Gayrimenkul No</th>
+            @*<th class="sorting_disabled" rowspan="1" colspan="1">Sorumlu Personel</th>*@
+
+            <th class="sorting_disabled" rowspan="1" colspan="1">İl</th>
+            <th class="sorting_disabled" rowspan="1" colspan="1">İlçe</th>
+            <th class="sorting_disabled" rowspan="1" colspan="1">Mahalle</th>
+            <th class="sorting_disabled" rowspan="1" colspan="1">Durum</th>
+        </tr>
+    </thead>
+    @if (Model != null && Model.Beyanlar != null && Model.Beyanlar.Count > 0)
+    {
+        <tbody>
+
+            @{int i = ((Model.PageNumber - 1) * Model.PageSize) + 1;}
+
+            @foreach (var item in Model.Beyanlar)
+            {
+                <tr role="row" class="odd">
+                   
+                    <td>@(i++)</td>
+                    <td>@Html.DisplayFor(model => item.Beyanlar.BeyanTur.Ad)</td>
+                    <td>@Html.DisplayFor(model => item.Beyanlar.BeyanNo)</td>
+                    <td>@Html.DisplayFor(model => item.Kiracilar.SicilNo)</td>
+                    <td>@Html.DisplayFor(model => item.Kiracilar.Ad)</td>
+                    <td>@Html.DisplayFor(model => item.Gayrimenkuller.GayrimenkulNo)</td>
+                    @*<td>
+                            @if (item.SorumluPersoneller != null)
+                            {
+                                @Html.DisplayFor(model => item.SorumluPersoneller.UserName)
+                            }
+
+                        </td>*@
+
+                    <td>@Html.DisplayFor(model => item.Gayrimenkuller.Mahalleler.Ilceler.Iller.Ad)</td>
+                    <td>@Html.DisplayFor(model => item.Gayrimenkuller.Mahalleler.Ilceler.Ad)</td>
+                    <td>@Html.DisplayFor(model => item.Gayrimenkuller.Mahalleler.Ad)</td>
+                    <td>
+                        @if (item.Beyanlar.AktifMi == (int)Framework.Entities.Enums.EnmIslemDurumu.Aktif)
+                        {
+                            <b class="label aktif-buton-beyandetay">Aktif</b>
+                        }
+                        else if (item.Beyanlar.AktifMi == (int)Framework.Entities.Enums.EnmIslemDurumu.Pasif)
+                        {
+                            <b class="label pasif-buton-beyandetay">Pasif</b>
+                        }
+                        else if (item.Beyanlar.AktifMi == (int)Framework.Entities.Enums.EnmIslemDurumu.Kapandı)
+                        {
+                            <b class="label kapandi-buton-beyandetay">Kapandı</b>
+                        }
+                        else
+                        {
+                            <b class="label silindi-buton-beyandetay">Silindi</b>
+                        }
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    }
+    else
+    {
+        <tbody>
+        </tbody>
+    }
+</table>
+<div style="display:none;">
+    <input type="hidden" id="hdDetayValue" value="" />
+
+    <table id="tblDetay" class="table table-striped table-bordered table-hover dataTable no-footer display nowrap">
+        <thead>
+            <tr role="row">
+                <th>@Html.DisplayName("Beyan Yıl")</th>
+                <th>@Html.DisplayName("Taksit No")</th>
+                <th>@Html.DisplayName("Vade Tarihi")</th>
+                <th>@Html.DisplayName("Tutar")</th>
+                <th>@Html.DisplayName("Açıklama")</th>
+                <th>@Html.DisplayName("Durum")</th>
+                <th>@Html.DisplayName("Aktif Mi")</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>

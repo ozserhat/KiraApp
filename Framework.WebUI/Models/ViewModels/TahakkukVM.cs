@@ -54,6 +54,9 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Durumu")]
         public int AktifMi { get; set; }
+
+        [Display(Name = "GayrimenKuller")]
+        public SelectList GayrimenKulSelectList { get; set; }
     }
 
     public class TahakkukEkleVM : PagingVMBase
