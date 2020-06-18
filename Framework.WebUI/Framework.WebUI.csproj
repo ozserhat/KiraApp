@@ -264,6 +264,7 @@
     <Compile Include="Models\ViewModels\GayrimenkulTurVM.cs" />
     <Compile Include="Models\ViewModels\GayrimenkulVM.cs" />
     <Compile Include="Models\ViewModels\Gayrimenkul_DosyaVM.cs" />
+    <Compile Include="Models\ViewModels\HatirlatmaVm.cs" />
     <Compile Include="Models\ViewModels\KiraBeyanVM.cs" />
     <Compile Include="Models\ViewModels\KiraciTurVM.cs" />
     <Compile Include="Models\ViewModels\KiraciVM.cs" />
@@ -1191,14 +1192,6 @@
     <Content Include="Areas\Admin\Views\KiraDurumDosyaTur\Ekle.cshtml" />
     <Content Include="Areas\Admin\Views\KiraDurumDosyaTur\Duzenle.cshtml" />
     <Content Include="Areas\Emlak\Views\Gayrimenkul\Duzenle.cshtml" />
-    <Content Include="Areas\Kira\Views\Raporlar\Beyan.cshtml" />
-    <Content Include="Areas\Kira\Views\Raporlar\_tableBeyanPartial.cshtml" />
-    <Content Include="Areas\Kira\Views\GayrimenkulRapor\Index.cshtml" />
-    <Content Include="Areas\Kira\Views\Raporlar\ArtisYapilanBeyan.cshtml" />
-    <Content Include="Areas\Kira\Views\Raporlar\BeyanYapilanGayrimenkul.cshtml" />
-    <Content Include="Areas\Kira\Views\Raporlar\_tableBeyanYapilanGayrimenkul.cshtml" />
-    <Content Include="Areas\Kira\Views\Raporlar\GayrimenkuleOzelBeyan.cshtml" />
-    <Content Include="Areas\Kira\Views\Raporlar\TahsilatRaporu.cshtml" />
     <None Include="job_scheduling_data_2_0.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -1855,6 +1848,7 @@
     <Content Include="Views\Unauthorized\Error.cshtml" />
     <Content Include="Views\Shared\_bildirimListesi.cshtml" />
     <Content Include="Views\Shared\_HeaderEmlak.cshtml" />
+    <Content Include="Views\Shared\_Hatirlatmalar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

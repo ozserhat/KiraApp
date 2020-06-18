@@ -22,7 +22,11 @@ namespace Framework.Business.Abstract
         bool Ekle(List<Tahakkuk> entities);
         Tahakkuk Guncelle(Tahakkuk tahakkuk);
         bool Sil(int id);
-       
+        List<Tahakkuk> GetirOdemesiGecikenTahakkuklar();
+        List<Tahakkuk> GetirArtisiGelenTahakkuklar();
+        List<Tahakkuk> GetirOdemesiGelenTahakkuklar();
+        List<Tahakkuk> GetirSozlemesiBitenBeyanlar();
+
     }
 
     public interface ITahakkukDisServis
