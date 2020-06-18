@@ -184,6 +184,10 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             return result;
         }
 
+
+     
+
+        
         public Kira_Beyan GetirBeyan(int BeyanId)
         {
             using (DtContext context = new DtContext())

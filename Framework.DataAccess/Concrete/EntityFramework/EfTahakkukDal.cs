@@ -77,9 +77,12 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             {
                 var query = context.Tahakkuklar
                     .Include(kb => kb.Kira_Beyani)
+                    .Include(g => g.Kira_Beyani.Gayrimenkuller)
+                    .Include(g => g.Kira_Beyani.Gayrimenkuller.GayrimenkulTur)
                     .Include(b => b.Kira_Beyani.Beyanlar)
+                    .Include(b => b.Kira_Beyani.Kiracilar)
                     .AsQueryable();
-               
+
                 query = request.BeyanNo != null ? query.Where(x => x.Kira_Beyani.Beyanlar.BeyanNo == request.BeyanNo) : query;
                 query = request.BeyanYil.HasValue ? query.Where(x => x.BeyanYil == request.BeyanYil) : query;
                 query = request.TaksitNo.HasValue ? query.Where(x => x.TaksitSayisi == request.TaksitNo) : query;
@@ -88,6 +91,8 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                 query = request.Tutar.HasValue ? query.Where(x => x.Tutar == request.Tutar) : query;
                 query = request.Aciklama != null ? query.Where(x => x.Aciklama == request.Aciklama) : query;
                 query = request.OdemeDurum_Id.HasValue ? query.Where(x => x.OdemeDurumu == request.OdemeDurumu) : query;
+                query = request.Gayrimenkul_Id.HasValue ? query.Where(x => x.Kira_Beyani.Gayrimenkul_Id == request.Gayrimenkul_Id) : query;
+
                 request.OdemeDurumu = (request.OdemeDurum_Id <= 0 ? false : true);
 
                 result = query.ToList();
@@ -134,7 +139,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                 return result;
             }
         }
-  
+
         public List<Tahakkuk> GetirListeBeyanId(int KiraBeyanId)
         {
             using (DtContext context = new DtContext())

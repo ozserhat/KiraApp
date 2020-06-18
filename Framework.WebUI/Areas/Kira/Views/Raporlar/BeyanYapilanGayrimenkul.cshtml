@@ -8,7 +8,7 @@
 }
 
 
-@if (Model.Errors != null && Model.Errors.Count > 0)
+@if (Model != null && Model.Errors != null && Model.Errors.Count > 0)
 {
     <div id="content">
         <section id="widget-grid">
@@ -46,37 +46,7 @@
                             </div>
                             <h2>Beyan Listesi - <b>Toplam Beyan Adedi : @Model.TotalRecordCount</b></h2>
 
-                            <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
-                                @Html.AuthActionLink(" Beyan Ekle", "Ekle", "Beyan", "btn btn-primary",
 
-                                 "glyphicon glyphicon-plus", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
-                                <div class="btn-group" role="menu">
-                                    <button class="btn btn-info">
-                                        <i class="glyphicon glyphicon-export"></i>
-                                        Dosya İşlemleri
-                                    </button>
-                                    <button class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="#" id="btnExport" rel="tooltip"
-                                               data-original-title="Excel Raporu">
-                                                <span>Excel</span>
-                                                <i class="fa fa-file-excel-o">
-                                                </i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" id="btnPdfConverter" title="Pdf" onclick="createPDF()">
-                                                <span>Pdf</span>
-                                                <i class="fa fa-file-pdf-o">
-                                                </i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
 
                         </header>
                         <div role="contentinfo">
@@ -93,7 +63,7 @@
                                                         <h4 class="d-inline-block text-light mb-0 float-right">Sorgulama Kriterleri</h4><br />
                                                     </header>
                                                     <div class="bs-canvas-content px-3 py-5" style="height:250px">
-                                                        @using (Html.BeginForm("Index", "Beyan", FormMethod.Post, new { enctype = "multipart/form-data", id = "submitForm" }))
+                                                        @using (Html.BeginForm("BeyanYapilanGayrimenkul", "Raporlar", FormMethod.Post, new { enctype = "multipart/form-data", id = "submitForm" }))
                                                         {
                                                             <div class="widget-body">
                                                                 @Html.HiddenFor(model => model.PageSize)
@@ -430,7 +400,7 @@
                                             </div>
                                         </div>
                                         <div id="dvTable" class="col-md-12">
-                                            @{ Html.RenderPartial("_tablePartial", Model); }
+                                            @{ Html.RenderPartial("_tableBeyanYapilanGayrimenkul", Model); }
                                         </div>
                                     </div>
                                 </div>
@@ -440,9 +410,11 @@
                 </article>
             </div>
         </section>
+        <div id="dvjson"></div>
+
     </div>
 
-    using (Html.BeginForm("Index", "Beyan", new { page = 1 }, FormMethod.Post, new { @id = "sorgulamaKriterleri" }))
+    using (Html.BeginForm("Beyan", "Raporlar", new { page = 1 }, FormMethod.Post, new { @id = "sorgulamaKriterleri" }))
     {
         <input id="page" name="page" type="hidden" value="">
     }
@@ -458,6 +430,18 @@
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+
+    <link href="~/Content/export/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="~/Content/export/css/buttons.dataTables.min.css" rel="stylesheet" />
+
+    <script type="text/javascript" src="~/Content/export/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/Content/export/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="~/Content/export/js/buttons.flash.min.js"></script>
+    <script type="text/javascript" src="~/Content/export/js/jszip.min.js"></script>
+    <script type="text/javascript" src="~/Content/export/js/pdfmake.min.js"></script>
+    <script type="text/javascript" src="~/Content/export/js/vfs_fonts.js"></script>
+    <script type="text/javascript" src="~/Content/export/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="~/Content/export/js/buttons.print.min.js"></script>
     <style type="text/css">
         .pasif-buton-beyandetay {
             padding: 3px 6px;
@@ -598,7 +582,14 @@
             $('#DamgaAlinsinMi').select2("val", "");
             $('#NoterSozlesmeNo').val('');
         }
-
+        $(document).ready(function () {
+            $('#tblBeyan').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'excel'
+                ]
+            });
+        });
         //$(function () {
         //    $("#btnReset").bind("click", function () {
         //        $("#ddlFruits")[0].selectedIndex = 0;
@@ -700,68 +691,6 @@
         });
     </script>
 
-    <!--Beyan Silme İşlemi -->
-    <script type="text/javascript">
-
-        var dt_settings = {
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Turkish.json"
-            },
-            "searching": true,
-            "bPaginate": true
-        };
-
-        $(".delete-row").click(function (e) {
-            e.preventDefault();
-            var id = $(this).attr("data-id");
-            var name = $(this).attr("data-name");
-            var closestTR = $(this).closest("tr");
-            var vl = deletealert(id, name, closestTR);
-        });
-
-        function OnSuccess() {
-            $.LoadingOverlay("show", { text: "Beyan Bilgileri Sorgulanıyor...", textResizeFactor: 0.2, background: "rgba(0, 0, 0, 0.5)" });
-            setTimeout(function () {
-                $.LoadingOverlay("hide");
-            }, 2000);
-        }
-
-        $(document).ready(function () {
-            var tblBeyan = $('#tblBeyan').DataTable(dt_settings);
-        });
-    </script>
-
-    <script type="text/javascript">
-        function deletealert(Id, name, closestTR) {
-            swal({
-                title: "Uyarı",
-                text: name + " No'lu Beyanı Silmek İstediğinizden Emin misiniz?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Evet",
-                cancelButtonText: "İptal"
-            }).then(function (isConfirm) {
-                if (isConfirm) {
-                    $.ajax({
-                        url: "/Beyan/Sil/" + Id,
-                        type: 'POST',
-                        success: function (result) {
-                            if (result.success) {
-                                closestTR.fadeOut(2000, function () {
-                                    dt = $('#dt_basic').DataTable();
-                                    swal('Uyarı!', name + ' ' + result.Message, 'success');
-                                    location.reload();
-                                });
-                            }
-                            else swal('Uyarı!', name + ' ' + result.Message, 'error');
-                        }
-                    });
-                }
-            })
-        }
-    </script>
-
     <!--Datepicker-->
     <script type="text/javascript">
         $(document).ready(function () {
@@ -780,150 +709,5 @@
                 firstDay: 1
             });
         });
-    </script>
-
-    <!--Export Excel-->
-    <script type="text/javascript">
-        $(function () {
-            $("#btnExport").click(function () {
-                var tbl = $('#tblBeyan');
-                debugger;
-
-                tbl.find('th:last-child, td:last-child').remove();
-                tbl.find('th:first-child, td:first-child').remove();
-                $("#tblBeyan").table2excel({
-                    filename: "Beyanlar.xls"
-                });
-            });
-        });
-    </script>
-
-    <!--Export PDf-->
-    <script>
-        function createPDF() {
-            var tbl = $('#tblBeyan');
-            tbl.find('th:last-child, td:last-child').remove()
-            tbl.find('th:first-child, td:first-child').remove()
-
-            html2canvas(tbl, {
-                onrendered: function (canvas) {
-                    var data = canvas.toDataURL();
-                    var docDefinition = {
-                        content: [{
-                            image: data,
-                            width: 500
-                        }]
-                    };
-                    pdfMake.createPdf(docDefinition).download("Beyan.pdf");
-                }
-            });
-        }
-    </script>
-
-    <!--Tahakkuk Bilgileri-->
-    <script type="text/javascript">
-        function ParseDate(input) {
-            var offset = new Date().getTimezoneOffset() * 60000;
-            var currentTime = new Date(parseInt(input.substr(6)));
-            var month = currentTime.getMonth() + 1;
-            var day = currentTime.getDate();
-            var year = currentTime.getFullYear();
-            var date = day + "/" + month + "/" + year;
-            return date;
-        }
-
-
-        $('#tblBeyan td:first-child').click(function (e) {
-
-            var id = $(this).attr("data-id");
-            var beyanYil = $(this).attr("data-yil");
-
-            var table = $('#tblBeyan').DataTable();
-
-            var tr = $(this).closest('tr');
-
-            var row = table.row(tr);
-
-
-            $.ajax({
-                url: "/Kira/Beyan/GetirDetayTable/",
-                type: "Post",
-                dataType: 'Json',
-                data: { BeyanId: id },
-                success: function (success) {
-                    if (success.data != null && success.data.length > 0) {
-                        var KiraBeyan_Id = success.data[0].KiraBeyan_Id;
-                        $("#hdDetayValue").val(KiraBeyan_Id);
-
-                        if (row.child.isShown()) {
-                            row.child.hide();
-                            tr.removeClass('shown');
-                        } else {
-                            row.child.isShown();
-                            var result = row.child(subTable(KiraBeyan_Id, beyanYil, success.data)).show();
-
-                            if (result != null) {
-                                result.show();
-                                tr.addClass('shown');
-                            }
-                        }
-                    }
-                },
-            });
-        });
-
-        function subTable(KiraBeyan_Id, BeyanYil, dataSource) {
-
-            var html = '<table id="tblDetay" class="table table-striped table-bordered table-hover dataTable no-footer display nowrap">'
-
-                + '<thead><tr>' +
-                '<th>No</th>' +
-                '<th>Beyan Yıl</th>' +
-                '<th>Taksit No</th>' +
-                '<th>Vade Tarihi</th>' +
-                '<th>Tutar</th>' +
-                '<th>Açıklama</th>' +
-                '<th>Durum</th>' +
-                '<th>Aktif Mi</th></tr >' +
-                '</thead > ';
-            var durum = '';
-            var aktifMiStr = '';
-            if (dataSource != null) {
-                for (var i = 0; i < dataSource.length; i++) {
-
-                    if (dataSource[i].OdemeDurumu) {
-                        durum = '<b class="label aktif-buton-beyandetay">Tahsil </b>';
-                    }
-                    else {
-                        durum = '<b class="label pasif-buton-beyandetay">Vade</b>';
-                    }
-                    if (dataSource[i].AktifMi == 1) {
-                        aktifMiStr = '<b class="label aktif-buton-beyandetay">Aktif</b>';
-                    }
-                    else if (dataSource[i].AktifMi == 0) {
-                        aktifMiStr = '<b class="label pasif-buton-beyandetay">Pasif</b>';
-                    }
-                    else if (dataSource[i].AktifMi == 2) {
-                        aktifMiStr = '<b class="label silindi-buton-beyandetay">Silindi</b>';
-                    }
-
-                    if (KiraBeyan_Id == dataSource[i].KiraBeyan_Id) {
-                        html += '<tr role="row">' +
-                            '<td role="row" class="odd">' + (i + 1) + '</td>' +
-                            '<td>' + BeyanYil + '</td>' +
-                            '<td>' + dataSource[i].TaksitNo + '</td>' +
-                            '<td>' + ParseDate(dataSource[i].VadeTarihi) + '</td>' +
-                            '<td>' + dataSource[i].Tutar + '</td>' +
-                            '<td>' + dataSource[i].Aciklama + '</td>' +
-                            '<td>' + durum + '</td>' +
-                            '<td>' + aktifMiStr + '</td>' +
-                            '</tr>';
-                    }
-                }
-            }
-            html += '</table>';
-            return html;
-        }
-
     </script>
 }
