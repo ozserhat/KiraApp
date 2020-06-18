@@ -231,7 +231,6 @@
     <Compile Include="Areas\Emlak\EmlakAreaRegistration.cs" />
     <Compile Include="Areas\Kira\Controllers\AnasayfaController.cs" />
     <Compile Include="Areas\Kira\Controllers\BeyanController.cs" />
-    <Compile Include="Areas\Kira\Controllers\HatirlatmaController.cs" />
     <Compile Include="Areas\Kira\Controllers\GayrimenkulRaporController.cs" />
     <Compile Include="Areas\Kira\Controllers\RaporlarController.cs" />
     <Compile Include="Areas\Kira\Controllers\TahakkukController.cs" />
