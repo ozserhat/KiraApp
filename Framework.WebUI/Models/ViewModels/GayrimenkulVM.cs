@@ -21,7 +21,7 @@ namespace Framework.WebUI.Models.ViewModels
         public int GayrimenkulId { get; set; }
 
         [Display(Name = "GayrimenkulTur_Id")]
-        public int GayrimenkulTur_Id { get; set; }
+        public int? GayrimenkulTur_Id { get; set; }
 
         [Display(Name = "Il_Id")]
         public int Il_Id { get; set; }
@@ -117,7 +117,7 @@ namespace Framework.WebUI.Models.ViewModels
         public Guid Guid { get; set; }
 
         [Display(Name = "GayrimenkulTur_Id")]
-        public int GayrimenkulTur_Id { get; set; }
+        public int? GayrimenkulTur_Id { get; set; }
 
         [Display(Name = "Il_Id")]
         public int Il_Id { get; set; }
@@ -230,7 +230,7 @@ namespace Framework.WebUI.Models.ViewModels
         public int Id { get; set; }
 
         [Display(Name = "GayrimenkulTur_Id")]
-        public int GayrimenkulTur_Id { get; set; }
+        public int? GayrimenkulTur_Id { get; set; }
 
         [Display(Name = "Il_Id")]
         public int Il_Id { get; set; }
@@ -239,7 +239,7 @@ namespace Framework.WebUI.Models.ViewModels
         public int? Ilce_Id { get; set; }
 
         [Display(Name = "Mahalle_Id")]
-        public int Mahalle_Id { get; set; }
+        public int? Mahalle_Id { get; set; }
 
         [Display(Name = "Guid")]
         public Guid Guid { get; set; }

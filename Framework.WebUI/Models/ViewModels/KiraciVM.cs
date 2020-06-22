@@ -37,7 +37,7 @@ namespace Framework.WebUI.Models.ViewModels
         public long? TcKimlikNo { get; set; }
 
         [Display(Name = "Sicil No")]
-        public long? SicilNo { get; set; }
+        public int? SicilNo { get; set; }
 
         [Display(Name = "Ad")]
         public string Ad { get; set; }

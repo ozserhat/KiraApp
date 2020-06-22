@@ -55,7 +55,6 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                 var result = context.Users
                             .Include(u => u.User_Roles.Select(r => r.Roles))
                             .Where(a => a.Id == Id && a.IsDeleted == false).FirstOrDefault();
-
                 return result;
             }
         }

@@ -57,8 +57,8 @@ namespace Framework.Entities.Concrete
         public int? Kdv { get; set; }
         public int? DamgaAlinsinMi { get; set; }
         public string BeyanNo { get; set; }
-        public int? NoterSozlesmeNo { get; set; }
-        public int? EncumenKararNo { get; set; }
+        public string NoterSozlesmeNo { get; set; }
+        public string EncumenKararNo { get; set; }
         public DateTime? BeyanTarihi { get; set; }
         public DateTime? IhaleEncumenTarihi { get; set; }
         public DateTime? KiraBaslangicTarihi { get; set; }
@@ -66,7 +66,7 @@ namespace Framework.Entities.Concrete
         public DateTime? SozlesmeBitisTarihi { get; set; }
         public DateTime? TeminatTarihi { get; set; }
         public DateTime? BeyanKapatmaTarihi { get; set; }
-        public int? TeminatNo { get; set; }
+        public string TeminatNo { get; set; }
         public decimal? KullanimAlani { get; set; }
         public int? SozlesmeSuresi { get; set; }
         public int? MusadeliGunSayisi { get; set; }
