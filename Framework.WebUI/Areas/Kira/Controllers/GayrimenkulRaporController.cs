@@ -18,14 +18,21 @@ namespace Framework.WebUI.Areas.Kira.Controllers
     public class GayrimenkulRaporController : Controller
     {
         private readonly IGayrimenkulService _gayrimenkulservice;
+        private readonly IIlceService _ilceService;
+        private readonly IMahalleService _mahalleService;
+        private readonly IGayrimenkulTurService _gayrimenkulTurService;
 
-        public GayrimenkulRaporController(IGayrimenkulService gayrimenkulservice)
+
+        public GayrimenkulRaporController(IGayrimenkulService gayrimenkulservice, IIlceService ilceService, IMahalleService mahalleService, IGayrimenkulTurService gayrimenkulTurService)
         {
             _gayrimenkulservice = gayrimenkulservice;
+            _ilceService = ilceService;
+            _mahalleService = mahalleService;
+            _gayrimenkulTurService = gayrimenkulTurService;
         }
-        public ActionResult Index(int? page, int pageSize = 15)
+        public ActionResult Index(GayrimenkulBeyanRequest request, int? page, int pageSize = 15)
         {
-            var gayrimenkul = _gayrimenkulservice.GetirListe();
+            var gayrimenkul = _gayrimenkulservice.GetirSorguListeGayrimenkul(request);
 
             var model = new GayrimenkulVM
             {
@@ -35,11 +42,37 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
             if (gayrimenkul != null)
             {
-                model.Gayrimenkuller = new StaticPagedList<Gayrimenkul>(gayrimenkul, model.PageNumber, model.PageSize, gayrimenkul.Count());
-                model.TotalRecordCount = gayrimenkul.Count();
-            }
+                model.IlceSelectList = IlceSelectList();
+                model.GayrimenkulTuruSelectList = GayrimenkulTuruSelectList();
 
+                if (gayrimenkul != null)
+                {
+                    model.Gayrimenkuller = new StaticPagedList<Gayrimenkul>(gayrimenkul, model.PageNumber, model.PageSize, gayrimenkul.Count());
+                    model.TotalRecordCount = gayrimenkul.Count();
+                }
+                model.TotalRecordCount = model.Gayrimenkuller.Count();
+            }
             return View(model);
+        }
+
+        public SelectList IlceSelectList()
+        {
+            var ilceler = _ilceService.GetirListe().Where(a => a.Il_Id == 6).Select(x => new { x.Id, x.Ad }).ToList();
+
+            return new SelectList(ilceler, "Id", "Ad");
+        }
+        public SelectList GayrimenkulTuruSelectList()
+        {
+            var gayrimenkulTuru = _gayrimenkulTurService.GetirListe().Select(x => new { x.Id, x.Ad }).ToList();
+
+            return new SelectList(gayrimenkulTuru, "Id", "Ad");
+        }
+        [HttpPost]
+        public JsonResult MahalleSelectList(int ilceId)
+        {
+            var mahalleler = _mahalleService.GetirListe().Where(a => a.Ilce_Id == ilceId).Select(x => new { x.Id, x.Ad }).ToList();
+
+            return Json(new { Data = mahalleler, success = true }, JsonRequestBehavior.AllowGet);
         }
     }
 }

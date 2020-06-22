@@ -40,6 +40,7 @@ namespace Framework.Business.Concrete.Managers
         {
             return _Kira_BeyanDal.GetListByCriteriasGayrimenkul(request);
         }
+    
 
         public IEnumerable<Kira_Beyan> GetirSorguListeSicil(SicilBeyanRequest request)
         {

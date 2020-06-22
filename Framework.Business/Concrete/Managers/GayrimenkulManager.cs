@@ -45,6 +45,11 @@ namespace Framework.Business.Concrete.Managers
         {
             return _gayrimenkulDal.GetirListe();
         }
+
+        public IEnumerable<Gayrimenkul> GetirSorguListeGayrimenkul(GayrimenkulBeyanRequest request)
+        {
+            return _gayrimenkulDal.GetListByCriteriasGayrimenkul(request);
+        }
         public IEnumerable<Gayrimenkul> GetirListeAktif()
         {
             return _gayrimenkulDal.GetirListe().Where(a => a.AktifMi == true);

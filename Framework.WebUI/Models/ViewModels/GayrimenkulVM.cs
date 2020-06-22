@@ -9,6 +9,18 @@ namespace Framework.WebUI.Models.ViewModels
 {
     public class GayrimenkulVM : PagingVMBase
     {
+        [Display(Name = "Gayrimenkul Türü")]
+        public SelectList GayrimenkulTuruSelectList { get; set; }
+
+        [Display(Name = "Gayrimenkul Adı")]
+        public string GayrimenkulAdi { get; set; }
+
+
+        [Display(Name = "İlçeler")]
+        public SelectList IlceSelectList { get; set; }
+
+        [Display(Name = "Mahalle")]
+        public SelectList MahalleSelectList { get; set; }
         public IPagedList<Gayrimenkul> Gayrimenkuller { get; set; }
     }
 
