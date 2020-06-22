@@ -40,7 +40,7 @@ namespace Framework.WebUI.Models.ViewModels
         public int? BeyanYil { get; set; }
 
         [Display(Name = "Encümen Karar No")]
-        public int? EncumenKararNo { get; set; }
+        public string EncumenKararNo { get; set; }
 
         [Display(Name = "Noter Sözleşme No")]
         public string NoterSozlesmeNo { get; set; }
@@ -263,7 +263,7 @@ namespace Framework.WebUI.Models.ViewModels
         public int? BeyanYil { get; set; }
 
         [Display(Name = "Encümen Karar No")]
-        public int? EncumenKararNo { get; set; }
+        public string EncumenKararNo { get; set; }
 
         [Display(Name = "Noter Sözleşme No")]
         public string NoterSozlesmeNo { get; set; }

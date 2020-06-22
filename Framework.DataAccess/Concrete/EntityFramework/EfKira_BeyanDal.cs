@@ -28,7 +28,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             }
         }
 
-       
+
         public bool Delete(int id)
         {
             bool sonuc = false;
@@ -58,9 +58,8 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                               .Include(bt => bt.Beyanlar.BeyanTur)
                               .Include(k => k.Kiracilar)
                               .Include(g => g.Gayrimenkuller)
-                              .Include(m => m.Gayrimenkuller.Mahalleler)
-                              .Include(ilc => ilc.Gayrimenkuller.Mahalleler.Ilceler)
-                              .Include(ilc => ilc.Gayrimenkuller.Mahalleler.Ilceler.Iller)
+                              .Include(ilc => ilc.Gayrimenkuller.Ilceler)
+                              .Include(ilc => ilc.Gayrimenkuller.Ilceler.Iller)
                               .ToList();
             }
         }
@@ -76,9 +75,8 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                               .Include(bt => bt.Beyanlar.BeyanTur)
                               .Include(k => k.Kiracilar)
                               .Include(g => g.Gayrimenkuller)
-                              .Include(m => m.Gayrimenkuller.Mahalleler)
-                              .Include(ilc => ilc.Gayrimenkuller.Mahalleler.Ilceler)
-                              .Include(ilc => ilc.Gayrimenkuller.Mahalleler.Ilceler.Iller)
+                              .Include(ilc => ilc.Gayrimenkuller.Ilceler)
+                              .Include(ilc => ilc.Gayrimenkuller.Ilceler.Iller)
                               .AsQueryable();
 
                 query = request.Il_Id.HasValue ? query.Where(x => x.Gayrimenkuller.Il_Id == request.Il_Id) : query;
@@ -111,9 +109,8 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                               .Include(bt => bt.Beyanlar.BeyanTur)
                               .Include(k => k.Kiracilar)
                               .Include(g => g.Gayrimenkuller)
-                              .Include(m => m.Gayrimenkuller.Mahalleler)
-                              .Include(ilc => ilc.Gayrimenkuller.Mahalleler.Ilceler)
-                              .Include(ilc => ilc.Gayrimenkuller.Mahalleler.Ilceler.Iller)
+                              .Include(ilc => ilc.Gayrimenkuller.Ilceler)
+                              .Include(ilc => ilc.Gayrimenkuller.Ilceler.Iller)
                               .AsQueryable();
 
                 query = request.Ad != null ? query.Where(x => x.Kiracilar.Ad == request.Ad) : query;
@@ -143,9 +140,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                                 .Include(bt => bt.Beyanlar.BeyanTur)
                                 .Include(k => k.Kiracilar)
                                 .Include(g => g.Gayrimenkuller)
-                                .Include(m => m.Gayrimenkuller.Mahalleler)
-                                .Include(ilc => ilc.Gayrimenkuller.Mahalleler.Ilceler)
-                                .Include(ilc => ilc.Gayrimenkuller.Mahalleler.Ilceler.Iller)
+                                .Include(ilc => ilc.Gayrimenkuller.Ilceler.Iller)
                                 .Include(pb => pb.SorumluPersoneller)
                                 .AsQueryable();
 
@@ -164,7 +159,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                 query = request.MusadeliGunSayisi.HasValue ? query.Where(x => x.Beyanlar.MusadeliGunSayisi == request.MusadeliGunSayisi) : query;
                 query = request.SozlesmeSuresi.HasValue ? query.Where(x => x.Beyanlar.SozlesmeSuresi == request.SozlesmeSuresi) : query;
                 query = request.KullanimAlani.HasValue ? query.Where(x => x.Beyanlar.KullanimAlani == request.KullanimAlani) : query;
-                query = request.TeminatNo.HasValue ? query.Where(x => x.Beyanlar.TeminatNo == request.TeminatNo) : query;
+                query = !string.IsNullOrEmpty(request.TeminatNo) ? query.Where(x => x.Beyanlar.TeminatNo == request.TeminatNo) : query;
                 query = request.BeyanKapatmaTarihi.HasValue ? query.Where(x => x.Beyanlar.BeyanKapatmaTarihi == request.BeyanKapatmaTarihi) : query;
                 query = request.TeminatTarihi.HasValue ? query.Where(x => x.Beyanlar.TeminatTarihi == request.TeminatTarihi) : query;
                 query = request.SozlesmeBitisTarihi.HasValue ? query.Where(x => x.Beyanlar.SozlesmeBitisTarihi == request.SozlesmeBitisTarihi) : query;
@@ -172,22 +167,22 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                 query = request.KiraBaslangicTarihi.HasValue ? query.Where(x => x.Beyanlar.KiraBaslangicTarihi == request.KiraBaslangicTarihi) : query;
                 query = request.IhaleEncumenTarihi.HasValue ? query.Where(x => x.Beyanlar.IhaleEncumenTarihi == request.IhaleEncumenTarihi) : query;
                 query = request.BeyanTarihi.HasValue ? query.Where(x => x.Beyanlar.BeyanTarihi == request.BeyanTarihi) : query;
-                query = request.EncumenKararNo.HasValue ? query.Where(x => x.Beyanlar.EncumenKararNo == request.EncumenKararNo) : query;
-                query = request.NoterSozlesmeNo.HasValue ? query.Where(x => x.Beyanlar.NoterSozlesmeNo == request.NoterSozlesmeNo) : query;
+                query = !string.IsNullOrEmpty(request.EncumenKararNo) ? query.Where(x => x.Beyanlar.EncumenKararNo == request.EncumenKararNo) : query;
+                query = !string.IsNullOrEmpty(request.NoterSozlesmeNo) ? query.Where(x => x.Beyanlar.NoterSozlesmeNo == request.NoterSozlesmeNo) : query;
                 query = request.BeyanNo != null ? query.Where(x => x.Beyanlar.BeyanNo == request.BeyanNo) : query;
                 query = request.Kdv.HasValue ? query.Where(x => x.Beyanlar.Kdv == request.Kdv) : query;
                 query = request.BeyanYil.HasValue ? query.Where(x => x.Beyanlar.BeyanYil == request.BeyanYil) : query;
 
-                result = query.OrderBy(a=>a.Gayrimenkul_Id).ToList();
+                result = query.OrderBy(a => a.Gayrimenkul_Id).ToList();
             }
 
             return result;
         }
 
 
-     
 
-        
+
+
         public Kira_Beyan GetirBeyan(int BeyanId)
         {
             using (DtContext context = new DtContext())
@@ -199,9 +194,8 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                              .Include(bt => bt.Beyanlar.BeyanTur)
                              .Include(k => k.Kiracilar)
                              .Include(g => g.Gayrimenkuller)
-                             .Include(m => m.Gayrimenkuller.Mahalleler)
-                             .Include(ilc => ilc.Gayrimenkuller.Mahalleler.Ilceler)
-                             .Include(ilc => ilc.Gayrimenkuller.Mahalleler.Ilceler.Iller)
+                             .Include(ilc => ilc.Gayrimenkuller.Ilceler)
+                             .Include(ilc => ilc.Gayrimenkuller.Ilceler.Iller)
                              .Where(a => a.Beyan_Id == BeyanId)
                              .FirstOrDefault();
                 return query;

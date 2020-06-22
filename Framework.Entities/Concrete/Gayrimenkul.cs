@@ -33,9 +33,12 @@ namespace Framework.Entities.Concrete
         public int Il_Id { get; set; }
 
         public int? Ilce_Id { get; set; }
+
         [ForeignKey("Ilce_Id")]
         public virtual Ilce Ilceler { get; set; }
-        public int Mahalle_Id { get; set; }
+
+        public int? Mahalle_Id { get; set; }
+
         [ForeignKey("Mahalle_Id")]
         public virtual Mahalle Mahalleler { get; set; }
 
@@ -76,7 +79,7 @@ namespace Framework.Entities.Concrete
 
         public int? Metrekare { get; set; }
 
-        public int GayrimenkulTur_Id { get; set; }
+        public int? GayrimenkulTur_Id { get; set; }
 
         [ForeignKey("GayrimenkulTur_Id")]
         public virtual GayrimenkulTur GayrimenkulTur { get; set; }

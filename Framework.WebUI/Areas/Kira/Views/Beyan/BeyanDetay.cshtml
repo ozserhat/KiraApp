@@ -531,7 +531,7 @@
                                                                                     @Html.LabelFor(model => model.Beyan.BeyanTarihi, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6 outputview">
                                                                                         @{
-                                                                                            string beyanTarih = Model.Beyan.BeyanTarihi.Value.ToString("dd.MM.yyyy");
+                                                                                            string beyanTarih = (Model.Beyan.BeyanTarihi.HasValue?Model.Beyan.BeyanTarihi.Value.ToString("dd.MM.yyyy"):"-");
 
                                                                                             @Html.DisplayFor(model => beyanTarih, new { @class = "form-control datepicker required", @autocomplete = "off" })
 
@@ -547,7 +547,7 @@
                                                                                     @Html.LabelFor(model => model.Beyan.IhaleEncumenTarihi, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6 outputview">
                                                                                         @{
-                                                                                            string ihaleEncumenTarih = Model.Beyan.IhaleEncumenTarihi.Value.ToString("dd.MM.yyyy");
+                                                                                            string ihaleEncumenTarih = (Model.Beyan.IhaleEncumenTarihi.HasValue?Model.Beyan.IhaleEncumenTarihi.Value.ToString("dd.MM.yyyy"):"-");
                                                                                             @Html.DisplayFor(model => ihaleEncumenTarih, new { @class = "form-control datepicker required", @autocomplete = "off" })
 
                                                                                             @Html.ValidationMessageFor(model => model.Beyan.IhaleEncumenTarihi, "", new { @class = "text-danger" })
@@ -562,7 +562,7 @@
                                                                                     @Html.LabelFor(model => model.Beyan.KiraBaslangicTarihi, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6 outputview">
                                                                                         @{
-                                                                                            string kiraBaslangicTarih = Model.Beyan.KiraBaslangicTarihi.Value.ToString("dd.MM.yyyy");
+                                                                                            string kiraBaslangicTarih = (Model.Beyan.KiraBaslangicTarihi.HasValue?Model.Beyan.KiraBaslangicTarihi.Value.ToString("dd.MM.yyyy"):"-");
                                                                                             @Html.DisplayFor(model => kiraBaslangicTarih, new
                                                                                             {
                                                                                                 @class = "form-control datepicker required",
@@ -583,7 +583,7 @@
                                                                                     @Html.LabelFor(model => model.Beyan.SozlesmeTarihi, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6 outputview">
                                                                                         @{
-                                                                                            string sozlesmeTarihi = Model.Beyan.SozlesmeTarihi.Value.ToString("dd.MM.yyyy");
+                                                                                            string sozlesmeTarihi = (Model.Beyan.SozlesmeTarihi.HasValue?Model.Beyan.SozlesmeTarihi.Value.ToString("dd.MM.yyyy"):"-");
                                                                                             @Html.DisplayFor(model => sozlesmeTarihi, new { @class = "form-control datepicker required", @autocomplete = "off" })
 
                                                                                             @Html.ValidationMessageFor(model => model.Beyan.SozlesmeTarihi, "", new { @class = "text-danger" })
@@ -598,7 +598,7 @@
                                                                                     @Html.LabelFor(model => model.Beyan.SozlesmeBitisTarihi, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6 outputview">
                                                                                         @{
-                                                                                            string sozlesmeBitisTarihi = Model.Beyan.SozlesmeBitisTarihi.Value.ToString("dd.MM.yyyy");
+                                                                                            string sozlesmeBitisTarihi = (Model.Beyan.SozlesmeBitisTarihi.HasValue?Model.Beyan.SozlesmeBitisTarihi.Value.ToString("dd.MM.yyyy"):"-");
                                                                                             @Html.DisplayFor(model => sozlesmeBitisTarihi, new { @class = "form-control datepicker required", @autocomplete = "off" })
 
                                                                                             @Html.ValidationMessageFor(model => model.Beyan.SozlesmeBitisTarihi, "", new { @class = "text-danger" })
@@ -613,7 +613,7 @@
                                                                                     @Html.LabelFor(model => model.Beyan.TeminatTarihi, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6 outputview">
                                                                                         @{
-                                                                                            string teminatTarihi = Model.Beyan.TeminatTarihi.Value.ToString("dd.MM.yyyy");
+                                                                                            string teminatTarihi = (Model.Beyan.TeminatTarihi.HasValue?Model.Beyan.TeminatTarihi.Value.ToString("dd.MM.yyyy"):"-");
                                                                                             @Html.DisplayFor(model => teminatTarihi, new { @class = "form-control datepicker required", @autocomplete = "off" })
 
                                                                                             @Html.ValidationMessageFor(model => model.Beyan.TeminatTarihi, "", new { @class = "text-danger" })
@@ -630,7 +630,7 @@
                                                                                     @Html.LabelFor(model => model.Beyan.BeyanKapatmaTarihi, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6 outputview">
                                                                                         @{
-                                                                                            string beyanKapatmaTarihi = Model.Beyan.BeyanKapatmaTarihi.Value.ToString("dd.MM.yyyy");
+                                                                                            string beyanKapatmaTarihi = (Model.Beyan.BeyanKapatmaTarihi.HasValue?Model.Beyan.BeyanKapatmaTarihi.Value.ToString("dd.MM.yyyy"):"-");
                                                                                             @Html.DisplayFor(model => beyanKapatmaTarihi, new { @class = "form-control datepicker required", @autocomplete = "off" })
 
                                                                                             @Html.ValidationMessageFor(model => model.Beyan.BeyanKapatmaTarihi, "", new { @class = "text-danger" })

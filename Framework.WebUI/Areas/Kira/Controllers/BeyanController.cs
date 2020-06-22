@@ -458,7 +458,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             {
                 var beyanDosya = _beyanDosyaService.GetirListe(false).Where(a => a.Beyan_Id == kiraBeyan.Beyan_Id).ToList();
 
-                model.Kiraci = GetirSicil(kiraBeyan.Kiracilar.VergiNo.ToString());
+                model.Kiraci = GetirSicil(kiraBeyan.Kiracilar.SicilNo.ToString());
                 model.Gayrimenkul = GetirGayrimenkul(kiraBeyan.Gayrimenkuller.GayrimenkulNo);
                 model.Beyan = GetirBeyan(kiraBeyan.Beyanlar.Id);
                 model.BeyanDosyalar = GetirBeyanDosyalar(kiraBeyan.Beyanlar.Id);
@@ -633,7 +633,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
             if (ufeOrani != null)
                 beyanArtis.UfeOrani = (ufeOrani.Oran ?? 0);
-            
+
             tahakkukDurum = TahakkukOlustur(beyanArtis, ref islemler);
 
             islemler.Eklenenler.ArtisMi = true;
@@ -758,7 +758,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
                 model.Kiraci = _beyanVM.Kiraci = new KiraciEkleVM()
                 {
-                    SicilNo = Convert.ToInt64(kiraci.SicilNo),
+                    SicilNo = kiraci.SicilNo,
                     VergiNo = Convert.ToInt64(kiraci.VergiNo),
                     Ad = kiraci.Ad,
                     Soyad = kiraci.Soyad,
@@ -803,15 +803,15 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 if (ufeOrani != null)
                     kiraArtis.UfeOrani = (ufeOrani.Oran ?? 0);
 
-                decimal kiraTutar = ((beyanBilgi.KiraTutari * kiraArtis.UfeOrani / 100) + beyanBilgi.KiraTutari);
+                decimal kiraTutar = ((beyanBilgi.KiraTutari.Value * kiraArtis.UfeOrani / 100) + beyanBilgi.KiraTutari.Value);
 
                 #region BeyanArtis
-                ekleVm.BeyanTur_Id = beyanBilgi.BeyanTur_Id;
+                ekleVm.BeyanTur_Id = beyanBilgi.BeyanTur_Id.Value;
                 ekleVm.BeyanYil = (beyanBilgi.BeyanYil + 1);
                 ekleVm.KiraDurum_Id = beyanBilgi.KiraDurum_Id;
                 ekleVm.BeyanNo = beyanBilgi.BeyanNo;
-                ekleVm.NoterSozlesmeNo = beyanBilgi.NoterSozlesmeNo.ToString();
-                ekleVm.EncumenKararNo = int.Parse(kiraArtis.EncumenNo);
+                ekleVm.NoterSozlesmeNo = beyanBilgi.NoterSozlesmeNo;
+                ekleVm.EncumenKararNo = kiraArtis.EncumenNo;
                 ekleVm.IhaleEncumenTarihi = DateTime.Parse(kiraArtis.EncumenTarihi);
                 ekleVm.BeyanTarihi = beyanBilgi.BeyanTarihi;
                 ekleVm.KiraBaslangicTarihi = beyanBilgi.KiraBaslangicTarihi.Value.AddYears(1);
@@ -819,7 +819,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 ekleVm.SozlesmeBitisTarihi = beyanBilgi.SozlesmeBitisTarihi;
                 ekleVm.TeminatTarihi = beyanBilgi.TeminatTarihi;
                 ekleVm.BeyanKapatmaTarihi = beyanBilgi.BeyanKapatmaTarihi;
-                ekleVm.TeminatNo = beyanBilgi.TeminatNo.ToString();
+                ekleVm.TeminatNo = beyanBilgi.TeminatNo;
                 ekleVm.KullanimAlani = Convert.ToDecimal(beyanBilgi.KullanimAlani, cultures);
                 ekleVm.OdemePeriyotTur_Id = beyanBilgi.OdemePeriyotTur_Id;
                 ekleVm.SozlesmeSuresi = beyanBilgi.SozlesmeSuresi;
@@ -838,11 +838,11 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             else
             {
                 #region NormalBeyan
-                ekleVm.BeyanTur_Id = beyanBilgi.BeyanTur_Id;
+                ekleVm.BeyanTur_Id = beyanBilgi.BeyanTur_Id.Value;
                 ekleVm.BeyanYil = beyanBilgi.BeyanYil;
                 ekleVm.KiraDurum_Id = beyanBilgi.KiraDurum_Id;
                 ekleVm.BeyanNo = beyanBilgi.BeyanNo;
-                ekleVm.NoterSozlesmeNo = beyanBilgi.NoterSozlesmeNo.ToString();
+                ekleVm.NoterSozlesmeNo = beyanBilgi.NoterSozlesmeNo;
                 ekleVm.EncumenKararNo = beyanBilgi.EncumenKararNo;
                 ekleVm.BeyanTarihi = beyanBilgi.BeyanTarihi;
                 ekleVm.IhaleEncumenTarihi = beyanBilgi.IhaleEncumenTarihi;
@@ -851,7 +851,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 ekleVm.SozlesmeBitisTarihi = beyanBilgi.SozlesmeBitisTarihi;
                 ekleVm.TeminatTarihi = beyanBilgi.TeminatTarihi;
                 ekleVm.BeyanKapatmaTarihi = beyanBilgi.BeyanKapatmaTarihi;
-                ekleVm.TeminatNo = beyanBilgi.TeminatNo.ToString();
+                ekleVm.TeminatNo = beyanBilgi.TeminatNo;
                 ekleVm.KullanimAlani = Convert.ToDecimal(beyanBilgi.KullanimAlani, cultures);
                 ekleVm.OdemePeriyotTur_Id = beyanBilgi.OdemePeriyotTur_Id;
                 ekleVm.SozlesmeSuresi = beyanBilgi.SozlesmeSuresi;
@@ -870,7 +870,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             return ekleVm;
 
         }
-     
+
         private bool TahakkukOlustur(KiraArtisEkleVM artisModel, ref KiraBeyanIslemleri islemler)
         {
             bool beyanEkleSonuc = false;
@@ -1451,21 +1451,17 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
         }
 
-        public KiraciEkleVM GetirSicil(string TcVergiNo)
+        public KiraciEkleVM GetirSicil(string SicilNo)
         {
             string tcNo = "";
             string vergiNo = "";
 
-            if (TcVergiNo != null)
+            if (!string.IsNullOrEmpty(SicilNo))
             {
-                if (TcVergiNo.Length > 10)
-                    tcNo = TcVergiNo;
-                else
-                    vergiNo = TcVergiNo;
 
                 GetirSelectList();
 
-                var kiraciBilgi = _kiraciService.GetirVergiNo(long.Parse(TcVergiNo));
+                var kiraciBilgi = _kiraciService.GetirSicilNo(long.Parse(SicilNo));
 
                 SicilServisVm sicilBilgisi = new SicilServisVm();
 
@@ -1494,7 +1490,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                     _beyanVM.Kiraci = new KiraciEkleVM()
                     {
                         Id = _kiraciService.GetirVergiNo(long.Parse(sicilBilgisi.VergiNo)).Id,
-                        SicilNo = long.Parse(sicilBilgisi.SicilNo),
+                        SicilNo = int.Parse(sicilBilgisi.SicilNo),
                         VergiNo = long.Parse(sicilBilgisi.VergiNo),
                         Ad = sicilBilgisi.Ad,
                         Soyad = sicilBilgisi.Soyad,
@@ -1538,13 +1534,13 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                         DosyaNo = gayrimenkul.DosyaNo,
                         GayrimenkulAdi = gayrimenkul.Ad,
                         GayrimenkulTur_Id = gayrimenkul.GayrimenkulTur_Id,
-                        GayrimenkulTur = gayrimenkul.GayrimenkulTur.Ad,
-                        Il = gayrimenkul.Mahalleler.Ilceler.Iller.Ad,
-                        Ilce = gayrimenkul.Mahalleler.Ilceler.Ad,
-                        Mahalle = gayrimenkul.Mahalleler.Ad,
+                        GayrimenkulTur = (gayrimenkul.GayrimenkulTur != null ? gayrimenkul.GayrimenkulTur.Ad : "-"),
+                        Il = gayrimenkul.Ilceler.Iller.Ad,
+                        Ilce = gayrimenkul.Ilceler.Ad,
+                        //Mahalle_Id = gayrimenkul.Mahalle_Id.Value,
+                        //Mahalle = gayrimenkul.Mahalleler.Ad,
                         Il_Id = gayrimenkul.Il_Id,
                         Ilce_Id = gayrimenkul.Ilce_Id,
-                        Mahalle_Id = gayrimenkul.Mahalle_Id,
                         Sokak = gayrimenkul.Sokak,
                         IcKapiNo = gayrimenkul.IcKapiNo,
                         DisKapiNo = gayrimenkul.DisKapiNo,
@@ -1590,12 +1586,12 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                         GayrimenkulAdi = gayrimenkul.Ad,
                         GayrimenkulTur_Id = gayrimenkul.GayrimenkulTur_Id,
                         GayrimenkulTur = gayrimenkul.GayrimenkulTur.Ad,
-                        Il = gayrimenkul.Mahalleler.Ilceler.Iller.Ad,
-                        Ilce = gayrimenkul.Mahalleler.Ilceler.Ad,
-                        Mahalle = gayrimenkul.Mahalleler.Ad,
+                        Il = gayrimenkul.Ilceler.Iller.Ad,
+                        Ilce = gayrimenkul.Ilceler.Ad,
+                        Mahalle = (gayrimenkul.Mahalleler!=null? gayrimenkul.Mahalleler.Ad:"-"),
                         Il_Id = gayrimenkul.Il_Id,
                         Ilce_Id = gayrimenkul.Ilce_Id,
-                        Mahalle_Id = gayrimenkul.Mahalle_Id,
+                        Mahalle_Id = (gayrimenkul.Mahalle_Id.HasValue ? gayrimenkul.Mahalle_Id.Value : -1),
                         Sokak = gayrimenkul.Sokak,
                         IcKapiNo = gayrimenkul.IcKapiNo,
                         DisKapiNo = gayrimenkul.DisKapiNo,
@@ -1631,14 +1627,14 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                     _beyanVM.BeyanDetay = new BeyanDetayVM()
                     {
                         Id = beyan.Beyanlar.Id,
-                        BeyanTur_Id = beyan.Beyanlar.BeyanTur_Id,
+                        BeyanTur_Id = beyan.Beyanlar.BeyanTur_Id.Value,
                         KiraDurum_Id = beyan.Beyanlar.KiraDurum_Id,
                         OdemePeriyotTur_Id = beyan.Beyanlar.OdemePeriyotTur_Id,
                         BeyanTuru = beyan.Beyanlar.BeyanTur.Ad,
                         BeyanNo = beyan.Beyanlar.BeyanNo,
-                        TeminatNo = beyan.Beyanlar.TeminatNo.ToString(),
+                        TeminatNo = beyan.Beyanlar.TeminatNo,
                         EncumenKararNo = beyan.Beyanlar.EncumenKararNo,
-                        NoterSozlesmeNo = beyan.Beyanlar.NoterSozlesmeNo.ToString(),
+                        NoterSozlesmeNo = beyan.Beyanlar.NoterSozlesmeNo,
                         BaslangicTaksitNo = beyan.Beyanlar.BaslangicTaksitNo,
                         BeyanAciklama = beyan.Beyanlar.Aciklama,
                         BeyanKapatmaTarihi = beyan.Beyanlar.BeyanKapatmaTarihi,
@@ -1649,7 +1645,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                         KiraBaslangicTarihi = beyan.Beyanlar.KiraBaslangicTarihi,
                         SozlesmeBitisTarihi = beyan.Beyanlar.SozlesmeBitisTarihi,
                         SozlesmeTarihi = beyan.Beyanlar.SozlesmeTarihi,
-                        IhaleTutari = beyan.Beyanlar.IhaleTutari.ToString(),
+                        IhaleTutari = (beyan.Beyanlar.IhaleTutari.HasValue ? beyan.Beyanlar.IhaleTutari.ToString() : "-"),
                         KiraTutari = beyan.Beyanlar.KiraTutari.ToString(),
                         SozlesmeSuresi = beyan.Beyanlar.SozlesmeSuresi,
                         Kdv = beyan.Beyanlar.Kdv,
@@ -1659,7 +1655,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                         OdemePeriyotu = beyan.Beyanlar.OdemePeriyotTur.Ad,
                         KiraDurumu = beyan.Beyanlar.KiraDurum.Ad,
                         DamgaAlinsinMi = (beyan.Beyanlar.DamgaAlinsinMi == true ? "Evet" : "Hayır"),
-                        OlusturanKullanici = _userService.GetById(beyan.OlusturanKullanici_Id.Value).UserName,
+                        OlusturanKullanici = (beyan.OlusturanKullanici_Id.HasValue ? _userService.GetById(beyan.OlusturanKullanici_Id.Value).UserName : null),
                         SorumluPersonel = (beyan.SorumluPersonelId.HasValue ? _userService.GetById(beyan.SorumluPersonelId.Value).UserName : null),
                         AktifMi = beyan.Beyanlar.AktifMi.Value,
                     };
@@ -1738,7 +1734,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                     dosya.BeyanDosya = item.BeyanDosya;
                     dosyaList.Add(dosya);
                     var dosyaTur = _dosyaService.Getir(item.BeyanDosyaTur_Id);
-                    if(dosyaTur!=null&&dosyaTur.KapatmaMi.HasValue&&dosyaTur.KapatmaMi.Value)
+                    if (dosyaTur != null && dosyaTur.KapatmaMi.HasValue && dosyaTur.KapatmaMi.Value)
                     {
                         var result = _beyanDosyaService.Ekle(dosya);
 
@@ -1751,7 +1747,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
                 }
 
-                if (!artisMi&& islemler.Eklenenler!=null)
+                if (!artisMi && islemler.Eklenenler != null)
                 {
                     islemler.Eklenenler.BeyanDosyalar = new List<Beyan_Dosya>();
                     islemler.Eklenenler.BeyanDosyalar.AddRange(dosyaList);
@@ -1761,7 +1757,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                     islemler.Kapananlar.BeyanDosyalar = new List<Beyan_Dosya>();
                     islemler.Kapananlar.BeyanDosyalar.AddRange(dosyaList);
                 }
-                
+
                 if (dosya.Id > 0)
                     return dosya.Id;
             }
@@ -1852,9 +1848,9 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                         KiraDurum_Id = beyanBilgi.KiraDurum_Id.Value,
                         OdemePeriyotTur_Id = beyanBilgi.OdemePeriyotTur_Id.Value,
                         BeyanNo = beyanBilgi.BeyanNo,
-                        TeminatNo = int.Parse(beyanBilgi.TeminatNo),
-                        EncumenKararNo = beyanBilgi.EncumenKararNo.Value,
-                        NoterSozlesmeNo = int.Parse(beyanBilgi.NoterSozlesmeNo),
+                        TeminatNo = beyanBilgi.TeminatNo,
+                        EncumenKararNo = beyanBilgi.EncumenKararNo,
+                        NoterSozlesmeNo = beyanBilgi.NoterSozlesmeNo,
                         BaslangicTaksitNo = beyanBilgi.BaslangicTaksitNo.Value,
                         BeyanYil = beyanBilgi.BeyanYil.Value,
                         TeminatTarihi = beyanBilgi.TeminatTarihi,
@@ -1895,9 +1891,9 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                         KiraDurum_Id = beyanBilgi.KiraDurum_Id.Value,
                         OdemePeriyotTur_Id = beyanBilgi.OdemePeriyotTur_Id.Value,
                         BeyanNo = beyanBilgi.BeyanNo,
-                        TeminatNo = int.Parse(beyanBilgi.TeminatNo),
-                        EncumenKararNo = beyanBilgi.EncumenKararNo.Value,
-                        NoterSozlesmeNo = int.Parse(beyanBilgi.NoterSozlesmeNo),
+                        TeminatNo = beyanBilgi.TeminatNo,
+                        EncumenKararNo = beyanBilgi.EncumenKararNo,
+                        NoterSozlesmeNo = beyanBilgi.NoterSozlesmeNo,
                         BaslangicTaksitNo = beyanBilgi.BaslangicTaksitNo.Value,
                         BeyanYil = beyanBilgi.BeyanYil.Value,
                         TeminatTarihi = beyanBilgi.TeminatTarihi,
@@ -1969,9 +1965,9 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                         KiraDurum_Id = beyanBilgi.KiraDurum_Id.Value,
                         OdemePeriyotTur_Id = beyanBilgi.OdemePeriyotTur_Id.Value,
                         BeyanNo = beyanBilgi.BeyanNo,
-                        TeminatNo = int.Parse(beyanBilgi.TeminatNo),
-                        EncumenKararNo = beyanBilgi.EncumenKararNo.Value,
-                        NoterSozlesmeNo = int.Parse(beyanBilgi.NoterSozlesmeNo),
+                        TeminatNo = beyanBilgi.TeminatNo,
+                        EncumenKararNo = beyanBilgi.EncumenKararNo,
+                        NoterSozlesmeNo = beyanBilgi.NoterSozlesmeNo,
                         BaslangicTaksitNo = beyanBilgi.BaslangicTaksitNo.Value,
                         BeyanYil = beyanBilgi.BeyanYil.Value,
                         TeminatTarihi = beyanBilgi.TeminatTarihi,
@@ -2010,9 +2006,9 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                         KiraDurum_Id = beyanBilgi.KiraDurum_Id.Value,
                         OdemePeriyotTur_Id = beyanBilgi.OdemePeriyotTur_Id.Value,
                         BeyanNo = beyanBilgi.BeyanNo,
-                        TeminatNo = int.Parse(beyanBilgi.TeminatNo),
-                        EncumenKararNo = beyanBilgi.EncumenKararNo.Value,
-                        NoterSozlesmeNo = int.Parse(beyanBilgi.NoterSozlesmeNo),
+                        TeminatNo = beyanBilgi.TeminatNo,
+                        EncumenKararNo = beyanBilgi.EncumenKararNo,
+                        NoterSozlesmeNo = beyanBilgi.NoterSozlesmeNo,
                         BaslangicTaksitNo = beyanBilgi.BaslangicTaksitNo.Value,
                         BeyanYil = beyanBilgi.BeyanYil.Value,
                         TeminatTarihi = beyanBilgi.TeminatTarihi,
@@ -2111,7 +2107,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         public JsonResult GetirUfeOranListe(int turId)
         {
             var model = new KiraBeyanDetayVM();
-            var oranListe=_selectLists.UfeOranSelectList(turId);
+            var oranListe = _selectLists.UfeOranSelectList(turId);
 
             if (oranListe != null)
             {
@@ -2122,7 +2118,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         }
 
         [HttpPost]
-        public JsonResult TahakkukAciklamaEkle(int TahakkukId,string TahakkukNotu)
+        public JsonResult TahakkukAciklamaEkle(int TahakkukId, string TahakkukNotu)
         {
             var model = new KiraBeyanDetayVM();
             var tahakkuk = _tahakkukService.Getir(TahakkukId);
@@ -2131,7 +2127,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             {
                 tahakkuk.TahakkukNotu = TahakkukNotu.Trim();
                 var sonuc = _tahakkukService.Guncelle(tahakkuk);
-                if(sonuc!=null&&!string.IsNullOrEmpty(sonuc.Aciklama))
+                if (sonuc != null && !string.IsNullOrEmpty(sonuc.Aciklama))
                 {
                     ModelState.AddModelError("LogMessage", "Tahakkuk Açıklaması Başarıyla Kaydedildi.");
 
@@ -2209,7 +2205,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 {
                     _beyanVM.Kiraci = new KiraciEkleVM()
                     {
-                        SicilNo = long.Parse(sicilBilgisi.SicilNo),
+                        SicilNo = int.Parse(sicilBilgisi.SicilNo),
                         VergiNo = long.Parse(sicilBilgisi.VergiNo),
                         Ad = sicilBilgisi.Ad,
                         Soyad = sicilBilgisi.Soyad,
@@ -2260,7 +2256,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                         Mahalle = gayrimenkul.Mahalleler.Ad,
                         Il_Id = gayrimenkul.Il_Id,
                         Ilce_Id = gayrimenkul.Ilce_Id,
-                        Mahalle_Id = gayrimenkul.Mahalle_Id,
+                        Mahalle_Id = gayrimenkul.Mahalle_Id.Value,
                         Sokak = gayrimenkul.Sokak,
                         IcKapiNo = gayrimenkul.IcKapiNo,
                         DisKapiNo = gayrimenkul.DisKapiNo,
@@ -2383,7 +2379,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         [HttpGet]
         public JsonResult GetirGayrimenkulChart()
         {
-            var liste = _gayrimenkulservice.GetirListe().GroupBy(a => a.GayrimenkulTur.Ad)
+            var liste = _gayrimenkulservice.GetirListe().Where(a => a.GayrimenkulTur != null).GroupBy(a => a.GayrimenkulTur.Ad)
                          .Select(g => new { g.Key, Count = g.Count() });
 
             List<GayrimenkulChartModel> modelList = new List<GayrimenkulChartModel>();
