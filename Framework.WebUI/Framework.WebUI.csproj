@@ -1242,6 +1242,9 @@
     <Content Include="Content\vendors.bundle.css.map" />
     <Content Include="Content\page-login.css.map" />
     <Content Include="Areas\Kira\Views\GayrimenkulRapor\Index.cshtml" />
+
+    <Content Include="Areas\Kira\Views\Hatirlatma\Index.cshtml" />
+
     <Content Include="Areas\Kira\Views\Raporlar\ArtisYapilanBeyan.cshtml" />
     <Content Include="Areas\Kira\Views\Raporlar\Beyan.cshtml" />
     <Content Include="Areas\Kira\Views\Raporlar\BeyanYapilanGayrimenkul.cshtml" />
@@ -1249,7 +1252,10 @@
     <Content Include="Areas\Kira\Views\Raporlar\TahsilatRaporu.cshtml" />
     <Content Include="Areas\Kira\Views\Raporlar\_tableBeyanPartial.cshtml" />
     <Content Include="Areas\Kira\Views\Raporlar\_tableBeyanYapilanGayrimenkul.cshtml" />
-    <Content Include="Areas\Kira\Views\Hatirlatma\Index.cshtml" />
+
+
+    <Content Include="Areas\Kira\Views\Shared\_Hatirlatmalar.cshtml" />
+
     <None Include="job_scheduling_data_2_0.xsd">
       <SubType>Designer</SubType>
     </None>

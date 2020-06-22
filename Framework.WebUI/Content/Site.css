@@ -904,7 +904,8 @@ nav ul li a:active {
     z-index: 9;
     right: 150px;
     padding-top: 32px;
-    margin-right: 17px;
+    margin-right: 90px;
+    color:white;
 }
 
 /*.login-info-kullanici {
@@ -923,7 +924,7 @@ nav ul li a:active {
     display: block;
     font-size: 12px;
     height: 39px;
-    color: #2c3e50;
+    color: black;
     width: 100%;
     font-weight: 600;
 }
@@ -1275,10 +1276,46 @@ form td.zorunluYildiz:after {
     margin-top: 35px;
 }
 
+.smart-style-4 #header {
+    background: #ffff;
+}
 
+/*@media (min-width: 300px) {
+    .smart-style-4 #project-context > :first-child, .smart-style-4 #project-selector, .smart-style-4 .btn-header.transparent a, .smart-style-4 .header-dropdown-list > li > .dropdown-toggle, .smart-style-4 .project-context > :first-child, .smart-style-4 .project-selector {
+        color: #2980b9 !important;
+    }
+    .btn-header > :first-child > a {
+        color: #2980b9 !important;
+    }
+    .login-info-kullanici{
+        display:none;
+    }
+}*/
+
+
+@media (max-width: 979px)and (min-width: 0) {
+    .smart-style-4 #project-context > :first-child, .smart-style-4 #project-selector, .smart-style-4 .btn-header.transparent a, .smart-style-4 .header-dropdown-list > li > .dropdown-toggle, .smart-style-4 .project-context > :first-child, .smart-style-4 .project-selector {
+        color: #2980b9 !important;
+    }
+
+    .btn-header > :first-child > a {
+        color: #2980b9 !important;
+    }
+
+    .login-info-kullanici {
+        display: none;
+    }
+
+    #hide-menu i  {
+        color: #2980b9 !important;
+    }
+    .hidden-menu #hide-menu > :first-child > a {
+        background-color: cornflowerblue;
+        background-image: linear-gradient(to bottom,#f3f3f3 0,#c8d5e1 100%)
+    }
+}
 /*Tasarımcıların Yaptıkları*/
-
-/*.smart-style-4 nav ul li a {
+        /*.smart-style-4 nav ul li a {
     color: #D2D2D2;
     font-size: 13.5px;
 }

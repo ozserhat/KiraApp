@@ -37,7 +37,28 @@
                         <header>
                             <span class="widget-icon"> <i class="fa fa-list"></i> </span>
                             <h2>Gayrimenkul Listesi - <b>Toplam Gayrimenkul Adedi : @Model.TotalRecordCount</b></h2>
+                            <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
+                                <div class="btn-group" role="menu">
+                                    <button class="btn btn-info">
+                                        <i class="glyphicon glyphicon-export"></i>
+                                        Dosya İşlemleri
+                                    </button>
+                                    <button class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="#" id="btnExport" rel="tooltip"
+                                               data-original-title="Excel Raporu">
+                                                <span>Excel</span>
+                                                <i class="fa fa-file-excel-o">
+                                                </i>
+                                            </a>
+                                        </li>
 
+                                    </ul>
+                                </div>
+                            </div>
                         </header>
                         <div role="contentinfo">
                             <div class="widget-body">
@@ -121,15 +142,9 @@
     @Scripts.Render("~/bundles/jqueryval")
     <link href="~/Content/export/css/jquery.dataTables.min.css" rel="stylesheet" />
     <link href="~/Content/export/css/buttons.dataTables.min.css" rel="stylesheet" />
+    <script src="~/Scripts/table2excel.js"></script>
 
-    <script type="text/javascript" src="~/Content/export/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="~/Content/export/js/dataTables.buttons.min.js"></script>
-    <script type="text/javascript" src="~/Content/export/js/buttons.flash.min.js"></script>
-    <script type="text/javascript" src="~/Content/export/js/jszip.min.js"></script>
-    <script type="text/javascript" src="~/Content/export/js/pdfmake.min.js"></script>
-    <script type="text/javascript" src="~/Content/export/js/vfs_fonts.js"></script>
-    <script type="text/javascript" src="~/Content/export/js/buttons.html5.min.js"></script>
-    <script type="text/javascript" src="~/Content/export/js/buttons.print.min.js"></script>
+
 
     @*<link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
         <script src="~/Content/SweetAlert/sweetalert2.min.js"></script>
@@ -138,21 +153,25 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script*@>
     <script type="text/javascript">
-        $(document).ready(function () {
-            $('#dtGayrimenkul').DataTable({
-                dom: 'Bfrtip',
-                buttons: [
-                   'excel', 'pdf'
-                ]
-            });
-        });
+
         $(document).ready(function () {
             if (@sonSayfa < 8) {
                 $("#sayfalama").css("display", "none");
             }
         });
     </script>
+    <script type="text/javascript">
+        $(function () {
+            $("#btnExport").click(function () {
 
+                var table = $('#dtGayrimenkul').DataTable();
+
+                $("<table>").append(table.$('tr').clone()).table2excel({
+                    filename: "Gayrimenkul_Rapor.xls"
+                });
+            });
+        });
+    </script>
     <script type="text/javascript">
 
         $("#btnGit").on("click", function () {

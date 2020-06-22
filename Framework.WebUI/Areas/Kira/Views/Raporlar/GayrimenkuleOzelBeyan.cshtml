@@ -44,8 +44,29 @@
                                     </a>
                                 </span>
                             </div>
-                            <h2>Beyan Listesi - <b>Toplam Beyan Adedi : @Model.TotalRecordCount</b></h2>
+                            <h2>Gayrimenkule Özel Beyan Listesi - <b>Toplam : @Model.TotalRecordCount</b></h2>
+                            <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
+                                <div class="btn-group" role="menu">
+                                    <button class="btn btn-info">
+                                        <i class="glyphicon glyphicon-export"></i>
+                                        Dosya İşlemleri
+                                    </button>
+                                    <button class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="#" id="btnExport" rel="tooltip"
+                                               data-original-title="Excel Raporu">
+                                                <span>Excel</span>
+                                                <i class="fa fa-file-excel-o">
+                                                </i>
+                                            </a>
+                                        </li>
 
+                                    </ul>
+                                </div>
+                            </div>
 
 
                         </header>
@@ -130,14 +151,6 @@
     <link href="~/Content/export/css/jquery.dataTables.min.css" rel="stylesheet" />
     <link href="~/Content/export/css/buttons.dataTables.min.css" rel="stylesheet" />
 
-    <script type="text/javascript" src="~/Content/export/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="~/Content/export/js/dataTables.buttons.min.js"></script>
-    <script type="text/javascript" src="~/Content/export/js/buttons.flash.min.js"></script>
-    <script type="text/javascript" src="~/Content/export/js/jszip.min.js"></script>
-    <script type="text/javascript" src="~/Content/export/js/pdfmake.min.js"></script>
-    <script type="text/javascript" src="~/Content/export/js/vfs_fonts.js"></script>
-    <script type="text/javascript" src="~/Content/export/js/buttons.html5.min.js"></script>
-    <script type="text/javascript" src="~/Content/export/js/buttons.print.min.js"></script>
     <style type="text/css">
         .pasif-buton-beyandetay {
             padding: 3px 6px;
@@ -278,14 +291,7 @@
             $('#DamgaAlinsinMi').select2("val", "");
             $('#NoterSozlesmeNo').val('');
         }
-        $(document).ready(function () {
-            $('#tblBeyan').DataTable({
-                dom: 'Bfrtip',
-                buttons: [
-                    'excel'
-                ]
-            });
-        });
+
         //$(function () {
         //    $("#btnReset").bind("click", function () {
         //        $("#ddlFruits")[0].selectedIndex = 0;
@@ -293,7 +299,18 @@
         //});
 
     </script>
+    <script type="text/javascript">
+        $(function () {
+            $("#btnExport").click(function () {
 
+                var table = $('#tblBeyan').DataTable();
+
+                $("<table>").append(table.$('tr').clone()).table2excel({
+                    filename: "GayrimenkuleOzelBeyan_Raporu.xls"
+                });
+            });
+        });
+    </script>
     <script type="text/javascript">
         jQuery(document).ready(function ($) {
             var bsDefaults = {
