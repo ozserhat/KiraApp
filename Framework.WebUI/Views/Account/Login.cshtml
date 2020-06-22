@@ -9,6 +9,7 @@
         height: 100%;
         overflow: hidden
     }
+
     .btn:hover {
         color: #ffff;
         text-decoration: none;
@@ -27,7 +28,7 @@
                 @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "smart-form client-form", role = "form", id = "login-form" }))
                 {
 
-                <header> <span id="logo-login"> <img src="~/content/img/logo.png" alt="Ankara Büyükşehir Belediyesi"> </span></header>
+                    <header> <span id="logo-login"> <img src="~/content/img/logo.png" alt="Ankara Büyükşehir Belediyesi"> </span></header>
 
                     @Html.AntiForgeryToken()
                     if (Model != null && Model.Errors != null && Model.Errors.Count > 0)
@@ -55,7 +56,7 @@
                             <label class="control-label">Kullanıcı Şifreniz:</label>
                             <label class="input">
                                 <i class="icon-append fa fa-lock"></i>
-                                @Html.Password("Password", new { @class = "form-control" }) 
+                                @Html.Password("Password", new { @class = "form-control" })
                                 <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> Kullanıcı Şifrenizi Giriniz</b>
                             </label>
                             <div class="note">
@@ -91,4 +92,3 @@
         });
     </script>
 }
-

@@ -21,12 +21,12 @@ namespace Framework.Entities.Concrete
 
         public Guid Guid { get; set; }
         
-        public int KiraciTur_Id { get; set; }
+        public int? KiraciTur_Id { get; set; }
 
         [ForeignKey("KiraciTur_Id")]
         public virtual KiraciTur KiraciTurleri { get; set; }
         
-        public long SicilNo { get; set; }
+        public int? SicilNo { get; set; }
 
         public long? VergiNo { get; set; }
 
@@ -50,7 +50,7 @@ namespace Framework.Entities.Concrete
         [StringLength(500)]
         public string MahalleAdi { get; set; }
 
-        public int Il_Id { get; set; }
+        public int? Il_Id { get; set; }
 
         public int? Ilce_Id { get; set; }
 

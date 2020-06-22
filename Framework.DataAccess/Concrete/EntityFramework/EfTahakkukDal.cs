@@ -132,9 +132,8 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                 var result= context.Tahakkuklar.Include(kb => kb.Kira_Beyani)
                                                .Include(b => b.Kira_Beyani.Beyanlar)
                                                .Include(k=>k.Kira_Beyani.Gayrimenkuller)
-                                               .Include(m => m.Kira_Beyani.Gayrimenkuller.Mahalleler)
-                                               .Include(ilc => ilc.Kira_Beyani.Gayrimenkuller.Mahalleler.Ilceler)
-                                               .Include(il => il.Kira_Beyani.Gayrimenkuller.Mahalleler.Ilceler.Iller)
+                                               .Include(ilc => ilc.Kira_Beyani.Gayrimenkuller.Ilceler)
+                                               .Include(il => il.Kira_Beyani.Gayrimenkuller.Ilceler.Iller)
                                                .Include(s=>s.Kira_Beyani.Kiracilar).ToList();
                 return result;
             }
