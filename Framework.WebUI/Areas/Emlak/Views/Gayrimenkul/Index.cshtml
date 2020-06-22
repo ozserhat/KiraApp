@@ -42,7 +42,34 @@
                                     @Html.AuthActionLink(" Gayrimenkul Ekle", "Ekle", "Gayrimenkul", "btn btn-primary",
                                    "glyphicon glyphicon-plus", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                                 </p>
+                                <div class="btn-group" role="menu">
+                                    <button class="btn btn-info">
+                                        <i class="glyphicon glyphicon-export"></i>
+                                        Dosya İşlemleri
+                                    </button>
+                                    <button class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="#" id="btnExport" rel="tooltip"
+                                               data-original-title="Excel Raporu">
+                                                <span>Excel</span>
+                                                <i class="fa fa-file-excel-o">
+                                                </i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" id="btnPdfConverter" title="Pdf" onclick="createPDF()">
+                                                <span>Pdf</span>
+                                                <i class="fa fa-file-pdf-o">
+                                                </i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
+
                         </header>
                         <div role="contentinfo">
                             <div class="widget-body">
@@ -71,39 +98,39 @@
 
                                                         @foreach (var item in Model.Gayrimenkuller)
                                                         {
-                                                        <tr role="row" class="odd">
-                                                            <td>@(i++)</td>
-                                                            <td>@Html.DisplayFor(model => item.GayrimenkulTur.Ad)</td>
-                                                            <td>@Html.DisplayFor(model => item.GayrimenkulNo)</td>
-                                                            <td>@Html.DisplayFor(model => item.Ad)</td>
-                                                            <td>@Html.DisplayFor(model => item.Mahalleler.Ilceler.Iller.Ad)</td>
-                                                            <td>@Html.DisplayFor(model => item.Mahalleler.Ilceler.Ad)</td>
-                                                            <td>@Html.DisplayFor(model => item.Mahalleler.Ad)</td>
-                                                            <td>
-                                                                @if (item.AktifMi.HasValue && item.AktifMi.Value)
-                                                                {
-                                                                    <b class="label aktif-buton">Aktif</b>
-                                                                }
-                                                                else
-                                                                {
-                                                                    <b class="label pasif-buton">Pasif</b>
-                                                                }
-                                                            </td>
-                                                            <td class="text-center">
-                                                                @Html.AuthAction(" ", "Duzenle", "Gayrimenkul", new { item.Guid },
-                                                                        new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
+                                                            <tr role="row" class="odd">
+                                                                <td>@(i++)</td>
+                                                                <td>@Html.DisplayFor(model => item.GayrimenkulTur.Ad)</td>
+                                                                <td>@Html.DisplayFor(model => item.GayrimenkulNo)</td>
+                                                                <td>@Html.DisplayFor(model => item.Ad)</td>
+                                                                <td>@Html.DisplayFor(model => item.Mahalleler.Ilceler.Iller.Ad)</td>
+                                                                <td>@Html.DisplayFor(model => item.Mahalleler.Ilceler.Ad)</td>
+                                                                <td>@Html.DisplayFor(model => item.Mahalleler.Ad)</td>
+                                                                <td>
+                                                                    @if (item.AktifMi.HasValue && item.AktifMi.Value)
+                                                                    {
+                                                                        <b class="label aktif-buton">Aktif</b>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <b class="label pasif-buton">Pasif</b>
+                                                                    }
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    @Html.AuthAction(" ", "Duzenle", "Gayrimenkul", new { item.Guid },
+                                                                            new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
+                                                                            Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+
+                                                                    @Html.AuthAction(" ", "Detay", "Gayrimenkul", new { item.Guid },
+                                                                        new { @class = "no-underline margin-right-5 fa fa-search-plus font-md txt-color-blue" },
                                                                         Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
-                                                                @Html.AuthAction(" ", "Detay", "Gayrimenkul", new { item.Guid },
-                                                                    new { @class = "no-underline margin-right-5 fa fa-search-plus font-md txt-color-blue" },
-                                                                    Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                                                                    @Html.AuthAction(" ", "Sil", "Gayrimenkul", new { item.Id },
+                                                                                    new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = item.Ad, @data_id = item.Id },
+                                                                                    Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
-                                                                @Html.AuthAction(" ", "Sil", "Gayrimenkul", new { item.Id },
-                                                                                new { @class = "no-underline margin-right-5 fa fa-remove font-md txt-color-blue", @data_name = item.Ad, @data_id = item.Id },
-                                                                                Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
-
-                                                            </td>
-                                                        </tr>
+                                                                </td>
+                                                            </tr>
                                                         }
                                                     </tbody>
                                                 }
@@ -134,9 +161,9 @@
 
 @section pagespecific {
     @Scripts.Render("~/bundles/jqueryval")
-     <link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
+    <link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
     <script src="~/Content/SweetAlert/sweetalert2.min.js"></script>
-
+    <script src="~/Scripts/table2excel.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             if (@sonSayfa < 8) {
@@ -183,7 +210,18 @@
             dt = $('#dtGayrimenkul').DataTable(dt_settings);
         });
     </script>
+    <script type="text/javascript">
+        $(function () {
+            $("#btnExport").click(function () {
 
+                var table = $('#dtGayrimenkul').DataTable();
+
+                $("#dtGayrimenkul").append(table.$('tr').clone()).table2excel({
+                    filename: "Gayrimenkul.xls"
+                });
+            });
+        });
+    </script>
     <script type="text/javascript">
         function deletealert(Id, name, closestTR) {
             swal({

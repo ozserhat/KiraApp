@@ -43,10 +43,33 @@
                                         </i>
                                     </a>
                                 </span>
+
+                            </div>
+                            <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
+                                <div class="btn-group" role="menu">
+                                    <button class="btn btn-info">
+                                        <i class="glyphicon glyphicon-export"></i>
+                                        Dosya İşlemleri
+                                    </button>
+                                    <button class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="#" id="btnExport" rel="tooltip"
+                                               data-original-title="Excel Raporu">
+                                                <span>Excel</span>
+                                                <i class="fa fa-file-excel-o">
+                                                </i>
+                                            </a>
+                                        </li>
+                                       
+                                    </ul>
+                                </div>
                             </div>
                             <h2>Beyan Listesi - <b>Toplam Beyan Adedi : @Model.TotalRecordCount</b></h2>
 
-           
+
                         </header>
                         <div role="contentinfo">
                             <div class="widget-body">
@@ -398,13 +421,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="dt-buttons">
-                                                    <button class="dt-button buttons-excel buttons-html5" id="btnExport" tabindex="0" aria-controls="tblBeyan" type="button"><span>Excel</span></button>
-                                                </div>
-                                            </div>
-                                        </div>
+                                      
                                         <div id="dvTable" class="col-md-12">
                                             @{ Html.RenderPartial("_tableBeyanPartial", Model); }
                                         </div>
@@ -751,7 +768,7 @@
 
                     debugger;
                     $("#tblExcell").table2excel({
-                        filename: "Beyanlar.xls"
+                        filename: "Beyan_Rapor.xlsx"
                     });
                     document.getElementById("tblExcell_wrapper").style.display = "none";
                  },

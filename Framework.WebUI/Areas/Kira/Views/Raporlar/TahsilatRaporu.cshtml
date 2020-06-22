@@ -46,9 +46,30 @@
                                     </a>
                                 </span>
                             </div>
-                            <h2>Tahakkuk Listesi - <b>Toplam Tahakkuk Adedi : @Model.TotalRecordCount</b></h2>
+                            <h2>Tahsilat Listesi - <b>Toplam : @Model.TotalRecordCount</b></h2>
+                            <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
+                                <div class="btn-group" role="menu">
+                                    <button class="btn btn-info">
+                                        <i class="glyphicon glyphicon-export"></i>
+                                        Dosya İşlemleri
+                                    </button>
+                                    <button class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="#" id="btnExport" rel="tooltip"
+                                               data-original-title="Excel Raporu">
+                                                <span>Excel</span>
+                                                <i class="fa fa-file-excel-o">
+                                                </i>
+                                            </a>
+                                        </li>
 
-                       
+                                    </ul>
+                                </div>
+                            </div>
+
                         </header>
                         <div role="contentinfo">
                             <div class="widget-body">
@@ -277,14 +298,8 @@
     <link href="~/Content/export/css/jquery.dataTables.min.css" rel="stylesheet" />
     <link href="~/Content/export/css/buttons.dataTables.min.css" rel="stylesheet" />
 
-    <script type="text/javascript" src="~/Content/export/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="~/Content/export/js/dataTables.buttons.min.js"></script>
-    <script type="text/javascript" src="~/Content/export/js/buttons.flash.min.js"></script>
-    <script type="text/javascript" src="~/Content/export/js/jszip.min.js"></script>
-    <script type="text/javascript" src="~/Content/export/js/pdfmake.min.js"></script>
-    <script type="text/javascript" src="~/Content/export/js/vfs_fonts.js"></script>
-    <script type="text/javascript" src="~/Content/export/js/buttons.html5.min.js"></script>
-    <script type="text/javascript" src="~/Content/export/js/buttons.print.min.js"></script>
+    <script src="~/Scripts/table2excel.js"></script>
+
 
     <style type="text/css">
         .pasif-buton-beyandetay {
@@ -357,12 +372,12 @@
             "searching": true
         };
 
-     
+
     </script>
 
     <script type="text/javascript">
 
-    
+
 
         jQuery(document).ready(function ($) {
             var bsDefaults = {
@@ -442,7 +457,7 @@
                 firstDay: 1
             });
         });
-     
+
     </script>
 
     <!--Form Temizleme İşlemi -->
@@ -458,12 +473,18 @@
             $('#OdemeDurum_Id').select2("val", "");
             $('#Gayrimenkul_Id').select2("val", "");
         }
-        $(document).ready(function () {
-            $('#dtTahakkuk').DataTable({
-                dom: 'Bfrtip',
-                buttons: [
-                   'excel'
-                ]
+
+    </script>
+
+    <script type="text/javascript">
+        $(function () {
+            $("#btnExport").click(function () {
+
+                var table = $('#dtTahakkuk').DataTable();
+
+                $("#dtTahakkuk").append(table.$('tr').clone()).table2excel({
+                    filename: "Tahsilat_Raporu.xls"
+                });
             });
         });
     </script>
