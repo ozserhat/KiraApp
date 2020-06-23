@@ -8,6 +8,7 @@ namespace Framework.DataAccess.Abstract
     public interface IGayrimenkulDal : IEntityRepository<Gayrimenkul>
     {
         IEnumerable<Gayrimenkul> GetirListe();
+        IEnumerable<Gayrimenkul> GetListByCriteriasGayrimenkul(GayrimenkulBeyanRequest request);
         Gayrimenkul GetById(int id);
         Gayrimenkul GetByGuid(Guid guid);
         bool Delete(int id);

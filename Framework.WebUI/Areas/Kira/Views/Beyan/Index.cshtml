@@ -5,6 +5,7 @@
 @{
     ViewBag.Title = "Kira Yönetim Sistemi";
     Layout = "~/Areas/Kira/Views/Shared/_LayoutKira.cshtml";
+    int sonSayfa = 0;
 }
 
 
@@ -431,6 +432,60 @@
                                         </div>
                                         <div id="dvTable" class="col-md-12">
                                             @{ Html.RenderPartial("_tablePartial", Model); }
+
+                                            <div class="dt-toolbar-footer">
+                                                <div class="col-xs-12 col-sm-6">
+                                                    <div class="dataTables_info" id="dt_basic_info" role="status" aria-live="polite">
+                                                        Toplam
+                                                        <span class="text-primary"><strong>@Model.TotalRecordCount</strong></span>  Kayıttan
+                                                        <span class="text-primary"><strong>@((Model.PageNumber - 1) * Model.PageSize + 1)</strong></span> -
+                                                        @if (Model.TotalRecordCount > (Model.PageNumber * Model.PageSize))
+                                                        {
+                                                            <span class="text-primary"><strong>@(Model.PageNumber * Model.PageSize)</strong></span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="text-primary"><strong>@Model.TotalRecordCount</strong></span>
+                                                        }
+                                                        Arası Kayıtlar
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-6">
+                                                    @if (Model.Beyanlar.TotalItemCount > Model.PageSize)
+                                                    {
+                                                        <div id="sayfalama">
+                                                            <div class="input-group input-group-md">
+                                                                <div class="icon-addon addon-md">
+                                                                    <input class="form-control valid input-sayfayaGit" id="sayfayaGit" name="sayfayaGit" type="text" value="">
+                                                                </div>
+                                                                <span class="input-group-btn">
+                                                                    <button class="btn btn-primary btn-sayfayaGit" id="btnGit" type="button">Git</button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            @{
+                                                                sonSayfa = Model.TotalRecordCount % Model.PageSize == 0 ? Model.TotalRecordCount / Model.PageSize : Model.TotalRecordCount / Model.PageSize + 1;
+                                                                @Html.PagedListPager(Model.Beyanlar, page => Url.Action("Index",
+                                                                                            new
+                                                                                            {
+                                                                                                page = page
+                                                                                            }), new PagedListRenderOptions
+                                                                                            {
+                                                                                                MaximumPageNumbersToDisplay = 7,
+                                                                                                DisplayEllipsesWhenNotShowingAllPageNumbers = true,
+                                                                                                EllipsesFormat = "&#8230;",
+                                                                                                LinkToFirstPageFormat = "1",
+                                                                                                LinkToPreviousPageFormat = "«",
+                                                                                                LinkToNextPageFormat = "»",
+                                                                                                LinkToLastPageFormat = sonSayfa.ToString()
+                                                                                            })
+                                                            }
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>

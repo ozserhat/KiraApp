@@ -284,6 +284,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
             if (beyanlar != null)
             {
+                model.TotalRecordCount = beyanlar.Count();
                 model.IlceSelectList = IlceSelectList();
                 model.GayrimenkulSelectList = GayrimenkulSelectList();
                 model.BeyanTurSelectList = BeyanTurSelectList();
@@ -294,9 +295,10 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 model.DamgaVergisiDurumSelectList = DamgaVergisiDurumSelectList();
                 model.GayrimenkulSelectList = GayrimenkulSelectList();
                 model.OdemePeriyotSelectList = OdemePeriyotSelectList();
+                beyanlar = beyanlar.ToPagedList(model.PageNumber, model.PageSize);
 
-                model.Beyanlar = new StaticPagedList<Kira_Beyan>(beyanlar, model.PageNumber, model.PageSize, beyanlar.Count());
-                model.TotalRecordCount = beyanlar.Count();
+                model.Beyanlar = new StaticPagedList<Kira_Beyan>(beyanlar, model.PageNumber, model.PageSize, model.TotalRecordCount);
+                
             }
 
             return View(model);
@@ -411,6 +413,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
             if (beyanlar != null)
             {
+                model.TotalRecordCount = beyanlar.Count();
+
                 model.IlceSelectList = IlceSelectList();
                 model.GayrimenkulSelectList = GayrimenkulSelectList();
                 model.BeyanTurSelectList = BeyanTurSelectList();
@@ -421,9 +425,9 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 model.DamgaVergisiDurumSelectList = DamgaVergisiDurumSelectList();
                 model.GayrimenkulSelectList = GayrimenkulSelectList();
                 model.OdemePeriyotSelectList = OdemePeriyotSelectList();
+                beyanlar = beyanlar.ToPagedList(model.PageNumber, model.PageSize).ToList();
 
-                model.Beyanlar = new StaticPagedList<Kira_Beyan>(beyanlar, model.PageNumber, model.PageSize, beyanlar.Count());
-                model.TotalRecordCount = beyanlar.Count();
+                model.Beyanlar = new StaticPagedList<Kira_Beyan>(beyanlar, model.PageNumber, model.PageSize, model.TotalRecordCount);
             }
 
             return View(model);
@@ -543,6 +547,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
             if (beyanlar != null)
             {
+                model.TotalRecordCount = beyanlar.Count();
+
                 model.IlceSelectList = IlceSelectList();
                 model.GayrimenkulSelectList = GayrimenkulSelectList();
                 model.BeyanTurSelectList = BeyanTurSelectList();
@@ -553,9 +559,9 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 model.DamgaVergisiDurumSelectList = DamgaVergisiDurumSelectList();
                 model.GayrimenkulSelectList = GayrimenkulSelectList();
                 model.OdemePeriyotSelectList = OdemePeriyotSelectList();
+                beyanlar = beyanlar.ToPagedList(model.PageNumber, model.PageSize);
 
-                model.Beyanlar = new StaticPagedList<Kira_Beyan>(beyanlar, model.PageNumber, model.PageSize, beyanlar.Count());
-                model.TotalRecordCount = beyanlar.Count();
+                model.Beyanlar = new StaticPagedList<Kira_Beyan>(beyanlar, model.PageNumber, model.PageSize, model.TotalRecordCount);
             }
 
             return View(model);
@@ -632,10 +638,11 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
             if (beyanlar != null)
             {
-                model.GayrimenkulSelectList = GayrimenkulSelectList();
-
-                model.Beyanlar = new StaticPagedList<Kira_Beyan>(beyanlar, model.PageNumber, model.PageSize, beyanlar.Count());
                 model.TotalRecordCount = beyanlar.Count();
+
+                model.GayrimenkulSelectList = GayrimenkulSelectList();
+                beyanlar = beyanlar.ToPagedList(model.PageNumber, model.PageSize);
+                model.Beyanlar = new StaticPagedList<Kira_Beyan>(beyanlar, model.PageNumber, model.PageSize, model.TotalRecordCount);
             }
 
             return View(model);
@@ -657,10 +664,12 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
             if (tahakkuklar != null)
             {
+                model.TotalRecordCount = tahakkuklar.Count();
+                tahakkuklar = tahakkuklar.ToPagedList(model.PageNumber, model.PageSize);
                 model.OdemeDurumuSelectList = OdemeDurumuSelectList();
                 model.GayrimenKulSelectList = GayrimenKulSelectList();
-                model.Tahakkuklar = new StaticPagedList<Tahakkuk>(tahakkuklar, model.PageNumber, model.PageSize, tahakkuklar.Count());
-                model.TotalRecordCount = tahakkuklar.Count();
+                model.Tahakkuklar = new StaticPagedList<Tahakkuk>(tahakkuklar, model.PageNumber, model.PageSize, model.TotalRecordCount);
+                
             }
 
             return View(model);

@@ -134,15 +134,16 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
             if (beyanlar != null)
             {
+                model.TotalRecordCount = model.KiraBeyanVm.Beyanlar.Count();
+
                 model.IlceSelectList = IlceSelectList();
                 model.IlSelectList = IlSelectList();
                 model.GayrimenkulTuruSelectList = GayrimenkulTuruSelectList();
-
+                beyanlar = beyanlar.ToPagedList(model.PageNumber, model.PageSize);
                 model.KiraBeyanVm = new KiraBeyanVM
                 {
-                    Beyanlar = new StaticPagedList<Kira_Beyan>(beyanlar, model.PageNumber, model.PageSize, beyanlar.Count())
+                    Beyanlar = new StaticPagedList<Kira_Beyan>(beyanlar, model.PageNumber, model.PageSize, model.TotalRecordCount)
                 };
-                model.TotalRecordCount = model.KiraBeyanVm.Beyanlar.Count();
             }
 
             return View(model);

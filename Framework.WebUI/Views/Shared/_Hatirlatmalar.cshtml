@@ -48,7 +48,7 @@
                 title: "Hatırlatmalar",
                 content: Icerik,
                 color: "#970921",
-                timeout: 3500
+                //timeout: 3500
             });
         }
 
@@ -63,14 +63,20 @@
         }
 
         $('#click').click(function () {
+            debugger;
             $("#smallbox1").animate({ width: 'toggle' }, 500);
             if ($(this).find('span').hasClass('fa fa-angle-double-right')) {
                 $(this).find('span').removeClass('fa fa-angle-double-right');
                 $(this).find('span').addClass('fa fa-angle-double-left');
-             
+
+
             } else {
                 $(this).find('span').removeClass('fa fa-angle-double-left');
                 $(this).find('span').addClass('fa fa-angle-double-right');
+                    $.smallBox.remove();
+                GetNotification();
+
+
             }
         });
 

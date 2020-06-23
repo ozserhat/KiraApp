@@ -62,6 +62,30 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             }
         }
 
+        public IEnumerable<Gayrimenkul> GetListByCriteriasGayrimenkul(GayrimenkulBeyanRequest request)
+        {
+            List<Gayrimenkul> result = new List<Gayrimenkul>();
+
+            using (DtContext context = new DtContext())
+            {
+                var query = context.Gayrimenkuller
+                              .Include(m => m.Mahalleler)
+                              .Include(ilc => ilc.Mahalleler.Ilceler)
+                              .Include(ilc => ilc.Mahalleler.Ilceler.Iller)
+                              .Include(ilc => ilc.GayrimenkulTur)
+                              .AsQueryable();
+
+                query = request.Ilce_Id.HasValue ? query.Where(x => x.Ilce_Id == request.Ilce_Id) : query;
+                query = request.Mahalle_Id.HasValue ? query.Where(x => x.Mahalle_Id == request.Mahalle_Id) : query;
+                query = request.GayrimenkulAdi != null ? query.Where(x => x.Ad == request.GayrimenkulAdi) : query;
+                query = request.GayrimenkulTur.HasValue ? query.Where(x => x.GayrimenkulTur_Id == request.GayrimenkulTur) : query;
+
+                result = query.ToList();
+            }
+
+            return result;
+        }
+
         public string GayrimenkulNoUret(int Yil)
         {
             try
@@ -101,5 +125,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                                              .FirstOrDefault();
             }
         }
+
+       
     }
 }

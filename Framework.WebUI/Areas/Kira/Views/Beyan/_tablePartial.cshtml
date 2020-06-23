@@ -44,9 +44,25 @@
 
                     </td>
 
-                    <td>@Html.DisplayFor(model => item.Gayrimenkuller.Mahalleler.Ilceler.Iller.Ad)</td>
-                    <td>@Html.DisplayFor(model => item.Gayrimenkuller.Mahalleler.Ilceler.Ad)</td>
-                    <td>@Html.DisplayFor(model => item.Gayrimenkuller.Mahalleler.Ad)</td>
+                    <td>
+                        @if (item.Gayrimenkuller.Ilceler != null)
+                        {
+                            @Html.DisplayFor(model => item.Gayrimenkuller.Ilceler.Iller.Ad)
+
+                        }
+                    </td>
+                    <td>
+                        @if (item.Gayrimenkuller.Ilceler != null)
+                        {
+                            @Html.DisplayFor(model => item.Gayrimenkuller.Ilceler.Ad)
+                        }
+                    </td>
+                    <td>
+                        @if (item.Gayrimenkuller.Mahalleler != null)
+                        {
+                            @Html.DisplayFor(model => item.Gayrimenkuller.Mahalleler.Ad)
+                        }
+                        </td>
                     <td>
                         @if (item.Beyanlar.AktifMi == (int)Framework.Entities.Enums.EnmIslemDurumu.Aktif)
                         {
@@ -67,19 +83,19 @@
                     </td>
                     <td class="text-center">
                         @*@if (item.OlusturulmaTarihi >= DateTime.Now.AddDays(-1))
-                        {*@
-                            @Html.AuthAction(" ", "Ekle", "Beyan", new { id = item.Beyanlar.Guid },
-                                      new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue", @data_name = item.Beyanlar.BeyanNo, @data_id = item.Beyanlar.Id },
-                                      Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                            {*@
+                        @Html.AuthAction(" ", "Ekle", "Beyan", new { id = item.Beyanlar.Guid },
+                                  new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue", @data_name = item.Beyanlar.BeyanNo, @data_id = item.Beyanlar.Id },
+                                  Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
                         @*}*@
 
                         @Html.AuthAction(" ", "BeyanDetay", "Beyan", new { item.Beyanlar.Guid },
                                         new { @class = "no-underline margin-right-5 fa fa-search-plus font-md txt-color-blue", @data_name = item.Beyanlar.BeyanNo, @data_id = item.Beyanlar.Id },
                                         Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
-                       
+
 
                         @*<a href='@Url.Action("BeyanSil", "Beyan",new {  guidId = item.Beyanlar.Guid, kiraciId = item.Kiracilar.Id, gayrimenkulId = item.Gayrimenkuller.Id})'>
-                        <i class=' no-underline margin-right-5 fa fa-trash font-md txt-color-blue'></i></a>*@
+                            <i class=' no-underline margin-right-5 fa fa-trash font-md txt-color-blue'></i></a>*@
 
                     </td>
                 </tr>
