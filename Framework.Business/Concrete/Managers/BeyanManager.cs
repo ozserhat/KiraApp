@@ -105,7 +105,7 @@ namespace Framework.Business.Concrete.Managers
                     scope.Complete();
                     return result;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     scope.Dispose();
                 }
@@ -174,7 +174,9 @@ namespace Framework.Business.Concrete.Managers
             foreach (var item in doyaListesi)
             {
                 item.Beyan_Id = beyanId;
-                var result = _beyanDosyaDal.Add(item);
+
+                var result = _beyanDosyaDal.DosyaEkle(item);
+
                 if (result.Id > 0)
                 {
                     byte[] fileBytes = Convert.FromBase64String(item.BeyanDosya);

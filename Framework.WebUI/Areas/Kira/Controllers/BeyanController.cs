@@ -134,7 +134,6 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
             if (beyanlar != null)
             {
-                model.TotalRecordCount = model.KiraBeyanVm.Beyanlar.Count();
 
                 model.IlceSelectList = IlceSelectList();
                 model.IlSelectList = IlSelectList();
@@ -172,7 +171,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             return View(model);
         }
 
-        public ActionResult Index(KiraBeyanRequest request, int? page, int pageSize = 15)
+        public ActionResult Index(KiraBeyanRequest request, int? page, int pageSize = 10)
         {
             //TestWCF();
             var model = new KiraBeyanVM();
@@ -301,7 +300,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
         public SelectList KiraDurumSelectList()
         {
-            var iller = _kiraDurumService.GetirListe().Where(a => a.Id == 1).Select(x => new { x.Id, x.Ad }).ToList();
+            var iller = _kiraDurumService.GetirListe().Where(a => a.Id == 2).Select(x => new { x.Id, x.Ad }).ToList();
 
             return new SelectList(iller, "Id", "Ad");
         }
@@ -473,6 +472,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
                 model.Beyan_Id = kiraBeyan.Beyan_Id;
                 model.Gayrimenkul_Id = model.Gayrimenkul.Id;
+                model.GayrimenkulTur_Id = model.Gayrimenkul.GayrimenkulTur_Id;
                 model.Kiraci_Id = kiraBeyan.Kiracilar.Id;
                 model.KiraBeyan_Id = kiraBeyan.Id;
             }
@@ -752,25 +752,35 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             if (kiraBeyan != null)
             {
                 var beyanDosya = _beyanDosyaService.GetirListe(false).Where(a => a.Beyan_Id == kiraBeyan.Beyan_Id).ToList();
+
                 if (kiraBeyan.Kiracilar.VergiNo != null)
                     kiraci = _kiraciService.GetirVergiNo(Convert.ToInt64(kiraBeyan.Kiracilar.VergiNo));
-                else
+
+                if (kiraBeyan.Kiracilar.TcKimlikNo != null)
                     kiraci = _kiraciService.GetirTcNo(Convert.ToInt64(kiraBeyan.Kiracilar.TcKimlikNo));
 
-                model.Kiraci = _beyanVM.Kiraci = new KiraciEkleVM()
+
+                if (kiraci is null && kiraBeyan.Kiracilar.SicilNo != null)
+                    kiraci = _kiraciService.GetirSicilNo(Convert.ToInt64(kiraBeyan.Kiracilar.SicilNo));
+
+                if (kiraci != null)
                 {
-                    SicilNo = kiraci.SicilNo,
-                    VergiNo = Convert.ToInt64(kiraci.VergiNo),
-                    Ad = kiraci.Ad,
-                    Soyad = kiraci.Soyad,
-                    Tanim = kiraci.Tanim,
-                    IlAdi = kiraci.IlAdi,
-                    IlceAdi = kiraci.IlceAdi,
-                    MahalleAdi = kiraci.MahalleAdi,
-                    AcikAdres = kiraci.AcikAdres,
-                    VergiDairesi = kiraci.VergiDairesi,
-                    Id = kiraci.Id,
-                };
+
+                    model.Kiraci = _beyanVM.Kiraci = new KiraciEkleVM()
+                    {
+                        SicilNo = kiraci.SicilNo,
+                        VergiNo = Convert.ToInt64(kiraci.VergiNo),
+                        Ad = kiraci.Ad,
+                        Soyad = kiraci.Soyad,
+                        Tanim = kiraci.Tanim,
+                        IlAdi = kiraci.IlAdi,
+                        IlceAdi = kiraci.IlceAdi,
+                        MahalleAdi = kiraci.MahalleAdi,
+                        AcikAdres = kiraci.AcikAdres,
+                        VergiDairesi = kiraci.VergiDairesi,
+                        Id = kiraci.Id,
+                    };
+                }
 
                 model.Gayrimenkul = GetirGayrimenkul(kiraBeyan.Gayrimenkuller.GayrimenkulNo);
                 model.Beyan = new BeyanEkleVM();
@@ -1536,8 +1546,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                         GayrimenkulAdi = gayrimenkul.Ad,
                         GayrimenkulTur_Id = gayrimenkul.GayrimenkulTur_Id,
                         GayrimenkulTur = (gayrimenkul.GayrimenkulTur != null ? gayrimenkul.GayrimenkulTur.Ad : "-"),
-                        Il = gayrimenkul.Ilceler.Iller.Ad,
-                        Ilce = gayrimenkul.Ilceler.Ad,
+                        Il = (gayrimenkul.Ilceler != null ? gayrimenkul.Ilceler.Iller.Ad : "-"),
+                        Ilce = (gayrimenkul.Ilceler != null ? gayrimenkul.Ilceler.Ad : "-"),
                         //Mahalle_Id = gayrimenkul.Mahalle_Id.Value,
                         //Mahalle = gayrimenkul.Mahalleler.Ad,
                         Il_Id = gayrimenkul.Il_Id,
@@ -1587,9 +1597,9 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                         GayrimenkulAdi = gayrimenkul.Ad,
                         GayrimenkulTur_Id = gayrimenkul.GayrimenkulTur_Id,
                         GayrimenkulTur = gayrimenkul.GayrimenkulTur.Ad,
-                        Il = gayrimenkul.Ilceler.Iller.Ad,
-                        Ilce = gayrimenkul.Ilceler.Ad,
-                        Mahalle = (gayrimenkul.Mahalleler!=null? gayrimenkul.Mahalleler.Ad:"-"),
+                        Il = (gayrimenkul.Ilceler!=null?gayrimenkul.Ilceler.Iller.Ad:"-"),
+                        Ilce =(gayrimenkul.Ilceler!=null?gayrimenkul.Ilceler.Ad:"-"),
+                        Mahalle = (gayrimenkul.Mahalleler != null ? gayrimenkul.Mahalleler.Ad : "-"),
                         Il_Id = gayrimenkul.Il_Id,
                         Ilce_Id = gayrimenkul.Ilce_Id,
                         Mahalle_Id = (gayrimenkul.Mahalle_Id.HasValue ? gayrimenkul.Mahalle_Id.Value : -1),
@@ -2252,12 +2262,12 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                         GayrimenkulAdi = gayrimenkul.Ad,
                         GayrimenkulTur_Id = gayrimenkul.GayrimenkulTur_Id,
                         GayrimenkulTur = gayrimenkul.GayrimenkulTur.Ad,
-                        Il = gayrimenkul.Mahalleler.Ilceler.Iller.Ad,
-                        Ilce = gayrimenkul.Mahalleler.Ilceler.Ad,
-                        Mahalle = gayrimenkul.Mahalleler.Ad,
+                        Il = gayrimenkul.Ilceler.Iller.Ad,
+                        Ilce = gayrimenkul.Ilceler.Ad,
+                        Mahalle = (gayrimenkul.Mahalleler!=null?gayrimenkul.Mahalleler.Ad:"-"),
                         Il_Id = gayrimenkul.Il_Id,
                         Ilce_Id = gayrimenkul.Ilce_Id,
-                        Mahalle_Id = gayrimenkul.Mahalle_Id.Value,
+                        Mahalle_Id = gayrimenkul.Mahalle_Id,
                         Sokak = gayrimenkul.Sokak,
                         IcKapiNo = gayrimenkul.IcKapiNo,
                         DisKapiNo = gayrimenkul.DisKapiNo,
@@ -2298,7 +2308,6 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
             return PartialView("_DosyaPartial", _beyanVM);
         }
-
 
         [Route("ControllerName/GetAgreementToReview/{fileName?}")]
         public ActionResult PdfGoruntule(string DosyaAdi, string DosyaTipi)

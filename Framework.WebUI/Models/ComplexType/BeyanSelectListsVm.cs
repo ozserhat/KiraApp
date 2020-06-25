@@ -118,9 +118,9 @@ namespace Framework.WebUI.Models.ComplexType
 
         public SelectList KiraDurumSelectList()
         {
-            var iller = _kiraDurumService.GetirListe().Where(a => a.Id == 1).Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
+            var iller = _kiraDurumService.GetirListe().Where(a => a.Id == 2).Select(x => new { Id = x.Id, Ad = x.Ad }).ToList();
 
-            return new SelectList(iller, "Id", "Ad");
+            return new SelectList(iller, "Id", "Ad",2);
         }
 
         public SelectList EkTahakkukOranlariSelectList()

@@ -30,6 +30,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             _mahalleService = mahalleService;
             _gayrimenkulTurService = gayrimenkulTurService;
         }
+  
         public ActionResult Index(GayrimenkulBeyanRequest request, int? page, int pageSize = 15)
         {
             var gayrimenkul = _gayrimenkulservice.GetirSorguListeGayrimenkul(request);
@@ -47,10 +48,12 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
                 if (gayrimenkul != null)
                 {
-                    model.Gayrimenkuller = new StaticPagedList<Gayrimenkul>(gayrimenkul, model.PageNumber, model.PageSize, gayrimenkul.Count());
                     model.TotalRecordCount = gayrimenkul.Count();
+
+                    gayrimenkul = gayrimenkul.ToPagedList(model.PageNumber, model.PageSize);
+
+                    model.Gayrimenkuller = new StaticPagedList<Gayrimenkul>(gayrimenkul, model.PageNumber, model.PageSize, model.TotalRecordCount);
                 }
-                model.TotalRecordCount = model.Gayrimenkuller.Count();
             }
             return View(model);
         }

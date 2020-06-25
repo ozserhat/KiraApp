@@ -125,7 +125,5 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                                              .FirstOrDefault();
             }
         }
-
-       
     }
 }

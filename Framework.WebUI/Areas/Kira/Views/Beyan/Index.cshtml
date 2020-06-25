@@ -190,7 +190,6 @@
                                                                                     @Html.LabelFor(model => model.EncumenKararNo, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
                                                                                         @Html.TextBoxFor(model => model.EncumenKararNo, "", new { @class = "form-control" })
-                                                                                        @Html.ValidationMessage("EncumenKararNo", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -763,7 +762,7 @@
                 "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Turkish.json"
             },
             "searching": true,
-            "bPaginate": true
+            "bPaginate": false
         };
 
         $(".delete-row").click(function (e) {

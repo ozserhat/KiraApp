@@ -82,6 +82,18 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                 return context.Beyan_Dosyalari.Include(gt => gt.BeyanDosyaTurleri).Where(gta => gta.Beyan_Id == BeyanId && gta.AktifMi.Value).ToList();
             }
         }
+
+        public Beyan_Dosya DosyaEkle(Beyan_Dosya dosya)
+        {
+
+            using (var context = new DtContext())
+            {
+                context.Beyan_Dosyalari.Add(dosya);
+                context.SaveChanges();
+            }
+
+            return dosya;
+        }
     }
 }
 

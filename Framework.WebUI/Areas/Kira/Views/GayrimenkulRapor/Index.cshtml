@@ -223,7 +223,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-12 col-sm-6">
-                                                    @if (Model.Gayrimenkuller.TotalItemCount > Model.PageSize)
+                                                    @if (Model.TotalRecordCount > Model.PageSize)
                                                     {
                                                         <div id="sayfalama">
                                                             <div class="input-group input-group-md">
@@ -497,6 +497,7 @@
             });
         });
     </script>
+
     <script type="text/javascript">
 
         $("#btnGit").on("click", function () {
@@ -511,32 +512,6 @@
         });
 
     </script>
-
-    <!--Gayrimenkul Silme İşlemi -->
-    <script type="text/javascript">
-        var dt;
-
-        var dt_settings = {
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Turkish.json"
-            },
-            "searching": true
-        };
-
-        $(".delete-row").click(function (e) {
-            e.preventDefault();
-            var id = $(this).attr("data-id");
-            var name = $(this).attr("data-name");
-            var closestTR = $(this).closest("tr");
-            var vl = deletealert(id, name, closestTR);
-        });
-
-
-
-
-    </script>
-
-
 
 }
 

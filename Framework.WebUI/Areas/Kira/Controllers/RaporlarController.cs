@@ -518,7 +518,6 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
         #endregion
 
-
         #region Beyan Yapılan Gayrimenkuller
 
         public ActionResult BeyanYapilanGayrimenkul(KiraBeyanRequest request, int? page, int pageSize = 15)

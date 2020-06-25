@@ -66,7 +66,7 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
 
         public SelectList TurSelectList()
         {
-            var turler = _turService.GetirListe().Select(x => new {x.Id, x.Ad }).ToList();
+            var turler = _turService.GetirListe().Select(x => new { x.Id, x.Ad }).ToList();
 
             return new SelectList(turler, "Id", "Ad");
         }
@@ -214,7 +214,7 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
                     };
 
                     var result = _gayrimenkulservice.Ekle(gayrimenkul);
-                   
+
 
 
                     if (result.Id > 0)
@@ -253,13 +253,12 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
 
             if (gayrimenkul != null)
             {
-                if (gayrimenkul.Ilce_Id != null)
-                    model.MahalleSelectList = MahalleSelectListGetir(Convert.ToInt32(gayrimenkul.Ilce_Id));
+                model.MahalleSelectList = MahalleSelectListGetir(Convert.ToInt32(gayrimenkul.Ilce_Id));
 
                 model.Id = gayrimenkul.Id;
                 model.Guid = Guid.NewGuid();
                 model.GayrimenkulAdi = gayrimenkul.Ad;
-                model.GayrimenkulTur_Id = gayrimenkul.GayrimenkulTur_Id.Value;
+                model.GayrimenkulTur_Id = gayrimenkul.GayrimenkulTur_Id;
                 model.Ilce_Id = gayrimenkul.Ilce_Id;
                 //model.Mahalle_Id = gayrimenkul.Mahalle_Id.Value;
                 model.GayrimenkulDurum_Id = gayrimenkul.GayrimenkulDurum_Id;
@@ -369,15 +368,25 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
             var ilceListesi = IlceSelectList();
             var mahalleListesi = MahalleSelectListGetir(Convert.ToInt32(gayrimenkul.Ilce_Id));
             var gayrimenkulDurumListesi = GayrimenkulDurumSelectList();
+
             if (gayrimenkul != null)
             {
                 model.Id = gayrimenkul.Id;
                 model.Guid = Guid.NewGuid();
                 model.GayrimenkulAdi = gayrimenkul.Ad;
-                model.GayrimenkulTuru = turListesi.Where(x => x.Value == gayrimenkul.GayrimenkulTur_Id.ToString()).FirstOrDefault().Text;
-                model.IlceAdi = ilceListesi.Where(x => x.Value == gayrimenkul.Ilce_Id.ToString()).FirstOrDefault().Text;
-                //model.MahalleAdi = mahalleListesi.Where(x => x.Value == gayrimenkul.Mahalle_Id.ToString()).FirstOrDefault().Text; ;
-                model.GayrimenkulDurum = gayrimenkulDurumListesi.Where(x => x.Value == gayrimenkul.GayrimenkulDurum_Id.ToString()).FirstOrDefault().Text; ;
+
+                if (gayrimenkul.GayrimenkulTur_Id != null)
+                    model.GayrimenkulTuru = turListesi.Where(x => x.Value == gayrimenkul.GayrimenkulTur_Id.ToString()).FirstOrDefault().Text;
+
+                if (gayrimenkul.Ilce_Id != null)
+                {
+                    model.IlceAdi = ilceListesi.Where(x => x.Value == gayrimenkul.Ilce_Id.ToString()).FirstOrDefault().Text;
+                    //model.MahalleAdi = mahalleListesi.Where(x => x.Value == gayrimenkul.Mahalle_Id.ToString()).FirstOrDefault().Text; 
+                }
+
+                if (gayrimenkul.GayrimenkulDurum_Id != null)
+                    model.GayrimenkulDurum = gayrimenkulDurumListesi.Where(x => x.Value == gayrimenkul.GayrimenkulDurum_Id.ToString()).FirstOrDefault().Text;
+
                 model.BinaKimlikNo = gayrimenkul.BinaKimlikNo;
                 model.NumaratajKimlikNo = gayrimenkul.NumaratajKimlikNo;
                 model.AdresNo = gayrimenkul.AdresNo;
