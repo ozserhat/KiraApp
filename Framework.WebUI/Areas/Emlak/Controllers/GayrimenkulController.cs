@@ -45,7 +45,7 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
         #endregion
         // GET: Emlak/Gayrimenkul
         #region Listeleme
-        public ActionResult Index(int? page, int pageSize = 15)
+        public ActionResult Index(int? page, int pageSize = 10)
         {
             var gayrimenkul = _gayrimenkulservice.GetirListeAktif();
 
@@ -57,7 +57,12 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
 
             if (gayrimenkul != null)
             {
-                model.Gayrimenkuller = new StaticPagedList<Gayrimenkul>(gayrimenkul, model.PageNumber, model.PageSize, gayrimenkul.Count());
+                model.TotalRecordCount = gayrimenkul.Count();
+
+                gayrimenkul = gayrimenkul.ToPagedList(model.PageNumber, model.PageSize);
+
+                model.Gayrimenkuller = new StaticPagedList<Gayrimenkul>(gayrimenkul, model.PageNumber, model.PageSize, model.TotalRecordCount);
+                
                 model.TotalRecordCount = gayrimenkul.Count();
             }
 

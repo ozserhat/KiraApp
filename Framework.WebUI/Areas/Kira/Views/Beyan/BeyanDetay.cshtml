@@ -1,5 +1,5 @@
 ﻿@model Framework.WebUI.Models.ViewModels.KiraBeyanDetayVM
-
+@using Framework.Entities.Enums;
 @{
     ViewBag.Title = "Ekle";
     Layout = "~/Areas/Kira/Views/Shared/_LayoutKira.cshtml";
@@ -22,16 +22,22 @@
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="#" id="btnArtıs" data-original-title="Beyan Artışı" data-toggle="modal" data-target="#beyanArtisModal">
-                                            <span class="glyphicon glyphicon-plus-sign"></span> Beyan Artışı
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" id="beyanKapama" data-original-title="Beyan Kapama" data-toggle="modal" data-target="#beyanKapamaModal">
-                                            <span class="glyphicon glyphicon-folder-close"></span> Beyan Kapama
-                                        </a>
-                                    </li>
+
+                                    @{
+                                        if (Model.Beyan.AktifMi != (int)EnmIslemDurumu.Kapandı)
+                                        {
+                                            <li>
+                                                <a href="#" id="btnArtıs" data-original-title="Beyan Artışı" data-toggle="modal" data-target="#beyanArtisModal">
+                                                    <span class="glyphicon glyphicon-plus-sign"></span> Beyan Artışı
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" id="beyanKapama" data-original-title="Beyan Kapama" data-toggle="modal" data-target="#beyanKapamaModal">
+                                                    <span class="glyphicon glyphicon-folder-close"></span> Beyan Kapama
+                                                </a>
+                                            </li>
+                                        }
+                                    }
                                     <li>
                                         <a href="#" id="btnBeyanCiktiAl" data-original-title="Beyan Çıktısı Al">
                                             <span class="glyphicon glyphicon-upload"></span> Beyan Çıktısı Al

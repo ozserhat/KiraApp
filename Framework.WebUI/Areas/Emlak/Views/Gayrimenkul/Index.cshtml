@@ -97,27 +97,27 @@
 
                                                         @foreach (var item in Model.Gayrimenkuller)
                                                         {
-                                                         <tr role="row" class="odd">
-                                                            <td>@(i++)</td>
-                                                            <td>@Html.DisplayFor(model => item.GayrimenkulTur.Ad)</td>
-                                                            <td>@Html.DisplayFor(model => item.GayrimenkulNo)</td>
-                                                            <td>@Html.DisplayFor(model => item.Ad)</td>
-                                                            <td>@Html.DisplayFor(model => item.Ilceler.Iller.Ad)</td>
-                                                            <td>@Html.DisplayFor(model => item.Ilceler.Ad)</td>
-                                                            <td>
-                                                                @if (item.AktifMi.HasValue && item.AktifMi.Value)
-                                                                {
-                                                                    <b class="label aktif-buton">Aktif</b>
-                                                                }
-                                                                else
-                                                                {
-                                                                    <b class="label pasif-buton">Pasif</b>
-                                                                }
-                                                            </td>
-                                                            <td class="text-center">
-                                                                @Html.AuthAction(" ", "Duzenle", "Gayrimenkul", new { item.Guid },
-                                                                        new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
-                                                                        Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                                                            <tr role="row" class="odd">
+                                                                <td>@(i++)</td>
+                                                                <td>@Html.DisplayFor(model => item.GayrimenkulTur.Ad)</td>
+                                                                <td>@Html.DisplayFor(model => item.GayrimenkulNo)</td>
+                                                                <td>@Html.DisplayFor(model => item.Ad)</td>
+                                                                <td>@Html.DisplayFor(model => item.Ilceler.Iller.Ad)</td>
+                                                                <td>@Html.DisplayFor(model => item.Ilceler.Ad)</td>
+                                                                <td>
+                                                                    @if (item.AktifMi.HasValue && item.AktifMi.Value)
+                                                                    {
+                                                                        <b class="label aktif-buton">Aktif</b>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <b class="label pasif-buton">Pasif</b>
+                                                                    }
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    @Html.AuthAction(" ", "Duzenle", "Gayrimenkul", new { item.Guid },
+                                                                            new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue" },
+                                                                            Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
 
 
                                                                     @Html.AuthAction(" ", "Detay", "Gayrimenkul", new { item.Guid },
@@ -139,6 +139,58 @@
                                                     </tbody>
                                                 }
                                             </table>
+                                            <div class="dt-toolbar-footer">
+                                                <div class="col-xs-12 col-sm-6">
+                                                    <div class="dataTables_info" id="dt_basic_info" role="status" aria-live="polite">
+                                                        Toplam
+                                                        <span class="text-primary"><strong>@Model.TotalRecordCount</strong></span>  Kayıttan
+                                                        <span class="text-primary"><strong>@((Model.PageNumber - 1) * Model.PageSize + 1)</strong></span> -
+                                                        @if (Model.TotalRecordCount > (Model.PageNumber * Model.PageSize))
+                                                        {
+                                                            <span class="text-primary"><strong>@(Model.PageNumber * Model.PageSize)</strong></span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="text-primary"><strong>@Model.TotalRecordCount</strong></span>
+                                                        }
+                                                        Arası Kayıtlar
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-6">
+                                                    @if (Model.Gayrimenkuller.TotalItemCount > Model.PageSize)
+                                                    {
+                                                        <div id="sayfalama">
+                                                            <div class="input-group input-group-md">
+                                                                <div class="icon-addon addon-md">
+                                                                    <input class="form-control valid input-sayfayaGit" id="sayfayaGit" name="sayfayaGit" type="text" value="">
+                                                                </div>
+                                                                <span class="input-group-btn">
+                                                                    <button class="btn btn-primary btn-sayfayaGit" id="btnGit" type="button">Git</button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            @{
+                                                                sonSayfa = Model.TotalRecordCount % Model.PageSize == 0 ? Model.TotalRecordCount / Model.PageSize : Model.TotalRecordCount / Model.PageSize + 1;
+                                                                @Html.PagedListPager(Model.Gayrimenkuller, page => Url.Action("Index",
+                                                                                            new
+                                                                                            {
+                                                                                                page = page
+                                                                                            }), new PagedListRenderOptions
+                                                                                            {
+                                                                                                MaximumPageNumbersToDisplay = 7,
+                                                                                                DisplayEllipsesWhenNotShowingAllPageNumbers = true,
+                                                                                                EllipsesFormat = "&#8230;",
+                                                                                                LinkToFirstPageFormat = "1",
+                                                                                                LinkToPreviousPageFormat = "«",
+                                                                                                LinkToNextPageFormat = "»",
+                                                                                                LinkToLastPageFormat = sonSayfa.ToString()
+                                                                                            })
+                                                            }
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -194,7 +246,8 @@
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Turkish.json"
             },
-            "searching": true
+            "searching": true,
+            "bPaginate": false
         };
 
         $(".delete-row").click(function (e) {
@@ -209,6 +262,7 @@
             dt = $('#dtGayrimenkul').DataTable(dt_settings);
         });
     </script>
+
     <script type="text/javascript">
         $(function () {
             $("#btnExport").click(function () {
@@ -221,6 +275,7 @@
             });
         });
     </script>
+
     <script type="text/javascript">
         function deletealert(Id, name, closestTR) {
             swal({

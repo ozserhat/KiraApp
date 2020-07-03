@@ -123,7 +123,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
         #region Listeleme
 
-        public ActionResult GayrimenkulSorgula(GayrimenkulBeyanRequest request, int? page, int pageSize = 15)
+        public ActionResult GayrimenkulSorgula(GayrimenkulBeyanRequest request, int? page, int pageSize = 10)
         {
             var model = new GayrimenkulBeyanVM();
 
@@ -138,7 +138,10 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 model.IlceSelectList = IlceSelectList();
                 model.IlSelectList = IlSelectList();
                 model.GayrimenkulTuruSelectList = GayrimenkulTuruSelectList();
+                model.TotalRecordCount = beyanlar.Count();
+
                 beyanlar = beyanlar.ToPagedList(model.PageNumber, model.PageSize);
+
                 model.KiraBeyanVm = new KiraBeyanVM
                 {
                     Beyanlar = new StaticPagedList<Kira_Beyan>(beyanlar, model.PageNumber, model.PageSize, model.TotalRecordCount)
@@ -148,7 +151,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             return View(model);
         }
 
-        public ActionResult SicilSorgula(SicilBeyanRequest request, int? page, int pageSize = 15)
+        public ActionResult SicilSorgula(SicilBeyanRequest request, int? page, int pageSize = 10)
         {
             var model = new SicilBeyanVM();
 
@@ -161,9 +164,14 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             {
                 model.IlceSelectList = IlceSelectList();
                 model.IlSelectList = IlSelectList();
+
+                model.TotalRecordCount = beyanlar.Count();
+
+                beyanlar = beyanlar.ToPagedList(model.PageNumber, model.PageSize);
+
                 model.KiraBeyanVm = new KiraBeyanVM
                 {
-                    Beyanlar = new StaticPagedList<Kira_Beyan>(beyanlar, model.PageNumber, model.PageSize, beyanlar.Count())
+                    Beyanlar = new StaticPagedList<Kira_Beyan>(beyanlar, model.PageNumber, model.PageSize, model.TotalRecordCount)
                 };
                 model.TotalRecordCount = model.KiraBeyanVm.Beyanlar.Count();
             }
@@ -358,9 +366,10 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         public JsonResult KiraBeyanEkle(KiraBeyanEkleVM kiraBeyanModel)
         {
             int AySayisi;
-            KiraBeyanIslemleri islemler = new KiraBeyanIslemleri();
-            islemler.Eklenenler = new KiraBeyanModel();
 
+            KiraBeyanIslemleri islemler = new KiraBeyanIslemleri();
+
+            islemler.Eklenenler = new KiraBeyanModel();
 
             #region Beyan Pasife Alma İşlemi
             if (kiraBeyanModel.Beyan.Id > 0)
@@ -429,9 +438,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 }
             }
 
-
-
             var result = _beyanService.KiraBeyanIslemleri(islemler);
+        
             if (result)
             {
                 ModelState.AddModelError("LogMessage", "Kira Beyan Ekleme İşlemi Gerçekleşti.");
