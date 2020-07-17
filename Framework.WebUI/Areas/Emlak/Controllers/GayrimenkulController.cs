@@ -27,10 +27,17 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
         private readonly IGayrimenkulDosya_TurService _dosyaTurService;
         private readonly IGayrimenkul_DosyaService _gayrimenkulDosyaService;
         private readonly IKira_DurumService _gayrimenkuldurumservice;
+        private readonly IAltGayrimenkul_KiraciService _altKiraciService;
+        private readonly IKiraciTurService _kisiTurService;
+
         public static GayrimenkulEkleVM _gayrimenkulVM;
 
         public GayrimenkulController(IGayrimenkulService gayrimenkulservice, IGayrimenkulTurService turService,
-             IIlceService ilceService, IMahalleService mahalleService, IGayrimenkulDosya_TurService dosyaTurService, IKira_DurumService gayrimenkuldurumservice, GayrimenkulEkleVM gayrimenkulVM, IGayrimenkul_DosyaService gayrimenkulDosyaService)
+             IIlceService ilceService, IMahalleService mahalleService, IGayrimenkulDosya_TurService dosyaTurService,
+             IKira_DurumService gayrimenkuldurumservice, GayrimenkulEkleVM gayrimenkulVM,
+             IGayrimenkul_DosyaService gayrimenkulDosyaService,
+             IAltGayrimenkul_KiraciService altKiraciService,
+             IKiraciTurService kisiTurService)
         {
 
             _ilceService = ilceService;
@@ -41,13 +48,15 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
             _gayrimenkuldurumservice = gayrimenkuldurumservice;
             _gayrimenkulVM = gayrimenkulVM;
             _gayrimenkulDosyaService = gayrimenkulDosyaService;
+            _altKiraciService = altKiraciService;
+            _kisiTurService = kisiTurService;
         }
         #endregion
         // GET: Emlak/Gayrimenkul
         #region Listeleme
-        public ActionResult Index(int? page, int pageSize = 10)
+        public ActionResult Index(GayrimenkulBeyanRequest request, int? page, int pageSize = 10)
         {
-            var gayrimenkul = _gayrimenkulservice.GetirListeAktif();
+            var gayrimenkul = _gayrimenkulservice.GetirSorguListeGayrimenkul(request);
 
             var model = new GayrimenkulVM
             {
@@ -57,12 +66,14 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
 
             if (gayrimenkul != null)
             {
+                model.IlceSelectList = IlceSelectList();
+                model.GayrimenkulTuruSelectList = TurSelectList();
                 model.TotalRecordCount = gayrimenkul.Count();
 
                 gayrimenkul = gayrimenkul.ToPagedList(model.PageNumber, model.PageSize);
 
                 model.Gayrimenkuller = new StaticPagedList<Gayrimenkul>(gayrimenkul, model.PageNumber, model.PageSize, model.TotalRecordCount);
-                
+
                 model.TotalRecordCount = gayrimenkul.Count();
             }
 
@@ -83,6 +94,13 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
             return new SelectList(ilceler, "Id", "Ad");
         }
 
+        public SelectList KisiTurSelectList()
+        {
+            var turler = _kisiTurService.GetirListe().Select(x => new { x.Id, x.Ad }).ToList();
+
+            return new SelectList(turler, "Id", "Ad");
+        }
+
         public SelectList MahalleSelectListGetir(int ilceId)
         {
             var mahalleler = _mahalleService.GetirListe().Where(a => a.Ilce_Id == ilceId).Select(x => new { x.Id, x.Ad }).ToList();
@@ -90,9 +108,7 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
             return new SelectList(mahalleler, "Id", "Ad");
         }
 
-
         [HttpPost]
-
         public JsonResult MahalleSelectList(int ilceId)
         {
             var mahalleler = _mahalleService.GetirListe().Where(a => a.Ilce_Id == ilceId).Select(x => new { x.Id, x.Ad }).ToList();
@@ -126,6 +142,7 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
             model.IlceSelectList = IlceSelectList();
             model.DosyaTurleri = _dosyaTurService.GetirListe();
             model.GayrimenkulDurumSelectList = GayrimenkulDurumSelectList();
+            model.UstGayrimenkulListe = GayrimenkulListe();
             return View(model);
         }
 
@@ -191,9 +208,12 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
                 {
                     Gayrimenkul gayrimenkul = new Gayrimenkul()
                     {
+                        UstId = (ekleModel.UstId != null ? ekleModel.UstId : null),
                         Guid = Guid.NewGuid(),
                         Ad = ekleModel.GayrimenkulAdi,
                         GayrimenkulTur_Id = ekleModel.GayrimenkulTur_Id,
+                        Il_Id = 6,
+
                         Ilce_Id = ekleModel.Ilce_Id,
                         Mahalle_Id = ekleModel.Mahalle_Id,
                         GayrimenkulDurum_Id = ekleModel.GayrimenkulDurum_Id,
@@ -238,6 +258,14 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
             }
         }
 
+
+        public SelectList GayrimenkulListe()
+        {
+            var gayrimenkuller = _gayrimenkulservice.GetirListeAktif().Select(x => new { x.Id, x.GayrimenkulNo }).ToList();
+
+            return new SelectList(gayrimenkuller, "Id", "GayrimenkulNo");
+        }
+
         #endregion
 
         #region Duzenle
@@ -259,8 +287,10 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
             if (gayrimenkul != null)
             {
                 model.MahalleSelectList = MahalleSelectListGetir(Convert.ToInt32(gayrimenkul.Ilce_Id));
+                model.UstGayrimenkulListe = GayrimenkulListe();
 
                 model.Id = gayrimenkul.Id;
+                model.UstId = gayrimenkul.UstId != null ? gayrimenkul.UstId : null;
                 model.Guid = Guid.NewGuid();
                 model.GayrimenkulAdi = gayrimenkul.Ad;
                 model.GayrimenkulTur_Id = gayrimenkul.GayrimenkulTur_Id;
@@ -310,9 +340,11 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
                     if (gayrimenkul != null)
                     {
                         gayrimenkul.Id = gayrimenkul.Id;
+                        gayrimenkul.UstId = (gayrimenkulModel.UstId != null ? gayrimenkulModel.UstId : null);
                         gayrimenkul.Guid = Guid.NewGuid();
                         gayrimenkul.Ad = gayrimenkulModel.GayrimenkulAdi;
                         gayrimenkul.GayrimenkulTur_Id = gayrimenkulModel.GayrimenkulTur_Id;
+                        gayrimenkul.Il_Id = 6;
                         gayrimenkul.Ilce_Id = gayrimenkulModel.Ilce_Id;
                         gayrimenkul.Mahalle_Id = gayrimenkulModel.Mahalle_Id;
                         gayrimenkul.GayrimenkulDurum_Id = gayrimenkulModel.GayrimenkulDurum_Id;
@@ -409,6 +441,9 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
                 model.AracKapasitesi = gayrimenkul.AracKapasitesi;
                 model.Metrekare = gayrimenkul.Metrekare;
                 model.GayrimenkulDosyalar = DosyaVmGetir(gayrimenkul.Id);
+                model.AltGayrimenkuller = _gayrimenkulservice.GetirAltGayrimenkul(model.Id);
+                model.IlceSelectList = ilceListesi;
+                model.KisiTuruSelectList = KisiTurSelectList();
             }
             else
             {
@@ -437,6 +472,90 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
                 });
             }
             return list;
+        }
+        #endregion
+
+        #region Alt Kiraci
+        [HttpPost]
+        public JsonResult GetirDetayTable(int GayrimenkulId)
+        {
+            if (GayrimenkulId > 0)
+            {
+                var result = _altKiraciService.GetirListeAktif(GayrimenkulId);
+              
+                if (result != null)
+                {
+                    ModelState.AddModelError("LogMessage", "Alt Kiracı Ekleme İşlemi Başarıyla Gerçekleştirildi!!!");
+
+                    return Json(new { result, Message = "Alt Kiracı Ekleme İşlemi Başarıyla Gerçekleştirildi.", success = true }, JsonRequestBehavior.AllowGet);
+                }
+            }
+
+
+            ModelState.AddModelError("LogMessage", "Alt Kiracı Ekleme İşlemi Gerçekleştirilemedi!!!");
+
+            return Json(new { Message = "Alt Kiracı Ekleme İşlemi Gerçekleştirilemedi.", success = false }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult AltKiraciEkle(AltKiraciEkleVM altKiraciModel)
+        {
+            if (altKiraciModel.Gayrimenkul_Id != null && altKiraciModel.Gayrimenkul_Id != null)
+            {
+                AltGayrimenkul_Kiraci kiraci = new AltGayrimenkul_Kiraci()
+                {
+                    Guid = Guid.NewGuid(),
+                    KiraciTur_Id = altKiraciModel.KiraciTur_Id,
+                    Gayrimenkul_Id = altKiraciModel.Gayrimenkul_Id,
+                    Il_Id = 6,
+                    IlAdi = "Ankara",
+                    Ilce_Id = altKiraciModel.Ilce_Id,
+                    IlceAdi = _ilceService.Getir(altKiraciModel.Ilce_Id.Value).Ad,
+                    Mahalle_Id = altKiraciModel.Mahalle_Id,
+                    MahalleAdi = _mahalleService.Getir(altKiraciModel.Mahalle_Id.Value).Ad,
+                    Ad = altKiraciModel.Ad,
+                    Soyad = altKiraciModel.Soyad,
+                    Tanim = altKiraciModel.Tanim,
+                    TcKimlikNo = altKiraciModel.TcKimlikNo,
+                    VergiNo = altKiraciModel.VergiNo,
+                    VergiDairesi = altKiraciModel.VergiDairesi,
+
+                    AcikAdres = altKiraciModel.AcikAdres,
+                    OlusturulmaTarihi = DateTime.Now,
+                    OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
+                    AktifMi = true
+                };
+
+                var result = _altKiraciService.Ekle(kiraci);
+
+                if (result.Id > 0)
+                {
+                    ModelState.AddModelError("LogMessage", "Alt Kiracı Ekleme İşlemi Başarıyla Gerçekleştirildi!!!");
+
+                    return Json(new { Message = "Alt Kiracı Ekleme İşlemi Başarıyla Gerçekleştirildi.", success = true }, JsonRequestBehavior.AllowGet);
+                }
+            }
+
+
+            ModelState.AddModelError("LogMessage", "Alt Kiracı Ekleme İşlemi Gerçekleştirilemedi!!!");
+
+            return Json(new { Message = "Alt Kiracı Ekleme İşlemi Gerçekleştirilemedi.", success = false }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult SilAltKiraci(int Id)
+        {
+            var altKiraci = _altKiraciService.Getir(Id);
+
+            altKiraci.AktifMi = false;
+
+            altKiraci = _altKiraciService.Guncelle(altKiraci);
+
+            if (altKiraci.AktifMi.HasValue && !altKiraci.AktifMi.Value)
+                return Json(new { success = true, Message = "Beyan Tür Bilgisi Başarıyla Silindi" }, JsonRequestBehavior.AllowGet);
+            else
+                return Json(new { success = false, Message = "Beyan Tür Bilgisi Silinemedi!!!" }, JsonRequestBehavior.AllowGet);
+
         }
         #endregion
     }

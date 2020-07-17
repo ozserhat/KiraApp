@@ -160,6 +160,7 @@
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IAltGayrimenkul_KiraciService.cs" />
     <Compile Include="Abstract\IBeyanDosya_TurService.cs" />
     <Compile Include="Abstract\IBeyanService.cs" />
     <Compile Include="Abstract\IBeyan_DosyaService.cs" />
@@ -175,7 +176,11 @@
     <Compile Include="Abstract\IGayrimenkulService.cs" />
     <Compile Include="Abstract\IGayrimenkulTurService.cs" />
     <Compile Include="Abstract\IGayrimenkul_DosyaService.cs" />
+    <Compile Include="Abstract\IGl_BorcService.cs" />
+    <Compile Include="Abstract\IGl_TahsilService.cs" />
     <Compile Include="Abstract\IHatirlaticiService.cs" />
+    <Compile Include="Abstract\IIcraDurumService.cs" />
+    <Compile Include="Abstract\IIcraIslemeService.cs" />
     <Compile Include="Abstract\IIlceService.cs" />
     <Compile Include="Abstract\IIlService.cs" />
     <Compile Include="Abstract\IKiraciService.cs" />
@@ -200,6 +205,7 @@
     <Compile Include="Abstract\IUserPermissionsService.cs" />
     <Compile Include="Abstract\IUserRoleService.cs" />
     <Compile Include="Abstract\IUserService.cs" />
+    <Compile Include="Concrete\Managers\AltGayrimenkul_KiraciManager.cs" />
     <Compile Include="Concrete\Managers\BeyanDosya_TurManager.cs" />
     <Compile Include="Concrete\Managers\BeyanManager.cs" />
     <Compile Include="Concrete\Managers\Beyan_DosyaManager.cs" />
@@ -215,7 +221,11 @@
     <Compile Include="Concrete\Managers\GayrimenkulManager.cs" />
     <Compile Include="Concrete\Managers\GayrimenkulTurManager.cs" />
     <Compile Include="Concrete\Managers\Gayrimenkul_DosyaManager.cs" />
+    <Compile Include="Concrete\Managers\Gl_BorcManager.cs" />
+    <Compile Include="Concrete\Managers\Gl_TahsilManager.cs" />
     <Compile Include="Concrete\Managers\HatirlaticiManager.cs" />
+    <Compile Include="Concrete\Managers\IcraDurumManager.cs" />
+    <Compile Include="Concrete\Managers\IcraIslemeManager.cs" />
     <Compile Include="Concrete\Managers\IlceManager.cs" />
     <Compile Include="Concrete\Managers\IlManager.cs" />
     <Compile Include="Concrete\Managers\KiraciManager.cs" />

@@ -19,6 +19,8 @@ namespace Framework.Entities.Concrete
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
+        public int? UstId { get; set; }
+
         public Guid Guid { get; set; }
 
         [StringLength(500)]

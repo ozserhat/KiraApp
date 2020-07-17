@@ -132,6 +132,22 @@ namespace Framework.Business.DependencyResolvers.Ninject
             Bind<ITahakkukService>().To<TahakkukManager>().InTransientScope();
             Bind<ITahakkukDisServis>().To<TahakkukServiceManager>().InTransientScope();
 
+
+            Bind<IGl_BorcDal>().To<EfGl_BorcDal>().InTransientScope();
+            Bind<IGl_TahsilDal>().To<EfGl_TahsilDal>().InTransientScope();
+
+            Bind<IGl_BorcService>().To<Gl_BorcManager>().InTransientScope();
+            Bind<IGl_TahsilService>().To<Gl_TahsilManager>().InTransientScope();
+
+            Bind<IIcraDurumDal>().To<EfIcraDurumDal>().InTransientScope();
+            Bind<IIcraDurumService>().To<IcraDurumManager>().InTransientScope();
+
+            Bind<IIcraIslemeDal>().To<EfIcraIslemeDal>().InTransientScope();
+            Bind<IIcraIslemeService>().To<IcraIslemeManager>().InTransientScope();
+
+            Bind<IAltGayrimenkul_KiraciDal>().To<EfAltGayrimenkul_KiraciDal>().InTransientScope();
+            Bind<IAltGayrimenkul_KiraciService>().To<AltGayrimenkul_KiraciManager>().InTransientScope();
+
             Bind<ISicilService>().To<SicilServiceManager>().InTransientScope();
 
             Bind<IHatirlaticiService>().To<HatirlaticiManager>().InTransientScope();

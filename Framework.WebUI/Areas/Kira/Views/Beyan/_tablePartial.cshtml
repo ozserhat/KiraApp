@@ -28,20 +28,22 @@
             @foreach (var item in Model.Beyanlar)
             {
                 <tr role="row" class="odd">
-                    <td id="btnGetirDetay" data-id="@item.Beyan_Id" data-yil="@item.Beyanlar.BeyanYil" class="details-control">
+                    <td id="btnGetirDetay" data-id="@item.Beyanlar.EskiBeyanId" data-yil="@item.Beyanlar.BeyanYil" class="details-control">
                     </td>
                     <td>@(i++)</td>
                     <td>@Html.DisplayFor(model => item.Beyanlar.BeyanTur.Ad)</td>
                     <td>@Html.DisplayFor(model => item.Beyanlar.BeyanNo)</td>
                     <td>@Html.DisplayFor(model => item.Kiracilar.SicilNo)</td>
-                    <td>@Html.DisplayFor(model => item.Kiracilar.Ad)</td>
+                    <td>@{
+                        string adSoyad = item.Kiracilar.Ad + " " + item.Kiracilar.Soyad;
+                        @Html.DisplayFor(model => adSoyad)
+                    }</td>
                     <td>@Html.DisplayFor(model => item.Gayrimenkuller.GayrimenkulNo)</td>
                     <td>
                         @if (item.SorumluPersoneller != null)
                         {
                             @Html.DisplayFor(model => item.SorumluPersoneller.UserName)
                         }
-
                     </td>
 
                     <td>
@@ -62,7 +64,7 @@
                         {
                             @Html.DisplayFor(model => item.Gayrimenkuller.Mahalleler.Ad)
                         }
-                        </td>
+                    </td>
                     <td>
                         @if (item.Beyanlar.AktifMi == (int)Framework.Entities.Enums.EnmIslemDurumu.Aktif)
                         {
@@ -75,6 +77,10 @@
                         else if (item.Beyanlar.AktifMi == (int)Framework.Entities.Enums.EnmIslemDurumu.Kapandı)
                         {
                             <b class="label kapandi-buton-beyandetay">Kapandı</b>
+                        }
+                        else if (item.Beyanlar.AktifMi == (int)Framework.Entities.Enums.EnmIslemDurumu.Belirsiz)
+                        {
+                            <b class="label kapandi-buton-beyandetay">Belirsiz</b>
                         }
                         else
                         {

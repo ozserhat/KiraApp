@@ -59,9 +59,11 @@
     <Compile Include="ComplexTypes\UserDetail.cs" />
     <Compile Include="ComplexTypes\UserRoleItem.cs" />
     <Compile Include="ComplexTypes\VMBase.cs" />
+    <Compile Include="Concrete\AltGayrimenkul_Kiraci.cs" />
     <Compile Include="Concrete\Beyan.cs" />
     <Compile Include="Concrete\BeyanDosya_Tur.cs" />
     <Compile Include="Concrete\Beyan_Dosya.cs" />
+    <Compile Include="Concrete\Beyan_IcraIsleme.cs" />
     <Compile Include="Concrete\Beyan_Tur.cs" />
     <Compile Include="Concrete\Beyan_UfeOran.cs" />
     <Compile Include="Concrete\ControllerAction.cs" />
@@ -74,6 +76,9 @@
     <Compile Include="Concrete\GayrimenkulDosya_Tur.cs" />
     <Compile Include="Concrete\GayrimenkulTur.cs" />
     <Compile Include="Concrete\Gayrimenkul_Dosya.cs" />
+    <Compile Include="Concrete\GL_BORC.cs" />
+    <Compile Include="Concrete\GL_TAHSIL.cs" />
+    <Compile Include="Concrete\IcraDurum.cs" />
     <Compile Include="Concrete\Il.cs" />
     <Compile Include="Concrete\Ilce.cs" />
     <Compile Include="Concrete\KiraBeyanIslemleri.cs" />
@@ -98,6 +103,7 @@
     <Compile Include="Concrete\User_Permission.cs" />
     <Compile Include="Concrete\User_Role.cs" />
     <Compile Include="Enums\EnmArtisTuru.cs" />
+    <Compile Include="Enums\EnmBeyanTur.cs" />
     <Compile Include="Enums\EnmIslemDurumu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,20 +1,13 @@
-﻿using Framework.Core.DataAccess;
+﻿using Framework.Business.Abstract;
+using Framework.Core.DataAccess;
 using Framework.Core.DataAccess.EntityFramework;
-using NHibernate;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Data.Entity;
-using System.Threading.Tasks;
-using System.Linq;
-using System.Linq.Expressions;
-using Framework.Business.Abstract;
 using Framework.Core.Entities;
+using NHibernate;
+using System.Linq;
 
 namespace Framework.Business.Concrete.Managers
 {
-   public class RepositoryManager<T> : IRepository<T> where T : IEntity
+    public class RepositoryManager<T> : IRepository<T> where T : IEntity
     {
         private UnitOfWork _unitOfWork;
         public RepositoryManager(IUnitOfWork unitOfWork)

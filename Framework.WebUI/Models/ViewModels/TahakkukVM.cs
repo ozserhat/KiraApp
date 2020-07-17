@@ -13,13 +13,17 @@ namespace Framework.WebUI.Models.ViewModels
     public class TahakkukVM: PagingVMBase
     {
         [Display(Name = "KiraBeyan_Id")]
-        public int? KiraBeyan_Id { get; set; }
+        public long? KiraBeyan_Id { get; set; }
 
         [Display(Name = "Beyan Yıl")]
         public int? BeyanYil { get; set; }
 
         [Display(Name = "Beyan No")]
         public string BeyanNo { get; set; }
+
+        [Display(Name = "Sicil No")]
+        public string SicilNo { get; set; }
+
 
         [Display(Name = " Tahakkuk Tur")]
         public string TahakkukTur { get; set; }
@@ -42,7 +46,7 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Ödeme Durumu")]
         public bool? OdemeDurumu { get; set; }
 
-        public IPagedList<Tahakkuk> Tahakkuklar { get; set; }
+        public IPagedList<GL_BORC> Tahakkuklar { get; set; }
         [Display(Name = "Tahakkuk Türü")]
         public SelectList TahakkukTurSelectList { get; set; }
 
@@ -72,6 +76,9 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Kira Parametre Kodu")]
         public int KiraParametreKodu { get; set; }
+
+        [Display(Name = "Sicil No")]
+        public string SicilNo { get; set; }
 
         [Display(Name = "BeyanYil")]
         public int? BeyanYil { get; set; }

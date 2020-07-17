@@ -11,6 +11,7 @@ using Framework.WebUI.Helpers;
 using Framework.WebUI.Models;
 using Framework.WebUI.Models.ViewModels;
 using System.Configuration;
+using WebGrease.Css.Extensions;
 
 namespace Framework.WebUI.Areas.Kira.Controllers
 {
@@ -19,12 +20,13 @@ namespace Framework.WebUI.Areas.Kira.Controllers
     {
 
         #region Constructor
+        private IBeyanService _beyanService;
 
-        private ITahakkukService _tahakkukService;
-        public TahakkukController(ITahakkukService tahakkukService)
+        private IGl_BorcService _tahakkukService;
+        public TahakkukController(IGl_BorcService tahakkukService, IBeyanService beyanService)
         {
+            _beyanService = beyanService;
             _tahakkukService = tahakkukService;
-
         }
 
         #endregion
@@ -32,16 +34,25 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         public ActionResult Index(TahakkukRequest request, int? page, int pageSize = 15)
         {
             var model = new TahakkukVM();
-
+            string beyanId = "";
             var tahakkuklar = _tahakkukService.GetirSorguListe(request);
 
+            foreach (var th in tahakkuklar)
+            {
+                beyanId = th.BEYAN_ID.ToString();
+                th.BeyanNo = _beyanService.Getir(int.Parse(beyanId)).BeyanNo;
+
+                th.BeyanYil = _beyanService.Getir(int.Parse(beyanId)).BeyanYil.Value;
+            }
+
             model.PageNumber = page ?? 1;
+
             model.PageSize = pageSize;
 
             if (tahakkuklar != null)
             {
                 model.OdemeDurumuSelectList = OdemeDurumuSelectList();
-                model.Tahakkuklar = new StaticPagedList<Tahakkuk>(tahakkuklar, model.PageNumber, model.PageSize, tahakkuklar.Count());
+                model.Tahakkuklar = new StaticPagedList<GL_BORC>(tahakkuklar, model.PageNumber, model.PageSize, tahakkuklar.Count());
                 model.TotalRecordCount = tahakkuklar.Count();
             }
 

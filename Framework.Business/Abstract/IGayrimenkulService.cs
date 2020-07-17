@@ -10,6 +10,7 @@ namespace Framework.Business.Abstract
         IEnumerable<Gayrimenkul> GetirSorguListeGayrimenkul(GayrimenkulBeyanRequest request);
         IEnumerable<Gayrimenkul> GetirListeAktif();
         Gayrimenkul Getir(int id);
+        IEnumerable<Gayrimenkul> GetirAltGayrimenkul(int UstId);
 
         Gayrimenkul GetirGuid(Guid guid);
 

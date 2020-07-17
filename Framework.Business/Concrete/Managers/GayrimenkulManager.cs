@@ -64,5 +64,10 @@ namespace Framework.Business.Concrete.Managers
         {
             return _gayrimenkulDal.Delete(id);
         }
+
+        public IEnumerable<Gayrimenkul> GetirAltGayrimenkul(int UstId)
+        {
+            return _gayrimenkulDal.GetirListe().Where(a => a.AktifMi == true&&a.UstId==UstId);
+        }
     }
 }

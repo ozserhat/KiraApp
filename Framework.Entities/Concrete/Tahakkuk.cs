@@ -72,6 +72,7 @@ namespace Framework.Entities.Concrete
     [NotMapped]
     public class TahakkukRequest
     {
+        public string SicilNo { get; set; }
         public string BeyanNo { get; set; }
         public int? KiraBeyan_Id { get; set; }
         public int? OdemeDurum_Id { get; set; }

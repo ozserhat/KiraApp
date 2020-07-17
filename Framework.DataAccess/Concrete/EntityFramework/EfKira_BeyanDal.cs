@@ -173,6 +173,37 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                 query = request.Kdv.HasValue ? query.Where(x => x.Beyanlar.Kdv == request.Kdv) : query;
                 query = request.BeyanYil.HasValue ? query.Where(x => x.Beyanlar.BeyanYil == request.BeyanYil) : query;
 
+
+                //Sicil Request
+                query = request.Ad != null ? query.Where(x => x.Kiracilar.Ad == request.Ad) : query;
+                query = request.SoyAd != null ? query.Where(x => x.Kiracilar.Soyad == request.SoyAd) : query;
+                query = request.Il_Id.HasValue ? query.Where(x => x.Kiracilar.Il_Id == request.Il_Id) : query;
+                query = request.Ilce_Id.HasValue ? query.Where(x => x.Kiracilar.Ilce_Id == request.Ilce_Id) : query;
+                query = request.Mahalle_Id.HasValue ? query.Where(x => x.Kiracilar.Mahalle_Id == request.Mahalle_Id) : query;
+                query = request.SicilNo.HasValue ? query.Where(x => x.Kiracilar.SicilNo == request.SicilNo) : query;
+                query = request.VergiNo.HasValue ? query.Where(x => x.Kiracilar.VergiNo == request.VergiNo) : query;
+                query = request.TcKimlikNo.HasValue ? query.Where(x => x.Kiracilar.TcKimlikNo == request.TcKimlikNo) : query;
+                query = request.VergiDairesi != null ? query.Where(x => x.Kiracilar.VergiDairesi == request.VergiDairesi) : query;
+                //Sicil Request
+
+                //Gayrimenkul Request
+                query = request.Il_Id.HasValue ? query.Where(x => x.Gayrimenkuller.Il_Id == request.Il_Id) : query;
+                query = request.Ilce_Id.HasValue ? query.Where(x => x.Gayrimenkuller.Ilce_Id == request.Ilce_Id) : query;
+                query = request.Mahalle_Id.HasValue ? query.Where(x => x.Gayrimenkuller.Mahalle_Id == request.Mahalle_Id) : query;
+                query = request.Sokak != null ? query.Where(x => x.Gayrimenkuller.Sokak == request.Sokak) : query;
+                query = request.DisKapiNo != null ? query.Where(x => x.Gayrimenkuller.DisKapiNo == request.DisKapiNo) : query;
+                query = request.IcKapiNo != null ? query.Where(x => x.Gayrimenkuller.IcKapiNo == request.IcKapiNo) : query;
+                query = request.GayrimenkulAdi != null ? query.Where(x => x.Gayrimenkuller.Ad == request.GayrimenkulAdi) : query;
+                query = request.GayrimenkulNo != null ? query.Where(x => x.Beyanlar.DosyaHarfNo == request.GayrimenkulNo) : query;
+
+                query = request.AdresNo != null ? query.Where(x => x.Gayrimenkuller.AdresNo == request.AdresNo) : query;
+                query = request.GayrimenkulTur.HasValue ? query.Where(x => x.Gayrimenkuller.GayrimenkulTur_Id == request.GayrimenkulTur) : query;
+                query = request.AracKapasitesi.HasValue ? query.Where(x => x.Gayrimenkuller.AracKapasitesi == request.AracKapasitesi) : query;
+                query = request.Metrekare.HasValue ? query.Where(x => x.Gayrimenkuller.Metrekare == request.Metrekare) : query;
+                query = request.NumaratajKimlikNo.HasValue ? query.Where(x => x.Gayrimenkuller.NumaratajKimlikNo == request.NumaratajKimlikNo) : query;
+
+                //Gayrimenkul Request
+
                 result = query.OrderBy(a => a.Gayrimenkul_Id).ToList();
             }
 

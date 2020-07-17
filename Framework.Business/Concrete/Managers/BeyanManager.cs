@@ -15,12 +15,14 @@ namespace Framework.Business.Concrete.Managers
     {
         private IBeyanDal _beyanDal;
         private IBeyan_DosyaDal _beyanDosyaDal;
-        private ITahakkukService _tahakkukService;
+        //private ITahakkukService _tahakkukService;
+        private IGl_BorcService _tahakkukService;
+
         private IKira_BeyanService _kira_BeyanService;
         private IKiraciService _kiraciService;
 
 
-        public BeyanManager(IBeyanDal beyanDal, IBeyan_DosyaDal beyanDosyaDal, ITahakkukService tahakkukService, IKira_BeyanService kira_BeyanService, IKiraciService kiraciService)
+        public BeyanManager(IBeyanDal beyanDal, IBeyan_DosyaDal beyanDosyaDal, IGl_BorcService tahakkukService, IKira_BeyanService kira_BeyanService, IKiraciService kiraciService)
         {
             _beyanDal = beyanDal;
             _beyanDosyaDal = beyanDosyaDal;
@@ -107,6 +109,7 @@ namespace Framework.Business.Concrete.Managers
                 }
                 catch (Exception ex)
                 {
+                    ex.Message.ToString();
                     scope.Dispose();
                 }
 
@@ -120,7 +123,7 @@ namespace Framework.Business.Concrete.Managers
 
             var sicilId = eklenenler.KiraBeyan.Kiraci_Id;
             var beyanId = 0;
-            var kiraBeyanId = 0;
+            long kiraBeyanId = 0;
             if (eklenenler.Kiraci != null)
             {
                 var sicilEkle = _kiraciService.Ekle(eklenenler.Kiraci);
@@ -128,8 +131,11 @@ namespace Framework.Business.Concrete.Managers
             }
             if (eklenenler.Beyan != null)
             {
+                eklenenler.Beyan.SicilNo = _kiraciService.Getir(eklenenler.KiraBeyan.Kiraci_Id).SicilNo;
                 var beyanEkle = Ekle(eklenenler.Beyan);
                 beyanId = beyanEkle.Id;
+                beyanEkle.EskiBeyanId = beyanId;
+                _beyanDal.Update(beyanEkle);
             }
             if (eklenenler.KiraBeyan != null)
             {
@@ -145,10 +151,10 @@ namespace Framework.Business.Concrete.Managers
             }
             if (eklenenler.Tahakkuklar != null)
             {
-                kiraBeyanId = kiraBeyanId == 0 ? eklenenler.Tahakkuklar.FirstOrDefault().Id : kiraBeyanId;
-                TahakukListesiKaydet(eklenenler.Tahakkuklar, kiraBeyanId);
+                kiraBeyanId = kiraBeyanId == 0 ? eklenenler.Tahakkuklar.FirstOrDefault().ID : kiraBeyanId;
+                TahakukListesiKaydet(eklenenler.Tahakkuklar, beyanId);
 
-                if (eklenenler.Tahakkuklar.Last().Id > 0)
+                if (eklenenler.Tahakkuklar.Last().ID > 0)
                     sonuc = true;
             }
 
@@ -161,11 +167,11 @@ namespace Framework.Business.Concrete.Managers
 
         }
 
-        private void TahakukListesiKaydet(List<Tahakkuk> tahakukkList, int kiraBeyanId)
+        private void TahakukListesiKaydet(List<GL_BORC> tahakukkList, long kiraBeyanId)
         {
             foreach (var item in tahakukkList)
             {
-                item.KiraBeyan_Id = kiraBeyanId;
+                item.BEYAN_ID = kiraBeyanId;
                 _tahakkukService.Ekle(item);
             }
         }

@@ -15,6 +15,9 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Gayrimenkul Adı")]
         public string GayrimenkulAdi { get; set; }
 
+        [Display(Name = "Gayrimenkul No")]
+        public string GayrimenkulNo { get; set; }
+
 
         [Display(Name = "İlçeler")]
         public SelectList IlceSelectList { get; set; }
@@ -22,6 +25,37 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Mahalle")]
         public SelectList MahalleSelectList { get; set; }
         public IPagedList<Gayrimenkul> Gayrimenkuller { get; set; }
+
+
+   
+
+        [Display(Name = "Adres No")]
+        public int? AdresNo { get; set; }
+
+        [Display(Name = "Numarataj Kimlik No")]
+        public int? NumaratajKimlikNo { get; set; }
+
+        [Display(Name = "İl")]
+        public SelectList IlSelectList { get; set; }
+
+       
+
+        [Display(Name = "Sokak")]
+        public string Sokak { get; set; }
+
+        [Display(Name = "Dış Kapı No")]
+        public string DisKapiNo { get; set; }
+
+        [Display(Name = "İç Kapı No")]
+        public string IcKapiNo { get; set; }
+
+        [Display(Name = "Metrekare")]
+        public int? MetreKare { get; set; }
+
+        [Display(Name = "Araç Kapasitesi")]
+        public int? AracKapasitesi { get; set; }
+
+        public KiraBeyanVM KiraBeyanVm { get; set; }
     }
 
     public class Beyan_GayrimenkulEkleVM : VMBase
@@ -124,6 +158,9 @@ namespace Framework.WebUI.Models.ViewModels
     {
         [Display(Name = "Id")]
         public int Id { get; set; }
+
+        [Display(Name = "UstId")]
+        public int? UstId { get; set; }
 
         [Display(Name = "Guid")]
         public Guid Guid { get; set; }
@@ -231,6 +268,9 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Gayrimenkul Durumu")]
         public SelectList GayrimenkulDurumSelectList { get; set; }
 
+        [Display(Name = "Üst Gayrimenkul Var Mı?")]
+        public SelectList UstGayrimenkulListe { get; set; }
+
         public IPagedList<Gayrimenkul_Dosya> Gayrimenkul_Dosyalar { get; set; }
         public List<Gayrimenkul_DosyaVM> GayrimenkulDosyalar { get; set; }
 
@@ -240,6 +280,9 @@ namespace Framework.WebUI.Models.ViewModels
     {
         [Display(Name = "Id")]
         public int Id { get; set; }
+
+        [Display(Name = "UstId")]
+        public int? UstId { get; set; }
 
         [Display(Name = "GayrimenkulTur_Id")]
         public int? GayrimenkulTur_Id { get; set; }
@@ -328,6 +371,9 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Mahalleler")]
         public SelectList MahalleSelectList { get; set; }
 
+        [Display(Name = "Üst Gayrimenkul Var Mı?")]
+        public SelectList UstGayrimenkulListe { get; set; }
+
         public IEnumerable<GayrimenkulDosya_Tur> DosyaTurleri { get; set; }
 
         [Display(Name = "Dosya Türleri")]
@@ -356,11 +402,24 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Id")]
         public int Id { get; set; }
 
+
+        [Display(Name = "UstId")]
+        public int? UstId { get; set; }
+
         [Display(Name = "Guid")]
         public Guid Guid { get; set; }
 
         [Display(Name = "Gayrimenkul Türü")]
         public string GayrimenkulTuru { get; set; }
+
+        [Display(Name = "Kişi Türü")]
+        public SelectList KisiTuruSelectList { get; set; }
+      
+        [Display(Name = "İlçeler")]
+        public SelectList IlceSelectList { get; set; }
+
+        [Display(Name = "Mahalleler")]
+        public SelectList MahalleSelectList { get; set; }
 
         [Display(Name = "İl")]
         public string IlAdi { get; set; }
@@ -443,6 +502,8 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = " Açıklama")]
         public string Aciklama { get; set; }
+
+        public IEnumerable<Gayrimenkul> AltGayrimenkuller { get; set; }
 
         public List<Gayrimenkul_DosyaVM> GayrimenkulDosyalar { get; set; }
 

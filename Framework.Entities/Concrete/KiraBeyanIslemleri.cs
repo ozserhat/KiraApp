@@ -26,6 +26,9 @@ namespace Framework.Entities.Concrete
         public Kira_Beyan KiraBeyan { get; set; }
 
         public List<Beyan_Dosya> BeyanDosyalar { get; set; }
-        public List<Tahakkuk> Tahakkuklar { get; set; }
+        //public List<Tahakkuk> Tahakkuklar { get; set; }
+
+        public List<GL_BORC> Tahakkuklar { get; set; }
+
     }
 }

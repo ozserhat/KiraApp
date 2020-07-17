@@ -100,6 +100,32 @@
                                                                         <div class="col-md-4">
                                                                             <div class="form-group">
                                                                                 <div class="input-group" style="width: 100%;">
+                                                                                    @Html.LabelFor(model => model.SicilNo, new { @class = "col-md-4 font-bold" })
+                                                                                    <div class="col-md-6">
+                                                                                        @Html.TextBoxFor(model => model.SicilNo, "", new { Value = "", @class = "form-control" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                   
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                   
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
                                                                                     @Html.LabelFor(model => Model.BeyanNo, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
                                                                                         @Html.TextBoxFor(model => model.BeyanNo, "", new { Value = "", @class = "form-control" })
@@ -215,29 +241,30 @@
                                                         {
                                                         <tr role="row" class="odd">
                                                             <td>@(i++)</td>
-                                                            <td>@Html.DisplayFor(model => item.Kira_Beyani.Beyanlar.BeyanNo)</td>
-                                                            <td>@Html.DisplayFor(model => item.Kira_Beyani.Beyanlar.BeyanYil)</td>
+                                                            <td>@Html.DisplayFor(model => item.BeyanNo)
+                                                            </td>
+                                                            <td>@Html.DisplayFor(model => item.BeyanYil)</td>
                                                             <td>
                                                                 @{
-                                                                    string monthName = item.VadeTarihi.Value.ToString("MMMM");
+                                                                    string monthName = item.VADE.ToString("MMMM");
                                                                     <span>@monthName</span>
                                                                 }
                                                             </td>
                                                             <td>
-                                                                @if (item.TahakkukTarihi.HasValue)
+                                                                @if (item.THK_TAR!=null)
                                                                 {
-                                                                    string basTarihi = item.TahakkukTarihi.Value.ToString("dd.MM.yyyy");
+                                                                    string basTarihi = item.THK_TAR.ToString("dd.MM.yyyy");
                                                                     @Html.DisplayFor(model => basTarihi)
                                                                 }
                                                             </td>
                                                             <td>
-                                                                @if (item.VadeTarihi.HasValue)
+                                                                @if (item.VADE != null)
                                                                 {
-                                                                    string basTarihi = item.VadeTarihi.Value.ToString("dd.MM.yyyy");
+                                                                    string basTarihi = item.VADE.ToString("dd.MM.yyyy");
                                                                     @Html.DisplayFor(model => basTarihi)
                                                                 }
                                                             </td>
-                                                            <td>@Html.DisplayFor(model => item.Tutar)</td>
+                                                            <td>@Html.DisplayFor(model => item.TUTAR)</td>
                                                             <td>
                                                                 @if (item.OdemeDurumu.HasValue && item.OdemeDurumu.Value)
                                                                 {

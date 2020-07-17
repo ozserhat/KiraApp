@@ -84,6 +84,9 @@
                             <div class="widget-body">
                                 <div class="tab-pane fade active in">
                                     <div class="form-group">
+                                        @using (Html.BeginForm("Index", "Beyan", FormMethod.Post, new { enctype = "multipart/form-data", id = "submitForm" }))
+                                        {
+
                                         <div class="col-md-12">
                                             <div id="pnlKriter" class="bs-offset-main bs-canvas-anim" style="display:none;">
                                                 <div id="bs-canvas-right" class="bs-canvas bs-canvas-anim bs-canvas-left position-fixed bg-light h-100" data-width="100%">
@@ -94,337 +97,592 @@
                                                         <h4 class="d-inline-block text-light mb-0 float-right">Sorgulama Kriterleri</h4><br />
                                                     </header>
                                                     <div class="bs-canvas-content px-3 py-5" style="height:250px">
-                                                        @using (Html.BeginForm("Index", "Beyan", FormMethod.Post, new { enctype = "multipart/form-data", id = "submitForm" }))
-                                                        {
-                                                            <div class="widget-body">
-                                                                @Html.HiddenFor(model => model.PageSize)
-                                                                <fieldset>
-                                                                    <div class="row">
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => Model.BeyanTurSelectList, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.DropDownList("BeyanTur_Id", Model.BeyanTurSelectList, "Seçiniz", new { @class = "select2" })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => Model.BeyanYilSelectList, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.DropDownList("BeyanYil", Model.BeyanYilSelectList, "Seçiniz", new { @class = "select2 " })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => Model.KiraDurumSelectList, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.DropDownList("KiraDurum_Id", Model.KiraDurumSelectList, "Seçiniz", new { @class = "select2 " })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row">
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.KdvOraniSelectList, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.DropDownList("Kdv", Model.KdvOraniSelectList, "Seçiniz", new { @class = "select2 " })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.OdemePeriyotSelectList, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.DropDownList("OdemePeriyotTur_Id", Model.OdemePeriyotSelectList, "Seçiniz", new { @class = "select2 " })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.DamgaVergisiDurumSelectList, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.DropDownList("DamgaAlinsinMi", Model.DamgaVergisiDurumSelectList, "Seçiniz", new { @class = "select2 " })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row">
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.BeyanNo, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.TextBoxFor(model => model.BeyanNo, "", new { @class = "form-control " })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.NoterSozlesmeNo, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.TextBoxFor(model => Model.NoterSozlesmeNo, "", new { @class = "form-control " })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.EncumenKararNo, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.TextBoxFor(model => model.EncumenKararNo, "", new { @class = "form-control" })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row">
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.BeyanTarihi, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="input-group date datetimepicker">
-                                                                                            @{
-                                                                                                @Html.TextBoxFor(model => model.BeyanTarihi, new { @class = "form-control datepicker ", @autocomplete = "off" })
-                                                                                                <span class="input-group-addon" id="openDate">
-                                                                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                                                                </span>
-                                                                                            }
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.IhaleEncumenTarihi, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="input-group date datetimepicker">
-                                                                                            @{
-                                                                                                @Html.TextBoxFor(model => model.IhaleEncumenTarihi, new { @class = "form-control datepicker ", @autocomplete = "off" })
-                                                                                                <span class="input-group-addon" id="openDate">
-                                                                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                                                                </span>
-                                                                                            }
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.KiraBaslangicTarihi, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="input-group date datetimepicker">
-                                                                                            @{
-                                                                                                @Html.TextBoxFor(model => model.KiraBaslangicTarihi, new { @class = "form-control datepicker ", @autocomplete = "off" })
-                                                                                                <span class="input-group-addon" id="openDate">
-                                                                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                                                                </span>
-                                                                                            }
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row">
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.SozlesmeTarihi, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="input-group date datetimepicker">
-                                                                                            @{
-                                                                                                @Html.TextBoxFor(model => model.SozlesmeTarihi, new { @class = "form-control datepicker ", @autocomplete = "off" })
-                                                                                                <span class="input-group-addon" id="openDate">
-                                                                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                                                                </span>
-                                                                                            }
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.SozlesmeBitisTarihi, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="input-group date datetimepicker">
-                                                                                            @{
-                                                                                                @Html.TextBoxFor(model => model.SozlesmeBitisTarihi, new { @class = "form-control datepicker ", @autocomplete = "off" })
-                                                                                                <span class="input-group-addon" id="openDate">
-                                                                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                                                                </span>
-                                                                                            }
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.TeminatTarihi, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="input-group date datetimepicker">
-                                                                                            @{
-                                                                                                @Html.TextBoxFor(model => model.TeminatTarihi, new { @class = "form-control datepicker ", @autocomplete = "off" })
-                                                                                                <span class="input-group-addon" id="openDate">
-                                                                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                                                                </span>
-                                                                                            }
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row">
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.BeyanKapatmaTarihi, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        <div class="input-group date datetimepicker">
-                                                                                            @{
-                                                                                                @Html.TextBoxFor(model => model.BeyanKapatmaTarihi, new { @class = "form-control datepicker ", @autocomplete = "off" })
-                                                                                                <span class="input-group-addon" id="openDate">
-                                                                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                                                                </span>
-                                                                                            }
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.TeminatNo, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.TextBoxFor(model => Model.TeminatNo, "", new { @class = "form-control " })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.KullanimAlani, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.TextBoxFor(model => model.KullanimAlani, "", new { @class = "form-control " })
-                                                                                        @Html.ValidationMessage("KullanimAlani", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row">
 
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.SozlesmeSuresi, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.TextBoxFor(model => model.SozlesmeSuresi, "", new { @class = "form-control " })
-                                                                                        @Html.ValidationMessage("SozlesmeSuresi", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.MusadeliGunSayisi, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.TextBoxFor(model => model.MusadeliGunSayisi, "", new { @class = "form-control " })
-                                                                                        @Html.ValidationMessage("MusadeliGunSayisi", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.KalanAy, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.TextBoxFor(model => model.KalanAy, "", new { @class = "form-control" })
-                                                                                        @Html.ValidationMessage("KalanAy", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row">
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.IhaleTutari, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.TextBoxFor(model => model.IhaleTutari, "{0:c}", new { @class = "form-control  moneyFormat" })
-                                                                                        @Html.ValidationMessage("IhaleTutari", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.KiraTutari, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.TextBoxFor(model => model.KiraTutari, "{0:c}", new { @class = "form-control  moneyFormat" })
-                                                                                        @Html.ValidationMessage("KiraTutari", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
+                                                        <div class="widget-body">
+                                                            @Html.HiddenFor(model => model.PageSize)
 
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
+                                                            <fieldset>
+                                                                <div class="accordion" id="accordionExample">
+                                                                    <div class="card">
+                                                                        <div class="card-header" id="headingOne">
+                                                                            <h2 class="mb-0">
+                                                                                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                                                    Gayrimenkul Filtreleri
+                                                                                </button>
+                                                                            </h2>
                                                                         </div>
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-group">
-                                                                                <div class="input-group" style="width: 100%;">
-                                                                                    @Html.LabelFor(model => model.BaslangicTaksitNo, new { @class = "col-md-4 font-bold" })
-                                                                                    <div class="col-md-6">
-                                                                                        @Html.TextBoxFor(model => model.BaslangicTaksitNo, "", new { @class = "form-control" })
-                                                                                        @Html.ValidationMessage("BaslangicTaksitNo", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
 
-                                                                    <div class="row">
-                                                                        <div class="col-md-12">
-                                                                            <input id="btnSubmit" type="submit" value="Sorgula" class="btn btn-primary btn-header-btn">
-                                                                        </div>
-                                                                        <div class="col-md-12">
-                                                                            <input id="btnReset" onclick="clearForm()" type="reset" value="Temizle" class="btn btn-warning btn-header-btn">
+                                                                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                                                            <div class="card-body">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => Model.GayrimenkulTuruSelectList, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    @Html.DropDownList("GayrimenkulTur", Model.GayrimenkulTuruSelectList, "Seçiniz", new { @class = "select2" })
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => Model.GayrimenkulNo, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    @Html.TextBoxFor(model => model.GayrimenkulNo, "", new { @class = "form-control " })
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => Model.AdresNo, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    @Html.TextBoxFor(model => model.AdresNo, "", new { @class = "form-control " })
+                                                                                                    @Html.ValidationMessage("AdresNo", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="row">
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => model.IlceSelectList, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    @Html.DropDownList("Ilce_Id", Model.IlceSelectList, "Seçiniz", new { @class = "select2 " })
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => model.MahalleSelectList, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    @Html.DropDownList("Mahalle_Id", new SelectList(string.Empty, "Value", "Text"), "Seçiniz", new { @class = "select2" })
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => model.Sokak, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    @Html.TextBoxFor(model => model.Sokak, "", new { @class = "form-control " })
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="row">
+
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => model.DisKapiNo, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    @Html.TextBoxFor(model => Model.DisKapiNo, "", new { @class = "form-control " })
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => model.IcKapiNo, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    @Html.TextBoxFor(model => model.IcKapiNo, "", new { @class = "form-control " })
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => model.MetreKare, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    @Html.TextBoxFor(model => model.MetreKare, "", new { @class = "form-control", @type = "number" })
+                                                                                                    @Html.ValidationMessage("MetreKare", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="row">
+
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => model.AracKapasitesi, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    @Html.TextBoxFor(model => Model.AracKapasitesi, "", new { @class = "form-control " })
+                                                                                                    @Html.ValidationMessage("AracKapasitesi", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => model.NumaratajKimlikNo, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    @Html.TextBoxFor(model => model.NumaratajKimlikNo, "", new { @class = "form-control " })
+                                                                                                    @Html.ValidationMessage("NumaratajKimlikNo", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </fieldset>
-                                                            </div>
-                                                        }
+                                                                    <div class="card">
+                                                                        <div class="card-header" id="headingTwo">
+                                                                            <h2 class="mb-0">
+                                                                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                                                    Sicil Filtreleri
+                                                                                </button>
+                                                                            </h2>
+                                                                        </div>
+                                                                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                                                            <div class="card-body">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => Model.SicilNo, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    @Html.TextBoxFor(model => model.SicilNo, "", new { @class = "form-control", @type = "number" })
+                                                                                                    @Html.ValidationMessage("SicilNo", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => Model.TcKimlikNo, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    @Html.TextBoxFor(model => model.TcKimlikNo, "", new { @class = "form-control", @type = "number", @maxlength = "11" })
+                                                                                                    @Html.ValidationMessage("TcKimlikNo", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => Model.VergiNo, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    @Html.TextBoxFor(model => model.VergiNo, "", new { @class = "form-control", @type = "number" })
+                                                                                                    @Html.ValidationMessage("VergiNo", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="row">
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => model.IlceSelectList, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    @Html.DropDownList("Ilce_Id", Model.IlceSelectList, "Seçiniz", new { @class = "select2 " })
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => model.MahalleSelectList, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    @Html.DropDownList("Mahalle_Id", new SelectList(string.Empty, "Value", "Text"), "Seçiniz", new { @class = "select2" })
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => model.VergiDairesi, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    @Html.TextBoxFor(model => Model.VergiDairesi, "", new { @class = "form-control " })
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="row">
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => model.Ad, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    @Html.TextBoxFor(model => model.Ad, "", new { @class = "form-control " })
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => model.Soyad, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    @Html.TextBoxFor(model => Model.Soyad, "", new { @class = "form-control " })
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="card">
+                                                                        <div class="card-header" id="headingThree">
+                                                                            <h2 class="mb-0">
+                                                                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                                                    Beyan Filtreleri
+                                                                                </button>
+                                                                            </h2>
+                                                                        </div>
+                                                                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                                                                            <div class="card-body">
+
+                                                                                <div class="row">
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => Model.BeyanTurSelectList, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    @Html.DropDownList("BeyanTur_Id", Model.BeyanTurSelectList, "Seçiniz", new { @class = "select2" })
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => Model.BeyanYilSelectList, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    @Html.DropDownList("BeyanYil", Model.BeyanYilSelectList, "Seçiniz", new { @class = "select2 " })
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => Model.KiraDurumSelectList, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    @Html.DropDownList("KiraDurum_Id", Model.KiraDurumSelectList, "Seçiniz", new { @class = "select2 " })
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="row">
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => model.KdvOraniSelectList, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    @Html.DropDownList("Kdv", Model.KdvOraniSelectList, "Seçiniz", new { @class = "select2 " })
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => model.OdemePeriyotSelectList, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    @Html.DropDownList("OdemePeriyotTur_Id", Model.OdemePeriyotSelectList, "Seçiniz", new { @class = "select2 " })
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => model.DamgaVergisiDurumSelectList, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    @Html.DropDownList("DamgaAlinsinMi", Model.DamgaVergisiDurumSelectList, "Seçiniz", new { @class = "select2 " })
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="row">
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => model.BeyanNo, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    @Html.TextBoxFor(model => model.BeyanNo, "", new { @class = "form-control " })
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => model.NoterSozlesmeNo, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    @Html.TextBoxFor(model => Model.NoterSozlesmeNo, "", new { @class = "form-control " })
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => model.EncumenKararNo, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    @Html.TextBoxFor(model => model.EncumenKararNo, "", new { @class = "form-control" })
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="row">
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => model.BeyanTarihi, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    <div class="input-group date datetimepicker">
+                                                                                                        @{
+                                                                                                            @Html.TextBoxFor(model => model.BeyanTarihi, new { @class = "form-control datepicker ", @autocomplete = "off" })
+                                                                                                            <span class="input-group-addon" id="openDate">
+                                                                                                                <span class="glyphicon glyphicon-calendar"></span>
+                                                                                                            </span>
+                                                                                                        }
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => model.IhaleEncumenTarihi, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    <div class="input-group date datetimepicker">
+                                                                                                        @{
+                                                                                                            @Html.TextBoxFor(model => model.IhaleEncumenTarihi, new { @class = "form-control datepicker ", @autocomplete = "off" })
+                                                                                                            <span class="input-group-addon" id="openDate">
+                                                                                                                <span class="glyphicon glyphicon-calendar"></span>
+                                                                                                            </span>
+                                                                                                        }
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => model.KiraBaslangicTarihi, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    <div class="input-group date datetimepicker">
+                                                                                                        @{
+                                                                                                            @Html.TextBoxFor(model => model.KiraBaslangicTarihi, new { @class = "form-control datepicker ", @autocomplete = "off" })
+                                                                                                            <span class="input-group-addon" id="openDate">
+                                                                                                                <span class="glyphicon glyphicon-calendar"></span>
+                                                                                                            </span>
+                                                                                                        }
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="row">
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => model.SozlesmeTarihi, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    <div class="input-group date datetimepicker">
+                                                                                                        @{
+                                                                                                            @Html.TextBoxFor(model => model.SozlesmeTarihi, new { @class = "form-control datepicker ", @autocomplete = "off" })
+                                                                                                            <span class="input-group-addon" id="openDate">
+                                                                                                                <span class="glyphicon glyphicon-calendar"></span>
+                                                                                                            </span>
+                                                                                                        }
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => model.SozlesmeBitisTarihi, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    <div class="input-group date datetimepicker">
+                                                                                                        @{
+                                                                                                            @Html.TextBoxFor(model => model.SozlesmeBitisTarihi, new { @class = "form-control datepicker ", @autocomplete = "off" })
+                                                                                                            <span class="input-group-addon" id="openDate">
+                                                                                                                <span class="glyphicon glyphicon-calendar"></span>
+                                                                                                            </span>
+                                                                                                        }
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => model.TeminatTarihi, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    <div class="input-group date datetimepicker">
+                                                                                                        @{
+                                                                                                            @Html.TextBoxFor(model => model.TeminatTarihi, new { @class = "form-control datepicker ", @autocomplete = "off" })
+                                                                                                            <span class="input-group-addon" id="openDate">
+                                                                                                                <span class="glyphicon glyphicon-calendar"></span>
+                                                                                                            </span>
+                                                                                                        }
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="row">
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => model.BeyanKapatmaTarihi, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    <div class="input-group date datetimepicker">
+                                                                                                        @{
+                                                                                                            @Html.TextBoxFor(model => model.BeyanKapatmaTarihi, new { @class = "form-control datepicker ", @autocomplete = "off" })
+                                                                                                            <span class="input-group-addon" id="openDate">
+                                                                                                                <span class="glyphicon glyphicon-calendar"></span>
+                                                                                                            </span>
+                                                                                                        }
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => model.TeminatNo, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    @Html.TextBoxFor(model => Model.TeminatNo, "", new { @class = "form-control " })
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => model.KullanimAlani, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    @Html.TextBoxFor(model => model.KullanimAlani, "", new { @class = "form-control " })
+                                                                                                    @Html.ValidationMessage("KullanimAlani", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="row">
+
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => model.SozlesmeSuresi, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    @Html.TextBoxFor(model => model.SozlesmeSuresi, "", new { @class = "form-control " })
+                                                                                                    @Html.ValidationMessage("SozlesmeSuresi", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => model.MusadeliGunSayisi, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    @Html.TextBoxFor(model => model.MusadeliGunSayisi, "", new { @class = "form-control " })
+                                                                                                    @Html.ValidationMessage("MusadeliGunSayisi", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => model.KalanAy, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    @Html.TextBoxFor(model => model.KalanAy, "", new { @class = "form-control" })
+                                                                                                    @Html.ValidationMessage("KalanAy", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="row">
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => model.IhaleTutari, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    @Html.TextBoxFor(model => model.IhaleTutari, "{0:c}", new { @class = "form-control  moneyFormat" })
+                                                                                                    @Html.ValidationMessage("IhaleTutari", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => model.KiraTutari, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    @Html.TextBoxFor(model => model.KiraTutari, "{0:c}", new { @class = "form-control  moneyFormat" })
+                                                                                                    @Html.ValidationMessage("KiraTutari", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
+
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="form-group">
+                                                                                            <div class="input-group" style="width: 100%;">
+                                                                                                @Html.LabelFor(model => model.BaslangicTaksitNo, new { @class = "col-md-4 font-bold" })
+                                                                                                <div class="col-md-6">
+                                                                                                    @Html.TextBoxFor(model => model.BaslangicTaksitNo, "", new { @class = "form-control" })
+                                                                                                    @Html.ValidationMessage("BaslangicTaksitNo", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <input id="btnSubmit" type="submit" value="Sorgula" class="btn btn-primary btn-header-btn">
+                                                                    </div>
+                                                                    <div class="col-md-12">
+                                                                        <input id="btnReset" onclick="clearForm()" type="reset" value="Temizle" class="btn btn-warning btn-header-btn">
+                                                                    </div>
+                                                                </div>
+                                                            </fieldset>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -432,7 +690,7 @@
                                         <div id="dvTable" class="col-md-12">
                                             @{ Html.RenderPartial("_tablePartial", Model); }
 
-                                            <div class="dt-toolbar-footer">
+                                            @*<div class="dt-toolbar-footer">
                                                 <div class="col-xs-12 col-sm-6">
                                                     <div class="dataTables_info" id="dt_basic_info" role="status" aria-live="polite">
                                                         Toplam
@@ -466,27 +724,29 @@
                                                             @{
                                                                 sonSayfa = Model.TotalRecordCount % Model.PageSize == 0 ? Model.TotalRecordCount / Model.PageSize : Model.TotalRecordCount / Model.PageSize + 1;
                                                                 @Html.PagedListPager(Model.Beyanlar, page => Url.Action("Index",
-                                                                                            new
-                                                                                            {
-                                                                                                page = page
-                                                                                            }), new PagedListRenderOptions
-                                                                                            {
-                                                                                                MaximumPageNumbersToDisplay = 7,
-                                                                                                DisplayEllipsesWhenNotShowingAllPageNumbers = true,
-                                                                                                EllipsesFormat = "&#8230;",
-                                                                                                LinkToFirstPageFormat = "1",
-                                                                                                LinkToPreviousPageFormat = "«",
-                                                                                                LinkToNextPageFormat = "»",
-                                                                                                LinkToLastPageFormat = sonSayfa.ToString()
-                                                                                            })
+                                                                                                         new
+                                                                                                         {
+                                                                                                             page = page
+                                                                                                         }), new PagedListRenderOptions
+                                                                                                         {
+                                                                                                             MaximumPageNumbersToDisplay = 7,
+                                                                                                             DisplayEllipsesWhenNotShowingAllPageNumbers = true,
+                                                                                                             EllipsesFormat = "&#8230;",
+                                                                                                             LinkToFirstPageFormat = "1",
+                                                                                                             LinkToPreviousPageFormat = "«",
+                                                                                                             LinkToNextPageFormat = "»",
+                                                                                                             LinkToLastPageFormat = sonSayfa.ToString()
+                                                                                                         })
                                                             }
                                                         </div>
                                                     }
                                                 </div>
-                                            </div>
+                                            </div>*@
 
                                         </div>
+                                    }
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -761,8 +1021,8 @@
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Turkish.json"
             },
-            "searching": true,
-            "bPaginate": false
+            "searching": false,
+            "bPaginate": true
         };
 
         $(".delete-row").click(function (e) {
@@ -956,6 +1216,8 @@
                     }
                     else if (dataSource[i].AktifMi == 0) {
                         aktifMiStr = '<b class="label pasif-buton-beyandetay">Pasif</b>';
+                    } else if (dataSource[i].AktifMi == 4) {
+                        aktifMiStr = '<b class="label pasif-buton-beyandetay">Belirsiz</b>';
                     }
                     else if (dataSource[i].AktifMi == 2) {
                         aktifMiStr = '<b class="label silindi-buton-beyandetay">Silindi</b>';

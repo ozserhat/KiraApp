@@ -16,6 +16,8 @@ namespace Framework.Entities.Enums
         [Description("Silindi")]
         Silindi = 2,
         [Description("Kapandı")]
-        Kapandı = 3
+        Kapandı = 3,
+        [Description("Belirsiz")]
+        Belirsiz = 4
     }
 }

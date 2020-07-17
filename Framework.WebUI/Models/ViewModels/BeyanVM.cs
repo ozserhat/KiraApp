@@ -33,11 +33,14 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Ödeme Periyot")]
         public int? OdemePeriyotTur_Id { get; set; }
 
+        [Display(Name = "Sicil No")]
+        public int? SicilNo { get; set; }
+
         [Display(Name = "Beyan No")]
         public string BeyanNo { get; set; }
 
         [Display(Name = "Beyan Yıl")]
-        public int? BeyanYil { get; set; }
+        public short? BeyanYil { get; set; }
 
         [Display(Name = "Encümen Karar No")]
         public string EncumenKararNo { get; set; }

@@ -204,15 +204,11 @@
                                                     <tr role="row">
                                                         <th style="width: 20px;">No</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Beyan No</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Dosya No</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Sicil No</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Gayrimenkul No</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Gayrimenkul Adı</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Gayrimenkul Tur</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Beyan Yıl</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Sicil No</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Tahakkuk Tarihi</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Vade Tarihi</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Kalem Tipi</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1">Açıklama</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Tutar</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1">Ödeme Bilgisi</th>
                                                     </tr>
@@ -225,48 +221,38 @@
 
                                                         @foreach (var item in Model.Tahakkuklar)
                                                         {
-                                                            <tr role="row" class="odd">
-                                                                <td>@(i++)</td>
-                                                                <td>@Html.DisplayFor(model => item.Kira_Beyani.Beyanlar.BeyanNo)</td>
-                                                                <td>@Html.DisplayFor(model => item.Kira_Beyani.Gayrimenkuller.DosyaNo)</td>
-                                                                <td>@Html.DisplayFor(model => item.Kira_Beyani.Kiracilar.SicilNo)</td>
-                                                                <td>@Html.DisplayFor(model => item.Kira_Beyani.Gayrimenkuller.GayrimenkulNo)</td>
-                                                                <td>@Html.DisplayFor(model => item.Kira_Beyani.Gayrimenkuller.Ad)</td>
-                                                                <td>@Html.DisplayFor(model => item.Kira_Beyani.Gayrimenkuller.GayrimenkulTur.Ad)</td>
-                                                                <td>@Html.DisplayFor(model => item.Kira_Beyani.Beyanlar.BeyanYil)</td>
-                                                                <td>
-                                                                    @if (item.TahakkukTarihi.HasValue)
-                                                                    {
-                                                                        string basTarihi = item.TahakkukTarihi.Value.ToString("dd.MM.yyyy");
-                                                                        @Html.DisplayFor(model => basTarihi)
-                                                                    }
-                                                                </td>
-                                                                @*<td>
-                                @{
-                                    string monthName = item.VadeTarihi.Value.ToString("MMMM");
-                                    <span>@monthName</span>
-                                }
-                            </td>*@
-                                                                <td>
-                                                                    @if (item.VadeTarihi.HasValue)
-                                                                    {
-                                                                        string basTarihi = item.VadeTarihi.Value.ToString("dd.MM.yyyy");
-                                                                        @Html.DisplayFor(model => basTarihi)
-                                                                    }
-                                                                </td>
-                                                                <td>@Html.DisplayFor(model => item.Aciklama)</td>
-                                                                <td>@Html.DisplayFor(model => item.Tutar)</td>
-                                                                <td>
-                                                                    @if (item.OdemeDurumu.HasValue && item.OdemeDurumu.Value)
-                                                                    {
-                                                                        <b class="label aktif-buton-beyandetay">Tahsil Edildi</b>
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        <b class="label pasif-buton-beyandetay">Vadesi Gelmeyen</b>
-                                                                    }
-                                                                </td>
-                                                            </tr>
+                                                        <tr role="row" class="odd">
+                                                            <td>@(i++)</td>
+                                                            <td>@Html.DisplayFor(model => item.BeyanNo)</td>
+                                                            <td>@Html.DisplayFor(model => item.BeyanYil)</td>
+                                                            <td>@Html.DisplayFor(model => item.SICIL_NO)</td>
+                                                            <td>
+                                                                @if (item.THK_TAR != null)
+                                                                {
+                                                                    string basTarihi = item.THK_TAR.ToString("dd.MM.yyyy");
+                                                                    @Html.DisplayFor(model => basTarihi)
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                @if (item.VADE != null)
+                                                                {
+                                                                    string basTarihi = item.VADE.ToString("dd.MM.yyyy");
+                                                                    @Html.DisplayFor(model => basTarihi)
+                                                                }
+                                                            </td>
+                                                            <td>@Html.DisplayFor(model => item.ACIKLAMA)</td>
+                                                            <td>@Html.DisplayFor(model => item.TUTAR)</td>
+                                                            <td>
+                                                                @if (item.OdemeDurumu.HasValue && item.OdemeDurumu.Value)
+                                                                {
+                                                                    <b class="label aktif-buton-beyandetay">Tahsil Edildi</b>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <b class="label pasif-buton-beyandetay">Vadesi Gelmeyen</b>
+                                                                }
+                                                            </td>
+                                                        </tr>
                                                         }
                                                     </tbody>
                                                 }
@@ -348,11 +334,7 @@
     <link href="~/Content/SweetAlert/sweetalert2.css" rel="stylesheet" />
     <script src="~/Content/SweetAlert/sweetalert2.min.js"></script>
     <script src="~/Scripts/loadingoverlay.min.js"></script>
-
-
-
     <script src="~/Scripts/table2excel.js"></script>
-
 
     <style type="text/css">
         .pasif-buton-beyandetay {
@@ -486,10 +468,6 @@
             });
         });
     </script>
-
-
-
-
 
     <!--Datepicker-->
     <script type="text/javascript">

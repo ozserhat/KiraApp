@@ -39,12 +39,15 @@ namespace Framework.Entities.Concrete
         public virtual OdemePeriyotTur OdemePeriyotTur { get; set; }
 
         public string EncumenKararNo { get; set; }
+     
+        [StringLength(100)]
+        public string DosyaHarfNo { get; set; }
 
 
         [StringLength(500)]
         public string BeyanNo { get; set; }
 
-        public int? BeyanYil { get; set; }
+        public short? BeyanYil { get; set; }
 
         public int? SicilNo { get; set; }
 
@@ -89,7 +92,7 @@ namespace Framework.Entities.Concrete
         public DateTime? SozlesmeBitisTarihi { get; set; }
 
         [StringLength(2500)]
-        public string Aciklama { get; set; }
+        public string ACIKLAMA { get; set; }
 
         //1:Tam Al 2:Fark Al
         public int? DamgaKararArtisTuru { get; set; }

@@ -736,7 +736,7 @@
                             swal('Bilgi!', result.Message, 'success');
                             $.LoadingOverlay("hide");
                             setTimeout(function () {
-                                window.location.href = "../Beyan/Index";
+                                window.location.href = "../Beyan/BeyanDetay?Guid=" + result.Data.Beyan.Guid;
                             }, 2000);
                         }
                         else {

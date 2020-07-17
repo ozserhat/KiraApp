@@ -104,19 +104,30 @@
                                                                     <div class="row">
                                                                         <div class="col-md-6">
                                                                             <div class="form-group">
-                                                                                @*<div class="input-group" style="width: 100%;">
-                                                                                        @Html.Label("Taşınmaz No", new { @class = "col-md-4 font-bold" })
-                                                                                        <div class="col-md-6">
-                                                                                            @Html.TextBox("GayrimenkulNo", "", new { @class = "form-control ", @type = "number" })
-                                                                                            @Html.HiddenFor(model => model.GayrimenkulNo, new { @class = "form-control" })
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.Label("Üst Gayrimenkul Var Mı?", new { @class = "col-md-4 font-bold" })
+                                                                                    <div class="col-md-6">
+                                                                                        @Html.CheckBox("ustGayrimenkulVarMi", new { @class = "make-switch", data_on_text = "Evet", data_off_text = "Hayır" })
+                                                                                    </div>
+
+                                                                                    @Html.Label("               ", new { @class = "col-md-4 font-bold" })
+
+                                                                                    <div class="col-md-6">
+                                                                                        <div id="ustGayrimenkulPanel" style="display:none;">
+                                                                                            <br />
+                                                                                            @Html.DropDownList("UstId", Model.UstGayrimenkulListe, "Seçiniz", new { @class = "select2" })
+                                                                                            @Html.ValidationMessage("UstId", new { @class = "text-danger" })
                                                                                         </div>
-                                                                                        <div class="col-md-2">
-                                                                                            <button class="btn btn-primary" id="btnTasinmazSorgula" type="button"
-                                                                                                    data-loading-text="<i class='fa fa-spinner fa-spin '></i> Tapu Sorgulanıyor...">
-                                                                                                <span class="glyphicon glyphicon-search"></span> Sorgula
-                                                                                            </button>
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
                                                                                 <div class="input-group" style="width: 100%;">
                                                                                     @Html.LabelFor(model => model.GayrimenkulNo, new { @class = "col-md-4 font-bold" })
                                                                                     <div class="col-md-6">
@@ -491,13 +502,37 @@
         }
     </style>
 
-    <script src="~/Scripts/plugin/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+
+    <script src="~/Content/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+    <link href="~/Content/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+    <!--Üst Gayrimenkul Panel-->
+    <script>
+        $(function () {
+
+            var ustSwitch = $('#ustGayrimenkulVarMi');
+
+            var panel = $('#ustGayrimenkulPanel');
+
+            ustSwitch.bootstrapSwitch('state', false);
+
+            ustSwitch.on('switchChange.bootstrapSwitch', function () {
+                if (ustSwitch.is(':checked')) {
+                    panel.show();
+                }
+                else {
+                    $('#UstId').select2("val", "");
+                    panel.hide();
+                }
+            });
+        })
+    </script>
 
     <!--Gayrimenkul Ekle-->
     <script type="text/javascript">
         $(function () {
             $('#btnSonKaydet').on('click', function () {
                 gayrimenkul = new Object();
+                gayrimenkul.UstId = $("#UstId").val();
                 gayrimenkul.Guid = $("#Guid").val();
                 gayrimenkul.Ad = $("#GayrimenkulAdi").val();
                 gayrimenkul.GayrimenkulTur_Id = $("#GayrimenkulTur_Id").val();
@@ -537,7 +572,7 @@
                             swal('Bilgi!', result.Message, 'success');
 
                             setTimeout(function () {
-                                window.location.href = "../Emlak/Gayrimenkul/Index";
+                                window.location.href = "../Gayrimenkul/Index";
                             }, 2000);
                         }
                         else {

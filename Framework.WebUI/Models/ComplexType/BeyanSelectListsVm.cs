@@ -19,6 +19,7 @@ namespace Framework.WebUI.Models.ComplexType
         private IBeyan_UfeOranService _ufeOranService;
         private IGayrimenkulService _gayrimenkulservice;
         private ISistemParametre_DetayService _parametreService;
+        public  IIcraDurumService _icraDurumService;
 
         public BeyanSelectListsVm(IGayrimenkulService gayrimenkulservice,
             ISistemParametre_DetayService parametreService,
@@ -27,7 +28,8 @@ namespace Framework.WebUI.Models.ComplexType
         IBeyan_TurService beyanTurService,
         IIlService ilService,
         IIlceService ilceService,
-        IGayrimenkulTurService gayrimenkulTurService,
+        IGayrimenkulTurService gayrimenkulTurService, 
+        IIcraDurumService icraDurumService,
         IBeyan_UfeOranService ufeOranService)
         {
             _gayrimenkulservice = gayrimenkulservice;
@@ -39,6 +41,7 @@ namespace Framework.WebUI.Models.ComplexType
             _ilceService = ilceService;
             _gayrimenkulTurService = gayrimenkulTurService;
             _ufeOranService = ufeOranService;
+            _icraDurumService = icraDurumService;
         }
         #endregion
 
@@ -194,6 +197,15 @@ namespace Framework.WebUI.Models.ComplexType
 
             return new SelectList(periyot, "Id", "Ad");
         }
+
+        public SelectList IcraDurumlariSelectList()
+        {
+            var periyot = _icraDurumService.GetirListeAktif().Select(x => new {x.Id,x.Ad }).ToList();
+
+            return new SelectList(periyot, "Id", "Ad");
+        }
+
+
 
         #endregion
     }

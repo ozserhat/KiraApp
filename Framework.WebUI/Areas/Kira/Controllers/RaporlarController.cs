@@ -46,7 +46,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         private readonly IOdemePeriyotTurService _odemePeriyotService;
         private readonly ISicilService _sicilService;
         private readonly IKiraciService _kiraciService;
-        private readonly ITahakkukService _tahakkukService;
+        private readonly IGl_BorcService _tahakkukService;
         private readonly IKiraParametreService _kiraParametreService;
         private readonly ITahakkukDisServis _tahakkukDisServis;
         public static KiraBeyanEkleVM _beyanVM;
@@ -65,7 +65,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         private readonly IKiraDurum_DosyaTurService _kiraDurumDosyaTurService;
         public RaporlarController(IGayrimenkulService gayrimenkulservice,
                     IBeyanService beyanService,
-                    ITahakkukService tahakkukService,
+                    IGl_BorcService tahakkukService,
                     IKira_BeyanService kiraBeyanService,
                     ISicilService sicilService,
                     KiraBeyanEkleVM beyanVM,
@@ -360,6 +360,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                         new DataColumn("Kira Durumu"),
                         new DataColumn("Ödeme Periyot Türü"),
                         new DataColumn("Beyan Kapatma Tarihi")});
+         
             var odemePeriyotListesi = _odemePeriyotService.GetirListe();
             var beyanTurListesi = _beyanTurService.GetirListe();
             var kiraDurumListesi = _kiraDurumService.GetirListe();
@@ -667,8 +668,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 tahakkuklar = tahakkuklar.ToPagedList(model.PageNumber, model.PageSize);
                 model.OdemeDurumuSelectList = OdemeDurumuSelectList();
                 model.GayrimenKulSelectList = GayrimenKulSelectList();
-                model.Tahakkuklar = new StaticPagedList<Tahakkuk>(tahakkuklar, model.PageNumber, model.PageSize, model.TotalRecordCount);
-                
+                model.Tahakkuklar = new StaticPagedList<GL_BORC>(tahakkuklar, model.PageNumber, model.PageSize, model.TotalRecordCount);
+
             }
 
             return View(model);

@@ -62,6 +62,17 @@ namespace Framework.DataAccess.Concrete.EntityFramework
 
         public DbSet<MenuYetki> MenuYetkileri { get; set; }
 
+        public DbSet<GL_BORC> GL_BORC { get; set; }
+
+        public DbSet<GL_TAHSIL> GL_TAHSIL { get; set; }
+
+        public DbSet<IcraDurum> IcraDurumlari { get; set; }
+
+
+        public DbSet<Beyan_IcraIsleme> Beyan_IcraIsleme { get; set; }
+        public DbSet<AltGayrimenkul_Kiraci> AltGayrimenkul_Kiraci { get; set; }
+
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 

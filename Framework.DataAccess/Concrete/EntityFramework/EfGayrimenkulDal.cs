@@ -75,10 +75,20 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                               .Include(ilc => ilc.GayrimenkulTur)
                               .AsQueryable();
 
+                query = request.Il_Id.HasValue ? query.Where(x => x.Il_Id == request.Il_Id) : query;
                 query = request.Ilce_Id.HasValue ? query.Where(x => x.Ilce_Id == request.Ilce_Id) : query;
                 query = request.Mahalle_Id.HasValue ? query.Where(x => x.Mahalle_Id == request.Mahalle_Id) : query;
+                query = request.Sokak != null ? query.Where(x => x.Sokak == request.Sokak) : query;
+                query = request.DisKapiNo != null ? query.Where(x => x.DisKapiNo == request.DisKapiNo) : query;
+                query = request.IcKapiNo != null ? query.Where(x => x.IcKapiNo == request.IcKapiNo) : query;
                 query = request.GayrimenkulAdi != null ? query.Where(x => x.Ad == request.GayrimenkulAdi) : query;
+                query = request.GayrimenkulNo != null ? query.Where(x => x.GayrimenkulNo == request.GayrimenkulNo) : query;
+
+                query = request.AdresNo != null ? query.Where(x => x.AdresNo == request.AdresNo) : query;
                 query = request.GayrimenkulTur.HasValue ? query.Where(x => x.GayrimenkulTur_Id == request.GayrimenkulTur) : query;
+                query = request.AracKapasitesi.HasValue ? query.Where(x => x.AracKapasitesi == request.AracKapasitesi) : query;
+                query = request.Metrekare.HasValue ? query.Where(x => x.Metrekare == request.Metrekare) : query;
+                query = request.NumaratajKimlikNo.HasValue ? query.Where(x => x.NumaratajKimlikNo == request.NumaratajKimlikNo) : query;
 
                 result = query.ToList();
             }

@@ -36,14 +36,19 @@
                                                     <span class="glyphicon glyphicon-folder-close"></span> Beyan Kapama
                                                 </a>
                                             </li>
+                                            <li>
+                                                <a href="#" id="icraIsleme" data-original-title="İcra İşleme" data-toggle="modal" data-target="#icraIslemeModal">
+                                                    <span class="glyphicon glyphicon-folder-close"></span> İcra İşleme
+                                                </a>
+                                            </li>
                                         }
                                     }
-                                    <li>
-                                        <a href="#" id="btnBeyanCiktiAl" data-original-title="Beyan Çıktısı Al">
-                                            <span class="glyphicon glyphicon-upload"></span> Beyan Çıktısı Al
-                                        </a>
-                                        @*<button id="btnBeyanCiktiAl" class="button btn-block">PDF Export</button>*@
-                                    </li>
+                                    @*<li>
+                                            <a href="#" id="btnBeyanCiktiAl" data-original-title="Beyan Çıktısı Al">
+                                                <span class="glyphicon glyphicon-upload"></span> Beyan Çıktısı Al
+                                            </a>
+                                            <button id="btnBeyanCiktiAl" class="button btn-block">PDF Export</button>
+                                        </li>*@
 
                                 </ul>
                             </div>
@@ -71,7 +76,7 @@
                                                 <div id="wizard">
                                                     <div class="form-bootstrapWizard">
                                                         <ul class="form-wizard nav nav-tabs">
-                                                            <li data-target="#step1" class="active" id="step1" style="width:20%;">
+                                                            <li data-target="#step1" class="active" id="step1" style="width:15%;">
                                                                 <a href="#tab1" data-toggle="tab" aria-expanded="true">
                                                                     <span class="step">
                                                                         1 -
@@ -80,7 +85,7 @@
                                                                 </a>
                                                             </li>
 
-                                                            <li data-target="#step2" id="step2" style="width:20%;">
+                                                            <li data-target="#step2" id="step2" style="width:15%;">
                                                                 <a href="#tab2" data-toggle="tab" aria-expanded="false">
                                                                     <span class="step">
                                                                         2 -
@@ -116,6 +121,14 @@
                                                                 <a href="#tab6" data-toggle="tab" aria-expanded="false">
                                                                     <span class="step">
                                                                         6 -
+                                                                    </span>
+                                                                    <span class="title" style="z-index:2;">İcra İşlemleri</span>
+                                                                </a>
+                                                            </li>
+                                                            <li data-target="#step7" id="step7" style="width: 10%;">
+                                                                <a href="#tab7" data-toggle="tab" aria-expanded="false">
+                                                                    <span class="step">
+                                                                        7 -
                                                                     </span>
                                                                     <span class="title" style="z-index:2;">Harita</span>
                                                                 </a>
@@ -905,18 +918,24 @@
                                                                                 @foreach (var item in Model.Tahakkuklar)
                                                                                 {
                                                                                     <tr role="row" class="odd">
-                                                                                        <td>@Html.DisplayFor(model => item.Kira_Beyani.Beyanlar.BeyanYil)</td>
-                                                                                        <td>@Html.DisplayFor(model => item.TaksitSayisi)</td>
+                                                                                        <td>@Html.DisplayFor(model => item.BeyanYil)</td>
+                                                                                        <td>@Html.DisplayFor(model => item.TAK_NO)</td>
                                                                                         <td>
                                                                                             @{
-                                                                                                string monthName = item.VadeTarihi.Value.ToString("MMMM");
+                                                                                                string monthName = item.VADE.ToString("MMMM");
                                                                                                 <span>@monthName</span>
                                                                                             }
                                                                                         </td>
-                                                                                        <td>@Html.DisplayFor(model => item.TahakkukTarihi)</td>
-                                                                                        <td>@Html.DisplayFor(model => item.VadeTarihi)</td>
-                                                                                        <td>@Html.DisplayFor(model => item.Tutar)</td>
-                                                                                        <td>@Html.DisplayFor(model => item.Aciklama)</td>
+                                                                                        <td>@Html.DisplayFor(model => item.THK_TAR)</td>
+                                                                                        <td>
+                                                                                            @{
+                                                                                                string vadeTarih = item.VADE.ToString("dd.MM.yyyy");
+                                                                                                <span>@vadeTarih</span>
+                                                                                            }
+                                                                                        </td>
+
+                                                                                        <td>@Html.DisplayFor(model => item.TUTAR)</td>
+                                                                                        <td>@Html.DisplayFor(model => item.ACIKLAMA)</td>
                                                                                         <td>@Html.DisplayFor(model => item.TahakkukNotu)</td>
                                                                                         <td>
                                                                                             @if (item.OdemeDurumu.HasValue && item.OdemeDurumu.Value)
@@ -929,9 +948,9 @@
                                                                                             }
                                                                                         </td>
                                                                                         <td>
-                                                                                            @if (item.KiraParametreKodu == 626 && Model.GayrimenkulTur_Id == 1)
+                                                                                            @if (item.TARIFE_NO == 626 && Model.GayrimenkulTur_Id == 1)
                                                                                             {
-                                                                                                var taksit = Model.Tahakkuklar.Where(a => a.TaksitSayisi == item.TaksitSayisi && a.EkTahakkukMu.Value == true).GroupBy(a => a.TaksitSayisi);
+                                                                                                var taksit = Model.Tahakkuklar.Where(a => a.TAK_NO == item.TAK_NO && (a.EkTahakkukMu != null && a.EkTahakkukMu.Value == true)).GroupBy(a => a.TAK_NO);
 
                                                                                                 if (taksit != null && taksit.Count() > 0)
                                                                                                 {
@@ -941,9 +960,9 @@
                                                                                                 {
                                                                                                     <a id="btnEkTahakkuk" href="#" style="text-decoration: none;" class="no-underline margin-right-5 txt-color-teal ektahakkukRow"
                                                                                                        data-original-title="Ek Tahakkuk Oluştur" data-toggle="modal" data-target="#ekTahakkukModal"
-                                                                                                       data-id="@item.Id" data-tahakkuktutar="@item.Tutar" data-taksitNo="@item.TaksitSayisi"
-                                                                                                       data-kirabeyanid="@item.KiraBeyan_Id" data-beyanYil="@item.BeyanYil"
-                                                                                                       data-kdvOrani="@item.Kira_Beyani.Beyanlar.Kdv" data-vadeTarihi="@item.VadeTarihi">
+                                                                                                       data-id="@item.ID" data-tahakkuktutar="@item.TUTAR" data-taksitNo="@item.TAK_NO"
+                                                                                                       data-kirabeyanid="@item.BEYAN_ID" data-beyanYil="@item.BeyanYil"
+                                                                                                       data-vadeTarihi="@item.VADE">
                                                                                                         <i id="blueCaret" class="fa fa-credit-card-alt rotate"></i>
                                                                                                         Ek Tahakkuk Oluştur
                                                                                                     </a>
@@ -957,7 +976,7 @@
                                                                                         <td>
                                                                                             <a id="btnAciklamaModal" href="#" style="text-decoration: none;" class="no-underline margin-right-5 txt-color-teal tahakkukAciklamaRow"
                                                                                                data-original-title="Açıklama Ekle" data-toggle="modal" data-target="#tahakkukAciklamaModal"
-                                                                                               data-id="@item.Id">
+                                                                                               data-id="@item.ID">
                                                                                                 <i id="blueCaret" class="fa fa-comments-o rotate"></i>
                                                                                                 Tahakkuk Açıklaması
                                                                                             </a>
@@ -971,12 +990,79 @@
                                                                             <tbody>
                                                                             </tbody>
                                                                         }
+                                                                        <tfoot>
+                                                                            <tr>
+                                                                                <th colspan="5" style="text-align:right">Genel Toplam:</th>
+                                                                                <th></th>
+                                                                            </tr>
+                                                                        </tfoot>
                                                                     </table>
                                                                 </fieldset>
                                                             </form>
                                                         </div>
 
                                                         <div class="tab-pane" id="tab6">
+                                                            <legend>
+                                                                <h3><strong>6. Adım </strong> -İcra İşlemleri</h3>
+                                                            </legend>
+                                                            <form class="form-horizontal" id="IcraForm" novalidate="novalidate">
+                                                                <fieldset>
+                                                                    <div class="col-md-12">
+                                                                        <div class="col-md-12">
+                                                                            <fieldset>
+                                                                                <table id="dtIcraListesi" class="table table-striped table-bordered table-hover dataTable no-footer" role="grid" aria-describedby="dt_basic_info">
+                                                                                    <thead>
+                                                                                        <tr role="row">
+                                                                                            <th class="sorting_disabled" rowspan="1" colspan="1">Beyan No</th>
+                                                                                            <th class="sorting_disabled" rowspan="1" colspan="1">Sayı</th>
+                                                                                            <th class="sorting_disabled" rowspan="1" colspan="1">Veriliş Tarihi</th>
+                                                                                            <th class="sorting_disabled" rowspan="1" colspan="1">Başkanlık Olur Tarihi</th>
+                                                                                            <th class="sorting_disabled" rowspan="1" colspan="1">Icra Durum</th>
+                                                                                            <th class="sorting_disabled" rowspan="1" colspan="1">Açıklama</th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    @if (Model.IcraListesi != null && Model.IcraListesi.Count() > 0)
+                                                                                    {
+                                                                                        <tbody>
+
+                                                                                            @foreach (var item in Model.IcraListesi)
+                                                                                            {
+                                                                                                <tr role="row" class="odd">
+                                                                                                    <td>@Html.DisplayFor(model => item.Beyanlar.BeyanNo)</td>
+                                                                                                    <td>@Html.DisplayFor(model => item.Sayi)</td>
+                                                                                                    <td>
+                                                                                                        @{
+                                                                                                            string verilisTarihi = item.VerilisTarihi.Value.ToString("MMMM");
+                                                                                                            <span>@verilisTarihi</span>
+                                                                                                        }
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        @{
+                                                                                                            string baskanlıkOlurTarih = item.BaskanlikOlurTarihi.Value.ToString("dd.MM.yyyy");
+                                                                                                            <span>@baskanlıkOlurTarih</span>
+                                                                                                        }
+                                                                                                    </td>
+
+                                                                                                    <td>@Html.DisplayFor(model => item.IcraDurumlari.Ad)</td>
+                                                                                                    <td>@Html.DisplayFor(model => item.Aciklama)</td>
+                                                                                                </tr>
+                                                                                            }
+                                                                                        </tbody>
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        <tbody>
+                                                                                        </tbody>
+                                                                                    }
+                                                                                </table>
+                                                                            </fieldset>
+                                                                        </div>
+                                                                    </div>
+                                                                </fieldset>
+                                                            </form>
+                                                        </div>
+
+                                                        <div class="tab-pane" id="tab7">
                                                             <legend>
                                                                 <h3><strong>6. Adım </strong> -Harita</h3>
                                                             </legend>
@@ -1345,7 +1431,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div id="damgaKararDiv" class="row" style="display:none;">
+                                                <div id="damgaKararDiv" class="row">
                                                     <div class="col-md-8">
                                                         <div class="form-group">
                                                             <div class="input-group" style="width: 100%;">
@@ -1369,7 +1455,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div id="teminatDiv" class="row" style="display:none;">
+                                                <div id="teminatDiv" class="row">
                                                     <div class="col-md-8">
                                                         <div class="form-group">
                                                             <div class="input-group" style="width: 100%;">
@@ -1443,6 +1529,116 @@
                         <span class="glyphicon glyphicon-chevron-left"></span> Kapat
                     </a>
                     <input type="button" value="Kaydet" id="btnTahakkukAciklamaEkle" class="btn btn-primary" />
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="icraIslemeModal" tabindex="-1" role="dialog" aria-labelledby="icraIslemeLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">İcra İşleme Bilgisi</h4>
+                    <input type="hidden" id="icraIslemeBeyanId" value="@Model.Beyan_Id" />
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="block-head">
+                                    <div class="item-content">
+                                        <form id="frmicraIsleme">
+                                            <fieldset>
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.LabelFor(model => model.IcraDurumSelectList, new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                                <div class="col-md-8">
+                                                                    @Html.DropDownList("IcraDurumId", Model.IcraDurumSelectList, "Seçiniz", new { @class = "select2 required" })
+                                                                    @Html.ValidationMessage("IcraDurumId", "Lütfen seçiniz!", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.Label("Sayı", new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                                <div class="col-md-8">
+                                                                    @Html.TextBox("IcraSayi", "", new { @class = "form-control col-md-4 required", @type = "number" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.Label("Veriliş Tarihi", new { @class = "control-label col-md-4 zorunluYildiz" })
+
+                                                                <div class="col-md-8">
+                                                                    <div class="input-group date datetimepicker">
+                                                                        @Html.TextBox("VerilisTarihi", "", new { @class = "form-control col-md-4 datepicker required" })
+                                                                        <span class="input-group-addon" id="openDate">
+                                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                                        </span>
+                                                                        @Html.ValidationMessage("VerilisTarihi", new { @class = "text-danger" })
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.Label("Başkanlık Olur Tarihi", new { @class = "control-label col-md-4 zorunluYildiz" })
+
+                                                                <div class="col-md-8">
+                                                                    <div class="input-group date datetimepicker">
+                                                                        @Html.TextBox("BaskanlikOlurTarihi", "", new { @class = "form-control col-md-4 datepicker required" })
+                                                                        <span class="input-group-addon" id="openDate">
+                                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                                        </span>
+                                                                        @Html.ValidationMessage("BaskanlikOlurTarihi", new { @class = "text-danger" })
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <div class="input-group" style="width: 100%;">
+                                                                @Html.Label("Açıklama", new { @class = "control-label col-md-4 zorunluYildiz" })
+                                                                <div class="col-md-8">
+                                                                    @Html.TextArea("IcraAciklama", new { @class = "form-control col-md-4 required", rows = "3", placeholder = "Açıklama Giriniz" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                    <a href="#" id="btnIcraKapat" type="button" data-dismiss="modal" class="btn btn-warning">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Kapat
+                    </a>
+                    <input type="button" value="Kaydet" id="btnIcraIsle" class="btn btn-primary" />
 
                 </div>
             </div>
@@ -1564,13 +1760,17 @@
             }).addTo(map);
             var lat = $('#hdKoordinat').val().split(',')[0];
             var long = $('#hdKoordinat').val().split(',')[1];
-            var target = L.latLng([lat, long], 14);
 
-            // Set map's center to target with zoom 14.
-            map.setView(target, 14);
+            if (lat != "" && long != "") {
 
-            // Place a marker on the same location.
-            L.marker(target).addTo(map);
+                var target = L.latLng([lat, long], 14);
+
+                // Set map's center to target with zoom 14.
+                map.setView(target, 14);
+
+                // Place a marker on the same location.
+                L.marker(target).addTo(map);
+            }
         });
 
     </script>
@@ -2278,4 +2478,65 @@
 
     </script>
 
+    <!--Icra Isleme İşlemi -->
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            var dt;
+
+            var dt_settings = {
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Turkish.json"
+                },
+                "searching": true,
+                "bPaginate": true,
+            };
+
+            $('#dtIcraIsleme').DataTable(dt_settings);
+
+
+            $('#btnIcraIsle').on('click', function () {
+
+                var icraIslemeModel ={
+                   Beyan_Id: $('#KapamaBeyanId').val(),
+                   IcraDurum_Id: $('#IcraDurumId').val(),
+                   Sayi: $('#IcraSayi').val(),
+                   VerilisTarihi: $('#VerilisTarihi').val(),
+                   BaskanlikOlurTarihi: $('#BaskanlikOlurTarihi').val(),
+                   Aciklama: $('#IcraAciklama').val()
+                };
+
+                 if ($("#frmicraIsleme").valid())
+                    {
+                   $.ajax({
+                    type: 'Post',
+                    url: '/Kira/Beyan/IcraIsleme',
+                    data: { icraModel: icraIslemeModel },
+                    beforeSend: function () {
+                           $.LoadingOverlay("show", { text: "Beyan İcra İşleme İşlemi Gerçekleştiriliyor...", textResizeFactor: 0.2, background: "rgba(0, 0, 0, 0.5)" });
+                    },
+                    success: function (result) {
+                        if (result != null && result.success) {
+                            swal('Bilgi!', result.Message, 'success');
+                            $.LoadingOverlay("hide");
+                            setTimeout(function () {
+                                window.location.href = "/Kira/Beyan/BeyanDetay" + window.location.search;
+                            }, 2000);
+                        }
+                        else {
+                            swal('Uyarı!', result.Message, 'warning');
+                            $.LoadingOverlay("hide");
+                        }
+                    },
+                    error: function (xhr) {
+                        swal('Uyarı!', result.Message, 'warning');
+                        $.LoadingOverlay("hide");
+                       }
+                 });
+                }
+            });
+        });
+
+    </script>
 }
