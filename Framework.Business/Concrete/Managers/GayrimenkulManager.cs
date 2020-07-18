@@ -67,7 +67,7 @@ namespace Framework.Business.Concrete.Managers
 
         public IEnumerable<Gayrimenkul> GetirAltGayrimenkul(int UstId)
         {
-            return _gayrimenkulDal.GetirListe().Where(a => a.AktifMi == true&&a.UstId==UstId);
+            return _gayrimenkulDal.GetirListe().Where(a =>a.UstId==UstId);
         }
     }
 }

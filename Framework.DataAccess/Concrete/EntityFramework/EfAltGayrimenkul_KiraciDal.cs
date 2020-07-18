@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Data.Entity;
-using System.Threading.Tasks;
 using Framework.Entities.Concrete;
 using Framework.DataAccess.Abstract;
 using Framework.Core.DataAccess.EntityFramework;
@@ -17,9 +15,9 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             using (DtContext context = new DtContext())
             {
                 return context.AltGayrimenkul_Kiraci
-                              .Include(g=>g.Gayrimenkul)
-                              .Include(mh=>mh.Mahalleler)
-                              .Include(ilc=>ilc.Mahalleler.Ilceler).Where(gt => gt.Id == id).FirstOrDefault();
+                              .Include(g => g.Gayrimenkul)
+                              .Include(mh => mh.Mahalleler)
+                              .Include(ilc => ilc.Mahalleler.Ilceler).Where(gt => gt.Id == id).FirstOrDefault();
             }
         }
 
@@ -59,7 +57,7 @@ namespace Framework.DataAccess.Concrete.EntityFramework
             using (DtContext context = new DtContext())
             {
                 return context.AltGayrimenkul_Kiraci
-                              .Include(kt=>kt.KiraciTurleri)
+                              .Include(kt => kt.KiraciTurleri)
                               .Include(g => g.Gayrimenkul)
                               .Include(mh => mh.Mahalleler)
                               .Include(ilc => ilc.Mahalleler.Ilceler).Where(gt => gt.Gayrimenkul_Id == gayrimenkulId).ToList();
@@ -77,6 +75,40 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                               .Include(ilc => ilc.Mahalleler.Ilceler)
                               .Where(gt => gt.AktifMi == true && gt.Gayrimenkul_Id == gayrimenkulId).ToList();
             }
+        }
+
+        public bool Ekle(AltGayrimenkul_Kiraci entities)
+        {
+            int sonuc = 0;
+
+            using (DtContext context = new DtContext())
+            {
+                context.AltGayrimenkul_Kiraci.Add(entities);
+
+                sonuc = context.SaveChanges();
+            }
+
+            if (sonuc > 0)
+                return true;
+
+            return false;
+        }
+
+        public bool Guncelle(IEnumerable<AltGayrimenkul_Kiraci> entities)
+        {
+            int sonuc = 0;
+
+            using (DtContext context = new DtContext())
+            {
+                context.AltGayrimenkul_Kiraci.AddRange(entities);
+
+                sonuc = context.SaveChanges();
+            }
+
+            if (sonuc > 0)
+                return true;
+
+            return false;
         }
     }
 }

@@ -27,10 +27,10 @@ namespace Framework.WebUI.Models.ViewModels
         public int? Mahalle_Id { get; set; }
 
         [Display(Name = "Vergi No")]
-        public long? VergiNo { get; set; }
+        public int? VergiNo { get; set; }
 
         [Display(Name = "T.C. Kimlik No")]
-        public long? TcKimlikNo { get; set; }
+        public int? TcKimlikNo { get; set; }
 
         [Display(Name = "Ad")]
         public string Ad { get; set; }

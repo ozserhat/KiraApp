@@ -29,9 +29,9 @@ namespace Framework.Entities.Concrete
         public virtual KiraciTur KiraciTurleri { get; set; }
 
 
-        public long? VergiNo { get; set; }
+        public int? VergiNo { get; set; }
 
-        public long? TcKimlikNo { get; set; }
+        public int? TcKimlikNo { get; set; }
 
         [StringLength(500)]
         public string Ad { get; set; }

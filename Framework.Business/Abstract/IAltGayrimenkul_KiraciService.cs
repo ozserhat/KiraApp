@@ -18,9 +18,10 @@ namespace Framework.Business.Abstract
 
         AltGayrimenkul_Kiraci GetirGuid(Guid guid);
 
-        AltGayrimenkul_Kiraci Ekle(AltGayrimenkul_Kiraci tur);
+        bool Ekle(AltGayrimenkul_Kiraci tur);
 
         AltGayrimenkul_Kiraci Guncelle(AltGayrimenkul_Kiraci tur);
+        bool Guncelle(IEnumerable<AltGayrimenkul_Kiraci> entities);
 
         bool Sil(int id);
     }

@@ -12,6 +12,8 @@ namespace Framework.DataAccess.Abstract
     {
         AltGayrimenkul_Kiraci GetById(int id);
         AltGayrimenkul_Kiraci GetByGuid(Guid guid);
+        bool Ekle(AltGayrimenkul_Kiraci entities);
+        bool Guncelle(IEnumerable<AltGayrimenkul_Kiraci> entities);
 
         IEnumerable<AltGayrimenkul_Kiraci> GetirListe(int gayrimenkulId);
         IEnumerable<AltGayrimenkul_Kiraci> GetirListeAktif(int gayrimenkulId);

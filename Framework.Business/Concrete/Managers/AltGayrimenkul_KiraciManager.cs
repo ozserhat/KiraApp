@@ -17,9 +17,9 @@ namespace Framework.Business.Concrete.Managers
             _altKiraciService = altKiraciService;
         }
 
-        public AltGayrimenkul_Kiraci Ekle(AltGayrimenkul_Kiraci tur)
+        public bool Ekle(AltGayrimenkul_Kiraci tur)
         {
-            return _altKiraciService.Add(tur);
+            return _altKiraciService.Ekle(tur);
         }
 
         public AltGayrimenkul_Kiraci Getir(int id)
@@ -45,6 +45,11 @@ namespace Framework.Business.Concrete.Managers
         public AltGayrimenkul_Kiraci Guncelle(AltGayrimenkul_Kiraci tur)
         {
             return _altKiraciService.Update(tur);
+        }
+
+        public bool Guncelle(IEnumerable<AltGayrimenkul_Kiraci> entities)
+        {
+            return _altKiraciService.Guncelle(entities);
         }
 
         public bool Sil(int id)

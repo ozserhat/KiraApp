@@ -481,7 +481,7 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
         {
             if (GayrimenkulId > 0)
             {
-                var result = _altKiraciService.GetirListeAktif(GayrimenkulId);
+                var result = _altKiraciService.GetirListe(GayrimenkulId);
               
                 if (result != null)
                 {
@@ -528,7 +528,7 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
 
                 var result = _altKiraciService.Ekle(kiraci);
 
-                if (result.Id > 0)
+                if (result)
                 {
                     ModelState.AddModelError("LogMessage", "Alt Kiracı Ekleme İşlemi Başarıyla Gerçekleştirildi!!!");
 
@@ -541,7 +541,34 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
 
             return Json(new { Message = "Alt Kiracı Ekleme İşlemi Gerçekleştirilemedi.", success = false }, JsonRequestBehavior.AllowGet);
         }
+     
+        [HttpPost]
+        public JsonResult SilAltGayrimenkul(int Id)
+        {
+            var altGayrimenkul = _gayrimenkulservice.Getir(Id);
 
+            altGayrimenkul.AktifMi = false;
+
+            altGayrimenkul = _gayrimenkulservice.Guncelle(altGayrimenkul);
+
+            if (altGayrimenkul.AktifMi.HasValue && !altGayrimenkul.AktifMi.Value)
+            {
+                var altKiraci = _altKiraciService.GetirListe(Id);
+
+                foreach (var item in altKiraci)
+                {
+                    item.AktifMi = false;
+                }
+               
+
+                bool durum = _altKiraciService.Guncelle(altKiraci);
+
+                return Json(new { success = true, Message = "Alt Gayrimenkul Bilgisi Başarıyla Silindi" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+                return Json(new { success = false, Message = "Alt Gayrimenkul Bilgisi Silinemedi!!!" }, JsonRequestBehavior.AllowGet);
+
+        }
         [HttpPost]
         public JsonResult SilAltKiraci(int Id)
         {
@@ -552,9 +579,9 @@ namespace Framework.WebUI.Areas.Emlak.Controllers
             altKiraci = _altKiraciService.Guncelle(altKiraci);
 
             if (altKiraci.AktifMi.HasValue && !altKiraci.AktifMi.Value)
-                return Json(new { success = true, Message = "Beyan Tür Bilgisi Başarıyla Silindi" }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, Message = "Alt Kiracı Bilgisi Başarıyla Silindi" }, JsonRequestBehavior.AllowGet);
             else
-                return Json(new { success = false, Message = "Beyan Tür Bilgisi Silinemedi!!!" }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = false, Message = "Alt Kiracı Bilgisi Silinemedi!!!" }, JsonRequestBehavior.AllowGet);
 
         }
         #endregion

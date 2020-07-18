@@ -390,6 +390,7 @@
                                                             </fieldset>
                                                         </form>
                                                     </div>
+
                                                     <div class="tab-pane" id="tab4">
                                                         <legend>
                                                             <h3><strong>4. Adım </strong> -Alt Gayrimenkuller</h3>
@@ -409,6 +410,7 @@
                                                                                     <th class="sorting_disabled" rowspan="1" colspan="1">İlçe</th>
                                                                                     <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 250px;">Durum</th>
                                                                                     <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 250px;">Alt Kiracı Ekle</th>
+                                                                                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 250px;">Sil</th>
 
                                                                                 </tr>
                                                                             </thead>
@@ -444,6 +446,12 @@
                                                                                                     Alt Kiracı Ekle
                                                                                                 </a>
                                                                                             </td>
+                                                                                            <td>
+                                                                                                <a id="btnAltGayrimenkulSil" href="#" style="text-decoration: none;" 
+                                                                                                   class="no-underline margin-right-5 fa fa-remove font-md txt-color-blue delete-altGayrimenkul"
+                                                                                                   data-id="@item.Id" data-name="@item.Ad">
+                                                                                                </a>
+                                                                                            </td>
                                                                                         </tr>
                                                                                     }
                                                                                 </tbody>
@@ -469,7 +477,6 @@
                                                                                         <th>@Html.DisplayName("Açık Adres")</th>
                                                                                         <th>@Html.DisplayName("Aktif Mi")</th>
                                                                                         <th>@Html.DisplayName("İşlem")</th>
-
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody></tbody>
@@ -481,6 +488,7 @@
                                                             </fieldset>
                                                         </form>
                                                     </div>
+
                                                     <div class="tab-pane" id="tab5">
                                                         <legend>
                                                             <h3><strong>5. Adım </strong> -Harita</h3>
@@ -1080,7 +1088,7 @@
                 '<th>İlçe</th>' +
                 '<th>Mahalle</th>' +
                 '<th>Açık Adres</th>' +
-                '<th>Aktif Mi</th>'+
+                '<th>Aktif Mi</th>' +
                 '<th class="sorting_disabled text - center" rowspan="1" colspan="1" style="text - align: right; padding - right: 30px; width: 100px; ">İşlemler</th></tr >' +
                 '</thead > ';
 
@@ -1122,7 +1130,7 @@
                             '<td>' + dataSource[i].MahalleAdi + '</td>' +
                             '<td>' + dataSource[i].AcikAdres + '</td>' +
                             '<td>' + aktifMiStr + '</td>' +
-                            '<td><a class="no-underline margin-right-5 fa fa-remove font-md txt-color-blue altKiraci" data_id="' + dataSource[i].Id + '" data_name="' + dataSource[i].Ad + ' ' + dataSource[i].Soyad + '" href="#"></a></td>' +
+                            '<td><a onclick="deletealert(' + dataSource[i].Id + ')"  class="no-underline margin-right-5 fa fa-remove font-md txt-color-blue altKiraci" data-id="' + dataSource[i].Id + '" data-name="' + dataSource[i].Ad + ' ' + dataSource[i].Soyad + '" href="#"></a></td>' +
                             '</tr>';
                     }
                 }
@@ -1132,20 +1140,23 @@
         }
     </script>
 
-    <!--Alt Kiracı Bilgisi -->
+    <!--Alt Kiracı Silme İşlemi -->
     <script type="text/javascript">
-        $(".altKiraci").click(function (e) {
-            e.preventDefault();
-            var id = $(this).attr("data_id");
-            var name = $(this).attr("data_name");
+        $('.delete-altGayrimenkul').click(function (e) {
+            var id = $(this).attr("data-id");
+            var name = $(this).attr("data-name");
             var closestTR = $(this).closest("tr");
-            var vl = deletealert(id, name, closestTR);
+            var vl = SilAltGayrimenkul(id, name, closestTR);
+
         });
 
-        function deletealert(Id, name, closestTR) {
+        function SilAltGayrimenkul(id, name, closestTR) {
+
+            var name = $(this).attr("data-name");
+            var closestTR = $(this).closest("tr");
             swal({
                 title: "Uyarı",
-                text: name + " Adlı Kiracıyı Silmek İstediğinizden Emin misiniz?",
+                text: "Alt Gayrimenkul Silmek İstediğinizden Emin misiniz? Alt Kiracı Bilgileride Silinecektir",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
@@ -1154,16 +1165,52 @@
             }).then(function (isConfirm) {
                 if (isConfirm) {
                     $.ajax({
-                        url: "/Emlak/Gayrimenkul/SilAltKiraci/" + Id,
+                        url: "/Emlak/Gayrimenkul/SilAltGayrimenkul/" + id,
                         type: 'POST',
                         success: function (result) {
                             if (result.success) {
-                                closestTR.fadeOut(2000, function () {
-                                    $('#dtAltGayrimenkul').DataTable();
-                                    $('#tblAltKiraci').DataTable();
-                                    swal('Bilgi!', name + ' ' + result.Message, 'success');
-                                    location.reload();
-                                });
+                                swal('Bilgi!', name + ' ' + result.Message, 'success');
+                                window.location.reload();
+                            }
+                            else swal('Uyarı!', name + ' ' + result.Message, 'error');
+                        }
+                    });
+                }
+            })
+        }
+    </script>
+
+    <!--Alt Kiracı Silme İşlemi -->
+    <script type="text/javascript">
+        $('.altKiraci').click(function (e) {
+            var id = $(this).attr("data-id");
+            var name = $(this).attr("data-name");
+            var closestTR = $(this).closest("tr");
+            var vl = deletealert(id, name, closestTR);
+
+        });
+
+        function deletealert(id) {
+
+            var name = $(this).attr("data-name");
+            var closestTR = $(this).closest("tr");
+            swal({
+                title: "Uyarı",
+                text: "Alt Kiracıyı Silmek İstediğinizden Emin misiniz?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Evet",
+                cancelButtonText: "İptal"
+            }).then(function (isConfirm) {
+                if (isConfirm) {
+                    $.ajax({
+                        url: "/Emlak/Gayrimenkul/SilAltKiraci/" + id,
+                        type: 'POST',
+                        success: function (result) {
+                            if (result.success) {
+                                swal('Bilgi!', name + ' ' + result.Message, 'success');
+                                window.location.reload();
                             }
                             else swal('Uyarı!', name + ' ' + result.Message, 'error');
                         }
