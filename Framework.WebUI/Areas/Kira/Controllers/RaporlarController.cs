@@ -297,7 +297,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 model.OdemePeriyotSelectList = OdemePeriyotSelectList();
                 beyanlar = beyanlar.ToPagedList(model.PageNumber, model.PageSize);
 
-                model.Beyanlar = new StaticPagedList<Kira_Beyan>(beyanlar, model.PageNumber, model.PageSize, model.TotalRecordCount);
+                model.Beyanlar = new StaticPagedList<Beyan>(beyanlar, model.PageNumber, model.PageSize, model.TotalRecordCount);
                 
             }
 
@@ -366,20 +366,20 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             var kiraDurumListesi = _kiraDurumService.GetirListe();
             foreach (var item in beyanlar)
             {
-                var damgaAlinsinMi = item.Beyanlar.DamgaAlinsinMi == true ? "Evet" : "Hayır";
-                var damgaKararArtisTuru = item.Beyanlar.DamgaKararArtisTuru == 1 ? "Üfe Oranı" : "Tüfe Oranı";
-                var teminatArtisTuru = item.Beyanlar.TeminatArtisTuru == 1 ? "Tam Al" : "Fark Al";
-                var resmiTatilVarmi = item.Beyanlar.ResmiTatilVarmi == true ? "Evet" : "Hayır";
-                var beyanTur = beyanTurListesi.Where(x => x.Id == item.Beyanlar.BeyanTur_Id).FirstOrDefault().Ad;
-                var odemePeriyoTur = odemePeriyotListesi.Where(x => x.Id == item.Beyanlar.OdemePeriyotTur_Id).FirstOrDefault().Ad;
-                var kiraDurumu = kiraDurumListesi.Where(x => x.Id == item.Beyanlar.KiraDurum_Id).FirstOrDefault().Ad;
+                var damgaAlinsinMi = item.DamgaAlinsinMi == true ? "Evet" : "Hayır";
+                var damgaKararArtisTuru = item.DamgaKararArtisTuru == 1 ? "Üfe Oranı" : "Tüfe Oranı";
+                var teminatArtisTuru = item.TeminatArtisTuru == 1 ? "Tam Al" : "Fark Al";
+                var resmiTatilVarmi = item.ResmiTatilVarmi == true ? "Evet" : "Hayır";
+                var beyanTur = beyanTurListesi.Where(x => x.Id == item.BeyanTur_Id).FirstOrDefault().Ad;
+                var odemePeriyoTur = odemePeriyotListesi.Where(x => x.Id == item.OdemePeriyotTur_Id).FirstOrDefault().Ad;
+                var kiraDurumu = kiraDurumListesi.Where(x => x.Id == item.KiraDurum_Id).FirstOrDefault().Ad;
 
-                dt.Rows.Add(item.Beyanlar.BeyanNo, item.Beyanlar.BeyanYil, item.Beyanlar.EncumenKararNo, item.Beyanlar.NoterSozlesmeNo, item.Beyanlar.TeminatNo,
-                    item.Beyanlar.IhaleTutari, item.Beyanlar.BaslangicTaksitNo, item.Beyanlar.KalanAy, item.Beyanlar.KullanimAlani, item.Beyanlar.SozlesmeSuresi,
-                    item.Beyanlar.KiraTutari, damgaAlinsinMi, damgaKararArtisTuru, teminatArtisTuru, item.Beyanlar.MusadeliGunSayisi,
-                    item.Beyanlar.Kdv, item.Beyanlar.OtoparkTatilGun, resmiTatilVarmi, item.Beyanlar.BeyanTarihi, item.Beyanlar.IhaleEncumenTarihi, item.Beyanlar.SozlesmeTarihi,
-                    item.Beyanlar.SozlesmeBitisTarihi, item.Beyanlar.KiraYenilemePeriyot, item.Beyanlar.TeminatTarihi, item.Beyanlar.KiraBaslangicTarihi,
-                    item.Beyanlar.BeyanTur.Ad, kiraDurumu, odemePeriyoTur, item.Beyanlar.BeyanKapatmaTarihi);
+                dt.Rows.Add(item.BeyanNo, item.BeyanYil, item.EncumenKararNo, item.NoterSozlesmeNo, item.TeminatNo,
+                    item.IhaleTutari, item.BaslangicTaksitNo, item.KalanAy, item.KullanimAlani, item.SozlesmeSuresi,
+                    item.KiraTutari, damgaAlinsinMi, damgaKararArtisTuru, teminatArtisTuru, item.MusadeliGunSayisi,
+                    item.Kdv, item.OtoparkTatilGun, resmiTatilVarmi, item.BeyanTarihi, item.IhaleEncumenTarihi, item.SozlesmeTarihi,
+                    item.SozlesmeBitisTarihi, item.KiraYenilemePeriyot, item.TeminatTarihi, item.KiraBaslangicTarihi,
+                    item.BeyanTur.Ad, kiraDurumu, odemePeriyoTur, item.BeyanKapatmaTarihi);
             }
             string json = JsonConvert.SerializeObject(dt, Formatting.Indented);
 
@@ -407,7 +407,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 request.Kdv = int.Parse(kdvlist.Ad);
             }
 
-            var beyanlar = _kiraBeyanService.GetirSorguListe(request).Where(x => x.Beyanlar.DamgaKararArtisTuru > 0 || x.Beyanlar.DamgaKararArtisTuru != null && (x.Beyanlar.OncekiBeyanId != null)).ToList();
+            var beyanlar = _kiraBeyanService.GetirSorguListe(request).Where(x => x.DamgaKararArtisTuru > 0 || x.DamgaKararArtisTuru != null && (x.OncekiBeyanId != null)).ToList();
 
             model.PageNumber = page ?? 1;
             model.PageSize = pageSize;
@@ -428,7 +428,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 model.OdemePeriyotSelectList = OdemePeriyotSelectList();
                 beyanlar = beyanlar.ToPagedList(model.PageNumber, model.PageSize).ToList();
 
-                model.Beyanlar = new StaticPagedList<Kira_Beyan>(beyanlar, model.PageNumber, model.PageSize, model.TotalRecordCount);
+                model.Beyanlar = new StaticPagedList<Beyan>(beyanlar, model.PageNumber, model.PageSize, model.TotalRecordCount);
             }
 
             return View(model);
@@ -459,7 +459,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 kiraBeyanRequest.Kdv = int.Parse(kdvlist.Ad);
             }
 
-            var beyanlar = _kiraBeyanService.GetirSorguListeAktif(kiraBeyanRequest).Where(x => x.Beyanlar.DamgaKararArtisTuru > 0 || x.Beyanlar.DamgaKararArtisTuru != null && (x.Beyanlar.OncekiBeyanId != null)).ToList(); ;
+            var beyanlar = _kiraBeyanService.GetirSorguListeAktif(kiraBeyanRequest).Where(x => x.DamgaKararArtisTuru > 0 || x.DamgaKararArtisTuru != null && (x.OncekiBeyanId != null)).ToList(); ;
 
             DataTable dt = new DataTable();
             dt.Columns.AddRange(new DataColumn[29] {
@@ -497,20 +497,20 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             var kiraDurumListesi = _kiraDurumService.GetirListe();
             foreach (var item in beyanlar)
             {
-                var damgaAlinsinMi = item.Beyanlar.DamgaAlinsinMi == true ? "Evet" : "Hayır";
-                var damgaKararArtisTuru = item.Beyanlar.DamgaKararArtisTuru == 1 ? "Üfe Oranı" : "Tüfe Oranı";
-                var teminatArtisTuru = item.Beyanlar.TeminatArtisTuru == 1 ? "Tam Al" : "Fark Al";
-                var resmiTatilVarmi = item.Beyanlar.ResmiTatilVarmi == true ? "Evet" : "Hayır";
-                var beyanTur = beyanTurListesi.Where(x => x.Id == item.Beyanlar.BeyanTur_Id).FirstOrDefault().Ad;
-                var odemePeriyoTur = odemePeriyotListesi.Where(x => x.Id == item.Beyanlar.OdemePeriyotTur_Id).FirstOrDefault().Ad;
-                var kiraDurumu = kiraDurumListesi.Where(x => x.Id == item.Beyanlar.KiraDurum_Id).FirstOrDefault().Ad;
+                var damgaAlinsinMi = item.DamgaAlinsinMi == true ? "Evet" : "Hayır";
+                var damgaKararArtisTuru = item.DamgaKararArtisTuru == 1 ? "Üfe Oranı" : "Tüfe Oranı";
+                var teminatArtisTuru = item.TeminatArtisTuru == 1 ? "Tam Al" : "Fark Al";
+                var resmiTatilVarmi = item.ResmiTatilVarmi == true ? "Evet" : "Hayır";
+                var beyanTur = beyanTurListesi.Where(x => x.Id == item.BeyanTur_Id).FirstOrDefault().Ad;
+                var odemePeriyoTur = odemePeriyotListesi.Where(x => x.Id == item.OdemePeriyotTur_Id).FirstOrDefault().Ad;
+                var kiraDurumu = kiraDurumListesi.Where(x => x.Id == item.KiraDurum_Id).FirstOrDefault().Ad;
 
-                dt.Rows.Add(item.Beyanlar.BeyanNo, item.Beyanlar.BeyanYil, item.Beyanlar.EncumenKararNo, item.Beyanlar.NoterSozlesmeNo, item.Beyanlar.TeminatNo,
-                    item.Beyanlar.IhaleTutari, item.Beyanlar.BaslangicTaksitNo, item.Beyanlar.KalanAy, item.Beyanlar.KullanimAlani, item.Beyanlar.SozlesmeSuresi,
-                    item.Beyanlar.KiraTutari, damgaAlinsinMi, damgaKararArtisTuru, teminatArtisTuru, item.Beyanlar.MusadeliGunSayisi,
-                    item.Beyanlar.Kdv, item.Beyanlar.OtoparkTatilGun, resmiTatilVarmi, item.Beyanlar.BeyanTarihi, item.Beyanlar.IhaleEncumenTarihi, item.Beyanlar.SozlesmeTarihi,
-                    item.Beyanlar.SozlesmeBitisTarihi, item.Beyanlar.KiraYenilemePeriyot, item.Beyanlar.TeminatTarihi, item.Beyanlar.KiraBaslangicTarihi,
-                    item.Beyanlar.BeyanTur, kiraDurumu, odemePeriyoTur, item.Beyanlar.BeyanKapatmaTarihi);
+                dt.Rows.Add(item.BeyanNo, item.BeyanYil, item.EncumenKararNo, item.NoterSozlesmeNo, item.TeminatNo,
+                    item.IhaleTutari, item.BaslangicTaksitNo, item.KalanAy, item.KullanimAlani, item.SozlesmeSuresi,
+                    item.KiraTutari, damgaAlinsinMi, damgaKararArtisTuru, teminatArtisTuru, item.MusadeliGunSayisi,
+                    item.Kdv, item.OtoparkTatilGun, resmiTatilVarmi, item.BeyanTarihi, item.IhaleEncumenTarihi, item.SozlesmeTarihi,
+                    item.SozlesmeBitisTarihi, item.KiraYenilemePeriyot, item.TeminatTarihi, item.KiraBaslangicTarihi,
+                    item.BeyanTur, kiraDurumu, odemePeriyoTur, item.BeyanKapatmaTarihi);
             }
             string json = JsonConvert.SerializeObject(dt, Formatting.Indented);
 
@@ -561,7 +561,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 model.OdemePeriyotSelectList = OdemePeriyotSelectList();
                 beyanlar = beyanlar.ToPagedList(model.PageNumber, model.PageSize);
 
-                model.Beyanlar = new StaticPagedList<Kira_Beyan>(beyanlar, model.PageNumber, model.PageSize, model.TotalRecordCount);
+                model.Beyanlar = new StaticPagedList<Beyan>(beyanlar, model.PageNumber, model.PageSize, model.TotalRecordCount);
             }
 
             return View(model);
@@ -609,13 +609,13 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             foreach (var item in beyanlar)
             {
                 var durum = "Aktif";
-                var sorumluPersonel = item.SorumluPersoneller.UserName ?? "";
+                //var sorumluPersonel = item.SorumluPersoneller.UserName ?? "";
                 var ilAdi = "Ankara";
                 var ilceAdi = ilceListesi.Where(x => x.Id == item.Gayrimenkuller.Ilce_Id).FirstOrDefault().Ad;
                 var mahalleAdi = mahalleListesi.Where(x => x.Id == item.Gayrimenkuller.Mahalle_Id).FirstOrDefault().Ad;
 
-                dt.Rows.Add(item.Beyanlar.BeyanNo, item.Kiracilar.SicilNo, item.Gayrimenkuller.DosyaNo,
-                    item.Gayrimenkuller.GayrimenkulNo, item.Kiracilar.Ad, sorumluPersonel, ilAdi, ilceAdi, mahalleAdi, durum);
+                dt.Rows.Add(item.BeyanNo, item.Kiracilar.SicilNo, item.Gayrimenkuller.DosyaNo,
+                    item.Gayrimenkuller.GayrimenkulNo, item.Kiracilar.Ad, "", ilAdi, ilceAdi, mahalleAdi, durum);
             }
             string json = JsonConvert.SerializeObject(dt, Formatting.Indented);
 
@@ -642,7 +642,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
                 model.GayrimenkulSelectList = GayrimenkulSelectList();
                 beyanlar = beyanlar.ToPagedList(model.PageNumber, model.PageSize);
-                model.Beyanlar = new StaticPagedList<Kira_Beyan>(beyanlar, model.PageNumber, model.PageSize, model.TotalRecordCount);
+                model.Beyanlar = new StaticPagedList<Beyan>(beyanlar, model.PageNumber, model.PageSize, model.TotalRecordCount);
             }
 
             return View(model);

@@ -10,6 +10,8 @@ namespace Framework.Business.Abstract
     public interface IIcraIslemeService
     {
         IEnumerable<Beyan_IcraIsleme> GetirListe();
+
+        IEnumerable<Beyan_IcraIsleme> GetirListe(int beyanId);
         IEnumerable<Beyan_IcraIsleme> GetirListeAktif(int beyanId);
         Beyan_IcraIsleme Getir(int id);
 

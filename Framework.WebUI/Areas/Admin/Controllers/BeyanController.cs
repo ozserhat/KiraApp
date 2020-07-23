@@ -98,7 +98,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                 model.OdemePeriyotSelectList = OdemePeriyotSelectList();
                 model.KullaniciSelectList = KullaniciSelectList();
 
-                model.Beyanlar = new StaticPagedList<Kira_Beyan>(beyanlar, model.PageNumber, model.PageSize, beyanlar.Count());
+                model.Beyanlar = new StaticPagedList<Beyan>(beyanlar, model.PageNumber, model.PageSize, beyanlar.Count());
                 model.TotalRecordCount = beyanlar.Count();
             }
 
@@ -122,7 +122,7 @@ namespace Framework.WebUI.Areas.Admin.Controllers
                 model.BeyanTurSelectList = BeyanTurSelectList();
                 model.KiraDurumSelectList = KiraDurumSelectList();
                 model.OdemePeriyotSelectList = OdemePeriyotSelectList();
-                model.Beyanlar = new StaticPagedList<Kira_Beyan>(beyanlar, model.PageNumber, model.PageSize, beyanlar.Count());
+                model.Beyanlar = new StaticPagedList<Beyan>(beyanlar, model.PageNumber, model.PageSize, beyanlar.Count());
                 model.TotalRecordCount = beyanlar.Count();
             }
 
@@ -138,24 +138,24 @@ namespace Framework.WebUI.Areas.Admin.Controllers
             if (string.IsNullOrEmpty(KullaniciId))
                 return Json(new { success = false, Message = "Lütfen Kullanıcı Seçiniz" }, JsonRequestBehavior.AllowGet);
 
-            foreach (string item in kullaniciYetki)
-            {
-                kiraBeyan = _kiraBeyanService.Getir(Convert.ToInt32(item));
-                kiraBeyan.SorumluPersonelId = Convert.ToInt32(KullaniciId);
-                //var result = _personelBeyanService.BeyanSil(int.Parse(item));
-                //personelBeyan = new PersonelBeyan()
-                //{
+            //foreach (string item in kullaniciYetki)
+            //{
+            //    //kiraBeyan = _kiraBeyanService.Getir(Convert.ToInt32(item));
+            //    //kiraBeyan.SorumluPersonelId = Convert.ToInt32(KullaniciId);
+            //    //var result = _personelBeyanService.BeyanSil(int.Parse(item));
+            //    //personelBeyan = new PersonelBeyan()
+            //    //{
 
-                //    Beyan_Id = int.Parse(item),
-                //    Personel_Id = int.Parse(KullaniciId),
-                //    GuncellenmeTarihi = DateTime.Now,
-                //    GuncelleyenKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
-                //    AktifMi = true,
-                //    OlusturulmaTarihi = DateTime.Now,
-                //};
-                kiraBeyan = _kiraBeyanService.Guncelle(kiraBeyan);
+            //    //    Beyan_Id = int.Parse(item),
+            //    //    Personel_Id = int.Parse(KullaniciId),
+            //    //    GuncellenmeTarihi = DateTime.Now,
+            //    //    GuncelleyenKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
+            //    //    AktifMi = true,
+            //    //    OlusturulmaTarihi = DateTime.Now,
+            //    //};
+            //    //kiraBeyan = _kiraBeyanService.Guncelle(kiraBeyan);
 
-            }
+            //}
 
             if (kiraBeyan.Id > 0)
                 return Json(new { success = true, Message = "Personel Beyan Eklendi!!!" }, JsonRequestBehavior.AllowGet);

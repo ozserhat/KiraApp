@@ -75,6 +75,8 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                               .Include(ilc => ilc.GayrimenkulTur)
                               .AsQueryable();
 
+                query = request.UstGayrimenkulMu == true ? query.Where(x => x.UstId == null) : request.UstGayrimenkulMu == false ? query.Where(x => x.UstId != null) : query;
+
                 query = request.Il_Id.HasValue ? query.Where(x => x.Il_Id == request.Il_Id) : query;
                 query = request.Ilce_Id.HasValue ? query.Where(x => x.Ilce_Id == request.Ilce_Id) : query;
                 query = request.Mahalle_Id.HasValue ? query.Where(x => x.Mahalle_Id == request.Mahalle_Id) : query;

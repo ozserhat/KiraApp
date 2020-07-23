@@ -12,68 +12,68 @@ namespace Framework.Business.Concrete.Managers
 
     public class Kira_BeyanManager : IKira_BeyanService
     {
-        private IKira_BeyanDal _Kira_BeyanDal;
+        private IKira_BeyanDal _beyanDal;
 
-        public Kira_BeyanManager(IKira_BeyanDal Kira_BeyanDal)
+        public Kira_BeyanManager(IKira_BeyanDal beyanDal)
         {
-            _Kira_BeyanDal = Kira_BeyanDal;
+            _beyanDal = beyanDal;
         }
 
-        public Kira_Beyan Ekle(Kira_Beyan beyan)
+        public Beyan Ekle(Beyan beyan)
         {
-            return _Kira_BeyanDal.Add(beyan);
+            return _beyanDal.Add(beyan);
         }
 
-        public Kira_Beyan Getir(int id)
+        public Beyan Getir(int id)
         {
-            return _Kira_BeyanDal.GetById(id);
+            return _beyanDal.GetById(id);
         }
 
-        public Kira_Beyan GetirBeyan(int BeyanId)
+        public Beyan GetirBeyan(int BeyanId)
         {
-            return _Kira_BeyanDal.GetirBeyan(BeyanId);
+            return _beyanDal.GetirBeyan(BeyanId);
 
         }
 
 
-       public IEnumerable<Kira_Beyan> GetirSorguListeGayrimenkul(GayrimenkulBeyanRequest request)
+       public IEnumerable<Beyan> GetirSorguListeGayrimenkul(GayrimenkulBeyanRequest request)
         {
-            return _Kira_BeyanDal.GetListByCriteriasGayrimenkul(request);
+            return _beyanDal.GetListByCriteriasGayrimenkul(request);
         }
     
 
-        public IEnumerable<Kira_Beyan> GetirSorguListeSicil(SicilBeyanRequest request)
+        public IEnumerable<Beyan> GetirSorguListeSicil(SicilBeyanRequest request)
         {
-            return _Kira_BeyanDal.GetListByCriteriasSicil(request);
+            return _beyanDal.GetListByCriteriasSicil(request);
         }
 
-        public IEnumerable<Kira_Beyan> GetirListe()
+        public IEnumerable<Beyan> GetirListe()
         {
-            return _Kira_BeyanDal.GetList();
+            return _beyanDal.GetList();
         }
 
-        public IEnumerable<Kira_Beyan> GetirSorguListe(KiraBeyanRequest request)
+        public IEnumerable<Beyan> GetirSorguListe(KiraBeyanRequest request)
         {
-            return _Kira_BeyanDal.GetListByCriterias(request);
+            return _beyanDal.GetListByCriterias(request);
         }
 
-        public IEnumerable<Kira_Beyan> GetirSorguListeAktif(KiraBeyanRequest request)
+        public IEnumerable<Beyan> GetirSorguListeAktif(KiraBeyanRequest request)
         {
-            return _Kira_BeyanDal.GetListByCriterias(request).Where(a=>a.AktifMi!=0);
+            return _beyanDal.GetListByCriterias(request).Where(a=>a.AktifMi!=0);
         }
 
-        public Kira_Beyan Guncelle(Kira_Beyan beyan)
+        public Beyan Guncelle(Beyan beyan)
         {
-            return _Kira_BeyanDal.Update(beyan);
+            return _beyanDal.Update(beyan);
         }
 
-        public Kira_Beyan Getir(int beyanId, int gayrimenkulId, int kiraciId)
+        public Beyan Getir(int beyanId, int gayrimenkulId, int kiraciId)
         {
-            return _Kira_BeyanDal.Getir(beyanId, gayrimenkulId,kiraciId);
+            return _beyanDal.Getir(beyanId, gayrimenkulId,kiraciId);
         }
         public bool Sil(int id)
         {
-            return _Kira_BeyanDal.Delete(id);
+            return _beyanDal.Delete(id);
         }
 
       
@@ -81,7 +81,7 @@ namespace Framework.Business.Concrete.Managers
 
         void GetAll()
         {
-            _Kira_BeyanDal.GetList();
+            _beyanDal.GetList();
         }
     }
 }

@@ -32,6 +32,11 @@ namespace Framework.Business.Concrete.Managers
             return _icraIslemeDal.GetList();
         }
 
+        public IEnumerable<Beyan_IcraIsleme> GetirListe(int beyanId)
+        {
+            return _icraIslemeDal.GetirListe(beyanId);
+        }
+
         public IEnumerable<Beyan_IcraIsleme> GetirListeAktif(int beyanId)
         {
             return _icraIslemeDal.GetirListeAktif(beyanId);

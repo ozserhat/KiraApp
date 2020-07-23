@@ -5,20 +5,20 @@ using System.Collections.Generic;
 
 namespace Framework.DataAccess.Abstract
 {
-    public interface IKira_BeyanDal : IEntityRepository<Kira_Beyan>
+    public interface IKira_BeyanDal : IEntityRepository<Beyan>
     {
-        IEnumerable<Kira_Beyan> GetList();
+        IEnumerable<Beyan> GetList();
 
-        IEnumerable<Kira_Beyan> GetListByCriterias(KiraBeyanRequest request);      
+        IEnumerable<Beyan> GetListByCriterias(KiraBeyanRequest request);      
 
-        IEnumerable<Kira_Beyan> GetListByCriteriasGayrimenkul(GayrimenkulBeyanRequest request);
-        IEnumerable<Kira_Beyan> GetListByCriteriasSicil(SicilBeyanRequest request);
+        IEnumerable<Beyan> GetListByCriteriasGayrimenkul(GayrimenkulBeyanRequest request);
+        IEnumerable<Beyan> GetListByCriteriasSicil(SicilBeyanRequest request);
 
-        Kira_Beyan GetirBeyan(int BeyanId);
+        Beyan GetirBeyan(int BeyanId);
 
-        Kira_Beyan GetById(int id);
+        Beyan GetById(int id);
 
         bool Delete(int id);
-        Kira_Beyan Getir(int beyanId, int gayrimenkulId, int kiraciId);
+        Beyan Getir(int beyanId, int gayrimenkulId, int kiraciId);
     }
 }

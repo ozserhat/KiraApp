@@ -1019,6 +1019,8 @@
                                                                                             <th class="sorting_disabled" rowspan="1" colspan="1">Başkanlık Olur Tarihi</th>
                                                                                             <th class="sorting_disabled" rowspan="1" colspan="1">Icra Durum</th>
                                                                                             <th class="sorting_disabled" rowspan="1" colspan="1">Açıklama</th>
+                                                                                            <th class="sorting_disabled" rowspan="1" colspan="1">Durum</th>
+                                                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 250px;">Sil</th>
                                                                                         </tr>
                                                                                     </thead>
                                                                                     @if (Model.IcraListesi != null && Model.IcraListesi.Count() > 0)
@@ -1027,25 +1029,42 @@
 
                                                                                             @foreach (var item in Model.IcraListesi)
                                                                                             {
-                                                                                                <tr role="row" class="odd">
-                                                                                                    <td>@Html.DisplayFor(model => item.Beyanlar.BeyanNo)</td>
-                                                                                                    <td>@Html.DisplayFor(model => item.Sayi)</td>
-                                                                                                    <td>
-                                                                                                        @{
-                                                                                                            string verilisTarihi = item.VerilisTarihi.Value.ToString("MMMM");
-                                                                                                            <span>@verilisTarihi</span>
-                                                                                                        }
-                                                                                                    </td>
-                                                                                                    <td>
-                                                                                                        @{
-                                                                                                            string baskanlıkOlurTarih = item.BaskanlikOlurTarihi.Value.ToString("dd.MM.yyyy");
-                                                                                                            <span>@baskanlıkOlurTarih</span>
-                                                                                                        }
-                                                                                                    </td>
+                                                                                            <tr role="row" class="odd">
+                                                                                                <td>@Html.DisplayFor(model => item.Beyanlar.BeyanNo)</td>
+                                                                                                <td>@Html.DisplayFor(model => item.Sayi)</td>
+                                                                                                <td>
+                                                                                                    @{
+                                                                                                        string verilisTarihi = item.VerilisTarihi.Value.ToString("dd.MM.yyyy");
+                                                                                                        <span>@verilisTarihi</span>
+                                                                                                    }
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @{
+                                                                                                        string baskanlıkOlurTarih = item.BaskanlikOlurTarihi.Value.ToString("dd.MM.yyyy");
+                                                                                                        <span>@baskanlıkOlurTarih</span>
+                                                                                                    }
+                                                                                                </td>
 
-                                                                                                    <td>@Html.DisplayFor(model => item.IcraDurumlari.Ad)</td>
-                                                                                                    <td>@Html.DisplayFor(model => item.Aciklama)</td>
-                                                                                                </tr>
+                                                                                                <td>@Html.DisplayFor(model => item.IcraDurumlari.Ad)</td>
+                                                                                                <td>@Html.DisplayFor(model => item.Aciklama)</td>
+                                                                                                <td>
+                                                                                                    @if (item.AktifMi.HasValue && item.AktifMi.Value)
+                                                                                                    {
+                                                                                                        <b class="label aktif-buton">Aktif</b>
+                                                                                                    }
+                                                                                                    else
+                                                                                                    {
+                                                                                                        <b class="label pasif-buton">Pasif</b>
+                                                                                                    }
+                                                                                                </td>
+
+                                                                                                <td>
+                                                                                                    <a id="btnIcraSil" href="#" style="text-decoration: none;"
+                                                                                                       class="no-underline margin-right-5 fa fa-remove font-md txt-color-blue delete-icra"
+                                                                                                       data-id="@item.Id">
+                                                                                                    </a>
+                                                                                                </td>
+                                                                                            </tr>
                                                                                             }
                                                                                         </tbody>
                                                                                     }
@@ -2498,45 +2517,82 @@
 
             $('#btnIcraIsle').on('click', function () {
 
-                var icraIslemeModel ={
-                   Beyan_Id: $('#KapamaBeyanId').val(),
-                   IcraDurum_Id: $('#IcraDurumId').val(),
-                   Sayi: $('#IcraSayi').val(),
-                   VerilisTarihi: $('#VerilisTarihi').val(),
-                   BaskanlikOlurTarihi: $('#BaskanlikOlurTarihi').val(),
-                   Aciklama: $('#IcraAciklama').val()
+                var icraIslemeModel = {
+                    Beyan_Id: $('#KapamaBeyanId').val(),
+                    IcraDurum_Id: $('#IcraDurumId').val(),
+                    Sayi: $('#IcraSayi').val(),
+                    VerilisTarihi: $('#VerilisTarihi').val(),
+                    BaskanlikOlurTarihi: $('#BaskanlikOlurTarihi').val(),
+                    Aciklama: $('#IcraAciklama').val()
                 };
 
-                 if ($("#frmicraIsleme").valid())
-                    {
-                   $.ajax({
-                    type: 'Post',
-                    url: '/Kira/Beyan/IcraIsleme',
-                    data: { icraModel: icraIslemeModel },
-                    beforeSend: function () {
-                           $.LoadingOverlay("show", { text: "Beyan İcra İşleme İşlemi Gerçekleştiriliyor...", textResizeFactor: 0.2, background: "rgba(0, 0, 0, 0.5)" });
-                    },
-                    success: function (result) {
-                        if (result != null && result.success) {
-                            swal('Bilgi!', result.Message, 'success');
-                            $.LoadingOverlay("hide");
-                            setTimeout(function () {
-                                window.location.href = "/Kira/Beyan/BeyanDetay" + window.location.search;
-                            }, 2000);
-                        }
-                        else {
+                if ($("#frmicraIsleme").valid()) {
+                    $.ajax({
+                        type: 'Post',
+                        url: '/Kira/Beyan/IcraIsleme',
+                        data: { icraModel: icraIslemeModel },
+                        beforeSend: function () {
+                            $.LoadingOverlay("show", { text: "Beyan İcra İşleme İşlemi Gerçekleştiriliyor...", textResizeFactor: 0.2, background: "rgba(0, 0, 0, 0.5)" });
+                        },
+                        success: function (result) {
+                            if (result != null && result.success) {
+                                swal('Bilgi!', result.Message, 'success');
+                                $.LoadingOverlay("hide");
+                                setTimeout(function () {
+                                    window.location.href = "/Kira/Beyan/BeyanDetay" + window.location.search;
+                                }, 2000);
+                            }
+                            else {
+                                swal('Uyarı!', result.Message, 'warning');
+                                $.LoadingOverlay("hide");
+                            }
+                        },
+                        error: function (xhr) {
                             swal('Uyarı!', result.Message, 'warning');
                             $.LoadingOverlay("hide");
                         }
-                    },
-                    error: function (xhr) {
-                        swal('Uyarı!', result.Message, 'warning');
-                        $.LoadingOverlay("hide");
-                       }
-                 });
+                    });
                 }
             });
         });
 
+    </script>
+
+    <!--Icra Silme İşlemi -->
+    <script type="text/javascript">
+        $('.delete-icra').click(function (e) {
+            var id = $(this).attr("data-id");
+            var closestTR = $(this).closest("tr");
+            var vl = deletealert(id, "", closestTR);
+
+        });
+
+        function deletealert(id) {
+
+            var closestTR = $(this).closest("tr");
+            swal({
+                title: "Uyarı",
+                text: "Icra İşlemini Silmek İstediğinizden Emin misiniz?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Evet",
+                cancelButtonText: "İptal"
+            }).then(function (isConfirm) {
+                if (isConfirm) {
+                    $.ajax({
+                        url: "/Kira/Beyan/IcraSil/" + id,
+                        type: 'POST',
+                        success: function (result) {
+                            if (result.success) {
+                                swal('Bilgi!', name + ' ' + result.Message, 'success');
+                                window.location.reload();
+                            }
+                            else swal('Uyarı!', name + ' ' + result.Message, 'error');
+                        }
+                    });
+                }
+            })
+        }
     </script>
 }

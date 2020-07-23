@@ -81,7 +81,7 @@ namespace Framework.Entities.Concrete
         public int? GayrimenkulTur { get; set; }
         public string GayrimenkulAdi { get; set; }
         public string GayrimenkulNo { get; set; }
-
+        public bool? UstGayrimenkulMu { get; set; }
         public int? AdresNo { get; set; }
         public int? NumaratajKimlikNo { get; set; }
      
@@ -107,6 +107,7 @@ namespace Framework.Entities.Concrete
     {
         public int? GayrimenkulTur { get; set; }
         public string GayrimenkulAdi { get; set; }
+        public bool? UstGayrimenkulMu { get; set; }
 
         public string GayrimenkulNo { get; set; }
 

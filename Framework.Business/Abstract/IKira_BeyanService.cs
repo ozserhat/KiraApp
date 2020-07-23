@@ -9,21 +9,21 @@ namespace Framework.Business.Abstract
 {
     public interface IKira_BeyanService
     {
-        IEnumerable<Kira_Beyan> GetirListe();
-        IEnumerable<Kira_Beyan> GetirSorguListe(KiraBeyanRequest request);
-        IEnumerable<Kira_Beyan> GetirSorguListeAktif(KiraBeyanRequest request);
+        IEnumerable<Beyan> GetirListe();
+        IEnumerable<Beyan> GetirSorguListe(KiraBeyanRequest request);
+        IEnumerable<Beyan> GetirSorguListeAktif(KiraBeyanRequest request);
 
-        IEnumerable<Kira_Beyan> GetirSorguListeGayrimenkul(GayrimenkulBeyanRequest request);
-        IEnumerable<Kira_Beyan> GetirSorguListeSicil(SicilBeyanRequest request);
-        Kira_Beyan GetirBeyan(int BeyanId);
+        IEnumerable<Beyan> GetirSorguListeGayrimenkul(GayrimenkulBeyanRequest request);
+        IEnumerable<Beyan> GetirSorguListeSicil(SicilBeyanRequest request);
+        Beyan GetirBeyan(int BeyanId);
 
-        Kira_Beyan Getir(int id);
+        Beyan Getir(int id);
 
-        Kira_Beyan Ekle(Kira_Beyan tur);
+        Beyan Ekle(Beyan tur);
 
-        Kira_Beyan Guncelle(Kira_Beyan tur);
+        Beyan Guncelle(Beyan tur);
 
-        Kira_Beyan Getir(int beyanId, int gayrimenkulId, int kiraciId);
+        Beyan Getir(int beyanId, int gayrimenkulId, int kiraciId);
 
         bool Sil(int id);
 

@@ -10,18 +10,24 @@ namespace Framework.Entities.Concrete
     [Table("Beyanlar")]
     public class Beyan : IEntity
     {
-        public Beyan()
-        {
-            this.Kira_Beyanlari = new HashSet<Kira_Beyan>();
-        }
-      
         [Key]
         public int Id { get; set; }
 
         public int? OncekiBeyanId { get; set; }
       
         public int? EskiBeyanId { get; set; }
+
         public Guid Guid { get; set; }
+
+        public int? Kiraci_Id { get; set; }
+
+        [ForeignKey("Kiraci_Id")]
+        public virtual Kiraci Kiracilar { get; set; }
+
+        public int? Gayrimenkul_Id { get; set; }
+
+        [ForeignKey("Gayrimenkul_Id")]
+        public virtual Gayrimenkul Gayrimenkuller { get; set; }
 
         public int? BeyanTur_Id { get; set; }
 
@@ -91,6 +97,8 @@ namespace Framework.Entities.Concrete
 
         public DateTime? SozlesmeBitisTarihi { get; set; }
 
+        public int? SorumluPersonelId { get; set; }
+
         [StringLength(2500)]
         public string ACIKLAMA { get; set; }
 
@@ -111,9 +119,6 @@ namespace Framework.Entities.Concrete
         public DateTime? GuncellenmeTarihi { get; set; }
 
         public int? AktifMi { get; set; }
-
-        [JsonIgnore]
-        public virtual ICollection<Kira_Beyan> Kira_Beyanlari { get; set; }
 
     }
 }

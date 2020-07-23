@@ -31,7 +31,7 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Kullanıcılar")]
         public SelectList KullaniciSelectList { get; set; }
 
-        public IPagedList<Kira_Beyan> Beyanlar { get; set; }
+        public IPagedList<Beyan> Beyanlar { get; set; }
 
         public List<TahakkukVM> TahakkukDetay { get; set; }
 
@@ -102,8 +102,10 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Gayrimenkul Türü")]
         public SelectList GayrimenkulTuruSelectList { get; set; }
+        
+        [Display(Name = "ÜSt Gayrimenkul Mü?")]
+        public bool UstGayrimenkulMu { get; set; }
 
-     
 
         [Display(Name = "Gayrimenkul Adı")]
         public string GayrimenkulAdi { get; set; }

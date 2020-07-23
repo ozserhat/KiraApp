@@ -35,7 +35,7 @@
                 <article class="col-sm-12 col-md-12 col-lg-12">
                     <div class="jarviswidget" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
                         <header>
-                            <div style="float:left; margin-top: -5px; padding-bottom: 8px;">
+                            <div style="float:left; margin-top: -5px;padding-bottom: 5px;">
                                 <span id="spnFiltre">
                                     <a href="#" id="btnAcKriter" class="btn btn-info" data-toggle="canvas" data-target="#bs-canvas-right" title="Filtreleme" aria-expanded="false" aria-controls="bs-canvas-right">
                                         <span>Filtrele</span>
@@ -46,11 +46,7 @@
                             </div>
                             <span class="widget-icon"> <i class="fa fa-list"></i> </span>
                             <h2>Gayrimenkul Listesi - <b>Toplam Gayrimenkul Adedi : @Model.TotalRecordCount</b></h2>
-                            <div style="float:right; margin-top: -5px; padding-bottom: 8px;">
-                                <p>
-                                    @Html.AuthActionLink(" Gayrimenkul Ekle", "Ekle", "Gayrimenkul", "btn btn-primary",
-                                   "glyphicon glyphicon-plus", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
-                                </p>
+                            <div style="float: right;margin-top: -5px;">
                                 <div class="btn-group" role="menu">
                                     <button class="btn btn-info">
                                         <i class="glyphicon glyphicon-export"></i>
@@ -77,6 +73,13 @@
                                         </li>
                                     </ul>
                                 </div>
+                            </div>
+                            <div style="float:right; margin-top: -5px; margin-right:10px;  padding-bottom: 5px;">
+                                <p>
+                                    @Html.AuthActionLink(" Gayrimenkul Ekle", "Ekle", "Gayrimenkul", "btn btn-primary",
+                                   "glyphicon glyphicon-plus", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                                </p>
+                                
                             </div>
 
                         </header>
@@ -218,6 +221,16 @@
                                                                                     <div class="col-md-6">
                                                                                         @Html.TextBoxFor(model => model.NumaratajKimlikNo, "", new { @class = "form-control " })
                                                                                         @Html.ValidationMessage("NumaratajKimlikNo", "Lütfen bir sayı giriniz!", new { @class = "text-danger" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group" style="width: 100%;">
+                                                                                    @Html.Label("Üst Gayrimenkul Mü?", new { @class = "col-md-4 font-bold" })
+                                                                                    <div class="col-md-6">
+                                                                                        @Html.CheckBoxFor(model => model.UstGayrimenkulMu, new { @checked = "checked",@style = "width: 16px; height: 16px;" })
                                                                                     </div>
                                                                                 </div>
                                                                             </div>

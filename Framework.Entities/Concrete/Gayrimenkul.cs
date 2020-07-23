@@ -34,6 +34,9 @@ namespace Framework.Entities.Concrete
 
         public int Il_Id { get; set; }
 
+        [ForeignKey("Il_Id")]
+        public virtual Il Iller { get; set; }
+
         public int? Ilce_Id { get; set; }
 
         [ForeignKey("Ilce_Id")]

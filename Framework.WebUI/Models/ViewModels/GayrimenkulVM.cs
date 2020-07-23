@@ -26,8 +26,8 @@ namespace Framework.WebUI.Models.ViewModels
         public SelectList MahalleSelectList { get; set; }
         public IPagedList<Gayrimenkul> Gayrimenkuller { get; set; }
 
+        public bool UstGayrimenkulMu { get; set; }
 
-   
 
         [Display(Name = "Adres No")]
         public int? AdresNo { get; set; }

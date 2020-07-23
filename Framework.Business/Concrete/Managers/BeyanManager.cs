@@ -140,8 +140,8 @@ namespace Framework.Business.Concrete.Managers
             if (eklenenler.KiraBeyan != null)
             {
                 eklenenler.KiraBeyan.Beyan_Id = eklenenler.Beyan.Id;
-                var kiraBeyan = KiraBeyanEkle(eklenenler.KiraBeyan);
-                kiraBeyanId = kiraBeyan.Id;
+                //var kiraBeyan = KiraBeyanEkle(eklenenler.KiraBeyan);
+                //kiraBeyanId = kiraBeyan.Id;
             }
             if (eklenenler.BeyanDosyalar != null)
             {
@@ -161,11 +161,11 @@ namespace Framework.Business.Concrete.Managers
             return sonuc;
         }
 
-        private Kira_Beyan KiraBeyanEkle(Kira_Beyan kiraBeyan)
-        {
-            return _kira_BeyanService.Ekle(kiraBeyan);
+        //private Kira_Beyan KiraBeyanEkle(Kira_Beyan kiraBeyan)
+        //{
+        //    return _kira_BeyanService.Ekle(kiraBeyan);
 
-        }
+        //}
 
         private void TahakukListesiKaydet(List<GL_BORC> tahakukkList, long kiraBeyanId)
         {
@@ -208,8 +208,8 @@ namespace Framework.Business.Concrete.Managers
 
             //Kira Beyan Sayfası Pasife Alınır.
 
-            pasifealinan.KiraBeyan.AktifMi = (int)EnmIslemDurumu.Pasif;
-            _kira_BeyanService.Guncelle(pasifealinan.KiraBeyan);
+            //pasifealinan.KiraBeyan.AktifMi = (int)EnmIslemDurumu.Pasif;
+            //_kira_BeyanService.Guncelle(pasifealinan.KiraBeyan);
             return true;
         }
 
@@ -228,8 +228,8 @@ namespace Framework.Business.Concrete.Managers
                 _tahakkukService.Guncelle(item);
             }
             //Kira Beyan Sayfası Pasife Alınır.
-            pasifealinan.KiraBeyan.AktifMi = (int)EnmIslemDurumu.Kapandı;
-            _kira_BeyanService.Guncelle(pasifealinan.KiraBeyan);
+            //pasifealinan.KiraBeyan.AktifMi = (int)EnmIslemDurumu.Kapandı;
+            //_kira_BeyanService.Guncelle(pasifealinan.KiraBeyan);
             return true;
         }
     }
