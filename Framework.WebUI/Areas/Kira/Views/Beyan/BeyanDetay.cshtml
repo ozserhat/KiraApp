@@ -312,6 +312,86 @@
                                                                     </div>
                                                                 </div>
                                                             </fieldset>
+                                                            <legend>
+                                                                <h3><strong></strong> Alt Gayrimenkul Bilgileri</h3>
+                                                            </legend>
+                                                            <fieldset>
+                                                                <form class="form-horizontal" id="altGayrimenkulForm" novalidate="novalidate">
+                                                                    <fieldset>
+                                                                        <div class="col-md-12">
+                                                                            <div class="col-md-12">
+                                                                                <table id="dtAltGayrimenkul" class="table table-striped table-bordered table-hover dataTable no-footer" role="grid" aria-describedby="dt_basic_info">
+                                                                                    <thead>
+                                                                                        <tr role="row">
+                                                                                            <th>Detay</th>
+                                                                                            <th class="sorting_disabled" rowspan="1" colspan="1">Tür Adı</th>
+                                                                                            <th class="sorting_disabled" rowspan="1" colspan="1">Gayrimenkul No</th>
+                                                                                            <th class="sorting_disabled" rowspan="1" colspan="1">Adı</th>
+                                                                                            <th class="sorting_disabled" rowspan="1" colspan="1">İl</th>
+                                                                                            <th class="sorting_disabled" rowspan="1" colspan="1">İlçe</th>
+                                                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 250px;">Durum</th>
+
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    @if (Model.AltGayrimenkuller != null && Model.AltGayrimenkuller.Count() > 0)
+                                                                                    {
+                                                                                        <tbody>
+
+
+                                                                                            @foreach (var item in Model.AltGayrimenkuller)
+                                                                                            {
+                                                                                                <tr role="row" class="odd">
+                                                                                                    <td id="btnGetirAltKiraci" data-id="@item.Id" class="details-control">
+                                                                                                    <td>@Html.DisplayFor(model => item.GayrimenkulTur.Ad)</td>
+                                                                                                    <td>@Html.DisplayFor(model => item.GayrimenkulNo)</td>
+                                                                                                    <td>@Html.DisplayFor(model => item.Ad)</td>
+                                                                                                    <td>@Html.DisplayFor(model => item.Ilceler.Iller.Ad)</td>
+                                                                                                    <td>@Html.DisplayFor(model => item.Ilceler.Ad)</td>
+                                                                                                    <td>
+                                                                                                        @if (item.AktifMi.HasValue && item.AktifMi.Value)
+                                                                                                        {
+                                                                                                            <b class="label aktif-buton">Aktif</b>
+                                                                                                        }
+                                                                                                        else
+                                                                                                        {
+                                                                                                            <b class="label pasif-buton">Pasif</b>
+                                                                                                        }
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            }
+                                                                                        </tbody>
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        <tbody>
+                                                                                        </tbody>
+                                                                                    }
+                                                                                </table>
+
+                                                                                <div id="dvAltKiraci" style="display:none;">
+                                                                                    <table id="tblAltKiraci" class="table table-striped table-bordered table-hover dataTable no-footer display nowrap">
+                                                                                        <thead>
+                                                                                            <tr role="row">
+                                                                                                <th>@Html.DisplayName("Kişi Türü")</th>
+                                                                                                <th>@Html.DisplayName("T.C. Kimlik No")</th>
+                                                                                                <th>@Html.DisplayName("Vergi No")</th>
+                                                                                                <th>@Html.DisplayName("Ad Soyad")</th>
+                                                                                                <th>@Html.DisplayName("Tanım")</th>
+                                                                                                <th>@Html.DisplayName("İlçe")</th>
+                                                                                                <th>@Html.DisplayName("Mahalle")</th>
+                                                                                                <th>@Html.DisplayName("Açık Adres")</th>
+                                                                                                <th>@Html.DisplayName("Aktif Mi")</th>
+                                                                                            </tr>
+                                                                                        </thead>
+                                                                                        <tbody></tbody>
+                                                                                    </table>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </fieldset>
+                                                                </form>
+                                                            </fieldset>
                                                         </div>
 
                                                         <div class="tab-pane" id="tab2">
@@ -1029,42 +1109,42 @@
 
                                                                                             @foreach (var item in Model.IcraListesi)
                                                                                             {
-                                                                                            <tr role="row" class="odd">
-                                                                                                <td>@Html.DisplayFor(model => item.Beyanlar.BeyanNo)</td>
-                                                                                                <td>@Html.DisplayFor(model => item.Sayi)</td>
-                                                                                                <td>
-                                                                                                    @{
-                                                                                                        string verilisTarihi = item.VerilisTarihi.Value.ToString("dd.MM.yyyy");
-                                                                                                        <span>@verilisTarihi</span>
-                                                                                                    }
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    @{
-                                                                                                        string baskanlıkOlurTarih = item.BaskanlikOlurTarihi.Value.ToString("dd.MM.yyyy");
-                                                                                                        <span>@baskanlıkOlurTarih</span>
-                                                                                                    }
-                                                                                                </td>
+                                                                                                <tr role="row" class="odd">
+                                                                                                    <td>@Html.DisplayFor(model => item.Beyanlar.BeyanNo)</td>
+                                                                                                    <td>@Html.DisplayFor(model => item.Sayi)</td>
+                                                                                                    <td>
+                                                                                                        @{
+                                                                                                            string verilisTarihi = item.VerilisTarihi.Value.ToString("dd.MM.yyyy");
+                                                                                                            <span>@verilisTarihi</span>
+                                                                                                        }
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        @{
+                                                                                                            string baskanlıkOlurTarih = item.BaskanlikOlurTarihi.Value.ToString("dd.MM.yyyy");
+                                                                                                            <span>@baskanlıkOlurTarih</span>
+                                                                                                        }
+                                                                                                    </td>
 
-                                                                                                <td>@Html.DisplayFor(model => item.IcraDurumlari.Ad)</td>
-                                                                                                <td>@Html.DisplayFor(model => item.Aciklama)</td>
-                                                                                                <td>
-                                                                                                    @if (item.AktifMi.HasValue && item.AktifMi.Value)
-                                                                                                    {
-                                                                                                        <b class="label aktif-buton">Aktif</b>
-                                                                                                    }
-                                                                                                    else
-                                                                                                    {
-                                                                                                        <b class="label pasif-buton">Pasif</b>
-                                                                                                    }
-                                                                                                </td>
+                                                                                                    <td>@Html.DisplayFor(model => item.IcraDurumlari.Ad)</td>
+                                                                                                    <td>@Html.DisplayFor(model => item.Aciklama)</td>
+                                                                                                    <td>
+                                                                                                        @if (item.AktifMi.HasValue && item.AktifMi.Value)
+                                                                                                        {
+                                                                                                            <b class="label aktif-buton">Aktif</b>
+                                                                                                        }
+                                                                                                        else
+                                                                                                        {
+                                                                                                            <b class="label pasif-buton">Pasif</b>
+                                                                                                        }
+                                                                                                    </td>
 
-                                                                                                <td>
-                                                                                                    <a id="btnIcraSil" href="#" style="text-decoration: none;"
-                                                                                                       class="no-underline margin-right-5 fa fa-remove font-md txt-color-blue delete-icra"
-                                                                                                       data-id="@item.Id">
-                                                                                                    </a>
-                                                                                                </td>
-                                                                                            </tr>
+                                                                                                    <td>
+                                                                                                        <a id="btnIcraSil" href="#" style="text-decoration: none;"
+                                                                                                           class="no-underline margin-right-5 fa fa-remove font-md txt-color-blue delete-icra"
+                                                                                                           data-id="@item.Id">
+                                                                                                        </a>
+                                                                                                    </td>
+                                                                                                </tr>
                                                                                             }
                                                                                         </tbody>
                                                                                     }
@@ -2593,6 +2673,109 @@
                     });
                 }
             })
+        }
+    </script>
+
+    <!--Alt Kiracı Bilgisi -->
+    <script type="text/javascript">
+        $('#dtAltGayrimenkul td:first-child').click(function (e) {
+
+            var id = $(this).attr("data-id");
+
+            var table = $('#dtAltGayrimenkul').DataTable();
+
+            var tr = $(this).closest('tr');
+
+            var row = table.row(tr);
+
+
+            $.ajax({
+                url: "/Kira/Beyan/GetirAltKiraciTable/",
+                type: "Post",
+                dataType: 'Json',
+                data: { GayrimenkulId: id },
+                success: function (success) {
+                    if (success.result != null && success.result.length > 0) {
+
+                        if (row.child.isShown()) {
+                            row.child.hide();
+                            tr.removeClass('shown');
+                        } else {
+                            row.child.isShown();
+                            var result = row.child(subTable(id, success.result)).show();
+
+                            if (result != null) {
+                                result.show();
+                                tr.addClass('shown');
+                            }
+                        }
+                    }
+                },
+            });
+        });
+
+        function subTable(GayrimenkulId, dataSource) {
+
+            var html = '<table id="tblAltKiraci" class="table table-striped table-bordered table-hover dataTable no-footer display nowrap">'
+
+                + '<thead><tr>' +
+                '<th>No</th>' +
+                '<th>Kişi Türü</th>' +
+                '<th>T.C. Kimlik No</th>' +
+                '<th>Vergi No</th>' +
+                '<th>Ad Soyad</th>' +
+                '<th>Tanım</th>' +
+                '<th>İlçe</th>' +
+                '<th>Mahalle</th>' +
+                '<th>Açık Adres</th>' +
+                '<th>Aktif Mi</th>' +
+                '</tr >' +
+                '</thead > ';
+
+            var tc = '';
+            var vergi = '';
+            var aktifMiStr = '';
+
+
+
+            if (dataSource != null) {
+                for (var i = 0; i < dataSource.length; i++) {
+
+                    if (GayrimenkulId == dataSource[i].Gayrimenkul_Id) {
+
+                        if (dataSource[i].TcKimlikNo == null)
+                            tc = '-';
+                        else
+                            tc = dataSource[i].TcKimlikNo;
+
+                        if (dataSource[i].VergiNo == null)
+                            vergi = '-';
+                        else
+                            vergi = dataSource[i].VergiNo;
+
+                        if (dataSource[i].AktifMi) {
+                            aktifMiStr = '<b class="label aktif-buton-beyandetay">Aktif </b>';
+                        }
+                        else {
+                            aktifMiStr = '<b class="label pasif-buton-beyandetay">Pasif</b>';
+                        }
+                        html += '<tr role="row">' +
+                            '<td role="row" class="odd">' + (i + 1) + '</td>' +
+                            '<td>' + dataSource[i].KiraciTurleri.Ad + '</td>' +
+                            '<td>' + tc + '</td>' +
+                            '<td>' + vergi + '</td>' +
+                            '<td>' + dataSource[i].Ad + ' ' + dataSource[i].Soyad + '</td>' +
+                            '<td>' + dataSource[i].Tanim + '</td>' +
+                            '<td>' + dataSource[i].IlceAdi + '</td>' +
+                            '<td>' + dataSource[i].MahalleAdi + '</td>' +
+                            '<td>' + dataSource[i].AcikAdres + '</td>' +
+                            '<td>' + aktifMiStr + '</td>' +
+                            '</tr>';
+                    }
+                }
+            }
+            html += '</table>';
+            return html;
         }
     </script>
 }

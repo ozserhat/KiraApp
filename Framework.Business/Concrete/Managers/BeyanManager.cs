@@ -131,7 +131,11 @@ namespace Framework.Business.Concrete.Managers
             }
             if (eklenenler.Beyan != null)
             {
-                eklenenler.Beyan.SicilNo = _kiraciService.Getir(eklenenler.KiraBeyan.Kiraci_Id).SicilNo;
+                var kiraciBilgi = _kiraciService.Getir(eklenenler.KiraBeyan.Kiraci_Id);
+          
+
+                eklenenler.Beyan.SicilNo = kiraciBilgi.SicilNo;
+                eklenenler.Beyan.Kiraci_Id = kiraciBilgi.Id;
                 var beyanEkle = Ekle(eklenenler.Beyan);
                 beyanId = beyanEkle.Id;
                 beyanEkle.EskiBeyanId = beyanId;

@@ -358,6 +358,8 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "KiraDurum_Id")]
         public int KiraDurum_Id { get; set; }
+
+        public IEnumerable<Gayrimenkul> AltGayrimenkuller { get; set; }
     }
 
     public class KiraParametreDetay

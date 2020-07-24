@@ -27,6 +27,12 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Beyan Türü")]
         public int BeyanTur_Id { get; set; }
 
+        [Display(Name = "Gayrimenkul_Id")]
+        public int? Gayrimenkul_Id { get; set; }
+
+        [Display(Name = "Kiraci_Id")]
+        public int? Kiraci_Id { get; set; }
+
         [Display(Name = "Kira Durumu")]
         public int? KiraDurum_Id { get; set; }
 

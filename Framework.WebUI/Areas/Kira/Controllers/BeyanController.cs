@@ -63,6 +63,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         private readonly IKiraDurum_DosyaTurService _kiraDurumDosyaTurService;
 
         private readonly IIcraIslemeService _icraIslemeService;
+        private readonly IAltGayrimenkul_KiraciService _altKiraciService;
 
 
         public string DosyaYolu = ConfigurationManager.AppSettings["DosyaYolu"].ToString();
@@ -92,7 +93,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         BeyanSelectListsVm selectLists,
         IKiraDurum_DosyaTurService kiraDurumDosyaTurService,
         IBeyan_UfeOranService ufeOranService,
-      
+      IAltGayrimenkul_KiraciService altKiraciService,
         IIcraIslemeService icraIslemeService
 
         )
@@ -124,7 +125,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             _beyanTurService = beyanTurService;
             _kiraParametreService = kiraParametreService;
             _kiraDurumDosyaTurService = kiraDurumDosyaTurService;
-          
+            _altKiraciService = altKiraciService;
+
             _icraIslemeService = icraIslemeService;
 
         }
@@ -425,9 +427,13 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 kiraBeyanModel.Kiraci_Id = BeyanSicilEkle(kiraBeyanModel.Kiraci, ref islemler);
 
             kiraBeyanModel.Beyan.AktifMi = (int)EnmIslemDurumu.Aktif;
-
-            kiraBeyanModel.Beyan_Id = BeyanEkle(kiraBeyanModel.Beyan, ref islemler);
             kiraBeyanModel.Beyan.SicilNo = kiraci.SicilNo;
+            kiraBeyanModel.Beyan.Kiraci_Id = kiraci.Id;
+            kiraBeyanModel.Beyan.Gayrimenkul_Id = kiraBeyanModel.Gayrimenkul_Id;
+            kiraBeyanModel.Beyan_Id = BeyanEkle(kiraBeyanModel.Beyan, ref islemler);
+         
+      
+
             #endregion
 
 
@@ -511,6 +517,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 model.ArtisTuruSelectList = _selectLists.ArtisTuruSelectList();
                 model.IcraDurumSelectList = _selectLists.IcraDurumlariSelectList();
                 //model.KiraYenilemePeriyotSelectList = _selectLists.KiraYenilemePeriyotSelectList();
+                model.AltGayrimenkuller = _gayrimenkulservice.GetirAltGayrimenkul(model.Gayrimenkul.Id);
 
 
                 var icraListeGetir = _icraIslemeService.GetirListe(kiraBeyan.Id);
@@ -918,6 +925,29 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
         #endregion
 
+        #region Alt Kiraci
+        [HttpPost]
+        public JsonResult GetirAltKiraciTable(int GayrimenkulId)
+        {
+            if (GayrimenkulId > 0)
+            {
+                var result = _altKiraciService.GetirListe(GayrimenkulId);
+
+                if (result != null)
+                {
+                    ModelState.AddModelError("LogMessage", "Alt Kiracı Ekleme İşlemi Başarıyla Gerçekleştirildi!!!");
+
+                    return Json(new { result, Message = "Alt Kiracı Ekleme İşlemi Başarıyla Gerçekleştirildi.", success = true }, JsonRequestBehavior.AllowGet);
+                }
+            }
+
+
+            ModelState.AddModelError("LogMessage", "Alt Kiracı Ekleme İşlemi Gerçekleştirilemedi!!!");
+
+            return Json(new { Message = "Alt Kiracı Ekleme İşlemi Gerçekleştirilemedi.", success = false }, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
         #region Metodlar
 
         [HttpPost]
@@ -996,6 +1026,9 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 int beyanYil = beyanBilgi.BeyanYil.Value + 1;
                 #region BeyanArtis
                 ekleVm.BeyanTur_Id = beyanBilgi.BeyanTur_Id.Value;
+                ekleVm.Gayrimenkul_Id = beyanBilgi.Gayrimenkul_Id.Value;
+                ekleVm.Kiraci_Id = beyanBilgi.Kiraci_Id.Value;
+
                 ekleVm.BeyanYil = short.Parse(beyanYil.ToString());
                 ekleVm.KiraDurum_Id = beyanBilgi.KiraDurum_Id;
                 ekleVm.BeyanNo = beyanBilgi.BeyanNo;
@@ -1029,6 +1062,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             {
                 #region NormalBeyan
                 ekleVm.BeyanTur_Id = beyanBilgi.BeyanTur_Id.Value;
+                ekleVm.Gayrimenkul_Id = beyanBilgi.Gayrimenkul_Id.Value;
+                ekleVm.Kiraci_Id = beyanBilgi.Kiraci_Id.Value;
                 ekleVm.BeyanYil = beyanBilgi.BeyanYil;
                 ekleVm.KiraDurum_Id = beyanBilgi.KiraDurum_Id;
                 ekleVm.BeyanNo = beyanBilgi.BeyanNo;
@@ -2238,6 +2273,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                         OncekiBeyanId = beyanBilgi.Id,
                         Guid = Guid.NewGuid(),
                         BeyanTur_Id = beyanBilgi.BeyanTur_Id,
+                        Gayrimenkul_Id = beyanBilgi.Gayrimenkul_Id,
+                        Kiraci_Id=beyanBilgi.Kiraci_Id,
                         KiraDurum_Id = beyanBilgi.KiraDurum_Id.Value,
                         OdemePeriyotTur_Id = beyanBilgi.OdemePeriyotTur_Id.Value,
                         BeyanNo = beyanBilgi.BeyanNo,
@@ -2282,6 +2319,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                         OncekiBeyanId = beyanBilgi.Id,
                         EskiBeyanId = beyanBilgi.Id,
                         Guid = Guid.NewGuid(),
+                        Gayrimenkul_Id = beyanBilgi.Gayrimenkul_Id,
+                        Kiraci_Id = beyanBilgi.Kiraci_Id,
                         BeyanTur_Id = beyanBilgi.BeyanTur_Id,
                         KiraDurum_Id = beyanBilgi.KiraDurum_Id.Value,
                         OdemePeriyotTur_Id = beyanBilgi.OdemePeriyotTur_Id.Value,
@@ -2803,5 +2842,6 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         }
 
         #endregion
+
     }
 }
