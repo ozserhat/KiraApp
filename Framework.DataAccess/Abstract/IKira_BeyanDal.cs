@@ -9,7 +9,8 @@ namespace Framework.DataAccess.Abstract
     {
         IEnumerable<Beyan> GetList();
 
-        IEnumerable<Beyan> GetListByCriterias(KiraBeyanRequest request);      
+        IEnumerable<Beyan> GetListByCriterias(KiraBeyanRequest request);
+        IEnumerable<Beyan> GetListByCriteriasActive(KiraBeyanRequest request);
 
         IEnumerable<Beyan> GetListByCriteriasGayrimenkul(GayrimenkulBeyanRequest request);
         IEnumerable<Beyan> GetListByCriteriasSicil(SicilBeyanRequest request);

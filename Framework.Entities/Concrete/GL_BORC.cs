@@ -13,8 +13,11 @@ namespace Framework.Entities.Concrete
 	public class GL_BORC:IEntity
 	{
 		[Key]
-		public long ID { get; set; }
-		public long BEYAN_ID { get; set; }
+		public int ID { get; set; }
+		public int BEYAN_ID { get; set; }
+
+		[ForeignKey("BEYAN_ID")]
+		public virtual Beyan Beyanlar { get; set; }
 
 		public string BeyanNo { get; set; }
 

@@ -59,7 +59,7 @@ namespace Framework.Business.Concrete.Managers
 
         public IEnumerable<Beyan> GetirSorguListeAktif(KiraBeyanRequest request)
         {
-            return _beyanDal.GetListByCriterias(request).Where(a=>a.AktifMi!=0);
+            return _beyanDal.GetListByCriteriasActive(request);
         }
 
         public Beyan Guncelle(Beyan beyan)

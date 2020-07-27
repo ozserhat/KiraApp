@@ -171,7 +171,7 @@ namespace Framework.Business.Concrete.Managers
 
         //}
 
-        private void TahakukListesiKaydet(List<GL_BORC> tahakukkList, long kiraBeyanId)
+        private void TahakukListesiKaydet(List<GL_BORC> tahakukkList, int kiraBeyanId)
         {
             foreach (var item in tahakukkList)
             {

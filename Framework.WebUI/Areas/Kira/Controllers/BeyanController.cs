@@ -221,6 +221,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 request.Kdv = int.Parse(kdvlist.Ad);
             }
 
+
             var beyanlar = _kiraBeyanService.GetirSorguListeAktif(request);
 
             model.PageNumber = page ?? 1;
@@ -238,10 +239,11 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 model.BeyanYilSelectList = BeyanYilFullSelectList();
                 model.KdvOraniSelectList = KdvOraniSelectList();
                 model.DamgaVergisiDurumSelectList = DamgaVergisiDurumSelectList();
-                model.OdemePeriyotSelectList = OdemePeriyotSelectList();
-                model.GayrimenkulTuruSelectList = GayrimenkulTuruSelectList();
 
-               
+                model.GayrimenkulTuruSelectList = GayrimenkulTuruSelectList();
+                model.OdemeDurumuSelectList = _selectLists.OdemeDurumuSelectList();
+
+
                 //beyanlar = beyanlar.ToPagedList(model.PageNumber, model.PageSize);
                 model.Beyanlar = new StaticPagedList<Beyan>(beyanlar, model.PageNumber, model.PageSize, model.TotalRecordCount);
             }
@@ -431,8 +433,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             kiraBeyanModel.Beyan.Kiraci_Id = kiraci.Id;
             kiraBeyanModel.Beyan.Gayrimenkul_Id = kiraBeyanModel.Gayrimenkul_Id;
             kiraBeyanModel.Beyan_Id = BeyanEkle(kiraBeyanModel.Beyan, ref islemler);
-         
-      
+
+
 
             #endregion
 
@@ -506,7 +508,13 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 var beyanDosya = _beyanDosyaService.GetirListe(false).Where(a => a.Beyan_Id == kiraBeyan.Id).ToList();
 
                 model.Kiraci = GetirSicil(kiraBeyan.Kiracilar.SicilNo.ToString());
-                model.Gayrimenkul = GetirGayrimenkul(kiraBeyan.Gayrimenkuller.GayrimenkulNo);
+
+                if (kiraBeyan.Gayrimenkuller != null)
+                {
+                    model.Gayrimenkul = GetirGayrimenkul(kiraBeyan.Gayrimenkuller.GayrimenkulNo);
+                    model.AltGayrimenkuller = _gayrimenkulservice.GetirAltGayrimenkul(model.Gayrimenkul.Id);
+                }
+
                 model.Beyan = GetirBeyan(kiraBeyan.Id);
                 model.BeyanDosyalar = GetirBeyanDosyalar(kiraBeyan.Id);
                 model.Tahakkuklar = _tahakkukService.GetirListe(kiraBeyan.EskiBeyanId.Value);
@@ -517,16 +525,16 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 model.ArtisTuruSelectList = _selectLists.ArtisTuruSelectList();
                 model.IcraDurumSelectList = _selectLists.IcraDurumlariSelectList();
                 //model.KiraYenilemePeriyotSelectList = _selectLists.KiraYenilemePeriyotSelectList();
-                model.AltGayrimenkuller = _gayrimenkulservice.GetirAltGayrimenkul(model.Gayrimenkul.Id);
+              
 
 
                 var icraListeGetir = _icraIslemeService.GetirListe(kiraBeyan.Id);
 
-                if (icraListeGetir!=null)
+                if (icraListeGetir != null)
                 {
-                    model.IcraListesi=icraListeGetir;
+                    model.IcraListesi = icraListeGetir;
                 }
-               
+
 
 
                 model.Beyan_Id = kiraBeyan.Id;
@@ -597,7 +605,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 MODUL_GRUP = 5,
                 TIP = "EK",
                 TUR_KOD = beyanTur,
-                SICIL_NO = (beyan.SicilNo.HasValue?beyan.SicilNo.Value:-1),
+                SICIL_NO = (beyan.SicilNo.HasValue ? beyan.SicilNo.Value : -1),
                 SIRA = 1,//Beyan Sırası
                 ADI = "",
                 SOYADI = "",
@@ -867,16 +875,16 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         [HttpPost]
         public JsonResult IcraIsleme(IcraIslemeVM icraModel)
         {
-            if(icraModel.Beyan_Id!=null&& icraModel.IcraDurum_Id!=null)
+            if (icraModel.Beyan_Id != null && icraModel.IcraDurum_Id != null)
             {
                 Beyan_IcraIsleme icra = new Beyan_IcraIsleme()
                 {
-                    Beyan_Id=int.Parse(icraModel.Beyan_Id),
-                    IcraDurum_Id= int.Parse(icraModel.IcraDurum_Id),
-                    Sayi= int.Parse(icraModel.Sayi),
-                    VerilisTarihi=DateTime.Parse(icraModel.VerilisTarihi),
-                    BaskanlikOlurTarihi= DateTime.Parse(icraModel.BaskanlikOlurTarihi),
-                    Aciklama= icraModel.Aciklama,
+                    Beyan_Id = int.Parse(icraModel.Beyan_Id),
+                    IcraDurum_Id = int.Parse(icraModel.IcraDurum_Id),
+                    Sayi = int.Parse(icraModel.Sayi),
+                    VerilisTarihi = DateTime.Parse(icraModel.VerilisTarihi),
+                    BaskanlikOlurTarihi = DateTime.Parse(icraModel.BaskanlikOlurTarihi),
+                    Aciklama = icraModel.Aciklama,
                     OlusturulmaTarihi = DateTime.Now,
                     OlusturanKullanici_Id = int.Parse(!string.IsNullOrEmpty(User.GetUserPropertyValue("UserId")) ? User.GetUserPropertyValue("UserId") : null),
                     AktifMi = true
@@ -884,14 +892,14 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
                 var result = _icraIslemeService.Ekle(icra);
 
-                if (result.Id>0)
+                if (result.Id > 0)
                 {
                     ModelState.AddModelError("LogMessage", "İcra İşleme İşlemi Başarıyla Gerçekleştirildi!!!");
 
                     return Json(new { Message = "İcra İşleme İşlemi Başarıyla Gerçekleştirildi.", success = true }, JsonRequestBehavior.AllowGet);
                 }
             }
-            
+
 
             ModelState.AddModelError("LogMessage", "İcra İşleme İşlemi Gerçekleştirilemedi!!!");
 
@@ -1310,8 +1318,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             string beyanTur = (beyan.BeyanTur_Id == (int)EnmBeyanTur.Kira ? EnmBeyanTur.Kira.ToString() : beyan.BeyanTur_Id == (int)EnmBeyanTur.Otopark ? EnmBeyanTur.Otopark.ToString() : EnmBeyanTur.Ecrimisil.ToString());
 
             DateTime vadeTarih = _resmiTatilService.TatilGunuKontrol(beyan.KiraBaslangicTarihi.Value.AddDays(beyan.MusadeliGunSayisi.Value));
-         
-            if(KiraBeyan_Id>0)
+
+            if (KiraBeyan_Id > 0)
             {
                 int kiraciId = _beyanService.Getir(beyan.Id).Kiraci_Id.Value;
                 beyan.SicilNo = _kiraciService.Getir(kiraciId).SicilNo;
@@ -2274,7 +2282,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                         Guid = Guid.NewGuid(),
                         BeyanTur_Id = beyanBilgi.BeyanTur_Id,
                         Gayrimenkul_Id = beyanBilgi.Gayrimenkul_Id,
-                        Kiraci_Id=beyanBilgi.Kiraci_Id,
+                        Kiraci_Id = beyanBilgi.Kiraci_Id,
                         KiraDurum_Id = beyanBilgi.KiraDurum_Id.Value,
                         OdemePeriyotTur_Id = beyanBilgi.OdemePeriyotTur_Id.Value,
                         BeyanNo = beyanBilgi.BeyanNo,
@@ -2826,19 +2834,27 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         [HttpGet]
         public JsonResult KiralikTasinmazlarChart()
         {
-            var liste = _kiraBeyanService.GetirListe().Where(x => x.Gayrimenkuller.Ilce_Id != null).ToList();
-            var data = liste.GroupBy(a => a.Gayrimenkuller.Ilceler.Ad)
-                          .Select(g => new { g.Key, Count = g.Count() }).ToList();
-
             List<KiralikTasinmazlarChart> modelList = new List<KiralikTasinmazlarChart>();
-            foreach (var item in data)
+
+            try
             {
-                modelList.Add(new KiralikTasinmazlarChart() { y = item.Count, label = item.Key });
+                var liste = _kiraBeyanService.GetirListe().Where(x => x.Gayrimenkuller.Ilce_Id != null).ToList();
+                var data = liste.GroupBy(a => a.Gayrimenkuller.Ilceler.Ad)
+                              .Select(g => new { g.Key, Count = g.Count() }).ToList();
+
+                foreach (var item in data)
+                {
+                    modelList.Add(new KiralikTasinmazlarChart() { y = item.Count, label = item.Key });
+                }
+
+                ViewBag.DataPoints = JsonConvert.SerializeObject(modelList);
+
+                return Json(modelList.ToArray(), JsonRequestBehavior.AllowGet);
             }
-
-            ViewBag.DataPoints = JsonConvert.SerializeObject(modelList);
-
-            return Json(modelList.ToArray(), JsonRequestBehavior.AllowGet);
+            catch (Exception)
+            {
+                return Json(modelList.ToArray(), JsonRequestBehavior.AllowGet);
+            }
         }
 
         #endregion

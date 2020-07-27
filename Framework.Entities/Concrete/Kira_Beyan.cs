@@ -100,6 +100,20 @@ namespace Framework.Entities.Concrete
         public string Ad { get; set; }
         public string SoyAd { get; set; }
         public int? Il_Id { get; set; }
+
+        //Tahakkuk Request
+
+        public int? TaksitNo { get; set; }
+
+        public DateTime? VadeTarihi { get; set; }
+
+        public DateTime? TahakkukTarihi { get; set; }
+
+        public decimal? Tutar { get; set; }
+
+        public string Aciklama { get; set; }
+
+        public int? OdemeDurumu_Id { get; set; }
     }
 
     [NotMapped]

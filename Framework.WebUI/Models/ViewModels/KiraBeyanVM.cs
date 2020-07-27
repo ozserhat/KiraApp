@@ -159,6 +159,35 @@ namespace Framework.WebUI.Models.ViewModels
         public string VergiDairesi { get; set; }
 
 
+        [Display(Name = " Tahakkuk Tur")]
+        public string TahakkukTur { get; set; }
+
+        [Display(Name = "Taksit No")]
+        public int? TaksitNo { get; set; }
+
+        [Display(Name = "Vade Tarihi")]
+        public DateTime? VadeTarihi { get; set; }
+
+        [Display(Name = "Tahakkuk Tarihi")]
+        public DateTime? TahakkukTarihi { get; set; }
+
+        [Display(Name = "Tutar")]
+        public decimal? Tutar { get; set; }
+
+        [Display(Name = "Açıklama")]
+        public string Aciklama { get; set; }
+
+        [Display(Name = "Ödeme Durumu")]
+        public bool? OdemeDurumu { get; set; }
+
+        public IPagedList<GL_BORC> Tahakkuklar { get; set; }
+
+        [Display(Name = "Tahakkuk Türü")]
+        public SelectList TahakkukTurSelectList { get; set; }
+
+        [Display(Name = "Ödeme Durumu")]
+        public SelectList OdemeDurumuSelectList { get; set; }
+
         public KiraBeyanVM KiraBeyanVm { get; set; }
 
     }

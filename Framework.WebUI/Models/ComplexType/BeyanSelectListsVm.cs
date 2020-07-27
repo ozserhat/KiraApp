@@ -205,7 +205,21 @@ namespace Framework.WebUI.Models.ComplexType
             return new SelectList(periyot, "Id", "Ad");
         }
 
+        public SelectList OdemeDurumuSelectList()
+        {
+            List<SelectListItem> newList = new List<SelectListItem>() {
+                                  new SelectListItem(){
+                                    Text="Tahsil Edildi",
+                                    Value="1"
+                                  },
+                                  new SelectListItem(){
+                                  Text="Vadesi Gelmeyen",
+                                  Value="0"
+                                 }
+            };
 
+            return new SelectList(newList, "Value", "Text");
+        }
 
         #endregion
     }
