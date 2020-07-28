@@ -64,7 +64,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
         private readonly IIcraIslemeService _icraIslemeService;
         private readonly IAltGayrimenkul_KiraciService _altKiraciService;
-
+        private readonly IExportService _exportService;
 
         public string DosyaYolu = ConfigurationManager.AppSettings["DosyaYolu"].ToString();
 
@@ -94,7 +94,8 @@ namespace Framework.WebUI.Areas.Kira.Controllers
         IKiraDurum_DosyaTurService kiraDurumDosyaTurService,
         IBeyan_UfeOranService ufeOranService,
       IAltGayrimenkul_KiraciService altKiraciService,
-        IIcraIslemeService icraIslemeService
+        IIcraIslemeService icraIslemeService,
+        IExportService exportService
 
         )
         {
@@ -126,7 +127,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             _kiraParametreService = kiraParametreService;
             _kiraDurumDosyaTurService = kiraDurumDosyaTurService;
             _altKiraciService = altKiraciService;
-
+            _exportService = exportService;
             _icraIslemeService = icraIslemeService;
 
         }
@@ -190,7 +191,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             return View(model);
         }
 
-        public ActionResult Index(KiraBeyanRequest request, int? page, int pageSize = 100)
+        public ActionResult Index(KiraBeyanRequest request, bool? exportExcel, int? page, int pageSize = 10)
         {
             //TestWCF();
             var model = new KiraBeyanVM();
@@ -244,13 +245,34 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 model.OdemeDurumuSelectList = _selectLists.OdemeDurumuSelectList();
 
 
-                //beyanlar = beyanlar.ToPagedList(model.PageNumber, model.PageSize);
+                beyanlar = beyanlar.ToPagedList(model.PageNumber, model.PageSize);
                 model.Beyanlar = new StaticPagedList<Beyan>(beyanlar, model.PageNumber, model.PageSize, model.TotalRecordCount);
+
+                if (exportExcel.HasValue)
+                {
+                    var excelResult = _exportService.ExcelExportBeyan(request);
+                    TempData["DownloadExcel_FileManager"] = excelResult;
+                    return Json("", JsonRequestBehavior.AllowGet);
+                }
             }
 
             return View(model);
         }
+    
+        public ActionResult Download()
+        {
 
+            if (TempData["DownloadExcel_FileManager"] != null)
+            {
+                byte[] data = TempData["DownloadExcel_FileManager"] as byte[];
+                return File(data, "application/octet-stream", "Beyan Raporu ("+DateTime.Now.ToShortDateString()+").xlsx");
+            }
+            else
+            {
+                return new EmptyResult();
+            }
+        }
+     
         public SelectList IlSelectList()
         {
             var iller = _ilService.GetirListe().Select(x => new { x.Id, x.Ad }).ToList();
@@ -525,7 +547,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 model.ArtisTuruSelectList = _selectLists.ArtisTuruSelectList();
                 model.IcraDurumSelectList = _selectLists.IcraDurumlariSelectList();
                 //model.KiraYenilemePeriyotSelectList = _selectLists.KiraYenilemePeriyotSelectList();
-              
+
 
 
                 var icraListeGetir = _icraIslemeService.GetirListe(kiraBeyan.Id);
@@ -2856,6 +2878,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 return Json(modelList.ToArray(), JsonRequestBehavior.AllowGet);
             }
         }
+
 
         #endregion
 

@@ -265,7 +265,9 @@ namespace Framework.DataAccess.Concrete.EntityFramework
                                 .Include(bt => bt.BeyanTur)
                                 .Include(k => k.Kiracilar)
                                 .Include(g => g.Gayrimenkuller)
-                                .Include(ilc => ilc.Gayrimenkuller.Iller).Where(bt=>bt.AktifMi!=0)
+                                .Include(ilc => ilc.Gayrimenkuller.Ilceler)
+                                .Include(ilc => ilc.Gayrimenkuller.Ilceler.Iller)
+                                .Where(bt=>bt.AktifMi!=0)
                                 .AsQueryable();
 
                 query = request.UstGayrimenkulMu == true ? query.Where(x => x.Gayrimenkuller.UstId == null) : request.UstGayrimenkulMu == false ? query.Where(x => x.Gayrimenkuller.UstId != null) : query;

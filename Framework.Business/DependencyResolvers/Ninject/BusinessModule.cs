@@ -149,6 +149,7 @@ namespace Framework.Business.DependencyResolvers.Ninject
             Bind<IAltGayrimenkul_KiraciService>().To<AltGayrimenkul_KiraciManager>().InTransientScope();
 
             Bind<ISicilService>().To<SicilServiceManager>().InTransientScope();
+            Bind<IExportService>().To<ExportManager>().InSingletonScope();
 
             Bind<IHatirlaticiService>().To<HatirlaticiManager>().InTransientScope();
             Bind<IJobFactory>().To<JobFactory>().InSingletonScope();

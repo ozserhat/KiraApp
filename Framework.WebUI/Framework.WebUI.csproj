@@ -55,6 +55,10 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="EPPlus, Version=5.2.1.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Framework.Business\bin\Debug\EPPlus.dll</HintPath>
+    </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.11.23.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlAgilityPack.1.11.23\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
@@ -240,6 +244,7 @@
     <Compile Include="Areas\SosyalYardim\SosyalYardimAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HtmlToPdfExportController.cs" />
     <Compile Include="Controllers\UnauthorizedController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1924,6 +1929,7 @@
     <Folder Include="Content\login\webfonts\" />
     <Folder Include="Dosyalar\Beyan\" />
     <Folder Include="Views\BeyanDosya_TurVM\" />
+    <Folder Include="Views\HtmlToPdfExport\" />
     <Folder Include="Views\KullaniciSayfaYetkiVM\" />
   </ItemGroup>
   <ItemGroup>

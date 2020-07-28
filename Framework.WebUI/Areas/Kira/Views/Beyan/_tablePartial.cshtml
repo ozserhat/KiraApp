@@ -14,6 +14,8 @@
             <th class="sorting_disabled" rowspan="1" colspan="1">İl</th>
             <th class="sorting_disabled" rowspan="1" colspan="1">İlçe</th>
             <th class="sorting_disabled" rowspan="1" colspan="1">Mahalle</th>
+            <th class="sorting_disabled" rowspan="1" colspan="1">Artış Mı?</th>
+
             <th class="sorting_disabled" rowspan="1" colspan="1">Durum</th>
             <th class="sorting_disabled text-center" rowspan="1" colspan="1" style="text-align: right;  padding-right: 30px; width: 100px;">İşlem</th>
         </tr>
@@ -26,79 +28,91 @@
 
             @foreach (var item in Model.Beyanlar)
             {
-                <tr role="row" class="odd">
-                    <td id="btnGetirDetay" data-id="@item.EskiBeyanId" data-yil="@item.BeyanYil" class="details-control">
-                    </td>
-                    <td>@(i++)</td>
-                    <td>@Html.DisplayFor(model => item.BeyanTur.Ad)</td>
-                    <td>@Html.DisplayFor(model => item.BeyanNo)</td>
-                    <td>@Html.DisplayFor(model => item.Kiracilar.SicilNo)</td>
-                    <td>@{
+            <tr role="row" class="odd">
+                <td id="btnGetirDetay" data-id="@item.EskiBeyanId" data-yil="@item.BeyanYil" class="details-control">
+                </td>
+                <td>@(i++)</td>
+                <td>@Html.DisplayFor(model => item.BeyanTur.Ad)</td>
+                <td>@Html.DisplayFor(model => item.BeyanNo)</td>
+                <td>@Html.DisplayFor(model => item.Kiracilar.SicilNo)</td>
+                <td>
+                    @{
                         string adSoyad = item.Kiracilar.Ad + " " + item.Kiracilar.Soyad;
                         @Html.DisplayFor(model => adSoyad)
-                    }</td>
-                    <td>@Html.DisplayFor(model => item.Gayrimenkuller.GayrimenkulNo)</td>
-                   
-
-                    <td>
-                        @if (item.Gayrimenkuller!=null&&item.Gayrimenkuller.Ilceler != null)
-                        {
-                            @Html.DisplayFor(model => item.Gayrimenkuller.Ilceler.Iller.Ad)
-
-                        }
-                    </td>
-                    <td>
-                        @if (item.Gayrimenkuller != null && item.Gayrimenkuller.Ilceler != null)
-                        {
-                            @Html.DisplayFor(model => item.Gayrimenkuller.Ilceler.Ad)
-                        }
-                    </td>
-                    <td>
-                        @if (item.Gayrimenkuller != null && item.Gayrimenkuller.Mahalleler != null)
-                        {
-                            @Html.DisplayFor(model => item.Gayrimenkuller.Mahalleler.Ad)
-                        }
-                    </td>
-                    <td>
-                        @if (item.AktifMi == (int)Framework.Entities.Enums.EnmIslemDurumu.Aktif)
-                        {
-                            <b class="label aktif-buton-beyandetay">Aktif</b>
-                        }
-                        else if (item.AktifMi == (int)Framework.Entities.Enums.EnmIslemDurumu.Pasif)
-                        {
-                            <b class="label pasif-buton-beyandetay">Pasif</b>
-                        }
-                        else if (item.AktifMi == (int)Framework.Entities.Enums.EnmIslemDurumu.Kapandı)
-                        {
-                            <b class="label kapandi-buton-beyandetay">Kapandı</b>
-                        }
-                        else if (item.AktifMi == (int)Framework.Entities.Enums.EnmIslemDurumu.Belirsiz)
-                        {
-                            <b class="label kapandi-buton-beyandetay">Belirsiz</b>
-                        }
-                        else
-                        {
-                            <b class="label silindi-buton-beyandetay">Silindi</b>
-                        }
-                    </td>
-                    <td class="text-center">
-                        @*@if (item.OlusturulmaTarihi >= DateTime.Now.AddDays(-1))
-                            {*@
-                        @Html.AuthAction(" ", "Ekle", "Beyan", new { id = item.Guid },
-                                  new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue", @data_name = item.BeyanNo, @data_id = item.Id },
-                                  Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
-                        @*}*@
-
-                        @Html.AuthAction(" ", "BeyanDetay", "Beyan", new { item.Guid },
-                                        new { @class = "no-underline margin-right-5 fa fa-search-plus font-md txt-color-blue", @data_name = item.BeyanNo, @data_id = item.Id },
-                                        Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                }
+            </td>
+            <td>@Html.DisplayFor(model => item.Gayrimenkuller.GayrimenkulNo)</td>
 
 
-                        @*<a href='@Url.Action("BeyanSil", "Beyan",new {  guidId = item.Beyanlar.Guid, kiraciId = item.Kiracilar.Id, gayrimenkulId = item.Gayrimenkuller.Id})'>
-                            <i class=' no-underline margin-right-5 fa fa-trash font-md txt-color-blue'></i></a>*@
+            <td>
+                @if (item.Gayrimenkuller != null && item.Gayrimenkuller.Ilceler != null)
+                {
+                    @Html.DisplayFor(model => item.Gayrimenkuller.Ilceler.Iller.Ad)
 
-                    </td>
-                </tr>
+                }
+            </td>
+            <td>
+                @if (item.Gayrimenkuller != null && item.Gayrimenkuller.Ilceler != null)
+                {
+                    @Html.DisplayFor(model => item.Gayrimenkuller.Ilceler.Ad)
+                }
+            </td>
+            <td>
+                @if (item.Gayrimenkuller != null && item.Gayrimenkuller.Mahalleler != null)
+                {
+                    @Html.DisplayFor(model => item.Gayrimenkuller.Mahalleler.Ad)
+                }
+            </td>
+            <td>
+                @if (item.OncekiBeyanId !=null)
+                {
+                    <b class="label aktif-buton-beyandetay">Artış</b>
+                }
+                else
+                {
+                    <b class="label kapandi-buton-beyandetay">Beyan</b>
+                }
+            </td>
+            <td>
+                @if (item.AktifMi == (int)Framework.Entities.Enums.EnmIslemDurumu.Aktif)
+                {
+                    <b class="label aktif-buton-beyandetay">Aktif</b>
+                }
+                else if (item.AktifMi == (int)Framework.Entities.Enums.EnmIslemDurumu.Pasif)
+                {
+                    <b class="label pasif-buton-beyandetay">Pasif</b>
+                }
+                else if (item.AktifMi == (int)Framework.Entities.Enums.EnmIslemDurumu.Kapandı)
+                {
+                    <b class="label kapandi-buton-beyandetay">Kapandı</b>
+                }
+                else if (item.AktifMi == (int)Framework.Entities.Enums.EnmIslemDurumu.Belirsiz)
+                {
+                    <b class="label kapandi-buton-beyandetay">Belirsiz</b>
+                }
+                else
+                {
+                    <b class="label silindi-buton-beyandetay">Silindi</b>
+                }
+            </td>
+            <td class="text-center">
+                @*@if (item.OlusturulmaTarihi >= DateTime.Now.AddDays(-1))
+        {*@
+                @Html.AuthAction(" ", "Ekle", "Beyan", new { id = item.Guid },
+                          new { @class = "no-underline margin-right-5 fa fa-edit font-md txt-color-blue", @data_name = item.BeyanNo, @data_id = item.Id },
+                          Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+                @*}*@
+
+                @Html.AuthAction(" ", "BeyanDetay", "Beyan", new { item.Guid },
+                                new { @class = "no-underline margin-right-5 fa fa-search-plus font-md txt-color-blue", @data_name = item.BeyanNo, @data_id = item.Id },
+                                Convert.ToBoolean(TempData["OpenAuthorizationPopup"]))
+
+
+                @*<a href='@Url.Action("BeyanSil", "Beyan",new {  guidId = item.Beyanlar.Guid, kiraciId = item.Kiracilar.Id, gayrimenkulId = item.Gayrimenkuller.Id})'>
+        <i class=' no-underline margin-right-5 fa fa-trash font-md txt-color-blue'></i></a>*@
+
+            </td>
+            </tr>
             }
         </tbody>
     }
