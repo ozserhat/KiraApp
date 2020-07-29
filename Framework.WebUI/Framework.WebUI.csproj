@@ -111,6 +111,7 @@
       <HintPath>..\packages\System.ComponentModel.Annotations.4.4.1\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.Remoting" />
@@ -252,6 +253,7 @@
     <Compile Include="Helpers\DtContextWeb.cs" />
     <Compile Include="Helpers\EncDecHelper.cs" />
     <Compile Include="Helpers\EnumHelper.cs" />
+    <Compile Include="Helpers\LDAPHelper.cs" />
     <Compile Include="Helpers\UserExtended.cs" />
     <Compile Include="Models\ComplexType\BeyanSelectListsVm.cs" />
     <Compile Include="Models\ViewModels\AltKiraciVM.cs" />

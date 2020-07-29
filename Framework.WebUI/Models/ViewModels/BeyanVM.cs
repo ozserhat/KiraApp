@@ -33,6 +33,9 @@ namespace Framework.WebUI.Models.ViewModels
         [Display(Name = "Kiraci_Id")]
         public int? Kiraci_Id { get; set; }
 
+        [Display(Name = "ArtisTuru_Id")]
+        public int ArtisTuru_Id { get; set; }
+
         [Display(Name = "Kira Durumu")]
         public int? KiraDurum_Id { get; set; }
 
@@ -119,6 +122,8 @@ namespace Framework.WebUI.Models.ViewModels
 
         [Display(Name = "Kira Artışı Mı?")]
         public bool? KiraArtisiMi { get; set; }
+
+
 
         [Display(Name = "Otopark Tatil Günleri")]
         public string OtoparkTatilGun { get; set; }

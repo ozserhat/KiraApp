@@ -798,6 +798,7 @@
                                                             <div>
                                                                 @{
                                                                     sonSayfa = Model.TotalRecordCount % Model.PageSize == 0 ? Model.TotalRecordCount / Model.PageSize : Model.TotalRecordCount / Model.PageSize + 1;
+                                                                    <input type="hidden" id="hdPageNum" value="@Model.PageNumber" />
                                                                     @Html.PagedListPager(Model.Beyanlar, page => Url.Action("Index",
                                                                                                              new
                                                                                                              {
@@ -1193,7 +1194,8 @@
                 type: "POST",
                 url: "/Kira/Beyan/Index",
                 cache: false,
-                data: { exportExcel:true},
+                data: {
+                    exportExcel: true, page:$('#hdPageNum').val()},
                 success: function (data) {
                     window.location = '/Kira/Beyan/Download';
                 },

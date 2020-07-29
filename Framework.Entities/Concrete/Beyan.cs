@@ -77,6 +77,8 @@ namespace Framework.Entities.Concrete
 
         public bool? DamgaAlinsinMi { get; set; }
 
+        public bool? ArtisiMi { get; set; }
+
         public int? MusadeliGunSayisi { get; set; }
 
         public int? Kdv { get; set; }

@@ -9,7 +9,7 @@ namespace Framework.Business.Abstract
 {
     public interface IExportService
     {
-        byte[] ExcelExportBeyan(KiraBeyanRequest request);
+        byte[] ExcelExportBeyan(IEnumerable<Beyan> beyanlar);
 
     }
 }

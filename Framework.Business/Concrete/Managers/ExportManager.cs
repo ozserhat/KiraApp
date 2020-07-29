@@ -21,10 +21,9 @@ namespace Framework.Business.Concrete.Managers
             _beyanDal = beyanDal;
         }
 
-        public byte[] ExcelExportBeyan(KiraBeyanRequest request)
+        public byte[] ExcelExportBeyan(IEnumerable<Beyan> beyanlar)
         {
             
-            var result = _beyanDal.GetListByCriteriasActive(request);
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
             ExcelPackage excel = new ExcelPackage();
@@ -40,7 +39,7 @@ namespace Framework.Business.Concrete.Managers
 
             int ind = 1;
 
-            if (result != null)
+            if (beyanlar != null)
             {
                 workSheet.Cells[recordIndex, ind++].Value = "Tür Adı";
                 workSheet.Cells[recordIndex, ind++].Value = "Beyan Yıl";
@@ -72,7 +71,7 @@ namespace Framework.Business.Concrete.Managers
 
                 workSheet.Cells[recordIndex, ind++].Value = "Artış Mı";
                 recordIndex = 2;
-                foreach (var beyan in result)
+                foreach (var beyan in beyanlar)
                 {
 
                     ind = 1;

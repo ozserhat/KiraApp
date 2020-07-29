@@ -712,7 +712,7 @@
                     DamgaAlinsinMi: $('#DamgaAlinsinMi').val(),
                     BeyanAciklama: $('#BeyanAciklama').val(),
                     OtoparkTatilGun: $("#OtoparkTatilGun").val(),
-                    ResmiTatilVarmi: $('#ResmiTatilVarmi').val(),
+                    ResmiTatilVarmi: $('#ResmiTatilVarmi').val()
                 }
 
                var kiraBeyanModel ={
@@ -741,10 +741,12 @@
                         }
                         else {
                             swal('Uyarı!', result.Message, 'warning');
+                            $.LoadingOverlay("hide");
                         }
                     },
                     error: function (xhr) {
                         swal('Uyarı!', result.Message, 'warning');
+                        $.LoadingOverlay("hide");
                     }
                  });
                 }

@@ -250,7 +250,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
                 if (exportExcel.HasValue)
                 {
-                    var excelResult = _exportService.ExcelExportBeyan(request);
+                    var excelResult = _exportService.ExcelExportBeyan(beyanlar);
                     TempData["DownloadExcel_FileManager"] = excelResult;
                     return Json("", JsonRequestBehavior.AllowGet);
                 }
@@ -258,21 +258,21 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
             return View(model);
         }
-    
+
         public ActionResult Download()
         {
 
             if (TempData["DownloadExcel_FileManager"] != null)
             {
                 byte[] data = TempData["DownloadExcel_FileManager"] as byte[];
-                return File(data, "application/octet-stream", "Beyan Raporu ("+DateTime.Now.ToShortDateString()+").xlsx");
+                return File(data, "application/octet-stream", "Beyan Raporu (" + DateTime.Now.ToShortDateString() + ").xlsx");
             }
             else
             {
                 return new EmptyResult();
             }
         }
-     
+
         public SelectList IlSelectList()
         {
             var iller = _ilService.GetirListe().Select(x => new { x.Id, x.Ad }).ToList();
@@ -427,15 +427,21 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
             islemler.Eklenenler = new KiraBeyanModel();
 
-            #region Beyan Pasife Alma İşlemi
-            if (kiraBeyanModel.Beyan.Id > 0)
+            var gayrimenkul = _gayrimenkulservice.Getir(kiraBeyanModel.Gayrimenkul.GayrimenkulId);
+            if (gayrimenkul != null && gayrimenkul.GayrimenkulTur_Id != 36 && kiraBeyanModel.Beyan.BeyanTur_Id == 2)
             {
-                islemler.PasifeAlinanlar = new KiraBeyanModel();
-                //Tahakkuk kaydı varsa ödenen güncellenmesine izin verilmeyecek.
-                BeyanPasifeAl(kiraBeyanModel, ref islemler);
-                kiraBeyanModel.Beyan.Id = 0;
-                //Beyan Pasif,Tahakkuklar,KiraBeyanEkle pasife alınacak.
+                ModelState.AddModelError("LogMessage", "Eklemek İstediğiniz Gayrimenkul için Otopark Hesabı Yapılamaz!!!");
+                return Json(new { Message = "Eklemek İstediğiniz Gayrimenkul için Otopark Hesabı Yapılamaz!!!", success = false }, JsonRequestBehavior.AllowGet);
             }
+                #region Beyan Pasife Alma İşlemi
+                if (kiraBeyanModel.Beyan.Id > 0)
+                {
+                    islemler.PasifeAlinanlar = new KiraBeyanModel();
+                    //Tahakkuk kaydı varsa ödenen güncellenmesine izin verilmeyecek.
+                    BeyanPasifeAl(kiraBeyanModel, ref islemler);
+                    kiraBeyanModel.Beyan.Id = 0;
+                    //Beyan Pasif,Tahakkuklar,KiraBeyanEkle pasife alınacak.
+                }
             #endregion
 
             #region Gayrimenkul,Sicil,Beyan Ekleme İşlemleri
@@ -455,8 +461,6 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             kiraBeyanModel.Beyan.Kiraci_Id = kiraci.Id;
             kiraBeyanModel.Beyan.Gayrimenkul_Id = kiraBeyanModel.Gayrimenkul_Id;
             kiraBeyanModel.Beyan_Id = BeyanEkle(kiraBeyanModel.Beyan, ref islemler);
-
-
 
             #endregion
 
@@ -1058,7 +1062,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 ekleVm.BeyanTur_Id = beyanBilgi.BeyanTur_Id.Value;
                 ekleVm.Gayrimenkul_Id = beyanBilgi.Gayrimenkul_Id.Value;
                 ekleVm.Kiraci_Id = beyanBilgi.Kiraci_Id.Value;
-
+                ekleVm.ArtisTuru_Id = kiraArtis.ArtisTuru_Id;
                 ekleVm.BeyanYil = short.Parse(beyanYil.ToString());
                 ekleVm.KiraDurum_Id = beyanBilgi.KiraDurum_Id;
                 ekleVm.BeyanNo = beyanBilgi.BeyanNo;
@@ -1294,7 +1298,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
             if (beyanArtis.DamgaKararAlinacakMi)
             {
-                if (beyanArtis.DamgaKararArtisTuru > 0 && beyanArtis.DamgaKararArtisTuru > 1)
+                if (beyanArtis.DamgaKararArtisTuru > 0 && beyanArtis.DamgaKararArtisTuru == 1)
                 {
                     detay.KararHarciTutar = ((kiraTutar * AySayisi) * parametreDetay.KiraParametre.KararHarciOran.Value);
 
@@ -1601,10 +1605,6 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                         else
                             otoparkTutar = (parametreDetay.KiraParametre.OtoparkBirimFiyat.Value * gayrimenkul.AracKapasitesi.Value * (gunAraligi - otoparkGunSayisi));
                     }
-
-
-
-
 
                     //Tahakkuk otoparkTahakkuk = new Tahakkuk()
                     //{

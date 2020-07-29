@@ -1530,7 +1530,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div id="damgaKararDiv" class="row">
+                                                <div id="damgaKararDiv" class="row" style="display:none;">
                                                     <div class="col-md-8">
                                                         <div class="form-group">
                                                             <div class="input-group" style="width: 100%;">
@@ -1554,7 +1554,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div id="teminatDiv" class="row">
+                                                <div id="teminatDiv" class="row" style="display:none;">
                                                     <div class="col-md-8">
                                                         <div class="form-group">
                                                             <div class="input-group" style="width: 100%;">
@@ -2378,11 +2378,15 @@
         $.validator.addMethod("damgakararKontrol", function (value, element) {
 
             var durum = $('#DamgaKararAlinacakMi').is(':checked');
-
-            if (durum && value != "")
+           
+            if (durum == true && value == '')
+                durum = false;
+            else if (durum == true && value == '')
+                durum = false;
+            else if (durum == false && value != '')
                 durum = true;
             else
-                durum = false;
+                durum = true;
 
             return durum;
 
@@ -2392,11 +2396,14 @@
 
             var durum = $('#TeminatAlinacakMi').is(':checked');
 
-
-            if (durum && value != "")
+            if (durum == true && value == '')
+                durum = false;
+            else if (durum == true && value == '')
+                durum = false;
+            else if (durum == false && value != '')
                 durum = true;
             else
-                durum = false;
+                durum = true;
 
             return durum;
 
@@ -2437,29 +2444,32 @@
             }
         });
 
-        $("#frmBeyanArtis").on("change", function () {
-            var $valid = $("#frmBeyanArtis").valid();
-            if (!$valid) {
-                $validatorArtis.focusInvalid();
-                return false;
-            }
-        });
+        //$("#frmBeyanArtis").on("change", function () {
+        //    var $valid = $("#frmBeyanArtis").valid();
+        //    if (!$valid) {
+        //        $validatorArtis.focusInvalid();
+        //        return false;
+        //    }
+        //});
 
     </script>
 
     <!--Beyan Artış Damga_Teminat Panel-->
     <script type="text/javascript">
         $(function () {
+
             $('#DamgaKararAlinacakMi').change(function () {
 
                 var durum = $(this).is(':checked');
 
                 var pnlDamgaKarar = $('#damgaKararDiv');
 
-                if (durum)
+                if (durum) {
                     pnlDamgaKarar.show();
-                else
+                }
+                else {
                     pnlDamgaKarar.hide();
+                }
             });
 
             $('#TeminatAlinacakMi').change(function () {
@@ -2467,10 +2477,12 @@
 
                 var pnlTeminat = $('#teminatDiv');
 
-                if (durum)
+                if (durum) {
                     pnlTeminat.show();
-                else
-                    pnlTeminat.hide();
+                }
+                else {
+                pnlTeminat.hide();
+                }
             });
         });
     </script>
