@@ -68,13 +68,13 @@
                                                 </i>
                                             </a>
                                         </li>
-                                        <li>
+                                        @*<li>
                                             <a href="#" id="btnPdfConverter" title="Pdf">
                                                 <span>Pdf</span>
                                                 <i class="fa fa-file-pdf-o">
                                                 </i>
                                             </a>
-                                        </li>
+                                        </li>*@
                                         
                                     </ul>
                                 </div>
@@ -1194,8 +1194,7 @@
                 type: "POST",
                 url: "/Kira/Beyan/Index",
                 cache: false,
-                data: {
-                    exportExcel: true, page:$('#hdPageNum').val()},
+                data: {exportExcel: true, page:$('#hdPageNum').val()},
                 success: function (data) {
                     window.location = '/Kira/Beyan/Download';
                 },

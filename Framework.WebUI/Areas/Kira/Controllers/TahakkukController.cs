@@ -40,9 +40,13 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             foreach (var th in tahakkuklar)
             {
                 beyanId = th.BEYAN_ID.ToString();
-                th.BeyanNo = _beyanService.Getir(int.Parse(beyanId)).BeyanNo;
+                var result = _beyanService.Getir(int.Parse(beyanId));
+                if (result != null)
+                {
+                    th.BeyanNo = !string.IsNullOrEmpty(result.BeyanNo) ? result.BeyanNo : "-";
 
-                th.BeyanYil = _beyanService.Getir(int.Parse(beyanId)).BeyanYil.Value;
+                    th.BeyanYil = result.BeyanYil.HasValue ? result.BeyanYil.Value : -1;
+                }
             }
 
             model.PageNumber = page ?? 1;

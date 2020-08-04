@@ -16,7 +16,11 @@ namespace Framework.DataAccess.Concrete.EntityFramework
         {
             using (DtContext context = new DtContext())
             {
-                return context.Beyanlar.Where(gta => gta.Id == id).FirstOrDefault();
+                var result = context.Beyanlar.Where(gta => gta.Id == id).FirstOrDefault();
+                if (result != null)
+                    return result;
+                else
+                    return context.Beyanlar.Where(b => b.EskiBeyanId == id).FirstOrDefault();
             }
         }
 

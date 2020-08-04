@@ -25,10 +25,10 @@
                         @Html.AuthMainAction("Gayrimenkul Dosya Türleri", "Index", "GayrimenkulDosyaTur",
                       "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]), true)
                     </li>
-                    <li class="@Html.RouteIf("GayrimenkulAltTur", "active")">
+                    @*<li class="@Html.RouteIf("GayrimenkulAltTur", "active")">
                         @Html.AuthMainAction("Gayrimenkul Alt Türleri", "Index", "GayrimenkulAltTur",
                       "fa fa-lg fa-fw fa-barcode", Convert.ToBoolean(TempData["OpenAuthorizationPopup"]), true)
-                    </li>
+                    </li>*@
                 </ul>
             </li>
             @*<li>

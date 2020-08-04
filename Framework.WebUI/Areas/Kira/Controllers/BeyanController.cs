@@ -196,13 +196,13 @@ namespace Framework.WebUI.Areas.Kira.Controllers
             //TestWCF();
             var model = new KiraBeyanVM();
 
-            if (page is null || page <= 0)
+            if (exportExcel != true && page is null || page <= 0)
             {
                 TempData["ListRequest"] = request;
                 TempData.Keep();
             }
 
-            if (page != null && page > 1)
+            if ((page != null && page > 1) || (exportExcel.HasValue && exportExcel == true))
             {
                 request = (TempData["ListRequest"] as KiraBeyanRequest);
                 TempData["ListRequest"] = request;
@@ -243,17 +243,20 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
                 model.GayrimenkulTuruSelectList = GayrimenkulTuruSelectList();
                 model.OdemeDurumuSelectList = _selectLists.OdemeDurumuSelectList();
-
-
-                beyanlar = beyanlar.ToPagedList(model.PageNumber, model.PageSize);
-                model.Beyanlar = new StaticPagedList<Beyan>(beyanlar, model.PageNumber, model.PageSize, model.TotalRecordCount);
-
+              
                 if (exportExcel.HasValue)
                 {
                     var excelResult = _exportService.ExcelExportBeyan(beyanlar);
                     TempData["DownloadExcel_FileManager"] = excelResult;
                     return Json("", JsonRequestBehavior.AllowGet);
                 }
+
+                beyanlar = beyanlar.ToPagedList(model.PageNumber, model.PageSize);
+                model.Beyanlar = new StaticPagedList<Beyan>(beyanlar, model.PageNumber, model.PageSize, model.TotalRecordCount);
+
+
+              
+
             }
 
             return View(model);
@@ -364,7 +367,7 @@ namespace Framework.WebUI.Areas.Kira.Controllers
 
         public SelectList KiraDurumSelectList()
         {
-            var iller = _kiraDurumService.GetirListe().Where(a => a.Id == 2).Select(x => new { x.Id, x.Ad }).ToList();
+            var iller = _kiraDurumService.GetirListe().Select(x => new { x.Id, x.Ad }).ToList();
 
             return new SelectList(iller, "Id", "Ad");
         }
@@ -433,15 +436,15 @@ namespace Framework.WebUI.Areas.Kira.Controllers
                 ModelState.AddModelError("LogMessage", "Eklemek İstediğiniz Gayrimenkul için Otopark Hesabı Yapılamaz!!!");
                 return Json(new { Message = "Eklemek İstediğiniz Gayrimenkul için Otopark Hesabı Yapılamaz!!!", success = false }, JsonRequestBehavior.AllowGet);
             }
-                #region Beyan Pasife Alma İşlemi
-                if (kiraBeyanModel.Beyan.Id > 0)
-                {
-                    islemler.PasifeAlinanlar = new KiraBeyanModel();
-                    //Tahakkuk kaydı varsa ödenen güncellenmesine izin verilmeyecek.
-                    BeyanPasifeAl(kiraBeyanModel, ref islemler);
-                    kiraBeyanModel.Beyan.Id = 0;
-                    //Beyan Pasif,Tahakkuklar,KiraBeyanEkle pasife alınacak.
-                }
+            #region Beyan Pasife Alma İşlemi
+            if (kiraBeyanModel.Beyan.Id > 0)
+            {
+                islemler.PasifeAlinanlar = new KiraBeyanModel();
+                //Tahakkuk kaydı varsa ödenen güncellenmesine izin verilmeyecek.
+                BeyanPasifeAl(kiraBeyanModel, ref islemler);
+                kiraBeyanModel.Beyan.Id = 0;
+                //Beyan Pasif,Tahakkuklar,KiraBeyanEkle pasife alınacak.
+            }
             #endregion
 
             #region Gayrimenkul,Sicil,Beyan Ekleme İşlemleri

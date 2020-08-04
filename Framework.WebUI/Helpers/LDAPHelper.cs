@@ -10,9 +10,9 @@ namespace Framework.WebUI.Helpers
 {
     public class LDAPHelper
     {
-        public string LDAPPath = "LDAP://csb.local";
+        public string LDAPPath = "LDAP://agartha.local";
 
-        public IEnumerable GetADUsers(string term)
+        public IEnumerable GetLdapUsers(string term)
         {
             try
             {
